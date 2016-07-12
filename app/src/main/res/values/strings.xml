@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
+    <string name="no_permissions">We need the permission to access your storage</string>
 </resources>
