@@ -21,4 +21,12 @@ public class Config {
     public void setIsFirstRun(boolean firstRun) {
         mPrefs.edit().putBoolean(Constants.IS_FIRST_RUN, firstRun).apply();
     }
+
+    public boolean getShowHidden() {
+        return mPrefs.getBoolean(Constants.SHOW_HIDDEN, false);
+    }
+
+    public void setShowHidden(boolean show) {
+        mPrefs.edit().putBoolean(Constants.SHOW_HIDDEN, show).apply();
+    }
 }

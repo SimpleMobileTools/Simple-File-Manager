@@ -24,5 +24,9 @@
         <activity
             android:name=".activities.LicenseActivity"
             android:label="@string/third_party_licences"/>
+
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/settings"/>
     </application>
 </manifest>

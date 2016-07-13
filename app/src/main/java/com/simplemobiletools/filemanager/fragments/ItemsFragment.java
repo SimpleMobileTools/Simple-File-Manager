@@ -12,6 +12,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
@@ -31,6 +32,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
 
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
+    private boolean mShowHidden;
 
     @Nullable
     @Override
@@ -43,7 +45,20 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mShowHidden = Config.newInstance(getContext()).getShowHidden();
+        fillItems();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mShowHidden != Config.newInstance(getContext()).getShowHidden()) {
+            mShowHidden = !mShowHidden;
+            fillItems();
+        }
+    }
+
+    private void fillItems() {
         final String path = getArguments().getString(Constants.PATH);
         mItems = getItems(path);
         Collections.sort(mItems);
@@ -64,6 +79,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
         for (File file : files) {
             final String curPath = file.getAbsolutePath();
             final String curName = Utils.getFilename(curPath);
+            if (!mShowHidden && curName.startsWith("."))
+                continue;
+
             items.add(new FileDirItem(curPath, curName, file.isDirectory()));
         }
         return items;

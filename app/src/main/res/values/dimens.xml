@@ -1,7 +1,7 @@
 <resources>
     <dimen name="activity_margin">16dp</dimen>
-    <dimen name="medium_margin">8dp</dimen>
-    <dimen name="icon_size">44dp</dimen>
+    <dimen name="medium_margin">10dp</dimen>
+    <dimen name="icon_size">48dp</dimen>
     <dimen name="social_padding">8dp</dimen>
     <dimen name="social_logo">40dp</dimen>
     <dimen name="settings_padding">8dp</dimen>
