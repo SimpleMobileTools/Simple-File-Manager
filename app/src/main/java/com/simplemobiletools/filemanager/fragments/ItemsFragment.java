@@ -1,10 +1,14 @@
 package com.simplemobiletools.filemanager.fragments;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -70,6 +74,19 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
         final FileDirItem item = mItems.get(position);
         if (item.getIsDirectory()) {
             mListener.itemClicked(item.getPath());
+        } else {
+            final String path = item.getPath();
+            final File file = new File(path);
+            MimeTypeMap myMime = MimeTypeMap.getSingleton();
+            Intent newIntent = new Intent(Intent.ACTION_VIEW);
+            String mimeType = myMime.getMimeTypeFromExtension(Utils.getFileExtension(path));
+            newIntent.setDataAndType(Uri.fromFile(file), mimeType);
+            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            try {
+                startActivity(newIntent);
+            } catch (ActivityNotFoundException e) {
+                Utils.showToast(getContext(), R.string.no_app_found);
+            }
         }
     }
 

@@ -11,6 +11,10 @@ public class Utils {
         return path.substring(path.lastIndexOf("/") + 1);
     }
 
+    public static String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()).toLowerCase();
+    }
+
     public static void showToast(Context context, int resId) {
         Toast.makeText(context, context.getResources().getString(resId), Toast.LENGTH_SHORT).show();
     }

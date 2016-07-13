@@ -23,11 +23,6 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         tryInitFileManager();
     }
 
