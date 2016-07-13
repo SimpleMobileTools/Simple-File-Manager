@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.simplemobiletools.filemanager.Constants;
@@ -14,7 +15,7 @@ import com.simplemobiletools.filemanager.fragments.ItemsFragment;
 
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemsFragment.ItemInteractionListener {
     private static final int STORAGE_PERMISSION = 1;
 
     @Override
@@ -32,20 +33,35 @@ public class MainActivity extends AppCompatActivity {
 
     private void tryInitFileManager() {
         if (Utils.hasStoragePermission(getApplicationContext())) {
-            initializeFileManager();
+            initRootFileManager();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION);
         }
     }
 
-    private void initializeFileManager() {
-        final Bundle bundle = new Bundle();
+    private void initRootFileManager() {
         final String path = Environment.getExternalStorageDirectory().toString();
+        openPath(path);
+    }
+
+    private void openPath(String path) {
+        final Bundle bundle = new Bundle();
         bundle.putString(Constants.PATH, path);
 
         final ItemsFragment fragment = new ItemsFragment();
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).commit();
+        fragment.setListener(this);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).addToBackStack("").commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        final FragmentManager manager = getSupportFragmentManager();
+        if (manager.getBackStackEntryCount() == 1)
+            finish();
+        else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -54,11 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == STORAGE_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                initializeFileManager();
+                initRootFileManager();
             } else {
                 Utils.showToast(getApplicationContext(), R.string.no_permissions);
                 finish();
             }
         }
+    }
+
+    @Override
+    public void itemClicked(String path) {
+        openPath(path);
     }
 }

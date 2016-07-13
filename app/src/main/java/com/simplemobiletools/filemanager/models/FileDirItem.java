@@ -37,7 +37,7 @@ public class FileDirItem implements Comparable {
 
     @Override
     public String toString() {
-        return "FileDirItem {" +
+        return "FileDirItem{" +
                 "name=" + getName() +
                 ", isDirectory=" + getIsDirectory() +
                 ", path=" + getPath() + "}";
