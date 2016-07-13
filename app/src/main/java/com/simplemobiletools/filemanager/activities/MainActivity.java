@@ -42,19 +42,27 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
     private void openPath(String path) {
         final Bundle bundle = new Bundle();
         bundle.putString(Constants.PATH, path);
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            setTitle(path);
 
         final ItemsFragment fragment = new ItemsFragment();
         fragment.setArguments(bundle);
         fragment.setListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).addToBackStack("").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).addToBackStack(path).commit();
     }
 
     @Override
     public void onBackPressed() {
         final FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() == 1)
+        final int cnt = manager.getBackStackEntryCount();
+        if (cnt == 1)
             finish();
         else {
+            if (cnt == 2) {
+                setTitle(getResources().getString(R.string.app_name));
+            } else {
+                setTitle(manager.getBackStackEntryAt(cnt - 2).getName());
+            }
             super.onBackPressed();
         }
     }
