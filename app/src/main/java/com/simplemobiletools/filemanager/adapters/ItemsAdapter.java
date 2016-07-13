@@ -1,13 +1,17 @@
 package com.simplemobiletools.filemanager.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simplemobiletools.filemanager.R;
+import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
 import java.util.List;
@@ -18,10 +22,16 @@ import butterknife.ButterKnife;
 public class ItemsAdapter extends BaseAdapter {
     private final List<FileDirItem> mItems;
     private final LayoutInflater mInflater;
+    private final Bitmap mFileBmp;
+    private final Bitmap mDirectoryBmp;
 
     public ItemsAdapter(Context context, List<FileDirItem> items) {
         mItems = items;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        final Resources res = context.getResources();
+        mDirectoryBmp = Utils.getColoredIcon(res, res.getColor(R.color.lightGrey), R.mipmap.directory);
+        mFileBmp = Utils.getColoredIcon(res, res.getColor(R.color.lightGrey), R.mipmap.file);
     }
 
     @Override
@@ -37,6 +47,12 @@ public class ItemsAdapter extends BaseAdapter {
 
         final FileDirItem item = mItems.get(position);
         viewHolder.name.setText(item.getName());
+
+        if (item.getIsDirectory()) {
+            viewHolder.icon.setImageBitmap(mDirectoryBmp);
+        } else {
+            viewHolder.icon.setImageBitmap(mFileBmp);
+        }
 
         return convertView;
     }
@@ -56,14 +72,9 @@ public class ItemsAdapter extends BaseAdapter {
         return 0;
     }
 
-    public void updateItems(List<FileDirItem> newItems) {
-        mItems.clear();
-        mItems.addAll(newItems);
-        notifyDataSetChanged();
-    }
-
     static class ViewHolder {
         @BindView(R.id.item_name) TextView name;
+        @BindView(R.id.item_icon) ImageView icon;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

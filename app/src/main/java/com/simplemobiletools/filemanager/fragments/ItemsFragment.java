@@ -73,7 +73,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final FileDirItem item = mItems.get(position);
         if (item.getIsDirectory()) {
-            mListener.itemClicked(item.getPath());
+            if (mListener != null)
+                mListener.itemClicked(item.getPath());
         } else {
             final String path = item.getPath();
             final File file = new File(path);
