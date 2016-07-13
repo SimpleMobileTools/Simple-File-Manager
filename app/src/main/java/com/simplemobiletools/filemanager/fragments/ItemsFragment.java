@@ -78,13 +78,12 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
         } else {
             final String path = item.getPath();
             final File file = new File(path);
-            MimeTypeMap myMime = MimeTypeMap.getSingleton();
-            Intent newIntent = new Intent(Intent.ACTION_VIEW);
-            String mimeType = myMime.getMimeTypeFromExtension(Utils.getFileExtension(path));
-            newIntent.setDataAndType(Uri.fromFile(file), mimeType);
-            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            final String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.getFileExtension(path));
+            final Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(file), mimeType);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             try {
-                startActivity(newIntent);
+                startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 Utils.showToast(getContext(), R.string.no_app_found);
             }
