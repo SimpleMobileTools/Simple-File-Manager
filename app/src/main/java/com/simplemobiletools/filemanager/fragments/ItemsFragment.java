@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ItemsFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
+public class ItemsFragment extends android.support.v4.app.Fragment
+        implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.items_list) ListView mListView;
+    @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
 
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
@@ -46,7 +49,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mShowHidden = Config.newInstance(getContext()).getShowHidden();
+        mItems = new ArrayList<>();
         fillItems();
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -60,8 +65,13 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
 
     private void fillItems() {
         final String path = getArguments().getString(Constants.PATH);
-        mItems = getItems(path);
-        Collections.sort(mItems);
+        final List<FileDirItem> newItems = getItems(path);
+        Collections.sort(newItems);
+        if (mItems != null && newItems.toString().equals(mItems.toString())) {
+            return;
+        }
+
+        mItems = newItems;
 
         final ItemsAdapter adapter = new ItemsAdapter(getContext(), mItems);
         mListView.setAdapter(adapter);
@@ -106,6 +116,12 @@ public class ItemsFragment extends android.support.v4.app.Fragment implements Ad
                 Utils.showToast(getContext(), R.string.no_app_found);
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        fillItems();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     public interface ItemInteractionListener {
