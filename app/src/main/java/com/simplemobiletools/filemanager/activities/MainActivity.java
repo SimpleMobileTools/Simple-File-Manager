@@ -6,26 +6,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
-import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
-import com.simplemobiletools.filemanager.models.FileDirItem;
+import com.simplemobiletools.filemanager.fragments.ItemsFragment;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    @BindView(R.id.items_list) ListView mListView;
-
+public class MainActivity extends AppCompatActivity {
     private static final int STORAGE_PERMISSION = 1;
 
     @Override
@@ -50,12 +39,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void initializeFileManager() {
-        List<FileDirItem> items = getItems();
-        Collections.sort(items);
+        final Bundle bundle = new Bundle();
+        final String path = Environment.getExternalStorageDirectory().toString();
+        bundle.putString(Constants.PATH, path);
 
-        final ItemsAdapter adapter = new ItemsAdapter(this, items);
-        mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener(this);
+        final ItemsFragment fragment = new ItemsFragment();
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).commit();
     }
 
     @Override
@@ -70,23 +60,5 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 finish();
             }
         }
-    }
-
-    private List<FileDirItem> getItems() {
-        final List<FileDirItem> items = new ArrayList<>();
-        final String path = Environment.getExternalStorageDirectory().toString();
-        final File root = new File(path);
-        File[] files = root.listFiles();
-        for (File file : files) {
-            final String curPath = file.getAbsolutePath();
-            final String curName = Utils.getFilename(curPath);
-            items.add(new FileDirItem(curPath, curName, file.isDirectory()));
-        }
-        return items;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 }
