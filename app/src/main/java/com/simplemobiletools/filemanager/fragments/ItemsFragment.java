@@ -27,6 +27,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ItemsFragment extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
@@ -35,6 +36,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
+
     private boolean mShowHidden;
 
     @Nullable
@@ -129,6 +131,11 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         } catch (ActivityNotFoundException e) {
             return false;
         }
+    }
+
+    @OnClick(R.id.items_fab)
+    public void fabClicked(View view) {
+
     }
 
     @Override
