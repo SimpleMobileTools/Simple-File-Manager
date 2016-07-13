@@ -1,3 +1,7 @@
 <resources>
+    <dimen name="social_padding">12dp</dimen>
+    <dimen name="social_logo">50dp</dimen>
+    <dimen name="settings_padding">12dp</dimen>
+
     <dimen name="normal_text_size">18sp</dimen>
 </resources>

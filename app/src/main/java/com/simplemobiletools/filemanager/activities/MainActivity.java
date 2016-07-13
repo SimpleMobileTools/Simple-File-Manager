@@ -1,13 +1,17 @@
 package com.simplemobiletools.filemanager.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
@@ -24,6 +28,12 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         tryInitFileManager();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Config.newInstance(getApplicationContext()).setIsFirstRun(false);
     }
 
     private void tryInitFileManager() {
@@ -49,6 +59,24 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
         fragment.setArguments(bundle);
         fragment.setListener(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).addToBackStack(path).commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.about:
+                final Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
