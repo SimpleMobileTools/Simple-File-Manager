@@ -113,8 +113,21 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             try {
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
-                Utils.showToast(getContext(), R.string.no_app_found);
+                if (!tryGenericMimeType(intent, mimeType, file)) {
+                    Utils.showToast(getContext(), R.string.no_app_found);
+                }
             }
+        }
+    }
+
+    private boolean tryGenericMimeType(Intent intent, String mimeType, File file) {
+        final String genericMimeType = getGenericMimeType(mimeType);
+        intent.setDataAndType(Uri.fromFile(file), genericMimeType);
+        try {
+            startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException e) {
+            return false;
         }
     }
 
@@ -122,6 +135,14 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     public void onRefresh() {
         fillItems();
         mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    private String getGenericMimeType(String mimeType) {
+        if (!mimeType.contains("/"))
+            return mimeType;
+
+        final String type = mimeType.substring(0, mimeType.indexOf("/"));
+        return type + "/*";
     }
 
     public interface ItemInteractionListener {
