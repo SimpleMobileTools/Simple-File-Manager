@@ -34,6 +34,7 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -135,7 +136,19 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     private int getChildren(File file) {
-        return (file.isDirectory()) ? file.listFiles().length : 0;
+        if (file.isDirectory()) {
+            if (mShowHidden) {
+                return file.listFiles().length;
+            } else {
+                return file.listFiles(new FileFilter() {
+                    @Override
+                    public boolean accept(File file) {
+                        return !file.isHidden();
+                    }
+                }).length;
+            }
+        }
+        return 0;
     }
 
     @Override
