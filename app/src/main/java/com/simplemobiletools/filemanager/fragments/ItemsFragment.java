@@ -163,7 +163,11 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 final EditText itemName = (EditText) newItemView.findViewById(R.id.item_name);
                 final String name = itemName.getText().toString().trim();
                 if (Utils.isNameValid(name)) {
-                    File file = new File(mPath, name);
+                    final File file = new File(mPath, name);
+                    if (file.exists()) {
+                        Utils.showToast(getContext(), R.string.name_taken);
+                        return;
+                    }
                     final RadioGroup radio = (RadioGroup) newItemView.findViewById(R.id.dialog_radio_group);
                     if (radio.getCheckedRadioButtonId() == R.id.dialog_radio_directory) {
                         if (!createDirectory(file, alertDialog)) {
