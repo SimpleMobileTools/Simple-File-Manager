@@ -2,15 +2,21 @@ package com.simplemobiletools.filemanager.fragments;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -38,13 +44,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ItemsFragment extends android.support.v4.app.Fragment
-        implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, ListView.MultiChoiceModeListener {
+        implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, ListView.MultiChoiceModeListener,
+        ListView.OnTouchListener {
     @BindView(R.id.items_list) ListView mListView;
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
+    @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
 
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
+    private List<String> mToBeDeleted;
     private String mPath;
+    private Snackbar mSnackbar;
 
     private boolean mShowHidden;
     private int mSelectedItemsCnt;
@@ -62,6 +72,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         super.onViewCreated(view, savedInstanceState);
         mShowHidden = Config.newInstance(getContext()).getShowHidden();
         mItems = new ArrayList<>();
+        mToBeDeleted = new ArrayList<>();
         fillItems();
         mSwipeRefreshLayout.setOnRefreshListener(this);
     }
@@ -73,6 +84,12 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             mShowHidden = !mShowHidden;
             fillItems();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        deleteItems();
     }
 
     private void fillItems() {
@@ -89,6 +106,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
         mListView.setMultiChoiceModeListener(this);
+        mListView.setOnTouchListener(this);
     }
 
     public void setListener(ItemInteractionListener listener) {
@@ -103,6 +121,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             final String curPath = file.getAbsolutePath();
             final String curName = Utils.getFilename(curPath);
             if (!mShowHidden && curName.startsWith("."))
+                continue;
+
+            if (mToBeDeleted.contains(curPath))
                 continue;
 
             items.add(new FileDirItem(curPath, curName, file.isDirectory()));
@@ -255,12 +276,87 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cab_delete:
+                prepareForDeleting();
                 mode.finish();
                 return true;
             default:
                 return false;
         }
     }
+
+    private void prepareForDeleting() {
+        mToBeDeleted.clear();
+        final SparseBooleanArray items = mListView.getCheckedItemPositions();
+        final int cnt = items.size();
+        int deletedCnt = 0;
+        for (int i = 0; i < cnt; i++) {
+            if (items.valueAt(i)) {
+                final int id = items.keyAt(i);
+                final String path = mItems.get(id).getPath();
+                mToBeDeleted.add(path);
+                deletedCnt++;
+            }
+        }
+
+        notifyDeletion(deletedCnt);
+    }
+
+    private void notifyDeletion(int cnt) {
+        final Resources res = getResources();
+        final String msg = res.getQuantityString(R.plurals.items_deleted, cnt, cnt);
+        mSnackbar = Snackbar.make(mCoordinatorLayout, msg, Snackbar.LENGTH_INDEFINITE);
+        mSnackbar.setAction(res.getString(R.string.undo), undoDeletion);
+        mSnackbar.setActionTextColor(Color.WHITE);
+        mSnackbar.show();
+        fillItems();
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (mSnackbar != null && mSnackbar.isShown()) {
+            deleteItems();
+        }
+
+        return false;
+    }
+
+    private void deleteItems() {
+        if (mToBeDeleted == null || mToBeDeleted.isEmpty())
+            return;
+
+        if (mSnackbar != null) {
+            mSnackbar.dismiss();
+        }
+
+        final List<String> updatedFiles = new ArrayList<>();
+        for (String delPath : mToBeDeleted) {
+            final File file = new File(delPath);
+            if (file.exists()) {
+                deleteItem(file);
+            }
+        }
+
+        mToBeDeleted.clear();
+    }
+
+    private void deleteItem(File item) {
+        if (item.isDirectory()) {
+            for (File child : item.listFiles()) {
+                deleteItem(child);
+            }
+        }
+
+        item.delete();
+    }
+
+    private View.OnClickListener undoDeletion = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mToBeDeleted.clear();
+            mSnackbar.dismiss();
+            fillItems();
+        }
+    };
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {

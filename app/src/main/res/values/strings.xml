@@ -9,6 +9,12 @@
     <string name="invalid_name">The name contains invalid characters</string>
     <string name="error_occurred">An unknown error occurred</string>
     <string name="delete">Delete</string>
+    <string name="undo">Undo</string>
+
+    <plurals name="items_deleted">
+        <item quantity="one">1 item deleted</item>
+        <item quantity="other">%1$d items deleted</item>
+    </plurals>
 
     <!-- About -->
     <string name="about">About</string>
