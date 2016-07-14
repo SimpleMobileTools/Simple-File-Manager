@@ -126,9 +126,16 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             if (mToBeDeleted.contains(curPath))
                 continue;
 
-            items.add(new FileDirItem(curPath, curName, file.isDirectory()));
+            int children = getChildren(file);
+            long size = file.length();
+
+            items.add(new FileDirItem(curPath, curName, file.isDirectory(), children, size));
         }
         return items;
+    }
+
+    private int getChildren(File file) {
+        return (file.isDirectory()) ? file.listFiles().length : 0;
     }
 
     @Override

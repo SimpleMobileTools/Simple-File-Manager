@@ -14,6 +14,7 @@ import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,14 +25,15 @@ public class ItemsAdapter extends BaseAdapter {
     private final LayoutInflater mInflater;
     private final Bitmap mFileBmp;
     private final Bitmap mDirectoryBmp;
+    private final Resources mRes;
 
     public ItemsAdapter(Context context, List<FileDirItem> items) {
         mItems = items;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        final Resources res = context.getResources();
-        mDirectoryBmp = Utils.getColoredIcon(res, res.getColor(R.color.lightGrey), R.mipmap.directory);
-        mFileBmp = Utils.getColoredIcon(res, res.getColor(R.color.lightGrey), R.mipmap.file);
+        mRes = context.getResources();
+        mDirectoryBmp = Utils.getColoredIcon(mRes, R.color.lightGrey, R.mipmap.directory);
+        mFileBmp = Utils.getColoredIcon(mRes, R.color.lightGrey, R.mipmap.file);
     }
 
     @Override
@@ -50,11 +52,27 @@ public class ItemsAdapter extends BaseAdapter {
 
         if (item.getIsDirectory()) {
             viewHolder.icon.setImageBitmap(mDirectoryBmp);
+            viewHolder.details.setText(getChildrenCnt(item));
         } else {
             viewHolder.icon.setImageBitmap(mFileBmp);
+            viewHolder.details.setText(getFormattedSize(item));
         }
 
         return convertView;
+    }
+
+    private String getChildrenCnt(FileDirItem item) {
+        final int children = item.getChildren();
+        return mRes.getQuantityString(R.plurals.items, children, children);
+    }
+
+    private String getFormattedSize(FileDirItem item) {
+        final long size = item.getSize();
+        if (size <= 0)
+            return "0";
+        final String[] units = {"B", "kB", "MB", "GB", "TB"};
+        final int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
     @Override
@@ -75,6 +93,7 @@ public class ItemsAdapter extends BaseAdapter {
     static class ViewHolder {
         @BindView(R.id.item_name) TextView name;
         @BindView(R.id.item_icon) ImageView icon;
+        @BindView(R.id.item_details) TextView details;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

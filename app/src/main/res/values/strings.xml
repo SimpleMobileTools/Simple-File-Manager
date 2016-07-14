@@ -19,6 +19,11 @@
         <item quantity="other">%1$d items deleted</item>
     </plurals>
 
+    <plurals name="items">
+        <item quantity="one">1 item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+
     <!-- About -->
     <string name="about">About</string>
     <string name="website">More simple apps and source code at:\nhttp://simplemobiletools.com</string>

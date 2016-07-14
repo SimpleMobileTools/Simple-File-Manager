@@ -18,12 +18,22 @@
     <TextView
         android:id="@+id/item_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/item_icon"
+        android:layout_height="wrap_content"
         android:layout_alignTop="@+id/item_icon"
         android:layout_toRightOf="@+id/item_icon"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/medium_margin"
+        android:paddingLeft="@dimen/small_margin"
+        android:paddingTop="@dimen/small_margin"
         android:text="Directory"/>
+
+    <TextView
+        android:id="@+id/item_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_name"
+        android:layout_toRightOf="@+id/item_icon"
+        android:paddingLeft="@dimen/small_margin"
+        android:text="1 KB"
+        android:textColor="@color/details_grey"
+        android:textSize="@dimen/details_text_size"/>
 
 </RelativeLayout>

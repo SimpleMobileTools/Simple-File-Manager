@@ -7,4 +7,5 @@
     <color name="lightGrey">#33000000</color>
     <color name="pressed_item_foreground">#08000000</color>
     <color name="activated_item_foreground">#11000000</color>
+    <color name="details_grey">#33000000</color>
 </resources>

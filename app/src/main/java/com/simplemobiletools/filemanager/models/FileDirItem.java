@@ -4,11 +4,15 @@ public class FileDirItem implements Comparable {
     private final String mPath;
     private final String mName;
     private final boolean mIsDirectory;
+    private final int mChildren;
+    private final long mSize;
 
-    public FileDirItem(String path, String name, boolean isDirectory) {
+    public FileDirItem(String path, String name, boolean isDirectory, int children, long size) {
         mPath = path;
         mName = name;
         mIsDirectory = isDirectory;
+        mChildren = children;
+        mSize = size;
     }
 
     public String getPath() {
@@ -21,6 +25,14 @@ public class FileDirItem implements Comparable {
 
     public boolean getIsDirectory() {
         return mIsDirectory;
+    }
+
+    public int getChildren() {
+        return mChildren;
+    }
+
+    public long getSize() {
+        return mSize;
     }
 
     @Override
@@ -40,6 +52,8 @@ public class FileDirItem implements Comparable {
         return "FileDirItem{" +
                 "name=" + getName() +
                 ", isDirectory=" + getIsDirectory() +
-                ", path=" + getPath() + "}";
+                ", path=" + getPath() +
+                ", children=" + getChildren() +
+                ", size=" + getSize() +"}";
     }
 }

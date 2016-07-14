@@ -34,12 +34,13 @@ public class Utils {
         return ContextCompat.checkSelfPermission(cxt, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
-    public static Bitmap getColoredIcon(Resources res, int newColor, int id) {
+    public static Bitmap getColoredIcon(Resources res, int colorId, int id) {
+        final int color = res.getColor(colorId);
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
         final Bitmap bmp = BitmapFactory.decodeResource(res, id, options);
         final Paint paint = new Paint();
-        final ColorFilter filter = new PorterDuffColorFilter(newColor, PorterDuff.Mode.SRC_IN);
+        final ColorFilter filter = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
         paint.setColorFilter(filter);
         final Canvas canvas = new Canvas(bmp);
         canvas.drawBitmap(bmp, 0, 0, paint);
