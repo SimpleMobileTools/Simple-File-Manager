@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/item_icon"
         android:layout_toRightOf="@+id/item_icon"
+        android:ellipsize="end"
+        android:maxLines="3"
         android:paddingLeft="@dimen/small_margin"
         android:paddingTop="@dimen/small_margin"
         android:text="Directory"/>
