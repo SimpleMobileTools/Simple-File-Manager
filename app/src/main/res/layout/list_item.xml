@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/item_holder"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="@drawable/selector"
-    android:paddingRight="@dimen/activity_margin">
+    android:layout_height="match_parent"
+    android:foreground="@drawable/selector">
 
-    <ImageView
-        android:id="@+id/item_icon"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
-        android:paddingBottom="@dimen/medium_margin"
-        android:paddingTop="@dimen/medium_margin"
-        android:src="@mipmap/directory"/>
-
-    <TextView
-        android:id="@+id/item_name"
+    <RelativeLayout
+        android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/item_icon"
-        android:layout_toRightOf="@+id/item_icon"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:paddingLeft="@dimen/small_margin"
-        android:paddingTop="@dimen/small_margin"
-        android:text="Directory"/>
+        android:paddingRight="@dimen/activity_margin">
 
-    <TextView
-        android:id="@+id/item_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/item_name"
-        android:layout_toRightOf="@+id/item_icon"
-        android:paddingLeft="@dimen/small_margin"
-        android:text="1 KB"
-        android:textColor="@color/details_grey"
-        android:textSize="@dimen/details_text_size"/>
+        <ImageView
+            android:id="@+id/item_icon"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:paddingBottom="@dimen/medium_margin"
+            android:paddingTop="@dimen/medium_margin"
+            android:src="@mipmap/directory"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/item_icon"
+            android:layout_toRightOf="@+id/item_icon"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingLeft="@dimen/small_margin"
+            android:paddingTop="@dimen/small_margin"
+            android:text="Directory"/>
+
+        <TextView
+            android:id="@+id/item_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_name"
+            android:layout_toRightOf="@+id/item_icon"
+            android:paddingLeft="@dimen/small_margin"
+            android:text="1 KB"
+            android:textColor="@color/details_grey"
+            android:textSize="@dimen/details_text_size"/>
+
+    </RelativeLayout>
+</FrameLayout>
