@@ -7,6 +7,7 @@
     <string name="file">File</string>
     <string name="invalid_name">The name contains invalid characters</string>
     <string name="error_occurred">An unknown error occurred</string>
+    <string name="delete">Delete</string>
 
     <!-- About -->
     <string name="about">About</string>

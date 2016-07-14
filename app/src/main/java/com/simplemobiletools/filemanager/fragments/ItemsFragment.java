@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -35,7 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ItemsFragment extends android.support.v4.app.Fragment
-        implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+        implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, ListView.MultiChoiceModeListener {
     @BindView(R.id.items_list) ListView mListView;
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -44,6 +47,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private String mPath;
 
     private boolean mShowHidden;
+    private int mSelectedItemsCnt;
 
     @Nullable
     @Override
@@ -84,6 +88,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final ItemsAdapter adapter = new ItemsAdapter(getContext(), mItems);
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(this);
+        mListView.setMultiChoiceModeListener(this);
     }
 
     public void setListener(ItemInteractionListener listener) {
@@ -214,6 +219,48 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
         final String type = mimeType.substring(0, mimeType.indexOf("/"));
         return type + "/*";
+    }
+
+    @Override
+    public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+        if (checked) {
+            mSelectedItemsCnt++;
+        } else {
+            mSelectedItemsCnt--;
+        }
+
+        if (mSelectedItemsCnt > 0) {
+            mode.setTitle(String.valueOf(mSelectedItemsCnt));
+        }
+
+        mode.invalidate();
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+        mode.getMenuInflater().inflate(R.menu.cab, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.cab_delete:
+                mode.finish();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode mode) {
+        mSelectedItemsCnt = 0;
     }
 
     public interface ItemInteractionListener {
