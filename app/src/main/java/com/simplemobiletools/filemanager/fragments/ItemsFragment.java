@@ -140,7 +140,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         } else {
             final String path = item.getPath();
             final File file = new File(path);
-            final String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.getFileExtension(path));
+            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.getFileExtension(path));
+            if (mimeType == null)
+                mimeType = "text/*";
+
             final Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(file), mimeType);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
