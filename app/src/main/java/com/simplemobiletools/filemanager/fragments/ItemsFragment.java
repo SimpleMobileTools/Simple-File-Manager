@@ -142,7 +142,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             final File file = new File(path);
             String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.getFileExtension(path));
             if (mimeType == null)
-                mimeType = "text/*";
+                mimeType = "text/plain";
 
             final Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setDataAndType(Uri.fromFile(file), mimeType);
