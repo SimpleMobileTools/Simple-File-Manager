@@ -195,11 +195,11 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                     final RadioGroup radio = (RadioGroup) newItemView.findViewById(R.id.dialog_radio_group);
                     if (radio.getCheckedRadioButtonId() == R.id.dialog_radio_directory) {
                         if (!createDirectory(file, alertDialog)) {
-                            errorCreatingItem();
+                            errorOccurred();
                         }
                     } else {
                         if (!createFile(file, alertDialog)) {
-                            errorCreatingItem();
+                            errorOccurred();
                         }
                     }
                 } else {
@@ -218,7 +218,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         return false;
     }
 
-    private void errorCreatingItem() {
+    private void errorOccurred() {
         Utils.showToast(getContext(), R.string.error_occurred);
     }
 
@@ -272,12 +272,18 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-        return false;
+        final MenuItem menuItem = menu.findItem(R.id.cab_rename);
+        menuItem.setVisible(mSelectedItemsCnt == 1);
+        return true;
     }
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.cab_rename:
+                displayRenameDialog();
+                mode.finish();
+                return true;
             case R.id.cab_delete:
                 prepareForDeleting();
                 mode.finish();
@@ -285,6 +291,66 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             default:
                 return false;
         }
+    }
+
+    private void displayRenameDialog() {
+        final int itemIndex = getSelectedItemIndex();
+        if (itemIndex == -1)
+            return;
+
+        final FileDirItem item = mItems.get(itemIndex);
+        final View renameView = getActivity().getLayoutInflater().inflate(R.layout.rename_item, null);
+        final EditText itemName = (EditText) renameView.findViewById(R.id.item_name);
+        itemName.setText(item.getName());
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        int renameString = R.string.rename_file;
+        if (item.getIsDirectory())
+            renameString = R.string.rename_directory;
+
+        builder.setTitle(getResources().getString(renameString));
+        builder.setView(renameView);
+        builder.setPositiveButton("OK", null);
+        builder.setNegativeButton("Cancel", null);
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String name = itemName.getText().toString().trim();
+                if (Utils.isNameValid(name)) {
+                    final File currFile = new File(mPath, item.getName());
+                    final File newFile = new File(mPath, name);
+
+                    if (newFile.exists()) {
+                        Utils.showToast(getContext(), R.string.name_taken);
+                        return;
+                    }
+
+                    if (currFile.renameTo(newFile)) {
+                        alertDialog.dismiss();
+                        fillItems();
+                    } else {
+                        errorOccurred();
+                    }
+                } else {
+                    Utils.showToast(getContext(), R.string.invalid_name);
+                }
+            }
+        });
+    }
+
+    private int getSelectedItemIndex() {
+        final SparseBooleanArray items = mListView.getCheckedItemPositions();
+        int cnt = items.size();
+        for (int i = 0; i < cnt; i++) {
+            if (items.valueAt(i)) {
+                return items.keyAt(i);
+            }
+        }
+        return -1;
     }
 
     private void prepareForDeleting() {

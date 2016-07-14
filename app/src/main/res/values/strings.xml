@@ -3,6 +3,8 @@
     <string name="no_permissions">We need the permission to access your storage</string>
     <string name="no_app_found">No app for opening this type of files is available</string>
     <string name="create_new">Create new item</string>
+    <string name="rename_directory">Rename directory</string>
+    <string name="rename_file">Rename file</string>
     <string name="directory">Directory</string>
     <string name="file">File</string>
     <string name="name_taken">Directory or file with that name already exists</string>
@@ -10,6 +12,7 @@
     <string name="error_occurred">An unknown error occurred</string>
     <string name="delete">Delete</string>
     <string name="undo">Undo</string>
+    <string name="rename">Rename</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 item deleted</item>
