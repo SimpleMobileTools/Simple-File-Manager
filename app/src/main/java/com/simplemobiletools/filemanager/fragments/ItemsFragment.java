@@ -6,12 +6,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 
 import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
@@ -21,6 +25,7 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +41,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
+    private String mPath;
 
     private boolean mShowHidden;
 
@@ -66,8 +72,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     private void fillItems() {
-        final String path = getArguments().getString(Constants.PATH);
-        final List<FileDirItem> newItems = getItems(path);
+        mPath = getArguments().getString(Constants.PATH);
+        final List<FileDirItem> newItems = getItems();
         Collections.sort(newItems);
         if (mItems != null && newItems.toString().equals(mItems.toString())) {
             return;
@@ -84,9 +90,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mListener = listener;
     }
 
-    private List<FileDirItem> getItems(String path) {
+    private List<FileDirItem> getItems() {
         final List<FileDirItem> items = new ArrayList<>();
-        final File base = new File(path);
+        final File base = new File(mPath);
         File[] files = base.listFiles();
         for (File file : files) {
             final String curPath = file.getAbsolutePath();
@@ -135,7 +141,65 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     @OnClick(R.id.items_fab)
     public void fabClicked(View view) {
+        final View newItemView = getActivity().getLayoutInflater().inflate(R.layout.create_new, null);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getResources().getString(R.string.create_new));
+        builder.setView(newItemView);
+        builder.setPositiveButton("OK", null);
+        builder.setNegativeButton("Cancel", null);
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText itemName = (EditText) newItemView.findViewById(R.id.item_name);
+                final String name = itemName.getText().toString().trim();
+                if (Utils.isNameValid(name)) {
+                    File file = new File(mPath, name);
+                    final RadioGroup radio = (RadioGroup) newItemView.findViewById(R.id.dialog_radio_group);
+                    if (radio.getCheckedRadioButtonId() == R.id.dialog_radio_directory) {
+                        if (!createDirectory(file, alertDialog)) {
+                            errorCreatingItem();
+                        }
+                    } else {
+                        if (!createFile(file, alertDialog)) {
+                            errorCreatingItem();
+                        }
+                    }
+                } else {
+                    Utils.showToast(getContext(), R.string.invalid_name);
+                }
+            }
+        });
+    }
+
+    private boolean createDirectory(File file, AlertDialog alertDialog) {
+        if (file.mkdirs()) {
+            alertDialog.dismiss();
+            fillItems();
+            return true;
+        }
+        return false;
+    }
+
+    private void errorCreatingItem() {
+        Utils.showToast(getContext(), R.string.error_occurred);
+    }
+
+    private boolean createFile(File file, AlertDialog alertDialog) {
+        try {
+            if (file.createNewFile()) {
+                alertDialog.dismiss();
+                fillItems();
+                return true;
+            }
+        } catch (IOException ignored) {
+
+        }
+        return false;
     }
 
     @Override

@@ -14,6 +14,9 @@ import android.graphics.PorterDuffColorFilter;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Utils {
     public static String getFilename(final String path) {
         return path.substring(path.lastIndexOf("/") + 1);
@@ -41,5 +44,11 @@ public class Utils {
         final Canvas canvas = new Canvas(bmp);
         canvas.drawBitmap(bmp, 0, 0, paint);
         return bmp;
+    }
+
+    public static boolean isNameValid(String name) {
+        final Pattern pattern = Pattern.compile("^[-_.A-Za-z0-9 ]+$");
+        final Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
     }
 }

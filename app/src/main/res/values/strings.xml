@@ -2,6 +2,11 @@
     <string name="app_name">Simple File Manager</string>
     <string name="no_permissions">We need the permission to access your storage</string>
     <string name="no_app_found">No app for opening this type of files is available</string>
+    <string name="create_new">Create new item</string>
+    <string name="directory">Directory</string>
+    <string name="file">File</string>
+    <string name="invalid_name">The name contains invalid characters</string>
+    <string name="error_occurred">An unknown error occurred</string>
 
     <!-- About -->
     <string name="about">About</string>

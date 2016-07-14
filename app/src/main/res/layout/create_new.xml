@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/dialog_holder"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/activity_margin"
+              android:paddingRight="@dimen/activity_margin"
+              android:paddingTop="@dimen/activity_margin">
+
+    <EditText
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:inputType="textCapSentences"
+        android:singleLine="true"/>
+
+    <RadioGroup
+        android:id="@+id/dialog_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@+id/dialog_radio_directory">
+
+        <RadioButton
+            android:id="@+id/dialog_radio_directory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:text="@string/directory"/>
+
+        <RadioButton
+            android:id="@+id/dialog_radio_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/file"/>
+    </RadioGroup>
+
+</LinearLayout>
