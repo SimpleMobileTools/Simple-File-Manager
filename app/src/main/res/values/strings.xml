@@ -13,6 +13,13 @@
     <string name="delete">Delete</string>
     <string name="undo">Undo</string>
     <string name="rename">Rename</string>
+    <string name="copy">Copy</string>
+    <string name="copy_item">Copy item</string>
+    <string name="copy_items">Copy items</string>
+    <string name="move">Move</string>
+    <string name="source">Source</string>
+    <string name="destination">Destination</string>
+    <string name="select_destination">Select destination</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 item deleted</item>

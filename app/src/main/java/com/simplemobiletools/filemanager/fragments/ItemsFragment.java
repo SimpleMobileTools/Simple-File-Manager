@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
@@ -304,6 +305,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 displayRenameDialog();
                 mode.finish();
                 return true;
+            case R.id.cab_copy:
+                displayCopyDialog();
+                mode.finish();
+                return true;
             case R.id.cab_delete:
                 prepareForDeleting();
                 mode.finish();
@@ -314,20 +319,18 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     private void displayRenameDialog() {
-        final int itemIndex = getSelectedItemIndex();
-        if (itemIndex == -1)
+        final List<Integer> itemIndexes = getSelectedItemIndexes();
+        if (itemIndexes.isEmpty())
             return;
 
+        final int itemIndex = itemIndexes.get(0);
         final FileDirItem item = mItems.get(itemIndex);
         final View renameView = getActivity().getLayoutInflater().inflate(R.layout.rename_item, null);
         final EditText itemName = (EditText) renameView.findViewById(R.id.item_name);
         itemName.setText(item.getName());
 
+        final int renameString = (item.getIsDirectory()) ? R.string.rename_directory : R.string.rename_file;
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        int renameString = R.string.rename_file;
-        if (item.getIsDirectory())
-            renameString = R.string.rename_directory;
-
         builder.setTitle(getResources().getString(renameString));
         builder.setView(renameView);
         builder.setPositiveButton("OK", null);
@@ -362,15 +365,46 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         });
     }
 
-    private int getSelectedItemIndex() {
+    private void displayCopyDialog() {
+        final List<Integer> itemIndexes = getSelectedItemIndexes();
+        if (itemIndexes.isEmpty())
+            return;
+
+        final View copyView = getActivity().getLayoutInflater().inflate(R.layout.copy_item, null);
+
+        final TextView source = (TextView) copyView.findViewById(R.id.source);
+        source.setText(mPath);
+
+        final TextView destination = (TextView) copyView.findViewById(R.id.destination);
+        destination.setOnClickListener(destinationPicker);
+
+        final int copyString = (itemIndexes.size() == 1) ? R.string.copy_item : R.string.copy_items;
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getResources().getString(copyString));
+        builder.setView(copyView);
+        builder.setPositiveButton("OK", null);
+        builder.setNegativeButton("Cancel", null);
+
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    private List<Integer> getSelectedItemIndexes() {
+        final List<Integer> selectedItems = new ArrayList<>();
         final SparseBooleanArray items = mListView.getCheckedItemPositions();
         int cnt = items.size();
         for (int i = 0; i < cnt; i++) {
             if (items.valueAt(i)) {
-                return items.keyAt(i);
+                selectedItems.add(items.keyAt(i));
             }
         }
-        return -1;
+        return selectedItems;
     }
 
     private void prepareForDeleting() {
@@ -400,6 +434,40 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         fillItems();
     }
 
+    private View.OnClickListener destinationPicker = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final View pickerView = getActivity().getLayoutInflater().inflate(R.layout.directory_picker, null);
+            final ListView pickerList = (ListView) pickerView.findViewById(R.id.directory_picker_list);
+            final ItemsAdapter adapter = new ItemsAdapter(getContext(), mItems);
+            pickerList.setAdapter(adapter);
+            pickerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    final FileDirItem item = mItems.get(position);
+                    if (item.getIsDirectory()) {
+
+                    }
+                }
+            });
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(getResources().getString(R.string.select_destination));
+            builder.setView(pickerView);
+            builder.setPositiveButton("OK", null);
+            builder.setNegativeButton("Cancel", null);
+
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
+    };
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (mSnackbar != null && mSnackbar.isShown()) {
@@ -417,7 +485,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             mSnackbar.dismiss();
         }
 
-        final List<String> updatedFiles = new ArrayList<>();
         for (String delPath : mToBeDeleted) {
             final File file = new File(delPath);
             if (file.exists()) {
