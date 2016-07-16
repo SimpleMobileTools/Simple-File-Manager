@@ -20,6 +20,7 @@
     <string name="source">Source</string>
     <string name="destination">Destination</string>
     <string name="select_destination">Select destination</string>
+    <string name="invalid_destination">Could not write to the selected destination</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 item deleted</item>

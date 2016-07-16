@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.fragments;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -56,6 +57,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private ItemInteractionListener mListener;
     private List<String> mToBeDeleted;
     private String mPath;
+    private String mCopyDestinationPath;
     private Snackbar mSnackbar;
 
     private boolean mShowHidden;
@@ -96,7 +98,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     private void fillItems() {
         mPath = getArguments().getString(Constants.PATH);
-        final List<FileDirItem> newItems = getItems();
+        mCopyDestinationPath = mPath;
+        final List<FileDirItem> newItems = getItems(mPath);
         Collections.sort(newItems);
         if (mItems != null && newItems.toString().equals(mItems.toString())) {
             return;
@@ -115,9 +118,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mListener = listener;
     }
 
-    private List<FileDirItem> getItems() {
+    private List<FileDirItem> getItems(String path) {
         final List<FileDirItem> items = new ArrayList<>();
-        final File base = new File(mPath);
+        final File base = new File(path);
         File[] files = base.listFiles();
         for (File file : files) {
             final String curPath = file.getAbsolutePath();
@@ -390,7 +393,36 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final File destinationDir = new File(destination.getText().toString().trim());
+                if (!destinationDir.exists()) {
+                    Utils.showToast(getContext(), R.string.invalid_destination);
+                    return;
+                }
 
+                List<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
+                for (Integer i : itemIndexes) {
+                    FileDirItem item = mItems.get(i);
+                    itemsToCopy.add(new File(item.getPath()));
+                }
+
+                final RadioGroup radio = (RadioGroup) copyView.findViewById(R.id.dialog_radio_group);
+                if (radio.getCheckedRadioButtonId() == R.id.dialog_radio_copy) {
+
+                } else {
+                    for (File f : itemsToCopy) {
+                        f.renameTo(new File(destinationDir, f.getName()));
+                    }
+
+                    alertDialog.dismiss();
+                    fillItems();
+                }
+            }
+        });
+
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                mCopyDestinationPath = mPath;
             }
         });
     }
@@ -436,20 +468,13 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     private View.OnClickListener destinationPicker = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
+        public void onClick(final View destinationView) {
             final View pickerView = getActivity().getLayoutInflater().inflate(R.layout.directory_picker, null);
             final ListView pickerList = (ListView) pickerView.findViewById(R.id.directory_picker_list);
-            final ItemsAdapter adapter = new ItemsAdapter(getContext(), mItems);
+            final List<FileDirItem> items = getItems(mCopyDestinationPath);
+            Collections.sort(items);
+            final ItemsAdapter adapter = new ItemsAdapter(getContext(), items);
             pickerList.setAdapter(adapter);
-            pickerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    final FileDirItem item = mItems.get(position);
-                    if (item.getIsDirectory()) {
-
-                    }
-                }
-            });
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(getResources().getString(R.string.select_destination));
@@ -462,11 +487,38 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    alertDialog.dismiss();
+                    ((TextView) destinationView).setText(mCopyDestinationPath);
+                }
+            });
 
+            pickerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    final FileDirItem item = items.get(position);
+                    if (item.getIsDirectory()) {
+                        mCopyDestinationPath = item.getPath();
+                        final List<FileDirItem> newItems = getItems(mCopyDestinationPath);
+                        if (containsDirectory(newItems)) {
+                            adapter.updateItems(newItems);
+                        } else {
+                            alertDialog.dismiss();
+                            ((TextView) destinationView).setText(mCopyDestinationPath);
+                        }
+                    }
                 }
             });
         }
     };
+
+    private boolean containsDirectory(List<FileDirItem> items) {
+        for (FileDirItem item : items) {
+            if (item.getIsDirectory()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {

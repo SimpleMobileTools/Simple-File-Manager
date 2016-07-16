@@ -90,6 +90,12 @@ public class ItemsAdapter extends BaseAdapter {
         return 0;
     }
 
+    public void updateItems(List<FileDirItem> newItems) {
+        mItems.clear();
+        mItems.addAll(newItems);
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder {
         @BindView(R.id.item_name) TextView name;
         @BindView(R.id.item_icon) ImageView icon;
