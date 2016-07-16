@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
@@ -33,6 +34,7 @@ import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
+import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
 import java.io.File;
@@ -48,7 +50,7 @@ import butterknife.OnClick;
 
 public class ItemsFragment extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, ListView.MultiChoiceModeListener,
-        ListView.OnTouchListener {
+        ListView.OnTouchListener, CopyTask.CopyListener {
     @BindView(R.id.items_list) ListView mListView;
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
@@ -59,6 +61,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private String mPath;
     private String mCopyDestinationPath;
     private Snackbar mSnackbar;
+    private AlertDialog mCopyDialog;
 
     private boolean mShowHidden;
     private int mSelectedItemsCnt;
@@ -388,9 +391,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         builder.setPositiveButton("OK", null);
         builder.setNegativeButton("Cancel", null);
 
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        mCopyDialog = builder.create();
+        mCopyDialog.show();
+        mCopyDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final File destinationDir = new File(destination.getText().toString().trim());
@@ -399,7 +402,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                     return;
                 }
 
-                List<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
+                final List<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
                 for (Integer i : itemIndexes) {
                     FileDirItem item = mItems.get(i);
                     itemsToCopy.add(new File(item.getPath()));
@@ -407,19 +410,21 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
                 final RadioGroup radio = (RadioGroup) copyView.findViewById(R.id.dialog_radio_group);
                 if (radio.getCheckedRadioButtonId() == R.id.dialog_radio_copy) {
-
+                    Utils.showToast(getContext(), R.string.copying);
+                    final Pair<List<File>, File> pair = new Pair<>(itemsToCopy, destinationDir);
+                    new CopyTask(ItemsFragment.this).execute(pair);
                 } else {
                     for (File f : itemsToCopy) {
                         f.renameTo(new File(destinationDir, f.getName()));
                     }
 
-                    alertDialog.dismiss();
+                    mCopyDialog.dismiss();
                     fillItems();
                 }
             }
         });
 
-        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        mCopyDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
                 mCopyDestinationPath = mPath;
@@ -569,6 +574,17 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void onDestroyActionMode(ActionMode mode) {
         mSelectedItemsCnt = 0;
+    }
+
+    @Override
+    public void copySucceeded() {
+        mCopyDialog.dismiss();
+        fillItems();
+    }
+
+    @Override
+    public void copyFailed() {
+        Utils.showToast(getContext(), R.string.copy_failed);
     }
 
     public interface ItemInteractionListener {
