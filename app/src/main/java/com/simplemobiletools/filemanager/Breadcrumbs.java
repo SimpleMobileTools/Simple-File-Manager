@@ -10,6 +10,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.simplemobiletools.filemanager.models.FileDirItem;
+
 public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
     private LayoutInflater mInflater;
     private int mDeviceWidth;
@@ -96,17 +98,33 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
         setMeasuredDimension(parentWidth, calculatedHeight);
     }
 
-    public void setInitialBreadcrumb() {
-        addBreadcrumb(getResources().getString(R.string.initial_breadcrumb));
+    public void setInitialBreadcrumb(String fullPath) {
+        removeAllViewsInLayout();
+        final String[] dirs = fullPath.split("/");
+        String currPath = "";
+        for (int i = 0; i < dirs.length; i++) {
+            final String dir = dirs[i];
+            currPath += dir + "/";
+            if (dir.isEmpty())
+                continue;
+
+            final FileDirItem item = new FileDirItem(currPath, dir, true, 0, 0);
+            addBreadcrumb(item, i > 1);
+        }
     }
 
-    public void addBreadcrumb(String text) {
+    public void addBreadcrumb(FileDirItem item, boolean addPrefix) {
         final View view = mInflater.inflate(R.layout.breadcrumb_item, null, false);
-        view.setTag(getChildCount());
         final TextView textView = (TextView) view.findViewById(R.id.breadcrumb_text);
-        textView.setText(text);
+
+        String textToAdd = item.getName();
+        if (addPrefix)
+            textToAdd = " -> " + textToAdd;
+        textView.setText(textToAdd);
         addView(view);
         view.setOnClickListener(this);
+
+        view.setTag(item);
     }
 
     public void removeBreadcrumb() {
@@ -115,8 +133,13 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (mListener != null) {
-            mListener.breadcrumbClicked((Integer) v.getTag());
+        final int cnt = getChildCount();
+        for (int i = 0; i < cnt; i++) {
+            if (getChildAt(i) != null && getChildAt(i).equals(v)) {
+                if (mListener != null) {
+                    mListener.breadcrumbClicked(i);
+                }
+            }
         }
     }
 

@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
     private void initRootFileManager() {
         final String path = Environment.getExternalStorageDirectory().toString();
         openPath(path);
-        mBreadcrumbs.setInitialBreadcrumb();
+        mBreadcrumbs.setInitialBreadcrumb(path);
     }
 
     private void openPath(String path) {
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
     @Override
     public void itemClicked(FileDirItem item) {
         openPath(item.getPath());
-        mBreadcrumbs.addBreadcrumb(" -> " + item.getName());
+        mBreadcrumbs.addBreadcrumb(item, true);
     }
 
     @Override
