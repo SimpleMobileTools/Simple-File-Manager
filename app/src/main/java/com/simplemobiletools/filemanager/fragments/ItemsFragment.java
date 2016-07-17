@@ -163,7 +163,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final FileDirItem item = mItems.get(position);
         if (item.getIsDirectory()) {
             if (mListener != null)
-                mListener.itemClicked(item.getPath());
+                mListener.itemClicked(item);
         } else {
             final String path = item.getPath();
             final File file = new File(path);
@@ -588,6 +588,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     public interface ItemInteractionListener {
-        void itemClicked(String path);
+        void itemClicked(FileDirItem item);
     }
 }

@@ -6,20 +6,24 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.simplemobiletools.filemanager.Breadcrumbs;
 import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.fragments.ItemsFragment;
+import com.simplemobiletools.filemanager.models.FileDirItem;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements ItemsFragment.ItemInteractionListener {
+    @BindView(R.id.breadcrumbs) Breadcrumbs mBreadcrumbs;
+
     private static final int STORAGE_PERMISSION = 1;
 
     @Override
@@ -47,13 +51,12 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
     private void initRootFileManager() {
         final String path = Environment.getExternalStorageDirectory().toString();
         openPath(path);
+        mBreadcrumbs.setInitialBreadcrumb();
     }
 
     private void openPath(String path) {
         final Bundle bundle = new Bundle();
         bundle.putString(Constants.PATH, path);
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-            setTitle(path);
 
         final ItemsFragment fragment = new ItemsFragment();
         fragment.setArguments(bundle);
@@ -81,16 +84,11 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
 
     @Override
     public void onBackPressed() {
-        final FragmentManager manager = getSupportFragmentManager();
-        final int cnt = manager.getBackStackEntryCount();
+        final int cnt = getSupportFragmentManager().getBackStackEntryCount();
         if (cnt == 1)
             finish();
         else {
-            if (cnt == 2) {
-                setTitle(getResources().getString(R.string.app_name));
-            } else {
-                setTitle(manager.getBackStackEntryAt(cnt - 2).getName());
-            }
+            mBreadcrumbs.removeBreadcrumb();
             super.onBackPressed();
         }
     }
@@ -110,7 +108,8 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
     }
 
     @Override
-    public void itemClicked(String path) {
-        openPath(path);
+    public void itemClicked(FileDirItem item) {
+        openPath(item.getPath());
+        mBreadcrumbs.addBreadcrumb(" -> " + item.getName());
     }
 }
