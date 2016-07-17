@@ -23,6 +23,7 @@
     <string name="invalid_destination">Could not write to the selected destination</string>
     <string name="copy_failed">Could not copy the files</string>
     <string name="copying">Copying</string>
+    <string name="initial_breadcrumb">home</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 item deleted</item>

@@ -10,9 +10,10 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class Breadcrumbs extends LinearLayout {
+public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
     private LayoutInflater mInflater;
     private int mDeviceWidth;
+    private BreadcrumbsListener mListener;
 
     public Breadcrumbs(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -27,15 +28,20 @@ public class Breadcrumbs extends LinearLayout {
         mDeviceWidth = deviceDisplay.x;
     }
 
+    public void setListener(BreadcrumbsListener listener) {
+        mListener = listener;
+    }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         final int paddingTop = getPaddingTop();
         final int paddingLeft = getPaddingLeft();
-        final int childRight = getMeasuredWidth() - getPaddingRight();
+        final int paddingRight = getPaddingRight();
+        final int childRight = getMeasuredWidth() - paddingRight;
         final int childBottom = getMeasuredHeight() - getPaddingBottom();
         final int childHeight = childBottom - paddingTop;
 
-        final int usableWidth = mDeviceWidth - paddingLeft - getPaddingRight();
+        final int usableWidth = mDeviceWidth - paddingLeft - paddingRight;
         int maxHeight = 0;
         int curWidth;
         int curHeight;
@@ -91,17 +97,30 @@ public class Breadcrumbs extends LinearLayout {
     }
 
     public void setInitialBreadcrumb() {
-        addBreadcrumb("home");
+        addBreadcrumb(getResources().getString(R.string.initial_breadcrumb));
     }
 
     public void addBreadcrumb(String text) {
         final View view = mInflater.inflate(R.layout.breadcrumb_item, null, false);
+        view.setTag(getChildCount());
         final TextView textView = (TextView) view.findViewById(R.id.breadcrumb_text);
         textView.setText(text);
         addView(view);
+        view.setOnClickListener(this);
     }
 
     public void removeBreadcrumb() {
         removeView(getChildAt(getChildCount() - 1));
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mListener != null) {
+            mListener.breadcrumbClicked((Integer) v.getTag());
+        }
+    }
+
+    public interface BreadcrumbsListener {
+        void breadcrumbClicked(int id);
     }
 }

@@ -21,7 +21,7 @@ import com.simplemobiletools.filemanager.models.FileDirItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ItemsFragment.ItemInteractionListener {
+public class MainActivity extends AppCompatActivity implements ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
     @BindView(R.id.breadcrumbs) Breadcrumbs mBreadcrumbs;
 
     private static final int STORAGE_PERMISSION = 1;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mBreadcrumbs.setListener(this);
         tryInitFileManager();
     }
 
@@ -111,5 +112,15 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.Ite
     public void itemClicked(FileDirItem item) {
         openPath(item.getPath());
         mBreadcrumbs.addBreadcrumb(" -> " + item.getName());
+    }
+
+    @Override
+    public void breadcrumbClicked(int id) {
+        final int children = mBreadcrumbs.getChildCount() - 1;
+        final int removeCnt = children - id;
+        for (int i = 0; i < removeCnt; i++) {
+            getSupportFragmentManager().popBackStack();
+            mBreadcrumbs.removeBreadcrumb();
+        }
     }
 }
