@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="no_permissions">Vi behöver tillgång till ditt lagringsutrymme</string>
+    <string name="no_app_found">Det finns ingen app tillgänglig för att öppna denna typ av fil</string>
+    <string name="create_new">Skapa nytt objektm</string>
+    <string name="rename_directory">Döp om katalog</string>
+    <string name="rename_file">Döp om fil</string>
+    <string name="directory">Katalog</string>
+    <string name="file">Fil</string>
+    <string name="name_taken">Katalog eller fil med detta namnet finns redan</string>
+    <string name="invalid_name">Namnet innehåller ogiltiga tecken</string>
+    <string name="error_occurred">Ett okänt fel har uppstått</string>
+    <string name="delete">Ta bort</string>
+    <string name="undo">Ångra</string>
+    <string name="rename">Döp om</string>
+    <string name="copy">Kopiera</string>
+    <string name="copy_item">Kopiera objekt</string>
+    <string name="copy_items">Kopiera objekt</string>
+    <string name="move">Flytta</string>
+    <string name="source">Källa</string>
+    <string name="destination">Mål</string>
+    <string name="select_destination">Välj mål</string>
+    <string name="invalid_destination">Det gick inte att skriva till målet</string>
+    <string name="copy_failed">Kunde inte kopiera filen</string>
+    <string name="copying">Kopierar</string>
+
+    <plurals name="items_deleted">
+        <item quantity="one">1 objekt borttagen</item>
+        <item quantity="other">%1$d objekt borttagna</item>
+    </plurals>
+
+    <plurals name="items">
+        <item quantity="one">1 objekt</item>
+        <item quantity="other">%1$d objekt</item>
+    </plurals>
+
+    <!-- About -->
+    <string name="about">Om</string>
+    <string name="website">Fler enkla appar och källkod här:\nhttp://simplemobiletools.com</string>
+    <string name="email_label">Skicka feedback och förslag till:</string>
+    <string name="email">hello@simplemobiletools.com</string>
+    <string name="third_party_licences_underlined"><u>Tredjepartslicenser</u></string>
+    <string name="rate_us_underlined"><u>Betygsätt oss i Play Butiken</u></string>
+    <string name="follow_us">Följ oss:</string>
+    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
+
+    <!--License-->
+    <string name="notice">Denna app använder följande tredjepartsbibliotek för att göra mitt liv enklare. Tack.</string>
+    <string name="third_party_licences">Tredjepartslicenser</string>
+    <string name="butterknife_title"><u>Butter Knife (view injector)</u></string>
+    <string name="butterknife_text" translatable="false">Copyright 2013 Jake Wharton\n\nLicensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.You may obtain a copy of the License at\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions and limitations under the License.</string>
+    <string name="butterknife_url" translatable="false">https://github.com/JakeWharton/butterknife</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="show_hidden">Visa dolda filer</string>
+</resources>
