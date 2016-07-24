@@ -208,8 +208,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(R.string.create_new));
         builder.setView(newItemView);
-        builder.setPositiveButton("OK", null);
-        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.setNegativeButton(android.R.string.cancel, null);
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -345,8 +345,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(renameString));
         builder.setView(renameView);
-        builder.setPositiveButton("OK", null);
-        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.setNegativeButton(android.R.string.cancel, null);
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -394,8 +394,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(copyString));
         builder.setView(copyView);
-        builder.setPositiveButton("OK", null);
-        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.setNegativeButton(android.R.string.cancel, null);
 
         mCopyDialog = builder.create();
         mCopyDialog.show();
@@ -510,8 +510,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(getResources().getString(R.string.select_destination));
             builder.setView(pickerView);
-            builder.setPositiveButton("OK", null);
-            builder.setNegativeButton("Cancel", null);
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setNegativeButton(android.R.string.cancel, null);
 
             final AlertDialog alertDialog = builder.create();
             alertDialog.show();
