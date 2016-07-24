@@ -47,5 +47,6 @@
 
     <!-- Settings -->
     <string name="settings">Impostazioni</string>
+    <string name="dark_theme">Tema scuro</string>
     <string name="show_hidden">Mostra file e cartelle nascosti</string>
 </resources>

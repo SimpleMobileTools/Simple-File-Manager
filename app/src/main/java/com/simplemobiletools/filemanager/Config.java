@@ -22,6 +22,14 @@ public class Config {
         mPrefs.edit().putBoolean(Constants.IS_FIRST_RUN, firstRun).apply();
     }
 
+    public boolean getIsDarkTheme() {
+        return mPrefs.getBoolean(Constants.IS_DARK_THEME, false);
+    }
+
+    public void setIsDarkTheme(boolean isDarkTheme) {
+        mPrefs.edit().putBoolean(Constants.IS_DARK_THEME, isDarkTheme).apply();
+    }
+
     public boolean getShowHidden() {
         return mPrefs.getBoolean(Constants.SHOW_HIDDEN, false);
     }

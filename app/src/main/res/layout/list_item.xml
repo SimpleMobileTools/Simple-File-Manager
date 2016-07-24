@@ -39,7 +39,6 @@
             android:layout_toRightOf="@+id/item_icon"
             android:paddingLeft="@dimen/small_margin"
             android:text="1 KB"
-            android:textColor="@color/details_grey"
             android:textSize="@dimen/details_text_size"/>
 
     </RelativeLayout>

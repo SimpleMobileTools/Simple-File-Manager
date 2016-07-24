@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,7 +20,7 @@ import com.simplemobiletools.filemanager.models.FileDirItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
+public class MainActivity extends SimpleActivity implements ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
     @BindView(R.id.breadcrumbs) Breadcrumbs mBreadcrumbs;
 
     private static final int STORAGE_PERMISSION = 1;
