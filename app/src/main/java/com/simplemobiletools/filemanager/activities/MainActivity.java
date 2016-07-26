@@ -61,7 +61,8 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
         final ItemsFragment fragment = new ItemsFragment();
         fragment.setArguments(bundle);
         fragment.setListener(this);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).addToBackStack(path).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_holder, fragment).addToBackStack(path)
+                .commitAllowingStateLoss();
     }
 
     @Override
