@@ -21,8 +21,10 @@
     <string name="destination">Mål</string>
     <string name="select_destination">Välj mål</string>
     <string name="invalid_destination">Det gick inte att skriva till målet</string>
+    <string name="please_select_destination">Please select a destination</string>
     <string name="copy_failed">Kunde inte kopiera filen</string>
     <string name="copying">Kopierar</string>
+    <string name="initial_breadcrumb">home</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 objekt borttagen</item>
