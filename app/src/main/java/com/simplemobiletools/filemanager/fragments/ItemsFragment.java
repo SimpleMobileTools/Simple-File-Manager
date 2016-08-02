@@ -385,7 +385,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final View copyView = getActivity().getLayoutInflater().inflate(R.layout.copy_item, null);
 
         final TextView source = (TextView) copyView.findViewById(R.id.source);
-        source.setText(mPath);
+        source.setText(mPath + "/");
 
         final TextView destination = (TextView) copyView.findViewById(R.id.destination);
         destination.setOnClickListener(destinationPicker);
@@ -526,7 +526,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    mCopyDestinationPath = ((TextView) destinationView).getText().toString().trim();
+                    final String destText = ((TextView) destinationView).getText().toString().trim();
+                    if (!destText.equals(getString(R.string.select_destination))) {
+                        mCopyDestinationPath = destText;
+                    }
                 }
             });
 

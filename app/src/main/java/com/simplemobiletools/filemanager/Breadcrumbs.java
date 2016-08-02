@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -99,16 +100,21 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
     }
 
     public void setInitialBreadcrumb(String fullPath) {
+        final String basePath = Environment.getExternalStorageDirectory().toString();
+        final String tempPath = fullPath.replace(basePath, "home/");
         removeAllViewsInLayout();
-        final String[] dirs = fullPath.split("/");
-        String currPath = "";
+        final String[] dirs = tempPath.split("/");
+        String currPath = basePath;
         for (int i = 0; i < dirs.length; i++) {
             final String dir = dirs[i];
-            currPath += dir + "/";
+            if (i > 0) {
+                currPath += dir + "/";
+            }
+
             if (dir.isEmpty())
                 continue;
 
-            final FileDirItem item = new FileDirItem(currPath, dir, true, 0, 0);
+            final FileDirItem item = new FileDirItem(i > 0 ? currPath : basePath, dir, true, 0, 0);
             addBreadcrumb(item, i > 1);
         }
     }

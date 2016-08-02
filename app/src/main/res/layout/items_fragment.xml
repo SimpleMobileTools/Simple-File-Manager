@@ -17,6 +17,7 @@
             android:choiceMode="multipleChoiceModal"
             android:clipToPadding="false"
             android:paddingLeft="@dimen/activity_margin"/>
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -26,4 +27,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_margin"
         android:src="@mipmap/plus"/>
+
 </android.support.design.widget.CoordinatorLayout>
