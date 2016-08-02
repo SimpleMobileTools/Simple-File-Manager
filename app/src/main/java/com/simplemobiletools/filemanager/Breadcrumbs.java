@@ -101,7 +101,7 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
 
     public void setInitialBreadcrumb(String fullPath) {
         final String basePath = Environment.getExternalStorageDirectory().toString();
-        final String tempPath = fullPath.replace(basePath, "home/");
+        final String tempPath = fullPath.replace(basePath, getContext().getString(R.string.initial_breadcrumb) + "/");
         removeAllViewsInLayout();
         final String[] dirs = tempPath.split("/");
         String currPath = basePath;
