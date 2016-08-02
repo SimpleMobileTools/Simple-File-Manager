@@ -1,6 +1,8 @@
 # Simple File Manager
 <img alt="Logo" src="app/src/main/res/mipmap-xxxhdpi/launcher.png" width="80">
 
+A simple and clean file manager for browsing or editing your files and directories. Contains no ads, unnecessary permissions and advanced functions. What it provides, however, is a dark theme!
+
 License
 -------
     Copyright 2016 SimpleMobileTools
