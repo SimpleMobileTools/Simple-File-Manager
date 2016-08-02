@@ -5,6 +5,7 @@ A simple and clean file manager for browsing or editing your files and directori
 
 <img alt="App image" src="screenshots/app.png" width="250">
 <img alt="App image" src="screenshots/app_2.png" width="250">
+<img alt="App image" src="screenshots/app_3.png" width="250">
 
 License
 -------
