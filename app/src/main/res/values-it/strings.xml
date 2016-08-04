@@ -20,10 +20,10 @@
     <string name="source">Fonte</string>
     <string name="destination">Destinazione</string>
     <string name="select_destination">Seleziona destinazione</string>
-    <string name="invalid_destination">Could not write to the selected destination</string>
-    <string name="please_select_destination">Please select a destination</string>
-    <string name="copy_failed">Could not copy the files</string>
-    <string name="copying">Copying</string>
+    <string name="invalid_destination">Impossibile scrivere nella destinazione selezionata</string>
+    <string name="please_select_destination">Seleziona una destinazione</string>
+    <string name="copy_failed">Impossibile copiare i file</string>
+    <string name="copying">Copia in corso</string>
     <string name="initial_breadcrumb">home</string>
 
     <plurals name="items_deleted">
