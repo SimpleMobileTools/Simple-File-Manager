@@ -3,6 +3,9 @@
 
 A simple and clean file manager for browsing or editing your files and directories. Contains no ads, unnecessary permissions and advanced functions. What it provides, however, is a dark theme!
 
+<a href='https://play.google.com/store/apps/details?id=com.simplemobiletools.filemanager'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height=60/></a>
+<a href="https://f-droid.org/app/com.simplemobiletools.filemanager"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60"></a>
+
 <img alt="App image" src="screenshots/app.png" width="250">
 <img alt="App image" src="screenshots/app_2.png" width="250">
 <img alt="App image" src="screenshots/app_3.png" width="250">
