@@ -25,6 +25,8 @@
     <string name="copy_failed">Impossibile copiare i file</string>
     <string name="copying">Copia in corso</string>
     <string name="initial_breadcrumb">home</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 elemento eliminato</item>

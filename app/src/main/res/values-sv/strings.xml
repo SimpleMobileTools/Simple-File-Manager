@@ -25,6 +25,8 @@
     <string name="copy_failed">Kunde inte kopiera filen</string>
     <string name="copying">Kopierar</string>
     <string name="initial_breadcrumb">home</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 objekt borttagen</item>

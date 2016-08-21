@@ -25,6 +25,8 @@
     <string name="copy_failed">ファイルをコピーできませんでした</string>
     <string name="copying">コピー中</string>
     <string name="initial_breadcrumb">ホーム</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 アイテムを削除しました</item>
