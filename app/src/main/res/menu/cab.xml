@@ -7,6 +7,11 @@
         android:title="@string/rename"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/cab_share"
+        android:icon="@mipmap/share"
+        android:title="@string/share"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/cab_copy"
         android:icon="@mipmap/copy"
         android:title="@string/copy"

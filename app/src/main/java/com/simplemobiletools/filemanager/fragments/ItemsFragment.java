@@ -317,6 +317,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 displayRenameDialog();
                 mode.finish();
                 return true;
+            case R.id.cab_share:
+                return true;
             case R.id.cab_copy:
                 displayCopyDialog();
                 mode.finish();

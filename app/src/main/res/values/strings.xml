@@ -14,6 +14,7 @@
     <string name="undo">Undo</string>
     <string name="rename">Rename</string>
     <string name="copy">Copy</string>
+    <string name="share">Share</string>
     <string name="copy_item">Copy item</string>
     <string name="copy_items">Copy items</string>
     <string name="move">Move</string>

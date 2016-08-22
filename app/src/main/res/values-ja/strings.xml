@@ -14,6 +14,7 @@
     <string name="undo">元に戻す</string>
     <string name="rename">名前を変更</string>
     <string name="copy">コピー</string>
+    <string name="share">Share</string>
     <string name="copy_item">アイテムをコピー</string>
     <string name="copy_items">アイテムをコピー</string>
     <string name="move">移動</string>
