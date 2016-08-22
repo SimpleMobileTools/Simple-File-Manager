@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
+    <string name="share_via">Share via</string>
     <string name="no_permissions">We need the permission to access your storage</string>
     <string name="no_app_found">No app for opening this type of files is available</string>
     <string name="create_new">Create new item</string>
@@ -15,6 +16,7 @@
     <string name="rename">Rename</string>
     <string name="copy">Copy</string>
     <string name="share">Share</string>
+    <string name="shared_files">Files shared via Simple File Manager</string>
     <string name="copy_item">Copy item</string>
     <string name="copy_items">Copy items</string>
     <string name="move">Move</string>

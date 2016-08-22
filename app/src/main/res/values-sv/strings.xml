@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
+    <string name="share_via">Dela via</string>
     <string name="no_permissions">Vi behöver tillgång till ditt lagringsutrymme</string>
     <string name="no_app_found">Det finns ingen app tillgänglig för att öppna denna typ av fil</string>
     <string name="create_new">Skapa nytt objektm</string>
@@ -14,7 +15,8 @@
     <string name="undo">Ångra</string>
     <string name="rename">Döp om</string>
     <string name="copy">Kopiera</string>
-    <string name="share">Share</string>
+    <string name="share">Dela</string>
+    <string name="shared_files">Files shared via Simple File Manager</string>
     <string name="copy_item">Kopiera objekt</string>
     <string name="copy_items">Kopiera objekt</string>
     <string name="move">Flytta</string>

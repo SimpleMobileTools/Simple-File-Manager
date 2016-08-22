@@ -318,6 +318,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 mode.finish();
                 return true;
             case R.id.cab_share:
+                shareFiles();
+                mode.finish();
                 return true;
             case R.id.cab_copy:
                 displayCopyDialog();
@@ -330,6 +332,26 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             default:
                 return false;
         }
+    }
+
+    private void shareFiles() {
+        final List<Integer> itemIndexes = getSelectedItemIndexes();
+        if (itemIndexes.isEmpty())
+            return;
+
+        final ArrayList<Uri> uris = new ArrayList<>(itemIndexes.size());
+        for (int i : itemIndexes) {
+            final File file = new File(mItems.get(i).getPath());
+            uris.add(Uri.fromFile(file));
+        }
+
+        final String shareTitle = getResources().getString(R.string.share_via);
+        final Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.shared_files));
+        sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+        sendIntent.setType("*/*");
+        startActivity(Intent.createChooser(sendIntent, shareTitle));
     }
 
     private void displayRenameDialog() {
