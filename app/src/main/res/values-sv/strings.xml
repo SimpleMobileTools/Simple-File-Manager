@@ -17,6 +17,7 @@
     <string name="copy">Kopiera</string>
     <string name="share">Dela</string>
     <string name="shared_files">Files shared via Simple File Manager</string>
+    <string name="no_files_selected">No files selected</string>
     <string name="copy_item">Kopiera objekt</string>
     <string name="copy_items">Kopiera objekt</string>
     <string name="move">Flytta</string>

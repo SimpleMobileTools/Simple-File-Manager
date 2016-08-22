@@ -346,6 +346,11 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 uris.add(Uri.fromFile(file));
         }
 
+        if (uris.isEmpty()) {
+            Utils.showToast(getContext(), R.string.no_files_selected);
+            return;
+        }
+
         final String shareTitle = getResources().getString(R.string.share_via);
         final Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND_MULTIPLE);

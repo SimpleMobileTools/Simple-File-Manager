@@ -17,6 +17,7 @@
     <string name="copy">Copia</string>
     <string name="share">Condividi</string>
     <string name="shared_files">Files shared via Simple File Manager</string>
+    <string name="no_files_selected">No files selected</string>
     <string name="copy_item">Copia elemento</string>
     <string name="copy_items">Copia elementi</string>
     <string name="move">Sposta</string>
