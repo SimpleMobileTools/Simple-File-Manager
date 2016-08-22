@@ -342,7 +342,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final ArrayList<Uri> uris = new ArrayList<>(itemIndexes.size());
         for (int i : itemIndexes) {
             final File file = new File(mItems.get(i).getPath());
-            uris.add(Uri.fromFile(file));
+            if (!file.isDirectory())
+                uris.add(Uri.fromFile(file));
         }
 
         final String shareTitle = getResources().getString(R.string.share_via);
