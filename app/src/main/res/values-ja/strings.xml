@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">シンプル ファイル マネージャー</string>
+    <string name="app_launcher_name">File Manager</string>
     <string name="share_via">共有</string>
     <string name="no_permissions">ストレージにアクセスするアクセス許可が必要です</string>
     <string name="no_app_found">この種類のファイルを開くことができるアプリがありません</string>
