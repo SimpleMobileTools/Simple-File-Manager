@@ -1,7 +1,9 @@
 # Simple File Manager
 <img alt="Logo" src="app/src/main/res/mipmap-xxxhdpi/launcher.png" width="80">
 
-A simple and clean file manager for browsing or editing your files and directories. Contains no ads, unnecessary permissions and advanced functions. What it provides, however, is a dark theme!
+A simple and clean file manager for browsing and editing files and directories. Cannot currently be used for browsing the SD card content and items of rooted devices, stay tuned!
+
+Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
 
 <a href='https://play.google.com/store/apps/details?id=com.simplemobiletools.filemanager'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height=60/></a>
 <a href="https://f-droid.org/app/com.simplemobiletools.filemanager"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="60"></a>
