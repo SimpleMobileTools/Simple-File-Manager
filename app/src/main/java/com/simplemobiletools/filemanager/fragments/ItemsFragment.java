@@ -1,5 +1,6 @@
 package com.simplemobiletools.filemanager.fragments;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,13 +30,13 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.simplemobiletools.filemanager.Breadcrumbs;
 import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
+import com.simplemobiletools.filemanager.dialogs.SelectFolderDialog;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
 import java.io.File;
@@ -56,6 +57,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
 
+    public static final int SELECT_FOLDER_REQUEST = 1;
+    public static final String SELECT_FOLDER_PATH = "path";
+
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
     private List<String> mToBeDeleted;
@@ -63,6 +67,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private String mCopyDestinationPath;
     private Snackbar mSnackbar;
     private AlertDialog mCopyDialog;
+    private TextView mDestinationView;
 
     private boolean mShowHidden;
     private int mSelectedItemsCnt;
@@ -417,8 +422,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final TextView source = (TextView) copyView.findViewById(R.id.source);
         source.setText(mPath + "/");
 
-        final TextView destination = (TextView) copyView.findViewById(R.id.destination);
-        destination.setOnClickListener(destinationPicker);
+        mDestinationView = (TextView) copyView.findViewById(R.id.destination);
+        mDestinationView.setOnClickListener(destinationPicker);
 
         final int copyString = (itemIndexes.size() == 1) ? R.string.copy_item : R.string.copy_items;
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -432,7 +437,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mCopyDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String destinationPath = destination.getText().toString().trim();
+                final String destinationPath = mDestinationView.getText().toString().trim();
                 if (destinationPath.equals(getResources().getString(R.string.select_destination))) {
                     Utils.showToast(getContext(), R.string.please_select_destination);
                     return;
@@ -515,82 +520,19 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     private View.OnClickListener destinationPicker = new View.OnClickListener() {
         @Override
-        public void onClick(final View destinationView) {
-            final View pickerView = getActivity().getLayoutInflater().inflate(R.layout.directory_picker, null);
-            final ListView pickerList = (ListView) pickerView.findViewById(R.id.directory_picker_list);
-            final List<FileDirItem> items = getItems(mCopyDestinationPath);
-            Collections.sort(items);
-            final ItemsAdapter adapter = new ItemsAdapter(getContext(), items);
-            pickerList.setAdapter(adapter);
-
-            final Breadcrumbs breadcrumbs = (Breadcrumbs) pickerView.findViewById(R.id.directory_picker_breadcrumbs);
-            breadcrumbs.setInitialBreadcrumb(mCopyDestinationPath);
-            breadcrumbs.setListener(new Breadcrumbs.BreadcrumbsListener() {
-                @Override
-                public void breadcrumbClicked(int id) {
-                    final FileDirItem item = (FileDirItem) breadcrumbs.getChildAt(id).getTag();
-                    mCopyDestinationPath = item.getPath();
-                    breadcrumbs.setInitialBreadcrumb(mCopyDestinationPath);
-                    final List<FileDirItem> newItems = getItems(mCopyDestinationPath);
-                    Collections.sort(newItems);
-                    adapter.updateItems(newItems);
-                }
-            });
-
-            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle(getResources().getString(R.string.select_destination));
-            builder.setView(pickerView);
-            builder.setPositiveButton(R.string.ok, null);
-            builder.setNegativeButton(R.string.cancel, null);
-
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    alertDialog.dismiss();
-                    ((TextView) destinationView).setText(mCopyDestinationPath);
-                }
-            });
-
-            alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    final String destText = ((TextView) destinationView).getText().toString().trim();
-                    if (!destText.equals(getString(R.string.select_destination))) {
-                        mCopyDestinationPath = destText;
-                    }
-                }
-            });
-
-            pickerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    final FileDirItem item = items.get(position);
-                    if (item.getIsDirectory()) {
-                        breadcrumbs.addBreadcrumb(item, true);
-                        mCopyDestinationPath = item.getPath();
-                        final List<FileDirItem> newItems = getItems(mCopyDestinationPath);
-                        Collections.sort(newItems);
-                        if (containsDirectory(newItems)) {
-                            adapter.updateItems(newItems);
-                        } else {
-                            alertDialog.dismiss();
-                            ((TextView) destinationView).setText(mCopyDestinationPath);
-                        }
-                    }
-                }
-            });
+        public void onClick(final View view) {
+            SelectFolderDialog dialog = SelectFolderDialog.newInstance(mCopyDestinationPath);
+            dialog.setTargetFragment(ItemsFragment.this, SELECT_FOLDER_REQUEST);
+            dialog.show(getFragmentManager(), "selectFolder");
         }
     };
 
-    private boolean containsDirectory(List<FileDirItem> items) {
-        for (FileDirItem item : items) {
-            if (item.getIsDirectory()) {
-                return true;
-            }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_FOLDER_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+            mDestinationView.setText(data.getStringExtra(SELECT_FOLDER_PATH));
         }
-        return false;
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
