@@ -109,7 +109,7 @@ public class SelectFolderDialog extends DialogFragment {
                 if (!file.isDirectory())
                     continue;
 
-                if (file.isHidden() && !showHidden)
+                if (!showHidden && file.isHidden())
                     continue;
 
                 final String curPath = file.getAbsolutePath();
