@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.simplemobiletools.filemanager.Breadcrumbs;
+import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
@@ -99,12 +100,16 @@ public class SelectFolderDialog extends DialogFragment {
     }
 
     private List<FileDirItem> getItems(String path) {
+        final boolean showHidden = Config.newInstance(getContext()).getShowHidden();
         final List<FileDirItem> items = new ArrayList<>();
         final File base = new File(path);
         File[] files = base.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (!file.isDirectory())
+                    continue;
+
+                if (file.isHidden() && !showHidden)
                     continue;
 
                 final String curPath = file.getAbsolutePath();
