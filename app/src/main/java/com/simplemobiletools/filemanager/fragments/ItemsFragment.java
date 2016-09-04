@@ -530,7 +530,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_FOLDER_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            mDestinationView.setText(data.getStringExtra(SELECT_FOLDER_PATH));
+            mCopyDestinationPath = data.getStringExtra(SELECT_FOLDER_PATH);
+            mDestinationView.setText(mCopyDestinationPath);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
