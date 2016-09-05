@@ -65,4 +65,5 @@
     <string name="settings">Einstellungen</string>
     <string name="dark_theme">Dunkles Thema</string>
     <string name="show_hidden">Zeige versteckte Dateien und Ordner</string>
+    <string name="show_full_path">Show full path</string>
 </resources>

@@ -68,4 +68,5 @@
     <string name="settings">Settings</string>
     <string name="dark_theme">Dark theme</string>
     <string name="show_hidden">Show hidden files and directories</string>
+    <string name="show_full_path">Show full path</string>
 </resources>

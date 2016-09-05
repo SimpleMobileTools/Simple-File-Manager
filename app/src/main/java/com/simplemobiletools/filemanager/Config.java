@@ -37,4 +37,12 @@ public class Config {
     public void setShowHidden(boolean show) {
         mPrefs.edit().putBoolean(Constants.SHOW_HIDDEN, show).apply();
     }
+
+    public boolean getShowFullPath() {
+        return mPrefs.getBoolean(Constants.SHOW_FULL_PATH, false);
+    }
+
+    public void setShowFullPath(boolean show) {
+        mPrefs.edit().putBoolean(Constants.SHOW_FULL_PATH, show).apply();
+    }
 }
