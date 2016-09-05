@@ -15,7 +15,6 @@ import com.simplemobiletools.filemanager.models.FileDirItem;
 
 public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
     private int mDeviceWidth;
-    private boolean mShowFullPath;
 
     private LayoutInflater mInflater;
     private BreadcrumbsListener mListener;
@@ -102,10 +101,10 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
     }
 
     public void setInitialBreadcrumb(String fullPath) {
-        mShowFullPath = Config.newInstance(getContext()).getShowFullPath();
+        final boolean showFullPath = Config.newInstance(getContext()).getShowFullPath();
         final String basePath = Environment.getExternalStorageDirectory().toString();
         String tempPath = fullPath;
-        if (!mShowFullPath) {
+        if (!showFullPath) {
             tempPath = fullPath.replace(basePath, getContext().getString(R.string.initial_breadcrumb) + "/");
         }
 
@@ -116,7 +115,7 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
             final String dir = dirs[i];
             if (i > 0) {
                 currPath += dir + "/";
-            } else if (mShowFullPath) {
+            } else if (showFullPath) {
                 addRootFolder();
             }
 
@@ -124,10 +123,10 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
                 continue;
 
             final FileDirItem item = new FileDirItem(i > 0 ? currPath : basePath, dir, true, 0, 0);
-            addBreadcrumb(item, i > 0 || mShowFullPath);
+            addBreadcrumb(item, i > 0 || showFullPath);
         }
 
-        if (dirs.length == 0 && mShowFullPath) {
+        if (dirs.length == 0 && showFullPath) {
             addRootFolder();
         }
     }
