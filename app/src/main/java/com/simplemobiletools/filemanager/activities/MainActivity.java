@@ -24,6 +24,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     @BindView(R.id.breadcrumbs) Breadcrumbs mBreadcrumbs;
 
     private static final int STORAGE_PERMISSION = 1;
+    private static int mRootFoldersCnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
         final String path = Environment.getExternalStorageDirectory().toString();
         openPath(path);
         mBreadcrumbs.setInitialBreadcrumb(path);
+        mRootFoldersCnt = mBreadcrumbs.getChildCount();
     }
 
     private void openPath(String path) {
@@ -87,10 +89,10 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
 
     @Override
     public void onBackPressed() {
-        final int cnt = getSupportFragmentManager().getBackStackEntryCount();
-        if (cnt == 1)
+        final int cnt = mBreadcrumbs.getChildCount() - mRootFoldersCnt;
+        if (cnt <= 0) {
             finish();
-        else {
+        } else {
             mBreadcrumbs.removeBreadcrumb();
             super.onBackPressed();
         }
@@ -118,11 +120,9 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
 
     @Override
     public void breadcrumbClicked(int id) {
-        final int children = mBreadcrumbs.getChildCount() - 1;
-        final int removeCnt = children - id;
-        for (int i = 0; i < removeCnt; i++) {
-            getSupportFragmentManager().popBackStack();
-            mBreadcrumbs.removeBreadcrumb();
-        }
+        final FileDirItem item = (FileDirItem) mBreadcrumbs.getChildAt(id).getTag();
+        final String path = item.getPath();
+        openPath(path);
+        mBreadcrumbs.setInitialBreadcrumb(path);
     }
 }

@@ -29,7 +29,6 @@
     <string name="please_select_destination">Please select a destination</string>
     <string name="copy_failed">Could not copy the files</string>
     <string name="copying">Copying</string>
-    <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
