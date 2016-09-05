@@ -313,7 +313,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         MenuItem menuItem = menu.findItem(R.id.cab_rename);
         menuItem.setVisible(mSelectedItemsCnt == 1);
 
-        menuItem = menu.findItem(R.id.cab_info);
+        menuItem = menu.findItem(R.id.cab_properties);
         menuItem.setVisible(mSelectedItemsCnt == 1);
 
         return true;
@@ -325,8 +325,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             case R.id.cab_rename:
                 displayRenameDialog();
                 break;
-            case R.id.cab_info:
-                displayInfoDialog();
+            case R.id.cab_properties:
+                displayPropertiesDialog();
                 break;
             case R.id.cab_share:
                 shareFiles();
@@ -369,24 +369,33 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         startActivity(Intent.createChooser(sendIntent, shareTitle));
     }
 
-    private void displayInfoDialog() {
+    private void displayPropertiesDialog() {
+        final FileDirItem item = getSelectedItem();
+        if (item == null)
+            return;
 
+        final int title = (item.getIsDirectory()) ? R.string.directory_properties : R.string.file_properties;
+
+        final View infoView = getActivity().getLayoutInflater().inflate(R.layout.item_info, null);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getResources().getString(title));
+        builder.setView(infoView);
+        builder.setPositiveButton(R.string.ok, null);
+        builder.create().show();
     }
 
     private void displayRenameDialog() {
-        final List<Integer> itemIndexes = getSelectedItemIndexes();
-        if (itemIndexes.isEmpty())
+        final FileDirItem item = getSelectedItem();
+        if (item == null)
             return;
 
-        final int itemIndex = itemIndexes.get(0);
-        final FileDirItem item = mItems.get(itemIndex);
         final View renameView = getActivity().getLayoutInflater().inflate(R.layout.rename_item, null);
         final EditText itemName = (EditText) renameView.findViewById(R.id.item_name);
         itemName.setText(item.getName());
 
-        final int renameString = (item.getIsDirectory()) ? R.string.rename_directory : R.string.rename_file;
+        final int title = (item.getIsDirectory()) ? R.string.rename_directory : R.string.rename_file;
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getResources().getString(renameString));
+        builder.setTitle(getResources().getString(title));
         builder.setView(renameView);
         builder.setPositiveButton(R.string.ok, null);
         builder.setNegativeButton(R.string.cancel, null);
@@ -485,6 +494,15 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 mCopyDestinationPath = mPath;
             }
         });
+    }
+
+    private FileDirItem getSelectedItem() {
+        final List<Integer> itemIndexes = getSelectedItemIndexes();
+        if (itemIndexes.isEmpty())
+            return null;
+
+        final int itemIndex = itemIndexes.get(0);
+        return mItems.get(itemIndex);
     }
 
     private List<Integer> getSelectedItemIndexes() {

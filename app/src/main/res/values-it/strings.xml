@@ -15,7 +15,7 @@
     <string name="delete">Elimina</string>
     <string name="undo">Annulla</string>
     <string name="rename">Rinomina</string>
-    <string name="info">Info</string>
+    <string name="properties">Properties</string>
     <string name="copy">Copia</string>
     <string name="copy_move">Copy/Move</string>
     <string name="share">Condividi</string>
@@ -34,6 +34,8 @@
     <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="file_properties">File properties</string>
+    <string name="directory_properties">Directory properties</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 elemento eliminato</item>
