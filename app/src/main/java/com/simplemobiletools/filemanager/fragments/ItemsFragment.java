@@ -310,8 +310,12 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     @Override
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-        final MenuItem menuItem = menu.findItem(R.id.cab_rename);
+        MenuItem menuItem = menu.findItem(R.id.cab_rename);
         menuItem.setVisible(mSelectedItemsCnt == 1);
+
+        menuItem = menu.findItem(R.id.cab_info);
+        menuItem.setVisible(mSelectedItemsCnt == 1);
+
         return true;
     }
 
@@ -320,6 +324,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         switch (item.getItemId()) {
             case R.id.cab_rename:
                 displayRenameDialog();
+                mode.finish();
+                return true;
+            case R.id.cab_info:
+                displayInfoDialog();
                 mode.finish();
                 return true;
             case R.id.cab_share:
@@ -363,6 +371,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
         sendIntent.setType("*/*");
         startActivity(Intent.createChooser(sendIntent, shareTitle));
+    }
+
+    private void displayInfoDialog() {
+
     }
 
     private void displayRenameDialog() {

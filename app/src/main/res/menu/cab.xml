@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/cab_info"
+        android:icon="@mipmap/info"
+        android:title="@string/info"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/cab_rename"
         android:icon="@mipmap/edit"
         android:title="@string/rename"

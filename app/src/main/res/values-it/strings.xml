@@ -15,6 +15,7 @@
     <string name="delete">Elimina</string>
     <string name="undo">Annulla</string>
     <string name="rename">Rinomina</string>
+    <string name="info">Info</string>
     <string name="copy">Copia</string>
     <string name="copy_move">Copy/Move</string>
     <string name="share">Condividi</string>
