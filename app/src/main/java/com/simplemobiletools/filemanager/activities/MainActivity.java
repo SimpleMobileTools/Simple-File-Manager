@@ -25,6 +25,8 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
 
     private static final int STORAGE_PERMISSION = 1;
     private static int mRootFoldersCnt;
+    private static boolean mShowFullPath;
+    private static Config mConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,26 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mBreadcrumbs.setListener(this);
+        mConfig = Config.newInstance(getApplicationContext());
         tryInitFileManager();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Utils.hasStoragePermission(getApplicationContext())) {
+            final boolean showFullPath = mConfig.getShowFullPath();
+            if (showFullPath != mShowFullPath)
+                initRootFileManager();
+
+            mShowFullPath = showFullPath;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mShowFullPath = mConfig.getShowFullPath();
     }
 
     @Override
@@ -122,7 +143,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     public void breadcrumbClicked(int id) {
         final FileDirItem item = (FileDirItem) mBreadcrumbs.getChildAt(id).getTag();
         final String path = item.getPath();
-        openPath(path);
         mBreadcrumbs.setInitialBreadcrumb(path);
+        openPath(path);
     }
 }

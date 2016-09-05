@@ -14,8 +14,10 @@ import android.widget.TextView;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
 public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
-    private LayoutInflater mInflater;
     private int mDeviceWidth;
+    private boolean mShowFullPath;
+
+    private LayoutInflater mInflater;
     private BreadcrumbsListener mListener;
 
     public Breadcrumbs(Context context, AttributeSet attrs) {
@@ -100,8 +102,13 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
     }
 
     public void setInitialBreadcrumb(String fullPath) {
+        mShowFullPath = Config.newInstance(getContext()).getShowFullPath();
         final String basePath = Environment.getExternalStorageDirectory().toString();
-        final String tempPath = fullPath.replace(basePath, getContext().getString(R.string.initial_breadcrumb) + "/");
+        String tempPath = fullPath;
+        if (!mShowFullPath) {
+            tempPath = fullPath.replace(basePath, getContext().getString(R.string.initial_breadcrumb) + "/");
+        }
+
         removeAllViewsInLayout();
         final String[] dirs = tempPath.split("/");
         String currPath = basePath;
@@ -109,13 +116,19 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
             final String dir = dirs[i];
             if (i > 0) {
                 currPath += dir + "/";
+            } else if (mShowFullPath) {
+                addRootFolder();
             }
 
             if (dir.isEmpty())
                 continue;
 
             final FileDirItem item = new FileDirItem(i > 0 ? currPath : basePath, dir, true, 0, 0);
-            addBreadcrumb(item, i > 1);
+            addBreadcrumb(item, i > 0 || mShowFullPath);
+        }
+
+        if (dirs.length == 0 && mShowFullPath) {
+            addRootFolder();
         }
     }
 
@@ -135,6 +148,11 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
 
     public void removeBreadcrumb() {
         removeView(getChildAt(getChildCount() - 1));
+    }
+
+    private void addRootFolder() {
+        final FileDirItem item = new FileDirItem("/", "  / ", true, 0, 0);
+        addBreadcrumb(item, false);
     }
 
     @Override
