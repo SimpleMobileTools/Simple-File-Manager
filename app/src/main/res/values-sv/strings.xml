@@ -16,6 +16,7 @@
     <string name="undo">Ångra</string>
     <string name="rename">Döp om</string>
     <string name="copy">Kopiera</string>
+    <string name="copy_move">Copy/Move</string>
     <string name="share">Dela</string>
     <string name="shared_files">Files shared via Simple File Manager</string>
     <string name="no_files_selected">No files selected</string>

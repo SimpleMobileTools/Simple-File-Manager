@@ -16,6 +16,7 @@
     <string name="undo">Rückgängig</string>
     <string name="rename">Umbenennen</string>
     <string name="copy">Kopieren</string>
+    <string name="copy_move">Copy/Move</string>
     <string name="share">Teilen</string>
     <string name="shared_files">Durch Simple File Manager geteilte Dateien</string>
     <string name="no_files_selected">Keine Dateien ausgewählt</string>

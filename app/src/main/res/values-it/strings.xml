@@ -16,6 +16,7 @@
     <string name="undo">Annulla</string>
     <string name="rename">Rinomina</string>
     <string name="copy">Copia</string>
+    <string name="copy_move">Copy/Move</string>
     <string name="share">Condividi</string>
     <string name="shared_files">Files shared via Simple File Manager</string>
     <string name="no_files_selected">No files selected</string>

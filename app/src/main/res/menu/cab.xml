@@ -14,7 +14,7 @@
     <item
         android:id="@+id/cab_copy"
         android:icon="@mipmap/copy"
-        android:title="@string/copy"
+        android:title="@string/copy_move"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_delete"
