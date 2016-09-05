@@ -30,6 +30,7 @@
     <string name="please_select_destination">Please select a destination</string>
     <string name="copy_failed">Kunde inte kopiera filen</string>
     <string name="copying">Kopierar</string>
+    <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 

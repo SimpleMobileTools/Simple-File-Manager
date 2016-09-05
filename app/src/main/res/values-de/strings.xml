@@ -30,6 +30,7 @@
     <string name="please_select_destination">Bitte wähle ein Ziel</string>
     <string name="copy_failed">Konnte die Datei nicht kopieren</string>
     <string name="copying">Kopiere</string>
+    <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
 

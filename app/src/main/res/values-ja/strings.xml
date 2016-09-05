@@ -30,6 +30,7 @@
     <string name="please_select_destination">宛先を選択してください</string>
     <string name="copy_failed">ファイルをコピーできませんでした</string>
     <string name="copying">コピー中</string>
+    <string name="initial_breadcrumb">ホーム</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
