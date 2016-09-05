@@ -324,27 +324,23 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         switch (item.getItemId()) {
             case R.id.cab_rename:
                 displayRenameDialog();
-                mode.finish();
-                return true;
+                break;
             case R.id.cab_info:
                 displayInfoDialog();
-                mode.finish();
-                return true;
+                break;
             case R.id.cab_share:
                 shareFiles();
-                mode.finish();
-                return true;
+                break;
             case R.id.cab_copy:
                 displayCopyDialog();
-                mode.finish();
-                return true;
+                break;
             case R.id.cab_delete:
-                prepareForDeleting();
-                mode.finish();
-                return true;
+                break;
             default:
                 return false;
         }
+        mode.finish();
+        return true;
     }
 
     private void shareFiles() {
