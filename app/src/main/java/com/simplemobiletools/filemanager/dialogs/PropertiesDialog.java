@@ -8,6 +8,7 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TextView;
 
+import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.models.FileDirItem;
@@ -18,26 +19,30 @@ import java.util.Locale;
 
 public class PropertiesDialog extends DialogFragment {
     private static FileDirItem mItem;
+    private static int mFilesCnt;
+    private static boolean mShowHidden;
 
     public static PropertiesDialog newInstance(FileDirItem item) {
         mItem = item;
+        mFilesCnt = 0;
         return new PropertiesDialog();
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        mShowHidden = Config.newInstance(getContext()).getShowHidden();
         final int title = (mItem.getIsDirectory()) ? R.string.directory_properties : R.string.file_properties;
 
         final View infoView = getActivity().getLayoutInflater().inflate(R.layout.item_properties, null);
-        if (mItem.getIsDirectory()) {
-            infoView.findViewById(R.id.properties_files_count_label).setVisibility(View.VISIBLE);
-            infoView.findViewById(R.id.properties_files_count).setVisibility(View.VISIBLE);
-            ((TextView) infoView.findViewById(R.id.properties_files_count)).setText(String.valueOf(mItem.getChildren()));
-        }
-
         ((TextView) infoView.findViewById(R.id.properties_name)).setText(mItem.getName());
         ((TextView) infoView.findViewById(R.id.properties_path)).setText(mItem.getPath());
         ((TextView) infoView.findViewById(R.id.properties_size)).setText(getItemSize());
+
+        if (mItem.getIsDirectory()) {
+            infoView.findViewById(R.id.properties_files_count_label).setVisibility(View.VISIBLE);
+            infoView.findViewById(R.id.properties_files_count).setVisibility(View.VISIBLE);
+            ((TextView) infoView.findViewById(R.id.properties_files_count)).setText(String.valueOf(mFilesCnt));
+        }
 
         final File file = new File(mItem.getPath());
         ((TextView) infoView.findViewById(R.id.properties_last_modified)).setText(formatLastModified(file.lastModified()));
@@ -73,6 +78,8 @@ public class PropertiesDialog extends DialogFragment {
                     size += directorySize(files[i]);
                 } else {
                     size += files[i].length();
+                    if ((!files[i].isHidden() && !dir.isHidden()) || mShowHidden)
+                        mFilesCnt++;
                 }
             }
             return size;
