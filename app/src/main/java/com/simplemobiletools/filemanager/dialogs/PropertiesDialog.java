@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,6 +13,8 @@ import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class PropertiesDialog extends DialogFragment {
     private static FileDirItem mItem;
@@ -37,7 +40,7 @@ public class PropertiesDialog extends DialogFragment {
         ((TextView) infoView.findViewById(R.id.properties_size)).setText(getItemSize());
 
         final File file = new File(mItem.getPath());
-        ((TextView) infoView.findViewById(R.id.properties_last_modified)).setText(String.valueOf(file.lastModified()));
+        ((TextView) infoView.findViewById(R.id.properties_last_modified)).setText(formatLastModified(file.lastModified()));
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(title));
@@ -53,6 +56,12 @@ public class PropertiesDialog extends DialogFragment {
         }
 
         return Utils.getFormattedSize(mItem);
+    }
+
+    private String formatLastModified(long ts) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(ts);
+        return DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
     }
 
     private long directorySize(File dir) {
