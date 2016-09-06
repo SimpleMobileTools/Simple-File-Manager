@@ -36,6 +36,7 @@ import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
+import com.simplemobiletools.filemanager.dialogs.PropertiesDialog;
 import com.simplemobiletools.filemanager.dialogs.SelectFolderDialog;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
@@ -374,14 +375,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (item == null)
             return;
 
-        final int title = (item.getIsDirectory()) ? R.string.directory_properties : R.string.file_properties;
-
-        final View infoView = getActivity().getLayoutInflater().inflate(R.layout.item_info, null);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getResources().getString(title));
-        builder.setView(infoView);
-        builder.setPositiveButton(R.string.ok, null);
-        builder.create().show();
+        PropertiesDialog dialog = PropertiesDialog.newInstance(item);
+        dialog.show(getFragmentManager(), "properties");
     }
 
     private void displayRenameDialog() {
