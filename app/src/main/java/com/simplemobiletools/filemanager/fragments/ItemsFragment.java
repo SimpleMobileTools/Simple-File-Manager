@@ -336,6 +336,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 displayCopyDialog();
                 break;
             case R.id.cab_delete:
+                prepareForDeleting();
                 break;
             default:
                 return false;
