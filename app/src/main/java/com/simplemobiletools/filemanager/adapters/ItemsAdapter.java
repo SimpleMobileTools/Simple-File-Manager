@@ -14,7 +14,6 @@ import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.models.FileDirItem;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,7 +54,7 @@ public class ItemsAdapter extends BaseAdapter {
             viewHolder.details.setText(getChildrenCnt(item));
         } else {
             viewHolder.icon.setImageBitmap(mFileBmp);
-            viewHolder.details.setText(getFormattedSize(item));
+            viewHolder.details.setText(Utils.getFormattedSize(item));
         }
 
         return convertView;
@@ -64,15 +63,6 @@ public class ItemsAdapter extends BaseAdapter {
     private String getChildrenCnt(FileDirItem item) {
         final int children = item.getChildren();
         return mRes.getQuantityString(R.plurals.items, children, children);
-    }
-
-    private String getFormattedSize(FileDirItem item) {
-        final long size = item.getSize();
-        if (size <= 0)
-            return "0 B";
-        final String[] units = {"B", "kB", "MB", "GB", "TB"};
-        final int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
     @Override
