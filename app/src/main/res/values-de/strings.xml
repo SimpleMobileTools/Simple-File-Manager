@@ -34,8 +34,15 @@
     <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
+
+    <!-- File and directory properties -->
     <string name="file_properties">File properties</string>
     <string name="directory_properties">Directory properties</string>
+    <string name="name">Name</string>
+    <string name="path">Path</string>
+    <string name="size">Size</string>
+    <string name="last_modified">Last modified</string>
+    <string name="files_count">Files inside</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 Datei/Ordner gelöscht</item>
