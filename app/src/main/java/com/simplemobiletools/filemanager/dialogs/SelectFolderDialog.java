@@ -28,9 +28,11 @@ public class SelectFolderDialog extends DialogFragment {
     private static String mPath;
     private static ListView mListView;
     private static Breadcrumbs mBreadcrumbs;
+    private static boolean mFirstUpdate;
 
     public static SelectFolderDialog newInstance(String path) {
         mPath = path;
+        mFirstUpdate = true;
         return new SelectFolderDialog();
     }
 
@@ -59,7 +61,7 @@ public class SelectFolderDialog extends DialogFragment {
 
     private void updateItems() {
         final List<FileDirItem> items = getItems(mPath);
-        if (!containsDirectory(items)) {
+        if (!containsDirectory(items) && !mFirstUpdate) {
             sendResult();
             return;
         }
@@ -79,6 +81,8 @@ public class SelectFolderDialog extends DialogFragment {
                 }
             }
         });
+
+        mFirstUpdate = false;
     }
 
     private void sendResult() {
