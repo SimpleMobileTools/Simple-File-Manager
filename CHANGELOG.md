@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.4 *(2016-09-07)*
+----------------------------
+
+ * Add a properties window for files and folders
+ * Add support for displaying root and SDcard files
+
 Version 1.3 *(2016-08-29)*
 ----------------------------
 
