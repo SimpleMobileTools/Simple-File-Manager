@@ -1,7 +1,9 @@
 # Simple File Manager
 <img alt="Logo" src="app/src/main/res/mipmap-xxxhdpi/launcher.png" width="80">
 
-A simple and clean file manager for browsing and editing files and directories. Cannot currently be used for browsing the SD card content and items of rooted devices, stay tuned!
+A simple file manager for browsing and editing files and directories.
+
+Can also be used for browsing root files and SDcard content. You can easily copy, move, delete and share anything you wish.
 
 Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
 
