@@ -543,7 +543,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private View.OnClickListener destinationPicker = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
-            SelectFolderDialog dialog = SelectFolderDialog.newInstance(mCopyDestinationPath);
+            SelectFolderDialog dialog = SelectFolderDialog.Companion.newInstance(mCopyDestinationPath);
             dialog.setTargetFragment(ItemsFragment.this, SELECT_FOLDER_REQUEST);
             dialog.show(getFragmentManager(), "selectFolder");
         }
