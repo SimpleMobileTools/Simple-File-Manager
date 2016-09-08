@@ -53,7 +53,7 @@ class SelectFolderDialog : DialogFragment() {
             return
         }
 
-        items = items.sortedWith(compareBy({ !it.isDirectory }, { it.name.toLowerCase() }))
+        items = items.sortedWith(compareBy({ !it.isDirectory }, { it.name }))
 
         val adapter = ItemsAdapter(context, items)
         dialog.directory_picker_list.adapter = adapter

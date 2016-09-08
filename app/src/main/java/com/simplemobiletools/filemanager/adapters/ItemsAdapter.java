@@ -49,7 +49,7 @@ public class ItemsAdapter extends BaseAdapter {
         final FileDirItem item = mItems.get(position);
         viewHolder.name.setText(item.getName());
 
-        if (item.getIsDirectory()) {
+        if (item.isDirectory()) {
             viewHolder.icon.setImageBitmap(mDirectoryBmp);
             viewHolder.details.setText(getChildrenCnt(item));
         } else {

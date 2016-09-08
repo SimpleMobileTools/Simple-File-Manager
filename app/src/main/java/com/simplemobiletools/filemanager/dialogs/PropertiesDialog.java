@@ -31,14 +31,14 @@ public class PropertiesDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mShowHidden = Config.newInstance(getContext()).getShowHidden();
-        final int title = (mItem.getIsDirectory()) ? R.string.directory_properties : R.string.file_properties;
+        final int title = (mItem.isDirectory()) ? R.string.directory_properties : R.string.file_properties;
 
         final View infoView = getActivity().getLayoutInflater().inflate(R.layout.item_properties, null);
         ((TextView) infoView.findViewById(R.id.properties_name)).setText(mItem.getName());
         ((TextView) infoView.findViewById(R.id.properties_path)).setText(mItem.getPath());
         ((TextView) infoView.findViewById(R.id.properties_size)).setText(getItemSize());
 
-        if (mItem.getIsDirectory()) {
+        if (mItem.isDirectory()) {
             infoView.findViewById(R.id.properties_files_count_label).setVisibility(View.VISIBLE);
             infoView.findViewById(R.id.properties_files_count).setVisibility(View.VISIBLE);
             ((TextView) infoView.findViewById(R.id.properties_files_count)).setText(String.valueOf(mFilesCnt));
@@ -56,7 +56,7 @@ public class PropertiesDialog extends DialogFragment {
     }
 
     private String getItemSize() {
-        if (mItem.getIsDirectory()) {
+        if (mItem.isDirectory()) {
             return Utils.formatSize(directorySize(new File(mItem.getPath())));
         }
 

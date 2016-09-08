@@ -173,7 +173,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final FileDirItem item = mItems.get(position);
-        if (item.getIsDirectory()) {
+        if (item.isDirectory()) {
             if (mListener != null)
                 mListener.itemClicked(item);
         } else {
@@ -389,7 +389,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final EditText itemName = (EditText) renameView.findViewById(R.id.item_name);
         itemName.setText(item.getName());
 
-        final int title = (item.getIsDirectory()) ? R.string.rename_directory : R.string.rename_file;
+        final int title = (item.isDirectory()) ? R.string.rename_directory : R.string.rename_file;
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(title));
         builder.setView(renameView);
