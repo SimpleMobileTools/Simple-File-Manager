@@ -15,12 +15,12 @@
     <string name="delete">Elimina</string>
     <string name="undo">Annulla</string>
     <string name="rename">Rinomina</string>
-    <string name="properties">Properties</string>
+    <string name="properties">Proprietà</string>
     <string name="copy">Copia</string>
-    <string name="copy_move">Copy/Move</string>
+    <string name="copy_move">Copia/Sposta</string>
     <string name="share">Condividi</string>
-    <string name="shared_files">Files shared via Simple File Manager</string>
-    <string name="no_files_selected">No files selected</string>
+    <string name="shared_files">File condivisi via Simple File Manager</string>
+    <string name="no_files_selected">Nessun file selezionato</string>
     <string name="copy_item">Copia elemento</string>
     <string name="copy_items">Copia elementi</string>
     <string name="move">Sposta</string>
@@ -33,16 +33,16 @@
     <string name="copying">Copia in corso</string>
     <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Annulla</string>
 
     <!-- File and directory properties -->
-    <string name="file_properties">File properties</string>
-    <string name="directory_properties">Directory properties</string>
-    <string name="name">Name</string>
-    <string name="path">Path</string>
-    <string name="size">Size</string>
-    <string name="last_modified">Last modified</string>
-    <string name="files_count">Files inside</string>
+    <string name="file_properties">Proprietà file</string>
+    <string name="directory_properties">Proprietà cartella</string>
+    <string name="name">Nome</string>
+    <string name="path">Percorso</string>
+    <string name="size">Dimensione</string>
+    <string name="last_modified">Ultima modifica</string>
+    <string name="files_count">File contenuti</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 elemento eliminato</item>
@@ -59,21 +59,19 @@
     <string name="website">Altre semplici app e codici sorgenti in:\nhttp://simplemobiletools.com</string>
     <string name="email_label">Invia la tua opinione o i tuoi suggerimenti a:</string>
     <string name="third_party_licences_underlined"><u>Licenze di terze parti</u></string>
-    <string name="invite_friends_underlined"><u>Invite friends</u></string>
-    <string name="share_text">Hey, come check out %1$s at %2$s</string>
-    <string name="invite_via">Invite via</string>
+    <string name="invite_friends_underlined"><u>Invita amici</u></string>
+    <string name="share_text">Hey, dai un'occhiata a %1$s su %2$s</string>
+    <string name="invite_via">Invita via</string>
     <string name="rate_us_underlined"><u>Dacci un voto sul Play Store</u></string>
     <string name="follow_us">Seguici:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
 
     <!--License-->
     <string name="notice">Questa app usa le seguenti librerie di terze parti per semplificarmi la vita. Grazie.</string>
     <string name="third_party_licences">Licenze di terze parti</string>
-    <string name="butterknife_title"><u>Butter Knife (view injector)</u></string>
 
     <!-- Settings -->
     <string name="settings">Impostazioni</string>
     <string name="dark_theme">Tema scuro</string>
     <string name="show_hidden">Mostra file e cartelle nascosti</string>
-    <string name="show_full_path">Show full path</string>
+    <string name="show_full_path">Mostra percorso completo</string>
 </resources>
