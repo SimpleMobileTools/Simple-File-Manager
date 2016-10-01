@@ -60,12 +60,12 @@
     <string name="email_label">Invia la tua opinione o i tuoi suggerimenti a:</string>
     <string name="third_party_licences_underlined"><u>Licenze di terze parti</u></string>
     <string name="invite_friends_underlined"><u>Invita amici</u></string>
-    <string name="share_text">Hey, dai un'occhiata a %1$s su %2$s</string>
+    <string name="share_text">Hey, dai un\'occhiata a %1$s su %2$s</string>
     <string name="invite_via">Invita via</string>
     <string name="rate_us_underlined"><u>Dacci un voto sul Play Store</u></string>
     <string name="follow_us">Seguici:</string>
 
-    <!--License-->
+    <!-- License -->
     <string name="notice">Questa app usa le seguenti librerie di terze parti per semplificarmi la vita. Grazie.</string>
     <string name="third_party_licences">Licenze di terze parti</string>
 

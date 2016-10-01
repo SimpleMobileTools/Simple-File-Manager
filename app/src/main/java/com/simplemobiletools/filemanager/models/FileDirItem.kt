@@ -10,7 +10,7 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
             return 1
         }
 
-        return name.compareTo(other.name)
+        return name.toLowerCase().compareTo(other.name.toLowerCase())
     }
 
     override fun toString(): String {

@@ -66,7 +66,7 @@
     <string name="follow_us">Folge uns:</string>
     <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
 
-    <!--License-->
+    <!-- License -->
     <string name="notice">Diese App nutzt die folgenden Drittanbieter Bibliotheken, die mir mein Leben einfacher machen. Vielen Dank.</string>
     <string name="third_party_licences">Drittanbieter Lizenzen</string>
     <string name="butterknife_title"><u>Butter Knife (view injector)</u></string>
