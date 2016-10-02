@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Gestor de ficheiros</string>
+    <string name="share_via">Partilhar via</string>
+    <string name="no_permissions">É necessária a permissão para aceder ao armazenamento</string>
+    <string name="no_app_found">Nenhuma aplicação para abrir este tipo de ficheiros disponível</string>
+    <string name="create_new">Criar novo item</string>
+    <string name="rename_directory">Renomear pasta</string>
+    <string name="rename_file">Renomear ficheiro</string>
+    <string name="directory">Pasta</string>
+    <string name="file">Ficheiro</string>
+    <string name="name_taken">Já existe um ficheiro ou pasta com esse nome</string>
+    <string name="invalid_name">O nome contém caracteres inválidos</string>
+    <string name="error_occurred">Ocorreu um erro desconhecido</string>
+    <string name="delete">Eliminar</string>
+    <string name="undo">Desfazer</string>
+    <string name="rename">Renomear</string>
+    <string name="properties">Propriedades</string>
+    <string name="copy">Copiar</string>
+    <string name="copy_move">Copiar/Mover</string>
+    <string name="share">Partilhar</string>
+    <string name="shared_files">Ficheiros partilhados via Simple File Manager</string>
+    <string name="no_files_selected">Nenhum ficheiro selecionado</string>
+    <string name="copy_item">Copiar item</string>
+    <string name="copy_items">Copiar itens</string>
+    <string name="move">Mover</string>
+    <string name="source">Origem</string>
+    <string name="destination">Destino</string>
+    <string name="select_destination">Selecionar destino</string>
+    <string name="invalid_destination">Não foi possível escrever no destino selecionado</string>
+    <string name="please_select_destination">Por favor selecione um destino</string>
+    <string name="copy_failed">Não foi possível copiar os ficheiros</string>
+    <string name="copying">A copiar</string>
+    <string name="initial_breadcrumb">início</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- File and directory properties -->
+    <string name="file_properties">Propriedades do ficheiro</string>
+    <string name="directory_properties">Propriedades da pasta</string>
+    <string name="name">Nome</string>
+    <string name="path">Caminho</string>
+    <string name="size">Tamanho</string>
+    <string name="last_modified">Última modificação</string>
+    <string name="files_count">Ficheiros no interior</string>
+
+    <plurals name="items_deleted">
+        <item quantity="one">1 item eliminado</item>
+        <item quantity="other">%1$d itens eliminados</item>
+    </plurals>
+
+    <plurals name="items">
+        <item quantity="one">1 item</item>
+        <item quantity="other">%1$d itens</item>
+    </plurals>
+
+    <!-- About -->
+    <string name="about">Sobre</string>
+    <string name="website">Mais aplicações simples e código de fonte em:\nhttp://simplemobiletools.com</string>
+    <string name="email_label">Envie os seus comentários ou sugestões para:</string>
+    <string name="third_party_licences_underlined"><u>Licenças de terceiros</u></string>
+    <string name="invite_friends_underlined"><u>Convidar amigos</u></string>
+    <string name="share_text">Olá, experimente %1$s em %2$s</string>
+    <string name="invite_via">Convidar via</string>
+    <string name="rate_us_underlined"><u>Classifique-nos na Play Store</u></string>
+    <string name="follow_us">Siga-nos:</string>
+    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
+
+    <!-- License -->
+    <string name="notice">Esta aplicação usa as seguintes bibliotecas de terceiros para facilitar a minha vida. Obrigado.</string>
+    <string name="third_party_licences">Licenças de terceiros</string>
+    <string name="butterknife_title"><u>Butter Knife (injetor de \"views\")</u></string>
+
+    <!-- Settings -->
+    <string name="settings">Definições</string>
+    <string name="dark_theme">Tema escuro</string>
+    <string name="show_hidden">Mostrar ficheiros e pastas ocultos</string>
+    <string name="show_full_path">Mostrar caminho completo</string>
+</resources>
