@@ -104,13 +104,15 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
         final boolean showFullPath = Config.newInstance(getContext()).getShowFullPath();
         final String basePath = Environment.getExternalStorageDirectory().toString();
         String tempPath = fullPath;
+        String currPath = basePath;
         if (!showFullPath) {
             tempPath = fullPath.replace(basePath, getContext().getString(R.string.initial_breadcrumb) + "/");
+        } else {
+            currPath = "/";
         }
 
         removeAllViewsInLayout();
         final String[] dirs = tempPath.split("/");
-        String currPath = basePath;
         for (int i = 0; i < dirs.length; i++) {
             final String dir = dirs[i];
             if (i > 0) {
@@ -122,7 +124,7 @@ public class Breadcrumbs extends LinearLayout implements View.OnClickListener {
             if (dir.isEmpty())
                 continue;
 
-            final FileDirItem item = new FileDirItem(i > 0 ? currPath : basePath, dir, true, 0, 0);
+            final FileDirItem item = new FileDirItem(currPath, dir, true, 0, 0);
             addBreadcrumb(item, i > 0 || showFullPath);
         }
 
