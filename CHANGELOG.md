@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.5 *(2016-10-02)*
+----------------------------
+
+ * Sort items in an incasesensitive way
+
 Version 1.4 *(2016-09-07)*
 ----------------------------
 
