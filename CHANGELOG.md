@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.6 *(2016-10-09)*
+----------------------------
+
+ * Update the items properly after rename/copy/move/delete
+
 Version 1.5 *(2016-10-02)*
 ----------------------------
 
