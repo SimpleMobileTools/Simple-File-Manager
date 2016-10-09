@@ -17,6 +17,7 @@ public class CopyTask extends AsyncTask<Pair<List<File>, File>, Void, Boolean> {
     private static final String TAG = CopyTask.class.getSimpleName();
 
     private static WeakReference<CopyListener> mListener;
+    private static File destinationDir;
 
     public CopyTask(CopyListener listener) {
         mListener = new WeakReference<>(listener);
@@ -28,7 +29,7 @@ public class CopyTask extends AsyncTask<Pair<List<File>, File>, Void, Boolean> {
         final List<File> files = pair.first;
         for (File file : files) {
             try {
-                final File destinationDir = new File(pair.second, file.getName());
+                destinationDir = new File(pair.second, file.getName());
                 copy(file, destinationDir);
                 return true;
             } catch (Exception e) {
@@ -74,14 +75,14 @@ public class CopyTask extends AsyncTask<Pair<List<File>, File>, Void, Boolean> {
             return;
 
         if (success) {
-            listener.copySucceeded();
+            listener.copySucceeded(destinationDir);
         } else {
             listener.copyFailed();
         }
     }
 
     public interface CopyListener {
-        void copySucceeded();
+        void copySucceeded(File destinationDir);
 
         void copyFailed();
     }

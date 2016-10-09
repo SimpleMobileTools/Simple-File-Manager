@@ -414,7 +414,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                     }
 
                     if (currFile.renameTo(newFile)) {
-                        rescanFolder(newFile);
+                        rescanItem(newFile);
                         MediaScannerConnection.scanFile(getContext(), new String[]{currFile.getAbsolutePath(), newFile.getAbsolutePath()}, null, null);
                         alertDialog.dismiss();
                         fillItems();
@@ -478,7 +478,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                     new CopyTask(ItemsFragment.this).execute(pair);
                 } else {
                     for (File f : itemsToCopy) {
-                        f.renameTo(new File(destinationDir, f.getName()));
+                        final File destination = new File(destinationDir, f.getName());
+                        f.renameTo(destination);
+                        rescanItem(destination);
                     }
 
                     mCopyDialog.dismiss();
@@ -588,10 +590,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mToBeDeleted.clear();
     }
 
-    private void rescanFolder(File item) {
+    private void rescanItem(File item) {
         if (item.isDirectory()) {
             for (File child : item.listFiles()) {
-                rescanFolder(child);
+                rescanItem(child);
             }
         }
 
@@ -624,7 +626,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     @Override
-    public void copySucceeded() {
+    public void copySucceeded(File file) {
+        rescanItem(file);
         mCopyDialog.dismiss();
         fillItems();
     }
