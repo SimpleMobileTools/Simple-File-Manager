@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -413,6 +414,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                     }
 
                     if (currFile.renameTo(newFile)) {
+                        rescanFolder(newFile);
+                        MediaScannerConnection.scanFile(getContext(), new String[]{currFile.getAbsolutePath(), newFile.getAbsolutePath()}, null, null);
                         alertDialog.dismiss();
                         fillItems();
                     } else {
@@ -585,6 +588,16 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mToBeDeleted.clear();
     }
 
+    private void rescanFolder(File item) {
+        if (item.isDirectory()) {
+            for (File child : item.listFiles()) {
+                rescanFolder(child);
+            }
+        }
+
+        MediaScannerConnection.scanFile(getContext(), new String[]{item.getAbsolutePath()}, null, null);
+    }
+
     private void deleteItem(File item) {
         if (item.isDirectory()) {
             for (File child : item.listFiles()) {
@@ -593,6 +606,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         }
 
         item.delete();
+        MediaScannerConnection.scanFile(getContext(), new String[]{item.getAbsolutePath()}, null, null);
     }
 
     private View.OnClickListener undoDeletion = new View.OnClickListener() {
