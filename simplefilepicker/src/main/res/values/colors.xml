@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="thumbnail_grey">#33000000</color>
+    <color name="pressed_item_foreground">#08000000</color>
+    <color name="activated_item_foreground">#44888888</color>
+</resources>

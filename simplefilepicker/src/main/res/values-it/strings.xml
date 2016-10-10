@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Simple File Picker</string>
+    <string name="select_destination">Seleziona destinazione</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
+
+    <plurals name="items">
+        <item quantity="one">1 elemento</item>
+        <item quantity="other">%1$d elementi</item>
+    </plurals>
+</resources>
