@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.Utils
+import com.simplemobiletools.filemanager.extensions.getColoredIcon
 import com.simplemobiletools.filemanager.models.FileDirItem
 import kotlinx.android.synthetic.main.list_item.view.*
 
@@ -24,8 +25,8 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
         mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         mRes = context.resources
-        mDirectoryBmp = Utils.getColoredIcon(mRes, R.color.lightGrey, R.mipmap.directory)
-        mFileBmp = Utils.getColoredIcon(mRes, R.color.lightGrey, R.mipmap.file)
+        mDirectoryBmp = mRes.getColoredIcon(R.color.lightGrey, R.mipmap.directory)
+        mFileBmp = mRes.getColoredIcon(R.color.lightGrey, R.mipmap.file)
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
