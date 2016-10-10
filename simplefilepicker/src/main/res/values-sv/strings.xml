@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Simple File Picker</string>
     <string name="select_destination">Välj mål</string>
+    <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 

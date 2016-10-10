@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Simple File Picker</string>
     <string name="select_destination">宛先を選択</string>
+    <string name="initial_breadcrumb">ホーム</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
