@@ -24,7 +24,6 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     @BindView(R.id.breadcrumbs) Breadcrumbs mBreadcrumbs;
 
     private static final int STORAGE_PERMISSION = 1;
-    private static int mRootFoldersCnt;
     private static boolean mShowFullPath;
     private static Config mConfig;
 
@@ -71,13 +70,11 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     }
 
     private void initRootFileManager() {
-        final String path = Environment.getExternalStorageDirectory().toString();
-        openPath(path);
-        mBreadcrumbs.setInitialBreadcrumb(path, mConfig.getShowFullPath());
-        mRootFoldersCnt = mBreadcrumbs.getChildCount();
+        openPath(Environment.getExternalStorageDirectory().toString());
     }
 
     private void openPath(String path) {
+        mBreadcrumbs.setInitialBreadcrumb(path, mConfig.getShowFullPath());
         final Bundle bundle = new Bundle();
         bundle.putString(Constants.PATH, path);
 
@@ -110,12 +107,12 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
 
     @Override
     public void onBackPressed() {
-        final int cnt = mBreadcrumbs.getChildCount() - mRootFoldersCnt;
-        if (cnt <= 0) {
+        if (mBreadcrumbs.getChildCount() <= 1) {
             finish();
         } else {
             mBreadcrumbs.removeBreadcrumb();
-            super.onBackPressed();
+            final FileDirItem item = (FileDirItem) mBreadcrumbs.getChildAt(mBreadcrumbs.getChildCount() - 1).getTag();
+            openPath(item.getPath());
         }
     }
 
@@ -136,14 +133,11 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     @Override
     public void itemClicked(FileDirItem item) {
         openPath(item.getPath());
-        mBreadcrumbs.addBreadcrumb(item, true);
     }
 
     @Override
     public void breadcrumbClicked(int id) {
         final FileDirItem item = (FileDirItem) mBreadcrumbs.getChildAt(id).getTag();
-        final String path = item.getPath();
-        mBreadcrumbs.setInitialBreadcrumb(path, mConfig.getShowFullPath());
-        openPath(path);
+        openPath(item.getPath());
     }
 }
