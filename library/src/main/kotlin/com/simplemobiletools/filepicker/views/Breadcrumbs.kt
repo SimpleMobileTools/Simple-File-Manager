@@ -53,8 +53,8 @@ class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context,
         for (i in 0..cnt - 1) {
             val child = getChildAt(i)
 
-            child.measure(View.MeasureSpec.makeMeasureSpec(usableWidth, View.MeasureSpec.AT_MOST),
-                    View.MeasureSpec.makeMeasureSpec(childHeight, View.MeasureSpec.AT_MOST))
+            child.measure(MeasureSpec.makeMeasureSpec(usableWidth, MeasureSpec.AT_MOST),
+                    MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.AT_MOST))
             curWidth = child.measuredWidth
             curHeight = child.measuredHeight
 
@@ -91,7 +91,7 @@ class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context,
             }
         }
 
-        val parentWidth = View.MeasureSpec.getSize(widthMeasureSpec)
+        val parentWidth = MeasureSpec.getSize(widthMeasureSpec)
         val calculatedHeight = paddingTop + paddingBottom + rowHeight * lines
         setMeasuredDimension(parentWidth, calculatedHeight)
     }
@@ -131,10 +131,10 @@ class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context,
 
     fun addBreadcrumb(item: FileDirItem, addPrefix: Boolean) {
         val view = mInflater!!.inflate(R.layout.smtfp_breadcrumb_item, null, false)
-
         var textToAdd = item.name
         if (addPrefix)
             textToAdd = " -> " + textToAdd
+
         view.breadcrumb_text.text = textToAdd
         addView(view)
         view.setOnClickListener(this)

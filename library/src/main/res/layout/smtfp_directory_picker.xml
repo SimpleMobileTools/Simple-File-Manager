@@ -6,14 +6,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.simplemobiletools.filepicker.Breadcrumbs
+    <com.simplemobiletools.filepicker.views.Breadcrumbs
         android:id="@+id/directory_picker_breadcrumbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/smtfp_activity_margin"/>
 
     <ListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/directory_picker_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

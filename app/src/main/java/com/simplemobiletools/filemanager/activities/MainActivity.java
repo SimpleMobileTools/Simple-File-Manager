@@ -15,7 +15,7 @@ import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.fragments.ItemsFragment;
 import com.simplemobiletools.filepicker.models.FileDirItem;
-import com.simplemobiletools.filepicker.Breadcrumbs;
+import com.simplemobiletools.filepicker.views.Breadcrumbs;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -7,11 +7,11 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.View
-import com.simplemobiletools.filepicker.Breadcrumbs
 import com.simplemobiletools.filepicker.R
 import com.simplemobiletools.filepicker.adapters.ItemsAdapter
 import com.simplemobiletools.filepicker.extensions.getFilenameFromPath
 import com.simplemobiletools.filepicker.models.FileDirItem
+import com.simplemobiletools.filepicker.views.Breadcrumbs
 import kotlinx.android.synthetic.main.smtfp_directory_picker.view.*
 import java.io.File
 import java.util.*
