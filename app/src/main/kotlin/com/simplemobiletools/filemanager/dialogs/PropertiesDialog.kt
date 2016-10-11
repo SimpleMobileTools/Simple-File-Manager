@@ -37,7 +37,7 @@ class PropertiesDialog : DialogFragment() {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(resources.getString(title))
         builder.setView(infoView)
-        builder.setPositiveButton(R.string.smtfp_ok, null)
+        builder.setPositiveButton(R.string.ok, null)
 
         return builder.create()
     }

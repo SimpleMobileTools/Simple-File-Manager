@@ -56,7 +56,7 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
 
     private fun getChildrenCnt(item: FileDirItem): String {
         val children = item.children
-        return mRes.getQuantityString(R.plurals.smtfp_items, children, children)
+        return mRes.getQuantityString(R.plurals.items, children, children)
     }
 
     override fun getCount(): Int {

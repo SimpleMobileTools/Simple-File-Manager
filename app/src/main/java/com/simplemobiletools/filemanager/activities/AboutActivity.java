@@ -41,7 +41,7 @@ public class AboutActivity extends SimpleActivity {
 
     private void setupEmail() {
         final String email = mRes.getString(R.string.email);
-        final String appName = mRes.getString(R.string.smtfp_app_name);
+        final String appName = mRes.getString(R.string.app_name);
         final String href = "<a href=\"mailto:" + email + "?subject=" + appName + "\">" + email + "</a>";
         mEmailTV.setText(Html.fromHtml(href));
         mEmailTV.setMovementMethod(LinkMovementMethod.getInstance());
@@ -63,9 +63,9 @@ public class AboutActivity extends SimpleActivity {
     @OnClick(R.id.about_invite)
     public void inviteFriend() {
         final Intent intent = new Intent();
-        final String text = String.format(getString(R.string.share_text), getString(R.string.smtfp_app_name), getStoreUrl());
+        final String text = String.format(getString(R.string.share_text), getString(R.string.app_name), getStoreUrl());
         intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.smtfp_app_name));
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
         intent.putExtra(Intent.EXTRA_TEXT, text);
         intent.setType("text/plain");
         startActivity(Intent.createChooser(intent, getString(R.string.invite_via)));

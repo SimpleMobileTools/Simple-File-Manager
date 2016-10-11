@@ -1,5 +1,4 @@
 <resources>
-    <string name="smtfp_app_name">Simple File Picker</string>
     <string name="smtfp_select_destination">宛先を選択</string>
     <string name="smtfp_initial_breadcrumb">ホーム</string>
     <string name="smtfp_ok">OK</string>

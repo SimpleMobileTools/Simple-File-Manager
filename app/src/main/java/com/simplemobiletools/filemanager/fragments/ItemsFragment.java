@@ -38,7 +38,7 @@ import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.dialogs.PropertiesDialog;
-import com.simplemobiletools.filemanager.dialogs.SelectFolderDialog;
+import com.simplemobiletools.filepicker.dialogs.SelectFolderDialog;
 import com.simplemobiletools.filepicker.models.FileDirItem;
 
 import java.io.File;
@@ -215,8 +215,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(R.string.create_new));
         builder.setView(newItemView);
-        builder.setPositiveButton(R.string.smtfp_ok, null);
-        builder.setNegativeButton(R.string.smtfp_cancel, null);
+        builder.setPositiveButton(R.string.ok, null);
+        builder.setNegativeButton(R.string.cancel, null);
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -394,8 +394,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(title));
         builder.setView(renameView);
-        builder.setPositiveButton(R.string.smtfp_ok, null);
-        builder.setNegativeButton(R.string.smtfp_cancel, null);
+        builder.setPositiveButton(R.string.ok, null);
+        builder.setNegativeButton(R.string.cancel, null);
 
         final AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -445,8 +445,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(copyString));
         builder.setView(copyView);
-        builder.setPositiveButton(R.string.smtfp_ok, null);
-        builder.setNegativeButton(R.string.smtfp_cancel, null);
+        builder.setPositiveButton(R.string.ok, null);
+        builder.setNegativeButton(R.string.cancel, null);
 
         mCopyDialog = builder.create();
         mCopyDialog.show();
@@ -454,7 +454,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             @Override
             public void onClick(View v) {
                 final String destinationPath = mDestinationView.getText().toString().trim();
-                if (destinationPath.equals(getResources().getString(R.string.smtfp_select_destination))) {
+                if (destinationPath.equals(getResources().getString(R.string.select_destination))) {
                     Utils.showToast(getContext(), R.string.please_select_destination);
                     return;
                 }
