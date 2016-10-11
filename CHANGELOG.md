@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.7 *(2016-10-11)*
+----------------------------
+
+ * Misc minor improvements and bugfixes
+
 Version 1.6 *(2016-10-09)*
 ----------------------------
 
