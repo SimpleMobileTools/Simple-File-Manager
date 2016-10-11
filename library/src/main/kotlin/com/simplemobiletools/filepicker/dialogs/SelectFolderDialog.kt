@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.View
+import com.simplemobiletools.filepicker.Breadcrumbs
 import com.simplemobiletools.filepicker.R
 import com.simplemobiletools.filepicker.adapters.ItemsAdapter
 import com.simplemobiletools.filepicker.extensions.getFilenameFromPath
@@ -16,7 +17,7 @@ import java.io.File
 import java.util.*
 import kotlin.comparisons.compareBy
 
-class SelectFolderDialog : DialogFragment() {
+class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
     val SELECT_FOLDER_REQUEST = 1
     val SELECT_FOLDER_PATH = "path"
 
@@ -78,11 +79,7 @@ class SelectFolderDialog : DialogFragment() {
     }
 
     private fun setupBreadcrumbs() {
-        /*dialog.directory_picker_breadcrumbs.setListener { id ->
-            val item = dialog.directory_picker_breadcrumbs.getChildAt(id).tag as FileDirItem
-            mPath = item.path
-            updateItems()
-        }*/
+        dialog.directory_picker_breadcrumbs.setListener(this)
     }
 
     private fun getItems(path: String): List<FileDirItem> {
@@ -122,5 +119,11 @@ class SelectFolderDialog : DialogFragment() {
             }
         }
         return false
+    }
+
+    override fun breadcrumbClicked(id: Int) {
+        val item = dialog.directory_picker_breadcrumbs.getChildAt(id).tag as FileDirItem
+        mPath = item.path
+        updateItems()
     }
 }
