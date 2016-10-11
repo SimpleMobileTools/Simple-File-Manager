@@ -73,7 +73,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     private void initRootFileManager() {
         final String path = Environment.getExternalStorageDirectory().toString();
         openPath(path);
-        mBreadcrumbs.setInitialBreadcrumb(path);
+        mBreadcrumbs.setInitialBreadcrumb(path, mConfig.getShowFullPath());
         mRootFoldersCnt = mBreadcrumbs.getChildCount();
     }
 
@@ -143,7 +143,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     public void breadcrumbClicked(int id) {
         final FileDirItem item = (FileDirItem) mBreadcrumbs.getChildAt(id).getTag();
         final String path = item.getPath();
-        mBreadcrumbs.setInitialBreadcrumb(path);
+        mBreadcrumbs.setInitialBreadcrumb(path, mConfig.getShowFullPath());
         openPath(path);
     }
 }

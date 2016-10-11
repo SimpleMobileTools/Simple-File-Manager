@@ -25,11 +25,13 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
         lateinit var mPath: String
         var mFirstUpdate: Boolean = true
         var mShowHidden: Boolean = false
+        var mShowFullPath: Boolean = false
 
-        fun newInstance(path: String, showHidden: Boolean): SelectFolderDialog {
+        fun newInstance(path: String, showHidden: Boolean, showFullPath: Boolean): SelectFolderDialog {
             mPath = path
             mFirstUpdate = true
             mShowHidden = showHidden
+            mShowFullPath = showFullPath
             return SelectFolderDialog()
         }
     }
@@ -61,7 +63,7 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
 
         val adapter = ItemsAdapter(context, items)
         dialog.directory_picker_list.adapter = adapter
-        dialog.directory_picker_breadcrumbs.setInitialBreadcrumb(mPath)
+        dialog.directory_picker_breadcrumbs.setInitialBreadcrumb(mPath, mShowFullPath)
         dialog.directory_picker_list.setOnItemClickListener { adapterView, view, position, id ->
             val item = items[position]
             if (item.isDirectory) {
