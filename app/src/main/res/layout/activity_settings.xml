@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/settings_padding"
             android:background="?attr/selectableItemBackground"
-            android:padding="@dimen/activity_margin">
+            android:padding="@dimen/smtfp_activity_margin">
 
             <TextView
                 android:id="@+id/settings_dark_theme_label"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/settings_padding"
             android:background="?attr/selectableItemBackground"
-            android:padding="@dimen/activity_margin">
+            android:padding="@dimen/smtfp_activity_margin">
 
             <TextView
                 android:id="@+id/settings_show_hidden_label"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/settings_padding"
             android:background="?attr/selectableItemBackground"
-            android:padding="@dimen/activity_margin">
+            android:padding="@dimen/smtfp_activity_margin">
 
             <TextView
                 android:id="@+id/settings_show_full_path_label"

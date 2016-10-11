@@ -10,7 +10,7 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import com.simplemobiletools.filepicker.R
 import com.simplemobiletools.filepicker.models.FileDirItem
-import kotlinx.android.synthetic.main.breadcrumb_item.view.*
+import kotlinx.android.synthetic.main.smtfp_breadcrumb_item.view.*
 
 class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs), View.OnClickListener {
     private var mDeviceWidth: Int = 0
@@ -130,7 +130,7 @@ class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context,
     }
 
     fun addBreadcrumb(item: FileDirItem, addPrefix: Boolean) {
-        val view = mInflater!!.inflate(R.layout.breadcrumb_item, null, false)
+        val view = mInflater!!.inflate(R.layout.smtfp_breadcrumb_item, null, false)
 
         var textToAdd = item.name
         if (addPrefix)

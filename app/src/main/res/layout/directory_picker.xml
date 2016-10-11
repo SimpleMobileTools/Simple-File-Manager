@@ -10,7 +10,7 @@
         android:id="@+id/directory_picker_breadcrumbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_margin"/>
+        android:padding="@dimen/smtfp_activity_margin"/>
 
     <ListView
         android:id="@+id/directory_picker_list"

@@ -13,7 +13,7 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.formatSize
 import com.simplemobiletools.filemanager.extensions.getColoredIcon
 import com.simplemobiletools.filepicker.models.FileDirItem
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.smtfp_list_item.view.*
 
 class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : BaseAdapter() {
     private val mInflater: LayoutInflater
@@ -33,7 +33,7 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
         var view = convertView
         val viewHolder: ViewHolder
         if (view == null) {
-            view = mInflater.inflate(R.layout.list_item, parent, false)
+            view = mInflater.inflate(R.layout.smtfp_list_item, parent, false)
             viewHolder = ViewHolder(view)
             view!!.tag = viewHolder
         } else {

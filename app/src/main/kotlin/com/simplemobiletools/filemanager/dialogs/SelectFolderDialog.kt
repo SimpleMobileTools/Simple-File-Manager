@@ -13,7 +13,7 @@ import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.models.FileDirItem
-import kotlinx.android.synthetic.main.directory_picker.view.*
+import kotlinx.android.synthetic.main.smtfp_directory_picker.view.*
 import java.io.File
 import java.util.*
 import kotlin.comparisons.compareBy
@@ -33,7 +33,7 @@ class SelectFolderDialog : DialogFragment() {
     lateinit var dialog: View
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        dialog = activity.layoutInflater.inflate(R.layout.directory_picker, null)
+        dialog = activity.layoutInflater.inflate(R.layout.smtfp_directory_picker, null)
 
         updateItems()
         setupBreadcrumbs()

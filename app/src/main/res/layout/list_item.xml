@@ -3,21 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:foreground="@drawable/selector">
+    android:foreground="@drawable/smtfp_selector">
 
     <RelativeLayout
         android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/activity_margin">
+        android:paddingRight="@dimen/smtfp_activity_margin">
 
         <ImageView
             android:id="@+id/item_icon"
-            android:layout_width="@dimen/icon_size"
+            android:layout_width="@dimen/smtfp_icon_size"
             android:layout_height="@dimen/icon_size"
-            android:paddingBottom="@dimen/medium_margin"
-            android:paddingTop="@dimen/medium_margin"
-            android:src="@mipmap/directory"/>
+            android:paddingBottom="@dimen/smtfp_medium_margin"
+            android:paddingTop="@dimen/smtfp_medium_margin"
+            android:src="@mipmap/smtfp_directory"/>
 
         <TextView
             android:id="@+id/item_name"
@@ -27,8 +27,8 @@
             android:layout_toRightOf="@+id/item_icon"
             android:ellipsize="end"
             android:maxLines="3"
-            android:paddingLeft="@dimen/small_margin"
-            android:paddingTop="@dimen/small_margin"
+            android:paddingLeft="@dimen/smtfp_small_margin"
+            android:paddingTop="@dimen/smtfp_small_margin"
             android:text="Directory"/>
 
         <TextView
@@ -37,9 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_name"
             android:layout_toRightOf="@+id/item_icon"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingLeft="@dimen/smtfp_small_margin"
             android:text="1 KB"
-            android:textSize="@dimen/details_text_size"/>
+            android:textSize="@dimen/smtfp_details_text_size"/>
 
     </RelativeLayout>
 </FrameLayout>

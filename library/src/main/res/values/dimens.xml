@@ -1,9 +1,9 @@
 <resources>
-    <dimen name="activity_margin">16dp</dimen>
-    <dimen name="small_margin">6dp</dimen>
-    <dimen name="medium_margin">10dp</dimen>
+    <dimen name="smtfp_activity_margin">16dp</dimen>
+    <dimen name="smtfp_small_margin">6dp</dimen>
+    <dimen name="smtfp_medium_margin">10dp</dimen>
     <dimen name="icon_size">48dp</dimen>
 
-    <dimen name="details_text_size">12sp</dimen>
-    <dimen name="normal_text_size">14sp</dimen>
+    <dimen name="smtfp_details_text_size">12sp</dimen>
+    <dimen name="smtfp_normal_text_size">14sp</dimen>
 </resources>

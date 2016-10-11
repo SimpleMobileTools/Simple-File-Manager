@@ -13,7 +13,7 @@ import com.simplemobiletools.filepicker.R
 import com.simplemobiletools.filepicker.extensions.formatSize
 import com.simplemobiletools.filepicker.extensions.getColoredIcon
 import com.simplemobiletools.filepicker.models.FileDirItem
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.smtfp_list_item.view.*
 
 class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : BaseAdapter() {
     private val mInflater: LayoutInflater
@@ -25,15 +25,15 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
         mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         mRes = context.resources
-        mDirectoryBmp = mRes.getColoredIcon(R.color.thumbnail_grey, R.mipmap.directory)
-        mFileBmp = mRes.getColoredIcon(R.color.thumbnail_grey, R.mipmap.file)
+        mDirectoryBmp = mRes.getColoredIcon(R.color.smtfp_thumbnail_grey, R.mipmap.directory)
+        mFileBmp = mRes.getColoredIcon(R.color.smtfp_thumbnail_grey, R.mipmap.file)
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var view = convertView
         val viewHolder: ViewHolder
         if (view == null) {
-            view = mInflater.inflate(R.layout.list_item, parent, false)
+            view = mInflater.inflate(R.layout.smtfp_list_item, parent, false)
             viewHolder = ViewHolder(view)
             view!!.tag = viewHolder
         } else {

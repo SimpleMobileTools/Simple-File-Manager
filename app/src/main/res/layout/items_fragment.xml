@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:choiceMode="multipleChoiceModal"
             android:clipToPadding="false"
-            android:paddingLeft="@dimen/activity_margin"/>
+            android:paddingLeft="@dimen/smtfp_activity_margin"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/activity_margin"
+        android:layout_margin="@dimen/smtfp_activity_margin"
         android:src="@mipmap/plus"/>
 
 </android.support.design.widget.CoordinatorLayout>
