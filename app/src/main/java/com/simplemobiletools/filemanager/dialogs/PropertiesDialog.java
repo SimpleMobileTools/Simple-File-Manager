@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
-import com.simplemobiletools.filemanager.models.FileDirItem;
+import com.simplemobiletools.filepicker.models.FileDirItem;
 
 import java.io.File;
 import java.util.Calendar;
@@ -50,17 +50,18 @@ public class PropertiesDialog extends DialogFragment {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(getResources().getString(title));
         builder.setView(infoView);
-        builder.setPositiveButton(R.string.ok, null);
+        builder.setPositiveButton(R.string.smtfp_ok, null);
 
         return builder.create();
     }
 
     private String getItemSize() {
         if (mItem.isDirectory()) {
-            return Utils.formatSize(directorySize(new File(mItem.getPath())));
+            return Utils.formatSize(getDirectorySize(new File(mItem.getPath())));
         }
 
-        return Utils.getFormattedSize(mItem);
+        return "";
+        //return Utils.getFormattedSize(mItem);
     }
 
     private String formatLastModified(long ts) {
@@ -69,13 +70,13 @@ public class PropertiesDialog extends DialogFragment {
         return DateFormat.format("dd/MM/yyyy HH:mm", cal).toString();
     }
 
-    private long directorySize(File dir) {
+    private long getDirectorySize(File dir) {
         if (dir.exists()) {
             long size = 0;
             File[] files = dir.listFiles();
             for (int i = 0; i < files.length; i++) {
                 if (files[i].isDirectory()) {
-                    size += directorySize(files[i]);
+                    size += getDirectorySize(files[i]);
                 } else {
                     size += files[i].length();
                     if ((!files[i].isHidden() && !dir.isHidden()) || mShowHidden)

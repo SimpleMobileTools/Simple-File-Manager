@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.dialogs
+package com.simplemobiletools.filepicker.dialogs
 
 import android.app.Activity
 import android.app.Dialog
@@ -7,11 +7,9 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.View
-import com.simplemobiletools.filemanager.Config
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.Utils
-import com.simplemobiletools.filemanager.adapters.ItemsAdapter
-import com.simplemobiletools.filemanager.fragments.ItemsFragment
+import com.simplemobiletools.filepicker.R
+import com.simplemobiletools.filepicker.adapters.ItemsAdapter
+import com.simplemobiletools.filepicker.extensions.getFilenameFromPath
 import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.directory_picker.view.*
 import java.io.File
@@ -19,6 +17,9 @@ import java.util.*
 import kotlin.comparisons.compareBy
 
 class SelectFolderDialog : DialogFragment() {
+    val SELECT_FOLDER_REQUEST = 1
+    val SELECT_FOLDER_PATH = "path"
+
     companion object {
         lateinit var mPath: String
         var mFirstUpdate: Boolean = true
@@ -57,7 +58,7 @@ class SelectFolderDialog : DialogFragment() {
 
         val adapter = ItemsAdapter(context, items)
         dialog.directory_picker_list.adapter = adapter
-        dialog.directory_picker_breadcrumbs.setInitialBreadcrumb(mPath)
+        //dialog.directory_picker_breadcrumbs.setInitialBreadcrumb(mPath)
         dialog.directory_picker_list.setOnItemClickListener { adapterView, view, position, id ->
             val item = items[position]
             if (item.isDirectory) {
@@ -71,8 +72,8 @@ class SelectFolderDialog : DialogFragment() {
 
     private fun sendResult() {
         val intent = Intent()
-        intent.putExtra(ItemsFragment.SELECT_FOLDER_PATH, mPath)
-        targetFragment.onActivityResult(ItemsFragment.SELECT_FOLDER_REQUEST, Activity.RESULT_OK, intent)
+        intent.putExtra(SELECT_FOLDER_PATH, mPath)
+        targetFragment.onActivityResult(SELECT_FOLDER_REQUEST, Activity.RESULT_OK, intent)
         dismiss()
     }
 
@@ -85,7 +86,7 @@ class SelectFolderDialog : DialogFragment() {
     }
 
     private fun getItems(path: String): List<FileDirItem> {
-        val showHidden = Config.newInstance(context).showHidden
+        //val showHidden = Config.newInstance(context).showHidden
         val items = ArrayList<FileDirItem>()
         val base = File(path)
         val files = base.listFiles()
@@ -94,11 +95,11 @@ class SelectFolderDialog : DialogFragment() {
                 if (!file.isDirectory)
                     continue
 
-                if (!showHidden && file.isHidden)
-                    continue
+          /*      if (!showHidden && file.isHidden)
+                    continue*/
 
                 val curPath = file.absolutePath
-                val curName = Utils.getFilename(curPath)
+                val curName = curPath.getFilenameFromPath()
                 val size = file.length()
 
                 items.add(FileDirItem(curPath, curName, file.isDirectory, getChildren(file), size))

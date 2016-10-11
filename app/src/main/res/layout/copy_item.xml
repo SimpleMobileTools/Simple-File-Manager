@@ -42,7 +42,7 @@
         android:paddingBottom="@dimen/small_margin"
         android:paddingRight="@dimen/small_margin"
         android:paddingTop="@dimen/small_margin"
-        android:text="@string/select_destination"/>
+        android:text="@string/smtfp_select_destination"/>
 
     <RadioGroup
         android:id="@+id/dialog_radio_group"

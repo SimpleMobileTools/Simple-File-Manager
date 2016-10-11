@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <com.simplemobiletools.filemanager.Breadcrumbs
+    <com.simplemobiletools.filepicker.Breadcrumbs
         android:id="@+id/directory_picker_breadcrumbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -9,13 +9,13 @@ import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.simplemobiletools.filemanager.Breadcrumbs;
 import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.fragments.ItemsFragment;
-import com.simplemobiletools.filemanager.models.FileDirItem;
+import com.simplemobiletools.filepicker.models.FileDirItem;
+import com.simplemobiletools.filepicker.Breadcrumbs;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

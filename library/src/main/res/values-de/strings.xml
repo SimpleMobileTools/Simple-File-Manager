@@ -1,0 +1,12 @@
+<resources>
+    <string name="smtfp_app_name">Simple File Picker</string>
+    <string name="smtfp_select_destination">Ziel auswählen</string>
+    <string name="smtfp_initial_breadcrumb">home</string>
+    <string name="smtfp_ok">OK</string>
+    <string name="smtfp_cancel">Abbrechen</string>
+
+    <plurals name="smtfp_items">
+        <item quantity="one">1 Datei/Ordner</item>
+        <item quantity="other">%1$d Dateien/Ordner</item>
+    </plurals>
+</resources>

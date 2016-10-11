@@ -6,8 +6,6 @@ import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
-import com.simplemobiletools.filemanager.models.FileDirItem;
-
 import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,11 +31,6 @@ public class Utils {
         final Pattern pattern = Pattern.compile("^[-_.A-Za-z0-9 ]+$");
         final Matcher matcher = pattern.matcher(name);
         return matcher.matches();
-    }
-
-    public static String getFormattedSize(FileDirItem item) {
-        final long size = item.getSize();
-        return formatSize(size);
     }
 
     public static String formatSize(long size) {

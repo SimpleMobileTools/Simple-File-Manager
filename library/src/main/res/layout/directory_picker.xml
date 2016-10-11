@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/main_screen"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/directory_picker_holder"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <com.simplemobiletools.filepicker.Breadcrumbs
-        android:id="@+id/breadcrumbs"
+        android:id="@+id/directory_picker_breadcrumbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/activity_margin"/>
 
-    <FrameLayout
-        android:id="@+id/fragment_holder"
+    <ListView
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/directory_picker_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/breadcrumbs"/>
+        android:layout_height="wrap_content"/>
 
-</RelativeLayout>
+</LinearLayout>
