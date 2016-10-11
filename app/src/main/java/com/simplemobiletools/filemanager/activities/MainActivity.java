@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,8 +25,11 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     @BindView(R.id.breadcrumbs) Breadcrumbs mBreadcrumbs;
 
     private static final int STORAGE_PERMISSION = 1;
+    private static final int BACK_PRESS_TIMEOUT = 5000;
+
     private static boolean mShowFullPath;
     private static Config mConfig;
+    private static boolean mWasBackJustPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +112,18 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     @Override
     public void onBackPressed() {
         if (mBreadcrumbs.getChildCount() <= 1) {
-            finish();
+            if (!mWasBackJustPressed) {
+                mWasBackJustPressed = true;
+                Utils.showToast(getApplicationContext(), R.string.press_back_again);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mWasBackJustPressed = false;
+                    }
+                }, BACK_PRESS_TIMEOUT);
+            } else {
+                finish();
+            }
         } else {
             mBreadcrumbs.removeBreadcrumb();
             final FileDirItem item = (FileDirItem) mBreadcrumbs.getChildAt(mBreadcrumbs.getChildCount() - 1).getTag();

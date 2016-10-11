@@ -34,6 +34,7 @@
     <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Annulla</string>
+    <string name="press_back_again">Press back again to exit</string>
 
     <!-- File and directory properties -->
     <string name="file_properties">Proprietà file</string>
