@@ -24,10 +24,12 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
     companion object {
         lateinit var mPath: String
         var mFirstUpdate: Boolean = true
+        var mShowHidden: Boolean = false
 
-        fun newInstance(path: String): SelectFolderDialog {
+        fun newInstance(path: String, showHidden: Boolean): SelectFolderDialog {
             mPath = path
             mFirstUpdate = true
+            mShowHidden = showHidden
             return SelectFolderDialog()
         }
     }
@@ -83,7 +85,6 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
     }
 
     private fun getItems(path: String): List<FileDirItem> {
-        val showHidden = false//Config.newInstance(context).showHidden
         val items = ArrayList<FileDirItem>()
         val base = File(path)
         val files = base.listFiles()
@@ -92,7 +93,7 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
                 if (!file.isDirectory)
                     continue
 
-                if (!showHidden && file.isHidden)
+                if (!mShowHidden && file.isHidden)
                     continue
 
                 val curPath = file.absolutePath

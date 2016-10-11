@@ -548,7 +548,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private View.OnClickListener destinationPicker = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
-            SelectFolderDialog dialog = SelectFolderDialog.Companion.newInstance(mCopyDestinationPath);
+            final boolean showHiddenItems = Config.newInstance(getContext()).getShowHidden();
+            SelectFolderDialog dialog = SelectFolderDialog.Companion.newInstance(mCopyDestinationPath, showHiddenItems);
             dialog.setTargetFragment(ItemsFragment.this, SELECT_FOLDER_REQUEST);
             dialog.show(getFragmentManager(), "selectFolder");
         }
