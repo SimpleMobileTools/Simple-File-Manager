@@ -13,7 +13,7 @@ import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.models.FileDirItem
-import kotlinx.android.synthetic.main.smtfp_directory_picker.view.*
+import kotlinx.android.synthetic.main.directory_picker.view.*
 import java.io.File
 import java.util.*
 import kotlin.comparisons.compareBy

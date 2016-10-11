@@ -377,7 +377,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (item == null)
             return;
 
-        PropertiesDialog dialog = PropertiesDialog.newInstance(item);
+        PropertiesDialog dialog = PropertiesDialog.Companion.newInstance(item);
         dialog.show(getFragmentManager(), "properties");
     }
 

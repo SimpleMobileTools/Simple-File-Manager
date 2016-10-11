@@ -25,8 +25,8 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
         mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         mRes = context.resources
-        mDirectoryBmp = mRes.getColoredIcon(R.color.smtfp_thumbnail_grey, R.mipmap.directory)
-        mFileBmp = mRes.getColoredIcon(R.color.smtfp_thumbnail_grey, R.mipmap.file)
+        mDirectoryBmp = mRes.getColoredIcon(R.color.smtfp_thumbnail_grey, R.mipmap.smtfp_directory)
+        mFileBmp = mRes.getColoredIcon(R.color.smtfp_thumbnail_grey, R.mipmap.smtfp_file)
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {

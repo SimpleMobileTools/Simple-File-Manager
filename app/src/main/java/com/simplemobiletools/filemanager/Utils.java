@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
-import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,14 +30,5 @@ public class Utils {
         final Pattern pattern = Pattern.compile("^[-_.A-Za-z0-9 ]+$");
         final Matcher matcher = pattern.matcher(name);
         return matcher.matches();
-    }
-
-    public static String formatSize(long size) {
-        if (size <= 0)
-            return "0 B";
-
-        final String[] units = {"B", "kB", "MB", "GB", "TB"};
-        final int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 }
