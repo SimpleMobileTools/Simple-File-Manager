@@ -35,9 +35,6 @@ class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context,
     }
 
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        val paddingTop = paddingTop
-        val paddingLeft = paddingLeft
-        val paddingRight = paddingRight
         val childRight = measuredWidth - paddingRight
         val childBottom = measuredHeight - paddingBottom
         val childHeight = childBottom - paddingTop
