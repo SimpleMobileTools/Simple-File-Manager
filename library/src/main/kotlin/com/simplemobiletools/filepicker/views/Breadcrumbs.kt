@@ -128,7 +128,7 @@ class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context,
         }
     }
 
-    fun addBreadcrumb(item: FileDirItem, addPrefix: Boolean) {
+    private fun addBreadcrumb(item: FileDirItem, addPrefix: Boolean) {
         val view = mInflater!!.inflate(R.layout.smtfp_breadcrumb_item, null, false)
         var textToAdd = item.name
         if (addPrefix)

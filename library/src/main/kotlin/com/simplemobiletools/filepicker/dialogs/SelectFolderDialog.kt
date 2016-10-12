@@ -18,7 +18,6 @@ import java.util.*
 import kotlin.comparisons.compareBy
 
 class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
-    val SELECT_FOLDER_REQUEST = 1
     val SELECT_FOLDER_PATH = "path"
 
     companion object {
@@ -37,9 +36,11 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
     }
 
     lateinit var dialog: View
+    var requestCode = 0
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dialog = activity.layoutInflater.inflate(R.layout.smtfp_directory_picker, null)
+        requestCode = targetRequestCode
 
         updateItems()
         setupBreadcrumbs()
@@ -78,7 +79,7 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
     private fun sendResult() {
         val intent = Intent()
         intent.putExtra(SELECT_FOLDER_PATH, mPath)
-        targetFragment.onActivityResult(SELECT_FOLDER_REQUEST, Activity.RESULT_OK, intent)
+        targetFragment.onActivityResult(requestCode, Activity.RESULT_OK, intent)
         dismiss()
     }
 
