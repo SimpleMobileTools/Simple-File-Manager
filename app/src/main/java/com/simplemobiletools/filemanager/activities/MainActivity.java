@@ -78,7 +78,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     }
 
     private void openPath(String path) {
-        mBreadcrumbs.setInitialBreadcrumb(path, mConfig.getShowFullPath());
+        mBreadcrumbs.setBreadcrumb(path, mConfig.getShowFullPath());
         final Bundle bundle = new Bundle();
         bundle.putString(Constants.PATH, path);
 

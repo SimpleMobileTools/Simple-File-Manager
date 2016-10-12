@@ -96,7 +96,7 @@ class Breadcrumbs(context: Context, attrs: AttributeSet) : LinearLayout(context,
         setMeasuredDimension(parentWidth, calculatedHeight)
     }
 
-    fun setInitialBreadcrumb(fullPath: String, showFullPath: Boolean) {
+    fun setBreadcrumb(fullPath: String, showFullPath: Boolean) {
         val basePath = Environment.getExternalStorageDirectory().toString()
         var tempPath = fullPath
         var currPath = basePath

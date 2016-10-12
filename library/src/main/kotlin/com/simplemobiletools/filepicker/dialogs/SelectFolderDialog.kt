@@ -18,13 +18,13 @@ import java.util.*
 import kotlin.comparisons.compareBy
 
 class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
-    val SELECT_FOLDER_PATH = "path"
 
     companion object {
         lateinit var mPath: String
         var mFirstUpdate: Boolean = true
         var mShowHidden: Boolean = false
         var mShowFullPath: Boolean = false
+        val SELECT_FOLDER_PATH = "path"
 
         fun newInstance(path: String, showHidden: Boolean, showFullPath: Boolean): SelectFolderDialog {
             mPath = path
@@ -64,7 +64,7 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
 
         val adapter = ItemsAdapter(context, items)
         dialog.directory_picker_list.adapter = adapter
-        dialog.directory_picker_breadcrumbs.setInitialBreadcrumb(mPath, mShowFullPath)
+        dialog.directory_picker_breadcrumbs.setBreadcrumb(mPath, mShowFullPath)
         dialog.directory_picker_list.setOnItemClickListener { adapterView, view, position, id ->
             val item = items[position]
             if (item.isDirectory) {
