@@ -60,7 +60,7 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
             return
         }
 
-        items = items.sortedWith(compareBy({ !it.isDirectory }, { it.name }))
+        items = items.sortedWith(compareBy({ !it.isDirectory }, { it.name.toLowerCase() }))
 
         val adapter = ItemsAdapter(context, items)
         dialog.directory_picker_list.adapter = adapter
