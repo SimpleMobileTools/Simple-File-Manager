@@ -60,7 +60,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
 
     public static final int SELECT_FOLDER_REQUEST = 1;
-    public static final String SELECT_FOLDER_PATH = "path";
 
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
@@ -562,7 +561,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == SELECT_FOLDER_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            mCopyDestinationPath = data.getStringExtra(SELECT_FOLDER_PATH);
+            mCopyDestinationPath = data.getDataString();
             mDestinationView.setText(mCopyDestinationPath);
         }
         super.onActivityResult(requestCode, resultCode, data);

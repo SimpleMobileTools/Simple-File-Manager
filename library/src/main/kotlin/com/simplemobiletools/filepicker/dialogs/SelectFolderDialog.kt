@@ -3,6 +3,7 @@ package com.simplemobiletools.filepicker.dialogs
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -24,7 +25,6 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
         var mFirstUpdate: Boolean = true
         var mShowHidden: Boolean = false
         var mShowFullPath: Boolean = false
-        val SELECT_FOLDER_PATH = "path"
 
         fun newInstance(path: String, showHidden: Boolean, showFullPath: Boolean): SelectFolderDialog {
             mPath = path
@@ -78,7 +78,7 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
 
     private fun sendResult() {
         val intent = Intent()
-        intent.putExtra(SELECT_FOLDER_PATH, mPath)
+        intent.data = Uri.parse(mPath)
         targetFragment.onActivityResult(requestCode, Activity.RESULT_OK, intent)
         dismiss()
     }
