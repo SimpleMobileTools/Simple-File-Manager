@@ -18,7 +18,7 @@ import java.io.File
 import java.util.*
 import kotlin.comparisons.compareBy
 
-class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
+class PickFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
 
     companion object {
         lateinit var mPath: String
@@ -26,12 +26,12 @@ class SelectFolderDialog : DialogFragment(), Breadcrumbs.BreadcrumbsListener {
         var mShowHidden: Boolean = false
         var mShowFullPath: Boolean = false
 
-        fun newInstance(path: String, showHidden: Boolean, showFullPath: Boolean): SelectFolderDialog {
+        fun newInstance(path: String, showHidden: Boolean, showFullPath: Boolean): PickFolderDialog {
             mPath = path
             mFirstUpdate = true
             mShowHidden = showHidden
             mShowFullPath = showFullPath
-            return SelectFolderDialog()
+            return PickFolderDialog()
         }
     }
 
