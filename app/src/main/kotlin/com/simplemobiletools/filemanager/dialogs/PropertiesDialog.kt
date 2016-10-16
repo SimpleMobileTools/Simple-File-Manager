@@ -44,6 +44,10 @@ class PropertiesDialog : DialogFragment() {
                 properties_resolution_label.visibility = View.VISIBLE
                 properties_resolution.visibility = View.VISIBLE
                 properties_resolution.text = mItem.resolution
+            } else if (mItem.isAudio(context)) {
+
+            } else if (mItem.isVideo(context)) {
+
             }
 
             val file = File(mItem.path)
