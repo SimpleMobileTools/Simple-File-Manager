@@ -37,8 +37,6 @@
     <string name="press_back_again">Press back again to exit</string>
 
     <!-- File and directory properties -->
-    <string name="file_properties">Proprietà file</string>
-    <string name="directory_properties">Proprietà cartella</string>
     <string name="name">Nome</string>
     <string name="path">Percorso</string>
     <string name="size">Dimensione</string>

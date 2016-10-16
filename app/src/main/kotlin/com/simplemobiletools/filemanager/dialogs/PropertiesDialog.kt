@@ -28,7 +28,6 @@ class PropertiesDialog() {
         mResources = mContext.resources
 
         val file = File(path)
-        val title = if (file.isDirectory) R.string.directory_properties else R.string.file_properties
         mPropertyView = mInflater.inflate(R.layout.item_properties, null) as ViewGroup
 
         addProperty(R.string.name, file.name)
@@ -48,7 +47,7 @@ class PropertiesDialog() {
         }
 
         AlertDialog.Builder(context)
-                .setTitle(mResources.getString(title))
+                .setTitle(mResources.getString(R.string.properties))
                 .setView(mPropertyView)
                 .setPositiveButton(R.string.ok, null)
                 .create()
