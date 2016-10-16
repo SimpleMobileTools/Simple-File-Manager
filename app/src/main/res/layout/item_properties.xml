@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/smtfp_activity_margin"
-    android:paddingRight="@dimen/smtfp_activity_margin"
-    android:paddingTop="@dimen/smtfp_activity_margin">
+    android:paddingRight="@dimen/smtfp_activity_margin">
 
 </LinearLayout>
