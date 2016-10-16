@@ -52,6 +52,10 @@ class PropertiesDialog : DialogFragment() {
                 properties_duration_label.visibility = View.VISIBLE
                 properties_duration.visibility = View.VISIBLE
                 properties_duration.text = mItem.getDuration(context)
+
+                properties_resolution_label.visibility = View.VISIBLE
+                properties_resolution.visibility = View.VISIBLE
+                properties_resolution.text = mItem.getVideoResolution(context)
             }
 
             val file = File(mItem.path)

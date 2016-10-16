@@ -59,6 +59,19 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
         return getFormattedDuration((timeInMillisec / 1000).toInt())
     }
 
+    fun getVideoResolution(context: Context): String {
+        try {
+            val retriever = MediaMetadataRetriever()
+            retriever.setDataSource(context, Uri.fromFile(File(path)))
+            val width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
+            val height = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)
+            return "$width x $height"
+        } catch (ignored: Exception) {
+
+        }
+        return ""
+    }
+
     val imageResolution: String
         get () {
             val bitmap: Bitmap? = BitmapFactory.decodeFile(path)
