@@ -1,10 +1,9 @@
 package com.simplemobiletools.filemanager.dialogs
 
-import android.app.Dialog
-import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import android.content.Context
 import android.support.v7.app.AlertDialog
 import android.text.format.DateFormat
+import android.view.LayoutInflater
 import android.view.View
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
@@ -14,22 +13,19 @@ import kotlinx.android.synthetic.main.item_properties.view.*
 import java.io.File
 import java.util.*
 
-class PropertiesDialog : DialogFragment() {
-    companion object {
-        lateinit var mItem: FileDirItem
-        private var mFilesCnt: Int = 0
-        private var mShowHidden: Boolean = false
+class PropertiesDialog() {
+    lateinit var mContext: Context
+    lateinit var mItem: FileDirItem
+    private var mCountHiddenItems = false   // we always include the hidden item's size, counting items themselves is the optional thing
+    private var mFilesCnt = 0
 
-        fun newInstance(item: FileDirItem): PropertiesDialog {
-            mItem = item
-            mFilesCnt = 0
-            return PropertiesDialog()
-        }
-    }
+    constructor(context: Context, item: FileDirItem, countHiddenItems: Boolean = false) : this() {
+        mContext = context
+        mItem = item
+        mCountHiddenItems = countHiddenItems
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val title = if (mItem.isDirectory) R.string.directory_properties else R.string.file_properties
-        val infoView = activity.layoutInflater.inflate(R.layout.item_properties, null)
+        val infoView = LayoutInflater.from(context).inflate(R.layout.item_properties, null)
 
         infoView.apply {
             properties_name.text = mItem.name
@@ -62,16 +58,17 @@ class PropertiesDialog : DialogFragment() {
             properties_last_modified.text = formatLastModified(file.lastModified())
         }
 
-        return AlertDialog.Builder(context)
-                .setTitle(resources.getString(title))
+        AlertDialog.Builder(context)
+                .setTitle(context.resources.getString(title))
                 .setView(infoView)
                 .setPositiveButton(R.string.ok, null)
                 .create()
+                .show()
     }
 
     private fun getItemSize(): String {
         if (mItem.isDirectory) {
-            mShowHidden = Config.newInstance(context).showHidden
+            mCountHiddenItems = Config.newInstance(mContext).showHidden
             return getDirectorySize(File(mItem.path)).formatSize()
         }
 
@@ -93,7 +90,7 @@ class PropertiesDialog : DialogFragment() {
                     size += getDirectorySize(files[i])
                 } else {
                     size += files[i].length()
-                    if (!files[i].isHidden && !dir.isHidden || mShowHidden)
+                    if (!files[i].isHidden && !dir.isHidden || mCountHiddenItems)
                         mFilesCnt++
                 }
             }
