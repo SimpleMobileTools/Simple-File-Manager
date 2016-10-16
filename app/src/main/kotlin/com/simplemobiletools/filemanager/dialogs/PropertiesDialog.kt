@@ -79,7 +79,7 @@ class PropertiesDialog() {
     private fun formatLastModified(ts: Long): String {
         val cal = Calendar.getInstance(Locale.ENGLISH)
         cal.timeInMillis = ts
-        return DateFormat.format("dd/MM/yyyy HH:mm", cal).toString()
+        return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
     }
 
     private fun getDirectorySize(dir: File): Long {
