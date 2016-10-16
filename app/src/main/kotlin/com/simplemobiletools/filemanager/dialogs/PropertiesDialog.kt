@@ -40,6 +40,8 @@ class PropertiesDialog : DialogFragment() {
                 properties_files_count_label.visibility = View.VISIBLE
                 properties_files_count.visibility = View.VISIBLE
                 properties_files_count.text = mFilesCnt.toString()
+            } else if (mItem.isImage()) {
+
             }
 
             val file = File(mItem.path)
@@ -47,13 +49,13 @@ class PropertiesDialog : DialogFragment() {
         }
 
         return AlertDialog.Builder(context)
-            .setTitle(resources.getString(title))
-            .setView(infoView)
-            .setPositiveButton(R.string.ok, null)
-            .create()
+                .setTitle(resources.getString(title))
+                .setView(infoView)
+                .setPositiveButton(R.string.ok, null)
+                .create()
     }
 
-    fun getItemSize(): String {
+    private fun getItemSize(): String {
         if (mItem.isDirectory) {
             mShowHidden = Config.newInstance(context).showHidden
             return getDirectorySize(File(mItem.path)).formatSize()
