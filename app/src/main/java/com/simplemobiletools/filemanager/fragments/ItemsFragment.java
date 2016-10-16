@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -46,7 +47,9 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,6 +63,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
 
     public static final int SELECT_FOLDER_REQUEST = 1;
+    private static Map<String, Parcelable> mStates;
 
     private List<FileDirItem> mItems;
     private ItemInteractionListener mListener;
@@ -84,6 +88,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (mStates == null)
+            mStates = new HashMap<>();
         mShowHidden = Config.newInstance(getContext()).getShowHidden();
         mItems = new ArrayList<>();
         mToBeDeleted = new ArrayList<>();
@@ -104,6 +110,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     public void onPause() {
         super.onPause();
         deleteItems();
+        mStates.put(mPath, mListView.onSaveInstanceState());
     }
 
     private void fillItems() {
@@ -122,6 +129,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mListView.setOnItemClickListener(this);
         mListView.setMultiChoiceModeListener(this);
         mListView.setOnTouchListener(this);
+
+        if (mStates != null && mStates.get(mPath) != null) {
+            mListView.onRestoreInstanceState(mStates.get(mPath));
+        }
     }
 
     public void setListener(ItemInteractionListener listener) {
