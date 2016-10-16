@@ -22,19 +22,15 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
         return "FileDirItem{name=$name, isDirectory=$isDirectory, path=$path, children=$children, size=$size}"
     }
 
+    fun isGif() = name.toLowerCase().endsWith(".gif")
+    fun isVideo() = getMimeType().startsWith("video")
+    fun isAudio() = getMimeType().startsWith("audio")
+
     fun isImage(): Boolean {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
         BitmapFactory.decodeFile(path, options)
         return options.outWidth != -1 && options.outHeight != -1
-    }
-
-    fun isVideo(): Boolean {
-        return getMimeType().startsWith("video")
-    }
-
-    fun isAudio(): Boolean {
-        return getMimeType().startsWith("audio")
     }
 
     fun getMimeType(): String {

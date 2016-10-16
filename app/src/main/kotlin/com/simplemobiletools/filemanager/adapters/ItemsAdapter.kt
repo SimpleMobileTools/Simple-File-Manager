@@ -50,8 +50,8 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
             viewHolder.icon.setImageBitmap(mDirectoryBmp)
             viewHolder.details.text = getChildrenCnt(item)
         } else {
-            if (item.isImage()) {
-                Glide.with(mContext).load(item.path).diskCacheStrategy(DiskCacheStrategy.RESULT).centerCrop().crossFade().into(viewHolder.icon)
+            if (item.isImage() || item.isVideo()) {
+                Glide.with(mContext).load(item.path).diskCacheStrategy(getCacheStrategy(item)).centerCrop().crossFade().into(viewHolder.icon)
             } else {
                 viewHolder.icon.setImageBitmap(mFileBmp)
             }
@@ -60,6 +60,8 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
 
         return view
     }
+
+    private fun getCacheStrategy(item: FileDirItem) = if (item.isGif()) DiskCacheStrategy.NONE else DiskCacheStrategy.RESULT
 
     private fun getChildrenCnt(item: FileDirItem): String {
         val children = item.children
