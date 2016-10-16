@@ -16,7 +16,7 @@ import java.util.*
 class PropertiesDialog() {
     lateinit var mContext: Context
     lateinit var mItem: FileDirItem
-    private var mCountHiddenItems = false   // we always include the hidden item's size, counting items themselves is the optional thing
+    private var mCountHiddenItems = false
     private var mFilesCnt = 0
 
     constructor(context: Context, item: FileDirItem, countHiddenItems: Boolean = false) : this() {
@@ -88,10 +88,9 @@ class PropertiesDialog() {
             for (i in files.indices) {
                 if (files[i].isDirectory) {
                     size += getDirectorySize(files[i])
-                } else {
+                } else if (!files[i].isHidden && !dir.isHidden || mCountHiddenItems) {
+                    mFilesCnt++
                     size += files[i].length()
-                    if (!files[i].isHidden && !dir.isHidden || mCountHiddenItems)
-                        mFilesCnt++
                 }
             }
             return size
