@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 1.8 *(2016-10-16)*
+----------------------------
+
+ * Show thumbnails at images, videos, gifs
+ * Display several more items at the Properties window
+ * Many small improvements
+
 Version 1.7 *(2016-10-11)*
 ----------------------------
 
