@@ -41,7 +41,9 @@ class PropertiesDialog : DialogFragment() {
                 properties_files_count.visibility = View.VISIBLE
                 properties_files_count.text = mFilesCnt.toString()
             } else if (mItem.isImage()) {
-
+                properties_resolution_label.visibility = View.VISIBLE
+                properties_resolution.visibility = View.VISIBLE
+                properties_resolution.text = mItem.resolution
             }
 
             val file = File(mItem.path)

@@ -85,4 +85,21 @@
         android:textColor="@android:color/black"
         android:visibility="gone"/>
 
+    <TextView
+        android:id="@+id/properties_resolution_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/smtfp_activity_margin"
+        android:text="@string/resolution"
+        android:textSize="@dimen/smtfp_details_text_size"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/properties_resolution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/smtfp_small_margin"
+        android:textColor="@android:color/black"
+        android:visibility="gone"/>
+
 </LinearLayout>

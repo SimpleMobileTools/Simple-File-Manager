@@ -1,5 +1,6 @@
 package com.simplemobiletools.filepicker.models
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 
 class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, val children: Int, val size: Long) :
@@ -22,6 +23,16 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
     fun isImage(): Boolean {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
-        return options.outWidth !== -1 && options.outHeight !== -1
+        BitmapFactory.decodeFile(path, options)
+        return options.outWidth != -1 && options.outHeight != -1
     }
+
+    val resolution: String
+        get () {
+            val bitmap: Bitmap? = BitmapFactory.decodeFile(path)
+            if (bitmap == null)
+                return ""
+
+            return "${bitmap.width} x ${bitmap.height}"
+        }
 }

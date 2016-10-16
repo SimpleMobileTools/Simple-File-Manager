@@ -44,6 +44,7 @@
     <string name="size">Size</string>
     <string name="last_modified">Last modified</string>
     <string name="files_count">Files inside</string>
+    <string name="resolution">Resolution</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 アイテムを削除しました</item>

@@ -44,6 +44,7 @@
     <string name="size">Tamanho</string>
     <string name="last_modified">Última modificação</string>
     <string name="files_count">Ficheiros no interior</string>
+    <string name="resolution">Resolution</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 item eliminado</item>
