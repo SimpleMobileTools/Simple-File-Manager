@@ -15,23 +15,34 @@ import java.io.File
 import java.util.*
 
 class PropertiesDialog : DialogFragment() {
+    companion object {
+        lateinit var mItem: FileDirItem
+        private var mFilesCnt: Int = 0
+        private var mShowHidden: Boolean = false
+
+        fun newInstance(item: FileDirItem): PropertiesDialog {
+            mItem = item
+            mFilesCnt = 0
+            return PropertiesDialog()
+        }
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         mShowHidden = Config.newInstance(context).showHidden
-        val title = if (mItem!!.isDirectory) R.string.directory_properties else R.string.file_properties
+        val title = if (mItem.isDirectory) R.string.directory_properties else R.string.file_properties
 
         val infoView = activity.layoutInflater.inflate(R.layout.item_properties, null)
-        (infoView.findViewById(R.id.properties_name) as TextView).text = mItem!!.name
-        (infoView.findViewById(R.id.properties_path) as TextView).text = mItem!!.path
+        (infoView.findViewById(R.id.properties_name) as TextView).text = mItem.name
+        (infoView.findViewById(R.id.properties_path) as TextView).text = mItem.path
         (infoView.findViewById(R.id.properties_size) as TextView).text = getItemSize()
 
-        if (mItem!!.isDirectory) {
+        if (mItem.isDirectory) {
             infoView.findViewById(R.id.properties_files_count_label).visibility = View.VISIBLE
             infoView.findViewById(R.id.properties_files_count).visibility = View.VISIBLE
             (infoView.findViewById(R.id.properties_files_count) as TextView).text = mFilesCnt.toString()
         }
 
-        val file = File(mItem!!.path)
+        val file = File(mItem.path)
         (infoView.findViewById(R.id.properties_last_modified) as TextView).text = formatLastModified(file.lastModified())
 
         val builder = AlertDialog.Builder(context)
@@ -43,11 +54,11 @@ class PropertiesDialog : DialogFragment() {
     }
 
     fun getItemSize(): String {
-        if (mItem!!.isDirectory) {
-            return getDirectorySize(File(mItem!!.path)).formatSize()
+        if (mItem.isDirectory) {
+            return getDirectorySize(File(mItem.path)).formatSize()
         }
 
-        return ""
+        return mItem.size.formatSize()
     }
 
     private fun formatLastModified(ts: Long): String {
@@ -72,17 +83,5 @@ class PropertiesDialog : DialogFragment() {
             return size
         }
         return 0
-    }
-
-    companion object {
-        private var mItem: FileDirItem? = null
-        private var mFilesCnt: Int = 0
-        private var mShowHidden: Boolean = false
-
-        fun newInstance(item: FileDirItem): PropertiesDialog {
-            mItem = item
-            mFilesCnt = 0
-            return PropertiesDialog()
-        }
     }
 }
