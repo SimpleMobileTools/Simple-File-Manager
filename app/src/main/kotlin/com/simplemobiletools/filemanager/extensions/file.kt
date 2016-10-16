@@ -36,6 +36,18 @@ fun File.getDuration(): String {
     return getFormattedDuration((timeInMillisec / 1000).toInt())
 }
 
+fun File.getArtist(): String? {
+    val retriever = MediaMetadataRetriever()
+    retriever.setDataSource(path)
+    return retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
+}
+
+fun File.getAlbum(): String? {
+    val retriever = MediaMetadataRetriever()
+    retriever.setDataSource(path)
+    return retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM)
+}
+
 fun File.getVideoResolution(): String {
     try {
         val retriever = MediaMetadataRetriever()

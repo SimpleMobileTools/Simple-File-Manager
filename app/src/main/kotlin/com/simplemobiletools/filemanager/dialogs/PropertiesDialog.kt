@@ -41,9 +41,13 @@ class PropertiesDialog() {
             addProperty(R.string.resolution, file.getImageResolution())
         } else if (file.isAudio()) {
             addProperty(R.string.duration, file.getDuration())
+            addProperty(R.string.artist, file.getArtist())
+            addProperty(R.string.album, file.getAlbum())
         } else if (file.isVideo()) {
             addProperty(R.string.duration, file.getDuration())
             addProperty(R.string.resolution, file.getVideoResolution())
+            addProperty(R.string.artist, file.getArtist())
+            addProperty(R.string.album, file.getAlbum())
         }
 
         AlertDialog.Builder(context)
@@ -76,7 +80,10 @@ class PropertiesDialog() {
                 .show()
     }
 
-    private fun addProperty(labelId: Int, value: String) {
+    private fun addProperty(labelId: Int, value: String?) {
+        if (value == null)
+            return
+
         val view = mInflater.inflate(R.layout.property_item, mPropertyView, false)
         view.property_label.text = mResources.getString(labelId)
         view.property_value.text = value

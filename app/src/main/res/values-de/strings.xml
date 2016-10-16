@@ -44,6 +44,8 @@
     <string name="files_count">Total files count</string>
     <string name="resolution">Resolution</string>
     <string name="duration">Duration</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 Datei/Ordner gelöscht</item>
