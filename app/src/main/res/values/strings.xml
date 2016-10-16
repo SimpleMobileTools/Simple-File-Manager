@@ -45,6 +45,7 @@
     <string name="last_modified">Last modified</string>
     <string name="files_count">Files inside</string>
     <string name="resolution">Resolution</string>
+    <string name="duration">Duration</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 item deleted</item>

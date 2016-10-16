@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/properties_holder"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/properties_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -96,6 +96,23 @@
 
     <TextView
         android:id="@+id/properties_resolution"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/smtfp_small_margin"
+        android:textColor="@android:color/black"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/properties_duration_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/smtfp_activity_margin"
+        android:text="@string/duration"
+        android:textSize="@dimen/smtfp_details_text_size"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/properties_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/smtfp_small_margin"
