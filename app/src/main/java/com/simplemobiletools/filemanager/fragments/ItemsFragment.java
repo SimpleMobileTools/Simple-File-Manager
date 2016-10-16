@@ -392,7 +392,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             return;
 
         final Config config = Config.newInstance(getContext());
-        new PropertiesDialog(getContext(), item, config.getShowHidden());
+        new PropertiesDialog(getContext(), item.getPath(), config.getShowHidden());
     }
 
     private void displayRenameDialog() {
