@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.formatSize
 import com.simplemobiletools.filemanager.extensions.getColoredIcon
@@ -20,10 +22,11 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
     private val mFileBmp: Bitmap
     private val mDirectoryBmp: Bitmap
     private val mRes: Resources
+    private val mContext: Context
 
     init {
         mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
+        mContext = context
         mRes = context.resources
         mDirectoryBmp = mRes.getColoredIcon(R.color.lightGrey, R.mipmap.directory)
         mFileBmp = mRes.getColoredIcon(R.color.lightGrey, R.mipmap.file)
@@ -47,7 +50,11 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
             viewHolder.icon.setImageBitmap(mDirectoryBmp)
             viewHolder.details.text = getChildrenCnt(item)
         } else {
-            viewHolder.icon.setImageBitmap(mFileBmp)
+            if (item.isImage()) {
+                Glide.with(mContext).load(item.path).diskCacheStrategy(DiskCacheStrategy.RESULT).centerCrop().crossFade().into(viewHolder.icon)
+            } else {
+                viewHolder.icon.setImageBitmap(mFileBmp)
+            }
             viewHolder.details.text = item.size.formatSize()
         }
 
