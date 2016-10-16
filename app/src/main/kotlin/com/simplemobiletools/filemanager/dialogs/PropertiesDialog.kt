@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.dialogs
 import android.content.Context
 import android.content.res.Resources
 import android.support.v7.app.AlertDialog
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.simplemobiletools.filemanager.Config
@@ -12,7 +11,6 @@ import com.simplemobiletools.filemanager.extensions.*
 import kotlinx.android.synthetic.main.item_properties.view.*
 import kotlinx.android.synthetic.main.property_item.view.*
 import java.io.File
-import java.util.*
 
 class PropertiesDialog() {
     lateinit var mContext: Context
@@ -36,7 +34,7 @@ class PropertiesDialog() {
         addProperty(R.string.name, file.name)
         addProperty(R.string.path, file.parent)
         addProperty(R.string.size, getItemSize(file))
-        addProperty(R.string.last_modified, formatLastModified(file.lastModified()))
+        addProperty(R.string.last_modified, file.lastModified().formatLastModified())
 
         if (file.isDirectory) {
             addProperty(R.string.files_count, mFilesCnt.toString())
@@ -71,12 +69,6 @@ class PropertiesDialog() {
         }
 
         return file.length().formatSize()
-    }
-
-    private fun formatLastModified(ts: Long): String {
-        val cal = Calendar.getInstance(Locale.ENGLISH)
-        cal.timeInMillis = ts
-        return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
     }
 
     private fun getDirectorySize(dir: File): Long {
