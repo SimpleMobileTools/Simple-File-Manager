@@ -43,7 +43,7 @@ class PropertiesDialog : DialogFragment() {
             } else if (mItem.isImage()) {
                 properties_resolution_label.visibility = View.VISIBLE
                 properties_resolution.visibility = View.VISIBLE
-                properties_resolution.text = mItem.resolution
+                properties_resolution.text = mItem.imageResolution
             } else if (mItem.isAudio(context)) {
                 properties_duration_label.visibility = View.VISIBLE
                 properties_duration.visibility = View.VISIBLE

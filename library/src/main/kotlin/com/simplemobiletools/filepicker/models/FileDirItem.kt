@@ -59,7 +59,7 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
         return getFormattedDuration((timeInMillisec / 1000).toInt())
     }
 
-    val resolution: String
+    val imageResolution: String
         get () {
             val bitmap: Bitmap? = BitmapFactory.decodeFile(path)
             if (bitmap == null)
