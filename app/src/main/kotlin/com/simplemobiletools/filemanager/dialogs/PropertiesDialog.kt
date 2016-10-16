@@ -34,7 +34,7 @@ class PropertiesDialog() {
         mPropertyView = mInflater.inflate(R.layout.item_properties, null) as ViewGroup
 
         addProperty(R.string.name, file.name)
-        addProperty(R.string.path, path)
+        addProperty(R.string.path, file.parent)
         addProperty(R.string.size, getItemSize(file))
         addProperty(R.string.last_modified, formatLastModified(file.lastModified()))
 
