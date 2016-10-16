@@ -11,6 +11,7 @@ import com.simplemobiletools.filemanager.extensions.*
 import kotlinx.android.synthetic.main.item_properties.view.*
 import kotlinx.android.synthetic.main.property_item.view.*
 import java.io.File
+import java.util.*
 
 class PropertiesDialog() {
     lateinit var mContext: Context
@@ -31,7 +32,7 @@ class PropertiesDialog() {
         val file = File(path)
         addProperty(R.string.name, file.name)
         addProperty(R.string.path, file.parent)
-        addProperty(R.string.size, getItemSize(file))
+        addProperty(R.string.size, getItemSize(file).formatSize())
         addProperty(R.string.last_modified, file.lastModified().formatLastModified())
 
         if (file.isDirectory) {
@@ -60,6 +61,13 @@ class PropertiesDialog() {
         mResources = mContext.resources
         mPropertyView = mInflater.inflate(R.layout.item_properties, null) as ViewGroup
 
+        val files = ArrayList<File>(paths.size)
+        paths.forEach { files.add(File(it)) }
+
+        addProperty(R.string.path, files[0].parent)
+        addProperty(R.string.size, getItemsSize(files).formatSize())
+        addProperty(R.string.files_count, mFilesCnt.toString())
+
         AlertDialog.Builder(context)
                 .setTitle(mResources.getString(R.string.properties))
                 .setView(mPropertyView)
@@ -75,13 +83,20 @@ class PropertiesDialog() {
         mPropertyView.properties_holder.addView(view)
     }
 
-    private fun getItemSize(file: File): String {
+    private fun getItemsSize(files: ArrayList<File>): Long {
+        var size = 0L
+        files.forEach { size += getItemSize(it) }
+        return size
+    }
+
+    private fun getItemSize(file: File): Long {
         if (file.isDirectory) {
             mCountHiddenItems = Config.newInstance(mContext).showHidden
-            return getDirectorySize(File(file.path)).formatSize()
+            return getDirectorySize(File(file.path))
         }
 
-        return file.length().formatSize()
+        mFilesCnt++
+        return file.length()
     }
 
     private fun getDirectorySize(dir: File): Long {

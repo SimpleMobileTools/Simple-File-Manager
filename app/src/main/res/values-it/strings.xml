@@ -41,7 +41,7 @@
     <string name="path">Percorso</string>
     <string name="size">Dimensione</string>
     <string name="last_modified">Ultima modifica</string>
-    <string name="files_count">File contenuti</string>
+    <string name="files_count">Total files count</string>
     <string name="resolution">Resolution</string>
     <string name="duration">Duration</string>
 
