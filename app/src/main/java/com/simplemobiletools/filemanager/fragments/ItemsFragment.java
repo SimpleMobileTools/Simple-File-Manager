@@ -73,6 +73,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private Snackbar mSnackbar;
     private AlertDialog mCopyDialog;
     private TextView mDestinationView;
+    private Config mConfig;
 
     private boolean mShowHidden;
     private int mSelectedItemsCnt;
@@ -90,7 +91,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         super.onViewCreated(view, savedInstanceState);
         if (mStates == null)
             mStates = new HashMap<>();
-        mShowHidden = Config.newInstance(getContext()).getShowHidden();
+        mConfig = Config.newInstance(getContext());
+        mShowHidden = mConfig.getShowHidden();
         mItems = new ArrayList<>();
         mToBeDeleted = new ArrayList<>();
         fillItems();
@@ -100,7 +102,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void onResume() {
         super.onResume();
-        if (mShowHidden != Config.newInstance(getContext()).getShowHidden()) {
+        if (mShowHidden != mConfig.getShowHidden()) {
             mShowHidden = !mShowHidden;
             mStates.remove(mPath);
             fillItems();
@@ -325,10 +327,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.cab_rename);
         menuItem.setVisible(mSelectedItemsCnt == 1);
-
-        menuItem = menu.findItem(R.id.cab_properties);
-        menuItem.setVisible(mSelectedItemsCnt == 1);
-
         return true;
     }
 
@@ -387,12 +385,27 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     private void displayPropertiesDialog() {
+        final List<Integer> itemIndexes = getSelectedItemIndexes();
+        if (itemIndexes.isEmpty())
+            return;
+
+        if (itemIndexes.size() == 1) {
+            showOneItemProperties();
+        } else {
+            showMultipleItemProperties();
+        }
+    }
+
+    private void showOneItemProperties() {
         final FileDirItem item = getSelectedItem();
         if (item == null)
             return;
 
-        final Config config = Config.newInstance(getContext());
-        new PropertiesDialog(getContext(), item.getPath(), config.getShowHidden());
+        new PropertiesDialog(getContext(), item.getPath(), mConfig.getShowHidden());
+    }
+
+    private void showMultipleItemProperties() {
+
     }
 
     private void displayRenameDialog() {
@@ -562,8 +575,8 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private View.OnClickListener destinationPicker = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
-            final boolean showHiddenItems = Config.newInstance(getContext()).getShowHidden();
-            final boolean showFullPath = Config.newInstance(getContext()).getShowFullPath();
+            final boolean showHiddenItems = mConfig.getShowHidden();
+            final boolean showFullPath = mConfig.getShowFullPath();
             PickFolderDialog dialog = PickFolderDialog.Companion.newInstance(mCopyDestinationPath, showHiddenItems, showFullPath);
             dialog.setTargetFragment(ItemsFragment.this, SELECT_FOLDER_REQUEST);
             dialog.show(getFragmentManager(), "selectFolder");
