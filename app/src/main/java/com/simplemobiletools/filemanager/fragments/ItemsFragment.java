@@ -102,6 +102,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         super.onResume();
         if (mShowHidden != Config.newInstance(getContext()).getShowHidden()) {
             mShowHidden = !mShowHidden;
+            mStates.remove(mPath);
             fillItems();
         }
     }
