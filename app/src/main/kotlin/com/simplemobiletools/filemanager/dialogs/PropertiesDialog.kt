@@ -26,10 +26,9 @@ class PropertiesDialog() {
         mCountHiddenItems = countHiddenItems
         mInflater = LayoutInflater.from(context)
         mResources = mContext.resources
-
-        val file = File(path)
         mPropertyView = mInflater.inflate(R.layout.item_properties, null) as ViewGroup
 
+        val file = File(path)
         addProperty(R.string.name, file.name)
         addProperty(R.string.path, file.parent)
         addProperty(R.string.size, getItemSize(file))
@@ -45,6 +44,21 @@ class PropertiesDialog() {
             addProperty(R.string.duration, file.getDuration())
             addProperty(R.string.resolution, file.getVideoResolution())
         }
+
+        AlertDialog.Builder(context)
+                .setTitle(mResources.getString(R.string.properties))
+                .setView(mPropertyView)
+                .setPositiveButton(R.string.ok, null)
+                .create()
+                .show()
+    }
+
+    constructor(context: Context, paths: List<String>, countHiddenItems: Boolean = false) : this() {
+        mContext = context
+        mCountHiddenItems = countHiddenItems
+        mInflater = LayoutInflater.from(context)
+        mResources = mContext.resources
+        mPropertyView = mInflater.inflate(R.layout.item_properties, null) as ViewGroup
 
         AlertDialog.Builder(context)
                 .setTitle(mResources.getString(R.string.properties))

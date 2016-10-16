@@ -392,7 +392,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (itemIndexes.size() == 1) {
             showOneItemProperties();
         } else {
-            showMultipleItemProperties();
+            showMultipleItemProperties(itemIndexes);
         }
     }
 
@@ -404,8 +404,12 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         new PropertiesDialog(getContext(), item.getPath(), mConfig.getShowHidden());
     }
 
-    private void showMultipleItemProperties() {
-
+    private void showMultipleItemProperties(List<Integer> itemIndexes) {
+        final List<String> paths = new ArrayList<>(itemIndexes.size());
+        for (int i : itemIndexes) {
+            paths.add(mItems.get(i).getPath());
+        }
+        new PropertiesDialog(getContext(), paths, mConfig.getShowHidden());
     }
 
     private void displayRenameDialog() {
