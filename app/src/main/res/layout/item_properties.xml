@@ -20,7 +20,8 @@
         android:id="@+id/properties_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_small_margin"
+        android:paddingLeft="@dimen/smtfp_small_margin"
+        android:paddingRight="@dimen/smtfp_small_margin"
         android:textColor="@android:color/black"/>
 
     <TextView
@@ -35,7 +36,8 @@
         android:id="@+id/properties_path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_small_margin"
+        android:paddingLeft="@dimen/smtfp_small_margin"
+        android:paddingRight="@dimen/smtfp_small_margin"
         android:textColor="@android:color/black"/>
 
     <TextView
@@ -50,7 +52,8 @@
         android:id="@+id/properties_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_small_margin"
+        android:paddingLeft="@dimen/smtfp_small_margin"
+        android:paddingRight="@dimen/smtfp_small_margin"
         android:textColor="@android:color/black"/>
 
     <TextView
@@ -65,7 +68,8 @@
         android:id="@+id/properties_last_modified"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_small_margin"
+        android:paddingLeft="@dimen/smtfp_small_margin"
+        android:paddingRight="@dimen/smtfp_small_margin"
         android:textColor="@android:color/black"/>
 
     <TextView
@@ -81,7 +85,8 @@
         android:id="@+id/properties_files_count"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_small_margin"
+        android:paddingLeft="@dimen/smtfp_small_margin"
+        android:paddingRight="@dimen/smtfp_small_margin"
         android:textColor="@android:color/black"
         android:visibility="gone"/>
 
@@ -98,7 +103,8 @@
         android:id="@+id/properties_resolution"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_small_margin"
+        android:paddingLeft="@dimen/smtfp_small_margin"
+        android:paddingRight="@dimen/smtfp_small_margin"
         android:textColor="@android:color/black"
         android:visibility="gone"/>
 
@@ -115,7 +121,8 @@
         android:id="@+id/properties_duration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_small_margin"
+        android:paddingLeft="@dimen/smtfp_small_margin"
+        android:paddingRight="@dimen/smtfp_small_margin"
         android:textColor="@android:color/black"
         android:visibility="gone"/>
 
