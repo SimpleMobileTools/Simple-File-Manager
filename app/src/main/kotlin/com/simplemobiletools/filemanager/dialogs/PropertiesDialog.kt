@@ -43,19 +43,19 @@ class PropertiesDialog : DialogFragment() {
             } else if (mItem.isImage()) {
                 properties_resolution_label.visibility = View.VISIBLE
                 properties_resolution.visibility = View.VISIBLE
-                properties_resolution.text = mItem.imageResolution
-            } else if (mItem.isAudio(context)) {
+                properties_resolution.text = mItem.getImageResolution()
+            } else if (mItem.isAudio()) {
                 properties_duration_label.visibility = View.VISIBLE
                 properties_duration.visibility = View.VISIBLE
-                properties_duration.text = mItem.getDuration(context)
-            } else if (mItem.isVideo(context)) {
+                properties_duration.text = mItem.getDuration()
+            } else if (mItem.isVideo()) {
                 properties_duration_label.visibility = View.VISIBLE
                 properties_duration.visibility = View.VISIBLE
-                properties_duration.text = mItem.getDuration(context)
+                properties_duration.text = mItem.getDuration()
 
                 properties_resolution_label.visibility = View.VISIBLE
                 properties_resolution.visibility = View.VISIBLE
-                properties_resolution.text = mItem.getVideoResolution(context)
+                properties_resolution.text = mItem.getVideoResolution()
             }
 
             val file = File(mItem.path)

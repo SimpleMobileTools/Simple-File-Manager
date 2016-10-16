@@ -1,11 +1,8 @@
 package com.simplemobiletools.filepicker.models
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
-import android.net.Uri
-import java.io.File
 import java.util.*
 
 class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, val children: Int, val size: Long) :
@@ -32,18 +29,18 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
         return options.outWidth != -1 && options.outHeight != -1
     }
 
-    fun isVideo(context: Context): Boolean {
-        return getMimeType(context).startsWith("video")
+    fun isVideo(): Boolean {
+        return getMimeType().startsWith("video")
     }
 
-    fun isAudio(context: Context): Boolean {
-        return getMimeType(context).startsWith("audio")
+    fun isAudio(): Boolean {
+        return getMimeType().startsWith("audio")
     }
 
-    fun getMimeType(context: Context): String {
+    fun getMimeType(): String {
         try {
             val retriever = MediaMetadataRetriever()
-            retriever.setDataSource(context, Uri.fromFile(File(path)))
+            retriever.setDataSource(path)
             return retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_MIMETYPE)
         } catch (ignored: Exception) {
 
@@ -51,18 +48,18 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
         return ""
     }
 
-    fun getDuration(context: Context): String {
+    fun getDuration(): String {
         val retriever = MediaMetadataRetriever()
-        retriever.setDataSource(context, Uri.fromFile(File(path)))
+        retriever.setDataSource(path)
         val time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
         val timeInMillisec = java.lang.Long.parseLong(time)
         return getFormattedDuration((timeInMillisec / 1000).toInt())
     }
 
-    fun getVideoResolution(context: Context): String {
+    fun getVideoResolution(): String {
         try {
             val retriever = MediaMetadataRetriever()
-            retriever.setDataSource(context, Uri.fromFile(File(path)))
+            retriever.setDataSource(path)
             val width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
             val height = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)
             return "$width x $height"
@@ -72,14 +69,13 @@ class FileDirItem(val path: String, val name: String, val isDirectory: Boolean, 
         return ""
     }
 
-    val imageResolution: String
-        get () {
-            val bitmap: Bitmap? = BitmapFactory.decodeFile(path)
-            if (bitmap == null)
-                return ""
+    fun getImageResolution(): String {
+        val bitmap: Bitmap? = BitmapFactory.decodeFile(path)
+        if (bitmap == null)
+            return ""
 
-            return "${bitmap.width} x ${bitmap.height}"
-        }
+        return "${bitmap.width} x ${bitmap.height}"
+    }
 
     private fun getFormattedDuration(duration: Int): String {
         val sb = StringBuilder(8)
