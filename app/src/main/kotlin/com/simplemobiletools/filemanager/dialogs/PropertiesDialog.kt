@@ -1,21 +1,27 @@
 package com.simplemobiletools.filemanager.dialogs
 
 import android.content.Context
+import android.content.res.Resources
 import android.support.v7.app.AlertDialog
 import android.text.format.DateFormat
 import android.view.LayoutInflater
-import android.view.View
+import android.view.ViewGroup
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.formatSize
 import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.item_properties.view.*
+import kotlinx.android.synthetic.main.property_item.view.*
 import java.io.File
 import java.util.*
 
 class PropertiesDialog() {
     lateinit var mContext: Context
     lateinit var mItem: FileDirItem
+    lateinit var mInflater: LayoutInflater
+    lateinit var mPropertyView: ViewGroup
+    lateinit var mResources: Resources
+
     private var mCountHiddenItems = false
     private var mFilesCnt = 0
 
@@ -23,47 +29,42 @@ class PropertiesDialog() {
         mContext = context
         mItem = item
         mCountHiddenItems = countHiddenItems
+        mInflater = LayoutInflater.from(context)
+        mResources = mContext.resources
 
+        val file = File(mItem.path)
         val title = if (mItem.isDirectory) R.string.directory_properties else R.string.file_properties
-        val infoView = LayoutInflater.from(context).inflate(R.layout.item_properties, null)
+        mPropertyView = mInflater.inflate(R.layout.item_properties, null) as ViewGroup
 
-        infoView.apply {
-            properties_name.text = mItem.name
-            properties_path.text = mItem.path
-            properties_size.text = getItemSize()
+        addProperty(R.string.name, mItem.name)
+        addProperty(R.string.path, mItem.path)
+        addProperty(R.string.size, getItemSize())
+        addProperty(R.string.last_modified, formatLastModified(file.lastModified()))
 
-            if (mItem.isDirectory) {
-                properties_files_count_label.visibility = View.VISIBLE
-                properties_files_count.visibility = View.VISIBLE
-                properties_files_count.text = mFilesCnt.toString()
-            } else if (mItem.isImage()) {
-                properties_resolution_label.visibility = View.VISIBLE
-                properties_resolution.visibility = View.VISIBLE
-                properties_resolution.text = mItem.getImageResolution()
-            } else if (mItem.isAudio()) {
-                properties_duration_label.visibility = View.VISIBLE
-                properties_duration.visibility = View.VISIBLE
-                properties_duration.text = mItem.getDuration()
-            } else if (mItem.isVideo()) {
-                properties_duration_label.visibility = View.VISIBLE
-                properties_duration.visibility = View.VISIBLE
-                properties_duration.text = mItem.getDuration()
-
-                properties_resolution_label.visibility = View.VISIBLE
-                properties_resolution.visibility = View.VISIBLE
-                properties_resolution.text = mItem.getVideoResolution()
-            }
-
-            val file = File(mItem.path)
-            properties_last_modified.text = formatLastModified(file.lastModified())
+        if (mItem.isDirectory) {
+            addProperty(R.string.files_count, mFilesCnt.toString())
+        } else if (mItem.isImage()) {
+            addProperty(R.string.resolution, mItem.getImageResolution())
+        } else if (mItem.isAudio()) {
+            addProperty(R.string.duration, mItem.getDuration())
+        } else if (mItem.isVideo()) {
+            addProperty(R.string.duration, mItem.getDuration())
+            addProperty(R.string.resolution, mItem.getVideoResolution())
         }
 
         AlertDialog.Builder(context)
-                .setTitle(context.resources.getString(title))
-                .setView(infoView)
+                .setTitle(mResources.getString(title))
+                .setView(mPropertyView)
                 .setPositiveButton(R.string.ok, null)
                 .create()
                 .show()
+    }
+
+    private fun addProperty(labelId: Int, value: String) {
+        val view = mInflater.inflate(R.layout.property_item, mPropertyView, false)
+        view.property_label.text = mResources.getString(labelId)
+        view.property_value.text = value
+        mPropertyView.properties_holder.addView(view)
     }
 
     private fun getItemSize(): String {
@@ -82,8 +83,8 @@ class PropertiesDialog() {
     }
 
     private fun getDirectorySize(dir: File): Long {
+        var size = 0L
         if (dir.exists()) {
-            var size: Long = 0
             val files = dir.listFiles()
             for (i in files.indices) {
                 if (files[i].isDirectory) {
@@ -93,8 +94,7 @@ class PropertiesDialog() {
                     size += files[i].length()
                 }
             }
-            return size
         }
-        return 0
+        return size
     }
 }
