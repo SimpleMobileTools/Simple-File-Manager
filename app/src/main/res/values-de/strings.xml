@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Simple File Manager</string>
-    <string name="app_launcher_name">File Manager</string>
+    <string name="app_name">Schlichter Dateimanager</string>
+    <string name="app_launcher_name">Dateimanager</string>
     <string name="share_via">Teilen per</string>
     <string name="no_permissions">Wir benötigen die Berechtigung, auf deinen Speicher zuzugreifen</string>
     <string name="no_app_found">Keine App zum Öffnen dieses Dateityps vorhanden</string>
@@ -15,9 +15,9 @@
     <string name="delete">Löschen</string>
     <string name="undo">Rückgängig</string>
     <string name="rename">Umbenennen</string>
-    <string name="properties">Properties</string>
+    <string name="properties">Eigenschaften</string>
     <string name="copy">Kopieren</string>
-    <string name="copy_move">Copy/Move</string>
+    <string name="copy_move">Kopieren/Verschieben</string>
     <string name="share">Teilen</string>
     <string name="shared_files">Durch Simple File Manager geteilte Dateien</string>
     <string name="no_files_selected">Keine Dateien ausgewählt</string>
@@ -34,17 +34,17 @@
     <string name="initial_breadcrumb">home</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
-    <string name="press_back_again">Press back again to exit</string>
+    <string name="press_back_again">Drücke erneut zum Schließen</string>
 
     <!-- File and directory properties -->
     <string name="name">Name</string>
-    <string name="path">Path</string>
-    <string name="size">Size</string>
-    <string name="last_modified">Last modified</string>
-    <string name="files_count">Total files count</string>
-    <string name="resolution">Resolution</string>
-    <string name="duration">Duration</string>
-    <string name="artist">Artist</string>
+    <string name="path">Dateipfad</string>
+    <string name="size">Größe</string>
+    <string name="last_modified">Änderungsdatum</string>
+    <string name="files_count">Gesamtanzahl</string>
+    <string name="resolution">Auflösung</string>
+    <string name="duration">Dauer</string>
+    <string name="artist">Künstler</string>
     <string name="album">Album</string>
 
     <plurals name="items_deleted">
@@ -72,11 +72,11 @@
     <!-- License -->
     <string name="notice">Diese App nutzt die folgenden Drittanbieter Bibliotheken, die mir mein Leben einfacher machen. Vielen Dank.</string>
     <string name="third_party_licences">Drittanbieter Lizenzen</string>
-    <string name="butterknife_title"><u>Butter Knife (view injector)</u></string>
+    <string name="butterknife_title"><u>Butter Knife (View Injector)</u></string>
 
     <!-- Settings -->
     <string name="settings">Einstellungen</string>
-    <string name="dark_theme">Dunkles Thema</string>
+    <string name="dark_theme">Dunkles Design</string>
     <string name="show_hidden">Zeige versteckte Dateien und Ordner</string>
-    <string name="show_full_path">Show full path</string>
+    <string name="show_full_path">Zeige ganzen Dateipfad</string>
 </resources>
