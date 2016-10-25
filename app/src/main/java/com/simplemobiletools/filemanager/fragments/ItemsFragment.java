@@ -1,6 +1,5 @@
 package com.simplemobiletools.filemanager.fragments;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,6 +38,8 @@ import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.dialogs.PropertiesDialog;
+import com.simplemobiletools.filepicker.dialogs.PickFolderDialog;
+import com.simplemobiletools.filepicker.models.FileDirItem;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -60,7 +61,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
 
-    public static final int SELECT_FOLDER_REQUEST = 1;
     private static Map<String, Parcelable> mStates;
 
     private List<FileDirItem> mItems;
@@ -579,20 +579,20 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         public void onClick(final View view) {
             final boolean showHiddenItems = mConfig.getShowHidden();
             final boolean showFullPath = mConfig.getShowFullPath();
-            /*PickFolderDialog dialog = PickFolderDialog.Companion.newInstance(mCopyDestinationPath, showHiddenItems, showFullPath);
-            dialog.setTargetFragment(ItemsFragment.this, SELECT_FOLDER_REQUEST);
-            dialog.show(getFragmentManager(), "selectFolder");*/
+            new PickFolderDialog(getContext(), mCopyDestinationPath, showHiddenItems, showFullPath, new PickFolderDialog.OnPickFolderListener() {
+                @Override
+                public void onFail(PickFolderDialog.PickFolderResult pickFolderResult) {
+
+                }
+
+                @Override
+                public void onSuccess(String path) {
+                    mCopyDestinationPath = path;
+                    mDestinationView.setText(path);
+                }
+            });
         }
     };
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_FOLDER_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            mCopyDestinationPath = data.getDataString();
-            mDestinationView.setText(mCopyDestinationPath);
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
