@@ -10,9 +10,9 @@
         android:id="@+id/about_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/smtfp_activity_margin"
-        android:paddingLeft="@dimen/smtfp_activity_margin"
-        android:paddingTop="@dimen/smtfp_activity_margin">
+        android:paddingBottom="@dimen/activity_margin"
+        android:paddingLeft="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin">
 
         <TextView
             android:id="@+id/about_website"
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/about_website"
-            android:layout_marginTop="@dimen/smtfp_activity_margin"
+            android:layout_marginTop="@dimen/activity_margin"
             android:text="@string/email_label"/>
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/about_email_label"
-            android:paddingBottom="@dimen/smtfp_activity_margin"
+            android:paddingBottom="@dimen/activity_margin"
             android:text="@string/email"/>
 
         <TextView
@@ -42,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/about_email"
-            android:paddingBottom="@dimen/smtfp_activity_margin"
-            android:paddingTop="@dimen/smtfp_activity_margin"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
             android:text="@string/invite_friends_underlined"
             android:textColor="@color/colorPrimary"/>
 
@@ -52,8 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/about_invite"
-            android:paddingBottom="@dimen/smtfp_activity_margin"
-            android:paddingTop="@dimen/smtfp_activity_margin"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
             android:text="@string/rate_us_underlined"
             android:textColor="@color/colorPrimary"/>
 
@@ -62,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/about_rate_us"
-            android:paddingBottom="@dimen/smtfp_activity_margin"
-            android:paddingTop="@dimen/smtfp_activity_margin"
+            android:paddingBottom="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
             android:text="@string/third_party_licences_underlined"
             android:textColor="@color/colorPrimary"/>
 
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/about_license"
             android:paddingBottom="@dimen/social_padding"
-            android:paddingTop="@dimen/smtfp_activity_margin"
+            android:paddingTop="@dimen/activity_margin"
             android:text="@string/follow_us"/>
 
         <ImageView
@@ -99,7 +99,7 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/about_gplus"
             android:gravity="center_horizontal|bottom"
-            android:paddingTop="@dimen/smtfp_activity_margin"
+            android:paddingTop="@dimen/activity_margin"
             android:text="v1.0\nCopyright © Simple Mobile Tools 2016"/>
     </RelativeLayout>
 </ScrollView>

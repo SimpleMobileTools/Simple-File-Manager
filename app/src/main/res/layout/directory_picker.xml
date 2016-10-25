@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/directory_picker_holder"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/directory_picker_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,11 +10,10 @@
         android:id="@+id/directory_picker_breadcrumbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/smtfp_activity_margin"/>
+        android:padding="@dimen/activity_margin"/>
 
     <ListView
         android:id="@+id/directory_picker_list"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
