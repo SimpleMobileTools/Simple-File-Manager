@@ -11,6 +11,7 @@
     <string name="file">Fil</string>
     <string name="name_taken">Katalog eller fil med detta namnet finns redan</string>
     <string name="invalid_name">Namnet innehåller ogiltiga tecken</string>
+    <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">Ett okänt fel har uppstått</string>
     <string name="delete">Ta bort</string>
     <string name="undo">Ångra</string>

@@ -11,6 +11,7 @@
     <string name="file">File</string>
     <string name="name_taken">Directory or file with that name already exists</string>
     <string name="invalid_name">The name contains invalid characters</string>
+    <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">An unknown error occurred</string>
     <string name="delete">Delete</string>
     <string name="undo">Undo</string>

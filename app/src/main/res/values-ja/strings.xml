@@ -11,6 +11,7 @@
     <string name="file">ファイル</string>
     <string name="name_taken">その名前のディレクトリーまたはファイルが既に存在します</string>
     <string name="invalid_name">名前に無効な文字が含まれています</string>
+    <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">不明なエラーが発生しました</string>
     <string name="delete">削除</string>
     <string name="undo">元に戻す</string>

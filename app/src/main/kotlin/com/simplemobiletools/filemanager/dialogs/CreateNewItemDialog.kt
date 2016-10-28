@@ -37,7 +37,9 @@ class CreateNewItemDialog() {
             show()
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
                 val name = view.item_name.value
-                if (Utils.isNameValid(name)) {
+                if (name.isEmpty()) {
+                    context.toast(R.string.empty_name)
+                } else if (Utils.isNameValid(name)) {
                     val file = File(path, name)
                     if (file.exists()) {
                         context.toast(R.string.name_taken)

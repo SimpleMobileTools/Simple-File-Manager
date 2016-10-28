@@ -11,6 +11,7 @@
     <string name="file">Ficheiro</string>
     <string name="name_taken">Já existe um ficheiro ou pasta com esse nome</string>
     <string name="invalid_name">O nome contém caracteres inválidos</string>
+    <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">Ocorreu um erro desconhecido</string>
     <string name="delete">Eliminar</string>
     <string name="undo">Desfazer</string>
