@@ -2,7 +2,6 @@ package com.simplemobiletools.filemanager.adapters
 
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,14 +12,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.formatSize
-import com.simplemobiletools.filemanager.extensions.getColoredIcon
 import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : BaseAdapter() {
     private val mInflater: LayoutInflater
-    private val mFileBmp: Bitmap
-    private val mDirectoryBmp: Bitmap
     private val mRes: Resources
     private val mContext: Context
 
@@ -28,8 +24,6 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
         mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mContext = context
         mRes = context.resources
-        mDirectoryBmp = mRes.getColoredIcon(R.color.lightGrey, R.mipmap.directory)
-        mFileBmp = mRes.getColoredIcon(R.color.lightGrey, R.mipmap.file)
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -47,14 +41,10 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
         viewHolder.name.text = item.name
 
         if (item.isDirectory) {
-            viewHolder.icon.setImageBitmap(mDirectoryBmp)
+            Glide.with(mContext).load(R.mipmap.directory).diskCacheStrategy(getCacheStrategy(item)).centerCrop().crossFade().into(viewHolder.icon)
             viewHolder.details.text = getChildrenCnt(item)
         } else {
-            if (item.isImage() || item.isVideo()) {
-                Glide.with(mContext).load(item.path).diskCacheStrategy(getCacheStrategy(item)).centerCrop().crossFade().into(viewHolder.icon)
-            } else {
-                viewHolder.icon.setImageBitmap(mFileBmp)
-            }
+            Glide.with(mContext).load(item.path).diskCacheStrategy(getCacheStrategy(item)).error(R.mipmap.file).centerCrop().crossFade().into(viewHolder.icon)
             viewHolder.details.text = item.size.formatSize()
         }
 
