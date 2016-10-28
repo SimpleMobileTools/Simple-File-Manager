@@ -38,7 +38,7 @@ import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.dialogs.PropertiesDialog;
-import com.simplemobiletools.filepicker.dialogs.PickFolderDialog;
+import com.simplemobiletools.filepicker.dialogs.FilePickerDialog;
 import com.simplemobiletools.filepicker.models.FileDirItem;
 
 import java.io.File;
@@ -579,9 +579,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         public void onClick(final View view) {
             final boolean showHiddenItems = mConfig.getShowHidden();
             final boolean showFullPath = mConfig.getShowFullPath();
-            new PickFolderDialog(getContext(), mCopyDestinationPath, showHiddenItems, showFullPath, new PickFolderDialog.OnPickFolderListener() {
+            new FilePickerDialog(getContext(), mCopyDestinationPath, false, showHiddenItems, showFullPath, new FilePickerDialog.OnFilePickerListener() {
                 @Override
-                public void onFail(PickFolderDialog.PickFolderResult pickFolderResult) {
+                public void onFail(FilePickerDialog.FilePickerResult pickFolderResult) {
 
                 }
 
