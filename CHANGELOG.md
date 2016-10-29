@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.10 *(2016-10-29)*
+----------------------------
+
+ * Update some icons so they are visible in dark theme
+
 Version 1.9 *(2016-10-28)*
 ----------------------------
 
