@@ -13,13 +13,13 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.dialogs.StoragePickerDialog
-import com.simplemobiletools.filepicker.extensions.getInternalPath
+import com.simplemobiletools.filepicker.extensions.getInternalStoragePath
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.Breadcrumbs
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
-    var mBasePath = getInternalPath()
+    var mBasePath = getInternalStoragePath()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
