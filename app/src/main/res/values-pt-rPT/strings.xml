@@ -79,5 +79,4 @@
     <string name="settings">Definições</string>
     <string name="dark_theme">Tema escuro</string>
     <string name="show_hidden">Mostrar ficheiros e pastas ocultos</string>
-    <string name="show_full_path">Mostrar caminho completo</string>
 </resources>

@@ -28,22 +28,6 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         tryInitFileManager()
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (Utils.hasStoragePermission(applicationContext)) {
-            val showFullPath = mConfig!!.showFullPath
-            if (showFullPath != mShowFullPath)
-                initRootFileManager()
-
-            mShowFullPath = showFullPath
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mShowFullPath = mConfig!!.showFullPath
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         mConfig.isFirstRun = false
@@ -142,7 +126,6 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         private val STORAGE_PERMISSION = 1
         private val BACK_PRESS_TIMEOUT = 5000
 
-        private var mShowFullPath: Boolean = false
         private var mWasBackJustPressed: Boolean = false
     }
 }

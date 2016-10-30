@@ -79,5 +79,4 @@
     <string name="settings">設定</string>
     <string name="dark_theme">ダークテーマ</string>
     <string name="show_hidden">非表示のファイルとディレクトリーを表示する</string>
-    <string name="show_full_path">Show full path</string>
 </resources>

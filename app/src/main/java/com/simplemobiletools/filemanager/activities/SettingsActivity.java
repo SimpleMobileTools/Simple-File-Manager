@@ -14,7 +14,6 @@ import butterknife.OnClick;
 public class SettingsActivity extends SimpleActivity {
     @BindView(R.id.settings_dark_theme) SwitchCompat mDarkThemeSwitch;
     @BindView(R.id.settings_show_hidden) SwitchCompat mShowHiddenSwitch;
-    @BindView(R.id.settings_show_full_path) SwitchCompat mShowFullPathSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,6 @@ public class SettingsActivity extends SimpleActivity {
 
         setupDarkTheme();
         setupShowHidden();
-        setupShowFullPath();
     }
 
     private void setupDarkTheme() {
@@ -34,10 +32,6 @@ public class SettingsActivity extends SimpleActivity {
 
     private void setupShowHidden() {
         mShowHiddenSwitch.setChecked(mConfig.getShowHidden());
-    }
-
-    private void setupShowFullPath() {
-        mShowFullPathSwitch.setChecked(mConfig.getShowFullPath());
     }
 
     @OnClick(R.id.settings_dark_theme_holder)
@@ -51,12 +45,6 @@ public class SettingsActivity extends SimpleActivity {
     public void handleShowHidden() {
         mShowHiddenSwitch.setChecked(!mShowHiddenSwitch.isChecked());
         mConfig.setShowHidden(mShowHiddenSwitch.isChecked());
-    }
-
-    @OnClick(R.id.settings_show_full_path_holder)
-    public void handleShowFullPath() {
-        mShowFullPathSwitch.setChecked(!mShowFullPathSwitch.isChecked());
-        mConfig.setShowFullPath(mShowFullPathSwitch.isChecked());
     }
 
     private void restartActivity() {
