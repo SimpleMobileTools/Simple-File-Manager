@@ -23,10 +23,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -39,6 +37,7 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog;
 import com.simplemobiletools.filemanager.dialogs.PropertiesDialog;
+import com.simplemobiletools.filemanager.dialogs.RenameItemDialog;
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog;
 import com.simplemobiletools.filepicker.models.FileDirItem;
 
@@ -358,44 +357,10 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (item == null)
             return;
 
-        final View renameView = getActivity().getLayoutInflater().inflate(R.layout.rename_item, null);
-        final EditText itemName = (EditText) renameView.findViewById(R.id.item_name);
-        itemName.setText(item.getName());
-
-        final int title = (item.isDirectory()) ? R.string.rename_directory : R.string.rename_file;
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getResources().getString(title));
-        builder.setView(renameView);
-        builder.setPositiveButton(R.string.ok, null);
-        builder.setNegativeButton(R.string.cancel, null);
-
-        final AlertDialog alertDialog = builder.create();
-        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        alertDialog.show();
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        new RenameItemDialog(getContext(), mPath, item, new RenameItemDialog.OnRenameItemListener() {
             @Override
-            public void onClick(View v) {
-                final String name = itemName.getText().toString().trim();
-                if (Utils.isNameValid(name)) {
-                    final File currFile = new File(mPath, item.getName());
-                    final File newFile = new File(mPath, name);
-
-                    if (newFile.exists()) {
-                        Utils.showToast(getContext(), R.string.name_taken);
-                        return;
-                    }
-
-                    if (currFile.renameTo(newFile)) {
-                        rescanItem(newFile);
-                        MediaScannerConnection.scanFile(getContext(), new String[]{currFile.getAbsolutePath(), newFile.getAbsolutePath()}, null, null);
-                        alertDialog.dismiss();
-                        fillItems();
-                    } else {
-                        Utils.showToast(getContext(), R.string.error_occurred);
-                    }
-                } else {
-                    Utils.showToast(getContext(), R.string.invalid_name);
-                }
+            public void onSuccess() {
+                fillItems();
             }
         });
     }
