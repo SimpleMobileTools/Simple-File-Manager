@@ -1,7 +1,6 @@
 package com.simplemobiletools.filemanager.fragments;
 
 import android.content.ActivityNotFoundException;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -12,7 +11,6 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
@@ -26,7 +24,6 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.simplemobiletools.filemanager.Config;
@@ -35,10 +32,10 @@ import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
+import com.simplemobiletools.filemanager.dialogs.CopyDialog;
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog;
 import com.simplemobiletools.filemanager.dialogs.PropertiesDialog;
 import com.simplemobiletools.filemanager.dialogs.RenameItemDialog;
-import com.simplemobiletools.filepicker.dialogs.FilePickerDialog;
 import com.simplemobiletools.filepicker.models.FileDirItem;
 
 import java.io.File;
@@ -370,65 +367,20 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (itemIndexes.isEmpty())
             return;
 
-        final View copyView = getActivity().getLayoutInflater().inflate(R.layout.copy_item, null);
+        final List<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
+        for (Integer i : itemIndexes) {
+            FileDirItem item = mItems.get(i);
+            itemsToCopy.add(new File(item.getPath()));
+        }
 
-        final TextView source = (TextView) copyView.findViewById(R.id.source);
-        source.setText(mPath + "/");
-
-        mDestinationView = (TextView) copyView.findViewById(R.id.destination);
-        mDestinationView.setOnClickListener(destinationPicker);
-
-        final int copyString = (itemIndexes.size() == 1) ? R.string.copy_item : R.string.copy_items;
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(getResources().getString(copyString));
-        builder.setView(copyView);
-        builder.setPositiveButton(R.string.ok, null);
-        builder.setNegativeButton(R.string.cancel, null);
-
-        mCopyDialog = builder.create();
-        mCopyDialog.show();
-        mCopyDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        new CopyDialog(getActivity(), itemsToCopy, mPath, this, new CopyDialog.OnCopyListener() {
             @Override
-            public void onClick(View v) {
-                final String destinationPath = mDestinationView.getText().toString().trim();
-                if (destinationPath.equals(getResources().getString(R.string.select_destination))) {
-                    Utils.showToast(getContext(), R.string.please_select_destination);
-                    return;
-                }
-
-                final File destinationDir = new File(destinationPath);
-                if (!destinationDir.exists()) {
-                    Utils.showToast(getContext(), R.string.invalid_destination);
-                    return;
-                }
-
-                final List<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
-                for (Integer i : itemIndexes) {
-                    FileDirItem item = mItems.get(i);
-                    itemsToCopy.add(new File(item.getPath()));
-                }
-
-                final RadioGroup radio = (RadioGroup) copyView.findViewById(R.id.dialog_radio_group);
-                if (radio.getCheckedRadioButtonId() == R.id.dialog_radio_copy) {
-                    Utils.showToast(getContext(), R.string.copying);
-                    final Pair<List<File>, File> pair = new Pair<>(itemsToCopy, destinationDir);
-                    new CopyTask(ItemsFragment.this).execute(pair);
-                } else {
-                    for (File f : itemsToCopy) {
-                        final File destination = new File(destinationDir, f.getName());
-                        f.renameTo(destination);
-                        rescanItem(destination);
-                    }
-
-                    mCopyDialog.dismiss();
-                    fillItems();
-                }
+            public void onSuccess() {
+                fillItems();
             }
-        });
 
-        mCopyDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onDismiss(DialogInterface dialog) {
+            public void onCancel() {
                 mCopyDestinationPath = mPath;
             }
         });
@@ -481,26 +433,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         mSnackbar.show();
         fillItems();
     }
-
-    private View.OnClickListener destinationPicker = new View.OnClickListener() {
-        @Override
-        public void onClick(final View view) {
-            final boolean showHiddenItems = mConfig.getShowHidden();
-            final boolean showFullPath = mConfig.getShowFullPath();
-            new FilePickerDialog(getContext(), mCopyDestinationPath, false, showHiddenItems, showFullPath, new FilePickerDialog.OnFilePickerListener() {
-                @Override
-                public void onFail(FilePickerDialog.FilePickerResult pickFolderResult) {
-
-                }
-
-                @Override
-                public void onSuccess(String path) {
-                    mCopyDestinationPath = path;
-                    mDestinationView.setText(path);
-                }
-            });
-        }
-    };
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -567,7 +499,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void copySucceeded(File file) {
         rescanItem(file);
-        mCopyDialog.dismiss();
         fillItems();
     }
 
