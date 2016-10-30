@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
@@ -63,10 +61,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private ItemInteractionListener mListener;
     private List<String> mToBeDeleted;
     private String mPath;
-    private String mCopyDestinationPath;
     private Snackbar mSnackbar;
-    private AlertDialog mCopyDialog;
-    private TextView mDestinationView;
     private Config mConfig;
 
     private boolean mShowHidden;
@@ -112,7 +107,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     private void fillItems() {
         mPath = getArguments().getString(Constants.PATH);
-        mCopyDestinationPath = mPath;
         final List<FileDirItem> newItems = getItems(mPath);
         Collections.sort(newItems);
         if (mItems != null && newItems.toString().equals(mItems.toString())) {
@@ -377,11 +371,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             @Override
             public void onSuccess() {
                 fillItems();
-            }
-
-            @Override
-            public void onCancel() {
-                mCopyDestinationPath = mPath;
             }
         });
     }

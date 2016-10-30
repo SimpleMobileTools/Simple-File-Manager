@@ -51,7 +51,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         if (Utils.hasStoragePermission(applicationContext)) {
             initRootFileManager()
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), STORAGE_PERMISSION)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), STORAGE_PERMISSION)
         }
     }
 

@@ -38,8 +38,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                 .setTitle(mContext.resources.getString(R.string.create_new))
                 .setView(view)
                 .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.cancel, { dialog, which -> dialogDismissed() })
-                .setOnCancelListener { dialogDismissed() }
+                .setNegativeButton(R.string.cancel, null)
                 .create().apply {
             window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             show()
@@ -75,13 +74,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
         }
     }
 
-    private fun dialogDismissed() {
-        listener.onCancel()
-    }
-
     interface OnCopyListener {
         fun onSuccess()
-
-        fun onCancel()
     }
 }
