@@ -13,18 +13,8 @@ import kotlinx.android.synthetic.main.create_new.view.*
 import java.io.File
 import java.io.IOException
 
-class CreateNewItemDialog() {
-    interface OnCreateNewItemListener {
-        fun onSuccess()
-    }
-
-    lateinit var mContext: Context
-    var mListener: OnCreateNewItemListener? = null
-
-    constructor(context: Context, path: String, listener: OnCreateNewItemListener) : this() {
-        mContext = context
-        mListener = listener
-
+class CreateNewItemDialog(val context: Context, val path: String, val listener: OnCreateNewItemListener) {
+    init {
         val view = LayoutInflater.from(context).inflate(R.layout.create_new, null)
 
         AlertDialog.Builder(context)
@@ -66,21 +56,21 @@ class CreateNewItemDialog() {
     private fun createDirectory(file: File, alertDialog: AlertDialog): Boolean {
         return if (file.mkdirs()) {
             alertDialog.dismiss()
-            mListener?.onSuccess()
+            listener.onSuccess()
             true
         } else
             false
     }
 
     private fun errorOccurred() {
-        mContext.toast(R.string.error_occurred)
+        context.toast(R.string.error_occurred)
     }
 
     private fun createFile(file: File, alertDialog: AlertDialog): Boolean {
         try {
             if (file.createNewFile()) {
                 alertDialog.dismiss()
-                mListener?.onSuccess()
+                listener.onSuccess()
                 return true
             }
         } catch (ignored: IOException) {
@@ -88,5 +78,9 @@ class CreateNewItemDialog() {
         }
 
         return false
+    }
+
+    interface OnCreateNewItemListener {
+        fun onSuccess()
     }
 }
