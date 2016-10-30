@@ -12,12 +12,14 @@ import com.simplemobiletools.filemanager.Constants
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
+import com.simplemobiletools.filepicker.dialogs.StoragePickerDialog
 import com.simplemobiletools.filepicker.extensions.getInternalPath
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.Breadcrumbs
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
+    var mBasePath = getInternalPath()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,11 +58,11 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun initRootFileManager() {
-        openPath(getInternalPath())
+        openPath(mBasePath)
     }
 
     private fun openPath(path: String) {
-        breadcrumbs.setBreadcrumb(path, getInternalPath())
+        breadcrumbs.setBreadcrumb(path, mBasePath)
         val bundle = Bundle()
         bundle.putString(Constants.PATH, path)
 
@@ -123,12 +125,20 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     override fun breadcrumbClicked(id: Int) {
-        val item = breadcrumbs.getChildAt(id).tag as FileDirItem
-        openPath(item.path)
+        if (id == 0) {
+            StoragePickerDialog(this@MainActivity, mBasePath, object : StoragePickerDialog.OnStoragePickerListener {
+                override fun onPick(pickedPath: String) {
+                    mBasePath = pickedPath
+                    openPath(pickedPath)
+                }
+            })
+        } else {
+            val item = breadcrumbs.getChildAt(id).tag as FileDirItem
+            openPath(item.path)
+        }
     }
 
     companion object {
-
         private val STORAGE_PERMISSION = 1
         private val BACK_PRESS_TIMEOUT = 5000
 
