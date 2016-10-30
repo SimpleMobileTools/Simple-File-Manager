@@ -78,7 +78,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
     }
 
     private void openPath(String path) {
-        mBreadcrumbs.setBreadcrumb(path, mConfig.getShowFullPath());
+        mBreadcrumbs.setBreadcrumb(path, Environment.getExternalStorageDirectory().toString());
         final Bundle bundle = new Bundle();
         bundle.putString(Constants.PATH, path);
 
@@ -126,7 +126,7 @@ public class MainActivity extends SimpleActivity implements ItemsFragment.ItemIn
             }
         } else {
             mBreadcrumbs.removeBreadcrumb();
-            final FileDirItem item = (FileDirItem) mBreadcrumbs.getChildAt(mBreadcrumbs.getChildCount() - 1).getTag();
+            final FileDirItem item = mBreadcrumbs.getLastItem();
             openPath(item.getPath());
         }
     }
