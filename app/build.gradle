@@ -45,10 +45,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
 }
 
-repositories {
-    mavenCentral()
-}
-
 buildscript {
     ext.kotlin_version = '1.0.3'
     repositories {
