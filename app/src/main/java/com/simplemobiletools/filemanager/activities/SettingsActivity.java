@@ -16,8 +16,6 @@ public class SettingsActivity extends SimpleActivity {
     @BindView(R.id.settings_show_hidden) SwitchCompat mShowHiddenSwitch;
     @BindView(R.id.settings_show_full_path) SwitchCompat mShowFullPathSwitch;
 
-    private static Config mConfig;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
