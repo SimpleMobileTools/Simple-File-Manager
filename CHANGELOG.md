@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.11 *(2016-10-30)*
+----------------------------
+
+ * Allow easily switching between internal storage, SD card and root folders
+ * Remove the Show full path option
+
 Version 1.10 *(2016-10-29)*
 ----------------------------
 
