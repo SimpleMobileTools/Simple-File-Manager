@@ -46,7 +46,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun openPath(path: String) {
-        breadcrumbs.setBreadcrumb(path, mBasePath)
+        breadcrumbs.setBreadcrumb(path)
         val bundle = Bundle()
         bundle.putString(Constants.PATH, path)
 

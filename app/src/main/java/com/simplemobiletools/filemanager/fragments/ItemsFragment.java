@@ -32,9 +32,9 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.dialogs.CopyDialog;
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog;
-import com.simplemobiletools.filemanager.dialogs.PropertiesDialog;
 import com.simplemobiletools.filemanager.dialogs.RenameItemDialog;
 import com.simplemobiletools.filepicker.models.FileDirItem;
+import com.simplemobiletools.fileproperties.dialogs.PropertiesDialog;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -332,7 +332,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (item == null)
             return;
 
-        new PropertiesDialog(getContext(), item.getPath(), mConfig.getShowHidden());
+        new PropertiesDialog(getActivity(), item.getPath(), mConfig.getShowHidden());
     }
 
     private void showMultipleItemProperties(List<Integer> itemIndexes) {
@@ -340,7 +340,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         for (int i : itemIndexes) {
             paths.add(mItems.get(i).getPath());
         }
-        new PropertiesDialog(getContext(), paths, mConfig.getShowHidden());
+        new PropertiesDialog(getActivity(), paths, mConfig.getShowHidden());
     }
 
     private void displayRenameDialog() {
