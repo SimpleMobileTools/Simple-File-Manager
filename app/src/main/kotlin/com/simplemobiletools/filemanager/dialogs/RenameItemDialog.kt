@@ -21,7 +21,7 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
         view.item_name.setText(item.name)
 
         AlertDialog.Builder(context)
-                .setTitle(context.resources.getString(R.string.create_new))
+                .setTitle(context.resources.getString(R.string.rename_item))
                 .setView(view)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)

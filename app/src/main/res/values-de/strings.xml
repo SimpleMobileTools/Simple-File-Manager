@@ -5,8 +5,7 @@
     <string name="no_permissions">Wir benötigen die Berechtigung, auf deinen Speicher zuzugreifen</string>
     <string name="no_app_found">Keine App zum Öffnen dieses Dateityps vorhanden</string>
     <string name="create_new">Neue Datei erstellen</string>
-    <string name="rename_directory">Ordner umbenennen</string>
-    <string name="rename_file">Datei umbenennen</string>
+    <string name="rename_item">Rename item</string>
     <string name="directory">Ordner</string>
     <string name="file">Datei</string>
     <string name="name_taken">Es existiert bereits eine Datei oder ein Ordner mit diesem Namen</string>

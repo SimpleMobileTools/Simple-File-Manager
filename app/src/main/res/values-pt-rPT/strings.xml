@@ -5,8 +5,7 @@
     <string name="no_permissions">É necessária a permissão para aceder ao armazenamento</string>
     <string name="no_app_found">Nenhuma aplicação para abrir este tipo de ficheiros disponível</string>
     <string name="create_new">Criar novo item</string>
-    <string name="rename_directory">Renomear pasta</string>
-    <string name="rename_file">Renomear ficheiro</string>
+    <string name="rename_item">Rename item</string>
     <string name="directory">Pasta</string>
     <string name="file">Ficheiro</string>
     <string name="name_taken">Já existe um ficheiro ou pasta com esse nome</string>

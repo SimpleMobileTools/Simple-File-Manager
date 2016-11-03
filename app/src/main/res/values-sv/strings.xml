@@ -5,8 +5,7 @@
     <string name="no_permissions">Vi behöver tillgång till ditt lagringsutrymme</string>
     <string name="no_app_found">Det finns ingen app tillgänglig för att öppna denna typ av fil</string>
     <string name="create_new">Skapa nytt objektm</string>
-    <string name="rename_directory">Döp om katalog</string>
-    <string name="rename_file">Döp om fil</string>
+    <string name="rename_item">Rename item</string>
     <string name="directory">Katalog</string>
     <string name="file">Fil</string>
     <string name="name_taken">Katalog eller fil med detta namnet finns redan</string>

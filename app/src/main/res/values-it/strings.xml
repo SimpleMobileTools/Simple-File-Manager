@@ -5,8 +5,7 @@
     <string name="no_permissions">Serve l\'autorizzazione per accedere all\'archiviazione</string>
     <string name="no_app_found">Nessuna app disponibile per aprire questo tipo di file</string>
     <string name="create_new">Crea nuovo elemento</string>
-    <string name="rename_directory">Rinomina cartella</string>
-    <string name="rename_file">Rinomina file</string>
+    <string name="rename_item">Rename item</string>
     <string name="directory">Cartella</string>
     <string name="file">File</string>
     <string name="name_taken">Esiste già un file o una cartella con quel nome</string>

@@ -5,8 +5,7 @@
     <string name="no_permissions">ストレージにアクセスするアクセス許可が必要です</string>
     <string name="no_app_found">この種類のファイルを開くことができるアプリがありません</string>
     <string name="create_new">新しいアイテムを作成</string>
-    <string name="rename_directory">ディレクトリーの名前を変更</string>
-    <string name="rename_file">ファイルの名前を変更</string>
+    <string name="rename_item">Rename item</string>
     <string name="directory">ディレクトリー</string>
     <string name="file">ファイル</string>
     <string name="name_taken">その名前のディレクトリーまたはファイルが既に存在します</string>
