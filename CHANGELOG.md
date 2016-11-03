@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.12 *(2016-11-03)*
+----------------------------
+
+ * Couple file properties dialog adjustments
+
 Version 1.11 *(2016-10-30)*
 ----------------------------
 
