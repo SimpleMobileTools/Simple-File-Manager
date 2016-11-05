@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.dialogs
 
 import android.app.Activity
+import android.content.Intent
 import android.support.v4.util.Pair
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.Toast
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.Utils
+import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.asynctasks.CopyTask
 import com.simplemobiletools.filemanager.extensions.rescanItem
 import com.simplemobiletools.filemanager.extensions.toast
@@ -68,6 +70,16 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                         context.toast(R.string.already_exists)
                         return@setOnClickListener
                     }
+                }
+
+                if (Utils.needsStupidWritePermissions(context, destinationPath) && Config.newInstance(context).treeUri.isEmpty()) {
+                    WritePermissionDialog(activity, object: WritePermissionDialog.OnWritePermissionListener {
+                        override fun onConfirmed() {
+                            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                            activity.startActivityForResult(intent, MainActivity.OPEN_DOCUMENT_TREE)
+                        }
+                    })
+                    return@setOnClickListener
                 }
 
                 if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {

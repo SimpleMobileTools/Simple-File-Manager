@@ -25,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
-    val OPEN_DOCUMENT_TREE = 1
     var mBasePath = getInternalStoragePath()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -138,10 +137,10 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     fun checkStupidAndroidFiveSDCardWritePermission(pickedPath: String): Boolean {
         val file = File(pickedPath)
         return if (!file.canWrite() && Utils.needsStupidWritePermissions(applicationContext, pickedPath) && mConfig.treeUri.isEmpty()) {
-            WritePermissionDialog(this, object: WritePermissionDialog.OnWritePermissionListener {
+            WritePermissionDialog(this, object : WritePermissionDialog.OnWritePermissionListener {
                 override fun onConfirmed() {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                    startActivityForResult(intent, OPEN_DOCUMENT_TREE)
+                    startActivityForResult(intent, OPEN_DOCUMENT_TREE_AND_CHANGE_PATH)
                 }
             })
             false
@@ -149,27 +148,35 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             true
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
-        if (requestCode == OPEN_DOCUMENT_TREE) {
+        if (requestCode == OPEN_DOCUMENT_TREE_AND_CHANGE_PATH) {
             if (resultCode == Activity.RESULT_OK && resultData != null) {
-                val treeUri = resultData.data
-                mConfig.treeUri = resultData.data.toString()
-
-                val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                contentResolver.takePersistableUriPermission(treeUri, takeFlags)
-
+                saveTreeUri(resultData)
                 changePath(getSDCardPath())
             } else {
                 changePath(getInternalStoragePath())
             }
+        } else if (requestCode == OPEN_DOCUMENT_TREE && resultCode == Activity.RESULT_OK && resultData != null) {
+            saveTreeUri(resultData)
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private fun saveTreeUri(resultData: Intent) {
+        val treeUri = resultData.data
+        mConfig.treeUri = resultData.data.toString()
+
+        val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        contentResolver.takePersistableUriPermission(treeUri, takeFlags)
     }
 
     companion object {
         private val STORAGE_PERMISSION = 1
         private val BACK_PRESS_TIMEOUT = 5000
+
+        val OPEN_DOCUMENT_TREE_AND_CHANGE_PATH = 1
+        val OPEN_DOCUMENT_TREE = 2
 
         private var mWasBackJustPressed: Boolean = false
     }
