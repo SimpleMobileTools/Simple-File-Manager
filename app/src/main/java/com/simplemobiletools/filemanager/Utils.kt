@@ -48,7 +48,9 @@ class Utils {
             var document = DocumentFile.fromTreeUri(context, Uri.parse(Config.newInstance(context).treeUri))
             val parts = relativePath.split("/")
             for (part in parts) {
-                document = document.findFile(part)
+                val currDocument = document.findFile(part)
+                if (currDocument != null)
+                    document = currDocument
             }
             return document
         }

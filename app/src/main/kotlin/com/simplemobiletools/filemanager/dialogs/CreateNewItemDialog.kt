@@ -52,11 +52,14 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
         }
     }
 
-
     private fun createDirectory(file: File, alertDialog: AlertDialog): Boolean {
-        return if (file.mkdirs()) {
-            alertDialog.dismiss()
-            listener.onSuccess()
+        return if (Utils.needsStupidWritePermissions(context, path)) {
+            val documentFile = Utils.getFileDocument(context, file.absolutePath)
+            documentFile.createDirectory(file.name)
+            success(alertDialog)
+            true
+        } else if (file.mkdirs()) {
+            success(alertDialog)
             true
         } else
             false
@@ -68,9 +71,13 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
 
     private fun createFile(file: File, alertDialog: AlertDialog): Boolean {
         try {
-            if (file.createNewFile()) {
-                alertDialog.dismiss()
-                listener.onSuccess()
+            if (Utils.needsStupidWritePermissions(context, path)) {
+                val documentFile = Utils.getFileDocument(context, file.absolutePath)
+                documentFile.createFile("", file.name)
+                success(alertDialog)
+                return true
+            } else if (file.createNewFile()) {
+                success(alertDialog)
                 return true
             }
         } catch (ignored: IOException) {
@@ -78,6 +85,11 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
         }
 
         return false
+    }
+
+    private fun success(alertDialog: AlertDialog) {
+        alertDialog.dismiss()
+        listener.onSuccess()
     }
 
     interface OnCreateNewItemListener {
