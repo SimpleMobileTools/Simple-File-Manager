@@ -24,7 +24,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
 
         view.destination.setOnClickListener {
             val config = Config.newInstance(mContext)
-            FilePickerDialog(activity, path, false, config.showHidden, true, object: FilePickerDialog.OnFilePickerListener {
+            FilePickerDialog(activity, path, false, config.showHidden, false, object: FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
 
