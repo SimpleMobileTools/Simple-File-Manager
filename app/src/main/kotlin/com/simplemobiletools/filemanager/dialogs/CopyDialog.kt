@@ -22,7 +22,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
 
     init {
         val view = LayoutInflater.from(mContext).inflate(R.layout.copy_item, null)
-        view.source.text = "$path/"
+        view.source.text = "${path.trimEnd('/')}/"
 
         view.destination.setOnClickListener {
             val config = Config.newInstance(mContext)
