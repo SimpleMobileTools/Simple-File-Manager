@@ -2,18 +2,14 @@ package com.simplemobiletools.filemanager.dialogs
 
 import android.content.Context
 import android.media.MediaScannerConnection
-import android.net.Uri
-import android.support.v4.provider.DocumentFile
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
-import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.extensions.rescanItem
 import com.simplemobiletools.filemanager.extensions.toast
 import com.simplemobiletools.filemanager.extensions.value
-import com.simplemobiletools.filepicker.extensions.getSDCardPath
 import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.rename_item.view.*
 import java.io.File
@@ -44,12 +40,7 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
                     }
 
                     if (Utils.needsStupidWritePermissions(context, path)) {
-                        val relativePath = currFile.absolutePath.substring(context.getSDCardPath().length + 1)
-                        var document = DocumentFile.fromTreeUri(context, Uri.parse(Config.newInstance(context).treeUri))
-                        val parts = relativePath.split("/")
-                        for (part in parts) {
-                            document = document.findFile(part)
-                        }
+                        val document = Utils.getFileDocument(context, currFile.absolutePath)
                         if (document.canWrite())
                             document.renameTo(newName)
                         sendSuccess(currFile, newFile)

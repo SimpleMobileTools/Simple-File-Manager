@@ -3,8 +3,10 @@ package com.simplemobiletools.filemanager
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.support.v4.content.ContextCompat
+import android.support.v4.provider.DocumentFile
 import android.widget.Toast
 import com.simplemobiletools.filepicker.extensions.getSDCardPath
 import java.util.regex.Pattern
@@ -39,4 +41,14 @@ object Utils {
     }
 
     fun isKitkat() = Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT
+
+    fun getFileDocument(context: Context, path: String): DocumentFile {
+        val relativePath = path.substring(context.getSDCardPath().length + 1)
+        var document = DocumentFile.fromTreeUri(context, Uri.parse(Config.newInstance(context).treeUri))
+        val parts = relativePath.split("/")
+        for (part in parts) {
+            document = document.findFile(part)
+        }
+        return document
+    }
 }
