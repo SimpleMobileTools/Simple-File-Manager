@@ -39,7 +39,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
         }
 
         AlertDialog.Builder(mContext)
-                .setTitle(mContext.resources.getString(R.string.create_new))
+                .setTitle(mContext.resources.getString(if (files.size == 1) R.string.copy_item else R.string.copy_items))
                 .setView(view)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
