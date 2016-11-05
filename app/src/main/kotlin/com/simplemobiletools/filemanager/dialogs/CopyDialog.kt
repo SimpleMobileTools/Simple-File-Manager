@@ -58,7 +58,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                 if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
                     Utils.showToast(context, R.string.copying)
                     val pair = Pair<List<File>, File>(files, destinationDir)
-                    CopyTask(copyListener).execute(pair)
+                    CopyTask(copyListener, mContext).execute(pair)
                     dismiss()
                 } else {
                     for (f in files) {

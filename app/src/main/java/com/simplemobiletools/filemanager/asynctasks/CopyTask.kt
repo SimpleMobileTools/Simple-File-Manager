@@ -1,15 +1,14 @@
 package com.simplemobiletools.filemanager.asynctasks
 
+import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.util.Pair
 import android.util.Log
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
+import com.simplemobiletools.filemanager.Utils
+import java.io.*
 import java.lang.ref.WeakReference
 
-class CopyTask(listener: CopyTask.CopyListener) : AsyncTask<Pair<List<File>, File>, Void, Boolean>() {
+class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTask<Pair<List<File>, File>, Void, Boolean>() {
     private val TAG = CopyTask::class.java.simpleName
     private var mListener: WeakReference<CopyListener>? = null
     private var destinationDir: File? = null
@@ -52,7 +51,14 @@ class CopyTask(listener: CopyTask.CopyListener) : AsyncTask<Pair<List<File>, Fil
             }
 
             val inputStream = FileInputStream(source)
-            val out = FileOutputStream(destination)
+            var out: OutputStream?
+            if (Utils.needsStupidWritePermissions(context, destination.absolutePath)) {
+                var document = Utils.getFileDocument(context, destination.absolutePath)
+                document = document.createFile("", destination.name)
+                out = context.contentResolver.openOutputStream(document.uri)
+            } else {
+                out = FileOutputStream(destination)
+            }
 
             val buf = ByteArray(1024)
             var len: Int
@@ -60,7 +66,7 @@ class CopyTask(listener: CopyTask.CopyListener) : AsyncTask<Pair<List<File>, Fil
                 len = inputStream.read(buf)
                 if (len <= 0)
                     break
-                out.write(buf, 0, len)
+                out!!.write(buf, 0, len)
             }
         }
     }
