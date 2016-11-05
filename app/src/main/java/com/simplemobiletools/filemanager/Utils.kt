@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
 import com.simplemobiletools.filepicker.extensions.getSDCardPath
@@ -31,7 +32,11 @@ object Utils {
         return matcher.matches()
     }
 
+    fun needsStupidWritePermissions(context: Context, path: String) = isPathOnSD(context, path) && isKitkat()
+
     fun isPathOnSD(context: Context, path: String): Boolean {
         return path.startsWith(context.getSDCardPath())
     }
+
+    fun isKitkat() = Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT
 }

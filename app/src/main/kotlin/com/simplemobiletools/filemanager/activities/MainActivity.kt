@@ -136,7 +136,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     fun checkStupidAndroidFiveSDCardWritePermission(pickedPath: String): Boolean {
         val file = File(pickedPath)
-        return if (!file.canWrite() && Utils.isPathOnSD(applicationContext, pickedPath) && mConfig.treeUri.isEmpty()) {
+        return if (!file.canWrite() && Utils.needsStupidWritePermissions(applicationContext, pickedPath) && mConfig.treeUri.isEmpty()) {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
             startActivityForResult(intent, OPEN_DOCUMENT_TREE)
             false
