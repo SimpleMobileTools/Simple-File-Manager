@@ -54,15 +54,20 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
 
         val children = source.list()
         for (child in children) {
+            val newFile = File(source, child)
             if (Utils.needsStupidWritePermissions(context, destination.absolutePath)) {
-                var document = Utils.getFileDocument(context, destination.absolutePath)
-                document = document.createFile("", child)
+                if (newFile.isDirectory) {
+                    copyDirectory(newFile, File(destination, child))
+                } else {
+                    var document = Utils.getFileDocument(context, destination.absolutePath)
+                    document = document.createFile("", child)
 
-                val inputStream = FileInputStream(File(source, child))
-                val out = context.contentResolver.openOutputStream(document.uri)
-                copyStream(inputStream, out)
+                    val inputStream = FileInputStream(newFile)
+                    val out = context.contentResolver.openOutputStream(document.uri)
+                    copyStream(inputStream, out)
+                }
             } else {
-                copy(File(source, child), File(destination, child))
+                copy(newFile, File(destination, child))
             }
         }
     }
