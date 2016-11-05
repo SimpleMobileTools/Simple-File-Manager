@@ -38,7 +38,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
         if (source.isDirectory) {
             copyDirectory(source, destination)
         } else {
-            copyFile()
+            copyFile(source, destination)
         }
     }
 
