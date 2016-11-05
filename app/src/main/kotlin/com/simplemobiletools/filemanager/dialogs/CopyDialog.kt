@@ -66,14 +66,16 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                     CopyTask(copyListener, mContext).execute(pair)
                     dismiss()
                 } else {
-                    for (f in files) {
-                        val destination = File(destinationDir, f.name)
-                        f.renameTo(destination)
-                        context.rescanItem(destination)
-                    }
+                    if (Utils.isPathOnSD(context, view.source.value) && Utils.isPathOnSD(context, destinationPath)) {
+                        for (f in files) {
+                            val destination = File(destinationDir, f.name)
+                            f.renameTo(destination)
+                            context.rescanItem(destination)
+                        }
 
-                    dismiss()
-                    listener.onSuccess()
+                        dismiss()
+                        listener.onSuccess()
+                    }
                 }
             })
         }
