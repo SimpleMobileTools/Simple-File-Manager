@@ -37,4 +37,12 @@ public class Config {
     public void setShowHidden(boolean show) {
         mPrefs.edit().putBoolean(Constants.SHOW_HIDDEN, show).apply();
     }
+
+    public String getTreeUri() {
+        return mPrefs.getString(Constants.TREE_URI, "");
+    }
+
+    public void setTreeUri(String uri) {
+        mPrefs.edit().putString(Constants.TREE_URI, uri).apply();
+    }
 }

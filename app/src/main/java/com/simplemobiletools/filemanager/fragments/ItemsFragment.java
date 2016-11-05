@@ -137,7 +137,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (files != null) {
             for (File file : files) {
                 final String curPath = file.getAbsolutePath();
-                final String curName = Utils.getFilename(curPath);
+                final String curName = Utils.INSTANCE.getFilename(curPath);
                 if (!mShowHidden && curName.startsWith("."))
                     continue;
 
@@ -181,7 +181,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         } else {
             final String path = item.getPath();
             final File file = new File(path);
-            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.getFileExtension(path));
+            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.INSTANCE.getFileExtension(path));
             if (mimeType == null)
                 mimeType = "text/plain";
 
@@ -192,7 +192,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 if (!tryGenericMimeType(intent, mimeType, file)) {
-                    Utils.showToast(getContext(), R.string.no_app_found);
+                    Utils.INSTANCE.showToast(getContext(), R.string.no_app_found);
                 }
             }
         }
@@ -302,7 +302,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         }
 
         if (uris.isEmpty()) {
-            Utils.showToast(getContext(), R.string.no_files_selected);
+            Utils.INSTANCE.showToast(getContext(), R.string.no_files_selected);
             return;
         }
 
@@ -493,7 +493,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     @Override
     public void copyFailed() {
-        Utils.showToast(getContext(), R.string.copy_failed);
+        Utils.INSTANCE.showToast(getContext(), R.string.copy_failed);
     }
 
     public interface ItemInteractionListener {

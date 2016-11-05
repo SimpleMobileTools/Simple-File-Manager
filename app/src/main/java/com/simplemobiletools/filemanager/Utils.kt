@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import com.simplemobiletools.filepicker.extensions.getSDCardPath
 import java.util.regex.Pattern
 
 object Utils {
@@ -28,5 +29,9 @@ object Utils {
         val pattern = Pattern.compile("^[-_.A-Za-z0-9 ]+$")
         val matcher = pattern.matcher(name)
         return matcher.matches()
+    }
+
+    fun isPathOnSD(context: Context, path: String): Boolean {
+        return path.startsWith(context.getSDCardPath())
     }
 }

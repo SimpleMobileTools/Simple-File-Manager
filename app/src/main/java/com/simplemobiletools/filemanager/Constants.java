@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager;
 
 public class Constants {
     public static final String PATH = "path";
+    public static final String TREE_URI = "tree_uri";
 
     // shared preferences
     public static final String PREFS_KEY = "File Manager";
