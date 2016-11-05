@@ -5,6 +5,7 @@ import android.support.v4.util.Pair
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
+import android.widget.Toast
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.Utils
@@ -18,13 +19,14 @@ import java.io.File
 
 class CopyDialog(val activity: Activity, val files: List<File>, val path: String, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
     val mContext = activity
+
     init {
         val view = LayoutInflater.from(mContext).inflate(R.layout.copy_item, null)
         view.source.text = "$path/"
 
         view.destination.setOnClickListener {
             val config = Config.newInstance(mContext)
-            FilePickerDialog(activity, path, false, config.showHidden, false, object: FilePickerDialog.OnFilePickerListener {
+            FilePickerDialog(activity, path, false, config.showHidden, false, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
 
@@ -61,7 +63,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                 }
 
                 if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
-                    Utils.showToast(context, R.string.copying)
+                    context.toast(R.string.copying)
                     val pair = Pair<List<File>, File>(files, destinationDir)
                     CopyTask(copyListener, mContext).execute(pair)
                     dismiss()
@@ -75,6 +77,11 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
 
                         dismiss()
                         listener.onSuccess()
+                    } else {
+                        context.toast(R.string.copying_no_delete, Toast.LENGTH_LONG)
+                        val pair = Pair<List<File>, File>(files, destinationDir)
+                        CopyTask(copyListener, mContext).execute(pair)
+                        dismiss()
                     }
                 }
             })
