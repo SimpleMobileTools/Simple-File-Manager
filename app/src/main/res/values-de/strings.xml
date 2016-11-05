@@ -33,7 +33,7 @@
     <string name="copy_failed">Konnte die Datei nicht kopieren</string>
     <string name="copying">Kopiere</string>
     <string name="copying_no_delete">Copying, please delete source files manually</string>
-    <string name="initial_breadcrumb">home</string>
+    <string name="already_exists">A file with that name already exists</string>
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
     <string name="press_back_again">Drücke erneut zum Schließen</string>

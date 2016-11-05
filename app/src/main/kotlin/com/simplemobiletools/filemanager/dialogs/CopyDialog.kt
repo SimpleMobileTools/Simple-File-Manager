@@ -62,6 +62,14 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                     return@setOnClickListener
                 }
 
+                if (files.size == 1) {
+                    val newFile = File(files[0].path)
+                    if (File(destinationPath, newFile.name).exists()) {
+                        context.toast(R.string.already_exists)
+                        return@setOnClickListener
+                    }
+                }
+
                 if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
                     context.toast(R.string.copying)
                     val pair = Pair<List<File>, File>(files, destinationDir)
