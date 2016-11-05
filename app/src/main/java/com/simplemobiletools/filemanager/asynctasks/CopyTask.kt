@@ -24,13 +24,12 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
             try {
                 destinationDir = File(pair.second, file.name)
                 copy(file, destinationDir!!)
-                return true
             } catch (e: Exception) {
                 Log.e(TAG, "copy " + e)
+                return false
             }
-
         }
-        return false
+        return true
     }
 
     @Throws(Exception::class)
