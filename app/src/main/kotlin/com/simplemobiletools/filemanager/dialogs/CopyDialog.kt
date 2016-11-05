@@ -49,6 +49,11 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                     return@setOnClickListener
                 }
 
+                if (view.source.text.trimEnd('/') == destinationPath.trimEnd('/')) {
+                    context.toast(R.string.source_and_destination_same)
+                    return@setOnClickListener
+                }
+
                 val destinationDir = File(destinationPath)
                 if (!destinationDir.exists()) {
                     context.toast(R.string.invalid_destination)

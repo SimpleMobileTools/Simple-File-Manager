@@ -29,6 +29,7 @@
     <string name="select_destination">Selecionar destino</string>
     <string name="invalid_destination">Não foi possível escrever no destino selecionado</string>
     <string name="please_select_destination">Por favor selecione um destino</string>
+    <string name="source_and_destination_same">Source and destination cannot be the same</string>
     <string name="copy_failed">Não foi possível copiar os ficheiros</string>
     <string name="copying">A copiar</string>
     <string name="initial_breadcrumb">início</string>
