@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.13 *(2016-11-05)*
+----------------------------
+
+ * Fix tasks related to files on the SD card
+
 Version 1.12 *(2016-11-03)*
 ----------------------------
 
