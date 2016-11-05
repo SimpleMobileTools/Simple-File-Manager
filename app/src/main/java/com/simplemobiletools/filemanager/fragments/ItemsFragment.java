@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.provider.DocumentFile;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -137,7 +138,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (files != null) {
             for (File file : files) {
                 final String curPath = file.getAbsolutePath();
-                final String curName = Utils.INSTANCE.getFilename(curPath);
+                final String curName = Utils.Companion.getFilename(curPath);
                 if (!mShowHidden && curName.startsWith("."))
                     continue;
 
@@ -181,7 +182,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         } else {
             final String path = item.getPath();
             final File file = new File(path);
-            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.INSTANCE.getFileExtension(path));
+            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(Utils.Companion.getFileExtension(path));
             if (mimeType == null)
                 mimeType = "text/plain";
 
@@ -192,7 +193,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
                 startActivity(intent);
             } catch (ActivityNotFoundException e) {
                 if (!tryGenericMimeType(intent, mimeType, file)) {
-                    Utils.INSTANCE.showToast(getContext(), R.string.no_app_found);
+                    Utils.Companion.showToast(getContext(), R.string.no_app_found);
                 }
             }
         }
@@ -302,7 +303,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         }
 
         if (uris.isEmpty()) {
-            Utils.INSTANCE.showToast(getContext(), R.string.no_files_selected);
+            Utils.Companion.showToast(getContext(), R.string.no_files_selected);
             return;
         }
 
@@ -467,7 +468,12 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             }
         }
 
-        item.delete();
+        if (Utils.Companion.needsStupidWritePermissions(getContext(), item.getAbsolutePath())) {
+            final DocumentFile document = Utils.Companion.getFileDocument(getContext(), item.getAbsolutePath());
+            document.delete();
+        } else {
+            item.delete();
+        }
         MediaScannerConnection.scanFile(getContext(), new String[]{item.getAbsolutePath()}, null, null);
     }
 
@@ -493,7 +499,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
 
     @Override
     public void copyFailed() {
-        Utils.INSTANCE.showToast(getContext(), R.string.copy_failed);
+        Utils.Companion.showToast(getContext(), R.string.copy_failed);
     }
 
     public interface ItemInteractionListener {
