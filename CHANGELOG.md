@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.14 *(2016-11-05)*
+----------------------------
+
+ * Allow using a couple more characters as file names
+
 Version 1.13 *(2016-11-05)*
 ----------------------------
 
