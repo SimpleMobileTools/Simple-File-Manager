@@ -30,7 +30,7 @@ class Utils {
         }
 
         fun isNameValid(name: String): Boolean {
-            val pattern = Pattern.compile("^[-_.A-Za-z0-9 ]+$")
+            val pattern = Pattern.compile("^[-_.A-Za-z0-9() ]+$")
             val matcher = pattern.matcher(name)
             return matcher.matches()
         }

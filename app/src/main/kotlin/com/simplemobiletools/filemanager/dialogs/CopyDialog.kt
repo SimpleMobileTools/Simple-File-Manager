@@ -20,14 +20,14 @@ import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
 
 class CopyDialog(val activity: Activity, val files: List<File>, val path: String, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
-    val mContext = activity
 
     init {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.copy_item, null)
+        val context = activity
+        val view = LayoutInflater.from(context).inflate(R.layout.copy_item, null)
         view.source.text = "${path.trimEnd('/')}/"
 
         view.destination.setOnClickListener {
-            val config = Config.newInstance(mContext)
+            val config = Config.newInstance(context)
             FilePickerDialog(activity, path, false, config.showHidden, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
@@ -38,8 +38,8 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
             })
         }
 
-        AlertDialog.Builder(mContext)
-                .setTitle(mContext.resources.getString(if (files.size == 1) R.string.copy_item else R.string.copy_items))
+        AlertDialog.Builder(context)
+                .setTitle(context.resources.getString(if (files.size == 1) R.string.copy_item else R.string.copy_items))
                 .setView(view)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
@@ -73,7 +73,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                 }
 
                 if (Utils.needsStupidWritePermissions(context, destinationPath) && Config.newInstance(context).treeUri.isEmpty()) {
-                    WritePermissionDialog(activity, object: WritePermissionDialog.OnWritePermissionListener {
+                    WritePermissionDialog(activity, object : WritePermissionDialog.OnWritePermissionListener {
                         override fun onConfirmed() {
                             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
                             activity.startActivityForResult(intent, MainActivity.OPEN_DOCUMENT_TREE)
@@ -85,7 +85,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                 if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
                     context.toast(R.string.copying)
                     val pair = Pair<List<File>, File>(files, destinationDir)
-                    CopyTask(copyListener, mContext).execute(pair)
+                    CopyTask(copyListener, context).execute(pair)
                     dismiss()
                 } else {
                     if (Utils.isPathOnSD(context, view.source.value) && Utils.isPathOnSD(context, destinationPath)) {
@@ -100,7 +100,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val path: String
                     } else {
                         context.toast(R.string.copying_no_delete, Toast.LENGTH_LONG)
                         val pair = Pair<List<File>, File>(files, destinationDir)
-                        CopyTask(copyListener, mContext).execute(pair)
+                        CopyTask(copyListener, context).execute(pair)
                         dismiss()
                     }
                 }

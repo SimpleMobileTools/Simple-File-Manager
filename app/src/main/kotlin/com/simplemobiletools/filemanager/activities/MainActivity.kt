@@ -165,7 +165,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private fun saveTreeUri(resultData: Intent) {
         val treeUri = resultData.data
-        mConfig.treeUri = resultData.data.toString()
+        mConfig.treeUri = treeUri.toString()
 
         val takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
         contentResolver.takePersistableUriPermission(treeUri, takeFlags)
