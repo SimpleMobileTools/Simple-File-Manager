@@ -9,7 +9,7 @@ class WritePermissionDialog(val context: Context, val listener: OnWritePermissio
     var dialog: AlertDialog? = null
 
     init {
-        val view = LayoutInflater.from(context).inflate(R.layout.write_permission, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.dialog_write_permission, null)
 
         dialog = AlertDialog.Builder(context)
                 .setTitle(context.resources.getString(R.string.confirm_storage_access_title))
