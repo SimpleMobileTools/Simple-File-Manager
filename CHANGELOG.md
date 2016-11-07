@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.15 *(2016-11-07)*
+----------------------------
+
+ * Fix some file operations on devices without SD card
+
 Version 1.14 *(2016-11-05)*
 ----------------------------
 
