@@ -35,7 +35,7 @@ class Utils {
             return matcher.matches()
         }
 
-        fun needsStupidWritePermissions(context: Context, path: String) = isPathOnSD(context, path) && isKitkat()
+        fun needsStupidWritePermissions(context: Context, path: String) = isPathOnSD(context, path) && isKitkat() && !context.getSDCardPath().isEmpty()
 
         fun isPathOnSD(context: Context, path: String): Boolean {
             return path.startsWith(context.getSDCardPath())
