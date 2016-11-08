@@ -19,11 +19,12 @@ import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
 
-class CopyDialog(val activity: Activity, val files: List<File>, val path: String, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
+class CopyDialog(val activity: Activity, val files: List<File>, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
 
     init {
         val context = activity
         val view = LayoutInflater.from(context).inflate(R.layout.copy_item, null)
+        val path = files[0].parent
         view.source.text = "${path.trimEnd('/')}/"
 
         view.destination.setOnClickListener {
