@@ -68,6 +68,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     private boolean mShowHidden;
     private int mSelectedItemsCnt;
 
+    public static int ACTION_COPY = 1;
+    public static int ACTION_MOVE = 2;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -492,9 +495,9 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     @Override
-    public void copySucceeded() {
+    public void copySucceeded(int action) {
         fillItems();
-        Utils.Companion.showToast(getContext(), R.string.copying_success);
+        Utils.Companion.showToast(getContext(), action == ACTION_COPY ? R.string.copying_success : R.string.moving_success);
     }
 
     @Override

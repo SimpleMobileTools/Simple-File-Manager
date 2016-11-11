@@ -33,7 +33,8 @@
     <string name="copying">A copiar</string>
     <string name="copying_success">Files copied successfully</string>
     <string name="copying_failed">Não foi possível copiar os ficheiros</string>
-    <string name="copying_no_delete">A copiar, apague os ficheiros originais manualmente</string>
+    <string name="moving">Moving</string>
+    <string name="moving_success">Files moved successfully</string>
     <string name="already_exists">Já existe um ficheiro com este nome/string>
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>

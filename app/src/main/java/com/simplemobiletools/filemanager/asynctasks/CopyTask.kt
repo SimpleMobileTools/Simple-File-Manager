@@ -6,15 +6,19 @@ import android.support.v4.util.Pair
 import android.util.Log
 import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.extensions.rescanItem
+import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import java.io.*
 import java.lang.ref.WeakReference
+import java.util.*
 
-class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTask<Pair<List<File>, File>, Void, Boolean>() {
+class CopyTask(listener: CopyTask.CopyListener, val context: Context, val deleteAfterCopy: Boolean) : AsyncTask<Pair<List<File>, File>, Void, Boolean>() {
     private val TAG = CopyTask::class.java.simpleName
     private var mListener: WeakReference<CopyListener>? = null
+    private var mMovedFiles: ArrayList<File>
 
     init {
         mListener = WeakReference(listener)
+        mMovedFiles = arrayListOf()
     }
 
     override fun doInBackground(vararg params: Pair<List<File>, File>): Boolean? {
@@ -30,6 +34,16 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
             } catch (e: Exception) {
                 Log.e(TAG, "copy $e")
                 return false
+            }
+        }
+
+        if (deleteAfterCopy) {
+            for (file in mMovedFiles) {
+                if (Utils.needsStupidWritePermissions(context, file.absolutePath)) {
+                    Utils.getFileDocument(context, file.absolutePath).delete()
+                } else {
+                    file.delete()
+                }
             }
         }
         return true
@@ -68,6 +82,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
                     val out = context.contentResolver.openOutputStream(document.uri)
                     copyStream(inputStream, out)
                     context.rescanItem(destination)
+                    mMovedFiles.add(source)
                 }
             } else {
                 copy(newFile, File(destination, child))
@@ -93,6 +108,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
 
         copyStream(inputStream, out)
         context.rescanItem(destination)
+        mMovedFiles.add(source)
     }
 
     private fun copyStream(inputStream: InputStream, out: OutputStream?) {
@@ -110,14 +126,14 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
         val listener = mListener?.get() ?: return
 
         if (success) {
-            listener.copySucceeded()
+            listener.copySucceeded(if (deleteAfterCopy) ItemsFragment.ACTION_MOVE else ItemsFragment.ACTION_COPY)
         } else {
             listener.copyFailed()
         }
     }
 
     interface CopyListener {
-        fun copySucceeded()
+        fun copySucceeded(action: Int)
 
         fun copyFailed()
     }

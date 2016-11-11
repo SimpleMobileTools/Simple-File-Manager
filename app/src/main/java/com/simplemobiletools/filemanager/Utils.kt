@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.support.v4.provider.DocumentFile
+import com.simplemobiletools.filemanager.extensions.isPathOnSD
 import com.simplemobiletools.filepicker.extensions.getSDCardPath
 import com.simplemobiletools.filepicker.extensions.toast
 import java.util.regex.Pattern
@@ -38,7 +39,7 @@ class Utils {
         fun needsStupidWritePermissions(context: Context, path: String) = isPathOnSD(context, path) && isKitkat() && !context.getSDCardPath().isEmpty()
 
         fun isPathOnSD(context: Context, path: String): Boolean {
-            return path.startsWith(context.getSDCardPath())
+            return context.isPathOnSD(path)
         }
 
         fun isKitkat() = Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT

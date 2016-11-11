@@ -3,9 +3,10 @@ package com.simplemobiletools.filemanager.extensions
 import android.content.Context
 import android.media.MediaScannerConnection
 import android.widget.Toast
+import com.simplemobiletools.filepicker.extensions.getSDCardPath
 import java.io.File
 
-fun Context.toast(id: Int, length: Int = Toast.LENGTH_SHORT) = Toast.makeText(this, resources.getString(id), length).show()
+fun Context.toast(id: Int) = Toast.makeText(this, resources.getString(id), Toast.LENGTH_SHORT).show()
 
 fun Context.rescanItem(item: File) {
     if (item.isDirectory) {
@@ -16,3 +17,5 @@ fun Context.rescanItem(item: File) {
 
     MediaScannerConnection.scanFile(this, arrayOf(item.absolutePath), null, null)
 }
+
+fun Context.isPathOnSD(path: String) = path.startsWith(getSDCardPath())

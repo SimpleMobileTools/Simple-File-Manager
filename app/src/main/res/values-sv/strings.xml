@@ -33,7 +33,8 @@
     <string name="copying">Kopierar</string>
     <string name="copying_success">Files copied successfully</string>
     <string name="copying_failed">Kunde inte kopiera filen</string>
-    <string name="copying_no_delete">Copying, please delete source files manually</string>
+    <string name="moving">Moving</string>
+    <string name="moving_success">Files moved successfully</string>
     <string name="already_exists">A file with that name already exists</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
