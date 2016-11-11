@@ -16,6 +16,7 @@ import com.simplemobiletools.filemanager.extensions.rescanItem
 import com.simplemobiletools.filemanager.extensions.toast
 import com.simplemobiletools.filemanager.extensions.value
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
+import com.simplemobiletools.filepicker.extensions.humanizePath
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
 
@@ -24,17 +25,19 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
     init {
         val context = activity
         val view = LayoutInflater.from(context).inflate(R.layout.copy_item, null)
-        val path = files[0].parent
-        view.source.text = "${path.trimEnd('/')}/"
+        val path = files[0].parent.trimEnd('/')
+        var destinationPath = ""
+        view.source.text = "${context.humanizePath(path)}/"
 
         view.destination.setOnClickListener {
             val config = Config.newInstance(context)
-            FilePickerDialog(activity, path, false, config.showHidden, object : FilePickerDialog.OnFilePickerListener {
+            FilePickerDialog(activity, destinationPath, false, config.showHidden, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
 
                 override fun onSuccess(pickedPath: String) {
-                    view.destination.text = pickedPath
+                    destinationPath = pickedPath
+                    view.destination.text = context.humanizePath(pickedPath)
                 }
             })
         }
@@ -48,8 +51,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
             window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             show()
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({
-                val destinationPath = view.destination.value
-                if (destinationPath == context.resources.getString(R.string.select_destination)) {
+                if (destinationPath == context.resources.getString(R.string.select_destination) || destinationPath.isEmpty()) {
                     context.toast(R.string.please_select_destination)
                     return@setOnClickListener
                 }
