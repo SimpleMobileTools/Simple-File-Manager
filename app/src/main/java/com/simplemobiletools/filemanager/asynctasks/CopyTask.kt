@@ -5,13 +5,13 @@ import android.os.AsyncTask
 import android.support.v4.util.Pair
 import android.util.Log
 import com.simplemobiletools.filemanager.Utils
+import com.simplemobiletools.filemanager.extensions.rescanItem
 import java.io.*
 import java.lang.ref.WeakReference
 
 class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTask<Pair<List<File>, File>, Void, Boolean>() {
     private val TAG = CopyTask::class.java.simpleName
     private var mListener: WeakReference<CopyListener>? = null
-    private var destinationDir: File? = null
 
     init {
         mListener = WeakReference(listener)
@@ -22,10 +22,13 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
         val files = pair.first
         for (file in files) {
             try {
-                destinationDir = File(pair.second, file.name)
-                copy(file, destinationDir!!)
+                val curFile = File(pair.second, file.name)
+                if (curFile.exists())
+                    continue
+
+                copy(file, curFile)
             } catch (e: Exception) {
-                Log.e(TAG, "copy " + e)
+                Log.e(TAG, "copy $e")
                 return false
             }
         }
@@ -47,7 +50,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
                 val document = Utils.getFileDocument(context, destination.absolutePath)
                 document.createDirectory(destination.name)
             } else if (!destination.mkdirs()) {
-                throw IOException("Could not create dir " + destination.absolutePath)
+                throw IOException("Could not create dir ${destination.absolutePath}")
             }
         }
 
@@ -64,6 +67,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
                     val inputStream = FileInputStream(newFile)
                     val out = context.contentResolver.openOutputStream(document.uri)
                     copyStream(inputStream, out)
+                    context.rescanItem(destination)
                 }
             } else {
                 copy(newFile, File(destination, child))
@@ -74,7 +78,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
     private fun copyFile(source: File, destination: File) {
         val directory = destination.parentFile
         if (!directory.exists() && !directory.mkdirs()) {
-            throw IOException("Could not create dir " + directory.absolutePath)
+            throw IOException("Could not create dir ${directory.absolutePath}")
         }
 
         val inputStream = FileInputStream(source)
@@ -88,6 +92,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
         }
 
         copyStream(inputStream, out)
+        context.rescanItem(destination)
     }
 
     private fun copyStream(inputStream: InputStream, out: OutputStream?) {
@@ -105,14 +110,14 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context) : AsyncTas
         val listener = mListener?.get() ?: return
 
         if (success) {
-            listener.copySucceeded(destinationDir!!)
+            listener.copySucceeded()
         } else {
             listener.copyFailed()
         }
     }
 
     interface CopyListener {
-        fun copySucceeded(destinationDir: File)
+        fun copySucceeded()
 
         fun copyFailed()
     }

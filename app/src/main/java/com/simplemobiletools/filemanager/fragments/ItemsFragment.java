@@ -492,8 +492,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     @Override
-    public void copySucceeded(File file) {
-        rescanItem(file);
+    public void copySucceeded() {
         fillItems();
         Utils.Companion.showToast(getContext(), R.string.copying_success);
     }
