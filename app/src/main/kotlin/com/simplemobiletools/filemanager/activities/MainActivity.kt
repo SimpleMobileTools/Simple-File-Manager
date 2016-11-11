@@ -13,12 +13,10 @@ import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.filemanager.Constants
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.dialogs.WritePermissionDialog
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.dialogs.StoragePickerDialog
-import com.simplemobiletools.filepicker.extensions.getInternalStoragePath
-import com.simplemobiletools.filepicker.extensions.getSDCardPath
+import com.simplemobiletools.filepicker.extensions.*
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.Breadcrumbs
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,7 +37,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun tryInitFileManager() {
-        if (Utils.hasStoragePermission(applicationContext)) {
+        if (hasStoragePermission(applicationContext)) {
             initRootFileManager()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), STORAGE_PERMISSION)
@@ -84,7 +82,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         if (breadcrumbs.childCount <= 1) {
             if (!mWasBackJustPressed) {
                 mWasBackJustPressed = true
-                Utils.showToast(applicationContext, R.string.press_back_again)
+                toast(R.string.press_back_again)
                 Handler().postDelayed({ mWasBackJustPressed = false }, BACK_PRESS_TIMEOUT.toLong())
             } else {
                 finish()
@@ -103,7 +101,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initRootFileManager()
             } else {
-                Utils.showToast(applicationContext, R.string.no_permissions)
+                toast(R.string.no_permissions)
                 finish()
             }
         }
@@ -134,7 +132,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     fun checkStupidAndroidFiveSDCardWritePermission(pickedPath: String): Boolean {
-        return if (Utils.needsStupidWritePermissions(applicationContext, pickedPath) && mConfig.treeUri.isEmpty()) {
+        return if (applicationContext.needsStupidWritePermissions(pickedPath) && mConfig.treeUri.isEmpty()) {
             WritePermissionDialog(this, object : WritePermissionDialog.OnWritePermissionListener {
                 override fun onConfirmed() {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)

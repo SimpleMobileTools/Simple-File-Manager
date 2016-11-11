@@ -5,10 +5,13 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.Utils
-import com.simplemobiletools.filemanager.extensions.toast
+import com.simplemobiletools.filemanager.extensions.isValidFilename
 import com.simplemobiletools.filemanager.extensions.value
+import com.simplemobiletools.filepicker.extensions.getFileDocument
+import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.toast
 import kotlinx.android.synthetic.main.create_new.view.*
 import java.io.File
 import java.io.IOException
@@ -29,7 +32,7 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
                 val name = view.item_name.value
                 if (name.isEmpty()) {
                     context.toast(R.string.empty_name)
-                } else if (Utils.isNameValid(name)) {
+                } else if (name.isValidFilename()) {
                     val file = File(path, name)
                     if (file.exists()) {
                         context.toast(R.string.name_taken)
@@ -53,8 +56,8 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
     }
 
     private fun createDirectory(file: File, alertDialog: AlertDialog): Boolean {
-        return if (Utils.needsStupidWritePermissions(context, path)) {
-            val documentFile = Utils.getFileDocument(context, file.absolutePath)
+        return if (context.needsStupidWritePermissions(path)) {
+            val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri)
             documentFile.createDirectory(file.name)
             success(alertDialog)
             true
@@ -71,8 +74,8 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
 
     private fun createFile(file: File, alertDialog: AlertDialog): Boolean {
         try {
-            if (Utils.needsStupidWritePermissions(context, path)) {
-                val documentFile = Utils.getFileDocument(context, file.absolutePath)
+            if (context.needsStupidWritePermissions(path)) {
+                val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri)
                 documentFile.createFile("", file.name)
                 success(alertDialog)
                 return true

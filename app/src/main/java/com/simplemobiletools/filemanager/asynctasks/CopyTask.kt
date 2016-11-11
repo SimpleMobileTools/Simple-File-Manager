@@ -4,9 +4,11 @@ import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.util.Pair
 import android.util.Log
-import com.simplemobiletools.filemanager.Utils
-import com.simplemobiletools.filemanager.extensions.rescanItem
+import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
+import com.simplemobiletools.filepicker.extensions.getFileDocument
+import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.rescanItem
 import java.io.*
 import java.lang.ref.WeakReference
 import java.util.*
@@ -15,10 +17,12 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
     private val TAG = CopyTask::class.java.simpleName
     private var mListener: WeakReference<CopyListener>? = null
     private var mMovedFiles: ArrayList<File>
+    private var mConfig: Config
 
     init {
         mListener = WeakReference(listener)
         mMovedFiles = arrayListOf()
+        mConfig = Config.newInstance(context)
     }
 
     override fun doInBackground(vararg params: Pair<List<File>, File>): Boolean? {
@@ -39,8 +43,8 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
 
         if (deleteAfterCopy) {
             for (file in mMovedFiles) {
-                if (Utils.needsStupidWritePermissions(context, file.absolutePath)) {
-                    Utils.getFileDocument(context, file.absolutePath).delete()
+                if (context.needsStupidWritePermissions(file.absolutePath)) {
+                    context.getFileDocument(file.absolutePath, mConfig.treeUri)
                 } else {
                     file.delete()
                 }
@@ -60,8 +64,8 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
 
     private fun copyDirectory(source: File, destination: File) {
         if (!destination.exists()) {
-            if (Utils.needsStupidWritePermissions(context, destination.absolutePath)) {
-                val document = Utils.getFileDocument(context, destination.absolutePath)
+            if (context.needsStupidWritePermissions(destination.absolutePath)) {
+                val document = context.getFileDocument(destination.absolutePath, mConfig.treeUri)
                 document.createDirectory(destination.name)
             } else if (!destination.mkdirs()) {
                 throw IOException("Could not create dir ${destination.absolutePath}")
@@ -71,11 +75,11 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
         val children = source.list()
         for (child in children) {
             val newFile = File(source, child)
-            if (Utils.needsStupidWritePermissions(context, destination.absolutePath)) {
+            if (context.needsStupidWritePermissions(destination.absolutePath)) {
                 if (newFile.isDirectory) {
                     copyDirectory(newFile, File(destination, child))
                 } else {
-                    var document = Utils.getFileDocument(context, destination.absolutePath)
+                    var document = context.getFileDocument(destination.absolutePath, mConfig.treeUri)
                     document = document.createFile("", child)
 
                     val inputStream = FileInputStream(newFile)
@@ -98,9 +102,10 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
 
         val inputStream = FileInputStream(source)
         val out: OutputStream?
-        if (Utils.needsStupidWritePermissions(context, destination.absolutePath)) {
-            var document = Utils.getFileDocument(context, destination.absolutePath)
+        if (context.needsStupidWritePermissions(destination.absolutePath)) {
+            var document = context.getFileDocument(destination.absolutePath, mConfig.treeUri)
             document = document.createFile("", destination.name)
+
             out = context.contentResolver.openOutputStream(document.uri)
         } else {
             out = FileOutputStream(destination)

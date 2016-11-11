@@ -472,7 +472,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         }
 
         if (Utils.Companion.needsStupidWritePermissions(getContext(), item.getAbsolutePath())) {
-            final DocumentFile document = Utils.Companion.getFileDocument(getContext(), item.getAbsolutePath());
+            final DocumentFile document = Utils.Companion.getFileDocument(getContext(), item.getAbsolutePath(), mConfig.getTreeUri());
             document.delete();
         } else {
             item.delete();

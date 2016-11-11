@@ -1,15 +1,17 @@
 package com.simplemobiletools.filemanager.dialogs
 
 import android.content.Context
-import android.media.MediaScannerConnection
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
+import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.Utils
-import com.simplemobiletools.filemanager.extensions.rescanItem
-import com.simplemobiletools.filemanager.extensions.toast
+import com.simplemobiletools.filemanager.extensions.isValidFilename
 import com.simplemobiletools.filemanager.extensions.value
+import com.simplemobiletools.filepicker.extensions.getFileDocument
+import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.rescanItem
+import com.simplemobiletools.filepicker.extensions.toast
 import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.rename_item.view.*
 import java.io.File
@@ -30,7 +32,7 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
             show()
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({
                 val newName = view.item_name.value
-                if (Utils.isNameValid(newName)) {
+                if (newName.isValidFilename()) {
                     val currFile = File(path, item.name)
                     val newFile = File(path, newName)
 
@@ -39,8 +41,8 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
                         return@setOnClickListener
                     }
 
-                    if (Utils.needsStupidWritePermissions(context, path)) {
-                        val document = Utils.getFileDocument(context, currFile.absolutePath)
+                    if (context.needsStupidWritePermissions(path)) {
+                        val document = context.getFileDocument(currFile.absolutePath, Config.newInstance(context).treeUri)
                         if (document.canWrite())
                             document.renameTo(newName)
                         sendSuccess(currFile, newFile)
@@ -61,8 +63,8 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
     }
 
     private fun sendSuccess(currFile: File, newFile: File) {
+        context.rescanItem(currFile)
         context.rescanItem(newFile)
-        MediaScannerConnection.scanFile(context, arrayOf(currFile.absolutePath, newFile.absolutePath), null, null)
         listener.onSuccess()
     }
 

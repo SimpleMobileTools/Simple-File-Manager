@@ -8,14 +8,10 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.Utils
 import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.asynctasks.CopyTask
-import com.simplemobiletools.filemanager.extensions.isPathOnSD
-import com.simplemobiletools.filemanager.extensions.rescanItem
-import com.simplemobiletools.filemanager.extensions.toast
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
-import com.simplemobiletools.filepicker.extensions.humanizePath
+import com.simplemobiletools.filepicker.extensions.*
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
 
@@ -28,8 +24,8 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
         var destinationPath = ""
         view.source.text = "${context.humanizePath(sourcePath)}/"
 
+        val config = Config.newInstance(context)
         view.destination.setOnClickListener {
-            val config = Config.newInstance(context)
             FilePickerDialog(activity, destinationPath, false, config.showHidden, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
@@ -74,7 +70,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
                     }
                 }
 
-                if (Utils.needsStupidWritePermissions(context, destinationPath) && Config.newInstance(context).treeUri.isEmpty()) {
+                if (context.needsStupidWritePermissions(destinationPath) && config.treeUri.isEmpty()) {
                     WritePermissionDialog(activity, object : WritePermissionDialog.OnWritePermissionListener {
                         override fun onConfirmed() {
                             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
@@ -96,8 +92,8 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
                         CopyTask(copyListener, context, true).execute(pair)
                         dismiss()
                     } else {
-                        for (f in files) {
-                            val destination = File(destinationDir, f.name)
+                        for (file in files) {
+                            val destination = File(destinationDir, file.name)
                             context.rescanItem(destination)
                         }
 
