@@ -15,6 +15,7 @@ import com.simplemobiletools.filemanager.asynctasks.CopyTask
 import com.simplemobiletools.filemanager.extensions.rescanItem
 import com.simplemobiletools.filemanager.extensions.toast
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
+import com.simplemobiletools.filepicker.extensions.getBasePath
 import com.simplemobiletools.filepicker.extensions.humanizePath
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
@@ -90,7 +91,7 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
                     CopyTask(copyListener, context).execute(pair)
                     dismiss()
                 } else {
-                    if (Utils.isPathOnSD(context, sourcePath) && Utils.isPathOnSD(context, destinationPath)) {
+                    if (sourcePath.getBasePath(context) == destinationPath.getBasePath(context)) {
                         for (f in files) {
                             val destination = File(destinationDir, f.name)
                             f.renameTo(destination)
