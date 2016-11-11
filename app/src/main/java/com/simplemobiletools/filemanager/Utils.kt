@@ -7,8 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.support.v4.provider.DocumentFile
-import android.widget.Toast
 import com.simplemobiletools.filepicker.extensions.getSDCardPath
+import com.simplemobiletools.filepicker.extensions.toast
 import java.util.regex.Pattern
 
 class Utils {
@@ -22,7 +22,7 @@ class Utils {
         }
 
         fun showToast(context: Context, resId: Int) {
-            Toast.makeText(context, context.resources.getString(resId), Toast.LENGTH_SHORT).show()
+            context.toast(resId)
         }
 
         fun hasStoragePermission(cxt: Context): Boolean {

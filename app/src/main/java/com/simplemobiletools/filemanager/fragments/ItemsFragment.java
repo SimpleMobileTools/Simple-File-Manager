@@ -495,11 +495,12 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     public void copySucceeded(File file) {
         rescanItem(file);
         fillItems();
+        Utils.Companion.showToast(getContext(), R.string.copying_success);
     }
 
     @Override
     public void copyFailed() {
-        Utils.Companion.showToast(getContext(), R.string.copy_failed);
+        Utils.Companion.showToast(getContext(), R.string.copying_failed);
     }
 
     public interface ItemInteractionListener {
