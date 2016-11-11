@@ -94,6 +94,8 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
                     } else {
                         for (file in files) {
                             val destination = File(destinationDir, file.name)
+                            file.renameTo(destination)
+                            context.rescanItem(file)
                             context.rescanItem(destination)
                         }
 
