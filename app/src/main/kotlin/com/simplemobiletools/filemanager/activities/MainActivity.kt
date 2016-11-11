@@ -22,7 +22,6 @@ import com.simplemobiletools.filepicker.extensions.getSDCardPath
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.Breadcrumbs
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
     var mBasePath = getInternalStoragePath()
@@ -135,8 +134,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     fun checkStupidAndroidFiveSDCardWritePermission(pickedPath: String): Boolean {
-        val file = File(pickedPath)
-        return if (!file.canWrite() && Utils.needsStupidWritePermissions(applicationContext, pickedPath) && mConfig.treeUri.isEmpty()) {
+        return if (Utils.needsStupidWritePermissions(applicationContext, pickedPath) && mConfig.treeUri.isEmpty()) {
             WritePermissionDialog(this, object : WritePermissionDialog.OnWritePermissionListener {
                 override fun onConfirmed() {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
