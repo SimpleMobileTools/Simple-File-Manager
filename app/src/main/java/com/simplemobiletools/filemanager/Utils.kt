@@ -3,7 +3,9 @@ package com.simplemobiletools.filemanager
 import android.content.Context
 import com.simplemobiletools.filepicker.extensions.getFileDocument
 import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.scanFile
 import com.simplemobiletools.filepicker.extensions.toast
+import java.io.File
 
 class Utils {
     companion object {
@@ -16,5 +18,7 @@ class Utils {
         fun needsStupidWritePermissions(context: Context, path: String) = context.needsStupidWritePermissions(path)
 
         fun getFileDocument(context: Context, path: String, treeUri: String) = context.getFileDocument(path, treeUri)
+
+        fun scanFile(context: Context, file: File) = context.scanFile(file) {}
     }
 }

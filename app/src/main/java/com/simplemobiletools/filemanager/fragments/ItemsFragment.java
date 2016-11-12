@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -467,7 +466,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         } else {
             item.delete();
         }
-        MediaScannerConnection.scanFile(getContext(), new String[]{item.getAbsolutePath()}, null, null);
+        Utils.Companion.scanFile(getContext(), item);
     }
 
     private View.OnClickListener undoDeletion = new View.OnClickListener() {
