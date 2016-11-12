@@ -7,11 +7,7 @@ import android.view.View
 import android.view.WindowManager
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.extensions.isValidFilename
-import com.simplemobiletools.filemanager.extensions.value
-import com.simplemobiletools.filepicker.extensions.getFileDocument
-import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
-import com.simplemobiletools.filepicker.extensions.toast
+import com.simplemobiletools.filepicker.extensions.*
 import kotlinx.android.synthetic.main.create_new.view.*
 import java.io.File
 import java.io.IOException
@@ -32,7 +28,7 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
                 val name = view.item_name.value
                 if (name.isEmpty()) {
                     context.toast(R.string.empty_name)
-                } else if (name.isValidFilename()) {
+                } else if (name.isAValidFilename()) {
                     val file = File(path, name)
                     if (file.exists()) {
                         context.toast(R.string.name_taken)

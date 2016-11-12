@@ -8,12 +8,13 @@ import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.extensions.getFileDocument
 import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
-import com.simplemobiletools.filepicker.extensions.rescanItem
+import com.simplemobiletools.filepicker.extensions.scanFile
+import com.simplemobiletools.filepicker.extensions.scanFiles
 import java.io.*
 import java.lang.ref.WeakReference
 import java.util.*
 
-class CopyTask(listener: CopyTask.CopyListener, val context: Context, val deleteAfterCopy: Boolean) : AsyncTask<Pair<List<File>, File>, Void, Boolean>() {
+class CopyTask(listener: CopyTask.CopyListener, val context: Context, val deleteAfterCopy: Boolean) : AsyncTask<Pair<ArrayList<File>, File>, Void, Boolean>() {
     private val TAG = CopyTask::class.java.simpleName
     private var mListener: WeakReference<CopyListener>? = null
     private var mMovedFiles: ArrayList<File>
@@ -25,7 +26,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
         mConfig = Config.newInstance(context)
     }
 
-    override fun doInBackground(vararg params: Pair<List<File>, File>): Boolean? {
+    override fun doInBackground(vararg params: Pair<ArrayList<File>, File>): Boolean? {
         val pair = params[0]
         val files = pair.first
         for (file in files) {
@@ -50,6 +51,8 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
                 }
             }
         }
+        context.scanFiles(files) {}
+        context.scanFiles(mMovedFiles) {}
         return true
     }
 
@@ -85,7 +88,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
                     val inputStream = FileInputStream(newFile)
                     val out = context.contentResolver.openOutputStream(document.uri)
                     copyStream(inputStream, out)
-                    context.rescanItem(destination)
+                    context.scanFile(destination) {}
                     mMovedFiles.add(source)
                 }
             } else {
@@ -112,7 +115,7 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
         }
 
         copyStream(inputStream, out)
-        context.rescanItem(destination)
+        context.scanFile(destination) {}
         mMovedFiles.add(source)
     }
 

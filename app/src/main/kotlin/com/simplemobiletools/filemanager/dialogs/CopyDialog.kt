@@ -14,8 +14,9 @@ import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import com.simplemobiletools.filepicker.extensions.*
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
+import java.util.*
 
-class CopyDialog(val activity: Activity, val files: List<File>, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
+class CopyDialog(val activity: Activity, val files: ArrayList<File>, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
 
     init {
         val context = activity
@@ -82,21 +83,20 @@ class CopyDialog(val activity: Activity, val files: List<File>, val copyListener
 
                 if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
                     context.toast(R.string.copying)
-                    val pair = Pair<List<File>, File>(files, destinationDir)
+                    val pair = Pair<ArrayList<File>, File>(files, destinationDir)
                     CopyTask(copyListener, context, false).execute(pair)
                     dismiss()
                 } else {
                     if (context.isPathOnSD(sourcePath) || context.isPathOnSD(destinationPath)) {
                         context.toast(R.string.moving)
-                        val pair = Pair<List<File>, File>(files, destinationDir)
+                        val pair = Pair<ArrayList<File>, File>(files, destinationDir)
                         CopyTask(copyListener, context, true).execute(pair)
                         dismiss()
                     } else {
                         for (file in files) {
                             val destination = File(destinationDir, file.name)
                             file.renameTo(destination)
-                            context.rescanItem(file)
-                            context.rescanItem(destination)
+                            context.scanFiles(arrayListOf(file, destination)) {}
                         }
 
                         context.toast(R.string.moving_success)

@@ -365,7 +365,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         if (itemIndexes.isEmpty())
             return;
 
-        final List<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
+        final ArrayList<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
         for (Integer i : itemIndexes) {
             FileDirItem item = mItems.get(i);
             itemsToCopy.add(new File(item.getPath()));
@@ -452,16 +452,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         }
 
         mToBeDeleted.clear();
-    }
-
-    private void rescanItem(File item) {
-        if (item.isDirectory()) {
-            for (File child : item.listFiles()) {
-                rescanItem(child);
-            }
-        }
-
-        MediaScannerConnection.scanFile(getContext(), new String[]{item.getAbsolutePath()}, null, null);
     }
 
     private void deleteItem(File item) {
