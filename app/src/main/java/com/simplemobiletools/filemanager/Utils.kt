@@ -1,9 +1,11 @@
 package com.simplemobiletools.filemanager
 
 import android.content.Context
-import com.simplemobiletools.filepicker.extensions.*
+import com.simplemobiletools.filepicker.extensions.getFileDocument
+import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
+import com.simplemobiletools.filepicker.extensions.scanFile
+import com.simplemobiletools.filepicker.extensions.toast
 import java.io.File
-import java.util.*
 
 class Utils {
     companion object {
@@ -18,7 +20,5 @@ class Utils {
         fun getFileDocument(context: Context, path: String, treeUri: String) = context.getFileDocument(path, treeUri)
 
         fun scanFile(context: Context, file: File) = context.scanFile(file) {}
-
-        fun scanFiles(context: Context, files: ArrayList<File>) = context.scanFiles(files) {}
     }
 }
