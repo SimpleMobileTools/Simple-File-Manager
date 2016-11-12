@@ -51,7 +51,7 @@ import butterknife.OnClick;
 
 public class ItemsFragment extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, ListView.MultiChoiceModeListener,
-        ListView.OnTouchListener, CopyMoveTask.CopyListener {
+        ListView.OnTouchListener, CopyMoveTask.CopyMoveListener {
     @BindView(R.id.items_list) ListView mListView;
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
