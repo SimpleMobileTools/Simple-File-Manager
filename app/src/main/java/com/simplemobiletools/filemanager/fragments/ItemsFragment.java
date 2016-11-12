@@ -30,10 +30,10 @@ import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
 import com.simplemobiletools.filemanager.activities.SimpleActivity;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
-import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.dialogs.CopyDialog;
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog;
 import com.simplemobiletools.filemanager.dialogs.RenameItemDialog;
+import com.simplemobiletools.filepicker.asynctasks.CopyMoveTask;
 import com.simplemobiletools.filepicker.models.FileDirItem;
 import com.simplemobiletools.fileproperties.dialogs.PropertiesDialog;
 
@@ -51,7 +51,7 @@ import butterknife.OnClick;
 
 public class ItemsFragment extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, ListView.MultiChoiceModeListener,
-        ListView.OnTouchListener, CopyTask.CopyListener {
+        ListView.OnTouchListener, CopyMoveTask.CopyListener {
     @BindView(R.id.items_list) ListView mListView;
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
