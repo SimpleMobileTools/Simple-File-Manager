@@ -32,7 +32,7 @@
     <string name="source_and_destination_same">La fonte e la destinazione non possono essere uguali</string>
     <string name="copying">Copia in corso</string>
     <string name="copying_success">File copiati con successo</string>
-    <string name="copying_failed">Impossibile copiare i file</string>
+    <string name="copy_move_failed">Impossibile copiare i file</string>
     <string name="moving">Spostamento</string>
     <string name="moving_success">File spostati con successo</string>
     <string name="already_exists">Esiste già un file con quel nome</string>
