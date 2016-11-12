@@ -7,17 +7,11 @@ import com.simplemobiletools.filepicker.extensions.toast
 
 class Utils {
     companion object {
-        fun getFilename(path: String): String {
-            return path.substring(path.lastIndexOf("/") + 1)
-        }
+        fun getFilename(path: String) = path.substring(path.lastIndexOf("/") + 1)
 
-        fun getFileExtension(fileName: String): String {
-            return fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase()
-        }
+        fun getFileExtension(fileName: String) = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length).toLowerCase()
 
-        fun showToast(context: Context, resId: Int) {
-            context.toast(resId)
-        }
+        fun showToast(context: Context, resId: Int) = context.toast(resId)
 
         fun needsStupidWritePermissions(context: Context, path: String) = context.needsStupidWritePermissions(path)
 
