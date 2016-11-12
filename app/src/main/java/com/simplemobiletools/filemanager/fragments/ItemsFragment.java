@@ -28,6 +28,7 @@ import com.simplemobiletools.filemanager.Config;
 import com.simplemobiletools.filemanager.Constants;
 import com.simplemobiletools.filemanager.R;
 import com.simplemobiletools.filemanager.Utils;
+import com.simplemobiletools.filemanager.activities.SimpleActivity;
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter;
 import com.simplemobiletools.filemanager.asynctasks.CopyTask;
 import com.simplemobiletools.filemanager.dialogs.CopyDialog;
@@ -370,7 +371,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             itemsToCopy.add(new File(item.getPath()));
         }
 
-        new CopyDialog(getActivity(), itemsToCopy, this, new CopyDialog.OnCopyListener() {
+        new CopyDialog((SimpleActivity) getActivity(), itemsToCopy, this, new CopyDialog.OnCopyListener() {
             @Override
             public void onSuccess() {
                 fillItems();

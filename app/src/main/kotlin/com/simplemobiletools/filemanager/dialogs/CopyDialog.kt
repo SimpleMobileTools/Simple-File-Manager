@@ -1,23 +1,23 @@
 package com.simplemobiletools.filemanager.dialogs
 
-import android.app.Activity
-import android.content.Intent
 import android.support.v4.util.Pair
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.simplemobiletools.filemanager.Config
-import com.simplemobiletools.filemanager.Constants
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.asynctasks.CopyTask
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
-import com.simplemobiletools.filepicker.dialogs.WritePermissionDialog
-import com.simplemobiletools.filepicker.extensions.*
+import com.simplemobiletools.filepicker.extensions.humanizePath
+import com.simplemobiletools.filepicker.extensions.isPathOnSD
+import com.simplemobiletools.filepicker.extensions.scanFiles
+import com.simplemobiletools.filepicker.extensions.toast
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
 import java.util.*
 
-class CopyDialog(val activity: Activity, val files: ArrayList<File>, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
+class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val copyListener: CopyTask.CopyListener, val listener: OnCopyListener) {
 
     init {
         val context = activity
@@ -72,13 +72,7 @@ class CopyDialog(val activity: Activity, val files: ArrayList<File>, val copyLis
                     }
                 }
 
-                if (context.needsStupidWritePermissions(destinationPath) && config.treeUri.isEmpty()) {
-                    WritePermissionDialog(activity, object : WritePermissionDialog.OnConfirmedListener {
-                        override fun onConfirmed() {
-                            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                            activity.startActivityForResult(intent, Constants.OPEN_DOCUMENT_TREE)
-                        }
-                    })
+                if (activity.isShowingPermDialog(destinationDir)) {
                     return@setOnClickListener
                 }
 
