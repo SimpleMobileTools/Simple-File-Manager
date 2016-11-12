@@ -5,7 +5,7 @@
     <string name="no_permissions">É necessária a permissão para aceder ao armazenamento</string>
     <string name="no_app_found">Não existe uma aplicação para abrir este tipo de ficheiro</string>
     <string name="create_new">Criar novo item</string>
-	<string name="rename_item">Renomear item</string>
+    <string name="rename_item">Renomear item</string>
     <string name="directory">Pasta</string>
     <string name="file">Ficheiro</string>
     <string name="name_taken">Já existe um ficheiro ou pasta com este nome</string>
@@ -31,14 +31,14 @@
     <string name="please_select_destination">Por favor selecione um destino</string>
     <string name="source_and_destination_same">A origem e o destino não podem ser iguais</string>
     <string name="copying">A copiar</string>
-    <string name="copying_success">Files copied successfully</string>
+    <string name="copying_success">Ficheiros copiados com sucesso</string>
     <string name="copying_failed">Não foi possível copiar os ficheiros</string>
-    <string name="moving">Moving</string>
-    <string name="moving_success">Files moved successfully</string>
+    <string name="moving">A mover</string>
+    <string name="moving_success">Ficheiros movidos com sucesso</string>
     <string name="already_exists">Já existe um ficheiro com este nome</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
-    <string name="press_back_again">prima novamente para sair</string>
+    <string name="press_back_again">Prima novamente para sair</string>
 
     <!-- File and directory properties -->
     <string name="name">Nome</string>
