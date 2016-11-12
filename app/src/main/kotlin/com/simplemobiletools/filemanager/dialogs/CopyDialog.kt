@@ -7,8 +7,8 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.simplemobiletools.filemanager.Config
+import com.simplemobiletools.filemanager.Constants
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.asynctasks.CopyTask
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
 import com.simplemobiletools.filepicker.dialogs.WritePermissionDialog
@@ -76,7 +76,7 @@ class CopyDialog(val activity: Activity, val files: ArrayList<File>, val copyLis
                     WritePermissionDialog(activity, object : WritePermissionDialog.OnConfirmedListener {
                         override fun onConfirmed() {
                             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                            activity.startActivityForResult(intent, MainActivity.OPEN_DOCUMENT_TREE)
+                            activity.startActivityForResult(intent, Constants.OPEN_DOCUMENT_TREE)
                         }
                     })
                     return@setOnClickListener
