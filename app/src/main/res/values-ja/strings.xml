@@ -32,7 +32,7 @@
     <string name="source_and_destination_same">Source and destination cannot be the same</string>
     <string name="copying">コピー中</string>
     <string name="copying_success">Files copied successfully</string>
-    <string name="copying_failed">ファイルをコピーできませんでした</string>
+    <string name="copy_move_failed">ファイルをコピーできませんでした</string>
     <string name="moving">Moving</string>
     <string name="moving_success">Files moved successfully</string>
     <string name="already_exists">A file with that name already exists</string>

@@ -5,7 +5,6 @@ import android.os.AsyncTask
 import android.support.v4.util.Pair
 import android.util.Log
 import com.simplemobiletools.filemanager.Config
-import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.extensions.getFileDocument
 import com.simplemobiletools.filepicker.extensions.needsStupidWritePermissions
 import com.simplemobiletools.filepicker.extensions.scanFile
@@ -134,14 +133,14 @@ class CopyTask(listener: CopyTask.CopyListener, val context: Context, val delete
         val listener = mListener?.get() ?: return
 
         if (success) {
-            listener.copySucceeded(if (deleteAfterCopy) ItemsFragment.ACTION_MOVE else ItemsFragment.ACTION_COPY)
+            listener.copySucceeded(deleteAfterCopy)
         } else {
             listener.copyFailed()
         }
     }
 
     interface CopyListener {
-        fun copySucceeded(action: Int)
+        fun copySucceeded(deleted: Boolean)
 
         fun copyFailed()
     }
