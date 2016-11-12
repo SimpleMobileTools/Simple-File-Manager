@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.17 *(2016-11-12)*
+----------------------------
+
+ * Couple adjustments to the Copy and Move functionality
+
 Version 1.16 *(2016-11-11)*
 ----------------------------
 
