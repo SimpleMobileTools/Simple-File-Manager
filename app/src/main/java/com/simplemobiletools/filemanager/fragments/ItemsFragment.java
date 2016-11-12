@@ -368,12 +368,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             itemsToCopy.add(new File(item.getPath()));
         }
 
-        new CopyDialog((SimpleActivity) getActivity(), itemsToCopy, this, new CopyDialog.OnCopyListener() {
-            @Override
-            public void onSuccess() {
-                fillItems();
-            }
-        });
+        new CopyDialog((SimpleActivity) getActivity(), itemsToCopy, this);
     }
 
     private FileDirItem getSelectedItem() {
