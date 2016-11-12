@@ -40,17 +40,6 @@
     <string name="cancel">Cancel</string>
     <string name="press_back_again">Press back again to exit</string>
 
-    <!-- File and directory properties -->
-    <string name="name">Name</string>
-    <string name="path">Path</string>
-    <string name="size">Size</string>
-    <string name="last_modified">Last modified</string>
-    <string name="files_count">Total files count</string>
-    <string name="resolution">Resolution</string>
-    <string name="duration">Duration</string>
-    <string name="artist">Artist</string>
-    <string name="album">Album</string>
-
     <plurals name="items_deleted">
         <item quantity="one">1 objekt borttagen</item>
         <item quantity="other">%1$d objekt borttagna</item>
