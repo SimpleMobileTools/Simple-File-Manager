@@ -51,7 +51,7 @@ import butterknife.OnClick;
 
 public class ItemsFragment extends android.support.v4.app.Fragment
         implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener, ListView.MultiChoiceModeListener,
-        ListView.OnTouchListener, CopyMoveTask.CopyMoveListener {
+        ListView.OnTouchListener {
     @BindView(R.id.items_list) ListView mListView;
     @BindView(R.id.items_swipe_refresh) SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.items_holder) CoordinatorLayout mCoordinatorLayout;
@@ -358,17 +358,34 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     private void displayCopyDialog() {
-        final List<Integer> itemIndexes = getSelectedItemIndexes();
-        if (itemIndexes.isEmpty())
+        final List<Integer> fileIndexes = getSelectedItemIndexes();
+        if (fileIndexes.isEmpty())
             return;
 
-        final ArrayList<File> itemsToCopy = new ArrayList<>(itemIndexes.size());
-        for (Integer i : itemIndexes) {
+        final ArrayList<File> files = new ArrayList<>(fileIndexes.size());
+        for (Integer i : fileIndexes) {
             FileDirItem item = mItems.get(i);
-            itemsToCopy.add(new File(item.getPath()));
+            files.add(new File(item.getPath()));
         }
 
-        new CopyDialog((SimpleActivity) getActivity(), itemsToCopy, this);
+        new CopyDialog((SimpleActivity) getActivity(), files, new CopyMoveTask.CopyMoveListener() {
+            @Override
+            public void copySucceeded(boolean deleted, boolean copiedAll) {
+                int msgId;
+                if (deleted) {
+                    fillItems();
+                    msgId = copiedAll ? R.string.moving_success : R.string.moving_success_partial;
+                } else {
+                    msgId = copiedAll? R.string.copying_success : R.string.copying_success_partial;
+                }
+                Utils.Companion.showToast(getContext(), msgId);
+            }
+
+            @Override
+            public void copyFailed() {
+                Utils.Companion.showToast(getContext(), R.string.copy_move_failed);
+            }
+        });
     }
 
     private FileDirItem getSelectedItem() {
@@ -474,17 +491,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     @Override
     public void onDestroyActionMode(ActionMode mode) {
         mSelectedItemsCnt = 0;
-    }
-
-    @Override
-    public void copySucceeded(boolean deleted) {
-        fillItems();
-        Utils.Companion.showToast(getContext(), deleted ? R.string.moving_success : R.string.copying_success);
-    }
-
-    @Override
-    public void copyFailed() {
-        Utils.Companion.showToast(getContext(), R.string.copy_move_failed);
     }
 
     public interface ItemInteractionListener {

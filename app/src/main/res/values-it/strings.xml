@@ -39,6 +39,8 @@
     <string name="ok">OK</string>
     <string name="cancel">Annulla</string>
     <string name="press_back_again">Premi di nuovo indietro per uscire</string>
+    <string name="moving_success_partial">Some files could not be moved</string>
+    <string name="copying_success_partial">Some files could not be copied</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 elemento eliminato</item>
