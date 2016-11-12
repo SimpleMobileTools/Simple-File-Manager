@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-dontnote android.net.http.*
+-dontnote org.apache.http.**
+-keep class com.simplemobiletools.** { *; }
+-dontwarn com.simplemobiletools.**
