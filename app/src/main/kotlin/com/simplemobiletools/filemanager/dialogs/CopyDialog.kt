@@ -11,6 +11,7 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.asynctasks.CopyTask
 import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
+import com.simplemobiletools.filepicker.dialogs.WritePermissionDialog
 import com.simplemobiletools.filepicker.extensions.*
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
@@ -72,7 +73,7 @@ class CopyDialog(val activity: Activity, val files: ArrayList<File>, val copyLis
                 }
 
                 if (context.needsStupidWritePermissions(destinationPath) && config.treeUri.isEmpty()) {
-                    WritePermissionDialog(activity, object : WritePermissionDialog.OnWritePermissionListener {
+                    WritePermissionDialog(activity, object : WritePermissionDialog.OnConfirmedListener {
                         override fun onConfirmed() {
                             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
                             activity.startActivityForResult(intent, MainActivity.OPEN_DOCUMENT_TREE)

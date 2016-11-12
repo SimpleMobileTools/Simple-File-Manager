@@ -39,8 +39,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="press_back_again">prima novamente para sair</string>
-    <string name="confirm_storage_access_title">Confirmação de acesso ao armazenamento externo</string>
-    <string name="confirm_storage_access_text">Por favor escolha a pasta raiz do cartão SD para conceder o acesso no próximo ecrã</string>
 
     <!-- File and directory properties -->
     <string name="name">Nome</string>

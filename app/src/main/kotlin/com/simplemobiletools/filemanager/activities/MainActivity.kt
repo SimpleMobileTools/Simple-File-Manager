@@ -13,9 +13,9 @@ import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.filemanager.Constants
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.dialogs.WritePermissionDialog
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.dialogs.StoragePickerDialog
+import com.simplemobiletools.filepicker.dialogs.WritePermissionDialog
 import com.simplemobiletools.filepicker.extensions.*
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.Breadcrumbs
@@ -133,7 +133,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     fun checkStupidAndroidFiveSDCardWritePermission(pickedPath: String): Boolean {
         return if (applicationContext.needsStupidWritePermissions(pickedPath) && mConfig.treeUri.isEmpty()) {
-            WritePermissionDialog(this, object : WritePermissionDialog.OnWritePermissionListener {
+            WritePermissionDialog(this, object : WritePermissionDialog.OnConfirmedListener {
                 override fun onConfirmed() {
                     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
                     startActivityForResult(intent, OPEN_DOCUMENT_TREE_AND_CHANGE_PATH)
