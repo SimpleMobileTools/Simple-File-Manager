@@ -81,7 +81,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         super.onViewCreated(view, savedInstanceState);
         if (mStates == null)
             mStates = new HashMap<>();
-        mConfig = Config.newInstance(getContext());
+        mConfig = Config.Companion.newInstance(getContext());
         mShowHidden = mConfig.getShowHidden();
         mItems = new ArrayList<>();
         mToBeDeleted = new ArrayList<>();
