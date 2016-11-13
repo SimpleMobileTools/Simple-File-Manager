@@ -13,22 +13,22 @@ class Config(context: Context) {
     }
 
     init {
-        mPrefs = context.getSharedPreferences(Constants.PREFS_KEY, Context.MODE_PRIVATE)
+        mPrefs = context.getSharedPreferences(PREFS_KEY, Context.MODE_PRIVATE)
     }
 
     var isFirstRun: Boolean
-        get() = mPrefs.getBoolean(Constants.IS_FIRST_RUN, true)
-        set(firstRun) = mPrefs.edit().putBoolean(Constants.IS_FIRST_RUN, firstRun).apply()
+        get() = mPrefs.getBoolean(IS_FIRST_RUN, true)
+        set(firstRun) = mPrefs.edit().putBoolean(IS_FIRST_RUN, firstRun).apply()
 
     var isDarkTheme: Boolean
-        get() = mPrefs.getBoolean(Constants.IS_DARK_THEME, false)
-        set(isDarkTheme) = mPrefs.edit().putBoolean(Constants.IS_DARK_THEME, isDarkTheme).apply()
+        get() = mPrefs.getBoolean(IS_DARK_THEME, false)
+        set(isDarkTheme) = mPrefs.edit().putBoolean(IS_DARK_THEME, isDarkTheme).apply()
 
     var showHidden: Boolean
-        get() = mPrefs.getBoolean(Constants.SHOW_HIDDEN, false)
-        set(show) = mPrefs.edit().putBoolean(Constants.SHOW_HIDDEN, show).apply()
+        get() = mPrefs.getBoolean(SHOW_HIDDEN, false)
+        set(show) = mPrefs.edit().putBoolean(SHOW_HIDDEN, show).apply()
 
     var treeUri: String
-        get() = mPrefs.getString(Constants.TREE_URI, "")
-        set(uri) = mPrefs.edit().putString(Constants.TREE_URI, uri).apply()
+        get() = mPrefs.getString(TREE_URI, "")
+        set(uri) = mPrefs.edit().putString(TREE_URI, uri).apply()
 }

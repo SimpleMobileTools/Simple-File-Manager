@@ -107,7 +107,7 @@ public class ItemsFragment extends android.support.v4.app.Fragment
     }
 
     private void fillItems() {
-        mPath = getArguments().getString(Constants.PATH);
+        mPath = getArguments().getString(Constants.INSTANCE.getPATH());
         final List<FileDirItem> newItems = getItems(mPath);
         Collections.sort(newItems);
         if (mItems != null && newItems.toString().equals(mItems.toString())) {

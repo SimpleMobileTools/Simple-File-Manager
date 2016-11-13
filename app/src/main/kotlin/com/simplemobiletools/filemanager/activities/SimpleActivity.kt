@@ -7,9 +7,8 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-
 import com.simplemobiletools.filemanager.Config
-import com.simplemobiletools.filemanager.Constants
+import com.simplemobiletools.filemanager.OPEN_DOCUMENT_TREE
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filepicker.extensions.isShowingWritePermissions
 import java.io.File
@@ -35,7 +34,7 @@ open class SimpleActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
-        if (requestCode == Constants.OPEN_DOCUMENT_TREE && resultCode == Activity.RESULT_OK && resultData != null) {
+        if (requestCode == OPEN_DOCUMENT_TREE && resultCode == Activity.RESULT_OK && resultData != null) {
             saveTreeUri(resultData)
         }
     }
@@ -49,5 +48,5 @@ open class SimpleActivity : AppCompatActivity() {
         contentResolver.takePersistableUriPermission(treeUri, takeFlags)
     }
 
-    fun isShowingPermDialog(file: File) = isShowingWritePermissions(file, mConfig.treeUri, Constants.OPEN_DOCUMENT_TREE)
+    fun isShowingPermDialog(file: File) = isShowingWritePermissions(file, mConfig.treeUri, OPEN_DOCUMENT_TREE)
 }
