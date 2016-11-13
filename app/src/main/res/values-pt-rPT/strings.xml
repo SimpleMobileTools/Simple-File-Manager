@@ -39,8 +39,8 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="press_back_again">Prima novamente para sair</string>
-    <string name="moving_success_partial">Some files could not be moved</string>
-    <string name="copying_success_partial">Some files could not be copied</string>
+    <string name="moving_success_partial">Alguns ficheiros não foram movidos</string>
+    <string name="copying_success_partial">Alguns ficheiros não foram copiados</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 item apagado</item>
@@ -68,8 +68,8 @@
     <string name="notice">Esta aplicação usa as seguintes bibliotecas de terceiros para facilitar a minha vida. Obrigado.</string>
     <string name="third_party_licences">Licenças de terceiros</string>
     <string name="butterknife_title"><u>Butter Knife (injetor de vistas)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
-    <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>
+    <string name="filepicker_title"><u>Simple File Picker (diálogo de seleção de ficheiros)</u></string>
+    <string name="fileproperties_title"><u>Simple File Properties (diálogo de propriedades)</u></string>
 
     <!-- Settings -->
     <string name="settings">Definições</string>
