@@ -476,7 +476,6 @@ public class ItemsFragment extends android.support.v4.app.Fragment
         } else {
             item.delete();
         }
-        Utils.Companion.scanFile(getContext(), item);
     }
 
     private View.OnClickListener undoDeletion = new View.OnClickListener() {

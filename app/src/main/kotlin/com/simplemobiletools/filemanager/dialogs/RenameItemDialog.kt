@@ -40,11 +40,11 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
                         val document = context.getFileDocument(currFile.absolutePath, Config.newInstance(context).treeUri)
                         if (document.canWrite())
                             document.renameTo(newName)
-                        sendSuccess(currFile, newFile)
+                        sendSuccess(newFile)
                         dismiss()
                     } else {
                         if (currFile.renameTo(newFile)) {
-                            sendSuccess(currFile, newFile)
+                            sendSuccess(newFile)
                             dismiss()
                         } else {
                             context.toast(R.string.error_occurred)
@@ -57,8 +57,8 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
         }
     }
 
-    private fun sendSuccess(currFile: File, newFile: File) {
-        context.scanFiles(arrayListOf(currFile, newFile)) {}
+    private fun sendSuccess(newFile: File) {
+        context.scanFiles(arrayListOf(newFile)) {}
         listener.onSuccess()
     }
 
