@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.20 *(2016-11-17)*
+----------------------------
+
+ * Misc fixes, mostly related to copy and move
+
 Version 1.19 *(2016-11-15)*
 ----------------------------
 
