@@ -373,11 +373,11 @@ public class ItemsFragment extends android.support.v4.app.Fragment
             public void copySucceeded(boolean deleted, boolean copiedAll) {
                 int msgId;
                 if (deleted) {
-                    fillItems();
                     msgId = copiedAll ? R.string.moving_success : R.string.moving_success_partial;
                 } else {
                     msgId = copiedAll? R.string.copying_success : R.string.copying_success_partial;
                 }
+                fillItems();
                 Utils.Companion.showToast(getContext(), msgId);
             }
 
