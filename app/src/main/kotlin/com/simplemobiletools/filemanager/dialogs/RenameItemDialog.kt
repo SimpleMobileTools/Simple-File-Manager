@@ -27,31 +27,32 @@ class RenameItemDialog(val context: Context, val path: String, val item: FileDir
             show()
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({
                 val newName = view.item_name.value
-                if (newName.isAValidFilename()) {
-                    val currFile = File(path, item.name)
-                    val newFile = File(path, newName)
+                if (!newName.isAValidFilename()) {
+                    context.toast(R.string.invalid_name)
+                    return@setOnClickListener
+                }
 
-                    if (newFile.exists()) {
-                        context.toast(R.string.name_taken)
-                        return@setOnClickListener
-                    }
+                val currFile = File(path, item.name)
+                val newFile = File(path, newName)
 
-                    if (context.needsStupidWritePermissions(path)) {
-                        val document = context.getFileDocument(currFile.absolutePath, Config.newInstance(context).treeUri)
-                        if (document.canWrite())
-                            document.renameTo(newName)
+                if (newFile.exists()) {
+                    context.toast(R.string.name_taken)
+                    return@setOnClickListener
+                }
+
+                if (context.needsStupidWritePermissions(path)) {
+                    val document = context.getFileDocument(currFile.absolutePath, Config.newInstance(context).treeUri)
+                    if (document.canWrite())
+                        document.renameTo(newName)
+                    sendSuccess(newFile)
+                    dismiss()
+                } else {
+                    if (currFile.renameTo(newFile)) {
                         sendSuccess(newFile)
                         dismiss()
                     } else {
-                        if (currFile.renameTo(newFile)) {
-                            sendSuccess(newFile)
-                            dismiss()
-                        } else {
-                            context.toast(R.string.error_occurred)
-                        }
+                        context.toast(R.string.error_occurred)
                     }
-                } else {
-                    context.toast(R.string.invalid_name)
                 }
             })
         }
