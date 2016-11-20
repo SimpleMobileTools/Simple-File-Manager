@@ -8,7 +8,7 @@ import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.filemanager.Constants
+import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.dialogs.StoragePickerDialog
@@ -50,7 +50,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     private fun openPath(path: String) {
         breadcrumbs.setBreadcrumb(path)
         val bundle = Bundle()
-        bundle.putString(Constants.PATH, path)
+        bundle.putString(PATH, path)
 
         val fragment = ItemsFragment()
         fragment.arguments = bundle

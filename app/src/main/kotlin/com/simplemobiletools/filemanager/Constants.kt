@@ -1,5 +1,7 @@
 package com.simplemobiletools.filemanager
 
+val PATH = "path"
+
 // shared preferences
 val PREFS_KEY = "File Manager"
 val IS_FIRST_RUN = "is_first_run"
@@ -9,7 +11,3 @@ val TREE_URI = "tree_uri"
 
 // global intents
 val OPEN_DOCUMENT_TREE = 1000
-
-object Constants {
-    val PATH = "path"
-}
