@@ -30,9 +30,17 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
 
     companion object {
         var actMode: ActionMode? = null
+        val markedItems = HashSet<Int>()
 
-        fun toggleItemSelection(itemView: View, select: Boolean) {
+        fun toggleItemSelection(itemView: View, select: Boolean, pos: Int = -1) {
             itemView.item_frame.isSelected = select
+            if (pos == -1)
+                return
+
+            if (select)
+                markedItems.add(pos)
+            else
+                markedItems.remove(pos)
         }
     }
 
@@ -58,11 +66,17 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
             return true
         }
 
-        override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu) = true
+        override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu): Boolean {
+            val menuItem = menu.findItem(R.id.cab_rename)
+            menuItem.isVisible = multiSelector.selectedPositions.size <= 1
+
+            return true
+        }
 
         override fun onDestroyActionMode(actionMode: ActionMode?) {
             super.onDestroyActionMode(actionMode)
             views.forEach { toggleItemSelection(it, false) }
+            markedItems.clear()
         }
     }
 
@@ -110,14 +124,15 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        views.add(holder.bindView(multiSelectorMode, multiSelector, mItems[position]))
+        views.add(holder.bindView(multiSelectorMode, multiSelector, mItems[position], position))
     }
 
     override fun getItemCount() = mItems.size
 
     class ViewHolder(val activity: SimpleActivity, view: View, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
-        fun bindView(multiSelectorCallback: ModalMultiSelectorCallback, multiSelector: MultiSelector, fileDirItem: FileDirItem): View {
+        fun bindView(multiSelectorCallback: ModalMultiSelectorCallback, multiSelector: MultiSelector, fileDirItem: FileDirItem, pos: Int): View {
             itemView.item_name.text = fileDirItem.name
+            toggleItemSelection(itemView, markedItems.contains(pos), pos)
 
             if (fileDirItem.isDirectory) {
                 Glide.with(activity).load(R.mipmap.directory).diskCacheStrategy(getCacheStrategy(fileDirItem)).centerCrop().crossFade().into(itemView.item_icon)
@@ -127,13 +142,14 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
                 itemView.item_details.text = fileDirItem.size.formatSize()
             }
 
-            itemView.setOnClickListener { viewClicked(multiSelector, fileDirItem) }
+            itemView.setOnClickListener { viewClicked(multiSelector, fileDirItem, pos) }
             itemView.setOnLongClickListener {
                 if (!multiSelector.isSelectable) {
                     activity.startSupportActionMode(multiSelectorCallback)
                     multiSelector.setSelected(this, true)
                     actMode?.title = multiSelector.selectedPositions.size.toString()
-                    toggleItemSelection(itemView, true)
+                    toggleItemSelection(itemView, true, pos)
+                    markedItems.add(pos)
                     actMode?.invalidate()
                 }
                 true
@@ -149,11 +165,11 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
             return activity.resources.getQuantityString(R.plurals.items, children, children)
         }
 
-        fun viewClicked(multiSelector: MultiSelector, fileDirItem: FileDirItem) {
+        fun viewClicked(multiSelector: MultiSelector, fileDirItem: FileDirItem, pos: Int) {
             if (multiSelector.isSelectable) {
                 val isSelected = multiSelector.selectedPositions.contains(layoutPosition)
                 multiSelector.setSelected(this, !isSelected)
-                toggleItemSelection(itemView, !isSelected)
+                toggleItemSelection(itemView, !isSelected, pos)
 
                 val selectedCnt = multiSelector.selectedPositions.size
                 if (selectedCnt == 0) {
