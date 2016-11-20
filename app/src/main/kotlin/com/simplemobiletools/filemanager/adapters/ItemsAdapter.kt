@@ -149,7 +149,6 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
                     multiSelector.setSelected(this, true)
                     actMode?.title = multiSelector.selectedPositions.size.toString()
                     toggleItemSelection(itemView, true, pos)
-                    markedItems.add(pos)
                     actMode?.invalidate()
                 }
                 true
