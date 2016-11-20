@@ -8,11 +8,13 @@ import com.bignerdranch.android.multiselector.MultiSelector
 import com.bignerdranch.android.multiselector.SwappingHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filepicker.extensions.formatSize
 import com.simplemobiletools.filepicker.extensions.isGif
 import com.simplemobiletools.filepicker.models.FileDirItem
+import com.simplemobiletools.fileproperties.dialogs.PropertiesDialog
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
 import java.util.*
@@ -21,6 +23,7 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     val multiSelector = MultiSelector()
     val views = ArrayList<View>()
+    val config = Config.newInstance(activity)
 
     companion object {
         var actMode: ActionMode? = null
@@ -33,6 +36,10 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
     val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
+                R.id.cab_properties -> {
+                    showProperties()
+                    true
+                }
                 else -> false
             }
         }
@@ -49,6 +56,17 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
         override fun onDestroyActionMode(actionMode: ActionMode?) {
             super.onDestroyActionMode(actionMode)
             views.forEach { toggleItemSelection(it, false) }
+        }
+    }
+
+    private fun showProperties() {
+        val selections = multiSelector.selectedPositions
+        if (selections.size <= 1) {
+            PropertiesDialog(activity, mItems[selections[0]].path, config.showHidden)
+        } else {
+            val paths = ArrayList<String>()
+            selections.forEach { paths.add(mItems[it].path) }
+            PropertiesDialog(activity, paths, config.showHidden)
         }
     }
 
