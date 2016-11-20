@@ -169,7 +169,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
             return mimeType
 
         val type = mimeType.substring(0, mimeType.indexOf("/"))
-        return type + "/*"
+        return "$type/*"
     }
 
     override fun prepareForDeleting(paths: ArrayList<String>) {

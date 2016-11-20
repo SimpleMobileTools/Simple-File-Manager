@@ -42,11 +42,12 @@ dependencies {
     compile 'com.simplemobiletools:filepicker:1.5.0@aar'
     compile 'com.simplemobiletools:fileproperties:1.0.5@aar'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.3'
+    ext.kotlin_version = '1.0.5-2'
     repositories {
         mavenCentral()
     }
