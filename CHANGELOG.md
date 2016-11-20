@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 1.21 *(2016-11-20)*
+----------------------------
+
+ * Added confirmation dialogs before deleting
+
 Version 1.20 *(2016-11-17)*
 ----------------------------
 
