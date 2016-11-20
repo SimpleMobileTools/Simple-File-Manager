@@ -76,9 +76,11 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this) {
             itemClicked(it)
         }
-        items_list.adapter = adapter
-        items_list.addItemDecoration(RecyclerViewDivider(context))
-        items_list.setOnTouchListener { view, motionEvent -> checkDelete(); false }
+        items_list.apply {
+            this@apply.adapter = adapter
+            addItemDecoration(RecyclerViewDivider(context))
+            setOnTouchListener { view, motionEvent -> checkDelete(); false }
+        }
     }
 
     fun setListener(listener: ItemInteractionListener) {
