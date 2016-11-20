@@ -1,5 +1,7 @@
 package com.simplemobiletools.filemanager.adapters
 
+import android.content.Intent
+import android.net.Uri
 import android.support.v7.view.ActionMode
 import android.support.v7.widget.RecyclerView
 import android.view.*
@@ -13,6 +15,7 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filepicker.extensions.formatSize
 import com.simplemobiletools.filepicker.extensions.isGif
+import com.simplemobiletools.filepicker.extensions.toast
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.fileproperties.dialogs.PropertiesDialog
 import kotlinx.android.synthetic.main.list_item.view.*
@@ -38,6 +41,10 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
             return when (item.itemId) {
                 R.id.cab_properties -> {
                     showProperties()
+                    true
+                }
+                R.id.cab_share -> {
+                    shareFiles()
                     true
                 }
                 else -> false
@@ -68,6 +75,33 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
             selections.forEach { paths.add(mItems[it].path) }
             PropertiesDialog(activity, paths, config.showHidden)
         }
+    }
+
+    private fun shareFiles() {
+        val selectedItems = getSelectedMedia().filterNot { it.isDirectory }
+        val uris = ArrayList<Uri>(selectedItems.size)
+        selectedItems.mapTo(uris) { Uri.fromFile(File(it.path)) }
+
+        if (uris.isEmpty()) {
+            activity.toast(R.string.no_files_selected)
+            return
+        }
+
+        val shareTitle = activity.resources.getString(R.string.share_via)
+        Intent().apply {
+            action = Intent.ACTION_SEND_MULTIPLE
+            putExtra(Intent.EXTRA_SUBJECT, activity.resources.getString(R.string.shared_files))
+            putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+            type = "*/*"
+            activity.startActivity(Intent.createChooser(this, shareTitle))
+        }
+    }
+
+    private fun getSelectedMedia(): List<FileDirItem> {
+        val positions = multiSelector.selectedPositions
+        val selectedMedia = ArrayList<FileDirItem>(positions.size)
+        positions.forEach { selectedMedia.add(mItems[it]) }
+        return selectedMedia
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {

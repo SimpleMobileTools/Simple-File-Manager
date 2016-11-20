@@ -24,7 +24,6 @@ import com.simplemobiletools.filepicker.asynctasks.CopyMoveTask
 import com.simplemobiletools.filepicker.extensions.*
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.RecyclerViewDivider
-import com.simplemobiletools.fileproperties.dialogs.PropertiesDialog
 import kotlinx.android.synthetic.main.items_fragment.*
 import java.io.File
 import java.util.*
@@ -179,26 +178,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         return type + "/*"
     }
 
-    /*override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) {
-        if (checked) {
-            mSelectedItemsCnt++
-        } else {
-            mSelectedItemsCnt--
-        }
-
-        if (mSelectedItemsCnt > 0) {
-            mode.title = mSelectedItemsCnt.toString()
-        }
-
-        mode.invalidate()
-    }
-
-    override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-        mode.menuInflater.inflate(R.menu.cab, menu)
-        return true
-    }
-
-    override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+    /*override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
         val menuItem = menu.findItem(R.id.cab_rename)
         menuItem.isVisible = mSelectedItemsCnt == 1
         return true
@@ -210,8 +190,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
                 displayRenameDialog()
                 mode.finish()
             }
-            R.id.cab_properties -> displayPropertiesDialog()
-            R.id.cab_share -> shareFiles()
             R.id.cab_copy -> {
                 displayCopyDialog()
                 mode.finish()
@@ -225,54 +203,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
 
         return true
     }*/
-
-    private fun shareFiles() {
-        val itemIndexes = getSelectedItemIndexes()
-        if (itemIndexes.isEmpty())
-            return
-
-        val uris = ArrayList<Uri>(itemIndexes.size)
-        itemIndexes.map { File(mItems[it].path) }
-                .filterNot { it.isDirectory }
-                .mapTo(uris) { Uri.fromFile(it) }
-
-        if (uris.isEmpty()) {
-            context.toast(R.string.no_files_selected)
-            return
-        }
-
-        val shareTitle = resources.getString(R.string.share_via)
-        Intent().apply {
-            action = Intent.ACTION_SEND_MULTIPLE
-            putExtra(Intent.EXTRA_SUBJECT, resources.getString(R.string.shared_files))
-            putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
-            type = "*/*"
-            startActivity(Intent.createChooser(this, shareTitle))
-        }
-    }
-
-    private fun displayPropertiesDialog() {
-        val itemIndexes = getSelectedItemIndexes()
-        if (itemIndexes.isEmpty())
-            return
-
-        if (itemIndexes.size == 1) {
-            showOneItemProperties()
-        } else {
-            showMultipleItemProperties(itemIndexes)
-        }
-    }
-
-    private fun showOneItemProperties() {
-        val item = getSelectedItem() ?: return
-        PropertiesDialog(activity, item.path, mConfig.showHidden)
-    }
-
-    private fun showMultipleItemProperties(itemIndexes: List<Int>) {
-        val paths = ArrayList<String>(itemIndexes.size)
-        itemIndexes.mapTo(paths) { mItems[it].path }
-        PropertiesDialog(activity, paths, mConfig.showHidden)
-    }
 
     private fun displayRenameDialog() {
         val item = getSelectedItem() ?: return
