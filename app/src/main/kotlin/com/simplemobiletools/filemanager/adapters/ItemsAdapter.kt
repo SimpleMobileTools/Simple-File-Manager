@@ -14,6 +14,7 @@ import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.RenameItemDialog
+import com.simplemobiletools.filepicker.dialogs.ConfirmationDialog
 import com.simplemobiletools.filepicker.extensions.formatSize
 import com.simplemobiletools.filepicker.extensions.isGif
 import com.simplemobiletools.filepicker.extensions.toast
@@ -58,6 +59,10 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
                 }
                 R.id.cab_share -> {
                     shareFiles()
+                    true
+                }
+                R.id.cab_delete -> {
+                    askConfirmDelete()
                     true
                 }
                 else -> false
@@ -124,6 +129,23 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
             activity.startActivity(Intent.createChooser(this, shareTitle))
         }
     }
+
+    private fun askConfirmDelete() {
+        ConfirmationDialog(activity, listener = object : ConfirmationDialog.OnConfirmedListener {
+            override fun onConfirmed() {
+                actMode?.finish()
+                prepareForDeleting()
+            }
+        })
+    }
+
+    private fun prepareForDeleting() {
+        val selections = multiSelector.selectedPositions
+        val paths = ArrayList<String>(selections.size)
+        selections.forEach { paths.add(mItems[it].path) }
+        listener?.prepareForDeleting(paths)
+    }
+
 
     private fun getSelectedMedia(): List<FileDirItem> {
         val positions = multiSelector.selectedPositions
@@ -199,5 +221,7 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
 
     interface ItemOperationsListener {
         fun refreshItems()
+
+        fun prepareForDeleting(paths: ArrayList<String>)
     }
 }

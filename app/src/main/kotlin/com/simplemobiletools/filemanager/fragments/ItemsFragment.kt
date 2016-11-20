@@ -7,11 +7,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
-import android.widget.AdapterView
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
@@ -27,7 +25,7 @@ import kotlinx.android.synthetic.main.items_fragment.*
 import java.io.File
 import java.util.*
 
-class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClickListener, ItemsAdapter.ItemOperationsListener, View.OnTouchListener {
+class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperationsListener {
     private var mListener: ItemInteractionListener? = null
     private var mSnackbar: Snackbar? = null
 
@@ -78,11 +76,11 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         mItems = newItems
 
         val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this) {
-
+            itemClicked(it)
         }
         items_list.adapter = adapter
         items_list.addItemDecoration(RecyclerViewDivider(context))
-        items_list.setOnTouchListener(this)
+        items_list.setOnTouchListener { view, motionEvent -> checkDelete(); true }
     }
 
     fun setListener(listener: ItemInteractionListener) {
@@ -125,8 +123,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         return 0
     }
 
-    override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-        val item = mItems[position]
+    fun itemClicked(item: FileDirItem) {
         if (item.isDirectory) {
             mListener?.itemClicked(item)
         } else {
@@ -177,24 +174,10 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         return type + "/*"
     }
 
-    /*override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
-        val menuItem = menu.findItem(R.id.cab_rename)
-        menuItem.isVisible = mSelectedItemsCnt == 1
-        return true
-    }
-
-    override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+    /*override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.cab_rename -> {
-                displayRenameDialog()
-                mode.finish()
-            }
             R.id.cab_copy -> {
                 displayCopyDialog()
-                mode.finish()
-            }
-            R.id.cab_delete -> {
-                prepareForDeleting()
                 mode.finish()
             }
             else -> return false
@@ -227,15 +210,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         })
     }
 
-    private fun getSelectedItem(): FileDirItem? {
-        val itemIndexes = getSelectedItemIndexes()
-        if (itemIndexes.isEmpty())
-            return null
-
-        val itemIndex = itemIndexes[0]
-        return mItems[itemIndex]
-    }
-
     private fun getSelectedItemIndexes(): List<Int> {
         /*val items = items_list.checkedItemPositions
         val cnt = items.size()
@@ -246,21 +220,15 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         return ArrayList()
     }
 
-    private fun prepareForDeleting() {
-        mToBeDeleted.clear()
-        /*val items = items_list.checkedItemPositions
-        val cnt = items.size()
-        var deletedCnt = 0
-        for (i in 0..cnt - 1) {
-            if (items.valueAt(i)) {
-                val id = items.keyAt(i)
-                val path = mItems[id].path
-                mToBeDeleted.add(path)
-                deletedCnt++
-            }
-        }
+    override fun prepareForDeleting(paths: ArrayList<String>) {
+        activity.toast(R.string.deleting)
+        mToBeDeleted = paths
+        val deletedCnt = mToBeDeleted.size
 
-        notifyDeletion(deletedCnt)*/
+        if ((activity as SimpleActivity).isShowingPermDialog(File(mToBeDeleted[0])))
+            return
+
+        notifyDeletion(deletedCnt)
     }
 
     private fun notifyDeletion(cnt: Int) {
@@ -275,12 +243,10 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         fillItems()
     }
 
-    override fun onTouch(v: View, event: MotionEvent): Boolean {
-        if (mSnackbar != null && mSnackbar!!.isShown) {
+    fun checkDelete() {
+        if (mSnackbar?.isShown == true) {
             deleteItems()
         }
-
-        return false
     }
 
     private fun deleteItems() {

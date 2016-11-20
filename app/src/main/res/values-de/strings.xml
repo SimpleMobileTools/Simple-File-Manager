@@ -13,6 +13,7 @@
     <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">Ein unbekannter Fehler ist aufgetreten</string>
     <string name="delete">Löschen</string>
+    <string name="deleting">Lösche</string>
     <string name="undo">Rückgängig</string>
     <string name="rename">Umbenennen</string>
     <string name="properties">Eigenschaften</string>

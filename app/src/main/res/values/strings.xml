@@ -13,6 +13,7 @@
     <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">An unknown error occurred</string>
     <string name="delete">Delete</string>
+    <string name="deleting">Deleting</string>
     <string name="undo">Undo</string>
     <string name="rename">Rename</string>
     <string name="properties">Properties</string>

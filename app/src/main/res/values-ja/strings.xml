@@ -13,6 +13,7 @@
     <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">不明なエラーが発生しました</string>
     <string name="delete">削除</string>
+    <string name="deleting">削除中</string>
     <string name="undo">元に戻す</string>
     <string name="rename">名前を変更</string>
     <string name="properties">Properties</string>

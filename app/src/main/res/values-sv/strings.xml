@@ -13,6 +13,7 @@
     <string name="empty_name">Please enter a name</string>
     <string name="error_occurred">Ett okänt fel har uppstått</string>
     <string name="delete">Ta bort</string>
+    <string name="deleting">Tar bort</string>
     <string name="undo">Ångra</string>
     <string name="rename">Döp om</string>
     <string name="properties">Properties</string>
