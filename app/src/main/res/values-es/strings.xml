@@ -67,7 +67,7 @@
     <!-- License -->
     <string name="notice">Esta aplicación usa las siguientes librerías de terceros para hacerme la vida más fácil. Gracias.</string>
     <string name="third_party_licences">Licencias de terceros</string>
-    <string name="butterknife_title"><u>Butter Knife (view injector)</u></string>
+    <string name="multiselect_title"><u>RecyclerView MultiSelect (selecting multiple list items)</u></string>
     <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
     <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>
 
