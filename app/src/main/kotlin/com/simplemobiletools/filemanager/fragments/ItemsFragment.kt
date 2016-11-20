@@ -19,7 +19,6 @@ import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CopyDialog
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
-import com.simplemobiletools.filemanager.dialogs.RenameItemDialog
 import com.simplemobiletools.filepicker.asynctasks.CopyMoveTask
 import com.simplemobiletools.filepicker.extensions.*
 import com.simplemobiletools.filepicker.models.FileDirItem
@@ -28,7 +27,7 @@ import kotlinx.android.synthetic.main.items_fragment.*
 import java.io.File
 import java.util.*
 
-class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClickListener, /*ListView.MultiChoiceModeListener, */View.OnTouchListener {
+class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClickListener, ItemsAdapter.ItemOperationsListener, View.OnTouchListener {
     private var mListener: ItemInteractionListener? = null
     private var mSnackbar: Snackbar? = null
 
@@ -78,7 +77,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
 
         mItems = newItems
 
-        val adapter = ItemsAdapter(activity as SimpleActivity, mItems) {
+        val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this) {
 
         }
         items_list.adapter = adapter
@@ -204,16 +203,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
         return true
     }*/
 
-    private fun displayRenameDialog() {
-        val item = getSelectedItem() ?: return
-
-        RenameItemDialog(context, mPath, item, object : RenameItemDialog.OnRenameItemListener {
-            override fun onSuccess() {
-                fillItems()
-            }
-        })
-    }
-
     private fun displayCopyDialog() {
         val fileIndexes = getSelectedItemIndexes()
         if (fileIndexes.isEmpty())
@@ -325,6 +314,10 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
     private val undoDeletion = View.OnClickListener {
         mToBeDeleted.clear()
         mSnackbar!!.dismiss()
+        fillItems()
+    }
+
+    override fun refreshItems() {
         fillItems()
     }
 

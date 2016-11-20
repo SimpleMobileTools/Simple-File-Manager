@@ -11,11 +11,13 @@ import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.rename_item.view.*
 import java.io.File
 
-class RenameItemDialog(val context: Context, val path: String, val item: FileDirItem, val listener: OnRenameItemListener) {
+class RenameItemDialog(val context: Context, val item: FileDirItem, val listener: OnRenameItemListener) {
 
     init {
         val view = LayoutInflater.from(context).inflate(R.layout.rename_item, null)
         view.item_name.setText(item.name)
+
+        val path = File(item.path).parent
 
         AlertDialog.Builder(context)
                 .setTitle(context.resources.getString(R.string.rename_item))

@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
+import com.simplemobiletools.filemanager.dialogs.RenameItemDialog
 import com.simplemobiletools.filepicker.extensions.formatSize
 import com.simplemobiletools.filepicker.extensions.isGif
 import com.simplemobiletools.filepicker.extensions.toast
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
 import java.util.*
 
-class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, val itemClick: (FileDirItem) -> Unit) :
+class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     val multiSelector = MultiSelector()
     val views = ArrayList<View>()
@@ -47,6 +48,10 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
     val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             return when (item.itemId) {
+                R.id.cab_rename -> {
+                    displayRenameDialog()
+                    true
+                }
                 R.id.cab_properties -> {
                     showProperties()
                     true
@@ -78,6 +83,15 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
             views.forEach { toggleItemSelection(it, false) }
             markedItems.clear()
         }
+    }
+
+    private fun displayRenameDialog() {
+        RenameItemDialog(activity, getSelectedMedia()[0], object : RenameItemDialog.OnRenameItemListener {
+            override fun onSuccess() {
+                actMode?.finish()
+                listener?.refreshItems()
+            }
+        })
     }
 
     private fun showProperties() {
@@ -181,5 +195,9 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
                 itemClick(fileDirItem)
             }
         }
+    }
+
+    interface ItemOperationsListener {
+        fun refreshItems()
     }
 }
