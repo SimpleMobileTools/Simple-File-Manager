@@ -80,7 +80,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         }
         items_list.adapter = adapter
         items_list.addItemDecoration(RecyclerViewDivider(context))
-        items_list.setOnTouchListener { view, motionEvent -> checkDelete(); true }
+        items_list.setOnTouchListener { view, motionEvent -> checkDelete(); false }
     }
 
     fun setListener(listener: ItemInteractionListener) {
