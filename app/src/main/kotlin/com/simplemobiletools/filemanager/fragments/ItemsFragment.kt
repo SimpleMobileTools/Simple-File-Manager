@@ -23,6 +23,7 @@ import com.simplemobiletools.filemanager.dialogs.RenameItemDialog
 import com.simplemobiletools.filepicker.asynctasks.CopyMoveTask
 import com.simplemobiletools.filepicker.extensions.*
 import com.simplemobiletools.filepicker.models.FileDirItem
+import com.simplemobiletools.filepicker.views.RecyclerViewDivider
 import com.simplemobiletools.fileproperties.dialogs.PropertiesDialog
 import kotlinx.android.synthetic.main.items_fragment.*
 import java.io.File
@@ -78,9 +79,11 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
 
         mItems = newItems
 
-        val adapter = ItemsAdapter(context, mItems)
+        val adapter = ItemsAdapter(context, mItems) {
+
+        }
         items_list.adapter = adapter
-        items_list.onItemClickListener = this
+        items_list.addItemDecoration(RecyclerViewDivider(context))
         items_list.setOnTouchListener(this)
     }
 
@@ -315,17 +318,18 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
     }
 
     private fun getSelectedItemIndexes(): List<Int> {
-        val items = items_list.checkedItemPositions
+        /*val items = items_list.checkedItemPositions
         val cnt = items.size()
         val selectedItems = (0..cnt - 1)
                 .filter { items.valueAt(it) }
                 .map { items.keyAt(it) }
-        return selectedItems
+        return selectedItems*/
+        return ArrayList()
     }
 
     private fun prepareForDeleting() {
         mToBeDeleted.clear()
-        val items = items_list.checkedItemPositions
+        /*val items = items_list.checkedItemPositions
         val cnt = items.size()
         var deletedCnt = 0
         for (i in 0..cnt - 1) {
@@ -337,7 +341,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
             }
         }
 
-        notifyDeletion(deletedCnt)
+        notifyDeletion(deletedCnt)*/
     }
 
     private fun notifyDeletion(cnt: Int) {
