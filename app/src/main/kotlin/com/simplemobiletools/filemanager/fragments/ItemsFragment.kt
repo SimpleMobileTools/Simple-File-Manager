@@ -79,7 +79,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), AdapterView.OnItemClick
 
         mItems = newItems
 
-        val adapter = ItemsAdapter(context, mItems) {
+        val adapter = ItemsAdapter(activity as SimpleActivity, mItems) {
 
         }
         items_list.adapter = adapter

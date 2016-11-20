@@ -1,117 +1,118 @@
 package com.simplemobiletools.filemanager.adapters
 
-import android.content.Context
+import android.support.v7.view.ActionMode
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback
+import com.bignerdranch.android.multiselector.MultiSelector
+import com.bignerdranch.android.multiselector.SwappingHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filepicker.extensions.formatSize
 import com.simplemobiletools.filepicker.extensions.isGif
 import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
+import java.util.*
 
-class ItemsAdapter(val context: Context, private val mItems: List<FileDirItem>, val itemClick: (FileDirItem) -> Unit) :
+class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
+    val multiSelector = MultiSelector()
+    val views = ArrayList<View>()
+
+    companion object {
+        var actMode: ActionMode? = null
+
+        fun toggleItemSelection(itemView: View, select: Boolean) {
+            itemView.item_frame.isSelected = select
+        }
+    }
+
+    val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
+        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+            return when (item.itemId) {
+                else -> false
+            }
+        }
+
+        override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
+            super.onCreateActionMode(actionMode, menu)
+            actMode = actionMode
+            activity.menuInflater.inflate(R.menu.cab, menu)
+            return true
+        }
+
+        override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu) = true
+
+        override fun onDestroyActionMode(actionMode: ActionMode?) {
+            super.onDestroyActionMode(actionMode)
+            views.forEach { toggleItemSelection(it, false) }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(context, view, itemClick)
+        return ViewHolder(activity, view, itemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindView(mItems[position])
+        views.add(holder.bindView(multiSelectorMode, multiSelector, mItems[position]))
     }
 
     override fun getItemCount() = mItems.size
 
-    class ViewHolder(val context: Context, view: View, val itemClick: (FileDirItem) -> (Unit)) : RecyclerView.ViewHolder(view) {
-        fun bindView(fileDirItem: FileDirItem) {
+    class ViewHolder(val activity: SimpleActivity, view: View, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
+        fun bindView(multiSelectorCallback: ModalMultiSelectorCallback, multiSelector: MultiSelector, fileDirItem: FileDirItem): View {
             itemView.item_name.text = fileDirItem.name
 
             if (fileDirItem.isDirectory) {
-                Glide.with(context).load(R.mipmap.directory).diskCacheStrategy(getCacheStrategy(fileDirItem)).centerCrop().crossFade().into(itemView.item_icon)
+                Glide.with(activity).load(R.mipmap.directory).diskCacheStrategy(getCacheStrategy(fileDirItem)).centerCrop().crossFade().into(itemView.item_icon)
                 itemView.item_details.text = getChildrenCnt(fileDirItem)
             } else {
-                Glide.with(context).load(fileDirItem.path).diskCacheStrategy(getCacheStrategy(fileDirItem)).error(R.mipmap.file).centerCrop().crossFade().into(itemView.item_icon)
+                Glide.with(activity).load(fileDirItem.path).diskCacheStrategy(getCacheStrategy(fileDirItem)).error(R.mipmap.file).centerCrop().crossFade().into(itemView.item_icon)
                 itemView.item_details.text = fileDirItem.size.formatSize()
             }
 
-            itemView.setOnClickListener { itemClick(fileDirItem) }
+            itemView.setOnClickListener { viewClicked(multiSelector, fileDirItem) }
+            itemView.setOnLongClickListener {
+                if (!multiSelector.isSelectable) {
+                    activity.startSupportActionMode(multiSelectorCallback)
+                    multiSelector.setSelected(this, true)
+                    actMode?.title = multiSelector.selectedPositions.size.toString()
+                    toggleItemSelection(itemView, true)
+                    actMode?.invalidate()
+                }
+                true
+            }
+
+            return itemView
         }
 
         private fun getCacheStrategy(item: FileDirItem) = if (File(item.path).isGif()) DiskCacheStrategy.NONE else DiskCacheStrategy.RESULT
 
         private fun getChildrenCnt(item: FileDirItem): String {
             val children = item.children
-            return context.resources.getQuantityString(R.plurals.items, children, children)
+            return activity.resources.getQuantityString(R.plurals.items, children, children)
+        }
+
+        fun viewClicked(multiSelector: MultiSelector, fileDirItem: FileDirItem) {
+            if (multiSelector.isSelectable) {
+                val isSelected = multiSelector.selectedPositions.contains(layoutPosition)
+                multiSelector.setSelected(this, !isSelected)
+                toggleItemSelection(itemView, !isSelected)
+
+                val selectedCnt = multiSelector.selectedPositions.size
+                if (selectedCnt == 0) {
+                    actMode?.finish()
+                } else {
+                    actMode?.title = selectedCnt.toString()
+                }
+                actMode?.invalidate()
+            } else {
+                itemClick(fileDirItem)
+            }
         }
     }
 }
-
-
-/*class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : BaseAdapter() {
-    private val mInflater: LayoutInflater
-    private val mRes: Resources
-    private val mContext: Context
-
-    init {
-        mInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        mContext = context
-        mRes = context.resources
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var view = convertView
-        val viewHolder: ViewHolder
-        if (view == null) {
-            view = mInflater.inflate(R.layout.list_item, parent, false)
-            viewHolder = ViewHolder(view)
-            view!!.tag = viewHolder
-        } else {
-            viewHolder = view.tag as ViewHolder
-        }
-
-        val item = mItems[position]
-        viewHolder.name.text = item.name
-
-        if (item.isDirectory) {
-            Glide.with(mContext).load(R.mipmap.directory).diskCacheStrategy(getCacheStrategy(item)).centerCrop().crossFade().into(viewHolder.icon)
-            viewHolder.details.text = getChildrenCnt(item)
-        } else {
-            Glide.with(mContext).load(item.path).diskCacheStrategy(getCacheStrategy(item)).error(R.mipmap.file).centerCrop().crossFade().into(viewHolder.icon)
-            viewHolder.details.text = item.size.formatSize()
-        }
-
-        return view
-    }
-
-    private fun getCacheStrategy(item: FileDirItem) = if (File(item.path).isGif()) DiskCacheStrategy.NONE else DiskCacheStrategy.RESULT
-
-    private fun getChildrenCnt(item: FileDirItem): String {
-        val children = item.children
-        return mRes.getQuantityString(R.plurals.items, children, children)
-    }
-
-    override fun getCount(): Int {
-        return mItems.size
-    }
-
-    override fun getItem(position: Int): Any {
-        return mItems[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return 0
-    }
-
-    internal class ViewHolder(view: View) {
-        val name: TextView = view.item_name
-        val icon: ImageView = view.item_icon
-        val details: TextView = view.item_details
-    }
-}
-*/
