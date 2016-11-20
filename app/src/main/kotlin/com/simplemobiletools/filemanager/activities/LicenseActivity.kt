@@ -11,6 +11,8 @@ class LicenseActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_license)
+
+        license_kotlin_title.setOnClickListener { openUrl(R.string.kotlin_url) }
         license_multiselect_title.setOnClickListener { openUrl(R.string.multiselect_url) }
         license_filepicker_title.setOnClickListener { openUrl(R.string.filepicker_url) }
         license_fileproperties_title.setOnClickListener { openUrl(R.string.fileproperties_url) }
