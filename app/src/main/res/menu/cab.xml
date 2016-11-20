@@ -17,7 +17,7 @@
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/cab_copy"
+        android:id="@+id/cab_copy_move"
         android:icon="@mipmap/copy"
         android:title="@string/copy_move"
         app:showAsAction="ifRoom"/>

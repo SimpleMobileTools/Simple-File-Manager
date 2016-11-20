@@ -15,9 +15,7 @@ import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
-import com.simplemobiletools.filemanager.dialogs.CopyDialog
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
-import com.simplemobiletools.filepicker.asynctasks.CopyMoveTask
 import com.simplemobiletools.filepicker.extensions.*
 import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.RecyclerViewDivider
@@ -172,52 +170,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
         val type = mimeType.substring(0, mimeType.indexOf("/"))
         return type + "/*"
-    }
-
-    /*override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.cab_copy -> {
-                displayCopyDialog()
-                mode.finish()
-            }
-            else -> return false
-        }
-
-        return true
-    }*/
-
-    private fun displayCopyDialog() {
-        val fileIndexes = getSelectedItemIndexes()
-        if (fileIndexes.isEmpty())
-            return
-
-        val files = ArrayList<File>(fileIndexes.size)
-        fileIndexes.mapTo(files) { File(mItems[it].path) }
-
-        CopyDialog(activity as SimpleActivity, files, object : CopyMoveTask.CopyMoveListener {
-            override fun copySucceeded(deleted: Boolean, copiedAll: Boolean) {
-                if (deleted) {
-                    context.toast(if (copiedAll) R.string.moving_success else R.string.moving_success_partial)
-                } else {
-                    context.toast(if (copiedAll) R.string.copying_success else R.string.copying_success_partial)
-                }
-                fillItems()
-            }
-
-            override fun copyFailed() {
-                context.toast(R.string.copy_move_failed)
-            }
-        })
-    }
-
-    private fun getSelectedItemIndexes(): List<Int> {
-        /*val items = items_list.checkedItemPositions
-        val cnt = items.size()
-        val selectedItems = (0..cnt - 1)
-                .filter { items.valueAt(it) }
-                .map { items.keyAt(it) }
-        return selectedItems*/
-        return ArrayList()
     }
 
     override fun prepareForDeleting(paths: ArrayList<String>) {

@@ -13,7 +13,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
+import com.simplemobiletools.filemanager.dialogs.CopyDialog
 import com.simplemobiletools.filemanager.dialogs.RenameItemDialog
+import com.simplemobiletools.filepicker.asynctasks.CopyMoveTask
 import com.simplemobiletools.filepicker.dialogs.ConfirmationDialog
 import com.simplemobiletools.filepicker.extensions.formatSize
 import com.simplemobiletools.filepicker.extensions.isGif
@@ -59,6 +61,10 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
                 }
                 R.id.cab_share -> {
                     shareFiles()
+                    true
+                }
+                R.id.cab_copy_move -> {
+                    displayCopyDialog()
                     true
                 }
                 R.id.cab_delete -> {
@@ -128,6 +134,28 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
             type = "*/*"
             activity.startActivity(Intent.createChooser(this, shareTitle))
         }
+    }
+
+    private fun displayCopyDialog() {
+        val files = ArrayList<File>()
+        val positions = multiSelector.selectedPositions
+        positions.forEach { files.add(File(mItems[it].path)) }
+
+        CopyDialog(activity, files, object : CopyMoveTask.CopyMoveListener {
+            override fun copySucceeded(deleted: Boolean, copiedAll: Boolean) {
+                if (deleted) {
+                    activity.toast(if (copiedAll) R.string.moving_success else R.string.moving_success_partial)
+                } else {
+                    activity.toast(if (copiedAll) R.string.copying_success else R.string.copying_success_partial)
+                }
+                listener?.refreshItems()
+                actMode?.finish()
+            }
+
+            override fun copyFailed() {
+                activity.toast(R.string.copy_move_failed)
+            }
+        })
     }
 
     private fun askConfirmDelete() {
