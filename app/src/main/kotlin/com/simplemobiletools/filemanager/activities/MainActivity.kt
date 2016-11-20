@@ -23,6 +23,13 @@ import java.io.File
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
     var mBasePath = getInternalStoragePath()
 
+    companion object {
+        private val STORAGE_PERMISSION = 1
+        private val BACK_PRESS_TIMEOUT = 5000
+
+        private var mWasBackJustPressed: Boolean = false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -97,7 +104,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == STORAGE_PERMISSION) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initRootFileManager()
             } else {
                 toast(R.string.no_permissions)
@@ -128,12 +135,5 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             mBasePath = pickedPath
             openPath(pickedPath)
         }
-    }
-
-    companion object {
-        private val STORAGE_PERMISSION = 1
-        private val BACK_PRESS_TIMEOUT = 5000
-
-        private var mWasBackJustPressed: Boolean = false
     }
 }

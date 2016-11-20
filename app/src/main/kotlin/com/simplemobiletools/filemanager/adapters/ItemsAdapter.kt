@@ -12,8 +12,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.formatSize
+import com.simplemobiletools.filepicker.extensions.isGif
 import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.list_item.view.*
+import java.io.File
 
 class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : BaseAdapter() {
     private val mInflater: LayoutInflater
@@ -51,7 +53,7 @@ class ItemsAdapter(context: Context, private val mItems: List<FileDirItem>) : Ba
         return view
     }
 
-    private fun getCacheStrategy(item: FileDirItem) = if (item.isGif()) DiskCacheStrategy.NONE else DiskCacheStrategy.RESULT
+    private fun getCacheStrategy(item: FileDirItem) = if (File(item.path).isGif()) DiskCacheStrategy.NONE else DiskCacheStrategy.RESULT
 
     private fun getChildrenCnt(item: FileDirItem): String {
         val children = item.children
