@@ -39,8 +39,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.simplemobiletools:filepicker:1.5.2@aar'
-    compile 'com.simplemobiletools:fileproperties:1.0.5@aar'
+    compile 'com.simplemobiletools:filepicker:1.5.4@aar'
+    compile 'com.simplemobiletools:fileproperties:1.0.6@aar'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
