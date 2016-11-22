@@ -119,11 +119,9 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
-            StoragePickerDialog(this@MainActivity, mBasePath, object : StoragePickerDialog.OnStoragePickerListener {
-                override fun onPick(pickedPath: String) {
-                    changePath(pickedPath)
-                }
-            })
+            StoragePickerDialog(this@MainActivity, mBasePath) {
+                changePath(it)
+            }
         } else {
             val item = breadcrumbs.getChildAt(id).tag as FileDirItem
             openPath(item.path)

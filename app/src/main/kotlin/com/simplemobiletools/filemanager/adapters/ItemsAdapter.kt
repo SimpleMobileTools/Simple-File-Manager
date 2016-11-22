@@ -159,12 +159,10 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
     }
 
     private fun askConfirmDelete() {
-        ConfirmationDialog(activity, listener = object : ConfirmationDialog.OnConfirmedListener {
-            override fun onConfirmed() {
-                actMode?.finish()
-                prepareForDeleting()
-            }
-        })
+        ConfirmationDialog(activity) {
+            actMode?.finish()
+            prepareForDeleting()
+        }
     }
 
     private fun prepareForDeleting() {
