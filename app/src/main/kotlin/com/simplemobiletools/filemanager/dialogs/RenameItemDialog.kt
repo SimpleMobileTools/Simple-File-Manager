@@ -1,7 +1,7 @@
 package com.simplemobiletools.filemanager.dialogs
 
+import android.app.AlertDialog
 import android.content.Context
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.WindowManager
 import com.simplemobiletools.filemanager.Config
