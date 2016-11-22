@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
-    <string name="app_launcher_name">Administrador de ficheros</string>
+    <string name="app_launcher_name">Administrador de archivos</string>
     <string name="share_via">Compartir vía</string>
     <string name="no_permissions">Se necesita permiso para acceder al almacenamiento</string>
-    <string name="no_app_found">No hay disponible ninguna aplicación para abrir este tipo de ficheros</string>
+    <string name="no_app_found">No hay disponible ninguna aplicación para abrir este tipo de archivos</string>
     <string name="create_new">Crear nuevo elemento</string>
     <string name="rename_item">Renombrar elemento</string>
-    <string name="directory">Directorio</string>
-    <string name="file">Fichero</string>
-    <string name="name_taken">Ya existe un directorio o fichero con ese nombre</string>
+    <string name="directory">Carpeta</string>
+    <string name="file">Archivo</string>
+    <string name="name_taken">Ya existe un archivo o carpeta con ese nombre</string>
     <string name="invalid_name">El nombre contiene caracteres inválidos</string>
-    <string name="empty_name">Por favor, introduce un nombre</string>
+    <string name="empty_name">Por favor, introduzca un nombre</string>
     <string name="error_occurred">Se ha producido un error inesperado</string>
     <string name="delete">Eliminar</string>
     <string name="deleting">Eliminando</string>
@@ -20,9 +20,9 @@
     <string name="copy">Copiar</string>
     <string name="copy_move">Copiar/Mover</string>
     <string name="share">Compartir</string>
-    <string name="shared_files">Ficheros compartidos vía Simple File Manager</string>
-    <string name="no_files_selected">No hay ficheros seleccionados</string>
-    <string name="copy_item">Copiar elemnto</string>
+    <string name="shared_files">Archivos compartidos vía Simple File Manager</string>
+    <string name="no_files_selected">No hay archivos seleccionados</string>
+    <string name="copy_item">Copiar elemento</string>
     <string name="copy_items">Copiar elementos</string>
     <string name="move">Mover</string>
     <string name="source">Origen</string>
@@ -30,26 +30,26 @@
     <string name="select_destination">Seleccione destino</string>
     <string name="invalid_destination">No se puede escribir en el destino seleccionado</string>
     <string name="please_select_destination">Por favor, seleccione un destino</string>
-    <string name="source_and_destination_same">Origen y destino no pueden ser el mismo</string>
+    <string name="source_and_destination_same">Origen y destino no pueden coincidir</string>
     <string name="copying">Copiando</string>
-    <string name="copying_success">Ficheros copiados exitosamente</string>
+    <string name="copying_success">Archivos copiados exitosamente</string>
     <string name="copy_move_failed">Se ha producido un error</string>
     <string name="moving">Moviendo</string>
-    <string name="moving_success">Ficheros movidos exitosamente</string>
-    <string name="already_exists">Ya existe un fichero con ese nombre</string>
-    <string name="ok">Ok</string>
+    <string name="moving_success">Archivos movidos exitosamente</string>
+    <string name="already_exists">Ya existe un archivo con ese nombre</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="press_back_again">Pulse otra vez volver para salir</string>
-    <string name="moving_success_partial">Algunos ficheros no han podido ser movidos</string>
-    <string name="copying_success_partial">Algunos ficheros no han podido ser copiados</string>
+    <string name="moving_success_partial">Algunos archivos no han podido ser movidos</string>
+    <string name="copying_success_partial">Algunos archivos no han podido ser copiados</string>
 
     <plurals name="items_deleted">
-        <item quantity="one">Un elemento eliminado</item>
+        <item quantity="one">1 elemento eliminado</item>
         <item quantity="other">%1$d elementos eliminados</item>
     </plurals>
 
     <plurals name="items">
-        <item quantity="one">Un elemento</item>
+        <item quantity="one">1 elemento</item>
         <item quantity="other">%1$d elementos</item>
     </plurals>
 
@@ -59,7 +59,7 @@
     <string name="email_label">Envíe sus comentarios y sugerencias a:</string>
     <string name="third_party_licences_underlined"><u>Licencias de terceros</u></string>
     <string name="invite_friends_underlined"><u>Invitar a amigos</u></string>
-    <string name="share_text">Hola, ven y échale un vistazo a %1$s en %2$s</string>
+    <string name="share_text">Hola, venga y échele un vistazo a %1$s en %2$s</string>
     <string name="invite_via">Invitar vía</string>
     <string name="rate_us_underlined"><u>Evalúenos en Google Play Store</u></string>
     <string name="follow_us">Síganos:</string>
