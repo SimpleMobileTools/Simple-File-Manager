@@ -65,6 +65,11 @@
     <string name="follow_us">Folge uns:</string>
     <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
 
+    <!-- Settings -->
+    <string name="settings">Einstellungen</string>
+    <string name="dark_theme">Dunkles Design</string>
+    <string name="show_hidden">Zeige versteckte Dateien und Ordner</string>
+
     <!-- License -->
     <string name="notice">Diese App nutzt die folgenden Drittanbieter Bibliotheken, die mir mein Leben einfacher machen. Vielen Dank.</string>
     <string name="third_party_licences">Drittanbieter Lizenzen</string>
@@ -73,8 +78,14 @@
     <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
     <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>
 
-    <!-- Settings -->
-    <string name="settings">Einstellungen</string>
-    <string name="dark_theme">Dunkles Design</string>
-    <string name="show_hidden">Zeige versteckte Dateien und Ordner</string>
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_long_description">
+        Can also be used for browsing root files and SDcard content. You can easily renamem copy, move, delete and share anything you wish.
+
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+
+        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+    </string>
 </resources>

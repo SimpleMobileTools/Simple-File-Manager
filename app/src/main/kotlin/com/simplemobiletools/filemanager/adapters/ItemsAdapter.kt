@@ -85,7 +85,6 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
         override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu): Boolean {
             val menuItem = menu.findItem(R.id.cab_rename)
             menuItem.isVisible = multiSelector.selectedPositions.size <= 1
-
             return true
         }
 
