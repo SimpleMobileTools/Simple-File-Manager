@@ -79,13 +79,13 @@
     <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_short_description">Un simple administrador de archivos para navegar por el árbol de directorios.</string>
     <string name="app_long_description">
-        Can also be used for browsing root files and SDcard content. You can easily renamem copy, move, delete and share anything you wish.
+        También puede ser utilizado para navegar por el directorio raíz y por el contenido de la tarjeta SD. Puede fácilmente renombrar, copiar, mover, eliminar y compartir lo que usted desee.
 
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en http://www.simplemobiletools.com
     </string>
 </resources>
