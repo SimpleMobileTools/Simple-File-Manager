@@ -1,27 +1,27 @@
-<resources>
+﻿<resources>
     <string name="app_name">シンプル ファイル マネージャー</string>
-    <string name="app_launcher_name">File Manager</string>
+    <string name="app_launcher_name">ファイル マネージャー</string>
     <string name="share_via">共有</string>
     <string name="no_permissions">ストレージにアクセスするアクセス許可が必要です</string>
     <string name="no_app_found">この種類のファイルを開くことができるアプリがありません</string>
     <string name="create_new">新しいアイテムを作成</string>
-    <string name="rename_item">Rename item</string>
+    <string name="rename_item">アイテムの名前を変更</string>
     <string name="directory">ディレクトリー</string>
     <string name="file">ファイル</string>
     <string name="name_taken">その名前のディレクトリーまたはファイルが既に存在します</string>
     <string name="invalid_name">名前に無効な文字が含まれています</string>
-    <string name="empty_name">Please enter a name</string>
+    <string name="empty_name">名前を入力してください</string>
     <string name="error_occurred">不明なエラーが発生しました</string>
     <string name="delete">削除</string>
     <string name="deleting">削除中</string>
     <string name="undo">元に戻す</string>
     <string name="rename">名前を変更</string>
-    <string name="properties">Properties</string>
+    <string name="properties">プロパティ</string>
     <string name="copy">コピー</string>
-    <string name="copy_move">Copy/Move</string>
-    <string name="share">Dela</string>
-    <string name="shared_files">Files shared via Simple File Manager</string>
-    <string name="no_files_selected">No files selected</string>
+    <string name="copy_move">コピー/移動</string>
+    <string name="share">共有</string>
+    <string name="shared_files">シンプル ファイル マネージャーでファイルを共有しました</string>
+    <string name="no_files_selected">ファイルが選択されていません</string>
     <string name="copy_item">アイテムをコピー</string>
     <string name="copy_items">アイテムをコピー</string>
     <string name="move">移動</string>
@@ -30,18 +30,18 @@
     <string name="select_destination">宛先を選択</string>
     <string name="invalid_destination">選択した宛先に書き込みできませんでした</string>
     <string name="please_select_destination">宛先を選択してください</string>
-    <string name="source_and_destination_same">Source and destination cannot be the same</string>
+    <string name="source_and_destination_same">元と先は同じにできません</string>
     <string name="copying">コピー中</string>
-    <string name="copying_success">Files copied successfully</string>
+    <string name="copying_success">ファイルを正常にコピーしました</string>
     <string name="copy_move_failed">ファイルをコピーできませんでした</string>
-    <string name="moving">Moving</string>
-    <string name="moving_success">Files moved successfully</string>
-    <string name="already_exists">A file with that name already exists</string>
+    <string name="moving">移動中</string>
+    <string name="moving_success">ファイルを正常に移動しました</string>
+    <string name="already_exists">その名前のファイルは既に存在します</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="press_back_again">Press back again to exit</string>
-    <string name="moving_success_partial">Some files could not be moved</string>
-    <string name="copying_success_partial">Some files could not be copied</string>
+    <string name="cancel">キャンセル</string>
+    <string name="press_back_again">もう一度戻るを押すと終了します</string>
+    <string name="moving_success_partial">一部のファイルは移動できませんでした</string>
+    <string name="copying_success_partial">一部のファイルはコピーできませんでした</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 アイテムを削除しました</item>
@@ -58,9 +58,9 @@
     <string name="website">もっとシンプルなアプリとソースコードは:\nhttp://simplemobiletools.com</string>
     <string name="email_label">ご意見やご提案をお送りください:</string>
     <string name="third_party_licences_underlined"><u>サードパーティー ライセンス</u></string>
-    <string name="invite_friends_underlined"><u>Invite friends</u></string>
-    <string name="share_text">Hey, come check out %1$s at %2$s</string>
-    <string name="invite_via">Invite via</string>
+    <string name="invite_friends_underlined"><u>友達を招待</u></string>
+    <string name="share_text">%2$s で %1$s を確認してください</string>
+    <string name="invite_via">招待...</string>
     <string name="rate_us_underlined"><u>Play ストアで評価してください</u></string>
     <string name="follow_us">フォローしてください:</string>
     <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
@@ -71,21 +71,21 @@
     <string name="show_hidden">非表示のファイルとディレクトリーを表示する</string>
 
     <!-- License -->
-    <string name="notice">このアプリは、私の人生を容易にするために、次のサードパーティのライブラリーを使用しています。 ありがとうございます。</string>
+    <string name="notice">このアプリは、私の暮らしにゆとりを持たせるために、次のサードパーティのライブラリーを使用しています。 ありがとうございます。</string>
     <string name="third_party_licences">サードパーティー ライセンス</string>
     <string name="kotlin_title"><u>Kotlin (プログラミング言語)</u></string>
-    <string name="multiselect_title"><u>RecyclerView MultiSelect (selecting multiple list items)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
-    <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>
+    <string name="multiselect_title"><u>RecyclerView MultiSelect (リストアイテム複数選択)</u></string>
+    <string name="filepicker_title"><u>Simple File Picker (ファイルピッカー ダイアログ)</u></string>
+    <string name="fileproperties_title"><u>Simple File Properties (プロパティ ダイアログ)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_short_description">ファイルとディレクトリーを参照、編集するためのシンプルなファイルマネージャー。</string>
     <string name="app_long_description">
-        Can also be used for browsing root files and SDcard content. You can easily renamem copy, move, delete and share anything you wish.
+        ルートファイルやSDカードコンテンツの参照にも使用できます。 簡単に名前の変更、コピー、移動、削除、共有ができます。
 
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        広告や不要なアクセス許可は含まれていません。 完全にオープンソースで、ダークテーマも提供しています。
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        このアプリは、大きな一連のアプリの一つです。 他のアプリは http://www.simplemobiletools.com で見つけることができます
     </string>
 </resources>
