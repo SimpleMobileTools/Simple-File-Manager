@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager
 
 val PATH = "path"
+val SCROLL_STATE = "scroll_state"
 
 // shared preferences
 val PREFS_KEY = "File Manager"

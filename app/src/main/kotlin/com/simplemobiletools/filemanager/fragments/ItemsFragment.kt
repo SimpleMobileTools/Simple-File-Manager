@@ -5,7 +5,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import android.webkit.MimeTypeMap
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
@@ -31,8 +34,8 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     lateinit var mConfig: Config
     lateinit var mToBeDeleted: MutableList<String>
 
-    private var mPath = ""
     private var mShowHidden = false
+    var mPath = ""
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater!!.inflate(R.layout.items_fragment, container, false)!!
@@ -87,7 +90,13 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         } else {
             (currAdapter as ItemsAdapter).updateItems(mItems)
         }
+
+        getRecyclerLayoutManager().onRestoreInstanceState(arguments.getParcelable<Parcelable>(SCROLL_STATE))
     }
+
+    fun getRecyclerLayoutManager() = (items_list.layoutManager as LinearLayoutManager)
+
+    fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
     fun setListener(listener: ItemInteractionListener) {
         mListener = listener

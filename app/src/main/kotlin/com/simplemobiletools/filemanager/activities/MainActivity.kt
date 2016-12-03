@@ -5,11 +5,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Parcelable
 import android.support.v4.app.ActivityCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filepicker.dialogs.StoragePickerDialog
 import com.simplemobiletools.filepicker.extensions.getInternalStoragePath
@@ -19,9 +21,12 @@ import com.simplemobiletools.filepicker.models.FileDirItem
 import com.simplemobiletools.filepicker.views.Breadcrumbs
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import java.util.*
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
     var mBasePath = getInternalStoragePath()
+    var latestFragment: ItemsFragment? = null
+    var mScrollStates = HashMap<String, Parcelable>()
 
     companion object {
         private val STORAGE_PERMISSION = 1
@@ -59,10 +64,18 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         val bundle = Bundle()
         bundle.putString(PATH, path)
 
-        val fragment = ItemsFragment()
-        fragment.arguments = bundle
-        fragment.setListener(this)
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_holder, fragment).addToBackStack(path).commitAllowingStateLoss()
+        if (mScrollStates.containsKey(path.trimEnd('/'))) {
+            bundle.putParcelable(SCROLL_STATE, mScrollStates[path.trimEnd('/')])
+        }
+
+        if (latestFragment != null) {
+            mScrollStates.put(latestFragment!!.mPath.trimEnd('/'), latestFragment!!.getScrollState())
+        }
+
+        latestFragment = ItemsFragment()
+        latestFragment!!.arguments = bundle
+        latestFragment!!.setListener(this)
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_holder, latestFragment).addToBackStack(path).commitAllowingStateLoss()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
