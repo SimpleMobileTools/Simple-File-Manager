@@ -227,7 +227,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
             val document = context.getFileDocument(item.absolutePath, mConfig.treeUri)
 
             // double check we have the uri to the proper file path, not some parent folder
-            if (document.uri.toString().endsWith(item.absolutePath.getFilenameFromPath()) && !document.isDirectory)
+            if (document.uri.toString().endsWith(item.absolutePath.getFilenameFromPath()))
                 document.delete()
         } else {
             item.delete()
