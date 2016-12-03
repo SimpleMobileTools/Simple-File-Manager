@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.23 *(2016-12-04)*
+----------------------------
+
+ * Remember the scroll state when browsing between folders
+ * Misc other smaller improvements
+
 Version 1.22 *(2016-11-22)*
 ----------------------------
 
