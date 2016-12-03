@@ -35,7 +35,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     private var mShowHidden = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
-            inflater!!.inflate(R.layout.items_fragment, container, false)
+            inflater!!.inflate(R.layout.items_fragment, container, false)!!
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
