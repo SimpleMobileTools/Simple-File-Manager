@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
 import java.util.*
 
-class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
+class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     val multiSelector = MultiSelector()
     val views = ArrayList<View>()
@@ -177,6 +177,11 @@ class ItemsAdapter(val activity: SimpleActivity, val mItems: List<FileDirItem>, 
         val selectedMedia = ArrayList<FileDirItem>(positions.size)
         positions.forEach { selectedMedia.add(mItems[it]) }
         return selectedMedia
+    }
+
+    fun updateItems(newItems: List<FileDirItem>) {
+        mItems = newItems
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
