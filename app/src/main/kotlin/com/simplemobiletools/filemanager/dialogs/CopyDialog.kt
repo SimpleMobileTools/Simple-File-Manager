@@ -46,6 +46,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
             window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+            setCanceledOnTouchOutside(true)
             show()
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({
                 if (destinationPath == context.resources.getString(R.string.select_destination) || destinationPath.isEmpty()) {

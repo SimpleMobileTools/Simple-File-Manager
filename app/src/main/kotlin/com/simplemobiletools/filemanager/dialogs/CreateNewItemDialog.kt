@@ -23,6 +23,7 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
             window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+            setCanceledOnTouchOutside(true)
             show()
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
                 val name = view.item_name.value
