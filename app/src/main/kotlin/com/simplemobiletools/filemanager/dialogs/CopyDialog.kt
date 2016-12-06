@@ -97,10 +97,13 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                                 updatedFiles.add(destination)
                         }
 
-                        context.scanFiles(updatedFiles) {}
-                        context.toast(R.string.moving_success)
-                        dismiss()
-                        copyMoveListener.copySucceeded(true, files.size * 2 == updatedFiles.size)
+                        context.scanFiles(updatedFiles) {
+                            activity.runOnUiThread {
+                                context.toast(R.string.moving_success)
+                                dismiss()
+                                copyMoveListener.copySucceeded(true, files.size * 2 == updatedFiles.size)
+                            }
+                        }
                     }
                 }
             })

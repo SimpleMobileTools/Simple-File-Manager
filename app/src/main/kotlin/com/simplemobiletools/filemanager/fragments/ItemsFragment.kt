@@ -88,7 +88,9 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
                 setOnTouchListener { view, motionEvent -> checkDelete(); false }
             }
         } else {
+            val state = (items_list.layoutManager as LinearLayoutManager).onSaveInstanceState()
             (currAdapter as ItemsAdapter).updateItems(mItems)
+            (items_list.layoutManager as LinearLayoutManager).onRestoreInstanceState(state)
         }
 
         getRecyclerLayoutManager().onRestoreInstanceState(arguments.getParcelable<Parcelable>(SCROLL_STATE))
