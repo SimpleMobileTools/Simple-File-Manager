@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 1.24 *(2016-12-06)*
+----------------------------
+
+ * Fix copying files in some cases
+ * Display a vertical scrollbar when needed
+
 Version 1.23 *(2016-12-04)*
 ----------------------------
 
