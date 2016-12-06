@@ -98,8 +98,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
     private fun displayRenameDialog() {
         RenameItemDialog(activity, getSelectedMedia()[0], object : RenameItemDialog.OnRenameItemListener {
             override fun onSuccess() {
-                actMode?.finish()
                 listener?.refreshItems()
+                actMode?.finish()
             }
         })
     }
