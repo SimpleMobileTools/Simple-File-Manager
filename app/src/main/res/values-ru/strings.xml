@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Файловый менеджер</string>
+    <string name="share_via">Отправить по</string>
+    <string name="no_permissions">Не предоставлено разрешение для доступа к файловой системе</string>
+    <string name="no_app_found">Приложение для открытия этого типа файлов не найдено</string>
+    <string name="create_new">Создать</string>
+    <string name="rename_item">Переименовать</string>
+    <string name="directory">Папка</string>
+    <string name="file">Файл</string>
+    <string name="name_taken">Объект с таким именем уже существует в данном расположении</string>
+    <string name="invalid_name">Имя содержит недопустимые символы</string>
+    <string name="empty_name">Имя не может быть пустым</string>
+    <string name="error_occurred">Произошла неизвестная ошибка</string>
+    <string name="delete">Удалить</string>
+    <string name="deleting">Удаление</string>
+    <string name="undo">Отменить</string>
+    <string name="rename">Переименовать</string>
+    <string name="properties">Свойства</string>
+    <string name="copy">Копировать</string>
+    <string name="copy_move">Копировать/переместить</string>
+    <string name="share">Отправить</string>
+    <string name="shared_files">Файлы отправлены из Simple File Manager</string>
+    <string name="no_files_selected">Не выбрано ни одного файла</string>
+    <string name="copy_item">Копирование объекта</string>
+    <string name="copy_items">Копирование объектов</string>
+    <string name="move">Переместить</string>
+    <string name="source">Путь источника</string>
+    <string name="destination">Путь назначения</string>
+    <string name="select_destination">Выбрать расположение</string>
+    <string name="invalid_destination">Не удалось записать в выбранное расположение</string>
+    <string name="please_select_destination">Пожалуйста, выберите путь назначения</string>
+    <string name="source_and_destination_same">Исходный и конечный пути не могут совпадать</string>
+    <string name="copying">Копирование...</string>
+    <string name="copying_success">Файлы скопированы успешно</string>
+    <string name="copy_move_failed">Произошла ошибка</string>
+    <string name="moving">Перемещение...</string>
+    <string name="moving_success">Файлы успешно перемещены</string>
+    <string name="already_exists">Файл с таким именем уже существует</string>
+    <string name="moving_success_partial">Некоторые файлы не могут быть перемещены</string>
+    <string name="copying_success_partial">Некоторые файлы не могут быть скопированы</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Отмена</string>
+    <string name="press_back_again">Нажмите "назад" ещё раз, чтобы выйти</string>
+
+    <plurals name="items_deleted">
+        <item quantity="one">1 объект удалён</item>
+        <item quantity="other">удалено объектов: %1$d</item>
+    </plurals>
+
+    <plurals name="items">
+        <item quantity="one">1 объект</item>
+        <item quantity="other">объектов: %1$d</item>
+    </plurals>
+
+    <!-- About -->
+    <string name="about">О приложении</string>
+    <string name="website">"Больше простых приложений и исходный код по адресу:\nhttp://simplemobiletools.com"</string>
+    <string name="email_label">Отправить отзывы или предложения:</string>
+    <string name="third_party_licences_underlined"><u>Лицензии третьих сторон</u></string>
+    <string name="invite_friends_underlined"><u>Предложить другу</u></string>
+    <string name="share_text">Попробуй %1$s по ссылке %2$s</string>
+    <string name="invite_via">Предложить с помощью</string>
+    <string name="rate_us_underlined"><u>Оцените нас в Google Play</u></string>
+    <string name="follow_us">Подписывайтесь на нас:</string>
+    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
+
+    <!-- Settings -->
+    <string name="settings">Настройки</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="show_hidden">Показать скрытые папки</string>
+
+    <!-- License -->
+    <string name="notice">"Это приложение использует следующие библиотеки сторонних производителей, чтобы облегчить мой труд. Спасибо."</string>
+    <string name="third_party_licences">Лицензии третьих сторон</string>
+    <string name="kotlin_title"><u>Kotlin (язык программирования)</u></string>
+    <string name="multiselect_title"><u>RecyclerView MultiSelect (выбор нескольких элементов списка)</u></string>    
+    <string name="filepicker_title"><u>Simple File Picker (диалог выбора файла)</u></string>
+    <string name="fileproperties_title"><u>Simple File Properties (диалог свойств файла)</u></string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_long_description">
+        Can also be used for browsing root files and SDcard content. You can easily rename, copy, move, delete and share anything you wish.
+
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+
+        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+    </string>
+</resources>
