@@ -79,6 +79,7 @@
     <string name="fileproperties_title"><u>Simple File Properties (diálogo de propriedades)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Um gestor de ficheiros para explorar e editar os ficheiros e diretórios.</string>
     <string name="app_long_description">
         Pode utilizar a aplicação para explorar a pasta \'root\' e os armazenamentos interno e externo. Pode renomear, copiar, mover, apagar e partilhar todos os ficheiros que quiser.
@@ -88,4 +89,11 @@
 
         Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em http://www.simplemobiletools.com
     </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Picker/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Properties/tree/master/library/src/main/res
+    -->
 </resources>
