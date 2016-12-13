@@ -54,9 +54,9 @@
     </plurals>
 
     <!-- Favorites -->
-    <string name="favorites">Favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="favorites">Favoritos</string>
+    <string name="add_to_favorites">Addicionar aos favoritos</string>
+    <string name="remove_from_favorites">Remover dos favoritos</string>
 
     <!-- About -->
     <string name="about">Acerca</string>
@@ -96,7 +96,7 @@
     </string>
 
     <!--
-        Haven't found some strings? There's more at
+        Não encontrou todas as cadeias a traduzir? Existem mais algumas em:
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
         https://github.com/SimpleMobileTools/Simple-File-Picker/tree/master/library/src/main/res
         https://github.com/SimpleMobileTools/Simple-File-Properties/tree/master/library/src/main/res
