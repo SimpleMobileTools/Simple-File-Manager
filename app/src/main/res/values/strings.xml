@@ -53,6 +53,11 @@
         <item quantity="other">%1$d items</item>
     </plurals>
 
+    <!-- Favorites -->
+    <string name="favorites">Favorites</string>
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
+
     <!-- About -->
     <string name="about">About</string>
     <string name="website">More simple apps and source code at:\nhttp://simplemobiletools.com</string>
