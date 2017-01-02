@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="social_padding">12dp</dimen>
     <dimen name="social_logo">50dp</dimen>
