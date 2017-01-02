@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gestionnaire de fichiers simple</string>
+    <string name="app_launcher_name">Gestionnaire de fichiers</string>
+    <string name="share_via">Partager avec</string>
+    <string name="no_permissions">L\'application a besoin de la permission d\'accéder à votre support de stockage</string>
+    <string name="no_app_found">Aucune app pour ouvrir ce type de fichier n\'est disponible</string>
+    <string name="create_new">Créer un nouvel élement</string>
+    <string name="rename_item">Renommer l\'élément</string>
+    <string name="directory">Dossier</string>
+    <string name="file">Fichier</string>
+    <string name="name_taken">Un dossier ou fichier avec ce nom existe déjà</string>
+    <string name="invalid_name">Le nom contient des caractères invalides</string>
+    <string name="empty_name">Veuiller entrer un nom</string>
+    <string name="error_occurred">Une erreur inconnu a eu lieu</string>
+    <string name="delete">Supprimer</string>
+    <string name="deleting">Suppression</string>
+    <string name="undo">Annuler</string>
+    <string name="rename">Renommer</string>
+    <string name="properties">Propriétés</string>
+    <string name="copy">Copier</string>
+    <string name="copy_move">Copier/Déplacer</string>
+    <string name="share">Partager</string>
+    <string name="shared_files">Fichiers partagés via Gestionnaire de Fichiers Simple</string>
+    <string name="no_files_selected">Aucun fichier sélectionné</string>
+    <string name="copy_item">Copier l\'élément</string>
+    <string name="copy_items">Copier des éléments</string>
+    <string name="move">Déplacer</string>
+    <string name="source">Source</string>
+    <string name="destination">Destination</string>
+    <string name="select_destination">Définir la destination</string>
+    <string name="invalid_destination">Impossible d\'écrire à la destination définie</string>
+    <string name="please_select_destination">Veuillez choisir une destination</string>
+    <string name="source_and_destination_same">La source et la destination ne peuvent pas être identiques</string>
+    <string name="copying">En copie</string>
+    <string name="copying_success">Fichiers copiés avec succès</string>
+    <string name="copy_move_failed">Une erreur a eu lieu</string>
+    <string name="moving">Déplacement</string>
+    <string name="moving_success">Fichiers déplacés avec succès</string>
+    <string name="already_exists">Un fichier avec ce nom existe déjà</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Annuler</string>
+    <string name="press_back_again">Appuyer à nouveau sur le bouton retour pour quitter</string>
+    <string name="moving_success_partial">Certains fichiers ne peuvent pas être déplacés</string>
+    <string name="copying_success_partial">Certains fichiers ne peuvent pas être copiés</string>
+
+    <plurals name="items_deleted">
+        <item quantity="one">1 élément supprimé</item>
+        <item quantity="other">%1$d éléments supprimés</item>
+    </plurals>
+
+    <plurals name="items">
+        <item quantity="one">1 élément</item>
+        <item quantity="other">%1$d éléments</item>
+    </plurals>
+
+    <!-- Favoris -->
+    <string name="favorites">Favoris</string>
+    <string name="add_to_favorites">Ajouter aux favoris</string>
+    <string name="remove_from_favorites">Enlever des favoris</string>
+
+    <!-- À propos -->
+    <string name="about">À propos</string>
+    <string name="website">Plus d\'apps simples et le code source à :\nhttp://simplemobiletools.com</string>
+    <string name="email_label">Envoyez des retours et suggestions à :</string>
+    <string name="third_party_licences_underlined"><u>Licences tierces</u></string>
+    <string name="invite_friends_underlined"><u>Inviter des amis</u></string>
+    <!--<string name="share_text">Hey, come check out %1$s at %2$s</string>-->
+    <string name="invite_via">Inviter via</string>
+    <string name="rate_us_underlined"><u>Notez nous sur le Play Store</u></string>
+    <string name="follow_us">Suivez nous :</string>
+    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
+
+    <!-- Paramètres -->
+    <string name="settings">Paramètres</string>
+    <string name="dark_theme">Thème sombre</string>
+    <string name="show_hidden">Montrer les fichiers et dossiers cachés</string>
+
+    <!-- Licence -->
+    <string name="notice">Cette app utilise les bibliothèques tierces suivantes pour se simplifier la vie. Merci.</string>
+    <string name="third_party_licences">Licences tierces</string>
+    <string name="kotlin_title"><u>Kotlin (langage de programmation)</u></string>
+    <!--<string name="multiselect_title"><u>RecyclerView MultiSelect (selecting multiple list items)</u></string>
+    <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
+    <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>-->
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Un gestionnaire de fichiers simple pour naviguer et éditer ses fichiers et dossiers.</string>
+    <string name="app_long_description">
+        Peut aussi être utilisé pour naviguer dans les fichiers à la racines et ceux de la carte SD. Vous pouvez facilement renommer, copier, déplacer, supprimmer et partager ce que vous voulez.
+
+
+        Ne contient pas de pubs ou de permissions inutiles. C\'est un logiciel libre et open-source. Il y a un thème sombre.
+
+        Cette app est juste une pièce d\'une plus grande série d\'apps. Vous pouvez trouver le reste à http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Picker/tree/master/library/src/main/res
+        https://github.com/SimpleMobileTools/Simple-File-Properties/tree/master/library/src/main/res
+    -->
+</resources>
