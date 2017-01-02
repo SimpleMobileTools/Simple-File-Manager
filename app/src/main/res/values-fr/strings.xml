@@ -65,7 +65,7 @@
     <string name="email_label">Envoyez des retours et suggestions à :</string>
     <string name="third_party_licences_underlined"><u>Licences tierces</u></string>
     <string name="invite_friends_underlined"><u>Inviter des amis</u></string>
-    <!--<string name="share_text">Hey, come check out %1$s at %2$s</string>-->
+    <string name="share_text">Hey, come check out %1$s at %2$s</string>
     <string name="invite_via">Inviter via</string>
     <string name="rate_us_underlined"><u>Notez nous sur le Play Store</u></string>
     <string name="follow_us">Suivez nous :</string>
@@ -80,9 +80,9 @@
     <string name="notice">Cette app utilise les bibliothèques tierces suivantes pour se simplifier la vie. Merci.</string>
     <string name="third_party_licences">Licences tierces</string>
     <string name="kotlin_title"><u>Kotlin (langage de programmation)</u></string>
-    <!--<string name="multiselect_title"><u>RecyclerView MultiSelect (selecting multiple list items)</u></string>
+    <string name="multiselect_title"><u>RecyclerView MultiSelect (selecting multiple list items)</u></string>
     <string name="filepicker_title"><u>Simple File Picker (filepicker dialog)</u></string>
-    <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>-->
+    <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
