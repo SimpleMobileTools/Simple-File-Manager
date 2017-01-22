@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple File Manager</string>
-    <string name="app_launcher_name">File Manager</string>
+    <string name="app_launcher_name">Filhanterare</string>
     <string name="share_via">Dela via</string>
     <string name="no_permissions">Vi behöver tillgång till ditt lagringsutrymme</string>
     <string name="no_app_found">Det finns ingen app tillgänglig för att öppna denna typ av fil</string>
-    <string name="create_new">Skapa nytt objektm</string>
-    <string name="rename_item">Rename item</string>
+    <string name="create_new">Skapa nytt objekt</string>
+    <string name="rename_item">Döp om objekt</string>
     <string name="directory">Katalog</string>
     <string name="file">Fil</string>
     <string name="name_taken">Katalog eller fil med detta namnet finns redan</string>
     <string name="invalid_name">Namnet innehåller ogiltiga tecken</string>
-    <string name="empty_name">Please enter a name</string>
+    <string name="empty_name">Ange ett namn</string>
     <string name="error_occurred">Ett okänt fel har uppstått</string>
     <string name="delete">Ta bort</string>
     <string name="deleting">Tar bort</string>
     <string name="undo">Ångra</string>
     <string name="rename">Döp om</string>
-    <string name="properties">Properties</string>
+    <string name="properties">Egenskaper</string>
     <string name="copy">Kopiera</string>
-    <string name="copy_move">Copy/Move</string>
+    <string name="copy_move">Kopiera/Flytta</string>
     <string name="share">Dela</string>
-    <string name="shared_files">Files shared via Simple File Manager</string>
-    <string name="no_files_selected">No files selected</string>
+    <string name="shared_files">Filer delade via Simple File Manager</string>
+    <string name="no_files_selected">Inga valda filer</string>
     <string name="copy_item">Kopiera objekt</string>
     <string name="copy_items">Kopiera objekt</string>
     <string name="move">Flytta</string>
@@ -30,19 +30,19 @@
     <string name="destination">Mål</string>
     <string name="select_destination">Välj mål</string>
     <string name="invalid_destination">Det gick inte att skriva till målet</string>
-    <string name="please_select_destination">Please select a destination</string>
-    <string name="source_and_destination_same">Source and destination cannot be the same</string>
+    <string name="please_select_destination">Välj målet</string>
+    <string name="source_and_destination_same">Källa och mål kan inte vara samma</string>
     <string name="copying">Kopierar</string>
-    <string name="copying_success">Files copied successfully</string>
+    <string name="copying_success">Filer kopierade</string>
     <string name="copy_move_failed">Kunde inte kopiera filen</string>
-    <string name="moving">Moving</string>
-    <string name="moving_success">Files moved successfully</string>
-    <string name="already_exists">A file with that name already exists</string>
+    <string name="moving">Flyttar</string>
+    <string name="moving_success">Filer flyttade</string>
+    <string name="already_exists">En fil med det namnet finns redan</string>
     <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="press_back_again">Press back again to exit</string>
-    <string name="moving_success_partial">Some files could not be moved</string>
-    <string name="copying_success_partial">Some files could not be copied</string>
+    <string name="cancel">Avbryt</string>
+    <string name="press_back_again">Tryck på bakåt igen för att avsluta</string>
+    <string name="moving_success_partial">Några av filerna gick inte att flytta</string>
+    <string name="copying_success_partial">Några av filerna gick inte att kopiera</string>
 
     <plurals name="items_deleted">
         <item quantity="one">1 objekt borttagen</item>
@@ -55,24 +55,24 @@
     </plurals>
 
     <!-- Favorites -->
-    <string name="favorites">Favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="favorites">Favoriter</string>
+    <string name="add_to_favorites">Lägg till favoriter</string>
+    <string name="remove_from_favorites">Ta bort från favoriter</string>
 
     <!-- About -->
     <string name="about">Om</string>
     <string name="website">Fler enkla appar och källkod här:\nhttp://simplemobiletools.com</string>
     <string name="email_label">Skicka feedback och förslag till:</string>
     <string name="third_party_licences_underlined"><u>Tredjepartslicenser</u></string>
-    <string name="invite_friends_underlined"><u>Invite friends</u></string>
-    <string name="share_text">Hey, come check out %1$s at %2$s</string>
-    <string name="invite_via">Invite via</string>
+    <string name="invite_friends_underlined"><u>Bjud in vänner</u></string>
+    <string name="share_text">Hej, ta en titt på %1$s på %2$s</string>
+    <string name="invite_via">Bjud in via</string>
     <string name="rate_us_underlined"><u>Betygsätt oss i Play Butiken</u></string>
     <string name="follow_us">Följ oss:</string>
     <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
 
     <!-- Settings -->
-    <string name="settings">Settings</string>
+    <string name="settings">Inställningar</string>
     <string name="dark_theme">Mörkt tema</string>
     <string name="show_hidden">Visa dolda filer</string>
 
@@ -86,14 +86,14 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_short_description">En enkel filhanterare för att bläddra och redigera filer och kataloger.</string>
     <string name="app_long_description">
-        Can also be used for browsing root files and SDcard content. You can easily renamem copy, move, delete and share anything you wish.
+        Kan också användas till att bläddra i rot-filer och innehållet på SD-kort. Du kan enkelt döpa om, kopiera, flytta, ta bort och dela det du vill.
 
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
+        Innehåller ingen reklam eller onödiga behörigheter. Det är helt och hållet opensource, innehåller även ett mörkt tema.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Detta är bara en app i en serie av appar. Du hittar resten av dem här http://www.simplemobiletools.com
     </string>
 
     <!--
