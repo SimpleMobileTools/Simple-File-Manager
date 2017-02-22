@@ -86,7 +86,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Dosyaları ve dizinleri tarama ve düzenlemek için kullanılan basit bir dosya yöneticisi.</string>
+    <string name="app_short_description">Dosyaları ve dizinleri tarama ve düzenlemek için kullanılan bir dosya gezgini.</string>
     <string name="app_long_description">
         Kök dosyalara ve SD kart içeriğine göz atmak için de kullanılabilir. İstediğiniz her şeyi yeniden adlandırabilir, kopyalayabilir, taşıyabilir, silebilir ve paylaşabilirsiniz.
 
