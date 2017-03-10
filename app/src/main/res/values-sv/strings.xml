@@ -59,18 +59,6 @@
     <string name="add_to_favorites">Lägg till favoriter</string>
     <string name="remove_from_favorites">Ta bort från favoriter</string>
 
-    <!-- About -->
-    <string name="about">Om</string>
-    <string name="website">Fler enkla appar och källkod här:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Skicka feedback och förslag till:</string>
-    <string name="third_party_licences_underlined"><u>Tredjepartslicenser</u></string>
-    <string name="invite_friends_underlined"><u>Bjud in vänner</u></string>
-    <string name="share_text">Hej, ta en titt på %1$s på %2$s</string>
-    <string name="invite_via">Bjud in via</string>
-    <string name="rate_us_underlined"><u>Betygsätt oss i Play Butiken</u></string>
-    <string name="follow_us">Följ oss:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
     <!-- Settings -->
     <string name="settings">Inställningar</string>
     <string name="dark_theme">Mörkt tema</string>
@@ -99,7 +87,5 @@
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
-        https://github.com/SimpleMobileTools/Simple-File-Picker/tree/master/library/src/main/res
-        https://github.com/SimpleMobileTools/Simple-File-Properties/tree/master/library/src/main/res
     -->
 </resources>

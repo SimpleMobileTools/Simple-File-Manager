@@ -13,8 +13,11 @@ import com.simplemobiletools.commons.extensions.getInternalStoragePath
 import com.simplemobiletools.commons.extensions.hasWriteStoragePermission
 import com.simplemobiletools.commons.extensions.storeStoragePaths
 import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
+import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
+import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.SCROLL_STATE
@@ -85,17 +88,16 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settings -> {
-                startActivity(Intent(applicationContext, SettingsActivity::class.java))
-                true
-            }
-            R.id.about -> {
-                startActivity(Intent(applicationContext, AboutActivity::class.java))
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.about -> launchAbout()
+            else -> return super.onOptionsItemSelected(item)
         }
+        return true
+    }
+
+    fun launchAbout() {
+        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
     }
 
     /*override fun onBackPressed() {

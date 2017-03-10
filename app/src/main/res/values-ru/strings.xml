@@ -59,18 +59,6 @@
     <string name="add_to_favorites">Добавить в избранное</string>
     <string name="remove_from_favorites">Убрать из избранного</string>
 
-    <!-- About -->
-    <string name="about">О приложении</string>
-    <string name="website">Исходный код можно найти по адресу:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Отправить отзывы или предложения:</string>
-    <string name="third_party_licences_underlined"><u>Лицензии третьих сторон</u></string>
-    <string name="invite_friends_underlined"><u>Предложить другу</u></string>
-    <string name="share_text">Попробуй %1$s по ссылке %2$s</string>
-    <string name="invite_via">Предложить с помощью</string>
-    <string name="rate_us_underlined"><u>Оценить нас в Google Play</u></string>
-    <string name="follow_us">Подписаться на нас:</string>
-    <string name="copyright">v %1$s\nCopyright © Simple Mobile Tools %2$d</string>
-
     <!-- Settings -->
     <string name="settings">Настройки</string>
     <string name="dark_theme">Темная тема</string>
@@ -99,7 +87,5 @@
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
-        https://github.com/SimpleMobileTools/Simple-File-Picker/tree/master/library/src/main/res
-        https://github.com/SimpleMobileTools/Simple-File-Properties/tree/master/library/src/main/res
     -->
 </resources>

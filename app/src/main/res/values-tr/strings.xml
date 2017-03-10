@@ -59,18 +59,6 @@
     <string name="add_to_favorites">Favorilere ekle</string>
     <string name="remove_from_favorites">Favorilerden kaldır</string>
 
-    <!-- About -->
-    <string name="about">Hakkında</string>
-    <string name="website">Daha basit uygulamalar ve kaynak kodu:\nhttp://simplemobiletools.com</string>
-    <string name="email_label">Görüşlerinizi veya önerilerinizi şu adrese gönderin:</string>
-    <string name="third_party_licences_underlined"><u>Üçüncü taraf lisansları</u></string>
-    <string name="invite_friends_underlined"><u>Arkadaşlarını davet et</u></string>
-    <string name="share_text">Kontrol et %1$s at %2$s</string>
-    <string name="invite_via">Üzerinden davet et</string>
-    <string name="rate_us_underlined"><u>Play Store\'da oy verin</u></string>
-    <string name="follow_us">Bizi takip et:</string>
-    <string name="copyright">v %1$s\nTelif Hakkı © Basit Mobil Araçlar %2$d</string>
-
     <!-- Settings -->
     <string name="settings">Ayarlar</string>
     <string name="dark_theme">Koyu tema</string>
