@@ -60,17 +60,7 @@
     <string name="remove_from_favorites">Убрать из избранного</string>
 
     <!-- Settings -->
-    <string name="settings">Настройки</string>
-    <string name="dark_theme">Темная тема</string>
     <string name="show_hidden">Показать скрытые папки</string>
-
-    <!-- License -->
-    <string name="notice">Это приложение использует следующие библиотеки сторонних разработчиков, чтобы облегчить мой труд. Спасибо.</string>
-    <string name="third_party_licences">Лицензии третьих сторон</string>
-    <string name="kotlin_title"><u>Kotlin (язык программирования)</u></string>
-    <string name="multiselect_title"><u>RecyclerView MultiSelect (выбор нескольких элементов списка)</u></string>    
-    <string name="filepicker_title"><u>Simple File Picker (диалог выбора файла)</u></string>
-    <string name="fileproperties_title"><u>Simple File Properties (диалог свойств файла)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

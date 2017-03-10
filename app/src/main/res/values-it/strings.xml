@@ -60,17 +60,7 @@
     <string name="remove_from_favorites">Remove from favorites</string>
 
     <!-- Settings -->
-    <string name="settings">Impostazioni</string>
-    <string name="dark_theme">Tema scuro</string>
     <string name="show_hidden">Mostra file e cartelle nascosti</string>
-
-    <!-- License -->
-    <string name="notice">Questa app usa le seguenti librerie di terze parti per semplificarmi la vita. Grazie.</string>
-    <string name="third_party_licences">Licenze di terze parti</string>
-    <string name="kotlin_title"><u>Kotlin (linguaggio di programmazione)</u></string>
-    <string name="multiselect_title"><u>RecyclerView MultiSelect (selezione elementi multipli da liste)</u></string>
-    <string name="filepicker_title"><u>Simple File Picker (finestra di selezione file)</u></string>
-    <string name="fileproperties_title"><u>Simple File Properties (finestra di proprietà)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

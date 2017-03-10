@@ -60,17 +60,7 @@
     <string name="remove_from_favorites">Favorilerden kaldır</string>
 
     <!-- Settings -->
-    <string name="settings">Ayarlar</string>
-    <string name="dark_theme">Koyu tema</string>
     <string name="show_hidden">Gizli dosyaları ve dizinleri göster</string>
-
-    <!-- License -->
-    <string name="notice">Bu uygulama hayatımı kolaylaştırmak için aşağıdaki üçüncü parti kitaplıklarını kullanıyor. Teşekkür ederim.</string>
-    <string name="third_party_licences">Üçüncü taraf lisansları</string>
-    <string name="kotlin_title"><u>Kotlin (programming language)</u></string>
-    <string name="multiselect_title"><u>Geri Dönüşümci Çoklu Seçim Görünümü (birden çok liste öğesi seçme)</u></string>
-    <string name="filepicker_title"><u>Basit Dosya Seçici (dosya seçici iletişim kutusu)</u></string>
-    <string name="fileproperties_title"><u>Simple File Properties (properties dialog)</u></string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
