@@ -5,9 +5,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filepicker.extensions.*
 import kotlinx.android.synthetic.main.create_new.view.*
 import java.io.File
 import java.io.IOException
@@ -54,7 +54,7 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
 
     private fun createDirectory(file: File, alertDialog: AlertDialog): Boolean {
         return if (context.needsStupidWritePermissions(path)) {
-            val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri)
+            val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri) ?: return false
             documentFile.createDirectory(file.name)
             success(alertDialog)
             true
@@ -72,7 +72,7 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
     private fun createFile(file: File, alertDialog: AlertDialog): Boolean {
         try {
             if (context.needsStupidWritePermissions(path)) {
-                val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri)
+                val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri) ?: return false
                 documentFile.createFile("", file.name)
                 success(alertDialog)
                 return true

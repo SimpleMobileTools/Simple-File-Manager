@@ -4,10 +4,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.WindowManager
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filepicker.extensions.*
-import com.simplemobiletools.filepicker.models.FileDirItem
 import kotlinx.android.synthetic.main.rename_item.view.*
 import java.io.File
 
@@ -44,7 +44,7 @@ class RenameItemDialog(val context: Context, val item: FileDirItem, val listener
                 }
 
                 if (context.needsStupidWritePermissions(path)) {
-                    val document = context.getFileDocument(currFile.absolutePath, Config.newInstance(context).treeUri)
+                    val document = context.getFileDocument(currFile.absolutePath, Config.newInstance(context).treeUri) ?: return@setOnClickListener
                     if (document.canWrite())
                         document.renameTo(newName)
                     sendSuccess(newFile)

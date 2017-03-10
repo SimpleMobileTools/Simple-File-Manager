@@ -4,15 +4,14 @@ import android.app.AlertDialog
 import android.support.v4.util.Pair
 import android.view.LayoutInflater
 import android.view.WindowManager
+import com.simplemobiletools.commons.asynctasks.CopyMoveTask
+import com.simplemobiletools.commons.extensions.humanizePath
+import com.simplemobiletools.commons.extensions.isPathOnSD
+import com.simplemobiletools.commons.extensions.scanFiles
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
-import com.simplemobiletools.filepicker.asynctasks.CopyMoveTask
-import com.simplemobiletools.filepicker.dialogs.FilePickerDialog
-import com.simplemobiletools.filepicker.extensions.humanizePath
-import com.simplemobiletools.filepicker.extensions.isPathOnSD
-import com.simplemobiletools.filepicker.extensions.scanFiles
-import com.simplemobiletools.filepicker.extensions.toast
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
 import java.util.*
@@ -27,7 +26,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
         view.source.text = "${context.humanizePath(sourcePath)}/"
 
         val config = Config.newInstance(context)
-        view.destination.setOnClickListener {
+        /*view.destination.setOnClickListener {
             FilePickerDialog(activity, destinationPath, false, config.showHidden, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {
                 }
@@ -37,7 +36,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                     view.destination.text = context.humanizePath(pickedPath)
                 }
             })
-        }
+        }*/
 
         AlertDialog.Builder(context)
                 .setTitle(context.resources.getString(if (files.size == 1) R.string.copy_item else R.string.copy_items))

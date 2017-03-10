@@ -9,6 +9,7 @@ import android.text.method.LinkMovementMethod
 import android.view.View
 import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.activity_about.*
 import java.util.*
 
@@ -42,7 +43,7 @@ class AboutActivity : SimpleActivity() {
     }
 
     private fun setupRateUs() {
-        if (mConfig.isFirstRun) {
+        if (config.isFirstRun) {
             about_rate_us.visibility = View.GONE
         } else {
             about_rate_us.setOnClickListener {

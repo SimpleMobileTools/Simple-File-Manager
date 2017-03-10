@@ -12,6 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.RecyclerViewDivider
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
@@ -19,9 +22,6 @@ import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
-import com.simplemobiletools.filepicker.extensions.*
-import com.simplemobiletools.filepicker.models.FileDirItem
-import com.simplemobiletools.filepicker.views.RecyclerViewDivider
 import kotlinx.android.synthetic.main.items_fragment.*
 import java.io.File
 import java.util.*
@@ -241,7 +241,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         }
 
         if (context.needsStupidWritePermissions(item.absolutePath)) {
-            val document = context.getFileDocument(item.absolutePath, mConfig.treeUri)
+            val document = context.getFileDocument(item.absolutePath, mConfig.treeUri) ?: return
 
             // double check we have the uri to the proper file path, not some parent folder
             if (document.uri.toString().endsWith(item.absolutePath.getFilenameFromPath()))
