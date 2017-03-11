@@ -7,7 +7,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
-import kotlinx.android.synthetic.main.copy_item.view.*
+import kotlinx.android.synthetic.main.dialog_copy_item.view.*
 import java.io.File
 import java.util.*
 
@@ -15,7 +15,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
 
     init {
         val context = activity
-        val view = activity.layoutInflater.inflate(R.layout.copy_item, null)
+        val view = activity.layoutInflater.inflate(R.layout.dialog_copy_item, null)
         val sourcePath = files[0].parent.trimEnd('/')
         var destinationPath = ""
         view.source.text = "${context.humanizePath(sourcePath)}/"

@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.os.Parcelable
 import android.support.v4.app.ActivityCompat
 import android.view.Menu
@@ -23,6 +24,7 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.*
 
@@ -41,7 +43,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //breadcrumbs.setListener(this)
+        breadcrumbs.setListener(this)
         tryInitFileManager()
         storeStoragePaths()
     }
@@ -64,7 +66,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun openPath(path: String) {
-        //breadcrumbs.setBreadcrumb(path)
+        breadcrumbs.setBreadcrumb(path)
         val bundle = Bundle()
         bundle.putString(PATH, path)
 
@@ -78,7 +80,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
         latestFragment = ItemsFragment()
         latestFragment!!.arguments = bundle
-        latestFragment!!.setListener(this)
+        latestFragment!!.setListener(this@MainActivity)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_holder, latestFragment).addToBackStack(path).commitAllowingStateLoss()
     }
 
@@ -100,7 +102,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
     }
 
-    /*override fun onBackPressed() {
+    override fun onBackPressed() {
         if (breadcrumbs.childCount <= 1) {
             if (!mWasBackJustPressed) {
                 mWasBackJustPressed = true
@@ -114,7 +116,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             val item = breadcrumbs.lastItem
             openPath(item.path)
         }
-    }*/
+    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -139,8 +141,8 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
                 changePath(it)
             }
         } else {
-            /*val item = breadcrumbs.getChildAt(id).tag as FileDirItem
-            openPath(item.path)*/
+            val item = breadcrumbs.getChildAt(id).tag as FileDirItem
+            openPath(item.path)
         }
     }
 

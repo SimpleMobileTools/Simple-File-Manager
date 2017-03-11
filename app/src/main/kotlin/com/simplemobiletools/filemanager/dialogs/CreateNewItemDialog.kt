@@ -7,13 +7,13 @@ import android.view.WindowManager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
-import kotlinx.android.synthetic.main.create_new.view.*
+import kotlinx.android.synthetic.main.dialog_create_new.view.*
 import java.io.File
 import java.io.IOException
 
 class CreateNewItemDialog(val activity: Activity, val path: String, val callback: () -> Unit) {
     init {
-        val view = activity.layoutInflater.inflate(R.layout.create_new, null)
+        val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
 
         AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok, null)

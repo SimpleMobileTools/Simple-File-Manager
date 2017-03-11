@@ -17,7 +17,6 @@ import com.simplemobiletools.commons.extensions.formatSize
 import com.simplemobiletools.commons.extensions.isGif
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CopyDialog
@@ -51,29 +50,15 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
 
     val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-            return when (item.itemId) {
-                R.id.cab_rename -> {
-                    displayRenameDialog()
-                    true
-                }
-                R.id.cab_properties -> {
-                    showProperties()
-                    true
-                }
-                R.id.cab_share -> {
-                    shareFiles()
-                    true
-                }
-                R.id.cab_copy_move -> {
-                    displayCopyDialog()
-                    true
-                }
-                R.id.cab_delete -> {
-                    askConfirmDelete()
-                    true
-                }
-                else -> false
+            when (item.itemId) {
+                R.id.cab_rename -> displayRenameDialog()
+                R.id.cab_properties -> showProperties()
+                R.id.cab_share -> shareFiles()
+                R.id.cab_copy_move -> displayCopyDialog()
+                R.id.cab_delete -> askConfirmDelete()
+                else -> return false
             }
+            return true
         }
 
         override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {

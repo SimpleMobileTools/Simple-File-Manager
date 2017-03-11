@@ -7,13 +7,13 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
-import kotlinx.android.synthetic.main.rename_item.view.*
+import kotlinx.android.synthetic.main.dialog_rename_item.view.*
 import java.io.File
 
 class RenameItemDialog(val activity: Activity, val item: FileDirItem, val callback: () -> Unit) {
 
     init {
-        val view = activity.layoutInflater.inflate(R.layout.rename_item, null)
+        val view = activity.layoutInflater.inflate(R.layout.dialog_rename_item, null)
         view.item_name.setText(item.name)
 
         val path = File(item.path).parent
