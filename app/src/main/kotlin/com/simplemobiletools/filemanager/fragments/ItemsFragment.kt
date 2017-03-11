@@ -50,7 +50,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
         items_swipe_refresh.setOnRefreshListener({ fillItems() })
         items_fab.setOnClickListener { createNewItem() }
-        context.updateTextColors(items_holder)
     }
 
     override fun onResume() {
@@ -59,6 +58,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
             mShowHidden = !mShowHidden
             fillItems()
         }
+        context.updateTextColors(items_holder)
     }
 
     override fun onPause() {

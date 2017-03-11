@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.dialogs
 import android.support.v4.util.Pair
 import android.support.v7.app.AlertDialog
 import com.simplemobiletools.commons.asynctasks.CopyMoveTask
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -18,20 +19,14 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
         val view = activity.layoutInflater.inflate(R.layout.dialog_copy_item, null)
         val sourcePath = files[0].parent.trimEnd('/')
         var destinationPath = ""
-        view.source.text = "${context.humanizePath(sourcePath)}/"
 
         val config = context.config
-        /*view.destination.setOnClickListener {
-            FilePickerDialog(activity, destinationPath, false, config.showHidden, object : FilePickerDialog.OnFilePickerListener {
-                override fun onFail(error: FilePickerDialog.FilePickerResult) {
-                }
-
-                override fun onSuccess(pickedPath: String) {
-                    destinationPath = pickedPath
-                    view.destination.text = context.humanizePath(pickedPath)
-                }
-            })
-        }*/
+        view.destination.setOnClickListener {
+            FilePickerDialog(activity, sourcePath, false, config.showHidden, true) {
+                destinationPath = it
+                view.destination.text = context.humanizePath(it)
+            }
+        }
 
         AlertDialog.Builder(context)
                 .setPositiveButton(R.string.ok, null)
@@ -44,7 +39,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                     return@setOnClickListener
                 }
 
-                if (view.source.text.trimEnd('/') == destinationPath.trimEnd('/')) {
+                if (sourcePath == destinationPath.trimEnd('/')) {
                     context.toast(R.string.source_and_destination_same)
                     return@setOnClickListener
                 }
@@ -56,8 +51,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                 }
 
                 if (files.size == 1) {
-                    val newFile = File(files[0].path)
-                    if (File(destinationPath, newFile.name).exists()) {
+                    if (File(destinationPath, files[0].name).exists()) {
                         context.toast(R.string.name_taken)
                         return@setOnClickListener
                     }
@@ -74,6 +68,10 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                     dismiss()
                 } else {
                     if (context.isPathOnSD(sourcePath) || context.isPathOnSD(destinationPath)) {
+                        if (activity.isShowingPermDialog(files[0])) {
+                            return@setOnClickListener
+                        }
+
                         context.toast(R.string.moving)
                         val pair = Pair<ArrayList<File>, File>(files, destinationDir)
                         CopyMoveTask(context, true, config.treeUri, false, copyMoveListener).execute(pair)
@@ -89,14 +87,15 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
 
                         context.scanFiles(updatedFiles) {
                             activity.runOnUiThread {
-                                context.toast(R.string.moving_success)
-                                dismiss()
                                 copyMoveListener.copySucceeded(true, files.size * 2 == updatedFiles.size)
+                                dismiss()
                             }
                         }
                     }
                 }
             })
         }
+
+        view.destination.performClick()
     }
 }
