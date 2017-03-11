@@ -22,12 +22,12 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.simplemobiletools.commons.views.MyFloatingActionButton
         android:id="@+id/items_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/activity_margin"
-        android:src="@mipmap/plus"/>
+        android:src="@drawable/ic_plus"/>
 
 </android.support.design.widget.CoordinatorLayout>

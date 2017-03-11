@@ -19,7 +19,7 @@
             android:layout_height="@dimen/filepicker_list_icon_size"
             android:paddingBottom="@dimen/medium_margin"
             android:paddingTop="@dimen/medium_margin"
-            android:src="@mipmap/directory"/>
+            android:src="@drawable/ic_folder"/>
 
         <TextView
             android:id="@+id/item_name"

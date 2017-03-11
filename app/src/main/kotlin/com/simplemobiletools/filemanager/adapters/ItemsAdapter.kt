@@ -201,10 +201,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
             toggleItemSelection(itemView, markedItems.contains(pos), pos)
 
             if (fileDirItem.isDirectory) {
-                Glide.with(activity).load(R.mipmap.directory).diskCacheStrategy(getCacheStrategy(fileDirItem)).centerCrop().crossFade().into(itemView.item_icon)
+                Glide.with(activity).load(R.drawable.ic_folder).diskCacheStrategy(getCacheStrategy(fileDirItem)).centerCrop().crossFade().into(itemView.item_icon)
                 itemView.item_details.text = getChildrenCnt(fileDirItem)
             } else {
-                Glide.with(activity).load(fileDirItem.path).diskCacheStrategy(getCacheStrategy(fileDirItem)).error(R.mipmap.file).centerCrop().crossFade().into(itemView.item_icon)
+                Glide.with(activity).load(fileDirItem.path).diskCacheStrategy(getCacheStrategy(fileDirItem)).error(R.drawable.ic_file).centerCrop().crossFade().into(itemView.item_icon)
                 itemView.item_details.text = fileDirItem.size.formatSize()
             }
 
