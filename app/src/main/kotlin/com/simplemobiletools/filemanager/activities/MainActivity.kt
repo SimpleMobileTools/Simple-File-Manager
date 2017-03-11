@@ -10,7 +10,10 @@ import android.support.v4.app.ActivityCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.getInternalStoragePath
+import com.simplemobiletools.commons.extensions.hasWriteStoragePermission
+import com.simplemobiletools.commons.extensions.storeStoragePaths
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
 import com.simplemobiletools.commons.models.FileDirItem
@@ -43,11 +46,6 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         breadcrumbs.setListener(this)
         tryInitFileManager()
         storeStoragePaths()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateTextColors(main_screen)
     }
 
     override fun onDestroy() {

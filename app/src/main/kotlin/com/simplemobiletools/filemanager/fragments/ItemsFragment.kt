@@ -2,7 +2,6 @@ package com.simplemobiletools.filemanager.fragments
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
@@ -51,6 +50,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
         items_swipe_refresh.setOnRefreshListener({ fillItems() })
         items_fab.setOnClickListener { createNewItem() }
+        context.updateTextColors(items_holder)
     }
 
     override fun onResume() {
