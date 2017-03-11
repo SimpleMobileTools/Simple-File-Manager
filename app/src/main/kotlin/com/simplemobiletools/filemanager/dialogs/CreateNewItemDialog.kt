@@ -1,30 +1,26 @@
 package com.simplemobiletools.filemanager.dialogs
 
-import android.app.AlertDialog
-import android.content.Context
-import android.view.LayoutInflater
+import android.app.Activity
+import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.WindowManager
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.create_new.view.*
 import java.io.File
 import java.io.IOException
 
-class CreateNewItemDialog(val context: Context, val path: String, val listener: OnCreateNewItemListener) {
+class CreateNewItemDialog(val activity: Activity, val path: String, val callback: () -> Unit) {
     init {
-        val view = LayoutInflater.from(context).inflate(R.layout.create_new, null)
+        val view = activity.layoutInflater.inflate(R.layout.create_new, null)
 
-        AlertDialog.Builder(context)
-                .setTitle(context.resources.getString(R.string.create_new))
-                .setView(view)
+        AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
+            activity.setupDialogStuff(view, this, R.string.create_new)
             window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            setCanceledOnTouchOutside(true)
-            show()
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
                 val name = view.item_name.value
                 if (name.isEmpty()) {
@@ -53,8 +49,8 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
     }
 
     private fun createDirectory(file: File, alertDialog: AlertDialog): Boolean {
-        return if (context.needsStupidWritePermissions(path)) {
-            val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri) ?: return false
+        return if (activity.needsStupidWritePermissions(path)) {
+            val documentFile = activity.getFileDocument(file.absolutePath, activity.config.treeUri) ?: return false
             documentFile.createDirectory(file.name)
             success(alertDialog)
             true
@@ -66,13 +62,13 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
     }
 
     private fun errorOccurred() {
-        context.toast(R.string.error_occurred)
+        activity.toast(R.string.error_occurred)
     }
 
     private fun createFile(file: File, alertDialog: AlertDialog): Boolean {
         try {
-            if (context.needsStupidWritePermissions(path)) {
-                val documentFile = context.getFileDocument(file.absolutePath, Config.newInstance(context).treeUri) ?: return false
+            if (activity.needsStupidWritePermissions(path)) {
+                val documentFile = activity.getFileDocument(file.absolutePath, activity.config.treeUri) ?: return false
                 documentFile.createFile("", file.name)
                 success(alertDialog)
                 return true
@@ -89,10 +85,6 @@ class CreateNewItemDialog(val context: Context, val path: String, val listener: 
 
     private fun success(alertDialog: AlertDialog) {
         alertDialog.dismiss()
-        listener.onSuccess()
-    }
-
-    interface OnCreateNewItemListener {
-        fun onSuccess()
+        callback.invoke()
     }
 }

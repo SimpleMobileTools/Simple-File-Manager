@@ -176,11 +176,9 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     }
 
     private fun createNewItem() {
-        CreateNewItemDialog(context, mPath, object : CreateNewItemDialog.OnCreateNewItemListener {
-            override fun onSuccess() {
-                fillItems()
-            }
-        })
+        CreateNewItemDialog(activity, mPath) {
+            fillItems()
+        }
     }
 
     private fun getGenericMimeType(mimeType: String): String {
