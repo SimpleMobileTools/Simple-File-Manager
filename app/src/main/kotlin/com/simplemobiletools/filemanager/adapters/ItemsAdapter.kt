@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
 import java.util.*
 
-class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
+class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     val multiSelector = MultiSelector()
     val views = ArrayList<View>()
@@ -157,17 +157,37 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
             actMode?.finish()
-            prepareForDeleting()
+            deleteFiles()
         }
     }
 
-    private fun prepareForDeleting() {
+    private fun deleteFiles() {
         val selections = multiSelector.selectedPositions
-        val paths = ArrayList<String>(selections.size)
-        selections.forEach { paths.add(mItems[it].path) }
-        listener?.prepareForDeleting(paths)
-    }
+        val files = ArrayList<File>(selections.size)
+        val removeFiles = ArrayList<FileDirItem>(selections.size)
 
+        var isShowingPermDialog = false
+        activity.runOnUiThread {
+            if (activity.isShowingPermDialog(File(mItems[selections[0]].path))) {
+                isShowingPermDialog = true
+            }
+        }
+
+        if (isShowingPermDialog)
+            return
+
+        selections.reverse()
+        selections.forEach {
+            val file = mItems[it]
+            files.add(File(file.path))
+            removeFiles.add(file)
+            notifyItemRemoved(it)
+        }
+
+        mItems.removeAll(removeFiles)
+        markedItems.clear()
+        listener?.deleteFiles(files)
+    }
 
     private fun getSelectedMedia(): List<FileDirItem> {
         val positions = multiSelector.selectedPositions
@@ -176,7 +196,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
         return selectedMedia
     }
 
-    fun updateItems(newItems: List<FileDirItem>) {
+    fun updateItems(newItems: MutableList<FileDirItem>) {
         mItems = newItems
         notifyDataSetChanged()
     }
@@ -254,6 +274,6 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
     interface ItemOperationsListener {
         fun refreshItems()
 
-        fun prepareForDeleting(paths: ArrayList<String>)
+        fun deleteFiles(files: ArrayList<File>)
     }
 }

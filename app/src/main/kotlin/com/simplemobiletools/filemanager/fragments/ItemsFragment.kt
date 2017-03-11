@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -28,12 +27,10 @@ import java.util.*
 
 class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperationsListener {
     private var mListener: ItemInteractionListener? = null
-    private var mSnackbar: Snackbar? = null
     private var mStoredTextColor = 0
 
-    lateinit var mItems: List<FileDirItem>
+    lateinit var mItems: ArrayList<FileDirItem>
     lateinit var mConfig: Config
-    lateinit var mToBeDeleted: MutableList<String>
 
     private var mShowHidden = false
     var mPath = ""
@@ -46,7 +43,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         mConfig = context.config
         mShowHidden = mConfig.showHidden
         mItems = ArrayList<FileDirItem>()
-        mToBeDeleted = ArrayList<String>()
         fillItems()
 
         items_swipe_refresh.setOnRefreshListener({ fillItems() })
@@ -69,7 +65,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
     override fun onPause() {
         super.onPause()
-        deleteItems()
         mStoredTextColor = context.config.textColor
     }
 
@@ -93,7 +88,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
             items_list.apply {
                 this@apply.adapter = adapter
                 addItemDecoration(RecyclerViewDivider(context))
-                setOnTouchListener { view, motionEvent -> checkDelete(); false }
             }
         } else {
             val state = (items_list.layoutManager as LinearLayoutManager).onSaveInstanceState()
@@ -112,7 +106,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         mListener = listener
     }
 
-    private fun getItems(path: String): List<FileDirItem> {
+    private fun getItems(path: String): ArrayList<FileDirItem> {
         val items = ArrayList<FileDirItem>()
         val files = File(path).listFiles()
         if (files != null) {
@@ -120,9 +114,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
                 val curPath = file.absolutePath
                 val curName = curPath.getFilenameFromPath()
                 if (!mShowHidden && curName.startsWith("."))
-                    continue
-
-                if (mToBeDeleted.contains(curPath))
                     continue
 
                 val children = getChildren(file)
@@ -197,69 +188,42 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         return "$type/*"
     }
 
-    override fun prepareForDeleting(paths: ArrayList<String>) {
-        mToBeDeleted = paths
-        val deletedCnt = mToBeDeleted.size
-
-        if ((activity as SimpleActivity).isShowingPermDialog(File(mToBeDeleted[0])))
+    override fun deleteFiles(files: ArrayList<File>) {
+        val act = activity as SimpleActivity
+        if (act.isShowingPermDialog(files[0])) {
             return
-
-        notifyDeletion(deletedCnt)
-    }
-
-    private fun notifyDeletion(cnt: Int) {
-        val res = resources
-        /*val msg = res.getQuantityString(R.plurals.items_deleted, cnt, cnt)
-        mSnackbar = Snackbar.make(items_holder, msg, Snackbar.LENGTH_INDEFINITE)
-        mSnackbar!!.apply {
-            setAction(res.getString(R.string.undo), undoDeletion)
-            setActionTextColor(Color.WHITE)
-            show()
         }
-        fillItems()*/
+
+        Thread({
+            var hadSuccess = false
+            files.forEach {
+                if (it.isDirectory) {
+                    for (child in it.listFiles()) {
+                        deleteFile(child, act)
+                    }
+                }
+                if (deleteFile(it, act)) {
+                    hadSuccess = true
+                    context.deleteFromMediaStore(it)
+                }
+            }
+            if (!hadSuccess)
+                act.runOnUiThread {
+                    act.toast(R.string.unknown_error_occurred)
+                }
+        }).start()
     }
 
-    fun checkDelete() {
-        if (mSnackbar?.isShown == true) {
-            deleteItems()
-        }
-    }
-
-    private fun deleteItems() {
-        if (mToBeDeleted.isEmpty())
-            return
-
-        mSnackbar?.dismiss()
-        mToBeDeleted
-                .map(::File)
-                .filter(File::exists)
-                .forEach { deleteItem(it) }
-
-        mToBeDeleted.clear()
-    }
-
-    private fun deleteItem(item: File) {
-        if (item.isDirectory) {
-            for (child in item.listFiles()) {
-                deleteItem(child)
+    private fun deleteFile(file: File, act: SimpleActivity): Boolean {
+        if (file.delete() || act.tryFastDocumentDelete(file)) {
+            return true
+        } else {
+            val document = act.getFileDocument(file.absolutePath, context.config.treeUri) ?: return false
+            if (document.isFile && document.delete()) {
+                return true
             }
         }
-
-        if (context.needsStupidWritePermissions(item.absolutePath)) {
-            val document = context.getFileDocument(item.absolutePath, mConfig.treeUri) ?: return
-
-            // double check we have the uri to the proper file path, not some parent folder
-            if (document.uri.toString().endsWith(item.absolutePath.getFilenameFromPath()))
-                document.delete()
-        } else {
-            item.delete()
-        }
-    }
-
-    private val undoDeletion = View.OnClickListener {
-        mToBeDeleted.clear()
-        mSnackbar!!.dismiss()
-        fillItems()
+        return false
     }
 
     override fun refreshItems() {
