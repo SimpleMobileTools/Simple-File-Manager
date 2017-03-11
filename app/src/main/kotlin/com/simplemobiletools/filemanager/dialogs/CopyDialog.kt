@@ -4,9 +4,9 @@ import android.support.v4.util.Pair
 import android.support.v7.app.AlertDialog
 import com.simplemobiletools.commons.asynctasks.CopyMoveTask
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
+import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.copy_item.view.*
 import java.io.File
 import java.util.*
@@ -20,7 +20,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
         var destinationPath = ""
         view.source.text = "${context.humanizePath(sourcePath)}/"
 
-        val config = Config.newInstance(context)
+        val config = context.config
         /*view.destination.setOnClickListener {
             FilePickerDialog(activity, destinationPath, false, config.showHidden, object : FilePickerDialog.OnFilePickerListener {
                 override fun onFail(error: FilePickerDialog.FilePickerResult) {

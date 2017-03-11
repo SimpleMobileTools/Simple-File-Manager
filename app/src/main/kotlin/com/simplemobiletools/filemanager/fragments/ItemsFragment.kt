@@ -22,6 +22,7 @@ import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
+import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.items_fragment.*
 import java.io.File
 import java.util.*
@@ -42,7 +43,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mConfig = Config.newInstance(context)
+        mConfig = context.config
         mShowHidden = mConfig.showHidden
         mItems = ArrayList<FileDirItem>()
         mToBeDeleted = ArrayList<String>()

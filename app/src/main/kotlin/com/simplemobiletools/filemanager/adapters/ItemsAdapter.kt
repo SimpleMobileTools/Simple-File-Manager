@@ -22,6 +22,7 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CopyDialog
 import com.simplemobiletools.filemanager.dialogs.RenameItemDialog
+import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
 import java.util.*
@@ -30,7 +31,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     val multiSelector = MultiSelector()
     val views = ArrayList<View>()
-    val config = Config.newInstance(activity)
+    val config = activity.config
 
     companion object {
         var actMode: ActionMode? = null
@@ -96,12 +97,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
     }
 
     private fun displayRenameDialog() {
-        RenameItemDialog(activity, getSelectedMedia()[0], object : RenameItemDialog.OnRenameItemListener {
-            override fun onSuccess() {
-                listener?.refreshItems()
-                actMode?.finish()
-            }
-        })
+        RenameItemDialog(activity, getSelectedMedia()[0]) {
+            listener?.refreshItems()
+            actMode?.finish()
+        }
     }
 
     private fun showProperties() {
