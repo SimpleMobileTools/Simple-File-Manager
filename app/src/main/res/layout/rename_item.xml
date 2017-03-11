@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/dialog_holder"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_holder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_margin">
 
-    <EditText
+    <com.simplemobiletools.commons.views.MyEditText
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
