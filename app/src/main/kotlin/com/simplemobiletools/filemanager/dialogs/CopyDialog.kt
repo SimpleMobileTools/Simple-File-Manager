@@ -2,13 +2,8 @@ package com.simplemobiletools.filemanager.dialogs
 
 import android.support.v4.util.Pair
 import android.support.v7.app.AlertDialog
-import android.view.LayoutInflater
-import android.view.WindowManager
 import com.simplemobiletools.commons.asynctasks.CopyMoveTask
-import com.simplemobiletools.commons.extensions.humanizePath
-import com.simplemobiletools.commons.extensions.isPathOnSD
-import com.simplemobiletools.commons.extensions.scanFiles
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -20,7 +15,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
 
     init {
         val context = activity
-        val view = LayoutInflater.from(context).inflate(R.layout.copy_item, null)
+        val view = activity.layoutInflater.inflate(R.layout.copy_item, null)
         val sourcePath = files[0].parent.trimEnd('/')
         var destinationPath = ""
         view.source.text = "${context.humanizePath(sourcePath)}/"
@@ -39,14 +34,10 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
         }*/
 
         AlertDialog.Builder(context)
-                .setTitle(context.resources.getString(if (files.size == 1) R.string.copy_item else R.string.copy_items))
-                .setView(view)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            setCanceledOnTouchOutside(true)
-            show()
+            activity.setupDialogStuff(view, this, R.string.copy_items)
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({
                 if (destinationPath == context.resources.getString(R.string.select_destination) || destinationPath.isEmpty()) {
                     context.toast(R.string.please_select_destination)
