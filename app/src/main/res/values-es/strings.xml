@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Administrador de archivos</string>
-    <string name="share_via">Compartir vía</string>
-    <string name="no_permissions">Se necesita permiso para acceder al almacenamiento</string>
-    <string name="no_app_found">No hay disponible ninguna aplicación para abrir este tipo de archivos</string>
-    <string name="create_new">Crear nuevo elemento</string>
-    <string name="rename_item">Renombrar elemento</string>
-    <string name="directory">Carpeta</string>
-    <string name="file">Archivo</string>
-    <string name="name_taken">Ya existe un archivo o carpeta con ese nombre</string>
-    <string name="invalid_name">El nombre contiene caracteres inválidos</string>
-    <string name="empty_name">Por favor, introduzca un nombre</string>
-    <string name="error_occurred">Se ha producido un error inesperado</string>
-    <string name="delete">Eliminar</string>
-    <string name="deleting">Eliminando</string>
-    <string name="undo">Deshacer</string>
-    <string name="rename">Renombrar</string>
-    <string name="properties">Propiedades</string>
-    <string name="copy">Copiar</string>
-    <string name="copy_move">Copiar/Mover</string>
-    <string name="share">Compartir</string>
-    <string name="shared_files">Archivos compartidos vía Simple File Manager</string>
-    <string name="no_files_selected">No hay archivos seleccionados</string>
-    <string name="copy_item">Copiar elemento</string>
-    <string name="copy_items">Copiar elementos</string>
-    <string name="move">Mover</string>
-    <string name="source">Origen</string>
-    <string name="destination">Destino</string>
-    <string name="select_destination">Seleccione destino</string>
-    <string name="invalid_destination">No se puede escribir en el destino seleccionado</string>
-    <string name="please_select_destination">Por favor, seleccione un destino</string>
-    <string name="source_and_destination_same">Origen y destino no pueden coincidir</string>
-    <string name="copying">Copiando</string>
-    <string name="copying_success">Archivos copiados exitosamente</string>
-    <string name="copy_move_failed">Se ha producido un error</string>
-    <string name="moving">Moviendo</string>
-    <string name="moving_success">Archivos movidos exitosamente</string>
-    <string name="already_exists">Ya existe un archivo con ese nombre</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancelar</string>
     <string name="press_back_again">Pulse otra vez volver para salir</string>
-    <string name="moving_success_partial">Algunos archivos no han podido ser movidos</string>
-    <string name="copying_success_partial">Algunos archivos no han podido ser copiados</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 elemento eliminado</item>
-        <item quantity="other">%1$d elementos eliminados</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 elemento</item>
-        <item quantity="other">%1$d elementos</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favorites</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from favorites</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Mostrar ficheros y directorios ocultos</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Un simple administrador de archivos para navegar por el árbol de directorios.</string>
     <string name="app_long_description">
         También puede ser utilizado para navegar por el directorio raíz y por el contenido de la tarjeta SD. Puede fácilmente renombrar, copiar, mover, eliminar y compartir lo que usted desee.
-
 
         No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
 

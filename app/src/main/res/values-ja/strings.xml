@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">シンプル ファイル マネージャー</string>
     <string name="app_launcher_name">ファイル マネージャー</string>
-    <string name="share_via">共有</string>
-    <string name="no_permissions">ストレージにアクセスするアクセス許可が必要です</string>
-    <string name="no_app_found">この種類のファイルを開くことができるアプリがありません</string>
-    <string name="create_new">新しいアイテムを作成</string>
-    <string name="rename_item">アイテムの名前を変更</string>
-    <string name="directory">ディレクトリー</string>
-    <string name="file">ファイル</string>
-    <string name="name_taken">その名前のディレクトリーまたはファイルが既に存在します</string>
-    <string name="invalid_name">名前に無効な文字が含まれています</string>
-    <string name="empty_name">名前を入力してください</string>
-    <string name="error_occurred">不明なエラーが発生しました</string>
-    <string name="delete">削除</string>
-    <string name="deleting">削除中</string>
-    <string name="undo">元に戻す</string>
-    <string name="rename">名前を変更</string>
-    <string name="properties">プロパティ</string>
-    <string name="copy">コピー</string>
-    <string name="copy_move">コピー/移動</string>
-    <string name="share">共有</string>
-    <string name="shared_files">シンプル ファイル マネージャーでファイルを共有しました</string>
-    <string name="no_files_selected">ファイルが選択されていません</string>
-    <string name="copy_item">アイテムをコピー</string>
-    <string name="copy_items">アイテムをコピー</string>
-    <string name="move">移動</string>
-    <string name="source">元</string>
-    <string name="destination">先</string>
-    <string name="select_destination">宛先を選択</string>
-    <string name="invalid_destination">選択した宛先に書き込みできませんでした</string>
-    <string name="please_select_destination">宛先を選択してください</string>
-    <string name="source_and_destination_same">元と先は同じにできません</string>
-    <string name="copying">コピー中</string>
-    <string name="copying_success">ファイルを正常にコピーしました</string>
-    <string name="copy_move_failed">ファイルをコピーできませんでした</string>
-    <string name="moving">移動中</string>
-    <string name="moving_success">ファイルを正常に移動しました</string>
-    <string name="already_exists">その名前のファイルは既に存在します</string>
-    <string name="ok">OK</string>
-    <string name="cancel">キャンセル</string>
     <string name="press_back_again">もう一度戻るを押すと終了します</string>
-    <string name="moving_success_partial">一部のファイルは移動できませんでした</string>
-    <string name="copying_success_partial">一部のファイルはコピーできませんでした</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 アイテムを削除しました</item>
-        <item quantity="other">%1$d アイテムを削除しました</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 アイテム</item>
-        <item quantity="other">%1$d アイテム</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favorites</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from favorites</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">非表示のファイルとディレクトリーを表示する</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">ファイルとディレクトリーを参照、編集するためのシンプルなファイルマネージャー。</string>
     <string name="app_long_description">
         ルートファイルやSDカードコンテンツの参照にも使用できます。 簡単に名前の変更、コピー、移動、削除、共有ができます。
-
 
         広告や不要なアクセス許可は含まれていません。 完全にオープンソースで、ダークテーマも提供しています。
 

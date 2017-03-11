@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Gestor de ficheiros</string>
-    <string name="share_via">Partilhar via</string>
-    <string name="no_permissions">É necessária a permissão para aceder ao armazenamento</string>
-    <string name="no_app_found">Não existe uma aplicação para abrir este tipo de ficheiro</string>
-    <string name="create_new">Criar novo item</string>
-    <string name="rename_item">Renomear item</string>
-    <string name="directory">Pasta</string>
-    <string name="file">Ficheiro</string>
-    <string name="name_taken">Já existe um ficheiro ou pasta com este nome</string>
-    <string name="invalid_name">O nome contém caracteres inválidos</string>
-    <string name="empty_name">Por favor digite o nome</string>
-    <string name="error_occurred">Ocorreu um erro desconhecido</string>
-    <string name="delete">Apagar</string>
-    <string name="deleting">A apagar</string>
-    <string name="undo">Desfazer</string>
-    <string name="rename">Renomear</string>
-    <string name="properties">Propriedades</string>
-    <string name="copy">Copiar</string>
-    <string name="copy_move">Copiar/Mover</string>
-    <string name="share">Partilhar</string>
-    <string name="shared_files">Ficheiros partilhados via Simple File Manager</string>
-    <string name="no_files_selected">Nenhum ficheiro selecionado</string>
-    <string name="copy_item">Copiar item</string>
-    <string name="copy_items">Copiar itens</string>
-    <string name="move">Mover</string>
-    <string name="source">Origem</string>
-    <string name="destination">Destino</string>
-    <string name="select_destination">Selecione o destino</string>
-    <string name="invalid_destination">Não foi possível escrever no destino selecionado</string>
-    <string name="please_select_destination">Por favor selecione um destino</string>
-    <string name="source_and_destination_same">A origem e o destino não podem ser iguais</string>
-    <string name="copying">A copiar</string>
-    <string name="copying_success">Ficheiros copiados com sucesso</string>
-    <string name="copy_move_failed">Não foi possível copiar os ficheiros</string>
-    <string name="moving">A mover</string>
-    <string name="moving_success">Ficheiros movidos com sucesso</string>
-    <string name="already_exists">Já existe um ficheiro com este nome</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancelar</string>
     <string name="press_back_again">Prima novamente para sair</string>
-    <string name="moving_success_partial">Alguns ficheiros não foram movidos</string>
-    <string name="copying_success_partial">Alguns ficheiros não foram copiados</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 item apagado</item>
-        <item quantity="other">%1$d itens apagados</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 item</item>
-        <item quantity="other">%1$d itens</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favoritos</string>
     <string name="add_to_favorites">Adicionar aos favoritos</string>
     <string name="remove_from_favorites">Remover dos favoritos</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Mostrar ficheiros e pastas ocultos</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Um gestor de ficheiros para explorar e editar os ficheiros e diretórios.</string>
     <string name="app_long_description">
         Pode utilizar a aplicação para explorar a pasta \'root\' e os armazenamentos interno e externo. Pode renomear, copiar, mover, apagar e partilhar todos os ficheiros que quiser.
-
 
         Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
 

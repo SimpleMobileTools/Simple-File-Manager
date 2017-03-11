@@ -22,7 +22,7 @@ class RenameItemDialog(val activity: Activity, val item: FileDirItem, val callba
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            activity.setupDialogStuff(view, this, R.string.rename_item)
+            activity.setupDialogStuff(view, this, R.string.rename)
             window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({
                 val newName = view.item_name.value
@@ -50,7 +50,7 @@ class RenameItemDialog(val activity: Activity, val item: FileDirItem, val callba
                         sendSuccess(newFile)
                         dismiss()
                     } else {
-                        context.toast(R.string.error_occurred)
+                        context.toast(R.string.unknown_error_occurred)
                     }
                 }
             })

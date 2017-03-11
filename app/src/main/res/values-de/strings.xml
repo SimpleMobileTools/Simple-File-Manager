@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Schlichter Dateimanager</string>
     <string name="app_launcher_name">Dateimanager</string>
-    <string name="share_via">Teilen per</string>
-    <string name="no_permissions">Wir benötigen die Berechtigung, auf deinen Speicher zuzugreifen</string>
-    <string name="no_app_found">Keine App zum Öffnen dieses Dateityps vorhanden</string>
-    <string name="create_new">Neue Datei erstellen</string>
-    <string name="rename_item">Rename item</string>
-    <string name="directory">Ordner</string>
-    <string name="file">Datei</string>
-    <string name="name_taken">Es existiert bereits eine Datei oder ein Ordner mit diesem Namen</string>
-    <string name="invalid_name">Der Name enthält nicht erlaubte Zeichen</string>
-    <string name="empty_name">Please enter a name</string>
-    <string name="error_occurred">Ein unbekannter Fehler ist aufgetreten</string>
-    <string name="delete">Löschen</string>
-    <string name="deleting">Lösche</string>
-    <string name="undo">Rückgängig</string>
-    <string name="rename">Umbenennen</string>
-    <string name="properties">Eigenschaften</string>
-    <string name="copy">Kopieren</string>
-    <string name="copy_move">Kopieren/Verschieben</string>
-    <string name="share">Teilen</string>
-    <string name="shared_files">Durch Simple File Manager geteilte Dateien</string>
-    <string name="no_files_selected">Keine Dateien ausgewählt</string>
-    <string name="copy_item">Datei/Ordner kopieren</string>
-    <string name="copy_items">Dateien/Ordner kopieren</string>
-    <string name="move">Verschieben</string>
-    <string name="source">Quelle</string>
-    <string name="destination">Ziel</string>
-    <string name="select_destination">Ziel auswählen</string>
-    <string name="invalid_destination">Konnte nicht an ausgewähltes Ziel schreiben</string>
-    <string name="please_select_destination">Bitte wähle ein Ziel</string>
-    <string name="source_and_destination_same">Source and destination cannot be the same</string>
-    <string name="copying">Kopiere</string>
-    <string name="copying_success">Files copied successfully</string>
-    <string name="copy_move_failed">Konnte die Datei nicht kopieren</string>
-    <string name="moving">Moving</string>
-    <string name="moving_success">Files moved successfully</string>
-    <string name="already_exists">A file with that name already exists</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Abbrechen</string>
     <string name="press_back_again">Drücke erneut zum Schließen</string>
-    <string name="moving_success_partial">Some files could not be moved</string>
-    <string name="copying_success_partial">Some files could not be copied</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 Datei/Ordner gelöscht</item>
-        <item quantity="other">%1$d Dateien/Ordner gelöscht</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 Datei/Ordner</item>
-        <item quantity="other">%1$d Dateien/Ordner</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favorites</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from favorites</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Zeige versteckte Dateien und Ordner</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
     <string name="app_long_description">
-        Can also be used for browsing root files and SDcard content. You can easily renamem copy, move, delete and share anything you wish.
-
+        Can also be used for browsing root files and SDcard content. You can easily rename, copy, move, delete and share anything you wish.
 
         Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
 

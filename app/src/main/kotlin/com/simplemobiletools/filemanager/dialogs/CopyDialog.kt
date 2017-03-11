@@ -37,7 +37,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            activity.setupDialogStuff(view, this, R.string.copy_items)
+            activity.setupDialogStuff(view, this, R.string.copy_move)
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener({
                 if (destinationPath == context.resources.getString(R.string.select_destination) || destinationPath.isEmpty()) {
                     context.toast(R.string.please_select_destination)
@@ -58,7 +58,7 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                 if (files.size == 1) {
                     val newFile = File(files[0].path)
                     if (File(destinationPath, newFile.name).exists()) {
-                        context.toast(R.string.already_exists)
+                        context.toast(R.string.name_taken)
                         return@setOnClickListener
                     }
                 }

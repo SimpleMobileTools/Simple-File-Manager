@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">File Manager</string>
-    <string name="share_via">Share via</string>
-    <string name="no_permissions">We need the permission to access your storage</string>
-    <string name="no_app_found">No app for opening this type of files is available</string>
-    <string name="create_new">Create new item</string>
-    <string name="rename_item">Rename item</string>
-    <string name="directory">Directory</string>
-    <string name="file">File</string>
-    <string name="name_taken">Directory or file with that name already exists</string>
-    <string name="invalid_name">The name contains invalid characters</string>
-    <string name="empty_name">Please enter a name</string>
-    <string name="error_occurred">An unknown error occurred</string>
-    <string name="delete">Delete</string>
-    <string name="deleting">Deleting</string>
-    <string name="undo">Undo</string>
-    <string name="rename">Rename</string>
-    <string name="properties">Properties</string>
-    <string name="copy">Copy</string>
-    <string name="copy_move">Copy/Move</string>
-    <string name="share">Share</string>
-    <string name="shared_files">Files shared via Simple File Manager</string>
-    <string name="no_files_selected">No files selected</string>
-    <string name="copy_item">Copy item</string>
-    <string name="copy_items">Copy items</string>
-    <string name="move">Move</string>
-    <string name="source">Source</string>
-    <string name="destination">Destination</string>
-    <string name="select_destination">Select destination</string>
-    <string name="invalid_destination">Could not write to the selected destination</string>
-    <string name="please_select_destination">Please select a destination</string>
-    <string name="source_and_destination_same">Source and destination cannot be the same</string>
-    <string name="copying">Copying</string>
-    <string name="copying_success">Files copied successfully</string>
-    <string name="copy_move_failed">An error occurred</string>
-    <string name="moving">Moving</string>
-    <string name="moving_success">Files moved successfully</string>
-    <string name="already_exists">A file with that name already exists</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
     <string name="press_back_again">Press back again to exit</string>
-    <string name="moving_success_partial">Some files could not be moved</string>
-    <string name="copying_success_partial">Some files could not be copied</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 item deleted</item>
-        <item quantity="other">%1$d items deleted</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 item</item>
-        <item quantity="other">%1$d items</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favorites</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from favorites</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Show hidden files and directories</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
     <string name="app_long_description">
         Can also be used for browsing root files and SDcard content. You can easily rename, copy, move, delete and share anything you wish.
-
 
         Contains no ads or unnecessary permissions. It is fully opensource, provides a Dark theme too.
 

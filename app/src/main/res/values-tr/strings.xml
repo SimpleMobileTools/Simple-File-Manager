@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Basit Dosya Yöneticisi</string>
     <string name="app_launcher_name">Dosya Yöneticisi</string>
-    <string name="share_via">Üzerinden paylaş</string>
-    <string name="no_permissions">Depolama alanına erişme iznine ihtiyacımız var</string>
-    <string name="no_app_found">Bu tür dosyaları açmaya yönelik hiçbir uygulama mevcut değil</string>
-    <string name="create_new">Yeni öğe oluştur</string>
-    <string name="rename_item">Öğe adını değiştir</string>
-    <string name="directory">Rehber</string>
-    <string name="file">Dosya</string>
-    <string name="name_taken">Bu ada sahip dizin veya dosya zaten var</string>
-    <string name="invalid_name">Ad geçersiz karakter içeriyor</string>
-    <string name="empty_name">Lütfen bir isim girin</string>
-    <string name="error_occurred">Bilinmeyen bir hata oluştu</string>
-    <string name="delete">Sil</string>
-    <string name="deleting">Silindi</string>
-    <string name="undo">Geri al</string>
-    <string name="rename">Yeniden adlandır</string>
-    <string name="properties">Özellikleri</string>
-    <string name="copy">Kopyala</string>
-    <string name="copy_move">Kopyala/Taşı</string>
-    <string name="share">Palaş</string>
-    <string name="shared_files">Basit Dosya Yöneticisi vasıtasıyla paylaşılan dosyalar</string>
-    <string name="no_files_selected">Hiçbir dosya seçilmedi</string>
-    <string name="copy_item">Öğeyi kopyala</string>
-    <string name="copy_items">Öğeleri kopyala</string>
-    <string name="move">Taşı</string>
-    <string name="source">Kaynak</string>
-    <string name="destination">Hedef</string>
-    <string name="select_destination">Hedef yerini seçin</string>
-    <string name="invalid_destination">Seçilen hedefe yazılamadı</string>
-    <string name="please_select_destination">Lütfen bir hedef seçin</string>
-    <string name="source_and_destination_same">Kaynak ve hedef aynı olamaz</string>
-    <string name="copying">Kopyalama</string>
-    <string name="copying_success">Dosyalar başarılı bir şekilde kopyalanmıştır</string>
-    <string name="copy_move_failed">Bir hata oluştu</string>
-    <string name="moving">Taşıma</string>
-    <string name="moving_success">Dosyalar başarıyla taşındı</string>
-    <string name="already_exists">Bu ada sahip bir dosya zaten var</string>
-    <string name="ok">TAMAM</string>
-    <string name="cancel">İptal</string>
     <string name="press_back_again">Çıkmak için tekrar basın</string>
-    <string name="moving_success_partial">Bazı dosyalar taşınamadı</string>
-    <string name="copying_success_partial">Bazı dosyalar kopyalanamadı</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 öğe silindi</item>
-        <item quantity="other">%1$d öğe silindi</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 öğe</item>
-        <item quantity="other">öğeler %1$d</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favoriler</string>
     <string name="add_to_favorites">Favorilere ekle</string>
     <string name="remove_from_favorites">Favorilerden kaldır</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Gizli dosyaları ve dizinleri göster</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Dosyaları ve dizinleri tarama ve düzenlemek için kullanılan bir dosya gezgini.</string>
     <string name="app_long_description">
         Kök dosyalara ve SD kart içeriğine göz atmak için de kullanılabilir. İstediğiniz her şeyi yeniden adlandırabilir, kopyalayabilir, taşıyabilir, silebilir ve paylaşabilirsiniz.
-
 
         Reklam içermeyen veya gereksiz izinler. Tamamen açık kaynaklı, Karanlık bir tema da sunuyor.
 

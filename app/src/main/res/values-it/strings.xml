@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">File Manager</string>
-    <string name="share_via">Condividi via</string>
-    <string name="no_permissions">Serve l\'autorizzazione per accedere all\'archiviazione</string>
-    <string name="no_app_found">Nessuna app disponibile per aprire questo tipo di file</string>
-    <string name="create_new">Crea nuovo elemento</string>
-    <string name="rename_item">Rinomina elemento</string>
-    <string name="directory">Cartella</string>
-    <string name="file">File</string>
-    <string name="name_taken">Esiste già un file o una cartella con quel nome</string>
-    <string name="invalid_name">Il nome contiene caratteri non validi</string>
-    <string name="empty_name">Inserisci un nome</string>
-    <string name="error_occurred">Riscontrato un errore sconosciuto</string>
-    <string name="delete">Elimina</string>
-    <string name="deleting">Eliminazione</string>
-    <string name="undo">Annulla</string>
-    <string name="rename">Rinomina</string>
-    <string name="properties">Proprietà</string>
-    <string name="copy">Copia</string>
-    <string name="copy_move">Copia/Sposta</string>
-    <string name="share">Condividi</string>
-    <string name="shared_files">File condivisi via Simple File Manager</string>
-    <string name="no_files_selected">Nessun file selezionato</string>
-    <string name="copy_item">Copia elemento</string>
-    <string name="copy_items">Copia elementi</string>
-    <string name="move">Sposta</string>
-    <string name="source">Fonte</string>
-    <string name="destination">Destinazione</string>
-    <string name="select_destination">Seleziona destinazione</string>
-    <string name="invalid_destination">Impossibile scrivere nella destinazione selezionata</string>
-    <string name="please_select_destination">Seleziona una destinazione</string>
-    <string name="source_and_destination_same">La fonte e la destinazione non possono essere uguali</string>
-    <string name="copying">Copia in corso</string>
-    <string name="copying_success">File copiati con successo</string>
-    <string name="copy_move_failed">Impossibile copiare i file</string>
-    <string name="moving">Spostamento</string>
-    <string name="moving_success">File spostati con successo</string>
-    <string name="already_exists">Esiste già un file con quel nome</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Annulla</string>
     <string name="press_back_again">Premi di nuovo indietro per uscire</string>
-    <string name="moving_success_partial">Some files could not be moved</string>
-    <string name="copying_success_partial">Some files could not be copied</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 elemento eliminato</item>
-        <item quantity="other">%1$d elementi eliminati</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 elemento</item>
-        <item quantity="other">%1$d elementi</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favorites</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="remove_from_favorites">Remove from favorites</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Mostra file e cartelle nascosti</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Un semplice file manager per sfogliare e modificare file e cartelle.</string>
     <string name="app_long_description">
         Può anche essere usato per sfogliare file di sistema e della scheda SD. Puoi facilmente rinominare, copiare, spostare, eliminare e condividere qualsiasi cosa tu voglia.
-
 
         Non contiene pubblicità e non chiede autorizzazioni non necessarie. È completamente opensource, offre anche un tema scuro.
 

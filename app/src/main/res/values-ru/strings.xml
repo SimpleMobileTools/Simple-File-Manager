@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Файловый менеджер</string>
-    <string name="share_via">Отправить по</string>
-    <string name="no_permissions">Не предоставлено разрешение для доступа к файловой системе</string>
-    <string name="no_app_found">Приложение для открытия этого типа файлов не найдено</string>
-    <string name="create_new">Создать</string>
-    <string name="rename_item">Переименовать</string>
-    <string name="directory">Папка</string>
-    <string name="file">Файл</string>
-    <string name="name_taken">Объект с таким именем уже существует в данном расположении</string>
-    <string name="invalid_name">Имя содержит недопустимые символы</string>
-    <string name="empty_name">Имя не может быть пустым</string>
-    <string name="error_occurred">Произошла неизвестная ошибка</string>
-    <string name="delete">Удалить</string>
-    <string name="deleting">Удаление</string>
-    <string name="undo">Отменить</string>
-    <string name="rename">Переименовать</string>
-    <string name="properties">Свойства</string>
-    <string name="copy">Копировать</string>
-    <string name="copy_move">Копировать/переместить</string>
-    <string name="share">Отправить</string>
-    <string name="shared_files">Файлы отправлены из Simple File Manager</string>
-    <string name="no_files_selected">Не выбрано ни одного файла</string>
-    <string name="copy_item">Копирование объекта</string>
-    <string name="copy_items">Копирование объектов</string>
-    <string name="move">Переместить</string>
-    <string name="source">Путь источника</string>
-    <string name="destination">Путь назначения</string>
-    <string name="select_destination">Выбрать расположение</string>
-    <string name="invalid_destination">Не удалось записать в выбранное расположение</string>
-    <string name="please_select_destination">Пожалуйста, выберите путь назначения</string>
-    <string name="source_and_destination_same">Исходный и конечный пути не могут совпадать</string>
-    <string name="copying">Копирование...</string>
-    <string name="copying_success">Файлы скопированы успешно</string>
-    <string name="copy_move_failed">Произошла ошибка</string>
-    <string name="moving">Перемещение...</string>
-    <string name="moving_success">Файлы успешно перемещены</string>
-    <string name="already_exists">Файл с таким именем уже существует</string>
-    <string name="moving_success_partial">Некоторые файлы не могут быть перемещены</string>
-    <string name="copying_success_partial">Некоторые файлы не могут быть скопированы</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Отмена</string>
     <string name="press_back_again">Нажмите "назад" ещё раз, чтобы выйти</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 объект удалён</item>
-        <item quantity="other">удалено объектов: %1$d</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 объект</item>
-        <item quantity="other">объектов: %1$d</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Избранное</string>
     <string name="add_to_favorites">Добавить в избранное</string>
     <string name="remove_from_favorites">Убрать из избранного</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Показать скрытые папки</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Простой файловый менеджер для просмотра и редактирования файлов и папок.</string>
     <string name="app_long_description">
         Это приложение можно использовать для просмотра файлов корневой файловой системы и содержимого SD-карты. Можно переименовывать, удалять, копировать, перемещать и делиться файлами.
-
 
         Это приложение не будет показывать рекламу или запрашивать ненужные разрешения. У него полностью открытый исходный код и есть тёмная тема оформления.
 

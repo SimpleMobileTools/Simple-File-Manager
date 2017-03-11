@@ -62,7 +62,7 @@ class CreateNewItemDialog(val activity: Activity, val path: String, val callback
     }
 
     private fun errorOccurred() {
-        activity.toast(R.string.error_occurred)
+        activity.toast(R.string.unknown_error_occurred)
     }
 
     private fun createFile(file: File, alertDialog: AlertDialog): Boolean {

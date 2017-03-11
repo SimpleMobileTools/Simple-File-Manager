@@ -191,7 +191,6 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     }
 
     override fun prepareForDeleting(paths: ArrayList<String>) {
-        activity.toast(R.string.deleting)
         mToBeDeleted = paths
         val deletedCnt = mToBeDeleted.size
 
@@ -203,14 +202,14 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
     private fun notifyDeletion(cnt: Int) {
         val res = resources
-        val msg = res.getQuantityString(R.plurals.items_deleted, cnt, cnt)
+        /*val msg = res.getQuantityString(R.plurals.items_deleted, cnt, cnt)
         mSnackbar = Snackbar.make(items_holder, msg, Snackbar.LENGTH_INDEFINITE)
         mSnackbar!!.apply {
             setAction(res.getString(R.string.undo), undoDeletion)
             setActionTextColor(Color.WHITE)
             show()
         }
-        fillItems()
+        fillItems()*/
     }
 
     fun checkDelete() {

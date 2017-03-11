@@ -126,7 +126,6 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
         val shareTitle = activity.resources.getString(R.string.share_via)
         Intent().apply {
             action = Intent.ACTION_SEND_MULTIPLE
-            putExtra(Intent.EXTRA_SUBJECT, activity.resources.getString(R.string.shared_files))
             putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
             type = "*/*"
             activity.startActivity(Intent.createChooser(this, shareTitle))

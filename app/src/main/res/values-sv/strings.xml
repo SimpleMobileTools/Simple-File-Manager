@@ -2,72 +2,19 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Filhanterare</string>
-    <string name="share_via">Dela via</string>
-    <string name="no_permissions">Vi behöver tillgång till ditt lagringsutrymme</string>
-    <string name="no_app_found">Det finns ingen app tillgänglig för att öppna denna typ av fil</string>
-    <string name="create_new">Skapa nytt objekt</string>
-    <string name="rename_item">Döp om objekt</string>
-    <string name="directory">Katalog</string>
-    <string name="file">Fil</string>
-    <string name="name_taken">Katalog eller fil med detta namnet finns redan</string>
-    <string name="invalid_name">Namnet innehåller ogiltiga tecken</string>
-    <string name="empty_name">Ange ett namn</string>
-    <string name="error_occurred">Ett okänt fel har uppstått</string>
-    <string name="delete">Ta bort</string>
-    <string name="deleting">Tar bort</string>
-    <string name="undo">Ångra</string>
-    <string name="rename">Döp om</string>
-    <string name="properties">Egenskaper</string>
-    <string name="copy">Kopiera</string>
-    <string name="copy_move">Kopiera/Flytta</string>
-    <string name="share">Dela</string>
-    <string name="shared_files">Filer delade via Simple File Manager</string>
-    <string name="no_files_selected">Inga valda filer</string>
-    <string name="copy_item">Kopiera objekt</string>
-    <string name="copy_items">Kopiera objekt</string>
-    <string name="move">Flytta</string>
-    <string name="source">Källa</string>
-    <string name="destination">Mål</string>
-    <string name="select_destination">Välj mål</string>
-    <string name="invalid_destination">Det gick inte att skriva till målet</string>
-    <string name="please_select_destination">Välj målet</string>
-    <string name="source_and_destination_same">Källa och mål kan inte vara samma</string>
-    <string name="copying">Kopierar</string>
-    <string name="copying_success">Filer kopierade</string>
-    <string name="copy_move_failed">Kunde inte kopiera filen</string>
-    <string name="moving">Flyttar</string>
-    <string name="moving_success">Filer flyttade</string>
-    <string name="already_exists">En fil med det namnet finns redan</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Avbryt</string>
     <string name="press_back_again">Tryck på bakåt igen för att avsluta</string>
-    <string name="moving_success_partial">Några av filerna gick inte att flytta</string>
-    <string name="copying_success_partial">Några av filerna gick inte att kopiera</string>
-
-    <plurals name="items_deleted">
-        <item quantity="one">1 objekt borttagen</item>
-        <item quantity="other">%1$d objekt borttagna</item>
-    </plurals>
-
-    <plurals name="items">
-        <item quantity="one">1 objekt</item>
-        <item quantity="other">%1$d objekt</item>
-    </plurals>
+    <string name="no_app_found">No app for opening this type of file is available</string>
 
     <!-- Favorites -->
     <string name="favorites">Favoriter</string>
     <string name="add_to_favorites">Lägg till favoriter</string>
     <string name="remove_from_favorites">Ta bort från favoriter</string>
 
-    <!-- Settings -->
-    <string name="show_hidden">Visa dolda filer</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">En enkel filhanterare för att bläddra och redigera filer och kataloger.</string>
     <string name="app_long_description">
         Kan också användas till att bläddra i rot-filer och innehållet på SD-kort. Du kan enkelt döpa om, kopiera, flytta, ta bort och dela det du vill.
-
 
         Innehåller ingen reklam eller onödiga behörigheter. Det är helt och hållet opensource, innehåller även ett mörkt tema.
 

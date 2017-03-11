@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/medium_margin"
             android:checked="true"
-            android:text="@string/directory"/>
+            android:text="@string/folder"/>
 
         <com.simplemobiletools.commons.views.MyCompatRadioButton
             android:id="@+id/dialog_radio_file"
