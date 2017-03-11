@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/item_icon"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="@dimen/icon_size"
+            android:layout_width="@dimen/filepicker_list_icon_size"
+            android:layout_height="@dimen/filepicker_list_icon_size"
             android:paddingBottom="@dimen/medium_margin"
             android:paddingTop="@dimen/medium_margin"
             android:src="@mipmap/directory"/>
@@ -41,7 +41,7 @@
             android:layout_toRightOf="@+id/item_icon"
             android:paddingLeft="@dimen/small_margin"
             android:text="1 KB"
-            android:textSize="@dimen/details_text_size"/>
+            android:textSize="@dimen/smaller_text_size"/>
 
     </RelativeLayout>
 </FrameLayout>
