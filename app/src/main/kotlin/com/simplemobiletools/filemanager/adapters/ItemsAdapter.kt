@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.adapters
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v7.view.ActionMode
 import android.support.v7.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.simplemobiletools.commons.asynctasks.CopyMoveTask
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.extensions.formatSize
+import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isGif
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.FileDirItem
@@ -35,6 +37,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
     companion object {
         var actMode: ActionMode? = null
         val markedItems = HashSet<Int>()
+        var textColor = 0
+
+        lateinit var folderDrawable: Drawable
+        lateinit var fileDrawable: Drawable
 
         fun toggleItemSelection(itemView: View, select: Boolean, pos: Int = -1) {
             itemView.item_frame.isSelected = select
@@ -46,6 +52,14 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
             else
                 markedItems.remove(pos)
         }
+    }
+
+    init {
+        textColor = activity.config.textColor
+        folderDrawable = activity.resources.getColoredDrawableWithColor(com.simplemobiletools.commons.R.drawable.ic_folder, textColor)
+        folderDrawable.alpha = 180
+        fileDrawable = activity.resources.getColoredDrawableWithColor(com.simplemobiletools.commons.R.drawable.ic_file, textColor)
+        fileDrawable.alpha = 180
     }
 
     val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
@@ -181,27 +195,32 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: List<FileDirItem>, 
 
     class ViewHolder(val activity: SimpleActivity, view: View, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
         fun bindView(multiSelectorCallback: ModalMultiSelectorCallback, multiSelector: MultiSelector, fileDirItem: FileDirItem, pos: Int): View {
-            itemView.item_name.text = fileDirItem.name
-            toggleItemSelection(itemView, markedItems.contains(pos), pos)
+            itemView.apply {
+                item_name.text = fileDirItem.name
+                item_name.setTextColor(textColor)
+                item_details.setTextColor(textColor)
 
-            if (fileDirItem.isDirectory) {
-                Glide.with(activity).load(R.drawable.ic_folder).diskCacheStrategy(getCacheStrategy(fileDirItem)).centerCrop().crossFade().into(itemView.item_icon)
-                itemView.item_details.text = getChildrenCnt(fileDirItem)
-            } else {
-                Glide.with(activity).load(fileDirItem.path).diskCacheStrategy(getCacheStrategy(fileDirItem)).error(R.drawable.ic_file).centerCrop().crossFade().into(itemView.item_icon)
-                itemView.item_details.text = fileDirItem.size.formatSize()
-            }
+                toggleItemSelection(this, markedItems.contains(pos), pos)
 
-            itemView.setOnClickListener { viewClicked(multiSelector, fileDirItem, pos) }
-            itemView.setOnLongClickListener {
-                if (!multiSelector.isSelectable) {
-                    activity.startSupportActionMode(multiSelectorCallback)
-                    multiSelector.setSelected(this, true)
-                    actMode?.title = multiSelector.selectedPositions.size.toString()
-                    toggleItemSelection(itemView, true, pos)
-                    actMode?.invalidate()
+                if (fileDirItem.isDirectory) {
+                    item_icon.setImageDrawable(folderDrawable)
+                    item_details.text = getChildrenCnt(fileDirItem)
+                } else {
+                    Glide.with(activity).load(fileDirItem.path).diskCacheStrategy(getCacheStrategy(fileDirItem)).error(fileDrawable).centerCrop().crossFade().into(item_icon)
+                    item_details.text = fileDirItem.size.formatSize()
                 }
-                true
+
+                setOnClickListener { viewClicked(multiSelector, fileDirItem, pos) }
+                setOnLongClickListener {
+                    if (!multiSelector.isSelectable) {
+                        activity.startSupportActionMode(multiSelectorCallback)
+                        multiSelector.setSelected(this@ViewHolder, true)
+                        actMode?.title = multiSelector.selectedPositions.size.toString()
+                        toggleItemSelection(this, true, pos)
+                        actMode?.invalidate()
+                    }
+                    true
+                }
             }
 
             return itemView
