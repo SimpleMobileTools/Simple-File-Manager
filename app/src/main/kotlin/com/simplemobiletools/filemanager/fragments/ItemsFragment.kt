@@ -29,6 +29,7 @@ import java.util.*
 class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperationsListener {
     private var mListener: ItemInteractionListener? = null
     private var mSnackbar: Snackbar? = null
+    private var mStoredTextColor = 0
 
     lateinit var mItems: List<FileDirItem>
     lateinit var mConfig: Config
@@ -59,11 +60,17 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
             fillItems()
         }
         context.updateTextColors(items_holder)
+        if (mStoredTextColor != context.config.textColor) {
+            mItems = ArrayList<FileDirItem>()
+            fillItems()
+            mStoredTextColor = context.config.textColor
+        }
     }
 
     override fun onPause() {
         super.onPause()
         deleteItems()
+        mStoredTextColor = context.config.textColor
     }
 
     private fun fillItems() {
@@ -71,7 +78,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         val newItems = getItems(mPath)
         Collections.sort(newItems)
         items_swipe_refresh.isRefreshing = false
-        if (newItems.toString() == mItems.toString()) {
+        if (newItems.hashCode() == mItems.hashCode()) {
             return
         }
 
