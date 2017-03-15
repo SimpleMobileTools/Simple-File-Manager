@@ -14,6 +14,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.PATH
@@ -57,6 +58,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     private fun tryInitFileManager() {
         if (hasWriteStoragePermission()) {
             initRootFileManager()
+            checkWhatsNewDialog()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), STORAGE_PERMISSION)
         }
@@ -151,5 +153,12 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     fun changePath(pickedPath: String) {
         mBasePath = pickedPath
         openPath(pickedPath)
+    }
+
+    private fun checkWhatsNewDialog() {
+        arrayListOf<Release>().apply {
+            add(Release(26, R.string.release_26))
+            checkWhatsNew(this, BuildConfig.VERSION_CODE)
+        }
     }
 }
