@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.commons.asynctasks.CopyMoveTask
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
+import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.formatSize
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
 import com.simplemobiletools.commons.extensions.isGif
@@ -22,7 +23,6 @@ import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CopyDialog
-import com.simplemobiletools.filemanager.dialogs.RenameItemDialog
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
@@ -96,9 +96,11 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     }
 
     private fun displayRenameDialog() {
-        RenameItemDialog(activity, getSelectedMedia()[0]) {
-            listener?.refreshItems()
-            actMode?.finish()
+        RenameItemDialog(activity, getSelectedMedia()[0].path) {
+            activity.runOnUiThread {
+                listener?.refreshItems()
+                actMode?.finish()
+            }
         }
     }
 
