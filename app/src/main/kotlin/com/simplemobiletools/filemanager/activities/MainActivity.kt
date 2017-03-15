@@ -29,6 +29,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     var mBasePath = getInternalStoragePath()
     var latestFragment: ItemsFragment? = null
     var mScrollStates = HashMap<String, Parcelable>()
+    var mStoredTextColor = 0
 
     companion object {
         private val STORAGE_PERMISSION = 1
@@ -48,6 +49,16 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onResume() {
         super.onResume()
         updateTextColors(main_screen)
+        if (mStoredTextColor != config.textColor) {
+            mStoredTextColor = config.textColor
+            breadcrumbs.setTextColor(mStoredTextColor)
+            initRootFileManager()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mStoredTextColor = config.textColor
     }
 
     override fun onDestroy() {
