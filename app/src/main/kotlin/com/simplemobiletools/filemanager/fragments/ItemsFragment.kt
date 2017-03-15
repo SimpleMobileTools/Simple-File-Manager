@@ -189,7 +189,8 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     }
 
     override fun deleteFiles(files: ArrayList<File>) {
-        (activity as SimpleActivity).deleteFiles(files) {
+        val hasFolder = files.any { it.isDirectory }
+        (activity as SimpleActivity).deleteFiles(files, hasFolder) {
             if (!it) {
                 activity.runOnUiThread {
                     activity.toast(R.string.unknown_error_occurred)
