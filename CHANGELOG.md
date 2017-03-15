@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.0.0 *(2017-03-15)*
+----------------------------
+
+ * Updated some translations
+ * Lots of other rewrites, mostly related to file operations
+
 Version 1.25 *(2017-02-26)*
 ----------------------------
 
