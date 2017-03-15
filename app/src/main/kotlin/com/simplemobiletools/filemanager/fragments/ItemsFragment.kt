@@ -189,41 +189,13 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     }
 
     override fun deleteFiles(files: ArrayList<File>) {
-        val act = activity as SimpleActivity
-        if (act.isShowingPermDialog(files[0])) {
-            return
-        }
-
-        Thread({
-            var hadSuccess = false
-            files.forEach {
-                if (it.isDirectory) {
-                    for (child in it.listFiles()) {
-                        deleteFile(child, act)
-                    }
-                }
-                if (deleteFile(it, act)) {
-                    hadSuccess = true
-                    context.deleteFromMediaStore(it)
+        (activity as SimpleActivity).deleteFiles(files) {
+            if (!it) {
+                activity.runOnUiThread {
+                    activity.toast(R.string.unknown_error_occurred)
                 }
             }
-            if (!hadSuccess)
-                act.runOnUiThread {
-                    act.toast(R.string.unknown_error_occurred)
-                }
-        }).start()
-    }
-
-    private fun deleteFile(file: File, act: SimpleActivity): Boolean {
-        if (file.delete() || act.tryFastDocumentDelete(file)) {
-            return true
-        } else {
-            val document = act.getFileDocument(file.absolutePath, context.config.treeUri) ?: return false
-            if (document.isFile && document.delete()) {
-                return true
-            }
         }
-        return false
     }
 
     override fun refreshItems() {

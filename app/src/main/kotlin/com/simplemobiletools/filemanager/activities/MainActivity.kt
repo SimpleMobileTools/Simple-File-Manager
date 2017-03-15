@@ -22,7 +22,6 @@ import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
 import java.util.*
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
@@ -128,7 +127,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 initRootFileManager()
             } else {
-                toast(R.string.no_permissions)
+                toast(R.string.no_storage_permissions)
                 finish()
             }
         }
@@ -150,9 +149,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     fun changePath(pickedPath: String) {
-        if (!isShowingPermDialog(File(pickedPath))) {
-            mBasePath = pickedPath
-            openPath(pickedPath)
-        }
+        mBasePath = pickedPath
+        openPath(pickedPath)
     }
 }

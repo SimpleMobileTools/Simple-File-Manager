@@ -57,38 +57,34 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                     }
                 }
 
-                if (activity.isShowingPermDialog(destinationDir)) {
-                    return@setOnClickListener
-                }
-
-                if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
-                    context.toast(R.string.copying)
-                    val pair = Pair<ArrayList<File>, File>(files, destinationDir)
-                    CopyMoveTask(context, false, config.treeUri, false, copyMoveListener).execute(pair)
-                    dismiss()
-                } else {
-                    if (context.isPathOnSD(sourcePath) || context.isPathOnSD(destinationPath)) {
-                        if (activity.isShowingPermDialog(files[0])) {
-                            return@setOnClickListener
-                        }
-
-                        context.toast(R.string.moving)
+                activity.handleSAFDialog(destinationDir) {
+                    if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
+                        context.toast(R.string.copying)
                         val pair = Pair<ArrayList<File>, File>(files, destinationDir)
-                        CopyMoveTask(context, true, config.treeUri, false, copyMoveListener).execute(pair)
+                        CopyMoveTask(context, false, config.treeUri, false, copyMoveListener).execute(pair)
                         dismiss()
                     } else {
-                        val updatedFiles = ArrayList<File>(files.size * 2)
-                        updatedFiles.addAll(files)
-                        for (file in files) {
-                            val destination = File(destinationDir, file.name)
-                            if (file.renameTo(destination))
-                                updatedFiles.add(destination)
-                        }
-
-                        context.scanFiles(updatedFiles) {
-                            activity.runOnUiThread {
-                                copyMoveListener.copySucceeded(true, files.size * 2 == updatedFiles.size)
+                        if (context.isPathOnSD(sourcePath) || context.isPathOnSD(destinationPath)) {
+                            activity.handleSAFDialog(files[0]) {
+                                context.toast(R.string.moving)
+                                val pair = Pair<ArrayList<File>, File>(files, destinationDir)
+                                CopyMoveTask(context, true, config.treeUri, false, copyMoveListener).execute(pair)
                                 dismiss()
+                            }
+                        } else {
+                            val updatedFiles = ArrayList<File>(files.size * 2)
+                            updatedFiles.addAll(files)
+                            for (file in files) {
+                                val destination = File(destinationDir, file.name)
+                                if (!destination.exists() && file.renameTo(destination))
+                                    updatedFiles.add(destination)
+                            }
+
+                            context.scanFiles(updatedFiles) {
+                                activity.runOnUiThread {
+                                    copyMoveListener.copySucceeded(true, files.size * 2 == updatedFiles.size)
+                                    dismiss()
+                                }
                             }
                         }
                     }
