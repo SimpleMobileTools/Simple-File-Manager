@@ -3,7 +3,7 @@
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Файловый менеджер</string>
     <string name="press_back_again">Нажмите "назад" ещё раз, чтобы выйти</string>
-    <string name="no_app_found">No app for opening this type of file is available</string>
+    <string name="no_app_found">Не найдено приложение для открытия файлов такого типа</string>
 
     <!-- Favorites -->
     <string name="favorites">Избранное</string>
