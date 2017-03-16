@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 2.0.1 *(2017-03-16)*
+----------------------------
+
+ * Added some extra checks at deleting from SD card
+
 Version 2.0.0 *(2017-03-15)*
 ----------------------------
 
