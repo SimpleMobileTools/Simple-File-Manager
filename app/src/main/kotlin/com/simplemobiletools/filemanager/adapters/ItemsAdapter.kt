@@ -37,6 +37,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         var actMode: ActionMode? = null
         val markedItems = HashSet<Int>()
         var textColor = 0
+        var itemCnt = 0
 
         lateinit var folderDrawable: Drawable
         lateinit var fileDrawable: Drawable
@@ -51,6 +52,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             else
                 markedItems.remove(pos)
         }
+
+        fun updateTitle(cnt: Int) {
+            actMode?.title = "$cnt / $itemCnt"
+        }
     }
 
     init {
@@ -59,6 +64,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         folderDrawable.alpha = 180
         fileDrawable = activity.resources.getColoredDrawableWithColor(com.simplemobiletools.commons.R.drawable.ic_file, textColor)
         fileDrawable.alpha = 180
+        itemCnt = mItems.size
     }
 
     val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
@@ -179,6 +185,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             mItems.removeAll(removeFiles)
             markedItems.clear()
             listener?.deleteFiles(files)
+            itemCnt = mItems.size
         }
     }
 
@@ -233,7 +240,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                     if (!multiSelector.isSelectable) {
                         activity.startSupportActionMode(multiSelectorCallback)
                         multiSelector.setSelected(this@ViewHolder, true)
-                        actMode?.title = multiSelector.selectedPositions.size.toString()
+                        updateTitle(multiSelector.selectedPositions.size)
                         toggleItemSelection(this, true, pos)
                         actMode?.invalidate()
                     }
@@ -259,7 +266,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 if (selectedCnt == 0) {
                     actMode?.finish()
                 } else {
-                    actMode?.title = selectedCnt.toString()
+                    updateTitle(selectedCnt)
                 }
                 actMode?.invalidate()
             } else {
