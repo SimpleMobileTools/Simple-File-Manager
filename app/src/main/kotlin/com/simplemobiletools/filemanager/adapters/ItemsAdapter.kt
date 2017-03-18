@@ -10,14 +10,13 @@ import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback
 import com.bignerdranch.android.multiselector.MultiSelector
 import com.bignerdranch.android.multiselector.SwappingHolder
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.simplemobiletools.commons.asynctasks.CopyMoveTask
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.formatSize
+import com.simplemobiletools.commons.extensions.getCacheStrategy
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.isGif
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
@@ -224,7 +223,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                     item_icon.setImageDrawable(folderDrawable)
                     item_details.text = getChildrenCnt(fileDirItem)
                 } else {
-                    Glide.with(activity).load(fileDirItem.path).diskCacheStrategy(getCacheStrategy(fileDirItem)).error(fileDrawable).centerCrop().crossFade().into(item_icon)
+                    val path = fileDirItem.path
+                    Glide.with(activity).load(path).diskCacheStrategy(path.getCacheStrategy()).error(fileDrawable).centerCrop().crossFade().into(item_icon)
                     item_details.text = fileDirItem.size.formatSize()
                 }
 
@@ -243,8 +243,6 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
             return itemView
         }
-
-        private fun getCacheStrategy(item: FileDirItem) = if (File(item.path).isGif()) DiskCacheStrategy.SOURCE else DiskCacheStrategy.RESULT
 
         private fun getChildrenCnt(item: FileDirItem): String {
             val children = item.children
