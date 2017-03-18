@@ -107,8 +107,11 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         menuInflater.inflate(R.menu.menu, menu)
 
         val favorites = config.favorites
-        menu.findItem(R.id.add_favorite).isVisible = !favorites.contains(currentPath)
-        menu.findItem(R.id.remove_favorite).isVisible = favorites.contains(currentPath)
+        menu.apply {
+            findItem(R.id.add_favorite).isVisible = !favorites.contains(currentPath)
+            findItem(R.id.remove_favorite).isVisible = favorites.contains(currentPath)
+            findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
+        }
 
         return true
     }
