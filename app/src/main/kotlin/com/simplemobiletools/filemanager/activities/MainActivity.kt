@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
-    var mBasePath = getInternalStoragePath()
     var latestFragment: ItemsFragment? = null
     var mScrollStates = HashMap<String, Parcelable>()
     var mStoredTextColor = 0
@@ -53,7 +52,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         if (mStoredTextColor != config.textColor) {
             mStoredTextColor = config.textColor
             breadcrumbs.setTextColor(mStoredTextColor)
-            initRootFileManager()
+            openPath(getCurrenPath())
         }
     }
 
@@ -76,7 +75,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun initRootFileManager() {
-        openPath(mBasePath)
+        openPath(config.homeFolder)
     }
 
     private fun openPath(path: String) {
@@ -165,18 +164,13 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
-            StoragePickerDialog(this@MainActivity, mBasePath) {
-                changePath(it)
+            StoragePickerDialog(this@MainActivity, getCurrenPath()) {
+                openPath(it)
             }
         } else {
             val item = breadcrumbs.getChildAt(id).tag as FileDirItem
             openPath(item.path)
         }
-    }
-
-    private fun changePath(pickedPath: String) {
-        mBasePath = pickedPath
-        openPath(pickedPath)
     }
 
     private fun checkWhatsNewDialog() {
