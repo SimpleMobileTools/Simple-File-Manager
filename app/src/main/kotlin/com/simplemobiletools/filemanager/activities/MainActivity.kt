@@ -106,6 +106,8 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.go_home -> goHome()
+            R.id.set_as_home -> setAsHome()
             R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -113,7 +115,15 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         return true
     }
 
-    fun launchAbout() {
+    private fun goHome() {
+
+    }
+
+    private fun setAsHome() {
+
+    }
+
+    private fun launchAbout() {
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
     }
 
@@ -161,7 +171,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         }
     }
 
-    fun changePath(pickedPath: String) {
+    private fun changePath(pickedPath: String) {
         mBasePath = pickedPath
         openPath(pickedPath)
     }
