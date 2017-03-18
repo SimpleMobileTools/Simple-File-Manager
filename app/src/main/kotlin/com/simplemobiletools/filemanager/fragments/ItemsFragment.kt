@@ -89,6 +89,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
                 this@apply.adapter = adapter
                 addItemDecoration(RecyclerViewDivider(context))
             }
+            items_fastscroller.setViews(items_list, items_swipe_refresh)
         } else {
             val state = (items_list.layoutManager as LinearLayoutManager).onSaveInstanceState()
             (currAdapter as ItemsAdapter).updateItems(mItems)
