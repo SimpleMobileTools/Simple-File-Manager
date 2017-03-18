@@ -244,7 +244,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             return itemView
         }
 
-        private fun getCacheStrategy(item: FileDirItem) = if (File(item.path).isGif()) DiskCacheStrategy.NONE else DiskCacheStrategy.RESULT
+        private fun getCacheStrategy(item: FileDirItem) = if (File(item.path).isGif()) DiskCacheStrategy.SOURCE else DiskCacheStrategy.RESULT
 
         private fun getChildrenCnt(item: FileDirItem): String {
             val children = item.children
