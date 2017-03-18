@@ -4,11 +4,14 @@
     <string name="app_launcher_name">Filhanterare</string>
     <string name="press_back_again">Tryck på bakåt igen för att avsluta</string>
     <string name="no_app_found">No app for opening this type of file is available</string>
+    <string name="set_as_home_folder">Set at home folder</string>
+    <string name="home_folder_updated">Home folder updated</string>
 
     <!-- Favorites -->
     <string name="favorites">Favoriter</string>
     <string name="add_to_favorites">Lägg till favoriter</string>
     <string name="remove_from_favorites">Ta bort från favoriter</string>
+    <string name="manage_favorites">Manage favorites</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
