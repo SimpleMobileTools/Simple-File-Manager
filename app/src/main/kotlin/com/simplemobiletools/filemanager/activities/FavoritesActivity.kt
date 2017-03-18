@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager.activities
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.activity_favorites.*
@@ -16,18 +17,20 @@ class FavoritesActivity : SimpleActivity() {
 
     private fun updateFavorites() {
         favorites_holder.removeAllViews()
-        val folders = config.favorites
+        val favorites = config.favorites
+        favorites_placeholder.beVisibleIf(favorites.isEmpty())
+        favorites_placeholder.setTextColor(config.textColor)
 
-        for (folder in folders) {
+        for (favorite in favorites) {
             layoutInflater.inflate(R.layout.item_favorite, null, false).apply {
                 favorite_title.apply {
-                    text = folder
+                    text = favorite
                     setTextColor(config.textColor)
                 }
                 favorite_icon.apply {
                     setColorFilter(config.textColor, PorterDuff.Mode.SRC_IN)
                     setOnClickListener {
-                        config.removeFavorite(folder)
+                        config.removeFavorite(favorite)
                         updateFavorites()
                     }
                 }

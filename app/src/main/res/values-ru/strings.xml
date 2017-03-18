@@ -14,6 +14,7 @@
     <string name="remove_from_favorites">Убрать из избранного</string>
     <string name="manage_favorites">Manage favorites</string>
     <string name="go_to_favorite">Go to favorite</string>
+    <string name="favorites_activity_placeholder">You can add frequently used folders to favorites for easy access from anywhere.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

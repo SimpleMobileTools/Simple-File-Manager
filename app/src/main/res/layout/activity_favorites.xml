@@ -24,6 +24,7 @@
             android:paddingLeft="@dimen/big_margin"
             android:paddingRight="@dimen/big_margin"
             android:paddingTop="@dimen/activity_margin"
+            android:text="@string/favorites_activity_placeholder"
             android:visibility="gone"/>
     </RelativeLayout>
 </ScrollView>
