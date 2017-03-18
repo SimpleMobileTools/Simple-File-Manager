@@ -5,7 +5,7 @@
     <string name="press_back_again">Drücke erneut zum Schließen</string>
     <string name="no_app_found">No app for opening this type of file is available</string>
     <string name="go_to_home_folder">Go to home folder</string>
-    <string name="set_as_home_folder">Set at home folder</string>
+    <string name="set_as_home_folder">Set as home folder</string>
     <string name="home_folder_updated">Home folder updated</string>
 
     <!-- Favorites -->
