@@ -44,6 +44,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         breadcrumbs.setListener(this)
         tryInitFileManager()
         storeStoragePaths()
+        checkWhatsNewDialog()
     }
 
     override fun onResume() {
@@ -69,7 +70,6 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     private fun tryInitFileManager() {
         if (hasWriteStoragePermission()) {
             initRootFileManager()
-            checkWhatsNewDialog()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), STORAGE_PERMISSION)
         }
@@ -116,12 +116,15 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun goHome() {
-
+        openPath(config.homeFolder)
     }
 
     private fun setAsHome() {
-
+        config.homeFolder = getCurrenPath()
+        toast(R.string.home_folder_updated)
     }
+
+    private fun getCurrenPath() = (breadcrumbs.getChildAt(breadcrumbs.childCount - 1).tag as FileDirItem).path.trimEnd('/')
 
     private fun launchAbout() {
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
