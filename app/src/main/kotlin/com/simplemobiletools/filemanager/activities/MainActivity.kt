@@ -106,6 +106,8 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.go_home -> goHome()
+            R.id.add_favorite -> addFavorite()
+            R.id.remove_favorite -> removeFavorite()
             R.id.set_as_home -> setAsHome()
             R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.about -> launchAbout()
@@ -116,6 +118,14 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     private fun goHome() {
         openPath(config.homeFolder)
+    }
+
+    private fun addFavorite() {
+
+    }
+
+    private fun removeFavorite() {
+
     }
 
     private fun setAsHome() {
