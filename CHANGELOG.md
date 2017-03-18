@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.1.0 *(2017-03-18)*
+----------------------------
+
+ * Added a Home Folder button
+ * Added Favorites for easy access
+
 Version 2.0.1 *(2017-03-16)*
 ----------------------------
 
