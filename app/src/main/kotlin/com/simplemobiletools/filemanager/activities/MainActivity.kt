@@ -57,6 +57,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             breadcrumbs.setTextColor(mStoredTextColor)
             openPath(currentPath)
         }
+        invalidateOptionsMenu()
     }
 
     override fun onPause() {
@@ -82,12 +83,13 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun openPath(path: String) {
-        breadcrumbs.setBreadcrumb(path)
+        val realPath = path.trimEnd('/')
+        breadcrumbs.setBreadcrumb(realPath)
         val bundle = Bundle()
-        bundle.putString(PATH, path)
+        bundle.putString(PATH, realPath)
 
-        if (mScrollStates.containsKey(path.trimEnd('/'))) {
-            bundle.putParcelable(SCROLL_STATE, mScrollStates[path.trimEnd('/')])
+        if (mScrollStates.containsKey(realPath)) {
+            bundle.putParcelable(SCROLL_STATE, mScrollStates[realPath])
         }
 
         if (latestFragment != null) {
@@ -97,9 +99,9 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         latestFragment = ItemsFragment().apply {
             arguments = bundle
             setListener(this@MainActivity)
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_holder, this).addToBackStack(path).commitAllowingStateLoss()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_holder, this).addToBackStack(realPath).commitAllowingStateLoss()
         }
-        currentPath = path
+        currentPath = realPath
         invalidateOptionsMenu()
     }
 

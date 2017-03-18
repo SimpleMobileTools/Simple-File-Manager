@@ -2,6 +2,9 @@ package com.simplemobiletools.filemanager.activities
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
@@ -36,6 +39,26 @@ class FavoritesActivity : SimpleActivity() {
                 }
                 favorites_holder.addView(this)
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_favorites, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.add_favorite -> addFavorite()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    private fun addFavorite() {
+        FilePickerDialog(this, pickFile = false, showHidden = config.showHidden) {
+            config.addFavorite(it)
+            updateFavorites()
         }
     }
 }
