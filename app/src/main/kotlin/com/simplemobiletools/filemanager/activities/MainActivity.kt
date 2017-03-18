@@ -29,6 +29,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     var latestFragment: ItemsFragment? = null
     var mScrollStates = HashMap<String, Parcelable>()
     var mStoredTextColor = 0
+    var currentPath = ""
 
     companion object {
         private val STORAGE_PERMISSION = 1
@@ -52,7 +53,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         if (mStoredTextColor != config.textColor) {
             mStoredTextColor = config.textColor
             breadcrumbs.setTextColor(mStoredTextColor)
-            openPath(getCurrenPath())
+            openPath(currentPath)
         }
     }
 
@@ -96,10 +97,17 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             setListener(this@MainActivity)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_holder, this).addToBackStack(path).commitAllowingStateLoss()
         }
+        currentPath = path
+        invalidateOptionsMenu()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+
+        val favorites = config.favorites
+        menu.findItem(R.id.add_favorite).isVisible = !favorites.contains(currentPath)
+        menu.findItem(R.id.remove_favorite).isVisible = favorites.contains(currentPath)
+
         return true
     }
 
@@ -121,19 +129,19 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun addFavorite() {
-
+        config.addFavorite(currentPath)
+        invalidateOptionsMenu()
     }
 
     private fun removeFavorite() {
-
+        config.removeFavorite(currentPath)
+        invalidateOptionsMenu()
     }
 
     private fun setAsHome() {
-        config.homeFolder = getCurrenPath()
+        config.homeFolder = currentPath
         toast(R.string.home_folder_updated)
     }
-
-    private fun getCurrenPath() = (breadcrumbs.getChildAt(breadcrumbs.childCount - 1).tag as FileDirItem).path.trimEnd('/')
 
     private fun launchAbout() {
         startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
@@ -174,7 +182,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
-            StoragePickerDialog(this@MainActivity, getCurrenPath()) {
+            StoragePickerDialog(this@MainActivity, currentPath) {
                 openPath(it)
             }
         } else {

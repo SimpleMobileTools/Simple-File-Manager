@@ -4,6 +4,7 @@ import android.content.Context
 import com.simplemobiletools.commons.extensions.getInternalStoragePath
 import com.simplemobiletools.commons.helpers.BaseConfig
 import java.io.File
+import java.util.*
 
 class Config(context: Context) : BaseConfig(context) {
     companion object {
@@ -23,4 +24,20 @@ class Config(context: Context) : BaseConfig(context) {
             return home
         }
         set(homeFolder) = prefs.edit().putString(HOME_FOLDER, homeFolder).apply()
+
+    fun addFavorite(path: String) {
+        val currFavorites = HashSet<String>(favorites)
+        currFavorites.add(path)
+        favorites = currFavorites
+    }
+
+    fun removeFavorite(path: String) {
+        val currFavorites = HashSet<String>(favorites)
+        currFavorites.remove(path)
+        favorites = currFavorites
+    }
+
+    var favorites: MutableSet<String>
+        get() = prefs.getStringSet(FAVORITES, HashSet<String>())
+        set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
 }
