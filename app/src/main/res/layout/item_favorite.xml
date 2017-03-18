@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/favorite_holder"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/activity_margin">
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/favorite_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/medium_margin"
+        android:layout_marginRight="@dimen/medium_margin"
+        android:layout_toLeftOf="@+id/favorite_icon"
+        android:layout_toStartOf="@+id/favorite_icon"/>
+
+    <ImageView
+        android:id="@+id/favorite_icon"
+        style="@style/MyBorderlessBackgroundStyle"
+        android:layout_width="@dimen/manage_favorites_img_size"
+        android:layout_height="@dimen/manage_favorites_img_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/medium_margin"
+        android:src="@drawable/ic_cross"/>
+
+</RelativeLayout>
