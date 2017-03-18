@@ -204,9 +204,14 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         views.add(holder.bindView(multiSelectorMode, multiSelector, mItems[position], position))
     }
 
+    override fun onViewRecycled(holder: ViewHolder?) {
+        super.onViewRecycled(holder)
+        holder?.stopLoad()
+    }
+
     override fun getItemCount() = mItems.size
 
-    class ViewHolder(val activity: SimpleActivity, view: View, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
+    class ViewHolder(val activity: SimpleActivity, val view: View, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
         fun bindView(multiSelectorCallback: ModalMultiSelectorCallback, multiSelector: MultiSelector, fileDirItem: FileDirItem, pos: Int): View {
             itemView.apply {
                 item_name.text = fileDirItem.name
@@ -262,6 +267,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             } else {
                 itemClick(fileDirItem)
             }
+        }
+
+        fun stopLoad() {
+            Glide.clear(view.item_icon)
         }
     }
 
