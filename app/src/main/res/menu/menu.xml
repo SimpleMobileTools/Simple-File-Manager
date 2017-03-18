@@ -19,7 +19,7 @@
     <item
         android:id="@+id/go_to_favorite"
         android:title="@string/go_to_favorite"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/set_as_home"
         android:title="@string/set_as_home_folder"
