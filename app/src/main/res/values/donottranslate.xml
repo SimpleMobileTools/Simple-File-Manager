@@ -2,6 +2,10 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_28">
+        Added a Home Folder button\n
+        Added Favorites for easy access
+    </string>
     <string name="release_26">Added color customization</string>
 
 </resources>

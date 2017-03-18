@@ -219,6 +219,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
             add(Release(26, R.string.release_26))
+            add(Release(28, R.string.release_28))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
