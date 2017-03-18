@@ -61,6 +61,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
             fillItems()
             mStoredTextColor = context.config.textColor
         }
+        items_list.adapter?.notifyDataSetChanged()
     }
 
     override fun onPause() {
