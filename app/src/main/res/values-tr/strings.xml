@@ -13,6 +13,7 @@
     <string name="add_to_favorites">Favorilere ekle</string>
     <string name="remove_from_favorites">Favorilerden kaldır</string>
     <string name="manage_favorites">Manage favorites</string>
+    <string name="go_to_favorite">Go to favorite</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->

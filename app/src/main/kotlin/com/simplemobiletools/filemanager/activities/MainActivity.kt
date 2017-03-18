@@ -116,6 +116,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             R.id.go_home -> goHome()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
+            R.id.go_to_favorite -> goToFavorite()
             R.id.set_as_home -> setAsHome()
             R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.about -> launchAbout()
@@ -136,6 +137,10 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     private fun removeFavorite() {
         config.removeFavorite(currentPath)
         invalidateOptionsMenu()
+    }
+
+    private fun goToFavorite() {
+
     }
 
     private fun setAsHome() {
