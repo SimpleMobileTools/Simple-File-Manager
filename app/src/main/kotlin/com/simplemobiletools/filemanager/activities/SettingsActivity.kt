@@ -1,5 +1,6 @@
 package com.simplemobiletools.filemanager.activities
 
+import android.content.Intent
 import android.os.Bundle
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.filemanager.R
@@ -16,6 +17,7 @@ class SettingsActivity : SimpleActivity() {
         super.onResume()
 
         setupCustomizeColors()
+        setupManageFavorites()
         setupShowHidden()
         updateTextColors(settings_holder)
     }
@@ -23,6 +25,12 @@ class SettingsActivity : SimpleActivity() {
     private fun setupCustomizeColors() {
         settings_customize_colors_holder.setOnClickListener {
             startCustomizationActivity()
+        }
+    }
+
+    private fun setupManageFavorites() {
+        settings_manage_favorites_holder.setOnClickListener {
+            startActivity(Intent(this, FavoritesActivity::class.java))
         }
     }
 
