@@ -9,11 +9,13 @@ import android.os.Parcelable
 import android.support.v4.app.ActivityCompat
 import android.view.Menu
 import android.view.MenuItem
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.filemanager.BuildConfig
@@ -140,7 +142,20 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun goToFavorite() {
+        val favorites = config.favorites
+        val items = ArrayList<RadioItem>(favorites.size)
+        var currFavoriteIndex = -1
 
+        favorites.forEachIndexed { index, path ->
+            items.add(RadioItem(index, path, path))
+            if (path == currentPath) {
+                currFavoriteIndex = index
+            }
+        }
+
+        RadioGroupDialog(this, items, currFavoriteIndex) {
+            openPath(it.toString())
+        }
     }
 
     private fun setAsHome() {
