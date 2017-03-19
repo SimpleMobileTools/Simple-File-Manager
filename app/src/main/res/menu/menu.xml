@@ -7,6 +7,11 @@
         android:title="@string/go_to_home_folder"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/sort"
+        android:icon="@drawable/ic_sort"
+        android:title="@string/sort_by"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/add_favorite"
         android:icon="@drawable/ic_star_off"
         android:title="@string/add_to_favorites"

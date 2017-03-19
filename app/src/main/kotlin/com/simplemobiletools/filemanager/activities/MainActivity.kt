@@ -22,6 +22,7 @@ import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.SCROLL_STATE
+import com.simplemobiletools.filemanager.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -121,6 +122,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.go_home -> goHome()
+            R.id.sort -> showSortingDialog()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
             R.id.go_to_favorite -> goToFavorite()
@@ -134,6 +136,12 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     private fun goHome() {
         openPath(config.homeFolder)
+    }
+
+    private fun showSortingDialog() {
+        ChangeSortingDialog(this, currentPath) {
+
+        }
     }
 
     private fun addFavorite() {

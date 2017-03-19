@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager
 import android.content.Context
 import com.simplemobiletools.commons.extensions.getInternalStoragePath
 import com.simplemobiletools.commons.helpers.BaseConfig
+import com.simplemobiletools.commons.helpers.SORT_BY_NAME
 import java.io.File
 import java.util.*
 
@@ -40,4 +41,24 @@ class Config(context: Context) : BaseConfig(context) {
     var favorites: MutableSet<String>
         get() = prefs.getStringSet(FAVORITES, HashSet<String>())
         set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
+
+    var sorting: Int
+        get() = prefs.getInt(SORT_ORDER, SORT_BY_NAME)
+        set(sorting) = prefs.edit().putInt(SORT_ORDER, sorting).apply()
+
+    fun saveFolderSorting(path: String, value: Int) {
+        if (path.isEmpty()) {
+            sorting = value
+        } else {
+            prefs.edit().putInt(SORT_FOLDER_PREFIX + path, value).apply()
+        }
+    }
+
+    fun getFolderSorting(path: String) = prefs.getInt(SORT_FOLDER_PREFIX + path, sorting)
+
+    fun removeFolderSorting(path: String) {
+        prefs.edit().remove(SORT_FOLDER_PREFIX + path).apply()
+    }
+
+    fun hasCustomSorting(path: String) = prefs.contains(SORT_FOLDER_PREFIX + path)
 }
