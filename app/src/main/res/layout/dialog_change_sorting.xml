@@ -45,12 +45,12 @@
                 android:text="@string/last_modified"/>
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
-                android:id="@+id/sorting_dialog_radio_date_taken"
+                android:id="@+id/sorting_dialog_radio_extension"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/medium_margin"
                 android:paddingTop="@dimen/medium_margin"
-                android:text="@string/date_taken"/>
+                android:text="@string/extension"/>
 
         </RadioGroup>
 

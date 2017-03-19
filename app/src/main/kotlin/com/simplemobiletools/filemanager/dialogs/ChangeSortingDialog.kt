@@ -47,8 +47,8 @@ class ChangeSortingDialog(val activity: SimpleActivity, val path: String = "", v
             sortBtn = sortingRadio.sorting_dialog_radio_size
         } else if (currSorting and SORT_BY_DATE_MODIFIED != 0) {
             sortBtn = sortingRadio.sorting_dialog_radio_last_modified
-        } else if (currSorting and SORT_BY_DATE_TAKEN != 0)
-            sortBtn = sortingRadio.sorting_dialog_radio_date_taken
+        } else if (currSorting and SORT_BY_EXTENSION != 0)
+            sortBtn = sortingRadio.sorting_dialog_radio_extension
         sortBtn.isChecked = true
     }
 
@@ -68,7 +68,7 @@ class ChangeSortingDialog(val activity: SimpleActivity, val path: String = "", v
             R.id.sorting_dialog_radio_name -> SORT_BY_NAME
             R.id.sorting_dialog_radio_size -> SORT_BY_SIZE
             R.id.sorting_dialog_radio_last_modified -> SORT_BY_DATE_MODIFIED
-            else -> SORT_BY_DATE_TAKEN
+            else -> SORT_BY_EXTENSION
         }
 
         if (view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
