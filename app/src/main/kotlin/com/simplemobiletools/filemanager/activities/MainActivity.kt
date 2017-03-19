@@ -232,6 +232,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         arrayListOf<Release>().apply {
             add(Release(26, R.string.release_26))
             add(Release(28, R.string.release_28))
+            add(Release(29, R.string.release_29))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
