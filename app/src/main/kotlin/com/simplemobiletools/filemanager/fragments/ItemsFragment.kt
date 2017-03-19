@@ -22,6 +22,7 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.items_fragment.*
+import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
 
@@ -31,12 +32,15 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
     lateinit var mItems: ArrayList<FileDirItem>
     lateinit var mConfig: Config
+    lateinit var fragmentView: View
 
     private var mShowHidden = false
     var mPath = ""
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?) =
-            inflater!!.inflate(R.layout.items_fragment, container, false)!!
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        fragmentView = inflater!!.inflate(R.layout.items_fragment, container, false)!!
+        return fragmentView
+    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -70,36 +74,43 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
     private fun fillItems() {
         mPath = arguments.getString(PATH)
-        val newItems = getItems(mPath)
-        Collections.sort(newItems)
-        items_swipe_refresh.isRefreshing = false
-        if (newItems.hashCode() == mItems.hashCode()) {
-            return
-        }
+        getItems(mPath) {
+            val newItems = it
+            Collections.sort(newItems)
 
-        mItems = newItems
+            fragmentView.apply {
+                items_swipe_refresh.isRefreshing = false
+                if (newItems.hashCode() == mItems.hashCode()) {
+                    return@getItems
+                }
 
-        val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this) {
-            itemClicked(it)
-        }
+                mItems = newItems
 
-        val currAdapter = items_list.adapter
-        if (currAdapter == null) {
-            items_list.apply {
-                this@apply.adapter = adapter
-                addItemDecoration(RecyclerViewDivider(context))
+                val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this@ItemsFragment) {
+                    itemClicked(it)
+                }
+
+                activity.runOnUiThread {
+                    val currAdapter = items_list.adapter
+                    if (currAdapter == null) {
+                        items_list.apply {
+                            this.adapter = adapter
+                            addItemDecoration(RecyclerViewDivider(context))
+                        }
+                        items_fastscroller.setViews(items_list, items_swipe_refresh)
+                    } else {
+                        val state = (items_list.layoutManager as LinearLayoutManager).onSaveInstanceState()
+                        (currAdapter as ItemsAdapter).updateItems(mItems)
+                        (items_list.layoutManager as LinearLayoutManager).onRestoreInstanceState(state)
+                    }
+
+                    getRecyclerLayoutManager().onRestoreInstanceState(arguments.getParcelable<Parcelable>(SCROLL_STATE))
+                }
             }
-            items_fastscroller.setViews(items_list, items_swipe_refresh)
-        } else {
-            val state = (items_list.layoutManager as LinearLayoutManager).onSaveInstanceState()
-            (currAdapter as ItemsAdapter).updateItems(mItems)
-            (items_list.layoutManager as LinearLayoutManager).onRestoreInstanceState(state)
         }
-
-        getRecyclerLayoutManager().onRestoreInstanceState(arguments.getParcelable<Parcelable>(SCROLL_STATE))
     }
 
-    fun getRecyclerLayoutManager() = (items_list.layoutManager as LinearLayoutManager)
+    fun getRecyclerLayoutManager() = (fragmentView.items_list.layoutManager as LinearLayoutManager)
 
     fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
@@ -107,23 +118,25 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         mListener = listener
     }
 
-    private fun getItems(path: String): ArrayList<FileDirItem> {
-        val items = ArrayList<FileDirItem>()
-        val files = File(path).listFiles()
-        if (files != null) {
-            for (file in files) {
-                val curPath = file.absolutePath
-                val curName = curPath.getFilenameFromPath()
-                if (!mShowHidden && curName.startsWith("."))
-                    continue
+    private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
+        Thread({
+            val items = ArrayList<FileDirItem>()
+            val files = File(path).listFiles()
+            if (files != null) {
+                for (file in files) {
+                    val curPath = file.absolutePath
+                    val curName = curPath.getFilenameFromPath()
+                    if (!mShowHidden && curName.startsWith("."))
+                        continue
 
-                val children = getChildren(file)
-                val size = file.length()
+                    val children = getChildren(file)
+                    val size = file.length()
 
-                items.add(FileDirItem(curPath, curName, file.isDirectory, children, size))
+                    items.add(FileDirItem(curPath, curName, file.isDirectory, children, size))
+                }
             }
-        }
-        return items
+            callback(items)
+        }).start()
     }
 
     private fun getChildren(file: File): Int {
