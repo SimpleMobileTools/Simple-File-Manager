@@ -140,7 +140,11 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this, currentPath) {
-
+            if (latestFragment != null) {
+                latestFragment!!.fillItems()
+            } else {
+                openPath(currentPath)
+            }
         }
     }
 

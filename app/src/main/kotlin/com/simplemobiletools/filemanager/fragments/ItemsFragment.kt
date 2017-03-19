@@ -72,25 +72,26 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         mStoredTextColor = context.config.textColor
     }
 
-    private fun fillItems() {
+    fun fillItems() {
         mPath = arguments.getString(PATH)
         getItems(mPath) {
             val newItems = it
-            Collections.sort(newItems)
+            FileDirItem.sorting = mConfig.getFolderSorting(mPath)
+            newItems.sort()
 
             fragmentView.apply {
-                items_swipe_refresh.isRefreshing = false
-                if (newItems.hashCode() == mItems.hashCode()) {
-                    return@getItems
-                }
-
-                mItems = newItems
-
-                val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this@ItemsFragment) {
-                    itemClicked(it)
-                }
-
                 activity.runOnUiThread {
+                    items_swipe_refresh.isRefreshing = false
+                    if (newItems.hashCode() == mItems.hashCode()) {
+                        return@runOnUiThread
+                    }
+
+                    mItems = newItems
+
+                    val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this@ItemsFragment) {
+                        itemClicked(it)
+                    }
+
                     val currAdapter = items_list.adapter
                     if (currAdapter == null) {
                         items_list.apply {
