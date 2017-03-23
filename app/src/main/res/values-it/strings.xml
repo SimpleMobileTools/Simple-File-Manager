@@ -3,18 +3,18 @@
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">File Manager</string>
     <string name="press_back_again">Premi di nuovo indietro per uscire</string>
-    <string name="no_app_found">No app for opening this type of file is available</string>
-    <string name="go_to_home_folder">Go to home folder</string>
-    <string name="set_as_home_folder">Set as home folder</string>
-    <string name="home_folder_updated">Home folder updated</string>
+    <string name="no_app_found">Nessuna app disponibile per aprire questo tipo di file</string>
+    <string name="go_to_home_folder">Vai alla cartella home</string>
+    <string name="set_as_home_folder">Imposta come cartella home</string>
+    <string name="home_folder_updated">Cartella home aggiornata</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
-    <string name="manage_favorites">Manage favorites</string>
-    <string name="go_to_favorite">Go to favorite</string>
-    <string name="favorites_activity_placeholder">You can add frequently used folders to favorites for easy access from anywhere.</string>
+    <string name="favorites">Preferiti</string>
+    <string name="add_to_favorites">Aggiungi ai preferiti</string>
+    <string name="remove_from_favorites">Rimuovi dai preferiti</string>
+    <string name="manage_favorites">Gestisci i preferiti</string>
+    <string name="go_to_favorite">Vai al preferito</string>
+    <string name="favorites_activity_placeholder">Puoi aggiungere le cartelle usate frequentemente ai preferiti per un rapido accesso da qualsiasi posizione.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
