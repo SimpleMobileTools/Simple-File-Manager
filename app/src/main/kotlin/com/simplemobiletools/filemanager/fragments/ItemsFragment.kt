@@ -80,7 +80,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
             newItems.sort()
 
             fragmentView.apply {
-                activity.runOnUiThread {
+                activity?.runOnUiThread {
                     items_swipe_refresh.isRefreshing = false
                     if (newItems.hashCode() == mItems.hashCode()) {
                         return@runOnUiThread
