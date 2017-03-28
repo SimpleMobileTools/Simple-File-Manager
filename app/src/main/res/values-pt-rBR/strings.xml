@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Gestor de ficheiros</string>
+    <string name="press_back_again">Prima novamente para sair</string>
+    <string name="no_app_found">Não existe uma aplicação para abrir este tipo de ficheiro</string>
+    <string name="go_to_home_folder">Ir para a pasta pessoal</string>
+    <string name="set_as_home_folder">Definir como pasta pessoal</string>
+    <string name="home_folder_updated">Pasta pessoal atualizada</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Favoritos</string>
+    <string name="add_to_favorites">Adicionar aos favoritos</string>
+    <string name="remove_from_favorites">Remover dos favoritos</string>
+    <string name="manage_favorites">Gerir favoritos</string>
+    <string name="go_to_favorite">ir para favorito</string>
+    <string name="favorites_activity_placeholder">Pode adicionar pastas como favoritos para um acesso mais rápido.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Um gestor de ficheiros para explorar e editar os ficheiros e diretórios.</string>
+    <string name="app_long_description">
+        Pode utilizar a aplicação para explorar a pasta \'root\' e os armazenamentos interno e externo. Pode renomear, copiar, mover, apagar e partilhar todos os ficheiros que quiser.
+
+        Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
+
+        Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+    -->
+</resources>
