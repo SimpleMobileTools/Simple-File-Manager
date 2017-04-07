@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.2.0 *(2017-04-07)*
+----------------------------
+
+ * Added color themes
+ * Misc smaller improvements
+
 Version 2.1.0 *(2017-03-18)*
 ----------------------------
 
