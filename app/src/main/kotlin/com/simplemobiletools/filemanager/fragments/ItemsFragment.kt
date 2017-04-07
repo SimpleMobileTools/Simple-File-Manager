@@ -81,7 +81,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
             fragmentView.apply {
                 activity?.runOnUiThread {
-                    items_swipe_refresh.isRefreshing = false
+                    items_swipe_refresh?.isRefreshing = false
                     if (newItems.hashCode() == mItems.hashCode()) {
                         return@runOnUiThread
                     }

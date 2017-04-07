@@ -135,7 +135,8 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun goHome() {
-        openPath(config.homeFolder)
+        if (config.homeFolder != currentPath)
+            openPath(config.homeFolder)
     }
 
     private fun showSortingDialog() {
