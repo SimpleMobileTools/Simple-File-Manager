@@ -61,14 +61,14 @@ class CopyDialog(val activity: SimpleActivity, val files: ArrayList<File>, val c
                     if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_copy) {
                         context.toast(R.string.copying)
                         val pair = Pair<ArrayList<File>, File>(files, destinationDir)
-                        CopyMoveTask(context, false, config.treeUri, false, copyMoveListener).execute(pair)
+                        CopyMoveTask(context, false, false, copyMoveListener).execute(pair)
                         dismiss()
                     } else {
                         if (context.isPathOnSD(sourcePath) || context.isPathOnSD(destinationPath)) {
                             activity.handleSAFDialog(files[0]) {
                                 context.toast(R.string.moving)
                                 val pair = Pair<ArrayList<File>, File>(files, destinationDir)
-                                CopyMoveTask(context, true, config.treeUri, false, copyMoveListener).execute(pair)
+                                CopyMoveTask(context, true, false, copyMoveListener).execute(pair)
                                 dismiss()
                             }
                         } else {
