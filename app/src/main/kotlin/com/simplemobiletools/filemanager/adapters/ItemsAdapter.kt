@@ -97,6 +97,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             super.onDestroyActionMode(actionMode)
             views.forEach { toggleItemSelection(it, false) }
             markedItems.clear()
+            actMode = null
         }
     }
 
