@@ -146,9 +146,9 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
         if (file.isDirectory) {
             return if (mShowHidden) {
-                file.listFiles().size
+                file.listFiles()?.size ?: 0
             } else {
-                file.listFiles { file -> !file.isHidden }.size
+                file.listFiles { file -> !file.isHidden }?.size ?: 0
             }
         }
         return 0
