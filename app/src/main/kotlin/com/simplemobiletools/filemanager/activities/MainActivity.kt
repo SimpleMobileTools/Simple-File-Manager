@@ -66,11 +66,6 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         mStoredTextColor = config.textColor
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        config.isFirstRun = false
-    }
-
     private fun tryInitFileManager() {
         if (hasWriteStoragePermission()) {
             initRootFileManager()
