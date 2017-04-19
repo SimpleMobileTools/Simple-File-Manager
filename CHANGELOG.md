@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.2.1 *(2017-04-19)*
+----------------------------
+
+ * Split copy and move into separate menu buttons
+ * Misc smaller fixes and translation improvements
+
 Version 2.2.0 *(2017-04-07)*
 ----------------------------
 
