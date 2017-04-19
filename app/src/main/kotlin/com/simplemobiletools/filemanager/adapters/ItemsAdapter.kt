@@ -12,6 +12,7 @@ import com.bignerdranch.android.multiselector.SwappingHolder
 import com.bumptech.glide.Glide
 import com.simplemobiletools.commons.asynctasks.CopyMoveTask
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.formatSize
@@ -73,7 +74,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 R.id.cab_rename -> displayRenameDialog()
                 R.id.cab_properties -> showProperties()
                 R.id.cab_share -> shareFiles()
-                R.id.cab_copy_move -> displayCopyDialog()
+                R.id.cab_copy_to -> copyMoveTo(true)
+                R.id.cab_move_to -> copyMoveTo(false)
                 R.id.cab_delete -> askConfirmDelete()
                 else -> return false
             }
@@ -160,6 +162,22 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 activity.toast(R.string.copy_move_failed)
             }
         })
+    }
+
+    private fun copyMoveTo(isCopyOperation: Boolean) {
+        val files = ArrayList<File>()
+        val positions = multiSelector.selectedPositions
+        positions.forEach { files.add(File(mItems[it].path)) }
+
+        val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
+        FilePickerDialog(activity, source, false, config.showHidden, true) {
+            activity.copyMoveFilesTo(files, source, it, isCopyOperation, false) {
+                if (!isCopyOperation) {
+                    listener?.refreshItems()
+                }
+                actMode?.finish()
+            }
+        }
     }
 
     private fun askConfirmDelete() {
