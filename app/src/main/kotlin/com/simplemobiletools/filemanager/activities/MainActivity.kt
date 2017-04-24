@@ -79,7 +79,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun openPath(path: String) {
-        val realPath = path.trimEnd('/')
+        val realPath = if (path.length > 1) path.trimEnd('/') else path
         breadcrumbs.setBreadcrumb(realPath)
         val bundle = Bundle()
         bundle.putString(PATH, realPath)
