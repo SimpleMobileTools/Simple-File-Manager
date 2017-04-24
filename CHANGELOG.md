@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 2.2.2 *(2017-04-24)*
+----------------------------
+
+ * Properly display root folder content
+
 Version 2.2.1 *(2017-04-19)*
 ----------------------------
 
