@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Správce souborů</string>
+    <string name="press_back_again">Stiskněte znovu zpět pro ukončení</string>
+    <string name="no_app_found">Není dostupná žádná aplikace pro tento typ souboru</string>
+    <string name="go_to_home_folder">Jít do domovské složky</string>
+    <string name="set_as_home_folder">Nastavit jako domovskou složku</string>
+    <string name="home_folder_updated">Domovská složka aktualizována</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Oblíbené</string>
+    <string name="add_to_favorites">Přidat do oblíbených</string>
+    <string name="remove_from_favorites">Odebrat z oblíbených</string>
+    <string name="manage_favorites">Spravovat oblíbené</string>
+    <string name="go_to_favorite">Jít na oblíbené</string>
+    <string name="favorites_activity_placeholder">Můžete přidat často využívané složky do oblíbených pro jednoduchý přístup odkudkoli.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Jednoduchý správce souborů pro procházení a úpravu souborů i složek.</string>
+    <string name="app_long_description">
+        Umožňuje také procházení root složek a obsahu SD karet. Můžete jednoduše přejmenovat, kopírovat, přesunovat a sdílet cokoli chcete.
+
+        Neobsahuje žádné reklamy a nepotřebná oprávnění. Aplikace je plně opensource a mimo jiné obsahuje také Tmavé téma.
+
+        Tato aplikace je pouze jedna část větší série aplikací. Zbytek aplikací můžete nalézt na http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+    -->
+</resources>
