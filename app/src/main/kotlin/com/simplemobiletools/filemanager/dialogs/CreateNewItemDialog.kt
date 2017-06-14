@@ -23,11 +23,11 @@ class CreateNewItemDialog(val activity: Activity, val path: String, val callback
             getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
                 val name = view.item_name.value
                 if (name.isEmpty()) {
-                    context.toast(R.string.empty_name)
+                    activity.toast(R.string.empty_name)
                 } else if (name.isAValidFilename()) {
                     val file = File(path, name)
                     if (file.exists()) {
-                        context.toast(R.string.name_taken)
+                        activity.toast(R.string.name_taken)
                         return@OnClickListener
                     }
 
@@ -41,7 +41,7 @@ class CreateNewItemDialog(val activity: Activity, val path: String, val callback
                         }
                     }
                 } else {
-                    context.toast(R.string.invalid_name)
+                    activity.toast(R.string.invalid_name)
                 }
             })
         }
@@ -84,6 +84,6 @@ class CreateNewItemDialog(val activity: Activity, val path: String, val callback
 
     private fun success(alertDialog: AlertDialog) {
         alertDialog.dismiss()
-        callback.invoke()
+        callback()
     }
 }

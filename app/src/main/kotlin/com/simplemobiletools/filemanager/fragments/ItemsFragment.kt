@@ -171,7 +171,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
                     startActivity(this)
                 } catch (e: ActivityNotFoundException) {
                     if (!tryGenericMimeType(this, mimeType!!, file)) {
-                        context.toast(R.string.no_app_found)
+                        activity.toast(R.string.no_app_found)
                     }
                 }
             }

@@ -81,6 +81,6 @@ class ChangeSortingDialog(val activity: SimpleActivity, val path: String = "", v
             config.removeFolderSorting(path)
             config.sorting = sorting
         }
-        callback.invoke()
+        callback()
     }
 }
