@@ -1,16 +1,16 @@
 package com.simplemobiletools.filemanager.dialogs
 
-import android.app.Activity
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.WindowManager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.activities.SimpleActivity
 import kotlinx.android.synthetic.main.dialog_create_new.view.*
 import java.io.File
 import java.io.IOException
 
-class CreateNewItemDialog(val activity: Activity, val path: String, val callback: () -> Unit) {
+class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val callback: () -> Unit) {
     init {
         val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
 
@@ -32,12 +32,16 @@ class CreateNewItemDialog(val activity: Activity, val path: String, val callback
                     }
 
                     if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
-                        if (!createDirectory(file, this)) {
-                            errorOccurred()
+                        createDirectory(file, this) {
+                            if (!it) {
+                                errorOccurred()
+                            }
                         }
                     } else {
-                        if (!createFile(file, this)) {
-                            errorOccurred()
+                        createFile(file, this) {
+                            if (!it) {
+                                errorOccurred()
+                            }
                         }
                     }
                 } else {
@@ -47,39 +51,47 @@ class CreateNewItemDialog(val activity: Activity, val path: String, val callback
         }
     }
 
-    private fun createDirectory(file: File, alertDialog: AlertDialog): Boolean {
-        return if (activity.needsStupidWritePermissions(path)) {
-            val documentFile = activity.getFileDocument(file.absolutePath) ?: return false
-            documentFile.createDirectory(file.name)
-            success(alertDialog)
-            true
+    private fun createDirectory(file: File, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
+        if (activity.needsStupidWritePermissions(path)) {
+            activity.handleSAFDialog(file) {
+                val documentFile = activity.getFileDocument(file.absolutePath)
+                if (documentFile == null) {
+                    callback(false)
+                    return@handleSAFDialog
+                }
+                documentFile.createDirectory(file.name)
+                success(alertDialog)
+            }
         } else if (file.mkdirs()) {
             success(alertDialog)
-            true
+            callback(true)
         } else
-            false
+            callback(false)
     }
 
     private fun errorOccurred() {
         activity.toast(R.string.unknown_error_occurred)
     }
 
-    private fun createFile(file: File, alertDialog: AlertDialog): Boolean {
+    private fun createFile(file: File, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         try {
             if (activity.needsStupidWritePermissions(path)) {
-                val documentFile = activity.getFileDocument(file.absolutePath) ?: return false
-                documentFile.createFile("", file.name)
-                success(alertDialog)
-                return true
+                activity.handleSAFDialog(file) {
+                    val documentFile = activity.getFileDocument(file.absolutePath)
+                    if (documentFile == null) {
+                        callback(false)
+                        return@handleSAFDialog
+                    }
+                    documentFile.createFile("", file.name)
+                    success(alertDialog)
+                }
             } else if (file.createNewFile()) {
                 success(alertDialog)
-                return true
+                callback(true)
             }
         } catch (ignored: IOException) {
 
         }
-
-        return false
     }
 
     private fun success(alertDialog: AlertDialog) {

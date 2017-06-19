@@ -190,7 +190,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     }
 
     private fun createNewItem() {
-        CreateNewItemDialog(activity, mPath) {
+        CreateNewItemDialog(activity as SimpleActivity, mPath) {
             fillItems()
         }
     }
