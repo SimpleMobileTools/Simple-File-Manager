@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v7.view.ActionMode
 import android.support.v7.widget.RecyclerView
+import android.util.SparseArray
 import android.view.*
 import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback
 import com.bignerdranch.android.multiselector.MultiSelector
@@ -28,42 +29,53 @@ import java.util.*
 
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
+
     val multiSelector = MultiSelector()
-    val views = ArrayList<View>()
     val config = activity.config
 
-    companion object {
-        var actMode: ActionMode? = null
-        val markedItems = HashSet<Int>()
-        var textColor = 0
-        var itemCnt = 0
+    var actMode: ActionMode? = null
+    var itemViews = SparseArray<View>()
+    val selectedPositions = HashSet<Int>()
 
-        lateinit var folderDrawable: Drawable
-        lateinit var fileDrawable: Drawable
+    var textColor = activity.config.textColor
 
-        fun toggleItemSelection(itemView: View, select: Boolean, pos: Int = -1) {
-            itemView.item_frame.isSelected = select
-            if (pos == -1)
-                return
+    lateinit var folderDrawable: Drawable
+    lateinit var fileDrawable: Drawable
 
-            if (select)
-                markedItems.add(pos)
-            else
-                markedItems.remove(pos)
+    fun toggleItemSelection(select: Boolean, pos: Int) {
+        itemViews[pos]?.item_frame?.isSelected = select
+
+        if (select)
+            selectedPositions.add(pos)
+        else
+            selectedPositions.remove(pos)
+
+        if (selectedPositions.isEmpty()) {
+            actMode?.finish()
+            return
         }
 
-        fun updateTitle(cnt: Int) {
-            actMode?.title = "$cnt / $itemCnt"
-        }
+        updateTitle(selectedPositions.size)
+        actMode?.invalidate()
+    }
+
+    fun updateTitle(cnt: Int) {
+        actMode?.title = "$cnt / ${mItems.size}"
     }
 
     init {
-        textColor = activity.config.textColor
-        folderDrawable = activity.resources.getColoredDrawableWithColor(com.simplemobiletools.commons.R.drawable.ic_folder, textColor)
+        folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
         folderDrawable.alpha = 180
-        fileDrawable = activity.resources.getColoredDrawableWithColor(com.simplemobiletools.commons.R.drawable.ic_file, textColor)
+        fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file, textColor)
         fileDrawable.alpha = 180
-        itemCnt = mItems.size
+    }
+
+    val adapterListener = object : MyAdapterListener {
+        override fun toggleItemSelectionAdapter(select: Boolean, position: Int) {
+            toggleItemSelection(select, position)
+        }
+
+        override fun getSelectedPositions(): HashSet<Int> = selectedPositions
     }
 
     val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
@@ -89,14 +101,16 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
         override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu): Boolean {
             val menuItem = menu.findItem(R.id.cab_rename)
-            menuItem.isVisible = multiSelector.selectedPositions.size <= 1
+            menuItem.isVisible = selectedPositions.size <= 1
             return true
         }
 
         override fun onDestroyActionMode(actionMode: ActionMode?) {
             super.onDestroyActionMode(actionMode)
-            views.forEach { toggleItemSelection(it, false) }
-            markedItems.clear()
+            selectedPositions.forEach {
+                itemViews[it]?.isSelected = false
+            }
+            selectedPositions.clear()
             actMode = null
         }
     }
@@ -111,12 +125,11 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     }
 
     private fun showProperties() {
-        val selections = multiSelector.selectedPositions
-        if (selections.size <= 1) {
-            PropertiesDialog(activity, mItems[selections[0]].path, config.showHidden)
+        if (selectedPositions.size <= 1) {
+            PropertiesDialog(activity, mItems[selectedPositions.first()].path, config.showHidden)
         } else {
             val paths = ArrayList<String>()
-            selections.forEach { paths.add(mItems[it].path) }
+            selectedPositions.forEach { paths.add(mItems[it].path) }
             PropertiesDialog(activity, paths, config.showHidden)
         }
     }
@@ -142,8 +155,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
         val files = ArrayList<File>()
-        val positions = multiSelector.selectedPositions
-        positions.forEach { files.add(File(mItems[it].path)) }
+        selectedPositions.forEach { files.add(File(mItems[it].path)) }
 
         val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
         FilePickerDialog(activity, source, false, config.showHidden, true) {
@@ -158,36 +170,47 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
-            actMode?.finish()
             deleteFiles()
+            actMode?.finish()
         }
     }
 
     private fun deleteFiles() {
-        val selections = multiSelector.selectedPositions
-        val files = ArrayList<File>(selections.size)
-        val removeFiles = ArrayList<FileDirItem>(selections.size)
+        if (selectedPositions.isEmpty())
+            return
 
-        activity.handleSAFDialog(File(mItems[selections[0]].path)) {
-            selections.reverse()
-            selections.forEach {
+        val files = ArrayList<File>(selectedPositions.size)
+        val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
+
+        activity.handleSAFDialog(File(mItems[selectedPositions.first()].path)) {
+            selectedPositions.sortedDescending().forEach {
                 val file = mItems[it]
                 files.add(File(file.path))
                 removeFiles.add(file)
                 notifyItemRemoved(it)
+                itemViews.put(it, null)
             }
 
             mItems.removeAll(removeFiles)
-            markedItems.clear()
+            selectedPositions.clear()
             listener?.deleteFiles(files)
-            itemCnt = mItems.size
+
+            val newItems = SparseArray<View>()
+            var curIndex = 0
+            for (i in 0..itemViews.size() - 1) {
+                if (itemViews[i] != null) {
+                    newItems.put(curIndex, itemViews[i])
+                    curIndex++
+                }
+            }
+
+            itemViews = newItems
         }
     }
 
     private fun getSelectedMedia(): List<FileDirItem> {
-        val positions = multiSelector.selectedPositions
-        val selectedMedia = ArrayList<FileDirItem>(positions.size)
-        positions.forEach { selectedMedia.add(mItems[it]) }
+        val selectedMedia = ArrayList<FileDirItem>(selectedPositions.size)
+        selectedPositions.forEach { selectedMedia.add(mItems[it]) }
         return selectedMedia
     }
 
@@ -198,11 +221,13 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(activity, view, itemClick)
+        return ViewHolder(view, adapterListener, activity, multiSelectorMode, multiSelector, listener, itemClick)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        views.add(holder.bindView(multiSelectorMode, multiSelector, mItems[position], position))
+        itemViews.put(position, holder.bindView(mItems[position], fileDrawable, folderDrawable, textColor))
+        toggleItemSelection(selectedPositions.contains(position), position)
+        holder.itemView.tag = holder
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {
@@ -212,14 +237,15 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     override fun getItemCount() = mItems.size
 
-    class ViewHolder(val activity: SimpleActivity, val view: View, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
-        fun bindView(multiSelectorCallback: ModalMultiSelectorCallback, multiSelector: MultiSelector, fileDirItem: FileDirItem, pos: Int): View {
+    class ViewHolder(val view: View, val adapterListener: MyAdapterListener, val activity: SimpleActivity, val multiSelectorCallback: ModalMultiSelectorCallback,
+                     val multiSelector: MultiSelector, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
+        fun bindView(fileDirItem: FileDirItem, fileDrawable: Drawable, folderDrawable: Drawable, textColor: Int): View {
             itemView.apply {
                 item_name.text = fileDirItem.name
                 item_name.setTextColor(textColor)
                 item_details.setTextColor(textColor)
 
-                toggleItemSelection(this, markedItems.contains(pos), pos)
+//                toggleItemSelection(this, selectedPositions.contains(pos), pos)
 
                 if (fileDirItem.isDirectory) {
                     item_icon.setImageDrawable(folderDrawable)
@@ -230,17 +256,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                     item_details.text = fileDirItem.size.formatSize()
                 }
 
-                setOnClickListener { viewClicked(multiSelector, fileDirItem, pos) }
-                setOnLongClickListener {
-                    if (!multiSelector.isSelectable) {
-                        activity.startSupportActionMode(multiSelectorCallback)
-                        multiSelector.setSelected(this@ViewHolder, true)
-                        updateTitle(multiSelector.selectedPositions.size)
-                        toggleItemSelection(this, true, pos)
-                        actMode?.invalidate()
-                    }
-                    true
-                }
+                setOnClickListener { viewClicked(fileDirItem) }
+                setOnLongClickListener { viewLongClicked(); true }
             }
 
             return itemView
@@ -251,21 +268,23 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             return activity.resources.getQuantityString(R.plurals.items, children, children)
         }
 
-        fun viewClicked(multiSelector: MultiSelector, fileDirItem: FileDirItem, pos: Int) {
+        fun viewClicked(fileDirItem: FileDirItem) {
             if (multiSelector.isSelectable) {
-                val isSelected = multiSelector.selectedPositions.contains(layoutPosition)
-                multiSelector.setSelected(this, !isSelected)
-                toggleItemSelection(itemView, !isSelected, pos)
-
-                val selectedCnt = multiSelector.selectedPositions.size
-                if (selectedCnt == 0) {
-                    actMode?.finish()
-                } else {
-                    updateTitle(selectedCnt)
-                }
-                actMode?.invalidate()
+                val isSelected = adapterListener.getSelectedPositions().contains(layoutPosition)
+                adapterListener.toggleItemSelectionAdapter(!isSelected, layoutPosition)
             } else {
                 itemClick(fileDirItem)
+            }
+        }
+
+        fun viewLongClicked() {
+            if (listener != null) {
+                if (!multiSelector.isSelectable) {
+                    activity.startSupportActionMode(multiSelectorCallback)
+                    adapterListener.toggleItemSelectionAdapter(true, layoutPosition)
+                }
+
+                listener.itemLongClicked(layoutPosition)
             }
         }
 
@@ -274,9 +293,17 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
     }
 
+    interface MyAdapterListener {
+        fun toggleItemSelectionAdapter(select: Boolean, position: Int)
+
+        fun getSelectedPositions(): HashSet<Int>
+    }
+
     interface ItemOperationsListener {
         fun refreshItems()
 
         fun deleteFiles(files: ArrayList<File>)
+
+        fun itemLongClicked(position: Int)
     }
 }

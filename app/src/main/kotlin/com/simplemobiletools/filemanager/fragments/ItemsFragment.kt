@@ -203,6 +203,10 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         return "$type/*"
     }
 
+    override fun refreshItems() {
+        fillItems()
+    }
+
     override fun deleteFiles(files: ArrayList<File>) {
         val hasFolder = files.any { it.isDirectory }
         (activity as SimpleActivity).deleteFiles(files, hasFolder) {
@@ -214,8 +218,8 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         }
     }
 
-    override fun refreshItems() {
-        fillItems()
+    override fun itemLongClicked(position: Int) {
+
     }
 
     interface ItemInteractionListener {
