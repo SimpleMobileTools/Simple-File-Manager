@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,6 @@ import android.webkit.MimeTypeMap
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.RecyclerViewDivider
-import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.SCROLL_STATE
@@ -26,15 +26,14 @@ import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
 
-class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperationsListener {
+class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     private var mListener: ItemInteractionListener? = null
     private var mStoredTextColor = 0
+    private var mShowHidden = false
+    private var mItems = ArrayList<FileDirItem>()
 
-    lateinit var mItems: ArrayList<FileDirItem>
-    lateinit var mConfig: Config
     lateinit var fragmentView: View
 
-    private var mShowHidden = false
     var mPath = ""
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -44,9 +43,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mConfig = context.config
-        mShowHidden = mConfig.showHidden
-        mItems = ArrayList<FileDirItem>()
+        mShowHidden = context.config.showHidden
         fillItems()
 
         items_swipe_refresh.setOnRefreshListener({ fillItems() })
@@ -55,15 +52,16 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
 
     override fun onResume() {
         super.onResume()
-        if (mShowHidden != mConfig.showHidden) {
+        val config = context.config
+        if (mShowHidden != config.showHidden) {
             mShowHidden = !mShowHidden
             fillItems()
         }
         context.updateTextColors(items_holder)
-        if (mStoredTextColor != context.config.textColor) {
+        if (mStoredTextColor != config.textColor) {
             mItems = ArrayList<FileDirItem>()
             fillItems()
-            mStoredTextColor = context.config.textColor
+            mStoredTextColor = config.textColor
         }
     }
 
@@ -76,7 +74,7 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
         mPath = arguments.getString(PATH)
         getItems(mPath) {
             val newItems = it
-            FileDirItem.sorting = mConfig.getFolderSorting(mPath)
+            FileDirItem.sorting = context.config.getFolderSorting(mPath)
             newItems.sort()
 
             fragmentView.apply {
