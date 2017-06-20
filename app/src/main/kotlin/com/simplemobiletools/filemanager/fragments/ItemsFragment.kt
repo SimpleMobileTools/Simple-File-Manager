@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.MyScalableRecyclerView
 import com.simplemobiletools.commons.views.RecyclerViewDivider
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
@@ -86,17 +87,17 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
                     mItems = newItems
 
-                    val adapter = ItemsAdapter(activity as SimpleActivity, mItems, this@ItemsFragment) {
-                        itemClicked(it)
-                    }
-
                     val currAdapter = items_list.adapter
                     if (currAdapter == null) {
                         items_list.apply {
-                            this.adapter = adapter
+                            this.adapter = ItemsAdapter(activity as SimpleActivity, mItems, this@ItemsFragment) {
+                                itemClicked(it)
+                            }
                             addItemDecoration(RecyclerViewDivider(context))
                         }
+                        items_list.isDragSelectionEnabled = true
                         items_fastscroller.setViews(items_list, items_swipe_refresh)
+                        setupRecyclerViewListener()
                     } else {
                         val state = (items_list.layoutManager as LinearLayoutManager).onSaveInstanceState()
                         (currAdapter as ItemsAdapter).updateItems(mItems)
@@ -109,7 +110,29 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
         }
     }
 
-    fun getRecyclerLayoutManager() = (fragmentView.items_list.layoutManager as LinearLayoutManager)
+    private fun getRecyclerLayoutManager() = (fragmentView.items_list.layoutManager as LinearLayoutManager)
+
+    private fun setupRecyclerViewListener() {
+        fragmentView.items_list.listener = object : MyScalableRecyclerView.MyScalableRecyclerViewListener {
+            override fun zoomIn() {
+
+            }
+
+            override fun zoomOut() {
+
+            }
+
+            override fun selectItem(position: Int) {
+                getRecyclerAdapter().selectItem(position)
+            }
+
+            override fun selectRange(initialSelection: Int, lastDraggedIndex: Int, minReached: Int, maxReached: Int) {
+                getRecyclerAdapter().selectRange(initialSelection, lastDraggedIndex, minReached, maxReached)
+            }
+        }
+    }
+
+    private fun getRecyclerAdapter() = (items_list.adapter as ItemsAdapter)
 
     fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
@@ -217,7 +240,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     override fun itemLongClicked(position: Int) {
-
+        items_list.setDragSelectActive(position)
     }
 
     interface ItemInteractionListener {
