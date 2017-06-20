@@ -56,11 +56,11 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
 
         updateTitle(selectedPositions.size)
-        actMode?.invalidate()
     }
 
     fun updateTitle(cnt: Int) {
         actMode?.title = "$cnt / ${mItems.size}"
+        actMode?.invalidate()
     }
 
     init {
@@ -86,6 +86,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 R.id.cab_share -> shareFiles()
                 R.id.cab_copy_to -> copyMoveTo(true)
                 R.id.cab_move_to -> copyMoveTo(false)
+                R.id.cab_select_all -> selectAll()
                 R.id.cab_delete -> askConfirmDelete()
                 else -> return false
             }
@@ -168,6 +169,15 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
     }
 
+    fun selectAll() {
+        val cnt = mItems.size
+        for (i in 0..cnt - 1) {
+            selectedPositions.add(i)
+            notifyItemChanged(i)
+        }
+        updateTitle(cnt)
+    }
+
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
             deleteFiles()
@@ -244,8 +254,6 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 item_name.text = fileDirItem.name
                 item_name.setTextColor(textColor)
                 item_details.setTextColor(textColor)
-
-//                toggleItemSelection(this, selectedPositions.contains(pos), pos)
 
                 if (fileDirItem.isDirectory) {
                     item_icon.setImageDrawable(folderDrawable)

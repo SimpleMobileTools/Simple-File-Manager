@@ -25,6 +25,11 @@
         android:title="@string/move_to"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/cab_select_all"
+        android:icon="@drawable/ic_select_all"
+        android:title="@string/select_all"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/cab_delete"
         android:icon="@drawable/ic_delete"
         android:title="@string/delete"
