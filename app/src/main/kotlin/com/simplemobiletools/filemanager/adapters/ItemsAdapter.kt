@@ -157,7 +157,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     private fun addFileUris(file: File, uris: ArrayList<Uri>) {
         if (file.isDirectory) {
-            file.listFiles()?.forEach {
+            file.listFiles()?.filter { if (config.showHidden) true else !it.isHidden }?.forEach {
                 addFileUris(it, uris)
             }
         } else {
