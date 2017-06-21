@@ -134,9 +134,12 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     }
 
     private fun shareFiles() {
-        val selectedItems = getSelectedMedia().filterNot { it.isDirectory }
+        val selectedItems = getSelectedMedia()
         val uris = ArrayList<Uri>(selectedItems.size)
-        selectedItems.mapTo(uris) { Uri.fromFile(File(it.path)) }
+        selectedItems.forEach {
+            val file = File(it.path)
+            addFileUris(file, uris)
+        }
 
         if (uris.isEmpty()) {
             activity.toast(R.string.no_files_selected)
@@ -147,16 +150,26 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         Intent().apply {
             action = if (uris.size <= 1) Intent.ACTION_SEND else Intent.ACTION_SEND_MULTIPLE
             putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
-            type = getMimeType(selectedItems)
+            type = getMimeType(uris)
             activity.startActivity(Intent.createChooser(this, shareTitle))
         }
     }
 
-    private fun getMimeType(items: List<FileDirItem>): String {
-        val firstMimeType = items.first().path.getMimeTypeFromPath()
+    private fun addFileUris(file: File, uris: ArrayList<Uri>) {
+        if (file.isDirectory) {
+            file.listFiles()?.forEach {
+                addFileUris(it, uris)
+            }
+        } else {
+            uris.add(Uri.fromFile(file))
+        }
+    }
+
+    private fun getMimeType(uris: List<Uri>): String {
+        val firstMimeType = uris.first().path.getMimeTypeFromPath()
         val firstMimeGroup = firstMimeType.substringBefore("/")
 
-        items.forEach {
+        uris.forEach {
             val mimeGroup = it.path.getMimeTypeFromPath().substringBefore("/")
             if (mimeGroup != firstMimeGroup) {
                 return "*/*"
