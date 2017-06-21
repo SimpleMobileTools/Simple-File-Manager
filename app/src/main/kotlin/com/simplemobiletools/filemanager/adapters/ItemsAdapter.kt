@@ -15,10 +15,7 @@ import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
-import com.simplemobiletools.commons.extensions.formatSize
-import com.simplemobiletools.commons.extensions.getCacheStrategy
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -26,6 +23,7 @@ import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
 import java.util.*
+
 
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
@@ -147,11 +145,24 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
         val shareTitle = activity.resources.getString(R.string.share_via)
         Intent().apply {
-            action = Intent.ACTION_SEND_MULTIPLE
+            action = if (uris.size <= 1) Intent.ACTION_SEND else Intent.ACTION_SEND_MULTIPLE
             putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
-            type = "*/*"
+            type = getMimeType(selectedItems)
             activity.startActivity(Intent.createChooser(this, shareTitle))
         }
+    }
+
+    private fun getMimeType(items: List<FileDirItem>): String {
+        val firstMimeType = items.first().path.getMimeTypeFromPath()
+        val firstMimeGroup = firstMimeType.substringBefore("/")
+
+        items.forEach {
+            val mimeGroup = it.path.getMimeTypeFromPath().substringBefore("/")
+            if (mimeGroup != firstMimeGroup) {
+                return "*/*"
+            }
+        }
+        return firstMimeType
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
