@@ -125,11 +125,11 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     private fun showProperties() {
         if (selectedPositions.size <= 1) {
-            PropertiesDialog(activity, mItems[selectedPositions.first()].path, config.showHidden)
+            PropertiesDialog(activity, mItems[selectedPositions.first()].path, config.shouldShowHidden)
         } else {
             val paths = ArrayList<String>()
             selectedPositions.forEach { paths.add(mItems[it].path) }
-            PropertiesDialog(activity, paths, config.showHidden)
+            PropertiesDialog(activity, paths, config.shouldShowHidden)
         }
     }
 
@@ -157,7 +157,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     private fun addFileUris(file: File, uris: ArrayList<Uri>) {
         if (file.isDirectory) {
-            file.listFiles()?.filter { if (config.showHidden) true else !it.isHidden }?.forEach {
+            file.listFiles()?.filter { if (config.shouldShowHidden) true else !it.isHidden }?.forEach {
                 addFileUris(it, uris)
             }
         } else {
@@ -183,7 +183,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         selectedPositions.forEach { files.add(File(mItems[it].path)) }
 
         val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
-        FilePickerDialog(activity, source, false, config.showHidden, true) {
+        FilePickerDialog(activity, source, false, config.shouldShowHidden, true) {
             activity.copyMoveFilesTo(files, source, it, isCopyOperation, false) {
                 if (!isCopyOperation) {
                     listener?.refreshItems()

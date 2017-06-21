@@ -44,7 +44,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mShowHidden = context.config.showHidden
+        mShowHidden = context.config.shouldShowHidden
         fillItems()
 
         items_swipe_refresh.setOnRefreshListener({ fillItems() })
@@ -54,7 +54,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     override fun onResume() {
         super.onResume()
         val config = context.config
-        if (mShowHidden != config.showHidden) {
+        if (mShowHidden != config.shouldShowHidden) {
             mShowHidden = !mShowHidden
             fillItems()
         }

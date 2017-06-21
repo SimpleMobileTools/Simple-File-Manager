@@ -56,7 +56,7 @@ class FavoritesActivity : SimpleActivity() {
     }
 
     private fun addFavorite() {
-        FilePickerDialog(this, pickFile = false, showHidden = config.showHidden) {
+        FilePickerDialog(this, pickFile = false, showHidden = config.shouldShowHidden) {
             config.addFavorite(it)
             updateFavorites()
         }

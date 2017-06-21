@@ -66,6 +66,11 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         mStoredTextColor = config.textColor
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        config.temporarilyShowHidden = false
+    }
+
     private fun tryInitFileManager() {
         if (hasWriteStoragePermission()) {
             initRootFileManager()
@@ -109,6 +114,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             findItem(R.id.add_favorite).isVisible = !favorites.contains(currentPath)
             findItem(R.id.remove_favorite).isVisible = favorites.contains(currentPath)
             findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
+            menu.findItem(R.id.temporarily_show_hidden).isVisible = !config.showHidden
         }
 
         return true
@@ -122,6 +128,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             R.id.remove_favorite -> removeFavorite()
             R.id.go_to_favorite -> goToFavorite()
             R.id.set_as_home -> setAsHome()
+            R.id.temporarily_show_hidden -> temporarilyShowHidden()
             R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -174,6 +181,11 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     private fun setAsHome() {
         config.homeFolder = currentPath
         toast(R.string.home_folder_updated)
+    }
+
+    private fun temporarilyShowHidden() {
+        config.temporarilyShowHidden = true
+        openPath(currentPath)
     }
 
     private fun launchAbout() {

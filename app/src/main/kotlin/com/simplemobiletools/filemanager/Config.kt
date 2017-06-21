@@ -16,6 +16,12 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(SHOW_HIDDEN, false)
         set(show) = prefs.edit().putBoolean(SHOW_HIDDEN, show).apply()
 
+    var temporarilyShowHidden: Boolean
+        get() = prefs.getBoolean(TEMPORARILY_SHOW_HIDDEN, false)
+        set(temporarilyShowHidden) = prefs.edit().putBoolean(TEMPORARILY_SHOW_HIDDEN, temporarilyShowHidden).apply()
+
+    var shouldShowHidden = showHidden || temporarilyShowHidden
+
     var homeFolder: String
         get(): String {
             var home = prefs.getString(HOME_FOLDER, "")
