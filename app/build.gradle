@@ -10,8 +10,8 @@ android {
         applicationId "com.simplemobiletools.filemanager"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 32
-        versionName "2.2.2"
+        versionCode 33
+        versionName "2.3.0"
     }
 
     signingConfigs {
