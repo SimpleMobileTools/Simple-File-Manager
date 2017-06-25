@@ -1,6 +1,15 @@
 Changelog
 ==========
 
+Version 2.3.0 *(2017-06-21)*
+----------------------------
+
+ * Added drag selection for selecting multiple items by the dragging gesture
+ * Added a "Select all" button
+ * Added a "Temporarily show hidden" button
+ * Added a round Android Nougat launcher icon
+ * Allow sharing folders by fetching their content
+
 Version 2.2.2 *(2017-04-24)*
 ----------------------------
 
