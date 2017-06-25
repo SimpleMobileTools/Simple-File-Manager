@@ -94,8 +94,8 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
                                 itemClicked(it)
                             }
                             addItemDecoration(RecyclerViewDivider(context))
+                            isDragSelectionEnabled = true
                         }
-                        items_list.isDragSelectionEnabled = true
                         items_fastscroller.setViews(items_list, items_swipe_refresh)
                         setupRecyclerViewListener()
                     } else {

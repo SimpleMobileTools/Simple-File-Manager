@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.File
 import java.util.*
 
-
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
 
