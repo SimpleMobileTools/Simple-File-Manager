@@ -141,14 +141,15 @@ class ItemsFragment : android.support.v4.app.Fragment(), ItemsAdapter.ItemOperat
     }
 
     private fun getChildren(file: File): Int {
-        if (file.listFiles() == null)
+        var fileList = file.list()
+        if (fileList == null)
             return 0
 
         if (file.isDirectory) {
             return if (mShowHidden) {
-                file.listFiles()?.size ?: 0
+                fileList.size
             } else {
-                file.listFiles { file -> !file.isHidden }?.size ?: 0
+                fileList.count { fileName -> fileName[0] != '.' }
             }
         }
         return 0
