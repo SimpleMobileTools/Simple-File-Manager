@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.adapters
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.support.v7.view.ActionMode
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
@@ -11,11 +12,17 @@ import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback
 import com.bignerdranch.android.multiselector.MultiSelector
 import com.bignerdranch.android.multiselector.SwappingHolder
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.formatSize
+import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
+import com.simplemobiletools.commons.extensions.getMimeTypeFromPath
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -321,8 +328,13 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                     item_icon.setImageDrawable(folderDrawable)
                     item_details.text = getChildrenCnt(fileDirItem)
                 } else {
+                    val options = RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(fileDrawable)
+                            .centerCrop()
+
                     val path = fileDirItem.path
-                    Glide.with(activity).load(path).diskCacheStrategy(path.getCacheStrategy()).error(fileDrawable).centerCrop().crossFade().into(item_icon)
+                    Glide.with(activity).load(path).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
                     item_details.text = fileDirItem.size.formatSize()
                 }
 
@@ -359,7 +371,9 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
 
         fun stopLoad() {
-            Glide.clear(view.item_icon)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && !activity.isDestroyed) {
+                Glide.with(activity).clear(view.item_icon)
+            }
         }
     }
 

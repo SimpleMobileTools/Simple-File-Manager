@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import android.webkit.MimeTypeMap
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyScalableRecyclerView
-import com.simplemobiletools.commons.views.RecyclerViewDivider
 import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.SCROLL_STATE
@@ -93,7 +93,12 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
                             this.adapter = ItemsAdapter(activity as SimpleActivity, mItems, this@ItemsFragment) {
                                 itemClicked(it)
                             }
-                            addItemDecoration(RecyclerViewDivider(context))
+
+                            DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+                                setDrawable(context.resources.getDrawable(com.simplemobiletools.commons.R.drawable.divider))
+                                addItemDecoration(this)
+                            }
+
                             isDragSelectionEnabled = true
                         }
                         items_fastscroller.setViews(items_list, items_swipe_refresh)
