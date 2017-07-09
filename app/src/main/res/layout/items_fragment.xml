@@ -32,7 +32,16 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:paddingLeft="@dimen/normal_margin"
-                android:paddingStart="@dimen/normal_margin"/>
+                android:paddingStart="@dimen/normal_margin">
+
+                <ImageView
+                    android:id="@+id/fastscroller_handle_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:alpha="0"
+                    android:background="@drawable/fastscroller_handle_vertical"/>
+            </com.simplemobiletools.commons.views.FastScroller>
         </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
