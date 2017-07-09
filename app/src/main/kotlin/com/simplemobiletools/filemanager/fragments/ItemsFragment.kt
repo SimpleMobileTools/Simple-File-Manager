@@ -162,15 +162,13 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     private fun getChildren(file: File): Int {
-        var fileList = file.list()
-        if (fileList == null)
-            return 0
+        val fileList: Array<out String>? = file.list() ?: return 0
 
         if (file.isDirectory) {
             return if (mShowHidden) {
-                fileList.size
+                fileList!!.size
             } else {
-                fileList.count { fileName -> fileName[0] != '.' }
+                fileList!!.count { fileName -> fileName[0] != '.' }
             }
         }
         return 0
