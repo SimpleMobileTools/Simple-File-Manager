@@ -123,10 +123,10 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.go_home -> goHome()
+            R.id.go_to_favorite -> goToFavorite()
             R.id.sort -> showSortingDialog()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
-            R.id.go_to_favorite -> goToFavorite()
             R.id.set_as_home -> setAsHome()
             R.id.temporarily_show_hidden -> temporarilyShowHidden()
             R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
@@ -173,7 +173,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             }
         }
 
-        RadioGroupDialog(this, items, currFavoriteIndex) {
+        RadioGroupDialog(this, items, currFavoriteIndex, R.string.go_to_favorite) {
             openPath(it.toString())
         }
     }

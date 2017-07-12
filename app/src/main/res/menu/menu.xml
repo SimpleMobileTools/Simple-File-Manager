@@ -7,6 +7,11 @@
         android:title="@string/go_to_home_folder"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/go_to_favorite"
+        android:icon="@drawable/ic_open"
+        android:title="@string/go_to_favorite"
+        app:showAsAction="ifRoom"/>
+    <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_sort"
         android:title="@string/sort_by"
@@ -21,10 +26,6 @@
         android:icon="@drawable/ic_star_on"
         android:title="@string/remove_from_favorites"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/go_to_favorite"
-        android:title="@string/go_to_favorite"
-        app:showAsAction="never"/>
     <item
         android:id="@+id/set_as_home"
         android:title="@string/set_as_home_folder"
