@@ -184,8 +184,19 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun temporarilyShowHidden() {
-        config.temporarilyShowHidden = true
+        if (config.temporarilyShowHidden) {
+            toggleTemporarilyShowHidden(false)
+        } else {
+            handleHiddenFolderPasswordProtection {
+                toggleTemporarilyShowHidden(true)
+            }
+        }
+    }
+
+    private fun toggleTemporarilyShowHidden(show: Boolean) {
+        config.temporarilyShowHidden = show
         openPath(currentPath)
+        invalidateOptionsMenu()
     }
 
     private fun launchAbout() {
