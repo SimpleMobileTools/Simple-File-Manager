@@ -255,6 +255,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             add(Release(26, R.string.release_26))
             add(Release(28, R.string.release_28))
             add(Release(29, R.string.release_29))
+            add(Release(34, R.string.release_34))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }

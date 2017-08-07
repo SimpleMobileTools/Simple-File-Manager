@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_34">Allow password protecting hidden item visibility</string>
     <string name="release_29">Added a couple ways of sorting</string>
     <string name="release_28">
         Added a Home Folder button\n
