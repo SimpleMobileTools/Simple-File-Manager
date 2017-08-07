@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.fragments
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
@@ -72,6 +73,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     fun fillItems() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)
+            return
+
         mPath = arguments.getString(PATH)
         getItems(mPath) {
             val newItems = it
