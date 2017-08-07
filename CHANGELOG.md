@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 2.3.1 *(2017-08-07)*
+----------------------------
+
+ * Allow password protecting hidden item visibility
+
 Version 2.3.0 *(2017-06-21)*
 ----------------------------
 
