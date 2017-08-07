@@ -114,7 +114,9 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             findItem(R.id.add_favorite).isVisible = !favorites.contains(currentPath)
             findItem(R.id.remove_favorite).isVisible = favorites.contains(currentPath)
             findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
-            menu.findItem(R.id.temporarily_show_hidden).isVisible = !config.showHidden
+
+            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
+            findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
         }
 
         return true
@@ -128,7 +130,8 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
             R.id.set_as_home -> setAsHome()
-            R.id.temporarily_show_hidden -> temporarilyShowHidden()
+            R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
+            R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
             R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -183,7 +186,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         toast(R.string.home_folder_updated)
     }
 
-    private fun temporarilyShowHidden() {
+    private fun tryToggleTemporarilyShowHidden() {
         if (config.temporarilyShowHidden) {
             toggleTemporarilyShowHidden(false)
         } else {
