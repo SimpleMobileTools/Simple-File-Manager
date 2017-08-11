@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Simple File Manager</string>
+    <string name="press_back_again">Naciśnij jeszcze raz, aby wyjść</string>
+    <string name="no_app_found">Brak aplikacji do otwarcia tego typu pliku</string>
+    <string name="go_to_home_folder">Przejdź do folderu głównego</string>
+    <string name="set_as_home_folder">Ustaw jako folder główny</string>
+    <string name="home_folder_updated">Folder główny został zaktulizowany</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Ulubione</string>
+    <string name="add_to_favorites">Dodaj do ulubionych</string>
+    <string name="remove_from_favorites">Usuń z ulubionych</string>
+    <string name="manage_favorites">Zarządzaj ulubionymi</string>
+    <string name="go_to_favorite">Przejdź do ulubionych</string>
+    <string name="favorites_activity_placeholder">Możesz dodawać często używane foldery do ulubionych, aby ułatwić sobie do nich dostęp.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Prosty menedżer i edytor plików i folderów.</string>
+    <string name="app_long_description">
+        Może być używany także do przeglądania systemowych zakamarków i zewnętrznych kart pamięci. Z łatwością możesz zmieniać nazwy, przenosić, kopiować, usuwać i udostępniać pliki.
+
+        Aplikacja nie zawiera żadnych żadnych reklam i nie potrzebuje masy uprawnień. Jest w pełni otwartoźródłowa. Posiada ciemny motyw dla osób z wrażliwymi oczami.
+
+        Niniejsza aplikacja jest tylko częścią naszej kolekcji prostych narzędzi. Ta, jak i pozostałe, dostępne są na stronie http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+    -->
+</resources>
