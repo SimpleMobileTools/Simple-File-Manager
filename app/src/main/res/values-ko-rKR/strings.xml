@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">심플 파일 매니저</string>
+    <string name="app_launcher_name">파일 매니저</string>
+    <string name="press_back_again">뒤로가기 버튼을 다시 누르면 종료됩니다.</string>
+    <string name="no_app_found">해당 파일을 열수 있는 앱이 없습니다.</string>
+    <string name="go_to_home_folder">홈 폴더 이동</string>
+    <string name="set_as_home_folder">홈 폴더 설정</string>
+    <string name="home_folder_updated">홈 폴더 설정완료</string>
+
+    <!-- Favorites -->
+    <string name="favorites">즐겨찾기</string>
+    <string name="add_to_favorites">즐겨찾기에 추가</string>
+    <string name="remove_from_favorites">즐겨찾기에서 제거</string>
+    <string name="manage_favorites">즐겨찾기 관리</string>
+    <string name="go_to_favorite">즐겨찾기 이동</string>
+    <string name="favorites_activity_placeholder">자주 사용하는 폴더를 즐겨찾기에 추가하여 어디서나 쉽게 접근 할 수 있습니다.</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">파일 및 디렉토리를 찾아보고 편집 할 수 있는 간단한 파일 매니저입니다.</string>
+    <string name="app_long_description">
+        또한 루트 파일 및 SDcard 콘텐츠를 검색하는 데 사용할 수 있습니다. 원하는 이름을 쉽게 바꾸고, 복사하고, 이동하고, 삭제하고, 공유 할 수 있습니다.
+
+        광고가 포함되어 있거나, 불필요한 권한을 요청하지 않습니다. 이 앱의 모든 소스는 오픈소스이며, 다크 테마도 제공합니다.
+
+        이 앱은 다양한 시리즈의 모바일앱 중 하나입니다. 나머지는 http://www.simplemobiletools.com 에서 찾아 보실 수 있습니다.
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+    -->
+</resources>
