@@ -1,34 +1,24 @@
 package com.simplemobiletools.filemanager.dialogs
 
-import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
-import android.view.View
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.filemanager.Config
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
-class ChangeSortingDialog(val activity: SimpleActivity, val path: String = "", val callback: () -> Unit) :
-        DialogInterface.OnClickListener {
-    companion object {
-        private var currSorting = 0
-
-        lateinit var config: Config
-        lateinit var view: View
-    }
+class ChangeSortingDialog(val activity: SimpleActivity, val path: String = "", val callback: () -> Unit) {
+    private var currSorting = 0
+    private var config = activity.config
+    private var view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_sorting, null)
 
     init {
-        config = activity.config
-        view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_sorting, null).apply {
-            sorting_dialog_use_for_this_folder.isChecked = config.hasCustomSorting(path)
-        }
+        view.sorting_dialog_use_for_this_folder.isChecked = config.hasCustomSorting(path)
 
         AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, this)
+                .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
             activity.setupDialogStuff(view, this, R.string.sort_by)
@@ -62,7 +52,7 @@ class ChangeSortingDialog(val activity: SimpleActivity, val path: String = "", v
         orderBtn.isChecked = true
     }
 
-    override fun onClick(dialog: DialogInterface, which: Int) {
+    private fun dialogConfirmed() {
         val sortingRadio = view.sorting_dialog_radio_sorting
         var sorting = when (sortingRadio.checkedRadioButtonId) {
             R.id.sorting_dialog_radio_name -> SORT_BY_NAME

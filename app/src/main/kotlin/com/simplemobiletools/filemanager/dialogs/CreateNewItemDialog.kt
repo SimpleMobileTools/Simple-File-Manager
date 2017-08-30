@@ -89,8 +89,8 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 success(alertDialog)
                 callback(true)
             }
-        } catch (ignored: IOException) {
-
+        } catch (exception: IOException) {
+            activity.showErrorToast(exception.toString())
         }
     }
 

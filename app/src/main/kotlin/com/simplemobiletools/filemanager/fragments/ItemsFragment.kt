@@ -61,7 +61,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
         }
         context.updateTextColors(items_holder)
         if (mStoredTextColor != config.textColor) {
-            mItems = ArrayList<FileDirItem>()
+            mItems = ArrayList()
             fillItems()
             mStoredTextColor = config.textColor
         }
@@ -78,6 +78,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
         mPath = arguments.getString(PATH)
         getItems(mPath) {
+            if (!isAdded)
+                return@getItems
+
             val newItems = it
             FileDirItem.sorting = context.config.getFolderSorting(mPath)
             newItems.sort()

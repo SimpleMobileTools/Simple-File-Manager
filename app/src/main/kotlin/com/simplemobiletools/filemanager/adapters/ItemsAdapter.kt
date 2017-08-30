@@ -43,8 +43,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     var textColor = activity.config.textColor
 
-    lateinit var folderDrawable: Drawable
-    lateinit var fileDrawable: Drawable
+    private val folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
+    private val fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file, textColor)
 
     fun toggleItemSelection(select: Boolean, pos: Int) {
         itemViews[pos]?.item_frame?.isSelected = select
@@ -68,21 +68,19 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     }
 
     init {
-        folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
         folderDrawable.alpha = 180
-        fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file, textColor)
         fileDrawable.alpha = 180
     }
 
-    val adapterListener = object : MyAdapterListener {
+    private val adapterListener = object : MyAdapterListener {
         override fun toggleItemSelectionAdapter(select: Boolean, position: Int) {
             toggleItemSelection(select, position)
         }
 
-        override fun getSelectedPositions(): HashSet<Int> = selectedPositions
+        override fun getSelectedPositions() = selectedPositions
     }
 
-    val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
+    private val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.cab_rename -> displayRenameDialog()
@@ -201,7 +199,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     fun selectAll() {
         val cnt = mItems.size
-        for (i in 0..cnt - 1) {
+        for (i in 0 until cnt) {
             selectedPositions.add(i)
             notifyItemChanged(i)
         }
@@ -237,7 +235,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
             val newItems = SparseArray<View>()
             var curIndex = 0
-            for (i in 0..itemViews.size() - 1) {
+            for (i in 0 until itemViews.size()) {
                 if (itemViews[i] != null) {
                     newItems.put(curIndex, itemViews[i])
                     curIndex++
@@ -293,7 +291,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 toggleItemSelection(true, i)
 
             if (min > -1 && min < to) {
-                (min..to - 1).filter { it != from }
+                (min until to).filter { it != from }
                         .forEach { toggleItemSelection(false, it) }
             }
             if (max > -1) {
@@ -310,7 +308,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             }
 
             if (min > -1) {
-                for (i in min..from - 1)
+                for (i in min until from)
                     toggleItemSelection(false, i)
             }
         }
@@ -350,7 +348,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             return activity.resources.getQuantityString(R.plurals.items, children, children)
         }
 
-        fun viewClicked(fileDirItem: FileDirItem) {
+        private fun viewClicked(fileDirItem: FileDirItem) {
             if (multiSelector.isSelectable) {
                 val isSelected = adapterListener.getSelectedPositions().contains(layoutPosition)
                 adapterListener.toggleItemSelectionAdapter(!isSelected, layoutPosition)
@@ -359,7 +357,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             }
         }
 
-        fun viewLongClicked() {
+        private fun viewLongClicked() {
             if (listener != null) {
                 if (!multiSelector.isSelectable) {
                     activity.startSupportActionMode(multiSelectorCallback)

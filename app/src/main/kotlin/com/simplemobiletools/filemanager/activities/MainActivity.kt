@@ -29,17 +29,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
-    var latestFragment: ItemsFragment? = null
-    var mScrollStates = HashMap<String, Parcelable>()
-    var mStoredTextColor = 0
-    var currentPath = ""
+    private val STORAGE_PERMISSION = 1
+    private val BACK_PRESS_TIMEOUT = 5000
 
-    companion object {
-        private val STORAGE_PERMISSION = 1
-        private val BACK_PRESS_TIMEOUT = 5000
-
-        private var mWasBackJustPressed: Boolean = false
-    }
+    private var latestFragment: ItemsFragment? = null
+    private var scrollStates = HashMap<String, Parcelable>()
+    private var storedTextColor = 0
+    private var currentPath = ""
+    private var wasBackJustPressed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +50,9 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onResume() {
         super.onResume()
         updateTextColors(main_screen)
-        if (mStoredTextColor != config.textColor) {
-            mStoredTextColor = config.textColor
-            breadcrumbs.setTextColor(mStoredTextColor)
+        if (storedTextColor != config.textColor) {
+            storedTextColor = config.textColor
+            breadcrumbs.setTextColor(storedTextColor)
             openPath(currentPath)
         }
         invalidateOptionsMenu()
@@ -63,7 +60,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     override fun onPause() {
         super.onPause()
-        mStoredTextColor = config.textColor
+        storedTextColor = config.textColor
     }
 
     override fun onDestroy() {
@@ -89,12 +86,12 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         val bundle = Bundle()
         bundle.putString(PATH, realPath)
 
-        if (mScrollStates.containsKey(realPath)) {
-            bundle.putParcelable(SCROLL_STATE, mScrollStates[realPath])
+        if (scrollStates.containsKey(realPath)) {
+            bundle.putParcelable(SCROLL_STATE, scrollStates[realPath])
         }
 
         if (latestFragment != null) {
-            mScrollStates.put(latestFragment!!.mPath.trimEnd('/'), latestFragment!!.getScrollState())
+            scrollStates.put(latestFragment!!.mPath.trimEnd('/'), latestFragment!!.getScrollState())
         }
 
         latestFragment = ItemsFragment().apply {
@@ -208,17 +205,16 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     override fun onBackPressed() {
         if (breadcrumbs.childCount <= 1) {
-            if (!mWasBackJustPressed) {
-                mWasBackJustPressed = true
+            if (!wasBackJustPressed) {
+                wasBackJustPressed = true
                 toast(R.string.press_back_again)
-                Handler().postDelayed({ mWasBackJustPressed = false }, BACK_PRESS_TIMEOUT.toLong())
+                Handler().postDelayed({ wasBackJustPressed = false }, BACK_PRESS_TIMEOUT.toLong())
             } else {
                 finish()
             }
         } else {
             breadcrumbs.removeBreadcrumb()
-            val item = breadcrumbs.lastItem
-            openPath(item.path)
+            openPath(breadcrumbs.lastItem.path)
         }
     }
 
