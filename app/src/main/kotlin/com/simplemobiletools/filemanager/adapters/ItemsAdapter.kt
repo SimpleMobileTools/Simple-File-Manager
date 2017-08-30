@@ -28,8 +28,11 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.list_item.view.*
-import java.io.File
+import java.io.*
 import java.util.*
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
 
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
@@ -88,6 +91,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 R.id.cab_share -> shareFiles()
                 R.id.cab_copy_to -> copyMoveTo(true)
                 R.id.cab_move_to -> copyMoveTo(false)
+                R.id.cab_compress -> compressSelection()
                 R.id.cab_select_all -> selectAll()
                 R.id.cab_delete -> askConfirmDelete()
                 else -> return false
@@ -194,6 +198,44 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 }
                 actMode?.finish()
             }
+        }
+    }
+
+    private fun compressSelection() {
+        if (selectedPositions.isEmpty())
+            return
+
+        val firstFile = File(mItems[selectedPositions.first()].path)
+        activity.handleSAFDialog(firstFile) {
+            val paths = selectedPositions.map { mItems[it].path }.toTypedArray()
+            compress(paths, "${firstFile.parentFile}/compressed.zip")
+        }
+    }
+
+    private fun compress(paths: Array<String>, targetPath: String) {
+        val BUFFER_SIZE = 8192
+        var origin: BufferedInputStream?
+        val out = ZipOutputStream(BufferedOutputStream(FileOutputStream(targetPath)))
+        try {
+            val data = ByteArray(BUFFER_SIZE)
+
+            for (i in paths.indices) {
+                val fi = FileInputStream(paths[i])
+                origin = BufferedInputStream(fi, BUFFER_SIZE)
+                try {
+                    val entry = ZipEntry(paths[i].substring(paths[i].lastIndexOf("/") + 1))
+                    out.putNextEntry(entry)
+                    var count = origin.read(data, 0, BUFFER_SIZE)
+                    while (count != -1) {
+                        out.write(data, 0, count)
+                        count = origin.read(data, 0, BUFFER_SIZE)
+                    }
+                } finally {
+                    origin.close()
+                }
+            }
+        } finally {
+            out.close()
         }
     }
 
