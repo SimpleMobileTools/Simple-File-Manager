@@ -29,7 +29,13 @@
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Egyszerű fájlkezelő fájlok és könyvtárak böngészéséhez és szerkesztéséhez.</string>
-    <string name="app_long_description">Rendszerfájlok és SD kártya böngészésére is használható. Egyszerűen átnevezhető, másolható, mozgatható, törölhető és megosztható bármi, amit szeretnél. Nincsenek reklámok, sem felesleges engedélykérések. Teljesen nyílt forráskódú. Sötét téma is elérhető. Ez az alkalmazás egy nagyobb sorozat egyik darabja. A többit is megtalálod itt: http://www.simplemobiletools.com</string>
+    <string name="app_long_description">
+        Rendszerfájlok és SD kártya böngészésére is használható. Egyszerűen átnevezhető, másolható, mozgatható, törölhető és megosztható bármi, amit szeretnél.
+
+        Nincsenek reklámok, sem felesleges engedélykérések. Teljesen nyílt forráskódú. Sötét téma is elérhető.
+
+        Ez az alkalmazás egy nagyobb sorozat egyik darabja. A többit is megtalálod itt: http://www.simplemobiletools.com
+    </string>
 
     <!--
         Haven't found some strings? There's more at

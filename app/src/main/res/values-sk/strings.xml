@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jednoduchý správca súborov</string>
+    <string name="app_launcher_name">Správca súborov</string>
+    <string name="press_back_again">Znovu stlačte späť pre opustenie aplikácie</string>
+    <string name="no_app_found">Nenašla sa žiadna aplikácia na otvorenie tohto typu súboru</string>
+    <string name="go_to_home_folder">Ísť do domovského priečinka</string>
+    <string name="set_as_home_folder">Nastaviť ako domovský priečinok</string>
+    <string name="home_folder_updated">Domovský priečinok bol nastavený</string>
+
+    <!-- Compression -->
+    <string name="compress">Komprimovať</string>
+    <string name="decompress">Dekomprimovať</string>
+    <string name="compressing">Komprimuje sa…</string>
+    <string name="decompressing">Dekomprimuje sa…</string>
+    <string name="compression_successful">Kompresia bola úspešná</string>
+    <string name="decompression_successful">Dekompresia bola úspešná</string>
+    <string name="compressing_failed">Kompresia zlyhala</string>
+    <string name="decompressing_failed">Dekompresia zlyhala</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Obľúbené</string>
+    <string name="add_to_favorites">Pridať medzi obľúbené</string>
+    <string name="remove_from_favorites">Odstrániť spomedzi obľúbených</string>
+    <string name="manage_favorites">Spravovať obľúbené</string>
+    <string name="go_to_favorite">Ísť medzi obľúbené</string>
+    <string name="favorites_activity_placeholder">Pre jednoduchý prístup k často používaným priečinkom si ich viete pridať medzi obľúbené</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Jednoduchý správca súborov pre prehliadanie a úpravu súborov a priečinkov.</string>
+    <string name="app_long_description">
+        Môže byť použitý na prehliadanie koreňového priečinka a SD kariet. Viete jednoducho premenovať, kopírovať, vymazať a zdieľať hocičo.
+
+        Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
+
+        Táto aplikácia je iba jednou zo skupiny aplikácií. Ostatné viete nájsť na http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
+    -->
+</resources>
