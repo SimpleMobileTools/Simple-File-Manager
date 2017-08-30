@@ -8,6 +8,16 @@
     <string name="set_as_home_folder">Imposta come cartella home</string>
     <string name="home_folder_updated">Cartella home aggiornata</string>
 
+    <!-- Compression -->
+    <string name="compress">Compress</string>
+    <string name="decompress">Decompress</string>
+    <string name="compressing">Compressing…</string>
+    <string name="decompressing">Decompressing…</string>
+    <string name="compression_successful">Compression successful</string>
+    <string name="decompression_successful">Decompression successful</string>
+    <string name="compressing_failed">Compressing failed</string>
+    <string name="decompressing_failed">Decompressing failed</string>
+
     <!-- Favorites -->
     <string name="favorites">Preferiti</string>
     <string name="add_to_favorites">Aggiungi ai preferiti</string>

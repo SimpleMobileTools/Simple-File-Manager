@@ -8,6 +8,16 @@
     <string name="set_as_home_folder">홈 폴더 설정</string>
     <string name="home_folder_updated">홈 폴더 설정완료</string>
 
+    <!-- Compression -->
+    <string name="compress">Compress</string>
+    <string name="decompress">Decompress</string>
+    <string name="compressing">Compressing…</string>
+    <string name="decompressing">Decompressing…</string>
+    <string name="compression_successful">Compression successful</string>
+    <string name="decompression_successful">Decompression successful</string>
+    <string name="compressing_failed">Compressing failed</string>
+    <string name="decompressing_failed">Decompressing failed</string>
+
     <!-- Favorites -->
     <string name="favorites">즐겨찾기</string>
     <string name="add_to_favorites">즐겨찾기에 추가</string>
