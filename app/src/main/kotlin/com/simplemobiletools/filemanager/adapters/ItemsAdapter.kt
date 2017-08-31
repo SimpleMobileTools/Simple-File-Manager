@@ -19,10 +19,7 @@ import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
-import com.simplemobiletools.commons.extensions.formatSize
-import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.getMimeTypeFromPath
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -215,17 +212,29 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         val firstPath = mItems[selectedPositions.first()].path
         CompressAsDialog(activity, firstPath) {
             activity.handleSAFDialog(File(firstPath)) {
+                activity.toast(R.string.compressing)
                 val paths = selectedPositions.map { mItems[it].path }.toTypedArray()
-                compress(paths, it)
+                Thread({
+                    if (compress(paths, it)) {
+                        activity.toast(R.string.compression_successful)
+                        activity.runOnUiThread {
+                            listener?.refreshItems()
+                            actMode?.finish()
+                        }
+                    } else {
+                        activity.toast(R.string.compressing_failed)
+                    }
+                }).start()
             }
         }
     }
 
-    private fun compress(paths: Array<String>, targetPath: String) {
+    private fun compress(paths: Array<String>, targetPath: String): Boolean {
         val BUFFER_SIZE = 8192
-        var origin: BufferedInputStream?
-        val out = ZipOutputStream(BufferedOutputStream(FileOutputStream(targetPath)))
+        var out: ZipOutputStream? = null
         try {
+            out = ZipOutputStream(BufferedOutputStream(FileOutputStream(targetPath)))
+            var origin: BufferedInputStream?
             val data = ByteArray(BUFFER_SIZE)
 
             for (i in paths.indices) {
@@ -243,9 +252,13 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                     origin.close()
                 }
             }
+        } catch (e: Exception) {
+            activity.showErrorToast(e.toString())
+            return false
         } finally {
-            out.close()
+            out?.close()
         }
+        return true
     }
 
     fun selectAll() {
