@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_holder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_margin"
+    android:paddingRight="@dimen/activity_margin"
+    android:paddingTop="@dimen/activity_margin">
+
+    <com.simplemobiletools.commons.views.MyEditText
+        android:id="@+id/file_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/medium_margin"
+        android:layout_toLeftOf="@+id/file_extension"
+        android:inputType="textCapSentences"
+        android:singleLine="true"
+        android:textCursorDrawable="@null"/>
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/file_extension"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/file_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/file_name"
+        android:gravity="center_vertical"
+        android:text=".zip"
+        android:textSize="@dimen/normal_text_size"/>
+
+</RelativeLayout>

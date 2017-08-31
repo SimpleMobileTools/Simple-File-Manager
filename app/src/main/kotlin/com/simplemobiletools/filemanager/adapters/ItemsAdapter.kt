@@ -26,6 +26,7 @@ import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
+import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.*
@@ -211,10 +212,12 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         if (selectedPositions.isEmpty())
             return
 
-        val firstFile = File(mItems[selectedPositions.first()].path)
-        activity.handleSAFDialog(firstFile) {
-            val paths = selectedPositions.map { mItems[it].path }.toTypedArray()
-            compress(paths, "${firstFile.parentFile}/compressed.zip")
+        val firstPath = mItems[selectedPositions.first()].path
+        CompressAsDialog(activity, firstPath) {
+            activity.handleSAFDialog(File(firstPath)) {
+                val paths = selectedPositions.map { mItems[it].path }.toTypedArray()
+                compress(paths, it)
+            }
         }
     }
 

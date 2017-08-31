@@ -11,6 +11,7 @@
     <!-- Compression -->
     <string name="compress">Komprimovať</string>
     <string name="decompress">Dekomprimovať</string>
+    <string name="compress_as">Komprimovať ako</string>
     <string name="compressing">Komprimuje sa…</string>
     <string name="decompressing">Dekomprimuje sa…</string>
     <string name="compression_successful">Kompresia bola úspešná</string>

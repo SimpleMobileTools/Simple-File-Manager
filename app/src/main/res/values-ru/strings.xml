@@ -11,6 +11,7 @@
     <!-- Compression -->
     <string name="compress">Compress</string>
     <string name="decompress">Decompress</string>
+    <string name="compress_as">Compress as</string>
     <string name="compressing">Compressing…</string>
     <string name="decompressing">Decompressing…</string>
     <string name="compression_successful">Compression successful</string>

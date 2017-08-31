@@ -11,8 +11,9 @@ import java.io.File
 import java.io.IOException
 
 class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val callback: () -> Unit) {
+    private val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
+
     init {
-        val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
 
         AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok, null)
