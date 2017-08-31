@@ -156,9 +156,15 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
         val shareTitle = activity.resources.getString(R.string.share_via)
         Intent().apply {
-            action = if (uris.size <= 1) Intent.ACTION_SEND else Intent.ACTION_SEND_MULTIPLE
-            putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+            if (uris.size <= 1) {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_STREAM, uris.first())
+            } else {
+                action = Intent.ACTION_SEND_MULTIPLE
+                putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+            }
             type = getMimeType(uris)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             activity.startActivity(Intent.createChooser(this, shareTitle))
         }
     }
