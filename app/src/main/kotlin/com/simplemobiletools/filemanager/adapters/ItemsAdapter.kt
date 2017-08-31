@@ -31,9 +31,9 @@ import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
+    private val BUFFER = 2048
 
     val multiSelector = MultiSelector()
     val config = activity.config
@@ -213,9 +213,9 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         CompressAsDialog(activity, firstPath) {
             activity.handleSAFDialog(File(firstPath)) {
                 activity.toast(R.string.compressing)
-                val paths = selectedPositions.map { mItems[it].path }.toTypedArray()
+                val paths = selectedPositions.map { mItems[it].path }
                 Thread({
-                    if (compress(paths, it)) {
+                    if (zipFileAtPath(paths, it)) {
                         activity.toast(R.string.compression_successful)
                         activity.runOnUiThread {
                             listener?.refreshItems()
@@ -229,27 +229,30 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
     }
 
-    private fun compress(paths: Array<String>, targetPath: String): Boolean {
-        val BUFFER_SIZE = 8192
+    private fun zipFileAtPath(sourcePaths: List<String>, targetPath: String): Boolean {
         var out: ZipOutputStream? = null
         try {
-            out = ZipOutputStream(BufferedOutputStream(FileOutputStream(targetPath)))
             var origin: BufferedInputStream?
-            val data = ByteArray(BUFFER_SIZE)
+            val fos = FileOutputStream(targetPath)
+            out = ZipOutputStream(BufferedOutputStream(fos))
 
-            for (i in paths.indices) {
-                val fi = FileInputStream(paths[i])
-                origin = BufferedInputStream(fi, BUFFER_SIZE)
-                try {
-                    val entry = ZipEntry(paths[i].substring(paths[i].lastIndexOf("/") + 1))
-                    out.putNextEntry(entry)
-                    var count = origin.read(data, 0, BUFFER_SIZE)
-                    while (count != -1) {
-                        out.write(data, 0, count)
-                        count = origin.read(data, 0, BUFFER_SIZE)
+            sourcePaths.forEach {
+                val sourceFile = File(it)
+                if (sourceFile.isDirectory) {
+                    if (!zipSubFolder(out!!, sourceFile)) {
+                        return false
                     }
-                } finally {
-                    origin.close()
+                } else {
+                    val data = ByteArray(BUFFER)
+                    val fis = FileInputStream(it)
+                    origin = BufferedInputStream(fis, BUFFER)
+                    val entry = ZipEntry(it.getFilenameFromPath())
+                    out!!.putNextEntry(entry)
+                    var count = origin!!.read(data, 0, BUFFER)
+                    while (count != -1) {
+                        out!!.write(data, 0, count)
+                        count = origin!!.read(data, 0, BUFFER)
+                    }
                 }
             }
         } catch (e: Exception) {
@@ -257,6 +260,36 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             return false
         } finally {
             out?.close()
+        }
+
+        return true
+    }
+
+    private fun zipSubFolder(out: ZipOutputStream, folder: File): Boolean {
+        var origin: BufferedInputStream? = null
+
+        try {
+            val fileList = folder.listFiles()
+            for (file in fileList) {
+                if (file.isDirectory) {
+                    zipSubFolder(out, file)
+                } else {
+                    val data = ByteArray(BUFFER)
+                    origin = BufferedInputStream(FileInputStream(file.path), BUFFER)
+                    val entry = ZipEntry(file.path.substring(folder.parent.length))
+                    out.putNextEntry(entry)
+                    var count = origin.read(data, 0, BUFFER)
+                    while (count != -1) {
+                        out.write(data, 0, count)
+                        count = origin.read(data, 0, BUFFER)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            activity.showErrorToast(e.toString())
+            return false
+        } finally {
+            origin?.close()
         }
         return true
     }
