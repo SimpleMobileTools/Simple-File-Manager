@@ -232,7 +232,6 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     private fun zipFileAtPath(sourcePaths: List<String>, targetPath: String): Boolean {
         var out: ZipOutputStream? = null
         try {
-            var origin: BufferedInputStream?
             val fos = FileOutputStream(targetPath)
             out = ZipOutputStream(BufferedOutputStream(fos))
 
@@ -243,55 +242,57 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                         return false
                     }
                 } else {
-                    val data = ByteArray(BUFFER)
-                    val fis = FileInputStream(it)
-                    origin = BufferedInputStream(fis, BUFFER)
                     val entry = ZipEntry(it.getFilenameFromPath())
-                    out!!.putNextEntry(entry)
-                    var count = origin!!.read(data, 0, BUFFER)
-                    while (count != -1) {
-                        out!!.write(data, 0, count)
-                        count = origin!!.read(data, 0, BUFFER)
-                    }
+                    val fis = FileInputStream(it)
+                    addZipEntry(entry, fis, out!!)
                 }
             }
         } catch (e: Exception) {
             activity.showErrorToast(e.toString())
             return false
         } finally {
-            out?.close()
+            try {
+                out?.close()
+            } catch (e: Exception) {
+                activity.showErrorToast(e.toString())
+            }
         }
 
         return true
     }
 
     private fun zipSubFolder(out: ZipOutputStream, folder: File): Boolean {
-        var origin: BufferedInputStream? = null
-
         try {
-            val fileList = folder.listFiles()
+            val fileList = folder.listFiles() ?: return true
             for (file in fileList) {
                 if (file.isDirectory) {
                     zipSubFolder(out, file)
                 } else {
-                    val data = ByteArray(BUFFER)
-                    origin = BufferedInputStream(FileInputStream(file.path), BUFFER)
                     val entry = ZipEntry(file.path.substring(folder.parent.length))
-                    out.putNextEntry(entry)
-                    var count = origin.read(data, 0, BUFFER)
-                    while (count != -1) {
-                        out.write(data, 0, count)
-                        count = origin.read(data, 0, BUFFER)
-                    }
+                    val fis = FileInputStream(file.path)
+                    addZipEntry(entry, fis, out)
                 }
             }
         } catch (e: Exception) {
             activity.showErrorToast(e.toString())
             return false
-        } finally {
-            origin?.close()
         }
+
         return true
+    }
+
+    private fun addZipEntry(entry: ZipEntry, fis: FileInputStream, out: ZipOutputStream) {
+        out.putNextEntry(entry)
+
+        val data = ByteArray(BUFFER)
+        val origin = BufferedInputStream(fis, BUFFER)
+        origin.use {
+            var count = origin.read(data, 0, BUFFER)
+            while (count != -1) {
+                out.write(data, 0, count)
+                count = origin.read(data, 0, BUFFER)
+            }
+        }
     }
 
     fun selectAll() {
