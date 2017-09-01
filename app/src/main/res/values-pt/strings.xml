@@ -9,22 +9,22 @@
     <string name="home_folder_updated">Pasta pessoal atualizada</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Comprimir</string>
+    <string name="decompress">Descomprimir</string>
+    <string name="compress_as">Comprimir como</string>
+    <string name="compressing">A comprimir…</string>
+    <string name="decompressing">A descomprimir…</string>
+    <string name="compression_successful">Compressão terminada</string>
+    <string name="decompression_successful">Descompressão terminada</string>
+    <string name="compressing_failed">Falha ao comprimir</string>
+    <string name="decompressing_failed">Falha ao descomprimir</string>
 
     <!-- Favorites -->
     <string name="favorites">Favoritos</string>
     <string name="add_to_favorites">Adicionar aos favoritos</string>
     <string name="remove_from_favorites">Remover dos favoritos</string>
     <string name="manage_favorites">Gerir favoritos</string>
-    <string name="go_to_favorite">ir para favorito</string>
+    <string name="go_to_favorite">Ir para favorito</string>
     <string name="favorites_activity_placeholder">Pode adicionar pastas como favoritos para um acesso mais rápido.</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
@@ -39,7 +39,7 @@
     </string>
 
     <!--
-        Haven't found some strings? There's more at
+        Não encontrou todas as cadeias a traduzir? Existem mais algumas em
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/library/src/main/res
     -->
 </resources>
