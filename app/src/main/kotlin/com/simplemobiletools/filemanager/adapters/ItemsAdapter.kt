@@ -27,10 +27,7 @@ import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.extensions.isZipFile
 import kotlinx.android.synthetic.main.list_item.view.*
-import java.io.Closeable
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.*
 import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -285,7 +282,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
         val queue = LinkedList<File>()
-        val out = FileOutputStream(File(targetPath))
+        val out = getFileOutputStream(targetPath)
         val zout = ZipOutputStream(out)
         var res: Closeable = out
 
@@ -331,6 +328,23 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             res.close()
         }
         return true
+    }
+
+    private fun getFileOutputStream(targetPath: String): OutputStream {
+        val targetFile = File(targetPath)
+
+        return if (activity.needsStupidWritePermissions(targetPath)) {
+            val documentFile = activity.getFileDocument(targetFile.parent)
+            if (documentFile == null) {
+                val error = String.format(activity.getString(R.string.could_not_create_file), targetFile.parent)
+                throw IOException(error)
+            }
+
+            val newDocument = documentFile.createFile("application/zip", File(targetPath).name)
+            activity.contentResolver.openOutputStream(newDocument!!.uri)
+        } else {
+            FileOutputStream(targetFile)
+        }
     }
 
     fun selectAll() {
