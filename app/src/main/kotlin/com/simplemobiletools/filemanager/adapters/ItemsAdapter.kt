@@ -263,12 +263,20 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                             val entry = entries.nextElement()
                             val file = File(it.parent, entry.name)
                             if (entry.isDirectory) {
-                                file.mkdirs()
+                                createDirectory(file) {
+                                    val error = String.format(activity.getString(R.string.could_not_create_file), file.absolutePath)
+                                    activity.showErrorToast(error)
+                                }
                             } else {
-                                file.parentFile.mkdirs()
+                                createDirectory(file.parentFile) {
+                                    if (!it) {
+                                        val error = String.format(activity.getString(R.string.could_not_create_file), file.parentFile.absolutePath)
+                                        activity.showErrorToast(error)
+                                    }
+                                }
                                 val ins = zipFile.getInputStream(entry)
                                 ins.use {
-                                    ins.copyTo(FileOutputStream(file))
+                                    ins.copyTo(getFileOutputStream(file.absolutePath, file.getMimeType()))
                                 }
                             }
                         }
@@ -280,9 +288,25 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         return true
     }
 
+    private fun createDirectory(file: File, callback: (Boolean) -> Unit) {
+        if (activity.needsStupidWritePermissions(file.absolutePath)) {
+            activity.handleSAFDialog(file) {
+                val documentFile = activity.getFileDocument(file.absolutePath)
+                if (documentFile == null) {
+                    callback(false)
+                    return@handleSAFDialog
+                }
+                val newDir = documentFile.createDirectory(file.name)
+                callback(newDir != null)
+            }
+        } else {
+            callback(file.mkdirs())
+        }
+    }
+
     fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
         val queue = LinkedList<File>()
-        val out = getFileOutputStream(targetPath)
+        val out = getFileOutputStream(targetPath, "application/zip")
         val zout = ZipOutputStream(out)
         var res: Closeable = out
 
@@ -330,7 +354,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         return true
     }
 
-    private fun getFileOutputStream(targetPath: String): OutputStream {
+    private fun getFileOutputStream(targetPath: String, mimeType: String): OutputStream {
         val targetFile = File(targetPath)
 
         return if (activity.needsStupidWritePermissions(targetPath)) {
@@ -340,7 +364,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 throw IOException(error)
             }
 
-            val newDocument = documentFile.createFile("application/zip", File(targetPath).name)
+            val newDocument = documentFile.createFile(mimeType, File(targetPath).name)
             activity.contentResolver.openOutputStream(newDocument!!.uri)
         } else {
             FileOutputStream(targetFile)
