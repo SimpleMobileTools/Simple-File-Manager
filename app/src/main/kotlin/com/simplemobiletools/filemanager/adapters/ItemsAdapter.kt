@@ -26,10 +26,14 @@ import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.list_item.view.*
-import java.io.*
+import java.io.Closeable
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
+
 
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
@@ -215,7 +219,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 activity.toast(R.string.compressing)
                 val paths = selectedPositions.map { mItems[it].path }
                 Thread({
-                    if (zipFileAtPath(paths, it)) {
+                    if (zipPaths(paths, it)) {
                         activity.toast(R.string.compression_successful)
                         activity.runOnUiThread {
                             listener?.refreshItems()
@@ -229,70 +233,48 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
     }
 
-    private fun zipFileAtPath(sourcePaths: List<String>, targetPath: String): Boolean {
-        var out: ZipOutputStream? = null
-        try {
-            val fos = FileOutputStream(targetPath)
-            out = ZipOutputStream(BufferedOutputStream(fos))
+    fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
+        val queue = LinkedList<File>()
+        val out = FileOutputStream(File(targetPath))
+        val zout = ZipOutputStream(out)
+        var res: Closeable = out
 
+        try {
             sourcePaths.forEach {
-                val sourceFile = File(it)
-                if (sourceFile.isDirectory) {
-                    if (!zipSubFolder(out!!, sourceFile)) {
-                        return false
+                val base = File(it).toURI()
+                var mainFile = File(it)
+                queue.push(mainFile)
+                res = zout
+                while (!queue.isEmpty()) {
+                    mainFile = queue.pop()
+                    if (mainFile.isDirectory) {
+                        for (file in mainFile.listFiles()) {
+                            var name = base.relativize(file.toURI()).path
+                            if (file.isDirectory) {
+                                queue.push(file)
+                                name = if (name.endsWith("/")) name else "$name/"
+                                zout.putNextEntry(ZipEntry(name))
+                            } else {
+                                zout.putNextEntry(ZipEntry(name))
+                                FileInputStream(file).copyTo(zout)
+                                zout.closeEntry()
+                            }
+                        }
+                    } else {
+                        val name = if (base.path == it) it.getFilenameFromPath() else base.relativize(mainFile.toURI()).path
+                        zout.putNextEntry(ZipEntry(name))
+                        FileInputStream(mainFile).copyTo(zout)
+                        zout.closeEntry()
                     }
-                } else {
-                    val entry = ZipEntry(it.getFilenameFromPath())
-                    val fis = FileInputStream(it)
-                    addZipEntry(entry, fis, out!!)
                 }
             }
         } catch (e: Exception) {
             activity.showErrorToast(e.toString())
             return false
         } finally {
-            try {
-                out?.close()
-            } catch (e: Exception) {
-                activity.showErrorToast(e.toString())
-            }
+            res.close()
         }
-
         return true
-    }
-
-    private fun zipSubFolder(out: ZipOutputStream, folder: File): Boolean {
-        try {
-            val fileList = folder.listFiles() ?: return true
-            for (file in fileList) {
-                if (file.isDirectory) {
-                    zipSubFolder(out, file)
-                } else {
-                    val entry = ZipEntry(file.path.substring(folder.parent.length))
-                    val fis = FileInputStream(file.path)
-                    addZipEntry(entry, fis, out)
-                }
-            }
-        } catch (e: Exception) {
-            activity.showErrorToast(e.toString())
-            return false
-        }
-
-        return true
-    }
-
-    private fun addZipEntry(entry: ZipEntry, fis: FileInputStream, out: ZipOutputStream) {
-        out.putNextEntry(entry)
-
-        val data = ByteArray(BUFFER)
-        val origin = BufferedInputStream(fis, BUFFER)
-        origin.use {
-            var count = origin.read(data, 0, BUFFER)
-            while (count != -1) {
-                out.write(data, 0, count)
-                count = origin.read(data, 0, BUFFER)
-            }
-        }
     }
 
     fun selectAll() {
