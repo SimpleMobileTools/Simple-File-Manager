@@ -241,18 +241,24 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
         try {
             sourcePaths.forEach {
-                val base = File(it).toURI()
+                var name: String
                 var mainFile = File(it)
-                queue.push(mainFile)
+                val base = mainFile.parentFile.toURI()
                 res = zout
+                queue.push(mainFile)
+                if (mainFile.isDirectory) {
+                    name = "${mainFile.name.trimEnd('/')}/"
+                    zout.putNextEntry(ZipEntry(name))
+                }
+
                 while (!queue.isEmpty()) {
                     mainFile = queue.pop()
                     if (mainFile.isDirectory) {
                         for (file in mainFile.listFiles()) {
-                            var name = base.relativize(file.toURI()).path
+                            name = base.relativize(file.toURI()).path
                             if (file.isDirectory) {
                                 queue.push(file)
-                                name = if (name.endsWith("/")) name else "$name/"
+                                name = "${name.trimEnd('/')}/"
                                 zout.putNextEntry(ZipEntry(name))
                             } else {
                                 zout.putNextEntry(ZipEntry(name))
@@ -261,7 +267,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                             }
                         }
                     } else {
-                        val name = if (base.path == it) it.getFilenameFromPath() else base.relativize(mainFile.toURI()).path
+                        name = if (base.path == it) it.getFilenameFromPath() else base.relativize(mainFile.toURI()).path
                         zout.putNextEntry(ZipEntry(name))
                         FileInputStream(mainFile).copyTo(zout)
                         zout.closeEntry()
