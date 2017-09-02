@@ -33,6 +33,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.*
 import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
 
@@ -243,7 +244,43 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         activity.handleSAFDialog(File(firstPath)) {
             activity.toast(R.string.decompressing)
             val paths = selectedPositions.map { mItems[it].path }.filter { it.isZipFile() }
+            if (unzipPaths(paths)) {
+                activity.toast(R.string.decompression_successful)
+                activity.runOnUiThread {
+                    listener?.refreshItems()
+                    actMode?.finish()
+                }
+            } else {
+                activity.toast(R.string.decompressing_failed)
+            }
         }
+    }
+
+    private fun unzipPaths(sourcePaths: List<String>): Boolean {
+        sourcePaths.map { File(it) }
+                .forEach {
+                    try {
+                        val zipFile = ZipFile(it)
+                        val entries = zipFile.entries()
+                        while (entries.hasMoreElements()) {
+                            val entry = entries.nextElement()
+                            val file = File(it.parent, entry.name)
+                            if (entry.isDirectory) {
+                                file.mkdirs()
+                            } else {
+                                file.parentFile.mkdirs()
+                                val ins = zipFile.getInputStream(entry)
+                                ins.use {
+                                    ins.copyTo(FileOutputStream(file))
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        activity.showErrorToast(e.toString())
+                        return false
+                    }
+                }
+        return true
     }
 
     fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
