@@ -25,6 +25,7 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.extensions.isZipFile
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
 import java.io.File
@@ -94,6 +95,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 R.id.cab_copy_to -> copyMoveTo(true)
                 R.id.cab_move_to -> copyMoveTo(false)
                 R.id.cab_compress -> compressSelection()
+                R.id.cab_decompress -> decompressSelection()
                 R.id.cab_select_all -> selectAll()
                 R.id.cab_delete -> askConfirmDelete()
                 else -> return false
@@ -109,8 +111,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
 
         override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu): Boolean {
-            val menuItem = menu.findItem(R.id.cab_rename)
-            menuItem.isVisible = selectedPositions.size <= 1
+            menu.findItem(R.id.cab_rename).isVisible = selectedPositions.size <= 1
+            menu.findItem(R.id.cab_decompress).isVisible = getSelectedMedia().map { it.path }.any { it.isZipFile() }
             return true
         }
 
@@ -230,6 +232,17 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                     }
                 }).start()
             }
+        }
+    }
+
+    private fun decompressSelection() {
+        if (selectedPositions.isEmpty())
+            return
+
+        val firstPath = mItems[selectedPositions.first()].path
+        activity.handleSAFDialog(File(firstPath)) {
+            activity.toast(R.string.decompressing)
+            val paths = selectedPositions.map { mItems[it].path }.filter { it.isZipFile() }
         }
     }
 
