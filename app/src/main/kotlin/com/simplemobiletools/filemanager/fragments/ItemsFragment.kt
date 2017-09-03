@@ -40,12 +40,12 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentView = inflater!!.inflate(R.layout.items_fragment, container, false)!!
+        storeConfigVariables()
         return fragmentView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mShowHidden = context.config.shouldShowHidden
         fillItems()
 
         items_swipe_refresh.setOnRefreshListener({ fillItems() })
@@ -69,6 +69,11 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     override fun onPause() {
         super.onPause()
+        storeConfigVariables()
+    }
+
+    private fun storeConfigVariables() {
+        mShowHidden = context.config.shouldShowHidden
         mStoredTextColor = context.config.textColor
     }
 
@@ -153,24 +158,37 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
+        val config = context.config
         Thread({
-            val items = ArrayList<FileDirItem>()
-            val files = File(path).listFiles()
-            if (files != null) {
-                for (file in files) {
-                    val curPath = file.absolutePath
-                    val curName = curPath.getFilenameFromPath()
-                    if (!mShowHidden && curName.startsWith("."))
-                        continue
-
-                    val children = getChildren(file)
-                    val size = file.length()
-
-                    items.add(FileDirItem(curPath, curName, file.isDirectory, children, size))
-                }
+            if (!config.enableRootAccess || path.startsWith(config.internalStoragePath) || (context.hasExternalSDCard() && path.startsWith(config.sdCardPath))) {
+                getRegularItemsOf(path, callback)
+            } else {
+                getRootItemsOf(path, callback)
             }
-            callback(items)
         }).start()
+    }
+
+    private fun getRegularItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
+        val items = ArrayList<FileDirItem>()
+        val files = File(path).listFiles()
+        if (files != null) {
+            for (file in files) {
+                val curPath = file.absolutePath
+                val curName = curPath.getFilenameFromPath()
+                if (!mShowHidden && curName.startsWith("."))
+                    continue
+
+                val children = getChildren(file)
+                val size = file.length()
+
+                items.add(FileDirItem(curPath, curName, file.isDirectory, children, size))
+            }
+        }
+        callback(items)
+    }
+
+    private fun getRootItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
+
     }
 
     private fun getChildren(file: File): Int {
