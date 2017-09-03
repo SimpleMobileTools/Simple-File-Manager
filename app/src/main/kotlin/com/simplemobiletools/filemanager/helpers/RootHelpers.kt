@@ -43,7 +43,7 @@ class RootHelpers {
             override fun commandOutput(id: Int, line: String) {
                 val parts = line.split(" ")
 
-                val filename = parts[1]
+                val filename = parts[1].trimStart('/')
                 if (showHidden || !filename.startsWith(".")) {
                     val filePath = "${path.trimEnd('/')}/$filename"
                     val isDirectory = parts[0].startsWith("d")
@@ -60,9 +60,40 @@ class RootHelpers {
 
             override fun commandCompleted(id: Int, exitcode: Int) {
                 super.commandCompleted(id, exitcode)
-                callback(files)
+                getFileDirParameters(files, callback)
             }
         }
         RootTools.getShell(true).add(command)
+    }
+
+    fun getFileDirParameters(oldItems: ArrayList<FileDirItem>, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+        val files = ArrayList<FileDirItem>()
+        oldItems.forEach {
+            val childrenCount = "find ${it.path} -mindepth 1 -maxdepth 1 | wc -l"
+            val fileSize = if (it.isDirectory) "" else "wc -c < ${it.path}"
+            val command = object : Command(0, "echo $($childrenCount) $($fileSize)") {
+                override fun commandOutput(id: Int, line: String) {
+                    val areDigitsOnly = line.matches(Regex("[0-9 ]+"))
+                    if (areDigitsOnly) {
+                        val parts = line.split(' ')
+                        val children = parts[0].toInt()
+                        val bytes = if (parts.size > 1) parts[1].toLong() else 0L
+                        val fileDirItem = FileDirItem(it.path, it.name, it.isDirectory, children, bytes)
+                        files.add(fileDirItem)
+                    }
+                    super.commandOutput(id, line)
+                }
+
+                override fun commandTerminated(id: Int, reason: String?) {
+                    super.commandTerminated(id, reason)
+                }
+
+                override fun commandCompleted(id: Int, exitcode: Int) {
+                    callback(files)
+                    super.commandCompleted(id, exitcode)
+                }
+            }
+            RootTools.getShell(true).add(command)
+        }
     }
 }
