@@ -169,7 +169,12 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             }
             type = getMimeType(uris)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            activity.startActivity(Intent.createChooser(this, shareTitle))
+
+            try {
+                activity.startActivity(Intent.createChooser(this, shareTitle))
+            } catch (exception: Exception) {
+                activity.showErrorToast(exception.cause.toString())
+            }
         }
     }
 
