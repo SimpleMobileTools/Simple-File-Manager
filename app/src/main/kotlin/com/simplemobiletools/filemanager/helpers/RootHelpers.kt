@@ -1,8 +1,10 @@
 package com.simplemobiletools.filemanager.helpers
 
+import android.content.Context
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.activities.SimpleActivity
+import com.simplemobiletools.filemanager.extensions.config
 import com.stericson.RootShell.execution.Command
 import com.stericson.RootTools.RootTools
 
@@ -33,18 +35,22 @@ class RootHelpers {
         }
     }
 
-    fun getFiles(path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    fun getFiles(context: Context, path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+        val files = ArrayList<FileDirItem>()
+        val showHidden = context.config.shouldShowHidden
+
         val command = object : Command(0, "ls -la $path | awk '{print \$1,\$NF}'") {
             override fun commandOutput(id: Int, line: String) {
                 val parts = line.split(" ")
 
-                val files = ArrayList<FileDirItem>()
                 val filename = parts[1]
-                val filePath = "${path.trimEnd('/')}/$filename"
-                val isDirectory = parts[0].startsWith("d")
-                val fileDirItem = FileDirItem(filePath, filename, isDirectory, 0, 0)
-                files.add(fileDirItem)
-                callback(files)
+                if (showHidden || !filename.startsWith(".")) {
+                    val filePath = "${path.trimEnd('/')}/$filename"
+                    val isDirectory = parts[0].startsWith("d")
+                    val fileDirItem = FileDirItem(filePath, filename, isDirectory, 0, 0)
+                    files.add(fileDirItem)
+                }
+
                 super.commandOutput(id, line)
             }
 
@@ -54,6 +60,7 @@ class RootHelpers {
 
             override fun commandCompleted(id: Int, exitcode: Int) {
                 super.commandCompleted(id, exitcode)
+                callback(files)
             }
         }
         RootTools.getShell(true).add(command)

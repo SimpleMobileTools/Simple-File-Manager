@@ -23,6 +23,7 @@ import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.helpers.RootHelpers
 import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
@@ -188,7 +189,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     private fun getRootItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
-
+        RootHelpers().getFiles(context, path, callback)
     }
 
     private fun getChildren(file: File): Int {
