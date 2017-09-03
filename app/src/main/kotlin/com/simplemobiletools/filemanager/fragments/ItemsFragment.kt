@@ -223,7 +223,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     private fun createNewItem() {
         CreateNewItemDialog(activity as SimpleActivity, mPath) {
-            fillItems()
+            if (it) {
+                fillItems()
+            }
         }
     }
 

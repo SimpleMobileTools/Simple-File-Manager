@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.dialog_create_new.view.*
 import java.io.File
 import java.io.IOException
 
-class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val callback: () -> Unit) {
+class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val callback: (success: Boolean) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
 
     init {
@@ -33,15 +33,11 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
 
                     if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
                         createDirectory(file, this) {
-                            if (!it) {
-                                errorOccurred()
-                            }
+                            callback(it)
                         }
                     } else {
                         createFile(file, this) {
-                            if (!it) {
-                                errorOccurred()
-                            }
+                            callback(it)
                         }
                     }
                 } else {
@@ -56,6 +52,8 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
             activity.needsStupidWritePermissions(path) -> activity.handleSAFDialog(file) {
                 val documentFile = activity.getFileDocument(file.absolutePath)
                 if (documentFile == null) {
+                    val error = String.format(activity.getString(R.string.could_not_create_folder), file.absolutePath)
+                    activity.showErrorToast(error)
                     callback(false)
                     return@handleSAFDialog
                 }
@@ -64,14 +62,9 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
             }
             file.mkdirs() -> {
                 success(alertDialog)
-                callback(true)
             }
             else -> callback(false)
         }
-    }
-
-    private fun errorOccurred() {
-        activity.toast(R.string.unknown_error_occurred)
     }
 
     private fun createFile(file: File, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
@@ -80,6 +73,8 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 activity.handleSAFDialog(file) {
                     val documentFile = activity.getFileDocument(file.absolutePath)
                     if (documentFile == null) {
+                        val error = String.format(activity.getString(R.string.could_not_create_file), file.absolutePath)
+                        activity.showErrorToast(error)
                         callback(false)
                         return@handleSAFDialog
                     }
@@ -88,15 +83,15 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 }
             } else if (file.createNewFile()) {
                 success(alertDialog)
-                callback(true)
             }
         } catch (exception: IOException) {
-            activity.showErrorToast(exception.toString())
+            activity.showErrorToast(exception)
+            callback(false)
         }
     }
 
     private fun success(alertDialog: AlertDialog) {
         alertDialog.dismiss()
-        callback()
+        callback(true)
     }
 }

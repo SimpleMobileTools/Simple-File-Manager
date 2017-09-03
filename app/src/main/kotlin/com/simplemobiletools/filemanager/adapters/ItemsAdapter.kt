@@ -27,7 +27,9 @@ import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.extensions.isZipFile
 import kotlinx.android.synthetic.main.list_item.view.*
-import java.io.*
+import java.io.Closeable
+import java.io.File
+import java.io.FileInputStream
 import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
@@ -201,9 +203,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
         FilePickerDialog(activity, source, false, config.shouldShowHidden, true) {
             activity.copyMoveFilesTo(files, source, it, isCopyOperation, false) {
-                if (!isCopyOperation) {
-                    listener?.refreshItems()
-                }
+                listener?.refreshItems()
                 actMode?.finish()
             }
         }
@@ -265,7 +265,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                             val entry = entries.nextElement()
                             val file = File(it.parent, entry.name)
                             if (entry.isDirectory) {
-                                if (!createDirectorySync(file)) {
+                                if (!activity.createDirectorySync(file)) {
                                     val error = String.format(activity.getString(R.string.could_not_create_file), file.absolutePath)
                                     activity.showErrorToast(error)
                                     return false
@@ -273,32 +273,23 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                             } else {
                                 val ins = zipFile.getInputStream(entry)
                                 ins.use {
-                                    val fos = getFileOutputStream(file.absolutePath, file.getMimeType())
+                                    val fos = activity.getFileOutputStreamSync(file.absolutePath, file.getMimeType())
                                     if (fos != null)
                                         ins.copyTo(fos)
                                 }
                             }
                         }
-                    } catch (e: Exception) {
-                        activity.showErrorToast(e.toString())
+                    } catch (exception: Exception) {
+                        activity.showErrorToast(exception)
                         return false
                     }
                 }
         return true
     }
 
-    private fun createDirectorySync(file: File): Boolean {
-        if (activity.needsStupidWritePermissions(file.absolutePath)) {
-            val documentFile = activity.getFileDocument(file.absolutePath) ?: return false
-            val newDir = documentFile.createDirectory(file.name)
-            return newDir != null
-        }
-        return file.mkdirs()
-    }
-
     fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
         val queue = LinkedList<File>()
-        val fos = getFileOutputStream(targetPath, "application/zip") ?: return false
+        val fos = activity.getFileOutputStreamSync(targetPath, "application/zip") ?: return false
 
         val zout = ZipOutputStream(fos)
         var res: Closeable = fos
@@ -338,31 +329,13 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                     }
                 }
             }
-        } catch (e: Exception) {
-            activity.showErrorToast(e.toString())
+        } catch (exception: Exception) {
+            activity.showErrorToast(exception)
             return false
         } finally {
             res.close()
         }
         return true
-    }
-
-    private fun getFileOutputStream(targetPath: String, mimeType: String): OutputStream? {
-        val targetFile = File(targetPath)
-
-        return if (activity.needsStupidWritePermissions(targetPath)) {
-            val documentFile = activity.getFileDocument(targetFile.parent)
-            if (documentFile == null) {
-                val error = String.format(activity.getString(R.string.could_not_create_file), targetFile.parent)
-                activity.showErrorToast(error)
-                return null
-            }
-
-            val newDocument = documentFile.createFile(mimeType, File(targetPath).name)
-            activity.contentResolver.openOutputStream(newDocument!!.uri)
-        } else {
-            FileOutputStream(targetFile)
-        }
     }
 
     fun selectAll() {
