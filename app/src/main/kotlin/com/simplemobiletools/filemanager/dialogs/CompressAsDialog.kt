@@ -3,9 +3,11 @@ package com.simplemobiletools.filemanager.dialogs
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.WindowManager
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
+import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.dialog_compress_as.view.*
 import java.io.File
 
@@ -17,7 +19,19 @@ class CompressAsDialog(val activity: SimpleActivity, val path: String, val callb
         val filename = path.getFilenameFromPath()
         val indexOfDot = if (filename.contains('.') && file.isFile) filename.lastIndexOf(".") else filename.length
         val baseFilename = filename.substring(0, indexOfDot)
-        view.file_name.setText(baseFilename)
+        var realPath = file.parent.trimEnd('/')
+
+        view.apply {
+            file_name.setText(baseFilename)
+
+            file_path.text = activity.humanizePath(realPath)
+            file_path.setOnClickListener {
+                FilePickerDialog(activity, realPath, false, activity.config.shouldShowHidden, true) {
+                    file_path.text = activity.humanizePath(it)
+                    realPath = it
+                }
+            }
+        }
 
         AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok, null)
@@ -30,7 +44,7 @@ class CompressAsDialog(val activity: SimpleActivity, val path: String, val callb
                 when {
                     name.isEmpty() -> activity.toast(R.string.empty_name)
                     name.isAValidFilename() -> {
-                        val newFile = File(file.parent, "$name.zip")
+                        val newFile = File(realPath, "$name.zip")
                         if (newFile.exists()) {
                             activity.toast(R.string.name_taken)
                             return@OnClickListener
