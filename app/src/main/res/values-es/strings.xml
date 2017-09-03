@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Ir a favoritos</string>
     <string name="favorites_activity_placeholder">Puede agregar carpetas de uso frecuente a favoritos para facilitar el acceso desde cualquier lugar.</string>
 
+    <!-- Settings -->
+    <string name="enable_root_access">Enable root access</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Un simple administrador de archivos para navegar por el árbol de directorios.</string>

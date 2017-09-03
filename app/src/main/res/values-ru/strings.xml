@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Открыть избранное</string>
     <string name="favorites_activity_placeholder">Вы можете добавить часто используемые папки в избранное для быстрого доступа к ним.</string>
 
+    <!-- Settings -->
+    <string name="enable_root_access">Enable root access</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Простой файловый менеджер для просмотра и редактирования файлов и папок.</string>

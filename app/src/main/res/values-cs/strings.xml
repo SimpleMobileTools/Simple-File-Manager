@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Jít na oblíbené</string>
     <string name="favorites_activity_placeholder">Můžete přidat často využívané složky do oblíbených pro jednoduchý přístup odkudkoli.</string>
 
+    <!-- Settings -->
+    <string name="enable_root_access">Enable root access</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Jednoduchý správce souborů pro procházení a úpravu souborů i složek.</string>

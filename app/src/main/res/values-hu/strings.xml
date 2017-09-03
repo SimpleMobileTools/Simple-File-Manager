@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Ugrás kedvenchez</string>
     <string name="favorites_activity_placeholder">A gyakran használt mappákat kedvencnek jelölheted, hogy bárhonnan könnyen elérd őket.</string>
 
+    <!-- Settings -->
+    <string name="enable_root_access">Enable root access</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Egyszerű fájlkezelő fájlok és könyvtárak böngészéséhez és szerkesztéséhez.</string>

@@ -23,6 +23,7 @@ class SettingsActivity : SimpleActivity() {
         setupManageFavorites()
         setupShowHidden()
         setupPasswordProtection()
+        setupEnableRootAccess()
         updateTextColors(settings_holder)
     }
 
@@ -67,6 +68,14 @@ class SettingsActivity : SimpleActivity() {
                 config.passwordHash = if (hasPasswordProtection) "" else hash
                 config.protectionType = type
             }
+        }
+    }
+
+    private fun setupEnableRootAccess() {
+        settings_enable_root_access.isChecked = config.enableRootAccess
+        settings_enable_root_access_holder.setOnClickListener {
+            settings_enable_root_access.toggle()
+            config.enableRootAccess = settings_enable_root_access.isChecked
         }
     }
 }

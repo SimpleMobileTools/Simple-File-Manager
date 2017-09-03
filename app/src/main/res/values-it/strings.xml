@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Vai al preferito</string>
     <string name="favorites_activity_placeholder">Puoi aggiungere le cartelle usate frequentemente ai preferiti per un rapido accesso da qualsiasi posizione.</string>
 
+    <!-- Settings -->
+    <string name="enable_root_access">Enable root access</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Un semplice file manager per sfogliare e modificare file e cartelle.</string>

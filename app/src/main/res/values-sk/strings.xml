@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Ísť medzi obľúbené</string>
     <string name="favorites_activity_placeholder">Pre jednoduchý prístup k často používaným priečinkom si ich viete pridať medzi obľúbené</string>
 
+    <!-- Settings -->
+    <string name="enable_root_access">Povoliť prístup ku koreňovým súborom</string>
+
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Jednoduchý správca súborov pre prehliadanie a úpravu súborov a priečinkov.</string>

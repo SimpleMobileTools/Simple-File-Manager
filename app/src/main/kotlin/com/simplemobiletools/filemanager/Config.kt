@@ -67,4 +67,8 @@ class Config(context: Context) : BaseConfig(context) {
     }
 
     fun hasCustomSorting(path: String) = prefs.contains(SORT_FOLDER_PREFIX + path)
+
+    var enableRootAccess: Boolean
+        get() = prefs.getBoolean(ENABLE_ROOT_ACCESS, false)
+        set(enableRootAccess) = prefs.edit().putBoolean(ENABLE_ROOT_ACCESS, enableRootAccess).apply()
 }
