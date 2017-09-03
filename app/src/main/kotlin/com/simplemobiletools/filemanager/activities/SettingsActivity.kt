@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.activities
 import android.content.Intent
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.SecurityDialog
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
 import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
@@ -73,6 +74,7 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupEnableRootAccess() {
+        settings_enable_root_access_holder.beVisibleIf(config.isRootAvailable)
         settings_enable_root_access.isChecked = config.enableRootAccess
         settings_enable_root_access_holder.setOnClickListener {
             if (!config.enableRootAccess) {

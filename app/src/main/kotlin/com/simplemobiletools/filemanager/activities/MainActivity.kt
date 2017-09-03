@@ -25,6 +25,7 @@ import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
+import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -45,6 +46,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         tryInitFileManager()
         storeStoragePaths()
         checkWhatsNewDialog()
+        checkIfRootAvailable()
     }
 
     override fun onResume() {
@@ -244,6 +246,12 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
             val item = breadcrumbs.getChildAt(id).tag as FileDirItem
             openPath(item.path)
         }
+    }
+
+    private fun checkIfRootAvailable() {
+        Thread({
+            config.isRootAvailable = RootTools.isRootAvailable()
+        }).start()
     }
 
     private fun checkWhatsNewDialog() {
