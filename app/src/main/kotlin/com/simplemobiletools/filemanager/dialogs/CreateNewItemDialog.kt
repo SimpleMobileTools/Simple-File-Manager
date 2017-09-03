@@ -14,7 +14,6 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
     private val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
 
     init {
-
         AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
@@ -53,8 +52,8 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
     }
 
     private fun createDirectory(file: File, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
-        if (activity.needsStupidWritePermissions(path)) {
-            activity.handleSAFDialog(file) {
+        when {
+            activity.needsStupidWritePermissions(path) -> activity.handleSAFDialog(file) {
                 val documentFile = activity.getFileDocument(file.absolutePath)
                 if (documentFile == null) {
                     callback(false)
@@ -63,11 +62,12 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 documentFile.createDirectory(file.name)
                 success(alertDialog)
             }
-        } else if (file.mkdirs()) {
-            success(alertDialog)
-            callback(true)
-        } else
-            callback(false)
+            file.mkdirs() -> {
+                success(alertDialog)
+                callback(true)
+            }
+            else -> callback(false)
+        }
     }
 
     private fun errorOccurred() {

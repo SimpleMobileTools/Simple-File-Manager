@@ -273,7 +273,9 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                             } else {
                                 val ins = zipFile.getInputStream(entry)
                                 ins.use {
-                                    ins.copyTo(getFileOutputStream(file.absolutePath, file.getMimeType()))
+                                    val fos = getFileOutputStream(file.absolutePath, file.getMimeType())
+                                    if (fos != null)
+                                        ins.copyTo(fos)
                                 }
                             }
                         }
@@ -296,9 +298,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
         val queue = LinkedList<File>()
-        val out = getFileOutputStream(targetPath, "application/zip")
-        val zout = ZipOutputStream(out)
-        var res: Closeable = out
+        val fos = getFileOutputStream(targetPath, "application/zip") ?: return false
+
+        val zout = ZipOutputStream(fos)
+        var res: Closeable = fos
 
         try {
             sourcePaths.forEach {
@@ -344,14 +347,15 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         return true
     }
 
-    private fun getFileOutputStream(targetPath: String, mimeType: String): OutputStream {
+    private fun getFileOutputStream(targetPath: String, mimeType: String): OutputStream? {
         val targetFile = File(targetPath)
 
         return if (activity.needsStupidWritePermissions(targetPath)) {
             val documentFile = activity.getFileDocument(targetFile.parent)
             if (documentFile == null) {
                 val error = String.format(activity.getString(R.string.could_not_create_file), targetFile.parent)
-                throw IOException(error)
+                activity.showErrorToast(error)
+                return null
             }
 
             val newDocument = documentFile.createFile(mimeType, File(targetPath).name)
