@@ -241,15 +241,17 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         activity.handleSAFDialog(File(firstPath)) {
             activity.toast(R.string.decompressing)
             val paths = selectedPositions.map { mItems[it].path }.filter { it.isZipFile() }
-            if (unzipPaths(paths)) {
-                activity.toast(R.string.decompression_successful)
-                activity.runOnUiThread {
-                    listener?.refreshItems()
-                    actMode?.finish()
+            Thread({
+                if (unzipPaths(paths)) {
+                    activity.toast(R.string.decompression_successful)
+                    activity.runOnUiThread {
+                        listener?.refreshItems()
+                        actMode?.finish()
+                    }
+                } else {
+                    activity.toast(R.string.decompressing_failed)
                 }
-            } else {
-                activity.toast(R.string.decompressing_failed)
-            }
+            }).start()
         }
     }
 
@@ -263,17 +265,12 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                             val entry = entries.nextElement()
                             val file = File(it.parent, entry.name)
                             if (entry.isDirectory) {
-                                createDirectory(file) {
+                                if (!createDirectorySync(file)) {
                                     val error = String.format(activity.getString(R.string.could_not_create_file), file.absolutePath)
                                     activity.showErrorToast(error)
+                                    return false
                                 }
                             } else {
-                                createDirectory(file.parentFile) {
-                                    if (!it) {
-                                        val error = String.format(activity.getString(R.string.could_not_create_file), file.parentFile.absolutePath)
-                                        activity.showErrorToast(error)
-                                    }
-                                }
                                 val ins = zipFile.getInputStream(entry)
                                 ins.use {
                                     ins.copyTo(getFileOutputStream(file.absolutePath, file.getMimeType()))
@@ -288,20 +285,13 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         return true
     }
 
-    private fun createDirectory(file: File, callback: (Boolean) -> Unit) {
+    private fun createDirectorySync(file: File): Boolean {
         if (activity.needsStupidWritePermissions(file.absolutePath)) {
-            activity.handleSAFDialog(file) {
-                val documentFile = activity.getFileDocument(file.absolutePath)
-                if (documentFile == null) {
-                    callback(false)
-                    return@handleSAFDialog
-                }
-                val newDir = documentFile.createDirectory(file.name)
-                callback(newDir != null)
-            }
-        } else {
-            callback(file.mkdirs())
+            val documentFile = activity.getFileDocument(file.absolutePath) ?: return false
+            val newDir = documentFile.createDirectory(file.name)
+            return newDir != null
         }
+        return file.mkdirs()
     }
 
     fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
