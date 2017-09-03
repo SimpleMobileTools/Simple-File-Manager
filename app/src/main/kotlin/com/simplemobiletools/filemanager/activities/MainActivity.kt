@@ -42,6 +42,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        storeConfigVariables()
         breadcrumbs.setListener(this)
         tryInitFileManager()
         storeStoragePaths()
@@ -62,12 +63,16 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     override fun onPause() {
         super.onPause()
-        storedTextColor = config.textColor
+        storeConfigVariables()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         config.temporarilyShowHidden = false
+    }
+
+    private fun storeConfigVariables() {
+        storedTextColor = config.textColor
     }
 
     private fun tryInitFileManager() {
