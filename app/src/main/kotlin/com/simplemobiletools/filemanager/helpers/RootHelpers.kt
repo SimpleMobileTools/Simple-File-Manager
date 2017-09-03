@@ -8,7 +8,6 @@ class RootHelpers {
     fun getFiles(path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val command = object : Command(0, "ls -la $path | awk '{print \$1,\$NF}'") {
             override fun commandOutput(id: Int, line: String) {
-                super.commandOutput(id, line)
                 val parts = line.split(" ")
 
                 val files = ArrayList<FileDirItem>()
@@ -18,6 +17,7 @@ class RootHelpers {
                 val fileDirItem = FileDirItem(filePath, filename, isDirectory, 0, 0)
                 files.add(fileDirItem)
                 callback(files)
+                super.commandOutput(id, line)
             }
 
             override fun commandTerminated(id: Int, reason: String?) {
