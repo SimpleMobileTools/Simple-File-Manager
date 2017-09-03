@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.helpers.RootHelpers
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : SimpleActivity() {
@@ -74,8 +75,18 @@ class SettingsActivity : SimpleActivity() {
     private fun setupEnableRootAccess() {
         settings_enable_root_access.isChecked = config.enableRootAccess
         settings_enable_root_access_holder.setOnClickListener {
-            settings_enable_root_access.toggle()
-            config.enableRootAccess = settings_enable_root_access.isChecked
+            if (!config.enableRootAccess) {
+                RootHelpers().askRootIFNeeded(this) {
+                    toggleRootAccess(it)
+                }
+            } else {
+                toggleRootAccess(false)
+            }
         }
+    }
+
+    private fun toggleRootAccess(enable: Boolean) {
+        settings_enable_root_access.isChecked = enable
+        config.enableRootAccess = enable
     }
 }
