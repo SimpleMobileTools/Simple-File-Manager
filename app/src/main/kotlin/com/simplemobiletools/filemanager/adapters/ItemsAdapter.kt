@@ -25,7 +25,9 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.extensions.isZipFile
+import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
 import java.io.File
@@ -207,11 +209,38 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
         val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
         FilePickerDialog(activity, source, false, config.shouldShowHidden, true) {
-            activity.copyMoveFilesTo(files, source, it, isCopyOperation, false) {
+            if (activity.isPathOnRoot(source)) {
+                copyRootItems(files, it)
+            } else {
+                activity.copyMoveFilesTo(files, source, it, isCopyOperation, false) {
+                    listener?.refreshItems()
+                    actMode?.finish()
+                }
+            }
+        }
+    }
+
+    private fun copyRootItems(files: ArrayList<File>, destinationPath: String) {
+        activity.toast(R.string.copying)
+        Thread({
+            var fileCnt = files.count()
+            files.forEach {
+                if (RootTools.copyFile(it.absolutePath, destinationPath, false, true)) {
+                    fileCnt--
+                }
+            }
+
+            when {
+                fileCnt <= 0 -> activity.toast(R.string.copying_success)
+                fileCnt == files.count() -> activity.toast(R.string.copy_failed)
+                else -> activity.toast(R.string.copying_success_partial)
+            }
+
+            activity.runOnUiThread {
                 listener?.refreshItems()
                 actMode?.finish()
             }
-        }
+        }).start()
     }
 
     private fun compressSelection() {

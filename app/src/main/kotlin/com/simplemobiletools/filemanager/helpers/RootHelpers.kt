@@ -75,6 +75,7 @@ class RootHelpers {
                 super.commandCompleted(id, exitcode)
             }
         }
+
         try {
             RootTools.getShell(true).add(command)
         } catch (e: Exception) {
