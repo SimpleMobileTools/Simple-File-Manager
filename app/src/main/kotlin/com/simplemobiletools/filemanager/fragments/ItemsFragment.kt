@@ -24,6 +24,7 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.helpers.RootHelpers
+import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
@@ -159,15 +160,17 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
-        val config = context.config
         Thread({
-            if (!config.enableRootAccess || path.startsWith(config.internalStoragePath) || (context.hasExternalSDCard() && path.startsWith(config.sdCardPath))) {
+            if (!context.config.enableRootAccess || !isPathOnRoot(path)) {
                 getRegularItemsOf(path, callback)
             } else {
                 getRootItemsOf(path, callback)
             }
         }).start()
     }
+
+    private fun isPathOnRoot(path: String) =
+            !(path.startsWith(context.config.internalStoragePath) || (context.hasExternalSDCard() && path.startsWith(context.config.sdCardPath)))
 
     private fun getRegularItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         val items = ArrayList<FileDirItem>()
@@ -262,10 +265,16 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     override fun deleteFiles(files: ArrayList<File>) {
         val hasFolder = files.any { it.isDirectory }
-        (activity as SimpleActivity).deleteFiles(files, hasFolder) {
-            if (!it) {
-                activity.runOnUiThread {
-                    activity.toast(R.string.unknown_error_occurred)
+        if (isPathOnRoot(files.firstOrNull()?.absolutePath ?: context.config.internalStoragePath)) {
+            files.forEach {
+                RootTools.deleteFileOrDirectory(it.path, false)
+            }
+        } else {
+            (activity as SimpleActivity).deleteFiles(files, hasFolder) {
+                if (!it) {
+                    activity.runOnUiThread {
+                        activity.toast(R.string.unknown_error_occurred)
+                    }
                 }
             }
         }
