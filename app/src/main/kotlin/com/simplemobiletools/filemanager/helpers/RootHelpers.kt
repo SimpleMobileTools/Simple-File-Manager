@@ -7,6 +7,7 @@ import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
 import com.stericson.RootShell.execution.Command
 import com.stericson.RootTools.RootTools
+import java.util.*
 
 class RootHelpers {
     fun askRootIFNeeded(activity: SimpleActivity, callback: (success: Boolean) -> Unit) {
