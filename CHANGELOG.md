@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 2.4.0 *(2017-09-04)*
+----------------------------
+
+ * Added zip file de/compressing
+ * Improved root folder handling for rooted devices, if enabled
+ * Improved SD card file handling
+
 Version 2.3.1 *(2017-08-07)*
 ----------------------------
 
