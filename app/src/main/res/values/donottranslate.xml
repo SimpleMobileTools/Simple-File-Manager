@@ -2,6 +2,10 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_35">
+        Added zip file de/compressing\n
+        Improved root folder handling for rooted devices, if enabled
+    </string>
     <string name="release_34">Allow password protecting hidden item visibility</string>
     <string name="release_29">Added a couple ways of sorting</string>
     <string name="release_28">
