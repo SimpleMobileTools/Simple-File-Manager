@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.helpers
 
 import android.text.TextUtils
+import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -52,7 +53,7 @@ class RootHelpers {
                     val childrenCnt = if (isFile) "0" else parts[2].trim()
                     val filename = TextUtils.join(" ", parts.subList(3, parts.size)).trimStart('/')
 
-                    if ((!showHidden && filename.startsWith(".")) || (!isDirectory && !isFile) || !areDigitsOnly(size) || !areDigitsOnly(childrenCnt)) {
+                    if ((!showHidden && filename.startsWith(".")) || (!isDirectory && !isFile) || !size.areDigitsOnly() || !childrenCnt.areDigitsOnly()) {
                         super.commandOutput(id, line)
                         return
                     }
@@ -82,6 +83,4 @@ class RootHelpers {
             activity.showErrorToast(e)
         }
     }
-
-    private fun areDigitsOnly(value: String) = value.matches(Regex("[0-9]+"))
 }
