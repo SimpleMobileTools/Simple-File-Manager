@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.helpers
 
 import android.content.Context
+import android.text.TextUtils
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -39,19 +40,27 @@ class RootHelpers {
     fun getFiles(context: Context, path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val files = ArrayList<FileDirItem>()
         val showHidden = context.config.shouldShowHidden
-        val SEPARATOR = "|||"
 
-        val command = object : Command(0, "ls -la $path | awk '{print \$1,\"$SEPARATOR\",$4,\"$SEPARATOR\",\$NF}'") {
+        val cmd = "ls -la $path | awk '{ system(\"echo \"\$1\" \"\$4\" `find $path/\"\$NF\" -mindepth 1 -maxdepth 1 | wc -l` \"\$NF\" \")}'"
+        val command = object : Command(0, cmd) {
             override fun commandOutput(id: Int, line: String) {
-                val parts = line.split(SEPARATOR)
-
-                val filename = parts[2].trim().trimStart('/')
-                if (showHidden || !filename.startsWith(".")) {
-                    val filePath = "${path.trimEnd('/')}/$filename"
+                val parts = line.split(" ")
+                if (parts.size >= 4) {
                     val permissions = parts[0].trim()
                     val isDirectory = permissions.startsWith("d")
-                    val fileSize = if (permissions.startsWith("-")) parts[1].trim().toLong() else 0L
-                    val fileDirItem = FileDirItem(filePath, filename, isDirectory, 0, fileSize)
+                    val isFile = permissions.startsWith("-")
+                    val size = if (isFile) parts[1].trim() else "0"
+                    val childrenCnt = if (isFile) "0" else parts[2].trim()
+                    val filename = TextUtils.join(" ", parts.subList(3, parts.size)).trimStart('/')
+
+                    if ((!showHidden && filename.startsWith(".")) || (!isDirectory && !isFile) || !areDigitsOnly(size) || !areDigitsOnly(childrenCnt)) {
+                        super.commandOutput(id, line)
+                        return
+                    }
+
+                    val fileSize = size.toLong()
+                    val filePath = "${path.trimEnd('/')}/$filename"
+                    val fileDirItem = FileDirItem(filePath, filename, isDirectory, childrenCnt.toInt(), fileSize)
                     files.add(fileDirItem)
                 }
 
@@ -63,38 +72,12 @@ class RootHelpers {
             }
 
             override fun commandCompleted(id: Int, exitcode: Int) {
+                callback(files)
                 super.commandCompleted(id, exitcode)
-                getFileDirParameters(files, callback)
             }
         }
         RootTools.getShell(true).add(command)
     }
 
-    fun getFileDirParameters(oldItems: ArrayList<FileDirItem>, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
-        val files = ArrayList<FileDirItem>()
-        val shell = RootTools.getShell(true)
-        oldItems.forEach {
-            val command = object : Command(0, "find ${it.path} -mindepth 1 -maxdepth 1 | wc -l") {
-                override fun commandOutput(id: Int, line: String) {
-                    val areDigitsOnly = line.matches(Regex("[0-9 ]+"))
-                    if (areDigitsOnly) {
-                        val children = line.trim().toInt()
-                        val fileDirItem = FileDirItem(it.path, it.name, it.isDirectory, children, it.size)
-                        files.add(fileDirItem)
-                    }
-                    super.commandOutput(id, line)
-                }
-
-                override fun commandTerminated(id: Int, reason: String?) {
-                    super.commandTerminated(id, reason)
-                }
-
-                override fun commandCompleted(id: Int, exitcode: Int) {
-                    callback(files)
-                    super.commandCompleted(id, exitcode)
-                }
-            }
-            shell.add(command)
-        }
-    }
+    private fun areDigitsOnly(value: String) = value.matches(Regex("[0-9 ]+"))
 }
