@@ -23,6 +23,7 @@ import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.items_fragment.*
@@ -161,16 +162,13 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         Thread({
-            if (!context.config.enableRootAccess || !isPathOnRoot(path)) {
+            if (!context.config.enableRootAccess || !context.isPathOnRoot(path)) {
                 getRegularItemsOf(path, callback)
             } else {
                 getRootItemsOf(path, callback)
             }
         }).start()
     }
-
-    private fun isPathOnRoot(path: String) =
-            !(path.startsWith(context.config.internalStoragePath) || (context.hasExternalSDCard() && path.startsWith(context.config.sdCardPath)))
 
     private fun getRegularItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         val items = ArrayList<FileDirItem>()
@@ -265,7 +263,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     override fun deleteFiles(files: ArrayList<File>) {
         val hasFolder = files.any { it.isDirectory }
-        if (isPathOnRoot(files.firstOrNull()?.absolutePath ?: context.config.internalStoragePath)) {
+        if (context.isPathOnRoot(files.firstOrNull()?.absolutePath ?: context.config.internalStoragePath)) {
             files.forEach {
                 RootTools.deleteFileOrDirectory(it.path, false)
             }
