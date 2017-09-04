@@ -39,16 +39,19 @@ class RootHelpers {
     fun getFiles(context: Context, path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val files = ArrayList<FileDirItem>()
         val showHidden = context.config.shouldShowHidden
+        val SEPARATOR = "|||"
 
-        val command = object : Command(0, "ls -la $path | awk '{print \$1,\$NF}'") {
+        val command = object : Command(0, "ls -la $path | awk '{print \$1,\"$SEPARATOR\",$4,\"$SEPARATOR\",\$NF}'") {
             override fun commandOutput(id: Int, line: String) {
-                val parts = line.split(" ")
+                val parts = line.split(SEPARATOR)
 
-                val filename = parts[1].trimStart('/')
+                val filename = parts[2].trim().trimStart('/')
                 if (showHidden || !filename.startsWith(".")) {
                     val filePath = "${path.trimEnd('/')}/$filename"
-                    val isDirectory = parts[0].startsWith("d")
-                    val fileDirItem = FileDirItem(filePath, filename, isDirectory, 0, 0)
+                    val permissions = parts[0].trim()
+                    val isDirectory = permissions.startsWith("d")
+                    val fileSize = if (permissions.startsWith("-")) parts[1].trim().toLong() else 0L
+                    val fileDirItem = FileDirItem(filePath, filename, isDirectory, 0, fileSize)
                     files.add(fileDirItem)
                 }
 
@@ -69,17 +72,14 @@ class RootHelpers {
 
     fun getFileDirParameters(oldItems: ArrayList<FileDirItem>, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val files = ArrayList<FileDirItem>()
+        val shell = RootTools.getShell(true)
         oldItems.forEach {
-            val childrenCount = "find ${it.path} -mindepth 1 -maxdepth 1 | wc -l"
-            val fileSize = if (it.isDirectory) "" else "wc -c < ${it.path}"
-            val command = object : Command(0, "echo $($childrenCount) $($fileSize)") {
+            val command = object : Command(0, "find ${it.path} -mindepth 1 -maxdepth 1 | wc -l") {
                 override fun commandOutput(id: Int, line: String) {
                     val areDigitsOnly = line.matches(Regex("[0-9 ]+"))
                     if (areDigitsOnly) {
-                        val parts = line.split(' ')
-                        val children = parts[0].toInt()
-                        val bytes = if (parts.size > 1) parts[1].toLong() else 0L
-                        val fileDirItem = FileDirItem(it.path, it.name, it.isDirectory, children, bytes)
+                        val children = line.trim().toInt()
+                        val fileDirItem = FileDirItem(it.path, it.name, it.isDirectory, children, it.size)
                         files.add(fileDirItem)
                     }
                     super.commandOutput(id, line)
@@ -94,7 +94,7 @@ class RootHelpers {
                     super.commandCompleted(id, exitcode)
                 }
             }
-            RootTools.getShell(true).add(command)
+            shell.add(command)
         }
     }
 }
