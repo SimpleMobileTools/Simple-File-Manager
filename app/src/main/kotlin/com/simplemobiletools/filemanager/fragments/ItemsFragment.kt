@@ -189,7 +189,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     private fun getRootItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
-        RootHelpers().getFiles(context, path.trimEnd('/'), callback)
+        RootHelpers().getFiles(activity as SimpleActivity, path.trimEnd('/'), callback)
     }
 
     private fun getChildren(file: File): Int {

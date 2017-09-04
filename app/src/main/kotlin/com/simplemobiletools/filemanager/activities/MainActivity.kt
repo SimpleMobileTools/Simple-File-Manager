@@ -25,6 +25,7 @@ import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
+import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -256,6 +257,11 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     private fun checkIfRootAvailable() {
         Thread({
             config.isRootAvailable = RootTools.isRootAvailable()
+            if (config.isRootAvailable && config.enableRootAccess) {
+                RootHelpers().askRootIFNeeded(this) {
+                    config.enableRootAccess = it
+                }
+            }
         }).start()
     }
 

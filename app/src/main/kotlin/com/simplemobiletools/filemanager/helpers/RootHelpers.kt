@@ -1,6 +1,5 @@
 package com.simplemobiletools.filemanager.helpers
 
-import android.content.Context
 import android.text.TextUtils
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.models.FileDirItem
@@ -37,9 +36,9 @@ class RootHelpers {
         }
     }
 
-    fun getFiles(context: Context, path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    fun getFiles(activity: SimpleActivity, path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val files = ArrayList<FileDirItem>()
-        val showHidden = context.config.shouldShowHidden
+        val showHidden = activity.config.shouldShowHidden
 
         val cmd = "ls -la $path | awk '{ system(\"echo \"\$1\" \"\$4\" `find $path/\"\$NF\" -mindepth 1 -maxdepth 1 | wc -l` \"\$NF\" \")}'"
         val command = object : Command(0, cmd) {
@@ -76,8 +75,12 @@ class RootHelpers {
                 super.commandCompleted(id, exitcode)
             }
         }
-        RootTools.getShell(true).add(command)
+        try {
+            RootTools.getShell(true).add(command)
+        } catch (e: Exception) {
+            activity.showErrorToast(e)
+        }
     }
 
-    private fun areDigitsOnly(value: String) = value.matches(Regex("[0-9 ]+"))
+    private fun areDigitsOnly(value: String) = value.matches(Regex("[0-9]+"))
 }
