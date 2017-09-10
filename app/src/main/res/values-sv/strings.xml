@@ -9,26 +9,26 @@
     <string name="home_folder_updated">Hemmappen har uppdaterats</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Komprimera</string>
+    <string name="decompress">Packa upp</string>
+    <string name="compress_as">Komprimera som</string>
+    <string name="compressing">Komprimerar…</string>
+    <string name="decompressing">Packar upp…</string>
+    <string name="compression_successful">Komprimeringen lyckades</string>
+    <string name="decompression_successful">Uppackningen lyckades</string>
+    <string name="compressing_failed">Komprimeringen misslyckades</string>
+    <string name="decompressing_failed">Uppackningen misslyckades</string>
 
     <!-- Favorites -->
     <string name="favorites">Favoriter</string>
-    <string name="add_to_favorites">Lägg till favoriter</string>
+    <string name="add_to_favorites">Lägg till i favoriter</string>
     <string name="remove_from_favorites">Ta bort från favoriter</string>
     <string name="manage_favorites">Hantera favoriter</string>
     <string name="go_to_favorite">Gå till favorit</string>
     <string name="favorites_activity_placeholder">Du kan lägga till ofta använda mappar i favoriter för enkel åtkomst överallt.</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Aktivera rotåtkomst</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -36,7 +36,7 @@
     <string name="app_long_description">
         Kan också användas till att bläddra i rot-filer och innehållet på SD-kort. Du kan enkelt döpa om, kopiera, flytta, ta bort och dela det du vill.
 
-        Innehåller ingen reklam eller onödiga behörigheter. Det är helt och hållet opensource, innehåller även ett mörkt tema.
+        Innehåller ingen reklam eller onödiga behörigheter. Det är helt och hållet opensource, har anpassningsbara färger.
 
         Detta är bara en app i en serie av appar. Du hittar resten av dem här http://www.simplemobiletools.com
     </string>
