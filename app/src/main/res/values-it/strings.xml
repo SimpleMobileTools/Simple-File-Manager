@@ -9,15 +9,15 @@
     <string name="home_folder_updated">Cartella home aggiornata</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Comprimi</string>
+    <string name="decompress">Decomprimi</string>
+    <string name="compress_as">Comprimi come</string>
+    <string name="compressing">Compressione…</string>
+    <string name="decompressing">Decompressione…</string>
+    <string name="compression_successful">Compressione completata</string>
+    <string name="decompression_successful">Decompressione completata</string>
+    <string name="compressing_failed">Compressione fallita</string>
+    <string name="decompressing_failed">Decompressione fallita</string>
 
     <!-- Favorites -->
     <string name="favorites">Preferiti</string>
@@ -28,7 +28,7 @@
     <string name="favorites_activity_placeholder">Puoi aggiungere le cartelle usate frequentemente ai preferiti per un rapido accesso da qualsiasi posizione.</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Abilita accesso root</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
