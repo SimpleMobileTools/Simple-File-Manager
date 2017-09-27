@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    compile 'com.simplemobiletools:commons:2.27.8'
+    compile 'com.simplemobiletools:commons:2.28.7'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

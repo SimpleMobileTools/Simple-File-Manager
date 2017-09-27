@@ -2,10 +2,12 @@ package com.simplemobiletools.filemanager.activities
 
 import android.content.Intent
 import android.os.Bundle
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.SecurityDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.PROTECTION_FINGERPRINT
 import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
@@ -69,6 +71,12 @@ class SettingsActivity : SimpleActivity() {
                 config.isPasswordProtectionOn = !hasPasswordProtection
                 config.passwordHash = if (hasPasswordProtection) "" else hash
                 config.protectionType = type
+
+                if (config.isPasswordProtectionOn) {
+                    val confirmationTextId = if (config.protectionType == PROTECTION_FINGERPRINT)
+                        R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
+                    ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
+                }
             }
         }
     }
