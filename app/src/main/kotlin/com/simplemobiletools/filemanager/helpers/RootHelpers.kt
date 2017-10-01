@@ -19,14 +19,6 @@ class RootHelpers {
                     callback(true)
                 super.commandOutput(id, line)
             }
-
-            override fun commandTerminated(id: Int, reason: String?) {
-                super.commandTerminated(id, reason)
-            }
-
-            override fun commandCompleted(id: Int, exitcode: Int) {
-                super.commandCompleted(id, exitcode)
-            }
         }
 
         try {
@@ -65,10 +57,6 @@ class RootHelpers {
                 }
 
                 super.commandOutput(id, line)
-            }
-
-            override fun commandTerminated(id: Int, reason: String?) {
-                super.commandTerminated(id, reason)
             }
 
             override fun commandCompleted(id: Int, exitcode: Int) {
