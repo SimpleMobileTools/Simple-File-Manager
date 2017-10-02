@@ -12,11 +12,10 @@ import java.util.*
 
 class RootHelpers {
     fun askRootIFNeeded(activity: SimpleActivity, callback: (success: Boolean) -> Unit) {
-        val SIMPLE_MOBILE_TOOLS = "simple mobile tools"
-        val command = object : Command(0, "echo $SIMPLE_MOBILE_TOOLS") {
+        val command = object : Command(0, "ls -la | awk '{ print $2 }'") {
             override fun commandOutput(id: Int, line: String) {
-                if (line == SIMPLE_MOBILE_TOOLS)
-                    callback(true)
+                activity.config.lsHasHardLinksColumn = line.areDigitsOnly()
+                callback(true)
                 super.commandOutput(id, line)
             }
         }
@@ -32,8 +31,9 @@ class RootHelpers {
     fun getFiles(activity: SimpleActivity, path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val files = ArrayList<FileDirItem>()
         val showHidden = activity.config.shouldShowHidden
+        val sizeColumnIndex = if (activity.config.lsHasHardLinksColumn) 5 else 4
 
-        val cmd = "ls -la $path | awk '{ system(\"echo \"\$1\" \"\$4\" `find $path/\"\$NF\" -mindepth 1 -maxdepth 1 | wc -l` \"\$NF\" \")}'"
+        val cmd = "ls -la $path | awk '{ system(\"echo \"\$1\" \"\$$sizeColumnIndex\" `find ${path.trimEnd('/')}/\"\$NF\" -mindepth 1 -maxdepth 1 | wc -l` \"\$NF\" \")}'"
         val command = object : Command(0, cmd) {
             override fun commandOutput(id: Int, line: String) {
                 val parts = line.split(" ")
