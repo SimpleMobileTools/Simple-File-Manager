@@ -43,10 +43,10 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        storeStoragePaths()
         storeConfigVariables()
         breadcrumbs.setListener(this)
         tryInitFileManager()
-        storeStoragePaths()
         checkWhatsNewDialog()
         checkIfRootAvailable()
     }
