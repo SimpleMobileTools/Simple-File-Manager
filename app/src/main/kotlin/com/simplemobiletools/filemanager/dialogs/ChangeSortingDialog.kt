@@ -31,14 +31,12 @@ class ChangeSortingDialog(val activity: SimpleActivity, val path: String = "", v
 
     private fun setupSortRadio() {
         val sortingRadio = view.sorting_dialog_radio_sorting
-        var sortBtn = sortingRadio.sorting_dialog_radio_name
-
-        if (currSorting and SORT_BY_SIZE != 0) {
-            sortBtn = sortingRadio.sorting_dialog_radio_size
-        } else if (currSorting and SORT_BY_DATE_MODIFIED != 0) {
-            sortBtn = sortingRadio.sorting_dialog_radio_last_modified
-        } else if (currSorting and SORT_BY_EXTENSION != 0)
-            sortBtn = sortingRadio.sorting_dialog_radio_extension
+        val sortBtn = when {
+            currSorting and SORT_BY_SIZE != 0 -> sortingRadio.sorting_dialog_radio_size
+            currSorting and SORT_BY_DATE_MODIFIED != 0 -> sortingRadio.sorting_dialog_radio_last_modified
+            currSorting and SORT_BY_EXTENSION != 0 -> sortingRadio.sorting_dialog_radio_extension
+            else -> sortingRadio.sorting_dialog_radio_name
+        }
         sortBtn.isChecked = true
     }
 

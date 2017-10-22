@@ -40,8 +40,6 @@ import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
-    private val BUFFER = 2048
-
     val multiSelector = MultiSelector()
     val config = activity.config
 
@@ -70,7 +68,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         updateTitle(selectedPositions.size)
     }
 
-    fun updateTitle(cnt: Int) {
+    private fun updateTitle(cnt: Int) {
         actMode?.title = "$cnt / ${mItems.size}"
         actMode?.invalidate()
     }
@@ -321,7 +319,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         return true
     }
 
-    fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
+    private fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
         val queue = LinkedList<File>()
         val fos = activity.getFileOutputStreamSync(targetPath, "application/zip") ?: return false
 

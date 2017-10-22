@@ -1,10 +1,5 @@
 package com.simplemobiletools.filemanager.activities
 
-import android.os.Bundle
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 
-open class SimpleActivity : BaseSimpleActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-}
+open class SimpleActivity : BaseSimpleActivity()
