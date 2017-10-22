@@ -179,7 +179,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 action = Intent.ACTION_SEND_MULTIPLE
                 putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
             }
-            type = getMimeType(uris)
+            type = uris.getMimeType()
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
             try {
@@ -198,19 +198,6 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         } else {
             uris.add(Uri.fromFile(file))
         }
-    }
-
-    private fun getMimeType(uris: List<Uri>): String {
-        val firstMimeType = uris.first().path.getMimeTypeFromPath()
-        val firstMimeGroup = firstMimeType.substringBefore("/")
-
-        uris.forEach {
-            val mimeGroup = it.path.getMimeTypeFromPath().substringBefore("/")
-            if (mimeGroup != firstMimeGroup) {
-                return "*/*"
-            }
-        }
-        return firstMimeType
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
