@@ -1,12 +1,9 @@
 package com.simplemobiletools.filemanager.activities
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Parcelable
-import android.support.v4.app.ActivityCompat
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -14,6 +11,7 @@ import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
+import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
@@ -31,7 +29,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
-    private val STORAGE_PERMISSION = 1
     private val BACK_PRESS_TIMEOUT = 5000
 
     private var latestFragment: ItemsFragment? = null
@@ -45,7 +42,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         setContentView(R.layout.activity_main)
         storeStoragePaths()
         storeConfigVariables()
-        breadcrumbs.setListener(this)
+        breadcrumbs.listener = this
         tryInitFileManager()
         checkWhatsNewDialog()
         checkIfRootAvailable()
@@ -56,7 +53,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         updateTextColors(main_screen)
         if (storedTextColor != config.textColor) {
             storedTextColor = config.textColor
-            breadcrumbs.setTextColor(storedTextColor)
+            breadcrumbs.textColor = storedTextColor
             openPath(currentPath)
         }
         invalidateOptionsMenu()
@@ -77,10 +74,13 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun tryInitFileManager() {
-        if (hasWriteStoragePermission()) {
-            initRootFileManager()
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), STORAGE_PERMISSION)
+        handlePermission(PERMISSION_WRITE_STORAGE) {
+            if (it) {
+                initRootFileManager()
+            } else {
+                toast(R.string.no_storage_permissions)
+                finish()
+            }
         }
     }
 
@@ -223,19 +223,6 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         } else {
             breadcrumbs.removeBreadcrumb()
             openPath(breadcrumbs.lastItem.path)
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == STORAGE_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                initRootFileManager()
-            } else {
-                toast(R.string.no_storage_permissions)
-                finish()
-            }
         }
     }
 
