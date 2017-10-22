@@ -36,15 +36,14 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     private var mStoredTextColor = 0
     private var mShowHidden = false
     private var mItems = ArrayList<FileDirItem>()
-
-    lateinit var fragmentView: View
+    private var fragmentView: View? = null
 
     var mPath = ""
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         fragmentView = inflater!!.inflate(R.layout.items_fragment, container, false)!!
         storeConfigVariables()
-        return fragmentView
+        return fragmentView!!
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -81,7 +80,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     fun fillItems() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)
+        if (activity == null || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed))
             return
 
         mPath = arguments.getString(PATH)
@@ -130,10 +129,10 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
         }
     }
 
-    private fun getRecyclerLayoutManager() = (fragmentView.items_list.layoutManager as LinearLayoutManager)
+    private fun getRecyclerLayoutManager() = (fragmentView?.items_list?.layoutManager as LinearLayoutManager)
 
     private fun setupRecyclerViewListener() {
-        fragmentView.items_list.listener = object : MyScalableRecyclerView.MyScalableRecyclerViewListener {
+        fragmentView?.items_list?.listener = object : MyScalableRecyclerView.MyScalableRecyclerViewListener {
             override fun zoomIn() {
 
             }
