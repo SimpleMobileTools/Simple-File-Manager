@@ -40,25 +40,26 @@ import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
         RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
-    val multiSelector = MultiSelector()
-    val config = activity.config
+    private var textColor = activity.config.textColor
 
-    var actMode: ActionMode? = null
-    var itemViews = SparseArray<View>()
-    val selectedPositions = HashSet<Int>()
+    private val multiSelector = MultiSelector()
+    private val config = activity.config
 
-    var textColor = activity.config.textColor
+    private var actMode: ActionMode? = null
+    private var itemViews = SparseArray<View>()
+    private val selectedPositions = HashSet<Int>()
 
-    private val folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
-    private val fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file, textColor)
+    lateinit private var folderDrawable: Drawable
+    lateinit private var fileDrawable: Drawable
 
     fun toggleItemSelection(select: Boolean, pos: Int) {
         itemViews[pos]?.item_frame?.isSelected = select
 
-        if (select)
+        if (select) {
             selectedPositions.add(pos)
-        else
+        } else {
             selectedPositions.remove(pos)
+        }
 
         if (selectedPositions.isEmpty()) {
             actMode?.finish()
@@ -74,6 +75,17 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     }
 
     init {
+        initDrawables()
+    }
+
+    fun updateTextColor(color: Int) {
+        textColor = color
+        initDrawables()
+    }
+
+    private fun initDrawables() {
+        folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
+        fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file, textColor)
         folderDrawable.alpha = 180
         fileDrawable.alpha = 180
     }

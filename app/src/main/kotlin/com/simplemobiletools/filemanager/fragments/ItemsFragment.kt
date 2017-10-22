@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.fragments
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
@@ -13,12 +12,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.dialogs.StoragePickerDialog
+import com.simplemobiletools.commons.extensions.deleteFiles
+import com.simplemobiletools.commons.extensions.getFilenameExtension
+import com.simplemobiletools.commons.extensions.getFilenameFromPath
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyScalableRecyclerView
-import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
@@ -29,43 +31,47 @@ import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
-import java.util.*
+import java.util.HashMap
+import kotlin.collections.ArrayList
 
-class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
-    private var mListener: ItemInteractionListener? = null
-    private var mStoredTextColor = 0
-    private var mShowHidden = false
-    private var mItems = ArrayList<FileDirItem>()
-    private var fragmentView: View? = null
+class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
+    var currentPath = ""
 
-    var mPath = ""
+    private var storedTextColor = 0
+    private var showHidden = false
+    private var storedItems = ArrayList<FileDirItem>()
+    private var scrollStates = HashMap<String, Parcelable>()
+
+    private lateinit var mView: View
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        fragmentView = inflater!!.inflate(R.layout.items_fragment, container, false)!!
+        mView = inflater!!.inflate(R.layout.items_fragment, container, false)!!
         storeConfigVariables()
-        return fragmentView!!
+        return mView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fillItems()
-
-        items_swipe_refresh.setOnRefreshListener({ fillItems() })
-        items_fab.setOnClickListener { createNewItem() }
+        mView.apply {
+            items_swipe_refresh.setOnRefreshListener({ refreshItems() })
+            items_fab.setOnClickListener { createNewItem() }
+            breadcrumbs.listener = this@ItemsFragment
+        }
     }
 
     override fun onResume() {
         super.onResume()
         val config = context.config
-        if (mShowHidden != config.shouldShowHidden) {
-            mShowHidden = !mShowHidden
-            fillItems()
+        if (showHidden != config.shouldShowHidden) {
+            showHidden = !showHidden
+            refreshItems()
         }
-        context.updateTextColors(items_holder)
-        if (mStoredTextColor != config.textColor) {
-            mItems = ArrayList()
-            fillItems()
-            mStoredTextColor = config.textColor
+
+        if (storedTextColor != config.textColor) {
+            storedItems = ArrayList()
+            (items_list.adapter as ItemsAdapter).updateTextColor(config.textColor)
+            refreshItems()
+            storedTextColor = config.textColor
         }
     }
 
@@ -75,64 +81,72 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     private fun storeConfigVariables() {
-        mShowHidden = context.config.shouldShowHidden
-        mStoredTextColor = context.config.textColor
+        showHidden = context.config.shouldShowHidden
+        storedTextColor = context.config.textColor
     }
 
-    fun fillItems() {
-        if (activity == null || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed))
-            return
+    fun openPath(path: String) {
+        var realPath = path.trimEnd('/')
+        if (realPath.isEmpty())
+            realPath = "/"
 
-        mPath = arguments.getString(PATH)
-        getItems(mPath) {
+        scrollStates.put(currentPath, getScrollState())
+        currentPath = realPath
+        showHidden = context.config.shouldShowHidden
+        getItems(currentPath) {
             if (!isAdded)
                 return@getItems
 
-            val newItems = it
-            FileDirItem.sorting = context.config.getFolderSorting(mPath)
-            newItems.sort()
+            FileDirItem.sorting = context.config.getFolderSorting(currentPath)
+            it.sort()
+            activity.runOnUiThread {
+                addItems(it)
+            }
+        }
+    }
 
-            fragmentView.apply {
-                activity?.runOnUiThread {
-                    items_swipe_refresh?.isRefreshing = false
-                    if (newItems.hashCode() == mItems.hashCode()) {
-                        return@runOnUiThread
-                    }
+    private fun addItems(items: ArrayList<FileDirItem>) {
+        mView.apply {
+            activity?.runOnUiThread {
+                items_swipe_refresh?.isRefreshing = false
+                if (items.hashCode() == storedItems.hashCode()) {
+                    return@runOnUiThread
+                }
 
-                    mItems = newItems
-
-                    val currAdapter = items_list.adapter
-                    if (currAdapter == null) {
-                        items_list.apply {
-                            this.adapter = ItemsAdapter(activity as SimpleActivity, mItems, this@ItemsFragment) {
-                                itemClicked(it)
-                            }
-
-                            DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
-                                setDrawable(context.resources.getDrawable(com.simplemobiletools.commons.R.drawable.divider))
-                                addItemDecoration(this)
-                            }
-
-                            isDragSelectionEnabled = true
+                mView.breadcrumbs.setBreadcrumb(currentPath)
+                storedItems = items
+                val currAdapter = items_list.adapter
+                if (currAdapter == null) {
+                    items_list.apply {
+                        this.adapter = ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment) {
+                            itemClicked(it)
                         }
-                        items_fastscroller.setViews(items_list, items_swipe_refresh)
-                        setupRecyclerViewListener()
-                    } else {
-                        val state = (items_list.layoutManager as LinearLayoutManager).onSaveInstanceState()
-                        (currAdapter as ItemsAdapter).updateItems(mItems)
-                        (items_list.layoutManager as LinearLayoutManager).onRestoreInstanceState(state)
-                    }
 
-                    getRecyclerLayoutManager().onRestoreInstanceState(arguments.getParcelable<Parcelable>(SCROLL_STATE))
+                        DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+                            setDrawable(context.resources.getDrawable(com.simplemobiletools.commons.R.drawable.divider))
+                            addItemDecoration(this)
+                        }
+
+                        isDragSelectionEnabled = true
+                    }
+                    items_fastscroller.setViews(items_list, items_swipe_refresh)
+                    setupRecyclerViewListener()
+                } else {
+                    (currAdapter as ItemsAdapter).updateItems(storedItems)
+
+                    val savedState = scrollStates[currentPath]
+                    if (savedState != null) {
+                        getRecyclerLayoutManager().onRestoreInstanceState(savedState)
+                    } else {
+                        getRecyclerLayoutManager().scrollToPosition(0)
+                    }
                 }
             }
         }
     }
 
-    private fun getRecyclerLayoutManager() = (fragmentView?.items_list?.layoutManager as LinearLayoutManager)
-
     private fun setupRecyclerViewListener() {
-        fragmentView?.items_list?.listener = object : MyScalableRecyclerView.MyScalableRecyclerViewListener {
+        mView.items_list?.listener = object : MyScalableRecyclerView.MyScalableRecyclerViewListener {
             override fun zoomIn() {
 
             }
@@ -155,16 +169,14 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
-    fun setListener(listener: ItemInteractionListener) {
-        mListener = listener
-    }
+    private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as LinearLayoutManager)
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         Thread({
             if (!context.config.enableRootAccess || !context.isPathOnRoot(path)) {
                 getRegularItemsOf(path, callback)
             } else {
-                getRootItemsOf(path, callback)
+                RootHelpers().getFiles(activity as SimpleActivity, path, callback)
             }
         }).start()
     }
@@ -176,7 +188,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
             for (file in files) {
                 val curPath = file.absolutePath
                 val curName = curPath.getFilenameFromPath()
-                if (!mShowHidden && curName.startsWith("."))
+                if (!showHidden && curName.startsWith("."))
                     continue
 
                 val children = getChildren(file)
@@ -188,18 +200,11 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
         callback(items)
     }
 
-    private fun getRootItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
-        var wantedPath = path.trimEnd('/')
-        if (wantedPath.isEmpty())
-            wantedPath = "/"
-        RootHelpers().getFiles(activity as SimpleActivity, wantedPath, callback)
-    }
-
     private fun getChildren(file: File): Int {
         val fileList: Array<out String>? = file.list() ?: return 0
 
         if (file.isDirectory) {
-            return if (mShowHidden) {
+            return if (showHidden) {
                 fileList!!.size
             } else {
                 fileList!!.count { fileName -> fileName[0] != '.' }
@@ -208,9 +213,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
         return 0
     }
 
-    fun itemClicked(item: FileDirItem) {
+    private fun itemClicked(item: FileDirItem) {
         if (item.isDirectory) {
-            mListener?.itemClicked(item)
+            openPath(item.path)
         } else {
             val path = item.path
             val file = File(path)
@@ -244,9 +249,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
     }
 
     private fun createNewItem() {
-        CreateNewItemDialog(activity as SimpleActivity, mPath) {
+        CreateNewItemDialog(activity as SimpleActivity, currentPath) {
             if (it) {
-                fillItems()
+                refreshItems()
             }
         }
     }
@@ -259,8 +264,19 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
         return "$type/*"
     }
 
+    override fun breadcrumbClicked(id: Int) {
+        if (id == 0) {
+            StoragePickerDialog(activity, currentPath) {
+                openPath(it)
+            }
+        } else {
+            val item = breadcrumbs.getChildAt(id).tag as FileDirItem
+            openPath(item.path)
+        }
+    }
+
     override fun refreshItems() {
-        fillItems()
+        openPath(currentPath)
     }
 
     override fun deleteFiles(files: ArrayList<File>) {
@@ -282,9 +298,5 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener {
 
     override fun itemLongClicked(position: Int) {
         items_list.setDragSelectActive(position)
-    }
-
-    interface ItemInteractionListener {
-        fun itemClicked(item: FileDirItem)
     }
 }

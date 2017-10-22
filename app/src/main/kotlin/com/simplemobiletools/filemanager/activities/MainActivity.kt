@@ -3,65 +3,45 @@ package com.simplemobiletools.filemanager.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.dialogs.StoragePickerDialog
-import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.extensions.checkWhatsNew
+import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
+import com.simplemobiletools.commons.extensions.storeStoragePaths
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
+import com.simplemobiletools.commons.helpers.LICENSE_PATTERN
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
-import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
-import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.filemanager.BuildConfig
-import com.simplemobiletools.filemanager.PATH
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.SCROLL_STATE
 import com.simplemobiletools.filemanager.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.items_fragment.*
 import java.util.*
 
-class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Breadcrumbs.BreadcrumbsListener {
+class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
-
-    private var latestFragment: ItemsFragment? = null
-    private var scrollStates = HashMap<String, Parcelable>()
-    private var storedTextColor = 0
-    private var currentPath = ""
     private var wasBackJustPressed = false
+
+    private lateinit var fragment: ItemsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         storeStoragePaths()
-        storeConfigVariables()
-        breadcrumbs.listener = this
+
+        fragment = fragment_holder as ItemsFragment
         tryInitFileManager()
         checkWhatsNewDialog()
         checkIfRootAvailable()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateTextColors(main_screen)
-        if (storedTextColor != config.textColor) {
-            storedTextColor = config.textColor
-            breadcrumbs.textColor = storedTextColor
-            openPath(currentPath)
-        }
-        invalidateOptionsMenu()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        storeConfigVariables()
     }
 
     override fun onDestroy() {
@@ -69,8 +49,20 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
         config.temporarilyShowHidden = false
     }
 
-    private fun storeConfigVariables() {
-        storedTextColor = config.textColor
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+
+        val favorites = config.favorites
+        menu.apply {
+            findItem(R.id.add_favorite).isVisible = !favorites.contains(fragment.currentPath)
+            findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
+            findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
+
+            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
+            findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
+        }
+
+        return true
     }
 
     private fun tryInitFileManager() {
@@ -89,42 +81,8 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun openPath(path: String) {
-        val realPath = if (path.length > 1) path.trimEnd('/') else path
-        breadcrumbs.setBreadcrumb(realPath)
-        val bundle = Bundle()
-        bundle.putString(PATH, realPath)
-
-        if (scrollStates.containsKey(realPath)) {
-            bundle.putParcelable(SCROLL_STATE, scrollStates[realPath])
-        }
-
-        if (latestFragment != null) {
-            scrollStates.put(latestFragment!!.mPath.trimEnd('/'), latestFragment!!.getScrollState())
-        }
-
-        latestFragment = ItemsFragment().apply {
-            arguments = bundle
-            setListener(this@MainActivity)
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_holder, this).addToBackStack(realPath).commitAllowingStateLoss()
-        }
-        currentPath = realPath
+        (fragment_holder as ItemsFragment).openPath(path)
         invalidateOptionsMenu()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-
-        val favorites = config.favorites
-        menu.apply {
-            findItem(R.id.add_favorite).isVisible = !favorites.contains(currentPath)
-            findItem(R.id.remove_favorite).isVisible = favorites.contains(currentPath)
-            findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
-
-            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
-            findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
-        }
-
-        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -145,27 +103,23 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun goHome() {
-        if (config.homeFolder != currentPath)
+        if (config.homeFolder != fragment.currentPath)
             openPath(config.homeFolder)
     }
 
     private fun showSortingDialog() {
-        ChangeSortingDialog(this, currentPath) {
-            if (latestFragment != null) {
-                latestFragment!!.fillItems()
-            } else {
-                openPath(currentPath)
-            }
+        ChangeSortingDialog(this, fragment.currentPath) {
+            fragment.refreshItems()
         }
     }
 
     private fun addFavorite() {
-        config.addFavorite(currentPath)
+        config.addFavorite(fragment.currentPath)
         invalidateOptionsMenu()
     }
 
     private fun removeFavorite() {
-        config.removeFavorite(currentPath)
+        config.removeFavorite(fragment.currentPath)
         invalidateOptionsMenu()
     }
 
@@ -176,7 +130,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
         favorites.forEachIndexed { index, path ->
             items.add(RadioItem(index, path, path))
-            if (path == currentPath) {
+            if (path == fragment.currentPath) {
                 currFavoriteIndex = index
             }
         }
@@ -187,7 +141,7 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
     }
 
     private fun setAsHome() {
-        config.homeFolder = currentPath
+        config.homeFolder = fragment.currentPath
         toast(R.string.home_folder_updated)
     }
 
@@ -203,16 +157,16 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
 
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
-        openPath(currentPath)
+        openPath(fragment.currentPath)
         invalidateOptionsMenu()
     }
 
     private fun launchAbout() {
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT, BuildConfig.VERSION_NAME)
+        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_PATTERN, BuildConfig.VERSION_NAME)
     }
 
     override fun onBackPressed() {
-        if (breadcrumbs.childCount <= 1) {
+        if (fragment.breadcrumbs.childCount <= 1) {
             if (!wasBackJustPressed) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -221,23 +175,8 @@ class MainActivity : SimpleActivity(), ItemsFragment.ItemInteractionListener, Br
                 finish()
             }
         } else {
-            breadcrumbs.removeBreadcrumb()
-            openPath(breadcrumbs.lastItem.path)
-        }
-    }
-
-    override fun itemClicked(item: FileDirItem) {
-        openPath(item.path)
-    }
-
-    override fun breadcrumbClicked(id: Int) {
-        if (id == 0) {
-            StoragePickerDialog(this@MainActivity, currentPath) {
-                openPath(it)
-            }
-        } else {
-            val item = breadcrumbs.getChildAt(id).tag as FileDirItem
-            openPath(item.path)
+            fragment.breadcrumbs.removeBreadcrumb()
+            openPath(fragment.breadcrumbs.lastItem.path)
         }
     }
 

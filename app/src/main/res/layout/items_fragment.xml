@@ -16,10 +16,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.simplemobiletools.commons.views.Breadcrumbs
+                android:id="@+id/breadcrumbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_margin"/>
+
             <com.simplemobiletools.commons.views.MyScalableRecyclerView
                 android:id="@+id/items_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/breadcrumbs"
                 android:clipToPadding="false"
                 android:paddingLeft="@dimen/activity_margin"
                 android:scrollbars="none"
