@@ -176,7 +176,7 @@ class MainActivity : SimpleActivity() {
             }
         } else {
             fragment.breadcrumbs.removeBreadcrumb()
-            openPath(fragment.breadcrumbs.lastItem.path)
+            openPath(fragment.breadcrumbs.getLastItem().path)
         }
     }
 

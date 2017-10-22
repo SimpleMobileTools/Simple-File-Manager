@@ -50,7 +50,6 @@
                     android:background="@drawable/fastscroller_handle_vertical"/>
             </com.simplemobiletools.commons.views.FastScroller>
         </RelativeLayout>
-
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.simplemobiletools.commons.views.MyFloatingActionButton

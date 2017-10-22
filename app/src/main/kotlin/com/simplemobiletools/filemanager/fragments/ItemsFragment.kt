@@ -13,10 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
-import com.simplemobiletools.commons.extensions.deleteFiles
-import com.simplemobiletools.commons.extensions.getFilenameExtension
-import com.simplemobiletools.commons.extensions.getFilenameFromPath
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyScalableRecyclerView
@@ -67,11 +64,15 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             refreshItems()
         }
 
-        if (storedTextColor != config.textColor) {
+        context.updateTextColors(mView as ViewGroup)
+        mView.items_fastscroller.updateHandleColor()
+        val newColor = config.textColor
+        if (storedTextColor != newColor) {
             storedItems = ArrayList()
-            (items_list.adapter as ItemsAdapter).updateTextColor(config.textColor)
+            (items_list.adapter as ItemsAdapter).updateTextColor(newColor)
+            mView.breadcrumbs.updateColor(newColor)
             refreshItems()
-            storedTextColor = config.textColor
+            storedTextColor = newColor
         }
     }
 
