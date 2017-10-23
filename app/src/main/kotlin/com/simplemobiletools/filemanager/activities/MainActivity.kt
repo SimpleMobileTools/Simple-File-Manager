@@ -96,7 +96,15 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun openPath(path: String) {
-        (fragment_holder as ItemsFragment).openPath(path)
+        var newPath = path
+        val file = File(path)
+        if (file.exists() && !file.isDirectory) {
+            newPath = file.parent
+        } else if (!file.exists()) {
+            newPath = internalStoragePath
+        }
+
+        (fragment_holder as ItemsFragment).openPath(newPath)
         invalidateOptionsMenu()
     }
 
