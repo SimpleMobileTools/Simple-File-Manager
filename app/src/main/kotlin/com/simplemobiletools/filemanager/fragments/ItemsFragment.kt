@@ -18,6 +18,7 @@ import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyScalableRecyclerView
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
@@ -33,6 +34,7 @@ import kotlin.collections.ArrayList
 
 class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
     var currentPath = ""
+    var isGetContentIntent = false
 
     private var storedTextColor = 0
     private var showHidden = false
@@ -219,20 +221,28 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             openPath(item.path)
         } else {
             val path = item.path
-            val file = File(path)
-            var mimeType: String? = MimeTypeMap.getSingleton().getMimeTypeFromExtension(path.getFilenameExtension().toLowerCase())
-            if (mimeType == null)
-                mimeType = "text/plain"
+            if (isGetContentIntent) {
+                (activity as MainActivity).pickedPath(path)
+            } else {
+                fileClicked(path)
+            }
+        }
+    }
 
-            Intent(Intent.ACTION_VIEW).apply {
-                setDataAndType(Uri.fromFile(file), mimeType)
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                try {
-                    startActivity(this)
-                } catch (e: ActivityNotFoundException) {
-                    if (!tryGenericMimeType(this, mimeType!!, file)) {
-                        activity.toast(R.string.no_app_found)
-                    }
+    private fun fileClicked(path: String) {
+        val file = File(path)
+        var mimeType: String? = MimeTypeMap.getSingleton().getMimeTypeFromExtension(path.getFilenameExtension().toLowerCase())
+        if (mimeType == null)
+            mimeType = "text/plain"
+
+        Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(Uri.fromFile(file), mimeType)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            try {
+                startActivity(this)
+            } catch (e: ActivityNotFoundException) {
+                if (!tryGenericMimeType(this, mimeType!!, file)) {
+                    activity.toast(R.string.no_app_found)
                 }
             }
         }

@@ -1,15 +1,14 @@
 package com.simplemobiletools.filemanager.activities
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.extensions.checkWhatsNew
-import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
-import com.simplemobiletools.commons.extensions.storeStoragePaths
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
 import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
 import com.simplemobiletools.commons.helpers.LICENSE_PATTERN
@@ -25,11 +24,13 @@ import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.items_fragment.*
+import java.io.File
 import java.util.*
 
 class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
     private var wasBackJustPressed = false
+    private var isGetContentIntent = false
 
     private lateinit var fragment: ItemsFragment
 
@@ -39,6 +40,9 @@ class MainActivity : SimpleActivity() {
         storeStoragePaths()
 
         fragment = fragment_holder as ItemsFragment
+        isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+        fragment.isGetContentIntent = isGetContentIntent
+
         tryInitFileManager()
         checkWhatsNewDialog()
         checkIfRootAvailable()
@@ -189,6 +193,16 @@ class MainActivity : SimpleActivity() {
                 }
             }
         }).start()
+    }
+
+    fun pickedPath(path: String) {
+        val resultIntent = Intent()
+        val uri = Uri.fromFile(File(path))
+        val type = File(path).getMimeType("image/jpeg")
+        resultIntent.setDataAndTypeAndNormalize(uri, type)
+        resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish()
     }
 
     private fun checkWhatsNewDialog() {
