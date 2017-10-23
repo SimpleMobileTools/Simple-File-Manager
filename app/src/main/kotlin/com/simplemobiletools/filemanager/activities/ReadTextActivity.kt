@@ -26,10 +26,12 @@ class ReadTextActivity : SimpleActivity() {
     private fun checkIntent() {
         read_text_view.setTextColor(config.textColor)
         val uri = intent.data
-        if (uri.scheme == "file") {
-            read_text_view.text = File(uri.path).readText()
+        val text = if (uri.scheme == "file") {
+            File(uri.path).readText()
         } else {
-            read_text_view.text = contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
+            contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
         }
+
+        read_text_view.setText(text)
     }
 }
