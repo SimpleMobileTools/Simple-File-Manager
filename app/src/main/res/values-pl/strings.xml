@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Przejdź do ulubionych</string>
     <string name="favorites_activity_placeholder">Możesz dodawać często używane foldery do ulubionych, aby ułatwić sobie do nich dostęp.</string>
 
+    <!-- File Editor -->
+    <string name="file_editor">File Editor</string>
+
     <!-- Settings -->
     <string name="enable_root_access">Enable root access</string>
 

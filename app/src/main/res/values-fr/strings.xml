@@ -27,6 +27,9 @@
     <string name="go_to_favorite">Aller au favori</string>
     <string name="favorites_activity_placeholder">Vous pouvez ajouter des dossiers souvent utilisés comme favoris pour y avoir accès rapidement depuis n\'importe où.</string>
 
+    <!-- File Editor -->
+    <string name="file_editor">File Editor</string>
+
     <!-- Settings -->
     <string name="enable_root_access">Activer les droits root</string>
 
