@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.activities
 
 import android.app.Activity
+import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -30,7 +31,6 @@ import java.util.*
 class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
     private var wasBackJustPressed = false
-    private var isGetContentIntent = false
 
     private lateinit var fragment: ItemsFragment
 
@@ -40,8 +40,10 @@ class MainActivity : SimpleActivity() {
         storeStoragePaths()
 
         fragment = fragment_holder as ItemsFragment
-        isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+        val isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+        val allowPickingMultiple = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         fragment.isGetContentIntent = isGetContentIntent
+        fragment.isPickMultipleIntent = allowPickingMultiple
 
         tryInitFileManager()
         checkWhatsNewDialog()
@@ -201,6 +203,20 @@ class MainActivity : SimpleActivity() {
         val type = File(path).getMimeType("image/jpeg")
         resultIntent.setDataAndTypeAndNormalize(uri, type)
         resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish()
+    }
+
+    fun pickedPaths(paths: ArrayList<String>) {
+        val uris = paths.map { Uri.fromFile(File(it)) } as ArrayList
+        val clipData = ClipData("Attachment", arrayOf(uris.getMimeType()), ClipData.Item(uris.removeAt(0)))
+
+        uris.forEach {
+            clipData.addItem(ClipData.Item(it))
+        }
+
+        val resultIntent = Intent()
+        resultIntent.clipData = clipData
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
     }

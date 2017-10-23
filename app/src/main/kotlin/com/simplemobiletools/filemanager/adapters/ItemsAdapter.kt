@@ -37,9 +37,8 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
-
-class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> Unit) :
-        RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
+class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val isPickMultipleIntent: Boolean,
+                   val itemClick: (FileDirItem) -> Unit) : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
     private var textColor = activity.config.textColor
 
     private val multiSelector = MultiSelector()
@@ -101,6 +100,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     private val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
         override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
             when (item.itemId) {
+                R.id.cab_confirm_selection -> confirmSelection()
                 R.id.cab_rename -> displayRenameDialog()
                 R.id.cab_properties -> showProperties()
                 R.id.cab_share -> shareFiles()
@@ -125,6 +125,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu): Boolean {
             menu.findItem(R.id.cab_rename).isVisible = selectedPositions.size <= 1
             menu.findItem(R.id.cab_decompress).isVisible = getSelectedMedia().map { it.path }.any { it.isZipFile() }
+            menu.findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
             return true
         }
 
@@ -136,6 +137,11 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             selectedPositions.clear()
             actMode = null
         }
+    }
+
+    private fun confirmSelection() {
+        val paths = getSelectedMedia().filter { !it.isDirectory }.map { it.path } as ArrayList<String>
+        listener?.selectedPaths(paths)
     }
 
     private fun displayRenameDialog() {
@@ -559,5 +565,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         fun deleteFiles(files: ArrayList<File>)
 
         fun itemLongClicked(position: Int)
+
+        fun selectedPaths(paths: ArrayList<String>)
     }
 }

@@ -35,6 +35,7 @@ import kotlin.collections.ArrayList
 class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
     var currentPath = ""
     var isGetContentIntent = false
+    var isPickMultipleIntent = false
 
     private var storedTextColor = 0
     private var showHidden = false
@@ -121,7 +122,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 val currAdapter = items_list.adapter
                 if (currAdapter == null) {
                     items_list.apply {
-                        this.adapter = ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment) {
+                        this.adapter = ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, isPickMultipleIntent) {
                             itemClicked(it)
                         }
 
@@ -309,5 +310,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     override fun itemLongClicked(position: Int) {
         items_list.setDragSelectActive(position)
+    }
+
+    override fun selectedPaths(paths: ArrayList<String>) {
+        (activity as MainActivity).pickedPaths(paths)
     }
 }
