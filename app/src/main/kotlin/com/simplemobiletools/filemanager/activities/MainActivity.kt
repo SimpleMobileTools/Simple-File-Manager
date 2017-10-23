@@ -79,7 +79,7 @@ class MainActivity : SimpleActivity() {
     private fun tryInitFileManager() {
         handlePermission(PERMISSION_WRITE_STORAGE) {
             if (it) {
-                initRootFileManager()
+                initFileManager()
             } else {
                 toast(R.string.no_storage_permissions)
                 finish()
@@ -87,8 +87,12 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun initRootFileManager() {
-        openPath(config.homeFolder)
+    private fun initFileManager() {
+        if (intent.action == Intent.ACTION_VIEW && intent.data != null && intent.data.scheme == "file") {
+            openPath(intent.data.path)
+        } else {
+            openPath(config.homeFolder)
+        }
     }
 
     private fun openPath(path: String) {
