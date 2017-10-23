@@ -1,6 +1,8 @@
 package com.simplemobiletools.filemanager.activities
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.filemanager.R
@@ -21,6 +23,23 @@ class ReadTextActivity : SimpleActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_editor, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_save -> saveText()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
+    private fun saveText() {
+
     }
 
     private fun checkIntent() {
