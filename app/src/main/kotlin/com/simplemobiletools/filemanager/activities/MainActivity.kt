@@ -50,6 +50,11 @@ class MainActivity : SimpleActivity() {
         checkIfRootAvailable()
     }
 
+    override fun onResume() {
+        super.onResume()
+        invalidateOptionsMenu()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         config.temporarilyShowHidden = false

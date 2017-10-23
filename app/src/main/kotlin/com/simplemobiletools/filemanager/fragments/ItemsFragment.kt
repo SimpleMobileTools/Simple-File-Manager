@@ -60,12 +60,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     override fun onResume() {
         super.onResume()
-        val config = context.config
-        showHidden = config.shouldShowHidden
-
         context.updateTextColors(mView as ViewGroup)
         mView.items_fastscroller.updateHandleColor()
-        val newColor = config.textColor
+        val newColor = context.config.textColor
         if (storedTextColor != newColor) {
             storedItems = ArrayList()
             (items_list.adapter as ItemsAdapter).updateTextColor(newColor)
@@ -82,7 +79,6 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     }
 
     private fun storeConfigVariables() {
-        showHidden = context.config.shouldShowHidden
         storedTextColor = context.config.textColor
     }
 
