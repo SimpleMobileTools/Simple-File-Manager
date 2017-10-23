@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 2.5.0 *(2017-10-23)*
+----------------------------
+
+ * Added fingerprint protection to hidden files
+ * Added a simple text file editor
+ * Added handling to get_content intents
+ * Added handling of intents for viewing folders
+
 Version 2.4.0 *(2017-09-04)*
 ----------------------------
 
