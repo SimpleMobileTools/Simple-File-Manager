@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
@@ -232,9 +231,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     private fun fileClicked(path: String) {
         val file = File(path)
-        var mimeType: String? = MimeTypeMap.getSingleton().getMimeTypeFromExtension(path.getFilenameExtension().toLowerCase())
-        if (mimeType == null)
-            mimeType = "text/plain"
+        val mimeType = path.getMimeTypeFromPath()
 
         Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(Uri.fromFile(file), mimeType)
@@ -242,7 +239,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             try {
                 startActivity(this)
             } catch (e: ActivityNotFoundException) {
-                if (!tryGenericMimeType(this, mimeType!!, file)) {
+                if (!tryGenericMimeType(this, mimeType, file)) {
                     activity.toast(R.string.no_app_found)
                 }
             }
