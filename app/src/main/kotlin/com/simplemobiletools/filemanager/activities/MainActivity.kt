@@ -88,8 +88,18 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun initFileManager() {
-        if (intent.action == Intent.ACTION_VIEW && intent.data != null && intent.data.scheme == "file") {
-            openPath(intent.data.path)
+        if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
+            val data = intent.data
+            if (data.scheme == "file") {
+                openPath(data.path)
+            } else {
+                val path = getRealPathFromURI(data)
+                if (path != null) {
+                    openPath(path)
+                } else {
+                    openPath(config.homeFolder)
+                }
+            }
         } else {
             openPath(config.homeFolder)
         }
