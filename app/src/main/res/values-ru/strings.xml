@@ -9,15 +9,15 @@
     <string name="home_folder_updated">Домашняя папка установлена</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Сжать</string>
+    <string name="decompress">Распаковать</string>
+    <string name="compress_as">Сжать как</string>
+    <string name="compressing">Сжатие…</string>
+    <string name="decompressing">Распаковка…</string>
+    <string name="compression_successful">Сжатие успешно</string>
+    <string name="decompression_successful">Распаковка успешна</string>
+    <string name="compressing_failed">Не удалось сжать</string>
+    <string name="decompressing_failed">Не удалось распаковать</string>
 
     <!-- Favorites -->
     <string name="favorites">Избранное</string>
@@ -31,7 +31,7 @@
     <string name="file_editor">File Editor</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Включить root-доступ</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
