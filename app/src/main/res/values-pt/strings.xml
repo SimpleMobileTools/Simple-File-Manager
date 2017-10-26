@@ -28,7 +28,7 @@
     <string name="favorites_activity_placeholder">Pode adicionar pastas como favoritos para um acesso mais rápido.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Editor de ficheiros</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Ativar acesso root</string>
