@@ -50,6 +50,11 @@
         </activity>
 
         <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/settings"
+            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity
             android:name="com.simplemobiletools.commons.activities.AboutActivity"
             android:label="@string/about"
             android:parentActivityName=".activities.MainActivity"/>
@@ -63,11 +68,6 @@
             android:name="com.simplemobiletools.commons.activities.LicenseActivity"
             android:label="@string/third_party_licences"
             android:parentActivityName="com.simplemobiletools.commons.activities.AboutActivity"/>
-
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="@string/settings"
-            android:parentActivityName=".activities.MainActivity"/>
 
         <activity
             android:name="com.simplemobiletools.commons.activities.CustomizationActivity"
