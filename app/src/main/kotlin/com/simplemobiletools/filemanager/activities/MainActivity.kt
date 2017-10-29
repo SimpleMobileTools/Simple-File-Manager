@@ -10,10 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.LICENSE_KOTLIN
-import com.simplemobiletools.commons.helpers.LICENSE_MULTISELECT
-import com.simplemobiletools.commons.helpers.LICENSE_PATTERN
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.filemanager.BuildConfig
@@ -195,7 +192,7 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun launchAbout() {
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_PATTERN, BuildConfig.VERSION_NAME)
+        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT, BuildConfig.VERSION_NAME)
     }
 
     override fun onBackPressed() {
@@ -227,7 +224,7 @@ class MainActivity : SimpleActivity() {
     fun pickedPath(path: String) {
         val resultIntent = Intent()
         val uri = Uri.fromFile(File(path))
-        val type = File(path).getMimeType("image/jpeg")
+        val type = path.getMimeTypeFromPath()
         resultIntent.setDataAndTypeAndNormalize(uri, type)
         resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
         setResult(Activity.RESULT_OK, resultIntent)
