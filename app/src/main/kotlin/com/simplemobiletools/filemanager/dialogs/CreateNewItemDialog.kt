@@ -25,10 +25,9 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 if (name.isEmpty()) {
                     activity.toast(R.string.empty_name)
                 } else if (name.isAValidFilename()) {
-                    val file = File(path, name)
+                    var file = File(path, name)
                     if (file.exists()) {
-                        activity.toast(R.string.name_taken)
-                        return@OnClickListener
+                        file = File(path, name + "_" + renamingFile(path, name))
                     }
 
                     if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
@@ -45,6 +44,14 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 }
             })
         }
+    }
+
+    private fun renamingFile(path: String, name: String) : Int {
+        var count = 0
+        while (File(path, name + "_" + count).exists()) {
+            count++
+        }
+        return count
     }
 
     private fun createDirectory(file: File, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
