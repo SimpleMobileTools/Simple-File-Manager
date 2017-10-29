@@ -65,6 +65,11 @@ class ReadTextActivity : SimpleActivity() {
     private fun checkIntent() {
         read_text_view.setTextColor(config.textColor)
         val uri = intent.data
+        if (uri == null) {
+            finish()
+            return
+        }
+
         val text = if (uri.scheme == "file") {
             filePath = uri.path
             File(uri.path).readText()
