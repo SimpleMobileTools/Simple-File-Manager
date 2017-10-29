@@ -83,6 +83,10 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     }
 
     fun openPath(path: String) {
+        if (!isAdded) {
+            return
+        }
+
         var realPath = path.trimEnd('/')
         if (realPath.isEmpty())
             realPath = "/"
