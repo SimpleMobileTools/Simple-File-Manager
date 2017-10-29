@@ -2,6 +2,10 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_37">
+        Added a toggle for keeping last-modified value at file copy/move/rename\n
+        Added new actionmenu items "Set As", "Open With" and "Copy path to clipboard"
+    </string>
     <string name="release_35">
         Added zip file de/compressing\n
         Improved root folder handling for rooted devices, if enabled

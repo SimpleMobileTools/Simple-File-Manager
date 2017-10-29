@@ -251,6 +251,7 @@ class MainActivity : SimpleActivity() {
             add(Release(29, R.string.release_29))
             add(Release(34, R.string.release_34))
             add(Release(35, R.string.release_35))
+            add(Release(37, R.string.release_37))
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
