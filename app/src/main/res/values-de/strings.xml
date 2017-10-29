@@ -3,45 +3,45 @@
     <string name="app_name">Schlichter Dateimanager</string>
     <string name="app_launcher_name">Dateimanager</string>
     <string name="press_back_again">Drücke erneut zum Schließen</string>
-    <string name="no_app_found">No app for opening this type of file is available</string>
-    <string name="go_to_home_folder">Go to home folder</string>
-    <string name="set_as_home_folder">Set as home folder</string>
-    <string name="home_folder_updated">Home folder updated</string>
+    <string name="no_app_found">Keine App zum Öffnen dieses Dateityps vorhanden</string>
+    <string name="go_to_home_folder">Gehe zum Home Ordner</string>
+    <string name="set_as_home_folder">Als Home Ordner setzen</string>
+    <string name="home_folder_updated">Home Ordner geupdated</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Komprimieren</string>
+    <string name="decompress">Dekomprimieren</string>
+    <string name="compress_as">Komprimieren als</string>
+    <string name="compressing">Komprimiere…</string>
+    <string name="decompressing">Dekomprimiere…</string>
+    <string name="compression_successful">Kompression erfolgreich</string>
+    <string name="decompression_successful">Dekompression erfolgreich</string>
+    <string name="compressing_failed">Kompression fehlgeschlagen</string>
+    <string name="decompressing_failed">Dekompression fehlgeschlagen</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
-    <string name="manage_favorites">Manage favorites</string>
-    <string name="go_to_favorite">Go to favorite</string>
-    <string name="favorites_activity_placeholder">You can add frequently used folders to favorites for easy access from anywhere.</string>
+    <string name="favorites">Favoriten</string>
+    <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
+    <string name="remove_from_favorites">Aus Favoriten entfernen</string>
+    <string name="manage_favorites">Favoriten verwalten</string>
+    <string name="go_to_favorite">Gehe zu Favoriten</string>
+    <string name="favorites_activity_placeholder">Du kannst häufig benutzte Ordner für einen einfacheren Zugriff zu den Favoriten hinzufügen</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Dateieditor</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Root Zugriff erlauben</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_short_description">Schlichter Dateimanager zum Durchsuchen und Bearbeiten von Dateien und Ordnern.</string>
     <string name="app_long_description">
-        Can also be used for browsing root files and SDcard content. You can easily rename, copy, move, delete and share anything you wish.
+        Kann auch zum Durchsuchen von Root-Dateien und der SD Karte verwendet werden. Du kannst alles einfach nach deinen Wünschen umbenennen, kopieren, verschieben, löschen oder teilen.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Beinhaltet keine Werbung und benötigt keine unnötigen Berechtigungen. Die App ist komplett Open Source und bietet nach Wunsch anpassbare Farben.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Diese App ist nur eine von vielen unserer Apps. Du kannst alle anderen hier finden: http://www.simplemobiletools.com
     </string>
 
     <!--
