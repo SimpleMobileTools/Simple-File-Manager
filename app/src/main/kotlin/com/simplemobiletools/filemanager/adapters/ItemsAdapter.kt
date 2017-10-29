@@ -27,10 +27,7 @@ import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
-import com.simplemobiletools.filemanager.extensions.config
-import com.simplemobiletools.filemanager.extensions.isPathOnRoot
-import com.simplemobiletools.filemanager.extensions.isZipFile
-import com.simplemobiletools.filemanager.extensions.shareUris
+import com.simplemobiletools.filemanager.extensions.*
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
@@ -111,6 +108,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 R.id.cab_properties -> showProperties()
                 R.id.cab_share -> shareFiles()
                 R.id.cab_copy_path -> copyPath()
+                R.id.cab_set_as -> setAs()
+                R.id.cab_open_with -> openWith()
                 R.id.cab_copy_to -> copyMoveTo(true)
                 R.id.cab_move_to -> copyMoveTo(false)
                 R.id.cab_compress -> compressSelection()
@@ -130,10 +129,14 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         }
 
         override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu): Boolean {
-            menu.findItem(R.id.cab_rename).isVisible = selectedPositions.size <= 1
-            menu.findItem(R.id.cab_decompress).isVisible = getSelectedMedia().map { it.path }.any { it.isZipFile() }
-            menu.findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
-            menu.findItem(R.id.cab_copy_path).isVisible = selectedPositions.size <= 1
+            menu.apply {
+                findItem(R.id.cab_rename).isVisible = isOneItemSelected()
+                findItem(R.id.cab_decompress).isVisible = getSelectedMedia().map { it.path }.any { it.isZipFile() }
+                findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
+                findItem(R.id.cab_copy_path).isVisible = isOneItemSelected()
+                findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
+                findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
+            }
             return true
         }
 
@@ -145,6 +148,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             selectedPositions.clear()
             actMode = null
         }
+
+        private fun isOneItemSelected() = selectedPositions.size == 1
+
+        private fun isOneFileSelected() = isOneItemSelected() && !mItems[selectedPositions.first()].isDirectory
     }
 
     private fun confirmSelection() {
@@ -196,6 +203,16 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         (activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip = clip
         actMode?.finish()
         activity.toast(R.string.path_copied)
+    }
+
+    private fun setAs() {
+        val file = File(getSelectedMedia().first().path)
+        activity.setAs(Uri.fromFile(file))
+    }
+
+    private fun openWith() {
+        val file = File(getSelectedMedia().first().path)
+        activity.openFile(Uri.fromFile(file), true)
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
