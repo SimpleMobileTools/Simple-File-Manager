@@ -52,10 +52,11 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     lateinit private var fileDrawable: Drawable
 
     fun toggleItemSelection(select: Boolean, pos: Int) {
-        itemViews[pos]?.item_frame?.isSelected = select
-
         if (select) {
-            selectedPositions.add(pos)
+            if (itemViews[pos] != null) {
+                itemViews[pos].item_frame?.isSelected = select
+                selectedPositions.add(pos)
+            }
         } else {
             selectedPositions.remove(pos)
         }
@@ -433,6 +434,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     fun updateItems(newItems: MutableList<FileDirItem>) {
         mItems = newItems
         notifyDataSetChanged()
+        actMode?.finish()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
