@@ -27,6 +27,7 @@ class SettingsActivity : SimpleActivity() {
         setupManageFavorites()
         setupShowHidden()
         setupPasswordProtection()
+        setupKeepLastModified()
         setupEnableRootAccess()
         updateTextColors(settings_holder)
     }
@@ -78,6 +79,14 @@ class SettingsActivity : SimpleActivity() {
                     ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
                 }
             }
+        }
+    }
+
+    private fun setupKeepLastModified() {
+        settings_keep_last_modified.isChecked = config.keepLastModified
+        settings_keep_last_modified_holder.setOnClickListener {
+            settings_keep_last_modified.toggle()
+            config.keepLastModified = settings_keep_last_modified.isChecked
         }
     }
 
