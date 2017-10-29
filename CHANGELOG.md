@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 2.6.0 *(2017-10-29)*
+----------------------------
+
+ * Added a toggle for keeping last-modified value at file copy/move/rename
+ * Added new actionmenu items "Set As", "Open With" and "Copy path to clipboard"
+ * Handle third party intents with the FileProvider pattern
+
 Version 2.5.0 *(2017-10-23)*
 ----------------------------
 
