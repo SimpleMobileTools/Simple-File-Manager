@@ -13,9 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyScalableRecyclerView
+import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -231,9 +233,16 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
         val file = File(path)
         val mimeType = path.getMimeTypeFromPath()
 
+        val uri = context.getFilePublicUri(file, BuildConfig.APPLICATION_ID)
         Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(Uri.fromFile(file), mimeType)
+            setDataAndType(uri, mimeType)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+            if (context.isNougatPlus()) {
+                putExtra(REAL_FILE_PATH, Uri.fromFile(file))
+            }
+
             try {
                 startActivity(this)
             } catch (e: ActivityNotFoundException) {
@@ -245,8 +254,10 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     }
 
     private fun tryGenericMimeType(intent: Intent, mimeType: String, file: File): Boolean {
+        val uri = context.getFilePublicUri(file, BuildConfig.APPLICATION_ID)
         val genericMimeType = getGenericMimeType(mimeType)
-        intent.setDataAndType(Uri.fromFile(file), genericMimeType)
+        intent.setDataAndType(uri, genericMimeType)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         return try {
             startActivity(intent)
             true

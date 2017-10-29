@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.activities
 import android.app.Activity
 import android.content.ClipData
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -223,16 +222,16 @@ class MainActivity : SimpleActivity() {
 
     fun pickedPath(path: String) {
         val resultIntent = Intent()
-        val uri = Uri.fromFile(File(path))
+        val uri = getFilePublicUri(File(path), BuildConfig.APPLICATION_ID)
         val type = path.getMimeTypeFromPath()
         resultIntent.setDataAndTypeAndNormalize(uri, type)
-        resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+        resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
     }
 
     fun pickedPaths(paths: ArrayList<String>) {
-        val uris = paths.map { Uri.fromFile(File(it)) } as ArrayList
+        val uris = paths.map { getFilePublicUri(File(it), BuildConfig.APPLICATION_ID) } as ArrayList
         val clipData = ClipData("Attachment", arrayOf(uris.getMimeType()), ClipData.Item(uris.removeAt(0)))
 
         uris.forEach {

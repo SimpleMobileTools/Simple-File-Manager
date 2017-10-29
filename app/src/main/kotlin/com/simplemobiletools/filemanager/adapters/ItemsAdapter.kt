@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
+import android.os.TransactionTooLargeException
 import android.support.v7.view.ActionMode
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
@@ -21,6 +22,7 @@ import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
@@ -54,12 +56,13 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
     fun toggleItemSelection(select: Boolean, pos: Int) {
         if (select) {
             if (itemViews[pos] != null) {
-                itemViews[pos].item_frame?.isSelected = select
                 selectedPositions.add(pos)
             }
         } else {
             selectedPositions.remove(pos)
         }
+
+        itemViews[pos]?.item_frame?.isSelected = select
 
         if (selectedPositions.isEmpty()) {
             actMode?.finish()
@@ -191,6 +194,8 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
             try {
                 activity.startActivity(Intent.createChooser(this, shareTitle))
+            } catch (e: TransactionTooLargeException) {
+                activity.toast(R.string.maximum_share_reached)
             } catch (exception: Exception) {
                 activity.showErrorToast(exception.cause.toString())
             }
@@ -203,7 +208,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 addFileUris(it, uris)
             }
         } else {
-            uris.add(Uri.fromFile(file))
+            uris.add(activity.getFilePublicUri(file, BuildConfig.APPLICATION_ID))
         }
     }
 
