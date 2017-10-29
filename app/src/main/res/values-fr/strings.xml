@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">Aller au dossier par défaut</string>
     <string name="set_as_home_folder">Définir en tant que dossier par défaut</string>
     <string name="home_folder_updated">Dossier par défaut mis à jour</string>
+    <string name="copy_path">Copy path to clipboard</string>
+    <string name="path_copied">Path copied</string>
 
     <!-- Compression -->
     <string name="compress">Compresser</string>

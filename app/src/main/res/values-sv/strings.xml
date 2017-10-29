@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">Gå till hemmappen</string>
     <string name="set_as_home_folder">Ange som hemmapp</string>
     <string name="home_folder_updated">Hemmappen har uppdaterats</string>
+    <string name="copy_path">Copy path to clipboard</string>
+    <string name="path_copied">Path copied</string>
 
     <!-- Compression -->
     <string name="compress">Komprimera</string>

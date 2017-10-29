@@ -1,5 +1,8 @@
 package com.simplemobiletools.filemanager.adapters
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -107,6 +110,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
                 R.id.cab_rename -> displayRenameDialog()
                 R.id.cab_properties -> showProperties()
                 R.id.cab_share -> shareFiles()
+                R.id.cab_copy_path -> copyPath()
                 R.id.cab_copy_to -> copyMoveTo(true)
                 R.id.cab_move_to -> copyMoveTo(false)
                 R.id.cab_compress -> compressSelection()
@@ -129,6 +133,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             menu.findItem(R.id.cab_rename).isVisible = selectedPositions.size <= 1
             menu.findItem(R.id.cab_decompress).isVisible = getSelectedMedia().map { it.path }.any { it.isZipFile() }
             menu.findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
+            menu.findItem(R.id.cab_copy_path).isVisible = selectedPositions.size <= 1
             return true
         }
 
@@ -183,6 +188,14 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         } else {
             uris.add(activity.getFilePublicUri(file, BuildConfig.APPLICATION_ID))
         }
+    }
+
+    private fun copyPath() {
+        val path = getSelectedMedia().first().path
+        val clip = ClipData.newPlainText(activity.getString(R.string.app_name), path)
+        (activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip = clip
+        actMode?.finish()
+        activity.toast(R.string.path_copied)
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {

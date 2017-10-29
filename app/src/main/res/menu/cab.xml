@@ -22,6 +22,10 @@
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/cab_copy_path"
+        android:title="@string/copy_path"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/cab_copy_to"
         android:title="@string/copy_to"
         app:showAsAction="never"/>

@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">홈 폴더 이동</string>
     <string name="set_as_home_folder">홈 폴더 설정</string>
     <string name="home_folder_updated">홈 폴더 설정완료</string>
+    <string name="copy_path">Copy path to clipboard</string>
+    <string name="path_copied">Path copied</string>
 
     <!-- Compression -->
     <string name="compress">Compress</string>

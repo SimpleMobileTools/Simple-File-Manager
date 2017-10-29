@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">Ugrás a kezdőmappára</string>
     <string name="set_as_home_folder">Beállítás kezdőmappának</string>
     <string name="home_folder_updated">Kezdőmappa frissítve</string>
+    <string name="copy_path">Copy path to clipboard</string>
+    <string name="path_copied">Path copied</string>
 
     <!-- Compression -->
     <string name="compress">Compress</string>

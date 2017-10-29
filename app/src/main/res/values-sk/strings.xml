@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">Ísť do domovského priečinka</string>
     <string name="set_as_home_folder">Nastaviť ako domovský priečinok</string>
     <string name="home_folder_updated">Domovský priečinok bol nastavený</string>
+    <string name="copy_path">Kopírovať cestu do schránky</string>
+    <string name="path_copied">Cesta skopírovaná</string>
 
     <!-- Compression -->
     <string name="compress">Komprimovať</string>

@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">Przejdź do folderu głównego</string>
     <string name="set_as_home_folder">Ustaw jako folder główny</string>
     <string name="home_folder_updated">Folder główny został zaktulizowany</string>
+    <string name="copy_path">Copy path to clipboard</string>
+    <string name="path_copied">Path copied</string>
 
     <!-- Compression -->
     <string name="compress">Compress</string>

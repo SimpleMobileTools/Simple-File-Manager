@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">Ir para a pasta pessoal</string>
     <string name="set_as_home_folder">Definir como pasta pessoal</string>
     <string name="home_folder_updated">Pasta pessoal atualizada</string>
+    <string name="copy_path">Copy path to clipboard</string>
+    <string name="path_copied">Path copied</string>
 
     <!-- Compression -->
     <string name="compress">Compress</string>

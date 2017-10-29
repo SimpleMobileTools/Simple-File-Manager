@@ -7,6 +7,8 @@
     <string name="go_to_home_folder">Открыть домашнюю папку</string>
     <string name="set_as_home_folder">Сделать домашней</string>
     <string name="home_folder_updated">Домашняя папка установлена</string>
+    <string name="copy_path">Copy path to clipboard</string>
+    <string name="path_copied">Path copied</string>
 
     <!-- Compression -->
     <string name="compress">Сжать</string>
