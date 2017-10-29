@@ -11,6 +11,7 @@ import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.dialogs.SaveAsDialog
 import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.extensions.openFile
 import kotlinx.android.synthetic.main.activity_read_text.*
 import java.io.File
 
@@ -40,6 +41,7 @@ class ReadTextActivity : SimpleActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_save -> saveText()
+            R.id.menu_open_with -> openFile(intent.data, true)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

@@ -6,4 +6,8 @@
         android:icon="@drawable/ic_save"
         android:title="@string/save_as"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/menu_open_with"
+        android:title="@string/open_with"
+        app:showAsAction="never"/>
 </menu>
