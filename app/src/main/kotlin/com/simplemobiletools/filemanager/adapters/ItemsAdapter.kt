@@ -1,10 +1,8 @@
 package com.simplemobiletools.filemanager.adapters
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
-import android.os.TransactionTooLargeException
 import android.support.v7.view.ActionMode
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
@@ -29,6 +27,7 @@ import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.extensions.isZipFile
+import com.simplemobiletools.filemanager.extensions.shareUris
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
@@ -171,35 +170,9 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         val selectedItems = getSelectedMedia()
         val uris = ArrayList<Uri>(selectedItems.size)
         selectedItems.forEach {
-            val file = File(it.path)
-            addFileUris(file, uris)
+            addFileUris(File(it.path), uris)
         }
-
-        if (uris.isEmpty()) {
-            activity.toast(R.string.no_files_selected)
-            return
-        }
-
-        val shareTitle = activity.resources.getString(R.string.share_via)
-        Intent().apply {
-            if (uris.size <= 1) {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_STREAM, uris.first())
-            } else {
-                action = Intent.ACTION_SEND_MULTIPLE
-                putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
-            }
-            type = uris.getMimeType()
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-            try {
-                activity.startActivity(Intent.createChooser(this, shareTitle))
-            } catch (e: TransactionTooLargeException) {
-                activity.toast(R.string.maximum_share_reached)
-            } catch (exception: Exception) {
-                activity.showErrorToast(exception.cause.toString())
-            }
-        }
+        activity.shareUris(uris)
     }
 
     private fun addFileUris(file: File, uris: ArrayList<Uri>) {

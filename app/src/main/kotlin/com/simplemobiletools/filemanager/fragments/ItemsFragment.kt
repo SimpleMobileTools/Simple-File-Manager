@@ -1,7 +1,5 @@
 package com.simplemobiletools.filemanager.fragments
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
@@ -12,12 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
-import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
+import com.simplemobiletools.commons.extensions.deleteFiles
+import com.simplemobiletools.commons.extensions.getFilenameFromPath
+import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.updateTextColors
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyScalableRecyclerView
-import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -25,6 +24,7 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.extensions.isPathOnRoot
+import com.simplemobiletools.filemanager.extensions.openFile
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.items_fragment.*
@@ -224,45 +224,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             if (isGetContentIntent) {
                 (activity as MainActivity).pickedPath(path)
             } else {
-                fileClicked(path)
+                val file = File(path)
+                activity.openFile(Uri.fromFile(file), false)
             }
-        }
-    }
-
-    private fun fileClicked(path: String) {
-        val file = File(path)
-        val mimeType = path.getMimeTypeFromPath()
-
-        val uri = context.getFilePublicUri(file, BuildConfig.APPLICATION_ID)
-        Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, mimeType)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-            if (context.isNougatPlus()) {
-                putExtra(REAL_FILE_PATH, Uri.fromFile(file))
-            }
-
-            try {
-                startActivity(this)
-            } catch (e: ActivityNotFoundException) {
-                if (!tryGenericMimeType(this, mimeType, file)) {
-                    activity.toast(R.string.no_app_found)
-                }
-            }
-        }
-    }
-
-    private fun tryGenericMimeType(intent: Intent, mimeType: String, file: File): Boolean {
-        val uri = context.getFilePublicUri(file, BuildConfig.APPLICATION_ID)
-        val genericMimeType = getGenericMimeType(mimeType)
-        intent.setDataAndType(uri, genericMimeType)
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        return try {
-            startActivity(intent)
-            true
-        } catch (e: ActivityNotFoundException) {
-            false
         }
     }
 
@@ -272,14 +236,6 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 refreshItems()
             }
         }
-    }
-
-    private fun getGenericMimeType(mimeType: String): String {
-        if (!mimeType.contains("/"))
-            return mimeType
-
-        val type = mimeType.substring(0, mimeType.indexOf("/"))
-        return "$type/*"
     }
 
     override fun breadcrumbClicked(id: Int) {
