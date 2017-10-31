@@ -39,7 +39,7 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
     <string name="app_long_description">
-        Can also be used for browsing root files and SDcard content. You can easily rename, copy, move, delete and share anything you wish.
+        Can also be used for browsing root files and SD card content. You can easily rename, copy, move, delete and share anything you wish.
 
         Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
