@@ -6,7 +6,7 @@
     <string name="no_app_found">Keine App zum Öffnen dieses Dateityps vorhanden</string>
     <string name="go_to_home_folder">Gehe zum Home-Ordner</string>
     <string name="set_as_home_folder">Als Home-Ordner setzen</string>
-    <string name="home_folder_updated">Home-Ordner geupdated</string>
+    <string name="home_folder_updated">Home-Ordner aktualisiert</string>
     <string name="copy_path">Kopiere Pfad in die Zwischenablage</string>
     <string name="path_copied">Pfad kopiert</string>
 
