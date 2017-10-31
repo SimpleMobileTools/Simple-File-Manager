@@ -4,11 +4,11 @@
     <string name="app_launcher_name">Dateimanager</string>
     <string name="press_back_again">Drücke erneut zum Schließen</string>
     <string name="no_app_found">Keine App zum Öffnen dieses Dateityps vorhanden</string>
-    <string name="go_to_home_folder">Gehe zum Home Ordner</string>
-    <string name="set_as_home_folder">Als Home Ordner setzen</string>
-    <string name="home_folder_updated">Home Ordner geupdated</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
+    <string name="go_to_home_folder">Gehe zum Home-Ordner</string>
+    <string name="set_as_home_folder">Als Home-Ordner setzen</string>
+    <string name="home_folder_updated">Home-Ordner aktualisiert</string>
+    <string name="copy_path">Kopiere Pfad in die Zwischenablage</string>
+    <string name="path_copied">Pfad kopiert</string>
 
     <!-- Compression -->
     <string name="compress">Komprimieren</string>
