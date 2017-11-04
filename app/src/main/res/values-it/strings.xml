@@ -7,8 +7,8 @@
     <string name="go_to_home_folder">Vai alla cartella home</string>
     <string name="set_as_home_folder">Imposta come cartella home</string>
     <string name="home_folder_updated">Cartella home aggiornata</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
+    <string name="copy_path">Copia percorso negli appunti</string>
+    <string name="path_copied">Percorso copiato</string>
 
     <!-- Compression -->
     <string name="compress">Comprimi</string>
