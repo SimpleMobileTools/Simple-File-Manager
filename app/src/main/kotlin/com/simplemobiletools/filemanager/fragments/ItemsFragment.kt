@@ -67,7 +67,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
         val newColor = context!!.config.textColor
         if (storedTextColor != newColor) {
             storedItems = ArrayList()
-            (items_list.adapter as ItemsAdapter).updateTextColor(newColor)
+            (items_list.adapter as? ItemsAdapter)?.updateTextColor(newColor)
             mView.breadcrumbs.updateColor(newColor)
             storedTextColor = newColor
         }
