@@ -45,13 +45,13 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     private lateinit var mView: View
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mView = inflater!!.inflate(R.layout.items_fragment, container, false)!!
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        mView = inflater.inflate(R.layout.items_fragment, container, false)!!
         storeConfigVariables()
         return mView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mView.apply {
             items_swipe_refresh.setOnRefreshListener({ refreshItems() })
@@ -62,9 +62,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     override fun onResume() {
         super.onResume()
-        context.updateTextColors(mView as ViewGroup)
+        context!!.updateTextColors(mView as ViewGroup)
         mView.items_fastscroller.updateHandleColor()
-        val newColor = context.config.textColor
+        val newColor = context!!.config.textColor
         if (storedTextColor != newColor) {
             storedItems = ArrayList()
             (items_list.adapter as ItemsAdapter).updateTextColor(newColor)
@@ -81,7 +81,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     }
 
     private fun storeConfigVariables() {
-        storedTextColor = context.config.textColor
+        storedTextColor = context!!.config.textColor
     }
 
     fun openPath(path: String) {
@@ -95,14 +95,14 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
         scrollStates.put(currentPath, getScrollState())
         currentPath = realPath
-        showHidden = context.config.shouldShowHidden
+        showHidden = context!!.config.shouldShowHidden
         getItems(currentPath) {
             if (!isAdded)
                 return@getItems
 
-            FileDirItem.sorting = context.config.getFolderSorting(currentPath)
+            FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
             it.sort()
-            activity.runOnUiThread {
+            activity!!.runOnUiThread {
                 addItems(it)
             }
         }
@@ -176,7 +176,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         Thread({
-            if (!context.config.enableRootAccess || !context.isPathOnRoot(path)) {
+            if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                 getRegularItemsOf(path, callback)
             } else {
                 RootHelpers().getFiles(activity as SimpleActivity, path, callback)
@@ -225,7 +225,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 (activity as MainActivity).pickedPath(path)
             } else {
                 val file = File(path)
-                activity.openFile(Uri.fromFile(file), false)
+                activity!!.openFile(Uri.fromFile(file), false)
             }
         }
     }
@@ -240,7 +240,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
-            StoragePickerDialog(activity, currentPath) {
+            StoragePickerDialog(activity!!, currentPath) {
                 openPath(it)
             }
         } else {
@@ -255,15 +255,15 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     override fun deleteFiles(files: ArrayList<File>) {
         val hasFolder = files.any { it.isDirectory }
-        if (context.isPathOnRoot(files.firstOrNull()?.absolutePath ?: context.config.internalStoragePath)) {
+        if (context!!.isPathOnRoot(files.firstOrNull()?.absolutePath ?: context!!.config.internalStoragePath)) {
             files.forEach {
                 RootTools.deleteFileOrDirectory(it.path, false)
             }
         } else {
             (activity as SimpleActivity).deleteFiles(files, hasFolder) {
                 if (!it) {
-                    activity.runOnUiThread {
-                        activity.toast(R.string.unknown_error_occurred)
+                    activity!!.runOnUiThread {
+                        activity!!.toast(R.string.unknown_error_occurred)
                     }
                 }
             }

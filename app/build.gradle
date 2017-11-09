@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.1"
 
     defaultConfig {
         applicationId "com.simplemobiletools.filemanager"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 37
         versionName "2.6.0"
     }
@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    compile 'com.simplemobiletools:commons:2.34.2'
+    compile 'com.simplemobiletools:commons:2.38.2'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 

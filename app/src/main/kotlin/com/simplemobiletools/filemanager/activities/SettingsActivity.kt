@@ -66,17 +66,19 @@ class SettingsActivity : SimpleActivity() {
         settings_password_protection.isChecked = config.isPasswordProtectionOn
         settings_password_protection_holder.setOnClickListener {
             val tabToShow = if (config.isPasswordProtectionOn) config.protectionType else SHOW_ALL_TABS
-            SecurityDialog(this, config.passwordHash, tabToShow) { hash, type ->
-                val hasPasswordProtection = config.isPasswordProtectionOn
-                settings_password_protection.isChecked = !hasPasswordProtection
-                config.isPasswordProtectionOn = !hasPasswordProtection
-                config.passwordHash = if (hasPasswordProtection) "" else hash
-                config.protectionType = type
+            SecurityDialog(this, config.passwordHash, tabToShow) { hash, type, success ->
+                if (success) {
+                    val hasPasswordProtection = config.isPasswordProtectionOn
+                    settings_password_protection.isChecked = !hasPasswordProtection
+                    config.isPasswordProtectionOn = !hasPasswordProtection
+                    config.passwordHash = if (hasPasswordProtection) "" else hash
+                    config.protectionType = type
 
-                if (config.isPasswordProtectionOn) {
-                    val confirmationTextId = if (config.protectionType == PROTECTION_FINGERPRINT)
-                        R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
-                    ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
+                    if (config.isPasswordProtectionOn) {
+                        val confirmationTextId = if (config.protectionType == PROTECTION_FINGERPRINT)
+                            R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
+                        ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
+                    }
                 }
             }
         }
