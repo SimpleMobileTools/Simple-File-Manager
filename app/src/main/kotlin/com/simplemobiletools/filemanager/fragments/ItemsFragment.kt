@@ -10,10 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
-import com.simplemobiletools.commons.extensions.deleteFiles
-import com.simplemobiletools.commons.extensions.getFilenameFromPath
-import com.simplemobiletools.commons.extensions.toast
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyScalableRecyclerView
@@ -36,6 +33,7 @@ import kotlin.collections.ArrayList
 class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
     var currentPath = ""
     var isGetContentIntent = false
+    var isGetRingtonePicker = false
     var isPickMultipleIntent = false
 
     private var storedTextColor = 0
@@ -223,6 +221,12 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             val path = item.path
             if (isGetContentIntent) {
                 (activity as MainActivity).pickedPath(path)
+            } else if (isGetRingtonePicker) {
+                if (path.isAudioFast()) {
+                    (activity as MainActivity).pickedRingtone(path)
+                } else {
+                    activity?.toast(R.string.select_audio_file)
+                }
             } else {
                 val file = File(path)
                 activity!!.openFile(Uri.fromFile(file), false)

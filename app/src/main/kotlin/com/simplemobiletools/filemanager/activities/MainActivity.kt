@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.activities
 import android.app.Activity
 import android.content.ClipData
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -37,11 +38,11 @@ class MainActivity : SimpleActivity() {
         setContentView(R.layout.activity_main)
         storeStoragePaths()
 
-        fragment = fragment_holder as ItemsFragment
-        val isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
-        val allowPickingMultiple = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
-        fragment.isGetContentIntent = isGetContentIntent
-        fragment.isPickMultipleIntent = allowPickingMultiple
+        fragment = (fragment_holder as ItemsFragment).apply {
+            isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
+            isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+            isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+        }
 
         tryInitFileManager()
         checkWhatsNewDialog()
@@ -241,8 +242,19 @@ class MainActivity : SimpleActivity() {
         val resultIntent = Intent()
         val uri = getFilePublicUri(File(path), BuildConfig.APPLICATION_ID)
         val type = path.getMimeTypeFromPath()
-        resultIntent.setDataAndTypeAndNormalize(uri, type)
+        resultIntent.setDataAndType(uri, type)
         resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish()
+    }
+
+    fun pickedRingtone(path: String) {
+        val resultIntent = Intent()
+        val uri = getFilePublicUri(File(path), BuildConfig.APPLICATION_ID)
+        val type = path.getMimeTypeFromPath()
+        resultIntent.setDataAndType(uri, type)
+        resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        resultIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, uri)
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
     }
