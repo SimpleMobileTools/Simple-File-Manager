@@ -19,10 +19,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "boolean", "USE_LEAK_CANARY", "true"
+        }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            buildConfigField "boolean", "USE_LEAK_CANARY", "false"
         }
     }
 
@@ -36,12 +40,19 @@ android {
     }
 }
 
+ext {
+    leakCanaryVersion = '1.5.4'
+}
+
 dependencies {
     compile 'com.simplemobiletools:commons:2.38.2'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     compile files('../libs/RootTools.jar')
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
 
 buildscript {
