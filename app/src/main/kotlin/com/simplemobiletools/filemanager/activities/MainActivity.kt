@@ -44,7 +44,9 @@ class MainActivity : SimpleActivity() {
             isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         }
 
-        tryInitFileManager()
+        if (savedInstanceState == null) {
+            tryInitFileManager()
+        }
         checkWhatsNewDialog()
         checkIfRootAvailable()
         storeStateVariables()

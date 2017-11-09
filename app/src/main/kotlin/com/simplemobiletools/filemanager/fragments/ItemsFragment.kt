@@ -22,6 +22,7 @@ import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.extensions.openFile
+import com.simplemobiletools.filemanager.helpers.PATH
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.items_fragment.*
@@ -55,6 +56,19 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             items_swipe_refresh.setOnRefreshListener({ refreshItems() })
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(PATH, currentPath)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            currentPath = savedInstanceState.getString(PATH)
+            storedItems.clear()
         }
     }
 
