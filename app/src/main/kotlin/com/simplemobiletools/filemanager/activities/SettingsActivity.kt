@@ -7,12 +7,14 @@ import com.simplemobiletools.commons.dialogs.SecurityDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
 import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.useEnglishToggled
 import com.simplemobiletools.commons.helpers.PROTECTION_FINGERPRINT
 import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.util.*
 
 class SettingsActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +26,7 @@ class SettingsActivity : SimpleActivity() {
         super.onResume()
 
         setupCustomizeColors()
+        setupUseEnglish()
         setupManageFavorites()
         setupShowHidden()
         setupPasswordProtection()
@@ -41,6 +44,16 @@ class SettingsActivity : SimpleActivity() {
     private fun setupManageFavorites() {
         settings_manage_favorites_holder.setOnClickListener {
             startActivity(Intent(this, FavoritesActivity::class.java))
+        }
+    }
+
+    private fun setupUseEnglish() {
+        settings_use_english_holder.beVisibleIf(Locale.getDefault().language != "en")
+        settings_use_english.isChecked = config.useEnglish
+        settings_use_english_holder.setOnClickListener {
+            settings_use_english.toggle()
+            config.useEnglish = settings_use_english.isChecked
+            useEnglishToggled()
         }
     }
 

@@ -28,6 +28,8 @@ class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
     private var wasBackJustPressed = false
 
+    private var mStoredUseEnglish = false
+
     private lateinit var fragment: ItemsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +46,22 @@ class MainActivity : SimpleActivity() {
         tryInitFileManager()
         checkWhatsNewDialog()
         checkIfRootAvailable()
+        storeStateVariables()
     }
 
     override fun onResume() {
         super.onResume()
+        if (mStoredUseEnglish != config.useEnglish) {
+            restartActivity()
+            return
+        }
+
         invalidateOptionsMenu()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        storeStateVariables()
     }
 
     override fun onDestroy() {
@@ -70,6 +83,10 @@ class MainActivity : SimpleActivity() {
         }
 
         return true
+    }
+
+    private fun storeStateVariables() {
+        mStoredUseEnglish = config.useEnglish
     }
 
     private fun tryInitFileManager() {
