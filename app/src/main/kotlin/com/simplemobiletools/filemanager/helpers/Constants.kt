@@ -1,7 +1,6 @@
-package com.simplemobiletools.filemanager
+package com.simplemobiletools.filemanager.helpers
 
 val PATH = "path"
-val SCROLL_STATE = "scroll_state"
 
 // shared preferences
 val SHOW_HIDDEN = "show_hidden"
