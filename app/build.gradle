@@ -12,6 +12,7 @@ android {
         targetSdkVersion 27
         versionCode 38
         versionName "2.7.0"
+        setProperty("archivesBaseName", "file-manager")
     }
 
     signingConfigs {
