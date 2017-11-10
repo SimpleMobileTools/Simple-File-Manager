@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 2.7.0 *(2017-11-10)*
+----------------------------
+
+ * Added a toggle for using English language on non-english devices
+ * Handle Select Ringtone intent
+
 Version 2.6.0 *(2017-10-29)*
 ----------------------------
 
