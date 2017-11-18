@@ -4,14 +4,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.adapters.ManageFavoritesAdapter
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.activity_favorites.*
-import kotlinx.android.synthetic.main.item_favorite.view.*
 
-class FavoritesActivity : SimpleActivity() {
+class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
@@ -19,27 +19,14 @@ class FavoritesActivity : SimpleActivity() {
     }
 
     private fun updateFavorites() {
-        favorites_holder.removeAllViews()
-        val favorites = config.favorites
-        favorites_placeholder.beVisibleIf(favorites.isEmpty())
-        favorites_placeholder.setTextColor(config.textColor)
+        val favorites = ArrayList<String>()
+        config.favorites.mapTo(favorites, { it })
+        manage_favorites_placeholder.beVisibleIf(favorites.isEmpty())
+        manage_favorites_placeholder.setTextColor(config.textColor)
 
-        for (favorite in favorites) {
-            layoutInflater.inflate(R.layout.item_favorite, null, false).apply {
-                favorite_title.apply {
-                    text = favorite
-                    setTextColor(config.textColor)
-                }
-                favorite_icon.apply {
-                    applyColorFilter(config.textColor)
-                    setOnClickListener {
-                        config.removeFavorite(favorite)
-                        updateFavorites()
-                    }
-                }
-                favorites_holder.addView(this)
-            }
-        }
+        val adapter = ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) {}
+        adapter.setupDragListener(true)
+        manage_favorites_list.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,6 +40,10 @@ class FavoritesActivity : SimpleActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    override fun refreshItems() {
+        updateFavorites()
     }
 
     private fun addFavorite() {
