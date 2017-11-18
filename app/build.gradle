@@ -46,26 +46,13 @@ ext {
 }
 
 dependencies {
-    compile 'com.simplemobiletools:commons:2.39.10'
-    compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.simplemobiletools:commons:2.39.10'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile files('../libs/RootTools.jar')
+    implementation files('../libs/RootTools.jar')
 
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-}
-
-buildscript {
-    ext.kotlin_version = '1.1.60'
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
-    }
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
 
 def Properties props = new Properties()
