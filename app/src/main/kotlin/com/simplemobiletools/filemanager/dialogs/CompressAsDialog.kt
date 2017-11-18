@@ -3,15 +3,15 @@ package com.simplemobiletools.filemanager.dialogs
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.view.WindowManager
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.dialog_compress_as.view.*
 import java.io.File
 
-class CompressAsDialog(val activity: SimpleActivity, val path: String, val callback: (destination: String) -> Unit) {
+class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_compress_as, null)
 
     init {

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_frame"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     android:foreground="@drawable/selector">
 
     <RelativeLayout
@@ -30,7 +33,7 @@
             android:maxLines="3"
             android:paddingLeft="@dimen/small_margin"
             android:paddingTop="@dimen/small_margin"
-            android:text="Directory"/>
+            tools:text="Directory"/>
 
         <TextView
             android:id="@+id/item_details"
@@ -39,8 +42,8 @@
             android:layout_below="@+id/item_name"
             android:layout_toRightOf="@+id/item_icon"
             android:paddingLeft="@dimen/small_margin"
-            android:text="1 KB"
-            android:textSize="@dimen/smaller_text_size"/>
+            android:textSize="@dimen/smaller_text_size"
+            tools:text="1 KB"/>
 
     </RelativeLayout>
 </FrameLayout>

@@ -46,7 +46,7 @@ ext {
 }
 
 dependencies {
-    compile 'com.simplemobiletools:commons:2.38.6'
+    compile 'com.simplemobiletools:commons:2.39.10'
     compile 'com.bignerdranch.android:recyclerview-multiselect:0.2'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -57,7 +57,7 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.1.60'
     repositories {
         mavenCentral()
     }

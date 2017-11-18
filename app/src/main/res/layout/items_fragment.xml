@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_margin"/>
 
-            <com.simplemobiletools.commons.views.MyScalableRecyclerView
+            <com.simplemobiletools.commons.views.MyRecyclerView
                 android:id="@+id/items_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

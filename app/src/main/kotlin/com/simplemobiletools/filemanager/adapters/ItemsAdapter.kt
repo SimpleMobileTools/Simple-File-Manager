@@ -5,24 +5,22 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
-import android.support.v7.view.ActionMode
-import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
-import android.view.*
-import com.bignerdranch.android.multiselector.ModalMultiSelectorCallback
-import com.bignerdranch.android.multiselector.MultiSelector
-import com.bignerdranch.android.multiselector.SwappingHolder
+import android.view.Menu
+import android.view.View
+import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -38,52 +36,66 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
-class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, val isPickMultipleIntent: Boolean,
-                   val itemClick: (FileDirItem) -> Unit) : RecyclerView.Adapter<ItemsAdapter.ViewHolder>() {
-    private var textColor = activity.config.textColor
+class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
+                   val isPickMultipleIntent: Boolean, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
 
-    private val multiSelector = MultiSelector()
     private val config = activity.config
-
-    private var actMode: ActionMode? = null
-    private var itemViews = SparseArray<View>()
-    private val selectedPositions = HashSet<Int>()
-
     lateinit private var folderDrawable: Drawable
     lateinit private var fileDrawable: Drawable
 
-    fun toggleItemSelection(select: Boolean, pos: Int) {
-        if (select) {
-            if (itemViews[pos] != null) {
-                selectedPositions.add(pos)
-            }
-        } else {
-            selectedPositions.remove(pos)
-        }
-
-        itemViews[pos]?.item_frame?.isSelected = select
-
-        if (selectedPositions.isEmpty()) {
-            actMode?.finish()
-            return
-        }
-
-        updateTitle(selectedPositions.size)
-    }
-
-    private fun updateTitle(cnt: Int) {
-        actMode?.title = "$cnt / ${mItems.size}"
-        actMode?.invalidate()
-    }
-
     init {
+        selectableItemCount = fileDirItems.count()
         initDrawables()
     }
 
-    fun updateTextColor(color: Int) {
-        textColor = color
-        initDrawables()
+    override fun getActionMenuId() = R.menu.cab
+
+    override fun prepareActionMode(menu: Menu) {
+        menu.apply {
+            findItem(R.id.cab_rename).isVisible = isOneItemSelected()
+            findItem(R.id.cab_decompress).isVisible = getSelectedMedia().map { it.path }.any { it.isZipFile() }
+            findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
+            findItem(R.id.cab_copy_path).isVisible = isOneItemSelected()
+            findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
+            findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
+        }
     }
+
+    override fun prepareItemSelection(view: View) {}
+
+    override fun markItemSelection(select: Boolean, view: View?) {
+        view?.item_frame?.isSelected = select
+    }
+
+    override fun actionItemPressed(id: Int) {
+        when (id) {
+            R.id.cab_confirm_selection -> confirmSelection()
+            R.id.cab_rename -> displayRenameDialog()
+            R.id.cab_properties -> showProperties()
+            R.id.cab_share -> shareFiles()
+            R.id.cab_copy_path -> copyPath()
+            R.id.cab_set_as -> setAs()
+            R.id.cab_open_with -> openWith()
+            R.id.cab_copy_to -> copyMoveTo(true)
+            R.id.cab_move_to -> copyMoveTo(false)
+            R.id.cab_compress -> compressSelection()
+            R.id.cab_decompress -> decompressSelection()
+            R.id.cab_select_all -> selectAll()
+            R.id.cab_delete -> askConfirmDelete()
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = createViewHolder(R.layout.list_item, parent)
+
+    override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
+        val fileDirItem = fileDirItems[position]
+        val view = holder.bindView(fileDirItem) {
+            setupView(it, fileDirItem)
+        }
+        bindViewHolder(holder, position, view)
+    }
+
+    override fun getItemCount() = fileDirItems.size
 
     private fun initDrawables() {
         folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
@@ -92,67 +104,9 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         fileDrawable.alpha = 180
     }
 
-    private val adapterListener = object : MyAdapterListener {
-        override fun toggleItemSelectionAdapter(select: Boolean, position: Int) {
-            toggleItemSelection(select, position)
-        }
+    private fun isOneItemSelected() = selectedPositions.size == 1
 
-        override fun getSelectedPositions() = selectedPositions
-    }
-
-    private val multiSelectorMode = object : ModalMultiSelectorCallback(multiSelector) {
-        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-            when (item.itemId) {
-                R.id.cab_confirm_selection -> confirmSelection()
-                R.id.cab_rename -> displayRenameDialog()
-                R.id.cab_properties -> showProperties()
-                R.id.cab_share -> shareFiles()
-                R.id.cab_copy_path -> copyPath()
-                R.id.cab_set_as -> setAs()
-                R.id.cab_open_with -> openWith()
-                R.id.cab_copy_to -> copyMoveTo(true)
-                R.id.cab_move_to -> copyMoveTo(false)
-                R.id.cab_compress -> compressSelection()
-                R.id.cab_decompress -> decompressSelection()
-                R.id.cab_select_all -> selectAll()
-                R.id.cab_delete -> askConfirmDelete()
-                else -> return false
-            }
-            return true
-        }
-
-        override fun onCreateActionMode(actionMode: ActionMode?, menu: Menu?): Boolean {
-            super.onCreateActionMode(actionMode, menu)
-            actMode = actionMode
-            activity.menuInflater.inflate(R.menu.cab, menu)
-            return true
-        }
-
-        override fun onPrepareActionMode(actionMode: ActionMode?, menu: Menu): Boolean {
-            menu.apply {
-                findItem(R.id.cab_rename).isVisible = isOneItemSelected()
-                findItem(R.id.cab_decompress).isVisible = getSelectedMedia().map { it.path }.any { it.isZipFile() }
-                findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
-                findItem(R.id.cab_copy_path).isVisible = isOneItemSelected()
-                findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
-                findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
-            }
-            return true
-        }
-
-        override fun onDestroyActionMode(actionMode: ActionMode?) {
-            super.onDestroyActionMode(actionMode)
-            selectedPositions.forEach {
-                itemViews[it]?.isSelected = false
-            }
-            selectedPositions.clear()
-            actMode = null
-        }
-
-        private fun isOneItemSelected() = selectedPositions.size == 1
-
-        private fun isOneFileSelected() = isOneItemSelected() && !mItems[selectedPositions.first()].isDirectory
-    }
+    private fun isOneFileSelected() = isOneItemSelected() && !fileDirItems[selectedPositions.first()].isDirectory
 
     private fun confirmSelection() {
         val paths = getSelectedMedia().filter { !it.isDirectory }.map { it.path } as ArrayList<String>
@@ -163,17 +117,17 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         RenameItemDialog(activity, getSelectedMedia()[0].path) {
             activity.runOnUiThread {
                 listener?.refreshItems()
-                actMode?.finish()
+                finishActMode()
             }
         }
     }
 
     private fun showProperties() {
         if (selectedPositions.size <= 1) {
-            PropertiesDialog(activity, mItems[selectedPositions.first()].path, config.shouldShowHidden)
+            PropertiesDialog(activity, fileDirItems[selectedPositions.first()].path, config.shouldShowHidden)
         } else {
             val paths = ArrayList<String>()
-            selectedPositions.forEach { paths.add(mItems[it].path) }
+            selectedPositions.forEach { paths.add(fileDirItems[it].path) }
             PropertiesDialog(activity, paths, config.shouldShowHidden)
         }
     }
@@ -201,7 +155,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         val path = getSelectedMedia().first().path
         val clip = ClipData.newPlainText(activity.getString(R.string.app_name), path)
         (activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip = clip
-        actMode?.finish()
+        finishActMode()
         activity.toast(R.string.path_copied)
     }
 
@@ -217,7 +171,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
         val files = ArrayList<File>()
-        selectedPositions.forEach { files.add(File(mItems[it].path)) }
+        selectedPositions.forEach { files.add(File(fileDirItems[it].path)) }
 
         val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
         FilePickerDialog(activity, source, false, config.shouldShowHidden, true) {
@@ -226,7 +180,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
             } else {
                 activity.copyMoveFilesTo(files, source, it, isCopyOperation, false) {
                     listener?.refreshItems()
-                    actMode?.finish()
+                    finishActMode()
                 }
             }
         }
@@ -250,7 +204,7 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
             activity.runOnUiThread {
                 listener?.refreshItems()
-                actMode?.finish()
+                finishActMode()
             }
         }).start()
     }
@@ -259,17 +213,17 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         if (selectedPositions.isEmpty())
             return
 
-        val firstPath = mItems[selectedPositions.first()].path
+        val firstPath = fileDirItems[selectedPositions.first()].path
         CompressAsDialog(activity, firstPath) {
             activity.handleSAFDialog(File(firstPath)) {
                 activity.toast(R.string.compressing)
-                val paths = selectedPositions.map { mItems[it].path }
+                val paths = selectedPositions.map { fileDirItems[it].path }
                 Thread({
                     if (zipPaths(paths, it)) {
                         activity.toast(R.string.compression_successful)
                         activity.runOnUiThread {
                             listener?.refreshItems()
-                            actMode?.finish()
+                            finishActMode()
                         }
                     } else {
                         activity.toast(R.string.compressing_failed)
@@ -283,16 +237,16 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         if (selectedPositions.isEmpty())
             return
 
-        val firstPath = mItems[selectedPositions.first()].path
+        val firstPath = fileDirItems[selectedPositions.first()].path
         activity.handleSAFDialog(File(firstPath)) {
             activity.toast(R.string.decompressing)
-            val paths = selectedPositions.map { mItems[it].path }.filter { it.isZipFile() }
+            val paths = selectedPositions.map { fileDirItems[it].path }.filter { it.isZipFile() }
             Thread({
                 if (unzipPaths(paths)) {
                     activity.toast(R.string.decompression_successful)
                     activity.runOnUiThread {
                         listener?.refreshItems()
-                        actMode?.finish()
+                        finishActMode()
                     }
                 } else {
                     activity.toast(R.string.decompressing_failed)
@@ -384,19 +338,10 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         return true
     }
 
-    fun selectAll() {
-        val cnt = mItems.size
-        for (i in 0 until cnt) {
-            selectedPositions.add(i)
-            notifyItemChanged(i)
-        }
-        updateTitle(cnt)
-    }
-
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
             deleteFiles()
-            actMode?.finish()
+            finishActMode()
         }
     }
 
@@ -407,16 +352,16 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
         val files = ArrayList<File>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
 
-        activity.handleSAFDialog(File(mItems[selectedPositions.first()].path)) {
+        activity.handleSAFDialog(File(fileDirItems[selectedPositions.first()].path)) {
             selectedPositions.sortedDescending().forEach {
-                val file = mItems[it]
+                val file = fileDirItems[it]
                 files.add(File(file.path))
                 removeFiles.add(file)
                 notifyItemRemoved(it)
                 itemViews.put(it, null)
             }
 
-            mItems.removeAll(removeFiles)
+            fileDirItems.removeAll(removeFiles)
             selectedPositions.clear()
             listener?.deleteFiles(files)
 
@@ -435,146 +380,54 @@ class ItemsAdapter(val activity: SimpleActivity, var mItems: MutableList<FileDir
 
     private fun getSelectedMedia(): List<FileDirItem> {
         val selectedMedia = ArrayList<FileDirItem>(selectedPositions.size)
-        selectedPositions.forEach { selectedMedia.add(mItems[it]) }
+        selectedPositions.forEach { selectedMedia.add(fileDirItems[it]) }
         return selectedMedia
     }
 
     fun updateItems(newItems: MutableList<FileDirItem>) {
-        mItems = newItems
+        fileDirItems = newItems
         notifyDataSetChanged()
-        actMode?.finish()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_item, parent, false)
-        return ViewHolder(view, adapterListener, activity, multiSelectorMode, multiSelector, listener, itemClick)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        itemViews.put(position, holder.bindView(mItems[position], fileDrawable, folderDrawable, textColor))
-        toggleItemSelection(selectedPositions.contains(position), position)
-        holder.itemView.tag = holder
+        finishActMode()
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {
         super.onViewRecycled(holder)
-        holder?.stopLoad()
-    }
-
-    override fun getItemCount() = mItems.size
-
-    fun selectItem(pos: Int) {
-        toggleItemSelection(true, pos)
-    }
-
-    fun selectRange(from: Int, to: Int, min: Int, max: Int) {
-        if (from == to) {
-            (min..max).filter { it != from }
-                    .forEach { toggleItemSelection(false, it) }
-            return
-        }
-
-        if (to < from) {
-            for (i in to..from)
-                toggleItemSelection(true, i)
-
-            if (min > -1 && min < to) {
-                (min until to).filter { it != from }
-                        .forEach { toggleItemSelection(false, it) }
-            }
-            if (max > -1) {
-                for (i in from + 1..max)
-                    toggleItemSelection(false, i)
-            }
-        } else {
-            for (i in from..to)
-                toggleItemSelection(true, i)
-
-            if (max > -1 && max > to) {
-                (to + 1..max).filter { it != from }
-                        .forEach { toggleItemSelection(false, it) }
-            }
-
-            if (min > -1) {
-                for (i in min until from)
-                    toggleItemSelection(false, i)
-            }
+        if (!activity.isActivityDestroyed()) {
+            Glide.with(activity).clear(holder?.itemView?.item_icon)
         }
     }
 
-    class ViewHolder(val view: View, val adapterListener: MyAdapterListener, val activity: SimpleActivity, val multiSelectorCallback: ModalMultiSelectorCallback,
-                     val multiSelector: MultiSelector, val listener: ItemOperationsListener?, val itemClick: (FileDirItem) -> (Unit)) : SwappingHolder(view, MultiSelector()) {
-        fun bindView(fileDirItem: FileDirItem, fileDrawable: Drawable, folderDrawable: Drawable, textColor: Int): View {
-            itemView.apply {
-                item_name.text = fileDirItem.name
-                item_name.setTextColor(textColor)
-                item_details.setTextColor(textColor)
+    private fun setupView(view: View, fileDirItem: FileDirItem) {
+        view.apply {
+            item_name.text = fileDirItem.name
+            item_name.setTextColor(textColor)
+            item_details.setTextColor(textColor)
 
-                if (fileDirItem.isDirectory) {
-                    item_icon.setImageDrawable(folderDrawable)
-                    item_details.text = getChildrenCnt(fileDirItem)
-                } else {
-                    val options = RequestOptions()
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .error(fileDrawable)
-                            .centerCrop()
-
-                    val path = fileDirItem.path
-                    Glide.with(activity).load(path).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
-                    item_details.text = fileDirItem.size.formatSize()
-                }
-
-                setOnClickListener { viewClicked(fileDirItem) }
-                setOnLongClickListener { viewLongClicked(); true }
-            }
-
-            return itemView
-        }
-
-        private fun getChildrenCnt(item: FileDirItem): String {
-            val children = item.children
-            return activity.resources.getQuantityString(R.plurals.items, children, children)
-        }
-
-        private fun viewClicked(fileDirItem: FileDirItem) {
-            if (multiSelector.isSelectable) {
-                val isSelected = adapterListener.getSelectedPositions().contains(adapterPosition)
-                adapterListener.toggleItemSelectionAdapter(!isSelected, adapterPosition)
+            if (fileDirItem.isDirectory) {
+                item_icon.setImageDrawable(folderDrawable)
+                item_details.text = getChildrenCnt(fileDirItem)
             } else {
-                itemClick(fileDirItem)
-            }
-        }
+                val options = RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .error(fileDrawable)
+                        .centerCrop()
 
-        private fun viewLongClicked() {
-            if (listener != null) {
-                if (!multiSelector.isSelectable) {
-                    activity.startSupportActionMode(multiSelectorCallback)
-                    adapterListener.toggleItemSelectionAdapter(true, adapterPosition)
-                }
-
-                listener.itemLongClicked(adapterPosition)
-            }
-        }
-
-        fun stopLoad() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && !activity.isDestroyed) {
-                Glide.with(activity).clear(view.item_icon)
+                val path = fileDirItem.path
+                Glide.with(activity).load(path).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
+                item_details.text = fileDirItem.size.formatSize()
             }
         }
     }
 
-    interface MyAdapterListener {
-        fun toggleItemSelectionAdapter(select: Boolean, position: Int)
-
-        fun getSelectedPositions(): HashSet<Int>
+    private fun getChildrenCnt(item: FileDirItem): String {
+        val children = item.children
+        return activity.resources.getQuantityString(R.plurals.items, children, children)
     }
 
     interface ItemOperationsListener {
         fun refreshItems()
 
         fun deleteFiles(files: ArrayList<File>)
-
-        fun itemLongClicked(position: Int)
 
         fun selectedPaths(paths: ArrayList<String>)
     }

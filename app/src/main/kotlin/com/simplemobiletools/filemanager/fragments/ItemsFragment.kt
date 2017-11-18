@@ -13,7 +13,6 @@ import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
-import com.simplemobiletools.commons.views.MyScalableRecyclerView
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -132,20 +131,17 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 storedItems = items
                 val currAdapter = items_list.adapter
                 if (currAdapter == null) {
-                    items_list.apply {
-                        this.adapter = ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, isPickMultipleIntent) {
-                            itemClicked(it)
-                        }
-
-                        DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
-                            setDrawable(context.resources.getDrawable(com.simplemobiletools.commons.R.drawable.divider))
-                            addItemDecoration(this)
-                        }
-
-                        isDragSelectionEnabled = true
+                    val adapter = ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent) {
+                        itemClicked(it as FileDirItem)
                     }
+                    adapter.setupDragListener(true)
+
+                    DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+                        setDrawable(context.resources.getDrawable(com.simplemobiletools.commons.R.drawable.divider))
+                        items_list.addItemDecoration(this)
+                    }
+                    items_list.adapter = adapter
                     items_fastscroller.setViews(items_list, items_swipe_refresh)
-                    setupRecyclerViewListener()
                 } else {
                     (currAdapter as ItemsAdapter).updateItems(storedItems)
 
@@ -159,28 +155,6 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             }
         }
     }
-
-    private fun setupRecyclerViewListener() {
-        mView.items_list?.listener = object : MyScalableRecyclerView.MyScalableRecyclerViewListener {
-            override fun zoomIn() {
-
-            }
-
-            override fun zoomOut() {
-
-            }
-
-            override fun selectItem(position: Int) {
-                getRecyclerAdapter().selectItem(position)
-            }
-
-            override fun selectRange(initialSelection: Int, lastDraggedIndex: Int, minReached: Int, maxReached: Int) {
-                getRecyclerAdapter().selectRange(initialSelection, lastDraggedIndex, minReached, maxReached)
-            }
-        }
-    }
-
-    private fun getRecyclerAdapter() = (items_list.adapter as ItemsAdapter)
 
     fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
@@ -286,10 +260,6 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 }
             }
         }
-    }
-
-    override fun itemLongClicked(position: Int) {
-        items_list.setDragSelectActive(position)
     }
 
     override fun selectedPaths(paths: ArrayList<String>) {

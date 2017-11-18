@@ -1,10 +1,10 @@
 package com.simplemobiletools.filemanager.activities
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.extensions.applyColorFilter
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
@@ -31,7 +31,7 @@ class FavoritesActivity : SimpleActivity() {
                     setTextColor(config.textColor)
                 }
                 favorite_icon.apply {
-                    setColorFilter(config.textColor, PorterDuff.Mode.SRC_IN)
+                    applyColorFilter(config.textColor)
                     setOnClickListener {
                         config.removeFavorite(favorite)
                         updateFavorites()
