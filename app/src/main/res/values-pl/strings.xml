@@ -34,7 +34,7 @@
     <string name="file_editor">Edytor Plików</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Zezwól na dostęp do uprawnień root'a</string>
+    <string name="enable_root_access">Zezwól na dostęp do uprawnień root\'a</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
