@@ -383,6 +383,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     fun updateItems(newItems: MutableList<FileDirItem>) {
         fileDirItems = newItems
+        selectableItemCount = fileDirItems.size
         notifyDataSetChanged()
         finishActMode()
     }
