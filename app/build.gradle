@@ -46,8 +46,7 @@ ext {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:2.39.10'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.simplemobiletools:commons:2.41.1'
 
     implementation files('../libs/RootTools.jar')
 
@@ -55,7 +54,7 @@ dependencies {
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
 
-def Properties props = new Properties()
+Properties props = new Properties()
 def propFile = new File('signing.properties')
 if (propFile.canRead()) {
     props.load(new FileInputStream(propFile))

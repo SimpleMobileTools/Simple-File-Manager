@@ -26,7 +26,7 @@
                 android:id="@+id/items_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/breadcrumbs"
+                android:layout_below="@+id/breadcrumbs"
                 android:clipToPadding="false"
                 android:paddingLeft="@dimen/activity_margin"
                 android:scrollbars="none"
@@ -38,6 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_below="@+id/breadcrumbs"
                 android:paddingLeft="@dimen/normal_margin"
                 android:paddingStart="@dimen/normal_margin">
 
