@@ -21,7 +21,6 @@ import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyRecyclerView
-import com.simplemobiletools.filemanager.BuildConfig
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
@@ -147,7 +146,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 addFileUris(it, uris)
             }
         } else {
-            uris.add(activity.getFilePublicUri(file, BuildConfig.APPLICATION_ID))
+            uris.add(Uri.fromFile(file))
         }
     }
 

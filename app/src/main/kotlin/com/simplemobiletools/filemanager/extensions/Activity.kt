@@ -4,15 +4,9 @@ import android.app.Activity
 import android.net.Uri
 import com.simplemobiletools.commons.extensions.openFile
 import com.simplemobiletools.commons.extensions.setAs
-import com.simplemobiletools.commons.extensions.shareUri
 import com.simplemobiletools.commons.extensions.shareUris
 import com.simplemobiletools.filemanager.BuildConfig
 import java.util.*
-
-
-fun Activity.shareUri(uri: Uri) {
-    shareUri(uri, BuildConfig.APPLICATION_ID)
-}
 
 fun Activity.shareUris(uris: ArrayList<Uri>) {
     shareUris(uris, BuildConfig.APPLICATION_ID)
