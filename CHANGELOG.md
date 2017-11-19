@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 2.8.0 *(2017-11-19)*
+----------------------------
+
+ * Fixed opening some file types
+ * Added adaptive launcher icon
+ * Many smaller improvements under the hood
+
 Version 2.7.0 *(2017-11-10)*
 ----------------------------
 
