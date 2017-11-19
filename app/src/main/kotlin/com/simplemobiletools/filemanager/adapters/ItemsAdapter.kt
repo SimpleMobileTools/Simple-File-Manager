@@ -165,7 +165,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun openWith() {
         val file = File(getSelectedMedia().first().path)
-        activity.openFile(Uri.fromFile(file), true)
+        activity.openFile(file, true)
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {

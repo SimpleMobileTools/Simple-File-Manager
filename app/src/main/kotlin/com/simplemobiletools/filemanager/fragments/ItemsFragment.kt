@@ -1,6 +1,5 @@
 package com.simplemobiletools.filemanager.fragments
 
-import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
@@ -220,7 +219,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 }
             } else {
                 val file = File(path)
-                activity!!.openFile(Uri.fromFile(file), false)
+                activity!!.openFile(file, false)
             }
         }
     }
