@@ -15,11 +15,7 @@ fun Activity.shareUri(uri: Uri) {
 }
 
 fun Activity.shareUris(uris: ArrayList<Uri>) {
-    if (uris.size == 1) {
-        shareUri(uris.first())
-    } else {
-        shareUris(uris, BuildConfig.APPLICATION_ID)
-    }
+    shareUris(uris, BuildConfig.APPLICATION_ID)
 }
 
 fun Activity.openFile(uri: Uri, forceChooser: Boolean) {
