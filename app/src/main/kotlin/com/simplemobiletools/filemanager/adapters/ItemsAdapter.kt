@@ -366,15 +366,12 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             listener?.deleteFiles(files)
 
             val newItems = SparseArray<View>()
-            var curIndex = 0
-            for (i in 0 until itemViews.size()) {
-                if (itemViews[i] != null) {
-                    newItems.put(curIndex, itemViews[i])
-                    curIndex++
-                }
-            }
+            (0 until itemViews.size())
+                    .filter { itemViews[it] != null }
+                    .forEachIndexed { curIndex, i -> newItems.put(curIndex, itemViews[i]) }
 
             itemViews = newItems
+            selectableItemCount = fileDirItems.size
         }
     }
 
