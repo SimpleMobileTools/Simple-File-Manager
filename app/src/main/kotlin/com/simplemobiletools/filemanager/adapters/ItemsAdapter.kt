@@ -97,7 +97,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun getItemCount() = fileDirItems.size
 
-    private fun initDrawables() {
+    fun initDrawables() {
         folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
         fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file, textColor)
         folderDrawable.alpha = 180

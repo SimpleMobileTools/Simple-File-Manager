@@ -75,12 +75,15 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
         super.onResume()
         context!!.updateTextColors(mView as ViewGroup)
         mView.items_fastscroller.updateHandleColor()
-        val newColor = context!!.config.textColor
-        if (storedTextColor != newColor) {
+        val newTextColor = context!!.config.textColor
+        if (storedTextColor != newTextColor) {
             storedItems = ArrayList()
-            (items_list.adapter as? ItemsAdapter)?.updateTextColor(newColor)
-            mView.breadcrumbs.updateColor(newColor)
-            storedTextColor = newColor
+            (items_list.adapter as? ItemsAdapter)?.apply {
+                updateTextColor(newTextColor)
+                initDrawables()
+            }
+            mView.breadcrumbs.updateColor(newTextColor)
+            storedTextColor = newTextColor
         }
 
         refreshItems()
