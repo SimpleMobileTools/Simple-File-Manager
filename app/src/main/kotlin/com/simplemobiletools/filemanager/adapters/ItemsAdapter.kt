@@ -38,7 +38,6 @@ import java.util.zip.ZipOutputStream
 class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
                    val isPickMultipleIntent: Boolean, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
 
-    private val config = activity.config
     lateinit private var folderDrawable: Drawable
     lateinit private var fileDrawable: Drawable
 
@@ -123,11 +122,11 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun showProperties() {
         if (selectedPositions.size <= 1) {
-            PropertiesDialog(activity, fileDirItems[selectedPositions.first()].path, config.shouldShowHidden)
+            PropertiesDialog(activity, fileDirItems[selectedPositions.first()].path, activity.config.shouldShowHidden)
         } else {
             val paths = ArrayList<String>()
             selectedPositions.forEach { paths.add(fileDirItems[it].path) }
-            PropertiesDialog(activity, paths, config.shouldShowHidden)
+            PropertiesDialog(activity, paths, activity.config.shouldShowHidden)
         }
     }
 
@@ -142,7 +141,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun addFileUris(file: File, uris: ArrayList<Uri>) {
         if (file.isDirectory) {
-            file.listFiles()?.filter { if (config.shouldShowHidden) true else !it.isHidden }?.forEach {
+            val shouldShowHidden = activity.config.shouldShowHidden
+            file.listFiles()?.filter { if (shouldShowHidden) true else !it.isHidden }?.forEach {
                 addFileUris(it, uris)
             }
         } else {
@@ -173,7 +173,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         selectedPositions.forEach { files.add(File(fileDirItems[it].path)) }
 
         val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
-        FilePickerDialog(activity, source, false, config.shouldShowHidden, true) {
+        FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true) {
             if (activity.isPathOnRoot(source)) {
                 copyRootItems(files, it)
             } else {
