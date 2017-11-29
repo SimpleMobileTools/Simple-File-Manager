@@ -74,7 +74,6 @@ class MainActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-        updateMenuTextSize(resources, menu)
 
         val favorites = config.favorites
         menu.apply {
