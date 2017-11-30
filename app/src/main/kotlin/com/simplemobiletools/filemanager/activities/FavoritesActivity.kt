@@ -24,9 +24,12 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
         manage_favorites_placeholder.beVisibleIf(favorites.isEmpty())
         manage_favorites_placeholder.setTextColor(config.textColor)
 
-        val adapter = ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) {}
-        adapter.setupDragListener(true)
-        manage_favorites_list.adapter = adapter
+        ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) {
+
+        }.apply {
+            setupDragListener(true)
+            manage_favorites_list.adapter = this
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

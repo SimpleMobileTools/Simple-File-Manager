@@ -87,8 +87,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = fileDirItems[position]
-        val view = holder.bindView(fileDirItem) {
-            setupView(it, fileDirItem)
+        val view = holder.bindView(fileDirItem, true) { itemView, layoutPosition ->
+            setupView(itemView, fileDirItem)
         }
         bindViewHolder(holder, position, view)
     }

@@ -28,7 +28,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/breadcrumbs"
                 android:clipToPadding="false"
-                android:paddingLeft="@dimen/activity_margin"
                 android:scrollbars="none"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 

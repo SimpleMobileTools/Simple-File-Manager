@@ -42,8 +42,8 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val favorite = favorites[position]
-        val view = holder.bindView(favorite) {
-            setupView(it, favorite)
+        val view = holder.bindView(favorite) { itemView, layoutPosition ->
+            setupView(itemView, favorite)
         }
         bindViewHolder(holder, position, view)
     }

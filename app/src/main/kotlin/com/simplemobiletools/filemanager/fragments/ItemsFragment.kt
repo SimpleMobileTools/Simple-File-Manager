@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.fragments
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -134,16 +133,13 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 storedItems = items
                 val currAdapter = items_list.adapter
                 if (currAdapter == null) {
-                    val adapter = ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent) {
+                    ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent) {
                         itemClicked(it as FileDirItem)
+                    }.apply {
+                        setupDragListener(true)
+                        addVerticalDividers(true)
+                        items_list.adapter = this
                     }
-                    adapter.setupDragListener(true)
-
-                    DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
-                        setDrawable(context.resources.getDrawable(com.simplemobiletools.commons.R.drawable.divider))
-                        items_list.addItemDecoration(this)
-                    }
-                    items_list.adapter = adapter
                     items_fastscroller.setViews(items_list, items_swipe_refresh)
                 } else {
                     (currAdapter as ItemsAdapter).updateItems(storedItems)
