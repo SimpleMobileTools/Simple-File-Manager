@@ -17,10 +17,6 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     private val config = activity.config
 
-    init {
-        selectableItemCount = favorites.size
-    }
-
     override fun getActionMenuId() = R.menu.cab_delete_only
 
     override fun prepareActionMode(menu: Menu) {}
@@ -36,6 +32,8 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
             R.id.cab_delete -> askConfirmDelete()
         }
     }
+
+    override fun getSelectableItemCount() = favorites.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = createViewHolder(R.layout.item_manage_favorite, parent)
 

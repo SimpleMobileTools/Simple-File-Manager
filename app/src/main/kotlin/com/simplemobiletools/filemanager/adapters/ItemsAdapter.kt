@@ -41,7 +41,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     lateinit private var fileDrawable: Drawable
 
     init {
-        selectableItemCount = fileDirItems.count()
         initDrawables()
     }
 
@@ -81,6 +80,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             R.id.cab_delete -> askConfirmDelete()
         }
     }
+
+    override fun getSelectableItemCount() = fileDirItems.size
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = createViewHolder(R.layout.list_item, parent)
 
@@ -372,7 +373,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     fun updateItems(newItems: MutableList<FileDirItem>) {
         fileDirItems = newItems
-        selectableItemCount = fileDirItems.size
         notifyDataSetChanged()
         finishActMode()
     }
