@@ -343,8 +343,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun deleteFiles() {
-        if (selectedPositions.isEmpty())
+        if (selectedPositions.isEmpty()) {
             return
+        }
 
         val files = ArrayList<File>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
