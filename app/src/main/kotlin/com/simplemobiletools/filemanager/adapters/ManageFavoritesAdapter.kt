@@ -1,6 +1,5 @@
 package com.simplemobiletools.filemanager.adapters
 
-import android.util.SparseArray
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -71,22 +70,11 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
         selectedPositions.sortedDescending().forEach {
             val favorite = favorites[it]
             removeFavorites.add(favorite)
-            notifyItemRemoved(it)
-            itemViews.put(it, null)
             config.removeFavorite(favorite)
         }
 
         favorites.removeAll(removeFavorites)
-        selectedPositions.clear()
-
-        val newItems = SparseArray<View>()
-        (0 until itemViews.size())
-                .filter { itemViews[it] != null }
-                .forEachIndexed { curIndex, i -> newItems.put(curIndex, itemViews[i]) }
-
-        itemViews = newItems
-        selectableItemCount = favorites.size
-        finishActMode()
+        removeSelectedItems()
         if (favorites.isEmpty()) {
             listener?.refreshItems()
         }

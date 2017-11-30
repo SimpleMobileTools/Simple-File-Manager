@@ -5,7 +5,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.SparseArray
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -340,7 +339,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private fun askConfirmDelete() {
         ConfirmationDialog(activity) {
             deleteFiles()
-            finishActMode()
         }
     }
 
@@ -350,27 +348,18 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
         val files = ArrayList<File>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
+        val SAFFile = File(fileDirItems[selectedPositions.first()].path)
 
-        activity.handleSAFDialog(File(fileDirItems[selectedPositions.first()].path)) {
+        activity.handleSAFDialog(SAFFile) {
             selectedPositions.sortedDescending().forEach {
                 val file = fileDirItems[it]
                 files.add(File(file.path))
                 removeFiles.add(file)
-                notifyItemRemoved(it)
-                itemViews.put(it, null)
             }
 
             fileDirItems.removeAll(removeFiles)
-            selectedPositions.clear()
             listener?.deleteFiles(files)
-
-            val newItems = SparseArray<View>()
-            (0 until itemViews.size())
-                    .filter { itemViews[it] != null }
-                    .forEachIndexed { curIndex, i -> newItems.put(curIndex, itemViews[i]) }
-
-            itemViews = newItems
-            selectableItemCount = fileDirItems.size
+            removeSelectedItems()
         }
     }
 
