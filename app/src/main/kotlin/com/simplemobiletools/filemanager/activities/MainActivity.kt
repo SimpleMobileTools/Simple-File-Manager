@@ -28,7 +28,6 @@ import java.util.*
 class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
     private var wasBackJustPressed = false
-
     private var mStoredUseEnglish = false
 
     private lateinit var fragment: ItemsFragment
@@ -36,7 +35,7 @@ class MainActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        storeStoragePaths()
+        appLaunched()
 
         fragment = (fragment_holder as ItemsFragment).apply {
             isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
@@ -47,6 +46,7 @@ class MainActivity : SimpleActivity() {
         if (savedInstanceState == null) {
             tryInitFileManager()
         }
+
         checkWhatsNewDialog()
         checkIfRootAvailable()
         storeStateVariables()
@@ -230,14 +230,14 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun checkIfRootAvailable() {
-        Thread({
+        Thread {
             config.isRootAvailable = RootTools.isRootAvailable()
             if (config.isRootAvailable && config.enableRootAccess) {
                 RootHelpers().askRootIFNeeded(this) {
                     config.enableRootAccess = it
                 }
             }
-        }).start()
+        }.start()
     }
 
     fun pickedPath(path: String) {

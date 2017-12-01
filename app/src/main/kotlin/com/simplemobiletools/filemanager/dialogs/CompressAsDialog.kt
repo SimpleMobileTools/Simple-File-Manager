@@ -37,25 +37,26 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            activity.setupDialogStuff(view, this, R.string.compress_as)
-            window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                val name = view.file_name.value
-                when {
-                    name.isEmpty() -> activity.toast(R.string.empty_name)
-                    name.isAValidFilename() -> {
-                        val newFile = File(realPath, "$name.zip")
-                        if (newFile.exists()) {
-                            activity.toast(R.string.name_taken)
-                            return@OnClickListener
-                        }
+            activity.setupDialogStuff(view, this, R.string.compress_as) {
+                window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+                getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
+                    val name = view.file_name.value
+                    when {
+                        name.isEmpty() -> activity.toast(R.string.empty_name)
+                        name.isAValidFilename() -> {
+                            val newFile = File(realPath, "$name.zip")
+                            if (newFile.exists()) {
+                                activity.toast(R.string.name_taken)
+                                return@OnClickListener
+                            }
 
-                        dismiss()
-                        callback(newFile.absolutePath)
+                            dismiss()
+                            callback(newFile.absolutePath)
+                        }
+                        else -> activity.toast(R.string.invalid_name)
                     }
-                    else -> activity.toast(R.string.invalid_name)
-                }
-            })
+                })
+            }
         }
     }
 }

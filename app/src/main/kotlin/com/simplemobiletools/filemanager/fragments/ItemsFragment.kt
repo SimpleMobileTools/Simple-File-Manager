@@ -51,7 +51,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mView.apply {
-            items_swipe_refresh.setOnRefreshListener({ refreshItems() })
+            items_swipe_refresh.setOnRefreshListener { refreshItems() }
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
         }
@@ -160,13 +160,13 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as LinearLayoutManager)
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
-        Thread({
+        Thread {
             if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                 getRegularItemsOf(path, callback)
             } else {
                 RootHelpers().getFiles(activity as SimpleActivity, path, callback)
             }
-        }).start()
+        }.start()
     }
 
     private fun getRegularItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {

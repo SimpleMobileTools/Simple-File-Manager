@@ -6,7 +6,6 @@ import android.view.WindowManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.activities.SimpleActivity
 import kotlinx.android.synthetic.main.dialog_create_new.view.*
 import java.io.File
 import java.io.IOException
@@ -19,32 +18,33 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            activity.setupDialogStuff(view, this, R.string.create_new)
-            window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                val name = view.item_name.value
-                if (name.isEmpty()) {
-                    activity.toast(R.string.empty_name)
-                } else if (name.isAValidFilename()) {
-                    val file = File(path, name)
-                    if (file.exists()) {
-                        activity.toast(R.string.name_taken)
-                        return@OnClickListener
-                    }
+            activity.setupDialogStuff(view, this, R.string.create_new) {
+                window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+                getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
+                    val name = view.item_name.value
+                    if (name.isEmpty()) {
+                        activity.toast(R.string.empty_name)
+                    } else if (name.isAValidFilename()) {
+                        val file = File(path, name)
+                        if (file.exists()) {
+                            activity.toast(R.string.name_taken)
+                            return@OnClickListener
+                        }
 
-                    if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
-                        createDirectory(file, this) {
-                            callback(it)
+                        if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
+                            createDirectory(file, this) {
+                                callback(it)
+                            }
+                        } else {
+                            createFile(file, this) {
+                                callback(it)
+                            }
                         }
                     } else {
-                        createFile(file, this) {
-                            callback(it)
-                        }
+                        activity.toast(R.string.invalid_name)
                     }
-                } else {
-                    activity.toast(R.string.invalid_name)
-                }
-            })
+                })
+            }
         }
     }
 

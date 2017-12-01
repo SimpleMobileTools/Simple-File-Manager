@@ -187,7 +187,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun copyRootItems(files: ArrayList<File>, destinationPath: String) {
         activity.toast(R.string.copying)
-        Thread({
+        Thread {
             var fileCnt = files.count()
             files.forEach {
                 if (RootTools.copyFile(it.absolutePath, destinationPath, false, true)) {
@@ -205,7 +205,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 listener?.refreshItems()
                 finishActMode()
             }
-        }).start()
+        }.start()
     }
 
     private fun compressSelection() {
@@ -217,7 +217,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             activity.handleSAFDialog(File(firstPath)) {
                 activity.toast(R.string.compressing)
                 val paths = selectedPositions.map { fileDirItems[it].path }
-                Thread({
+                Thread {
                     if (zipPaths(paths, it)) {
                         activity.toast(R.string.compression_successful)
                         activity.runOnUiThread {
@@ -227,7 +227,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                     } else {
                         activity.toast(R.string.compressing_failed)
                     }
-                }).start()
+                }.start()
             }
         }
     }
@@ -240,7 +240,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         activity.handleSAFDialog(File(firstPath)) {
             activity.toast(R.string.decompressing)
             val paths = selectedPositions.map { fileDirItems[it].path }.filter { it.isZipFile() }
-            Thread({
+            Thread {
                 if (unzipPaths(paths)) {
                     activity.toast(R.string.decompression_successful)
                     activity.runOnUiThread {
@@ -250,7 +250,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 } else {
                     activity.toast(R.string.decompressing_failed)
                 }
-            }).start()
+            }.start()
         }
     }
 

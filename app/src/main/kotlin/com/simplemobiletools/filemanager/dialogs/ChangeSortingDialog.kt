@@ -1,19 +1,17 @@
 package com.simplemobiletools.filemanager.dialogs
 
 import android.support.v7.app.AlertDialog
-import android.view.LayoutInflater
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
 class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "", val callback: () -> Unit) {
     private var currSorting = 0
     private var config = activity.config
-    private var view = LayoutInflater.from(activity).inflate(R.layout.dialog_change_sorting, null)
+    private var view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null)
 
     init {
         view.sorting_dialog_use_for_this_folder.isChecked = config.hasCustomSorting(path)
