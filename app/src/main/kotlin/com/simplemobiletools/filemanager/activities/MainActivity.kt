@@ -144,7 +144,7 @@ class MainActivity : SimpleActivity() {
             R.id.set_as_home -> setAsHome()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+            R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
         }
