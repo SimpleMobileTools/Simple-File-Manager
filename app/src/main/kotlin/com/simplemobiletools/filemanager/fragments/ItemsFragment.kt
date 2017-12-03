@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.filemanager.R
@@ -179,16 +180,16 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 if (!showHidden && curName.startsWith("."))
                     continue
 
-                val children = getChildren(file)
-                val size = file.length()
-
-                items.add(FileDirItem(curPath, curName, file.isDirectory, children, size))
+                val children = getChildrenCount(file)
+                val size = if (file.isDirectory && context!!.config.sorting == SORT_BY_SIZE) getDirectorySize(file) else file.length()
+                val fileDirItem = FileDirItem(curPath, curName, file.isDirectory, children, size)
+                items.add(fileDirItem)
             }
         }
         callback(items)
     }
 
-    private fun getChildren(file: File): Int {
+    private fun getChildrenCount(file: File): Int {
         val fileList: Array<out String>? = file.list() ?: return 0
 
         if (file.isDirectory) {
@@ -197,6 +198,20 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             } else {
                 fileList!!.count { fileName -> fileName[0] != '.' }
             }
+        }
+        return 0
+    }
+
+    private fun getDirectorySize(directory: File): Long {
+        if (directory.exists()) {
+            val fileList = directory.listFiles() ?: return 0
+            return fileList.indices.map {
+                if (fileList[it].isDirectory) {
+                    getDirectorySize(fileList[it])
+                } else {
+                    fileList[it].length()
+                }
+            }.sum()
         }
         return 0
     }
