@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.adapters
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.Menu
@@ -394,14 +395,27 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 item_icon.setImageDrawable(folderDrawable)
                 item_details.text = getChildrenCnt(fileDirItem)
             } else {
+                item_details.text = fileDirItem.size.formatSize()
+                val path = fileDirItem.path
                 val options = RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .error(fileDrawable)
                         .centerCrop()
 
-                val path = fileDirItem.path
-                Glide.with(activity).load(path).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
-                item_details.text = fileDirItem.size.formatSize()
+                val itemToLoad = if (fileDirItem.name.endsWith(".apk", true)) {
+                    val packageInfo = context.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
+                    if (packageInfo != null) {
+                        val appInfo = packageInfo.applicationInfo
+                        appInfo.sourceDir = path
+                        appInfo.publicSourceDir = path
+                        appInfo.loadIcon(context.packageManager)
+                    } else {
+                        path
+                    }
+                } else {
+                    path
+                }
+                Glide.with(activity).load(itemToLoad).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
             }
         }
     }
