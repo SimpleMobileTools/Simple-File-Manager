@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.0.0 *(2017-12-04)*
+----------------------------
+
+ * Improved primary color customization
+ * Fixed folder sorting by size
+ * Display proper thumbnail at .apk files
+
 Version 2.8.0 *(2017-11-19)*
 ----------------------------
 
