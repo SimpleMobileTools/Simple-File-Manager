@@ -45,7 +45,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mView = inflater.inflate(R.layout.items_fragment, container, false)!!
-        storeConfigVariables()
+        storeStateVariables()
         return mView
     }
 
@@ -86,16 +86,20 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             storedTextColor = newTextColor
         }
 
+        items_fastscroller.updateBubbleColors()
+        items_fastscroller.allowBubbleDisplay = context!!.config.showInfoBubble
         refreshItems()
     }
 
     override fun onPause() {
         super.onPause()
-        storeConfigVariables()
+        storeStateVariables()
     }
 
-    private fun storeConfigVariables() {
-        storedTextColor = context!!.config.textColor
+    private fun storeStateVariables() {
+        context!!.config.apply {
+            storedTextColor = textColor
+        }
     }
 
     fun openPath(path: String) {
@@ -141,7 +145,10 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                         addVerticalDividers(true)
                         items_list.adapter = this
                     }
-                    items_fastscroller.setViews(items_list, items_swipe_refresh)
+                    items_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
+                    items_fastscroller.setViews(items_list, items_swipe_refresh) {
+                        items_fastscroller.updateBubbleText(storedItems[it].getBubbleText())
+                    }
                 } else {
                     (currAdapter as ItemsAdapter).updateItems(storedItems)
 
