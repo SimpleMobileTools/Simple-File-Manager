@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.0.1 *(2017-12-06)*
+----------------------------
+
+ * Fixed wrong launcher icon on some devices
+ * Added an info bubble when dragging the scrollbar
+
 Version 3.0.0 *(2017-12-04)*
 ----------------------------
 
