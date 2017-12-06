@@ -162,6 +162,10 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         Thread {
+            if (activity?.isActivityDestroyed() == true) {
+                return@Thread
+            }
+
             if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                 getRegularItemsOf(path, callback)
             } else {
