@@ -74,7 +74,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     override fun onResume() {
         super.onResume()
         context!!.updateTextColors(mView as ViewGroup)
-        mView.items_fastscroller.updateHandleColor()
+        mView.items_fastscroller.updatePrimaryColor()
         val newTextColor = context!!.config.textColor
         if (storedTextColor != newTextColor) {
             storedItems = ArrayList()
