@@ -61,13 +61,13 @@
             android:parentActivityName=".activities.MainActivity"/>
 
         <activity
-            android:name="com.simplemobiletools.commons.activities.AboutActivity"
-            android:label="@string/about"
+            android:name=".activities.FavoritesActivity"
+            android:label="@string/favorites"
             android:parentActivityName=".activities.MainActivity"/>
 
         <activity
-            android:name="com.simplemobiletools.filemanager.activities.FavoritesActivity"
-            android:label="@string/favorites"
+            android:name="com.simplemobiletools.commons.activities.AboutActivity"
+            android:label="@string/about"
             android:parentActivityName=".activities.MainActivity"/>
 
         <activity
