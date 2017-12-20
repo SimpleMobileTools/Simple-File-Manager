@@ -12,15 +12,15 @@
     <string name="select_audio_file">Please select an audio file</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">압축</string>
+    <string name="decompress">압축 해제</string>
+    <string name="compress_as">압축 파일을 다음과 같이 생성함</string>
+    <string name="compressing">압축중…</string>
+    <string name="decompressing">압축 해제중…</string>
+    <string name="compression_successful">압축 성공</string>
+    <string name="decompression_successful">압축 해제 성공</string>
+    <string name="compressing_failed">압축 실패</string>
+    <string name="decompressing_failed">압축해제 실패</string>
 
     <!-- Favorites -->
     <string name="favorites">즐겨찾기</string>
@@ -31,7 +31,7 @@
     <string name="favorites_activity_placeholder">자주 사용하는 폴더를 즐겨찾기에 추가하여 어디서나 쉽게 접근 할 수 있습니다.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">텍스트 편집기</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Enable root access</string>
