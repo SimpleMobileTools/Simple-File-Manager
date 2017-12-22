@@ -42,7 +42,7 @@
     <string name="app_long_description">
         Kann auch zum Durchsuchen von Root-Dateien und der SD Karte verwendet werden. Du kannst alles einfach nach deinen Wünschen umbenennen, kopieren, verschieben, löschen oder teilen.
 
-        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+        Die Berechtigung für Fingerabdrücke wird nur benötigt, um versteckte Dateien oder die gesamte App zu sperren.
 
         Beinhaltet keine Werbung und benötigt keine unnötigen Berechtigungen. Die App ist komplett Open Source und bietet nach Wunsch anpassbare Farben.
 
