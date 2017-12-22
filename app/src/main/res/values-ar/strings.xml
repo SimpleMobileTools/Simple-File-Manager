@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">مدير الملفات البسيط</string>
+    <string name="app_launcher_name">مدير الملفات</string>
+    <string name="press_back_again">اضغط مرة أخرى للخروج</string>
+    <string name="no_app_found">لم يتم تثبيت أي تطبيق لفتح هذا النوع من الملفات</string>
+    <string name="go_to_home_folder">الذهاب الى الرئيسية</string>
+    <string name="set_as_home_folder">تعيين كمجلد رئيسي</string>
+    <string name="home_folder_updated">تم تحديث المجلد الرئيسي</string>
+    <string name="copy_path">نسخ المسار الى الحافظة</string>
+    <string name="path_copied">تم نسخ المسار</string>
+    <string name="select_audio_file">الرجاء تحديد ملف صوتي</string>
+
+    <!-- Compression -->
+    <string name="compress">ضغط</string>
+    <string name="decompress">فك الضغط</string>
+    <string name="compress_as">ضغط كا</string>
+    <string name="compressing">ضغط…</string>
+    <string name="decompressing">فك الضغط...</string>
+    <string name="compression_successful">نجح الضغط</string>
+    <string name="decompression_successful">نجح التفكيك</string>
+    <string name="compressing_failed">أخفق الضغط</string>
+    <string name="decompressing_failed">أخفق إلغاء الضغط</string>
+
+    <!-- Favorites -->
+    <string name="favorites">المفضلة</string>
+    <string name="add_to_favorites">اضافة الى المفضلة</string>
+    <string name="remove_from_favorites">حذف من المفضلة</string>
+    <string name="manage_favorites">إدارة المفضلة</string>
+    <string name="go_to_favorite">الذهاب الى المفضلة</string>
+    <string name="favorites_activity_placeholder">يمكنك إضافة المجلدات المستخدمة بشكل متكرر إلى المفضلة لسهولة الوصول إليها من أي مكان.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">محرر الملفات</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">تفعيل الدخول الى مسار الروت</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">مدير ملفات بسيط لتصفح وتحرير الملفات والمسارات.</string>
+    <string name="app_long_description">ويمكن أيضا أن يستخدم لتصفح ملفات الجذر ومحتوى بطاقة الذاكرة. يمكنك بسهولة إعادة تسمية، نسخ، نقل وحذف ومشاركة أي شيء تريده. \n
+ لا يحتوي على إعلانات أو أذونات لا حاجة لها. مفتوح المصدر بشكل كامل ، ويوفر الألوان للتخصيص. هذا التطبيق هو مجرد قطعة واحدة من سلسلة أكبر من التطبيقات. \n
+ يمكنك العثور عليها هنا\n
+ http://www.simplemobiletools.com</string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
