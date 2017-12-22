@@ -103,8 +103,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         fileDrawable.alpha = 180
     }
 
-    private fun isOneItemSelected() = selectedPositions.size == 1
-
     private fun isOneFileSelected() = isOneItemSelected() && !fileDirItems[selectedPositions.first()].isDirectory
 
     private fun confirmSelection() {
