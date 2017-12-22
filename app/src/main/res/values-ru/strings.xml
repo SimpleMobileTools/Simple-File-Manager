@@ -42,6 +42,8 @@
     <string name="app_long_description">
         Это приложение можно использовать для просмотра файлов корневой файловой системы и содержимого SD-карты. Можно переименовывать, удалять, копировать, перемещать и делиться файлами.
 
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
         Это приложение не будет показывать рекламу или запрашивать ненужные разрешения. У него полностью открытый исходный код и есть тёмная тема оформления.
 
         Simple File Manager - это приложение из серии Simple Mobile Tools. Остальные приложения из этой серии можно найти здесь: http://www.simplemobiletools.com

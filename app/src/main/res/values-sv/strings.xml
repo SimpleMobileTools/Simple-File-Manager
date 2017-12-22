@@ -42,6 +42,8 @@
     <string name="app_long_description">
         Kan också användas till att bläddra i rot-filer och innehållet på SD-kort. Du kan enkelt döpa om, kopiera, flytta, ta bort och dela det du vill.
 
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
         Innehåller ingen reklam eller onödiga behörigheter. Det är helt och hållet opensource, har anpassningsbara färger.
 
         Detta är bara en app i en serie av appar. Du hittar resten av dem här http://www.simplemobiletools.com

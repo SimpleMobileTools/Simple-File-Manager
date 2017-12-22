@@ -42,6 +42,8 @@
     <string name="app_long_description">
         Może być używany także do przeglądania systemowych zakamarków i zewnętrznych kart pamięci. Z łatwością możesz zmieniać nazwy, przenosić, kopiować, usuwać i udostępniać pliki.
 
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
         Aplikacja nie zawiera żadnych żadnych reklam i nie potrzebuje masy uprawnień. Jest w pełni otwartoźródłowa. Posiada ciemny motyw dla osób z wrażliwymi oczami.
 
         Niniejsza aplikacja jest tylko częścią naszej kolekcji prostych narzędzi. Ta, jak i pozostałe, dostępne są na stronie http://www.simplemobiletools.com

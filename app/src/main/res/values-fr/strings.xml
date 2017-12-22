@@ -42,6 +42,8 @@
     <string name="app_long_description">
         Peut aussi être utilisé pour naviguer dans les fichiers à la racines et ceux de la carte SD. Vous pouvez facilement renommer, copier, déplacer, supprimmer et partager ce que vous voulez.
 
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
         Ne contient pas de pubs ou de permissions inutiles. C\'est un logiciel libre et open-source. Il y a un thème sombre.
 
         Cette app est juste une pièce d\'une plus grande série d\'apps. Vous pouvez trouver le reste à http://www.simplemobiletools.com

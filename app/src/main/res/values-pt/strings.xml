@@ -42,6 +42,8 @@
     <string name="app_long_description">
         Pode utilizar a aplicação para explorar a pasta \'root\' e os armazenamentos interno e externo. Pode renomear, copiar, mover, apagar e partilhar todos os ficheiros que quiser.
 
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
         Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
 
         Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em http://www.simplemobiletools.com

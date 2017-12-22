@@ -42,6 +42,8 @@
     <string name="app_long_description">
         Kann auch zum Durchsuchen von Root-Dateien und der SD Karte verwendet werden. Du kannst alles einfach nach deinen Wünschen umbenennen, kopieren, verschieben, löschen oder teilen.
 
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
         Beinhaltet keine Werbung und benötigt keine unnötigen Berechtigungen. Die App ist komplett Open Source und bietet nach Wunsch anpassbare Farben.
 
         Diese App ist nur eine von vielen unserer Apps. Du kannst alle anderen hier finden: http://www.simplemobiletools.com

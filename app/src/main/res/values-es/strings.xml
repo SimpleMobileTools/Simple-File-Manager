@@ -42,6 +42,8 @@
     <string name="app_long_description">
         También puede ser utilizado para navegar por el directorio raíz y por el contenido de la tarjeta SD. Puede fácilmente renombrar, copiar, mover, eliminar y compartir lo que usted desee.
 
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
         No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
 
         Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en http://www.simplemobiletools.com
