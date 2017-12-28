@@ -184,7 +184,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     private fun getRegularItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         val items = ArrayList<FileDirItem>()
-        val files = File(path).listFiles()
+        val files = File(path).listFiles()?.filterNotNull()
         if (files != null) {
             for (file in files) {
                 val curPath = file.absolutePath
