@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.0.2 *(2017-12-28)*
+----------------------------
+
+ * Added a new Black & White theme with special handling
+ * Misc smaller improvements
+
 Version 3.0.1 *(2017-12-06)*
 ----------------------------
 
