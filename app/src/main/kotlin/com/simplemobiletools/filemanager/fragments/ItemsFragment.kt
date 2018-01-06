@@ -147,8 +147,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                     }
                     items_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
                     items_fastscroller.setViews(items_list, items_swipe_refresh) {
-                        val item = storedItems.getOrNull(it)
-                        items_fastscroller.updateBubbleText(item?.getBubbleText() ?: "")
+                        items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText() ?: "")
                     }
                 } else {
                     (currAdapter as ItemsAdapter).updateItems(storedItems)
