@@ -1,10 +1,12 @@
 package com.simplemobiletools.filemanager.activities
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.adapters.ManageFavoritesAdapter
@@ -24,9 +26,16 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
         manage_favorites_placeholder.beVisibleIf(favorites.isEmpty())
         manage_favorites_placeholder.setTextColor(config.textColor)
 
-        ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) {
+        manage_favorites_placeholder_2.apply {
+            paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
+            beVisibleIf(favorites.isEmpty())
+            setTextColor(getAdjustedPrimaryColor())
+            setOnClickListener {
+                addFavorite()
+            }
+        }
 
-        }.apply {
+        ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) { }.apply {
             setupDragListener(true)
             manage_favorites_list.adapter = this
         }

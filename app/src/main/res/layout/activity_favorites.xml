@@ -17,11 +17,27 @@
         android:id="@+id/manage_favorites_placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingLeft="@dimen/big_margin"
-        android:paddingRight="@dimen/big_margin"
-        android:paddingTop="@dimen/activity_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/tiny_margin"
+        android:paddingLeft="@dimen/activity_margin"
+        android:paddingRight="@dimen/activity_margin"
         android:text="@string/favorites_activity_placeholder"
+        android:visibility="gone"/>
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/manage_favorites_placeholder_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/manage_favorites_placeholder"
+        android:layout_centerHorizontal="true"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/normal_margin"
+        android:text="@string/add_favorites"
+        android:textSize="@dimen/bigger_text_size"
         android:visibility="gone"/>
 
 </RelativeLayout>
