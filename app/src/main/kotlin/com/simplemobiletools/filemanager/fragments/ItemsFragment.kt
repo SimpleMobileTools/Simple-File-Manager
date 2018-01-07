@@ -36,10 +36,12 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
 
-    private var storedTextColor = 0
     private var showHidden = false
+    private var skipItemUpdating = false
     private var storedItems = ArrayList<FileDirItem>()
     private var scrollStates = HashMap<String, Parcelable>()
+
+    private var storedTextColor = 0
 
     private lateinit var mView: View
 
@@ -127,6 +129,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     }
 
     private fun addItems(items: ArrayList<FileDirItem>) {
+        skipItemUpdating = false
         mView.apply {
             activity?.runOnUiThread {
                 items_swipe_refresh?.isRefreshing = false
@@ -168,6 +171,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
     private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as LinearLayoutManager)
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
+        skipItemUpdating = false
         Thread {
             if (activity?.isActivityDestroyed() == false) {
                 if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
@@ -227,6 +231,10 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     private fun itemClicked(item: FileDirItem) {
         if (item.isDirectory) {
+            (activity as? MainActivity)?.apply {
+                skipItemUpdating = isSearchOpen
+                openedDirectory()
+            }
             openPath(item.path)
         } else {
             val path = item.path
@@ -243,6 +251,23 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 activity!!.openFile(file, false)
             }
         }
+    }
+
+    fun searchQueryChanged(text: String) {
+        Thread {
+            val filtered = storedItems.filter { it.name.contains(text, true) } as ArrayList
+            filtered.sortBy { !it.name.startsWith(text, true) }
+            activity?.runOnUiThread {
+                (items_list.adapter as ItemsAdapter).updateItems(filtered)
+            }
+        }.start()
+    }
+
+    fun searchClosed() {
+        if (!skipItemUpdating) {
+            (items_list.adapter as ItemsAdapter).updateItems(storedItems)
+        }
+        skipItemUpdating = false
     }
 
     private fun createNewItem() {

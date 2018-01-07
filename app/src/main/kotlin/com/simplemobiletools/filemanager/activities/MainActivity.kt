@@ -1,11 +1,15 @@
 package com.simplemobiletools.filemanager.activities
 
 import android.app.Activity
+import android.app.SearchManager
 import android.content.ClipData
+import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -26,9 +30,13 @@ import java.io.File
 import java.util.*
 
 class MainActivity : SimpleActivity() {
+    var isSearchOpen = false
+
     private val BACK_PRESS_TIMEOUT = 5000
     private var wasBackJustPressed = false
-    private var mStoredUseEnglish = false
+    private var searchMenuItem: MenuItem? = null
+
+    private var storedUseEnglish = false
 
     private lateinit var fragment: ItemsFragment
 
@@ -54,7 +62,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (mStoredUseEnglish != config.useEnglish) {
+        if (storedUseEnglish != config.useEnglish) {
             restartActivity()
             return
         }
@@ -85,11 +93,45 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
         }
 
+        setupSearch(menu)
         return true
     }
 
     private fun storeStateVariables() {
-        mStoredUseEnglish = config.useEnglish
+        storedUseEnglish = config.useEnglish
+    }
+
+    private fun setupSearch(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchMenuItem = menu.findItem(R.id.search)
+        (searchMenuItem!!.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isSubmitButtonEnabled = false
+            queryHint = getString(R.string.search_folder)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String) = false
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (isSearchOpen) {
+                        fragment.searchQueryChanged(newText)
+                    }
+                    return true
+                }
+            })
+        }
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                isSearchOpen = true
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                isSearchOpen = false
+                fragment.searchClosed()
+                return true
+            }
+        })
     }
 
     private fun tryInitFileManager() {
@@ -273,6 +315,10 @@ class MainActivity : SimpleActivity() {
         resultIntent.clipData = clipData
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
+    }
+
+    fun openedDirectory() {
+        MenuItemCompat.collapseActionView(searchMenuItem)
     }
 
     private fun checkWhatsNewDialog() {
