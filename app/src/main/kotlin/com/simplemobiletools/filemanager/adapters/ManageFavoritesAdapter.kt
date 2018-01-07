@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.R
@@ -17,7 +16,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     private val config = activity.config
 
-    override fun getActionMenuId() = R.menu.cab_delete_only
+    override fun getActionMenuId() = R.menu.cab_remove_only
 
     override fun prepareActionMode(menu: Menu) {}
 
@@ -29,7 +28,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     override fun actionItemPressed(id: Int) {
         when (id) {
-            R.id.cab_delete -> askConfirmDelete()
+            R.id.cab_remove -> removeSelection()
         }
     }
 
@@ -56,13 +55,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
         }
     }
 
-    private fun askConfirmDelete() {
-        ConfirmationDialog(activity) {
-            deleteSelection()
-        }
-    }
-
-    private fun deleteSelection() {
+    private fun removeSelection() {
         val removeFavorites = ArrayList<String>(selectedPositions.size)
 
         selectedPositions.sortedDescending().forEach {
