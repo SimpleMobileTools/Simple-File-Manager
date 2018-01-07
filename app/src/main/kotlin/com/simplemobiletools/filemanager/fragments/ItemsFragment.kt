@@ -138,7 +138,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                 storedItems = items
                 val currAdapter = items_list.adapter
                 if (currAdapter == null) {
-                    ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent) {
+                    ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
                         itemClicked(it as FileDirItem)
                     }.apply {
                         setupDragListener(true)
