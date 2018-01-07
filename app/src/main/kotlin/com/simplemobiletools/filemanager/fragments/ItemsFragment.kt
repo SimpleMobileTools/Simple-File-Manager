@@ -169,14 +169,12 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
     private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
         Thread {
-            if (activity?.isActivityDestroyed() == true) {
-                return@Thread
-            }
-
-            if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
-                getRegularItemsOf(path, callback)
-            } else {
-                RootHelpers().getFiles(activity as SimpleActivity, path, callback)
+            if (activity?.isActivityDestroyed() == false) {
+                if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+                    getRegularItemsOf(path, callback)
+                } else {
+                    RootHelpers().getFiles(activity as SimpleActivity, path, callback)
+                }
             }
         }.start()
     }
@@ -192,7 +190,7 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
                     continue
 
                 val children = getChildrenCount(file)
-                val size = if (file.isDirectory && context!!.config.sorting == SORT_BY_SIZE) getDirectorySize(file) else file.length()
+                val size = if (file.isDirectory && context?.config?.sorting == SORT_BY_SIZE) getDirectorySize(file) else file.length()
                 val fileDirItem = FileDirItem(curPath, curName, file.isDirectory, children, size)
                 items.add(fileDirItem)
             }
