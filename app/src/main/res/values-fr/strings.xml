@@ -7,17 +7,17 @@
     <string name="go_to_home_folder">Aller au dossier par défaut</string>
     <string name="set_as_home_folder">Définir en tant que dossier par défaut</string>
     <string name="home_folder_updated">Dossier par défaut mis à jour</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
-    <string name="select_audio_file">Please select an audio file</string>
-    <string name="search_folder">Search folder</string>
+    <string name="copy_path">Copier le chemin du fichier dans le presse-papiers</string>
+    <string name="path_copied">Chemin du fichier copié</string>
+    <string name="select_audio_file">Veuillez sélectionner un fichier audio</string>
+    <string name="search_folder">Chercher dans le dossier</string>
 
     <!-- Compression -->
     <string name="compress">Compresser</string>
     <string name="decompress">Décompresser</string>
     <string name="compress_as">Compresser sous</string>
     <string name="compressing">Compression…</string>
-    <string name="decompressing">Déompression…</string>
+    <string name="decompressing">Décompression…</string>
     <string name="compression_successful">Compression réussie</string>
     <string name="decompression_successful">Décompression réussie</string>
     <string name="compressing_failed">Compression ratée</string>
@@ -25,7 +25,7 @@
 
     <!-- Favorites -->
     <string name="favorites">Favoris</string>
-    <string name="add_favorites">Add favorites</string>
+    <string name="add_favorites">Ajouter des favoris</string>
     <string name="add_to_favorites">Ajouter aux favoris</string>
     <string name="remove_from_favorites">Enlever des favoris</string>
     <string name="manage_favorites">Gérer les favoris</string>
@@ -33,18 +33,18 @@
     <string name="favorites_activity_placeholder">Vous pouvez ajouter des dossiers souvent utilisés comme favoris pour y avoir accès rapidement depuis n\'importe où.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Éditeur de fichier</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Activer les droits root</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Un gestionnaire de fichiers simple pour naviguer et éditer ses fichiers et dossiers.</string>
+    <string name="app_short_description">Un gestionnaire de fichiers simple pour voir et modifier ses fichiers/dossiers.</string>
     <string name="app_long_description">
         Peut aussi être utilisé pour naviguer dans les fichiers à la racines et ceux de la carte SD. Vous pouvez facilement renommer, copier, déplacer, supprimmer et partager ce que vous voulez.
 
-        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+        L\'autorisation d\'accès à l\'empreinte digitale est nécessaire pour verrouiller la visibilité d\'un élément masqué ou de l\'ensemble de l\'application.
 
         Ne contient pas de pubs ou de permissions inutiles. C\'est un logiciel libre et open-source. Il y a un thème sombre.
 
