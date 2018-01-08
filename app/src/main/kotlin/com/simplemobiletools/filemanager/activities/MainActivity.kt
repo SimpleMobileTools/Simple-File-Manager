@@ -261,7 +261,9 @@ class MainActivity : SimpleActivity() {
             if (!wasBackJustPressed) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
-                Handler().postDelayed({ wasBackJustPressed = false }, BACK_PRESS_TIMEOUT.toLong())
+                Handler().postDelayed({
+                    wasBackJustPressed = false
+                }, BACK_PRESS_TIMEOUT.toLong())
             } else {
                 finish()
             }
@@ -318,7 +320,9 @@ class MainActivity : SimpleActivity() {
     }
 
     fun openedDirectory() {
-        MenuItemCompat.collapseActionView(searchMenuItem)
+        if (searchMenuItem != null) {
+            MenuItemCompat.collapseActionView(searchMenuItem)
+        }
     }
 
     private fun checkWhatsNewDialog() {

@@ -139,28 +139,21 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
                 mView.breadcrumbs.setBreadcrumb(currentPath)
                 storedItems = items
-                val currAdapter = items_list.adapter
-                if (currAdapter == null) {
-                    ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
-                        itemClicked(it as FileDirItem)
-                    }.apply {
-                        setupDragListener(true)
-                        addVerticalDividers(true)
-                        items_list.adapter = this
-                    }
-                    items_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
-                    items_fastscroller.setViews(items_list, items_swipe_refresh) {
-                        items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText() ?: "")
-                    }
-                } else {
-                    (currAdapter as ItemsAdapter).updateItems(storedItems)
+                ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
+                    itemClicked(it as FileDirItem)
+                }.apply {
+                    setupDragListener(true)
+                    addVerticalDividers(true)
+                    items_list.adapter = this
+                }
+                items_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
+                items_fastscroller.setViews(items_list, items_swipe_refresh) {
+                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText() ?: "")
+                }
 
-                    val savedState = scrollStates[currentPath]
-                    if (savedState != null) {
-                        getRecyclerLayoutManager().onRestoreInstanceState(savedState)
-                    } else {
-                        getRecyclerLayoutManager().scrollToPosition(0)
-                    }
+                getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
+                items_list.onGlobalLayout {
+                    items_fastscroller.setScrollTo(items_list.computeVerticalScrollOffset())
                 }
             }
         }
