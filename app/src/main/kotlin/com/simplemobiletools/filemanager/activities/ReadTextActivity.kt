@@ -3,10 +3,7 @@ package com.simplemobiletools.filemanager.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.getFileOutputStream
-import com.simplemobiletools.commons.extensions.getRealPathFromURI
-import com.simplemobiletools.commons.extensions.hideKeyboard
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.dialogs.SaveAsDialog
@@ -77,7 +74,13 @@ class ReadTextActivity : SimpleActivity() {
             filePath = uri.path
             File(uri.path).readText()
         } else {
-            contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
+            try {
+                contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
+            } catch (e: Exception) {
+                showErrorToast(e)
+                finish()
+                return
+            }
         }
 
         read_text_view.setText(text)
