@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.1.0 *(20187-01-08)*
+----------------------------
+
+ * Added an initial search implementation for the current folder
+ * Some scrolling improvements
+ * Use Dark theme by default
+
 Version 3.0.2 *(2017-12-28)*
 ----------------------------
 
