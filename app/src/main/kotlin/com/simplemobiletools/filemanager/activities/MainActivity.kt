@@ -75,6 +75,13 @@ class MainActivity : SimpleActivity() {
         storeStateVariables()
     }
 
+    override fun onStop() {
+        super.onStop()
+        if (searchMenuItem != null) {
+            MenuItemCompat.collapseActionView(searchMenuItem)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         config.temporarilyShowHidden = false
