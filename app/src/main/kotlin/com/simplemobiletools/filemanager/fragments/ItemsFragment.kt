@@ -251,14 +251,14 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             val filtered = storedItems.filter { it.name.contains(text, true) } as ArrayList
             filtered.sortBy { !it.name.startsWith(text, true) }
             activity?.runOnUiThread {
-                (items_list.adapter as ItemsAdapter).updateItems(filtered)
+                (items_list.adapter as? ItemsAdapter)?.updateItems(filtered)
             }
         }.start()
     }
 
     fun searchClosed() {
         if (!skipItemUpdating) {
-            (items_list.adapter as ItemsAdapter).updateItems(storedItems)
+            (items_list.adapter as? ItemsAdapter)?.updateItems(storedItems)
         }
         skipItemUpdating = false
     }
