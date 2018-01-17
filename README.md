@@ -15,8 +15,8 @@ This app is just one piece of a bigger series of apps. You can find the rest of 
 
 <div style="display:flex;">
 <img alt="App image" src="screenshots/app.png" width="30%">
-<img alt="App image" src="screenshots/app_5.png" width="30%">
-<img alt="App image" src="screenshots/app_6.png" width="30%">
+<img alt="App image" src="screenshots/app_2.png" width="30%">
+<img alt="App image" src="screenshots/app_3.png" width="30%">
 </div>
 
 License
