@@ -41,7 +41,7 @@ ext {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:3.6.11'
+    implementation 'com.simplemobiletools:commons:3.7.7'
 
     implementation files('../libs/RootTools.jar')
 
