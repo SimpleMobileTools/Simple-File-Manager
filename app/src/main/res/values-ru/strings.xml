@@ -10,7 +10,7 @@
     <string name="copy_path">Скопировать путь в буфер обмена</string>
     <string name="path_copied">Путь скопирован</string>
     <string name="select_audio_file">Пожалуйста, выберите аудиофайл</string>
-    <string name="search_folder">Search folder</string>
+    <string name="search_folder">Искать в папке</string>
 
     <!-- Compression -->
     <string name="compress">Сжать</string>
@@ -25,7 +25,7 @@
 
     <!-- Favorites -->
     <string name="favorites">Избранное</string>
-    <string name="add_favorites">Add favorites</string>
+    <string name="add_favorites">Добавить избранные</string>
     <string name="add_to_favorites">Добавить в избранное</string>
     <string name="remove_from_favorites">Убрать из избранного</string>
     <string name="manage_favorites">Настроить избранное</string>
