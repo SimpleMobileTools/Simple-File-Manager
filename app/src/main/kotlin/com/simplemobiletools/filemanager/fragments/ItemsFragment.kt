@@ -23,6 +23,7 @@ import com.simplemobiletools.filemanager.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.extensions.openFile
 import com.simplemobiletools.filemanager.helpers.PATH
 import com.simplemobiletools.filemanager.helpers.RootHelpers
+import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
@@ -30,11 +31,12 @@ import java.io.File
 import java.util.HashMap
 import kotlin.collections.ArrayList
 
-class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
+class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
     var currentPath = ""
     var isGetContentIntent = false
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
+    var isFirstResume = true
 
     private var showHidden = false
     private var skipItemUpdating = false
@@ -90,7 +92,10 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
 
         items_fastscroller.updateBubbleColors()
         items_fastscroller.allowBubbleDisplay = context!!.config.showInfoBubble
-        refreshItems()
+        if (!isFirstResume) {
+            refreshItems()
+        }
+        isFirstResume = false
     }
 
     override fun onPause() {
@@ -110,15 +115,17 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
         }
 
         var realPath = path.trimEnd('/')
-        if (realPath.isEmpty())
+        if (realPath.isEmpty()) {
             realPath = "/"
+        }
 
-        scrollStates.put(currentPath, getScrollState())
+        scrollStates[currentPath] = getScrollState()
         currentPath = realPath
         showHidden = context!!.config.shouldShowHidden
         getItems(currentPath) {
-            if (!isAdded)
+            if (!isAdded) {
                 return@getItems
+            }
 
             FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
             it.sort()
@@ -183,8 +190,9 @@ class ItemsFragment : Fragment(), ItemsAdapter.ItemOperationsListener, Breadcrum
             for (file in files) {
                 val curPath = file.absolutePath
                 val curName = curPath.getFilenameFromPath()
-                if (!showHidden && curName.startsWith("."))
+                if (!showHidden && curName.startsWith(".")) {
                     continue
+                }
 
                 val children = getChildrenCount(file)
                 val size = if (file.isDirectory && context?.config?.sorting == SORT_BY_SIZE) getDirectorySize(file) else file.length()

@@ -26,6 +26,7 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.*
+import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
@@ -423,13 +424,5 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private fun getChildrenCnt(item: FileDirItem): String {
         val children = item.children
         return activity.resources.getQuantityString(R.plurals.items, children, children)
-    }
-
-    interface ItemOperationsListener {
-        fun refreshItems()
-
-        fun deleteFiles(files: ArrayList<File>)
-
-        fun selectedPaths(paths: ArrayList<String>)
     }
 }
