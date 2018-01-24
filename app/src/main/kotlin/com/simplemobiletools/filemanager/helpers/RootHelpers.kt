@@ -90,7 +90,7 @@ class RootHelpers {
             cmd += if (it.isDirectory) {
                 "echo 0;"
             } else {
-                "stat -c %s ${it.path};"
+                "stat -t ${it.path};"
             }
         }
 
@@ -103,9 +103,13 @@ class RootHelpers {
 
             override fun commandCompleted(id: Int, exitcode: Int) {
                 files.forEachIndexed { index, fileDirItem ->
-                    val size = lines[index]
-                    if (size.areDigitsOnly()) {
-                        fileDirItem.size = size.toLong()
+                    var line = lines[index]
+                    if (line != "0") {
+                        line = line.substring(fileDirItem.path.length).trim()
+                        val size = line.split(" ")[0]
+                        if (size.areDigitsOnly()) {
+                            fileDirItem.size = size.toLong()
+                        }
                     }
                 }
                 callback(path, files)
