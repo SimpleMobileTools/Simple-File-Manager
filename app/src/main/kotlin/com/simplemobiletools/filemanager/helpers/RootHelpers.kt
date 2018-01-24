@@ -1,6 +1,5 @@
 package com.simplemobiletools.filemanager.helpers
 
-import android.text.TextUtils
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.models.FileDirItem
@@ -8,13 +7,13 @@ import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
 import com.stericson.RootShell.execution.Command
 import com.stericson.RootTools.RootTools
+import java.io.File
 import java.util.*
 
 class RootHelpers {
-    fun askRootIFNeeded(activity: SimpleActivity, callback: (success: Boolean) -> Unit) {
-        val command = object : Command(0, "ls -la | awk '{ print $2 }'") {
+    fun askRootIfNeeded(activity: SimpleActivity, callback: (success: Boolean) -> Unit) {
+        val command = object : Command(0, "ls -lA") {
             override fun commandOutput(id: Int, line: String) {
-                activity.config.lsHasHardLinksColumn = line.areDigitsOnly()
                 callback(true)
                 super.commandOutput(id, line)
             }
@@ -28,43 +27,96 @@ class RootHelpers {
         }
     }
 
-    fun getFiles(activity: SimpleActivity, path: String, callback: (fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    fun getFiles(activity: SimpleActivity, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val files = ArrayList<FileDirItem>()
-        val showHidden = activity.config.shouldShowHidden
-        val sizeColumnIndex = if (activity.config.lsHasHardLinksColumn) 5 else 4
+        val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
+        val cmd = "ls $hiddenArgument$path"
 
-        val cmd = "ls -la $path | awk '{ system(\"echo \"\$1\" \"\$$sizeColumnIndex\" `find ${path.trimEnd('/')}/\"\$NF\" -mindepth 1 -maxdepth 1 | wc -l` \"\$NF\" \")}'"
         val command = object : Command(0, cmd) {
             override fun commandOutput(id: Int, line: String) {
-                val parts = line.split(" ")
-                if (parts.size >= 4) {
-                    val permissions = parts[0].trim()
-                    val isDirectory = permissions.startsWith("d")
-                    val isFile = permissions.startsWith("-")
-                    val size = if (isFile) parts[1].trim() else "0"
-                    val childrenCnt = if (isFile) "0" else parts[2].trim()
-                    val filename = TextUtils.join(" ", parts.subList(3, parts.size)).trimStart('/')
-
-                    if ((!showHidden && filename.startsWith(".")) || (!isDirectory && !isFile) || !size.areDigitsOnly() || !childrenCnt.areDigitsOnly()) {
-                        super.commandOutput(id, line)
-                        return
-                    }
-
-                    val fileSize = size.toLong()
-                    val filePath = "${path.trimEnd('/')}/$filename"
-                    val fileDirItem = FileDirItem(filePath, filename, isDirectory, childrenCnt.toInt(), fileSize)
-                    files.add(fileDirItem)
-                }
-
+                val file = File(path, line)
+                val isDirectory = file.isDirectory
+                val fileDirItem = FileDirItem(file.absolutePath, line, isDirectory, 0, 0)
+                files.add(fileDirItem)
                 super.commandOutput(id, line)
             }
 
             override fun commandCompleted(id: Int, exitcode: Int) {
-                callback(files)
+                getChildrenCount(activity, files, path, callback)
                 super.commandCompleted(id, exitcode)
             }
         }
 
+        runCommand(activity, command)
+    }
+
+    private fun getChildrenCount(activity: SimpleActivity, files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+        val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
+        var cmd = ""
+        files.forEach {
+            cmd += if (it.isDirectory) {
+                "ls $hiddenArgument${it.path} |wc -l;"
+            } else {
+                "echo 0;"
+            }
+        }
+        cmd = cmd.trimEnd(';') + " | cat"
+
+        val lines = ArrayList<String>()
+        val command = object : Command(0, cmd) {
+            override fun commandOutput(id: Int, line: String) {
+                lines.add(line)
+                super.commandOutput(id, line)
+            }
+
+            override fun commandCompleted(id: Int, exitcode: Int) {
+                files.forEachIndexed { index, fileDirItem ->
+                    val childrenCount = lines[index]
+                    if (childrenCount.areDigitsOnly()) {
+                        fileDirItem.children = childrenCount.toInt()
+                    }
+                }
+                getFileSizes(activity, files, path, callback)
+                super.commandCompleted(id, exitcode)
+            }
+        }
+
+        runCommand(activity, command)
+    }
+
+    private fun getFileSizes(activity: SimpleActivity, files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+        var cmd = ""
+        files.forEach {
+            cmd += if (it.isDirectory) {
+                "echo 0;"
+            } else {
+                "stat -c %s ${it.path};"
+            }
+        }
+
+        val lines = ArrayList<String>()
+        val command = object : Command(0, cmd) {
+            override fun commandOutput(id: Int, line: String) {
+                lines.add(line)
+                super.commandOutput(id, line)
+            }
+
+            override fun commandCompleted(id: Int, exitcode: Int) {
+                files.forEachIndexed { index, fileDirItem ->
+                    val childrenCount = lines[index]
+                    if (childrenCount.areDigitsOnly()) {
+                        fileDirItem.size = childrenCount.toLong()
+                    }
+                }
+                callback(path, files)
+                super.commandCompleted(id, exitcode)
+            }
+        }
+
+        runCommand(activity, command)
+    }
+
+    private fun runCommand(activity: SimpleActivity, command: Command) {
         try {
             RootTools.getShell(true).add(command)
         } catch (e: Exception) {

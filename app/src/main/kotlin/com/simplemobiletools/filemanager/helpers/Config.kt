@@ -75,8 +75,4 @@ class Config(context: Context) : BaseConfig(context) {
     var enableRootAccess: Boolean
         get() = prefs.getBoolean(ENABLE_ROOT_ACCESS, false)
         set(enableRootAccess) = prefs.edit().putBoolean(ENABLE_ROOT_ACCESS, enableRootAccess).apply()
-
-    var lsHasHardLinksColumn: Boolean
-        get() = prefs.getBoolean(LS_HAS_HARD_LINKS_COLUMN, false)
-        set(lsHasHardLinksColumn) = prefs.edit().putBoolean(LS_HAS_HARD_LINKS_COLUMN, lsHasHardLinksColumn).apply()
 }

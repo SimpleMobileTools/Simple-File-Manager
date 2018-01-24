@@ -122,15 +122,15 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         scrollStates[currentPath] = getScrollState()
         currentPath = realPath
         showHidden = context!!.config.shouldShowHidden
-        getItems(currentPath) {
-            if (!isAdded) {
+        getItems(currentPath) { originalPath, fileDirItems ->
+            if (currentPath != originalPath || !isAdded) {
                 return@getItems
             }
 
             FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
-            it.sort()
+            fileDirItems.sort()
             activity!!.runOnUiThread {
-                addItems(it)
+                addItems(fileDirItems)
             }
         }
     }
@@ -170,7 +170,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as LinearLayoutManager)
 
-    private fun getItems(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
+    private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
         skipItemUpdating = false
         Thread {
             if (activity?.isActivityDestroyed() == false) {
@@ -183,7 +183,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }.start()
     }
 
-    private fun getRegularItemsOf(path: String, callback: (items: ArrayList<FileDirItem>) -> Unit) {
+    private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
         val items = ArrayList<FileDirItem>()
         val files = File(path).listFiles()?.filterNotNull()
         if (files != null) {
@@ -200,7 +200,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 items.add(fileDirItem)
             }
         }
-        callback(items)
+        callback(path, items)
     }
 
     private fun getChildrenCount(file: File): Int {
