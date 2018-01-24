@@ -1,7 +1,13 @@
 Changelog
 ==========
 
-Version 3.1.0 *(20187-01-08)*
+Version 3.2.0 *(2018-01-24)*
+----------------------------
+
+ * Improve root file discovery
+ * Fix copying folders with subfolders on SD cards
+
+Version 3.1.0 *(2018-01-08)*
 ----------------------------
 
  * Added an initial search implementation for the current folder
