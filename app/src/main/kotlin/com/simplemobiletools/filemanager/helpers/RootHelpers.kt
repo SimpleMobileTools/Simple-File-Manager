@@ -103,9 +103,9 @@ class RootHelpers {
 
             override fun commandCompleted(id: Int, exitcode: Int) {
                 files.forEachIndexed { index, fileDirItem ->
-                    val childrenCount = lines[index]
-                    if (childrenCount.areDigitsOnly()) {
-                        fileDirItem.size = childrenCount.toLong()
+                    val size = lines[index]
+                    if (size.areDigitsOnly()) {
+                        fileDirItem.size = size.toLong()
                     }
                 }
                 callback(path, files)
