@@ -104,7 +104,7 @@ class RootHelpers {
             override fun commandCompleted(id: Int, exitcode: Int) {
                 files.forEachIndexed { index, fileDirItem ->
                     var line = lines[index]
-                    if (line != "0") {
+                    if (line.isNotEmpty() && line != "0") {
                         line = line.substring(fileDirItem.path.length).trim()
                         val size = line.split(" ")[0]
                         if (size.areDigitsOnly()) {
