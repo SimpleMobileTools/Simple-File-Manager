@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.SecurityDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
-import com.simplemobiletools.commons.extensions.updateTextColors
-import com.simplemobiletools.commons.extensions.useEnglishToggled
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PROTECTION_FINGERPRINT
 import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
 import com.simplemobiletools.filemanager.R
@@ -34,6 +31,14 @@ class SettingsActivity : SimpleActivity() {
         setupShowInfoBubble()
         setupEnableRootAccess()
         updateTextColors(settings_holder)
+        setupSectionColors()
+    }
+
+    private fun setupSectionColors() {
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        arrayListOf(visibility_label, file_operations_label, scrolling_label, security_label).forEach {
+            it.setTextColor(adjustedPrimaryColor)
+        }
     }
 
     private fun setupCustomizeColors() {
