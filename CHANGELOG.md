@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.2.1 *(2018-01-29)*
+----------------------------
+
+ * Add some file/folder conflict resolution options at copy/move
+ * Fixed some crashes related to listing root items
+ * Allow triggering Select All at pressing selected item count on the actionbar
+
 Version 3.2.0 *(2018-01-24)*
 ----------------------------
 
