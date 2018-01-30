@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+    <!--
+        Please remove this file or remove it to the correct location. It is not possible to create a folder whit this name as long as this file exists.
+    -->
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simpel Filhåndtering</string>	
     <string name="app_launcher_name">Filhåndtering</string>	
