@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <!--
-        Please remove this file or remove it to the correct location. It is not possible to create a folder whit this name as long as this file exists.
-    -->
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simpel Filhåndtering</string>	
-    <string name="app_launcher_name">Filhåndtering</string>	
-    <string name="press_back_again">Tryk tilbage igen for at afslutte</string>	
+    <string name="app_name">Simpel Filhåndtering</string>
+    <string name="app_launcher_name">Filhåndtering</string>
+    <string name="press_back_again">Tryk tilbage igen for at afslutte</string>
     <string name="no_app_found">Der er ingen apps installeret der kan åbne denne type filer</string>
     <string name="go_to_home_folder">Gå til hjemmemappen</string>
     <string name="set_as_home_folder">Sæt som hjemmemappe</string>
@@ -60,3 +56,4 @@
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
 </resources>
+
