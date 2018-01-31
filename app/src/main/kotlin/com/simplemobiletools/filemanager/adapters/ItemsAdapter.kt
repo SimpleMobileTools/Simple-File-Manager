@@ -114,7 +114,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun displayRenameDialog() {
-        RenameItemDialog(activity, getSelectedMedia()[0].path) {
+        val oldPath = getSelectedMedia()[0].path
+        RenameItemDialog(activity, oldPath) {
+            activity.config.moveFavorite(oldPath, it)
             activity.runOnUiThread {
                 listener?.refreshItems()
                 finishActMode()
@@ -359,6 +361,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 val file = fileDirItems[it]
                 files.add(File(file.path))
                 removeFiles.add(file)
+                activity.config.removeFavorite(file.path)
             }
 
             fileDirItems.removeAll(removeFiles)
