@@ -2,53 +2,53 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">File Manager</string>
-    <string name="press_back_again">Press back again to exit</string>
-    <string name="no_app_found">No app for opening this type of file is installed</string>
-    <string name="go_to_home_folder">Go to home folder</string>
-    <string name="set_as_home_folder">Set as home folder</string>
-    <string name="home_folder_updated">Home folder updated</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
-    <string name="select_audio_file">Please select an audio file</string>
-    <string name="search_folder">Search folder</string>
+    <string name="press_back_again">Tekan Sekali Lagi Untuk Keluar</string>
+    <string name="no_app_found">Tidak Ada Aplikasi Untuk Membuka File Ini</string>
+    <string name="go_to_home_folder">Kembali Ke Folder Home</string>
+    <string name="set_as_home_folder">Set Sebagai Folder Home</string>
+    <string name="home_folder_updated">Folder Home Update</string>
+    <string name="copy_path">Copy path ke clipboard</string>
+    <string name="path_copied">Path Di Copy</string>
+    <string name="select_audio_file">Pilih File Audio</string>
+    <string name="search_folder">Cari Folder</string>
 
     <!-- Compression -->
     <string name="compress">Compress</string>
     <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
+    <string name="compress_as">Compress Sebagai</string>
     <string name="compressing">Compressing…</string>
     <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compression_successful">Compression Sukses</string>
+    <string name="decompression_successful">Decompression Sukses</string>
+    <string name="compressing_failed">Compressing Gagal</string>
+    <string name="decompressing_failed">Decompressing Gagal</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favorites</string>
-    <string name="add_favorites">Add favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
-    <string name="manage_favorites">Manage favorites</string>
-    <string name="go_to_favorite">Go to favorite</string>
-    <string name="favorites_activity_placeholder">You can add frequently used folders to favorites for easy access from anywhere.</string>
+    <string name="favorites">Favorit</string>
+    <string name="add_favorites">Tambahkan Favorit</string>
+    <string name="add_to_favorites">Tambahkan Ke Favorit</string>
+    <string name="remove_from_favorites">Hapus Dari Favorit</string>
+    <string name="manage_favorites">Atur Favorit</string>
+    <string name="go_to_favorite">Ke Favorit</string>
+    <string name="favorites_activity_placeholder">Kamu bisa Menambahkan Frekuensi pemakaian Folder Ke Folder Untuk Kemudahan Akses Dari Mana Saja.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Pengedit File</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Beri Akses Root</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_short_description">Sebuah File Manajer Sederhana Untuk Menjelajah Direktori Dan Mengedit File.</string>
     <string name="app_long_description">
-        Can also be used for browsing root files and SD card content. You can easily rename, copy, move, delete and share anything you wish.
+        Bisa juga digunakan untuk browsing file root dan konten kartu SD. Anda dapat dengan mudah mengubah nama, menyalin, memindahkan, menghapus dan berbagi apapun yang Anda inginkan.
 
-        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+        Izin sidik jari diperlukan untuk mengunci visibilitas item tersembunyi atau keseluruhan aplikasi.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Tidak berisi iklan atau izin yang tidak perlu. Ini sepenuhnya opensource, menyediakan warna yang dapat disesuaikan.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at http://www.simplemobiletools.com
+        Aplikasi ini hanyalah salah satu rangkaian aplikasi yang lebih besar. Anda bisa menemukannya di http://www.simplemobiletools.com
     </string>
 
     <!--
