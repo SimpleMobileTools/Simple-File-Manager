@@ -42,20 +42,13 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Sebuah File Manajer Sederhana Untuk Menjelajah Direktori Dan Mengedit File.</string>
     <string name="app_long_description">
-        
-    Bisa juga digunakan untuk browsing file root dan konten kartu SD. Anda dapat dengan mudah mengubah nama, menyalin, memindahkan, menghapus dan berbagi apapun yang Anda inginkan.
+        Bisa juga digunakan untuk browsing file root dan konten kartu SD. Anda dapat dengan mudah mengubah nama, menyalin, memindahkan, menghapus dan berbagi apapun yang Anda inginkan.
 
-    Izin sidik jari diperlukan untuk mengunci visibilitas item tersembunyi atau keseluruhan aplikasi.
+        Izin sidik jari diperlukan untuk mengunci visibilitas item tersembunyi atau keseluruhan aplikasi.
 
-     Tidak berisi iklan atau izin yang tidak perlu. Ini sepenuhnya opensource, menyediakan warna yang dapat disesuaikan.
+        Tidak berisi iklan atau izin yang tidak perlu. Ini sepenuhnya opensource, menyediakan warna yang dapat disesuaikan.
 
-  Aplikasi ini hanyalah salah satu rangkaian aplikasi yang lebih besar. Anda bisa menemukannya di http://www.simplemobiletools.com
-
-        
-
-  
-
-        
+        Aplikasi ini hanyalah salah satu rangkaian aplikasi yang lebih besar. Anda bisa menemukannya di http://www.simplemobiletools.com
     </string>
 
     <!--
