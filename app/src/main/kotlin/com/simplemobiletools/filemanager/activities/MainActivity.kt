@@ -66,8 +66,6 @@ class MainActivity : SimpleActivity() {
             restartActivity()
             return
         }
-
-        invalidateOptionsMenu()
     }
 
     override fun onPause() {
@@ -89,9 +87,12 @@ class MainActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val favorites = config.favorites
-        menu.apply {
+        menu!!.apply {
             findItem(R.id.add_favorite).isVisible = !favorites.contains(fragment.currentPath)
             findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
             findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
@@ -180,7 +181,6 @@ class MainActivity : SimpleActivity() {
         }
 
         (fragment_holder as ItemsFragment).openPath(newPath)
-        invalidateOptionsMenu()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -213,12 +213,10 @@ class MainActivity : SimpleActivity() {
 
     private fun addFavorite() {
         config.addFavorite(fragment.currentPath)
-        invalidateOptionsMenu()
     }
 
     private fun removeFavorite() {
         config.removeFavorite(fragment.currentPath)
-        invalidateOptionsMenu()
     }
 
     private fun goToFavorite() {
@@ -256,7 +254,6 @@ class MainActivity : SimpleActivity() {
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
         openPath(fragment.currentPath)
-        invalidateOptionsMenu()
     }
 
     private fun launchAbout() {
