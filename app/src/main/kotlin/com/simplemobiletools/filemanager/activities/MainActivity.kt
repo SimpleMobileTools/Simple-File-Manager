@@ -87,6 +87,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
+        setupSearch(menu)
         return true
     }
 
@@ -101,7 +102,6 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
         }
 
-        setupSearch(menu)
         return true
     }
 
