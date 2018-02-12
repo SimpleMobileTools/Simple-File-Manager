@@ -41,8 +41,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                    val isPickMultipleIntent: Boolean, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
-    lateinit private var folderDrawable: Drawable
-    lateinit private var fileDrawable: Drawable
+    private lateinit var folderDrawable: Drawable
+    private lateinit var fileDrawable: Drawable
 
     init {
         initDrawables()
@@ -109,8 +109,10 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private fun isOneFileSelected() = isOneItemSelected() && !fileDirItems[selectedPositions.first()].isDirectory
 
     private fun confirmSelection() {
-        val paths = getSelectedMedia().filter { !it.isDirectory }.map { it.path } as ArrayList<String>
-        listener?.selectedPaths(paths)
+        if (selectedPositions.isNotEmpty()) {
+            val paths = getSelectedMedia().filter { !it.isDirectory }.map { it.path } as ArrayList<String>
+            listener?.selectedPaths(paths)
+        }
     }
 
     private fun displayRenameDialog() {
