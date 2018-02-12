@@ -103,6 +103,23 @@ class MainActivity : SimpleActivity() {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.go_home -> goHome()
+            R.id.go_to_favorite -> goToFavorite()
+            R.id.sort -> showSortingDialog()
+            R.id.add_favorite -> addFavorite()
+            R.id.remove_favorite -> removeFavorite()
+            R.id.set_as_home -> setAsHome()
+            R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
+            R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
+            R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
+            R.id.about -> launchAbout()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
     private fun storeStateVariables() {
         storedUseEnglish = config.useEnglish
     }
@@ -179,23 +196,6 @@ class MainActivity : SimpleActivity() {
         }
 
         (fragment_holder as ItemsFragment).openPath(newPath)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.go_home -> goHome()
-            R.id.go_to_favorite -> goToFavorite()
-            R.id.sort -> showSortingDialog()
-            R.id.add_favorite -> addFavorite()
-            R.id.remove_favorite -> removeFavorite()
-            R.id.set_as_home -> setAsHome()
-            R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
-            R.id.about -> launchAbout()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
     }
 
     private fun goHome() {
