@@ -183,7 +183,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             if (activity.isPathOnRoot(source)) {
                 copyRootItems(files, it)
             } else {
-                activity.copyMoveFilesTo(files, source, it, isCopyOperation, false) {
+                activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, activity.config.shouldShowHidden) {
                     listener?.refreshItems()
                     finishActMode()
                 }
