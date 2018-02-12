@@ -75,9 +75,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onStop() {
         super.onStop()
-        if (searchMenuItem != null) {
-            MenuItemCompat.collapseActionView(searchMenuItem)
-        }
+        searchMenuItem?.collapseActionView()
     }
 
     override fun onDestroy() {
