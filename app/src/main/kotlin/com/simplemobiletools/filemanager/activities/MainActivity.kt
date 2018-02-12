@@ -33,6 +33,7 @@ class MainActivity : SimpleActivity() {
     var isSearchOpen = false
 
     private val BACK_PRESS_TIMEOUT = 5000
+    private val PICKED_PATH = "picked_path"
     private var wasBackJustPressed = false
     private var searchMenuItem: MenuItem? = null
 
@@ -120,6 +121,16 @@ class MainActivity : SimpleActivity() {
         return true
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(PICKED_PATH, (fragment_holder as ItemsFragment).currentPath)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        openPath(savedInstanceState.getString(PICKED_PATH), true)
+    }
+
     private fun storeStateVariables() {
         storedUseEnglish = config.useEnglish
     }
@@ -186,7 +197,7 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun openPath(path: String) {
+    private fun openPath(path: String, forceRefresh: Boolean = false) {
         var newPath = path
         val file = File(path)
         if (file.exists() && !file.isDirectory) {
@@ -195,7 +206,7 @@ class MainActivity : SimpleActivity() {
             newPath = internalStoragePath
         }
 
-        (fragment_holder as ItemsFragment).openPath(newPath)
+        (fragment_holder as ItemsFragment).openPath(newPath, forceRefresh)
     }
 
     private fun goHome() {

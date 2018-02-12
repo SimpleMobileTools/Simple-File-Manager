@@ -37,10 +37,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
     var isFirstResume = true
+    var storedItems = ArrayList<FileDirItem>()
 
     private var showHidden = false
     private var skipItemUpdating = false
-    private var storedItems = ArrayList<FileDirItem>()
     private var scrollStates = HashMap<String, Parcelable>()
 
     private var storedTextColor = 0
@@ -109,7 +109,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
     }
 
-    fun openPath(path: String) {
+    fun openPath(path: String, forceRefresh: Boolean = false) {
         if (!isAdded || (activity as? BaseSimpleActivity)?.isAskingPermissions == true) {
             return
         }
@@ -130,17 +130,17 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
             fileDirItems.sort()
             activity!!.runOnUiThread {
-                addItems(fileDirItems)
+                addItems(fileDirItems, forceRefresh)
             }
         }
     }
 
-    private fun addItems(items: ArrayList<FileDirItem>) {
+    private fun addItems(items: ArrayList<FileDirItem>, forceRefresh: Boolean = false) {
         skipItemUpdating = false
         mView.apply {
             activity?.runOnUiThread {
                 items_swipe_refresh?.isRefreshing = false
-                if (items.hashCode() == storedItems.hashCode()) {
+                if (!forceRefresh && items.hashCode() == storedItems.hashCode()) {
                     return@runOnUiThread
                 }
 
