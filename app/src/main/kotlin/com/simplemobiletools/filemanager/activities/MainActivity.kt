@@ -202,7 +202,7 @@ class MainActivity : SimpleActivity() {
         val file = File(path)
         if (file.exists() && !file.isDirectory) {
             newPath = file.parent
-        } else if (!file.exists()) {
+        } else if (!file.exists() && !isPathOnOTG(newPath)) {
             newPath = internalStoragePath
         }
 

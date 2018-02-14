@@ -175,10 +175,10 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
-        val files = ArrayList<File>()
-        selectedPositions.forEach { files.add(File(fileDirItems[it].path)) }
+        val files = ArrayList<FileDirItem>()
+        selectedPositions.forEach { files.add(FileDirItem(fileDirItems[it].path, fileDirItems[it].name)) }
 
-        val source = if (files[0].isFile) files[0].parent else files[0].absolutePath
+        val source = if (!files[0].isDirectory) File(files[0].path).parent else files[0].path
         FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true) {
             if (activity.isPathOnRoot(source)) {
                 copyRootItems(files, it)
@@ -191,12 +191,12 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         }
     }
 
-    private fun copyRootItems(files: ArrayList<File>, destinationPath: String) {
+    private fun copyRootItems(files: ArrayList<FileDirItem>, destinationPath: String) {
         activity.toast(R.string.copying)
         Thread {
             var fileCnt = files.count()
             files.forEach {
-                if (RootTools.copyFile(it.absolutePath, destinationPath, false, true)) {
+                if (RootTools.copyFile(it.path, destinationPath, false, true)) {
                     fileCnt--
                 }
             }
@@ -354,14 +354,14 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             return
         }
 
-        val files = ArrayList<File>(selectedPositions.size)
+        val files = ArrayList<FileDirItem>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
         val SAFFile = File(fileDirItems[selectedPositions.first()].path)
 
         activity.handleSAFDialog(SAFFile) {
             selectedPositions.sortedDescending().forEach {
                 val file = fileDirItems[it]
-                files.add(File(file.path))
+                files.add(FileDirItem(file.path, file.name))
                 removeFiles.add(file)
                 activity.config.removeFavorite(file.path)
             }

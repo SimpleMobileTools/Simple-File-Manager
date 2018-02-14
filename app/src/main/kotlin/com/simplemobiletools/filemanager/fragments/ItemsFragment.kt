@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.OTG_PATH
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
@@ -114,7 +115,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             return
         }
 
-        var realPath = path.trimEnd('/')
+        var realPath = if (path == OTG_PATH) OTG_PATH else path.trimEnd('/')
         if (realPath.isEmpty()) {
             realPath = "/"
         }
@@ -174,7 +175,11 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         skipItemUpdating = false
         Thread {
             if (activity?.isActivityDestroyed() == false) {
-                if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+                if (context!!.isPathOnOTG(path)) {
+                    context!!.getOTGItems(path) {
+                        callback(path, it)
+                    }
+                } else if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                     getRegularItemsOf(path, callback)
                 } else {
                     RootHelpers().getFiles(activity as SimpleActivity, path, callback)
@@ -281,7 +286,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
-            StoragePickerDialog(activity!!, currentPath) {
+            StoragePickerDialog(activity as SimpleActivity, currentPath) {
                 openPath(it)
             }
         } else {
@@ -294,9 +299,9 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         openPath(currentPath)
     }
 
-    override fun deleteFiles(files: ArrayList<File>) {
+    override fun deleteFiles(files: ArrayList<FileDirItem>) {
         val hasFolder = files.any { it.isDirectory }
-        if (context!!.isPathOnRoot(files.firstOrNull()?.absolutePath ?: context!!.config.internalStoragePath)) {
+        if (context!!.isPathOnRoot(files.firstOrNull()?.path ?: context!!.config.internalStoragePath)) {
             files.forEach {
                 RootTools.deleteFileOrDirectory(it.path, false)
             }
