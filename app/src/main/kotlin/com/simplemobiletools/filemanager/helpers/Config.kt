@@ -1,11 +1,10 @@
 package com.simplemobiletools.filemanager.helpers
 
 import android.content.Context
-import com.simplemobiletools.commons.extensions.getFileDocument
+import com.simplemobiletools.commons.extensions.getDocumentFile
 import com.simplemobiletools.commons.extensions.getInternalStoragePath
 import com.simplemobiletools.commons.extensions.isPathOnOTG
 import com.simplemobiletools.commons.helpers.BaseConfig
-import com.simplemobiletools.commons.helpers.SORT_BY_NAME
 import java.io.File
 
 class Config(context: Context) : BaseConfig(context) {
@@ -27,7 +26,7 @@ class Config(context: Context) : BaseConfig(context) {
         get(): String {
             var path = prefs.getString(HOME_FOLDER, "")
             if (path.isEmpty() ||
-                    (context.isPathOnOTG(path) && context.getFileDocument(path)?.isDirectory != true) ||
+                    (context.isPathOnOTG(path) && context.getDocumentFile(path)?.isDirectory != true) ||
                     (!context.isPathOnOTG(path) && !File(path).isDirectory)) {
                 path = context.getInternalStoragePath()
                 homeFolder = path
@@ -66,10 +65,6 @@ class Config(context: Context) : BaseConfig(context) {
     var favorites: MutableSet<String>
         get() = prefs.getStringSet(FAVORITES, HashSet<String>())
         set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
-
-    var sorting: Int
-        get() = prefs.getInt(SORT_ORDER, SORT_BY_NAME)
-        set(sorting) = prefs.edit().putInt(SORT_ORDER, sorting).apply()
 
     fun saveFolderSorting(path: String, value: Int) {
         if (path.isEmpty()) {

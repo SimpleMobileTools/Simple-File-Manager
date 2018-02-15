@@ -180,11 +180,12 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
         val files = ArrayList<FileDirItem>()
-        selectedPositions.forEach { fileDirItems[it] }
+        selectedPositions.forEach { files.add(fileDirItems[it]) }
 
-        val source = if (!files[0].isDirectory) File(files[0].path).parent else files[0].path
+        val firstFile = files[0]
+        val source = if (!firstFile.isDirectory) firstFile.path.substring(0, firstFile.path.length - firstFile.name.length) else firstFile.path
         FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true) {
-            if (activity.isPathOnRoot(source)) {
+            if (activity.isPathOnRoot(it)) {
                 copyRootItems(files, it)
             } else {
                 activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, activity.config.shouldShowHidden) {
@@ -268,7 +269,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                             val entry = entries.nextElement()
                             val file = File(it.parent, entry.name)
                             if (entry.isDirectory) {
-                                if (!activity.createDirectorySync(file)) {
+                                if (!activity.createDirectorySync(file.absolutePath)) {
                                     val error = String.format(activity.getString(R.string.could_not_create_file), file.absolutePath)
                                     activity.showErrorToast(error)
                                     return false

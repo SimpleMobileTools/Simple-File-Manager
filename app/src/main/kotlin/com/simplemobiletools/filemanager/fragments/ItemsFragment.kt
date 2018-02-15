@@ -176,7 +176,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         Thread {
             if (activity?.isActivityDestroyed() == false) {
                 if (context!!.isPathOnOTG(path)) {
-                    context!!.getOTGItems(path) {
+                    val getProperFileSize = context!!.config.sorting and SORT_BY_SIZE != 0
+                    context!!.getOTGItems(path, context!!.config.shouldShowHidden, getProperFileSize) {
                         callback(path, it)
                     }
                 } else if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
