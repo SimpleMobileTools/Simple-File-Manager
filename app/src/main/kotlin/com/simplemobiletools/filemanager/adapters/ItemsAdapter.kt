@@ -68,6 +68,10 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     override fun actionItemPressed(id: Int) {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
+
         when (id) {
             R.id.cab_confirm_selection -> confirmSelection()
             R.id.cab_rename -> displayRenameDialog()
@@ -176,7 +180,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
         val files = ArrayList<FileDirItem>()
-        selectedPositions.forEach { files.add(FileDirItem(fileDirItems[it].path, fileDirItems[it].name)) }
+        selectedPositions.forEach { fileDirItems[it] }
 
         val source = if (!files[0].isDirectory) File(files[0].path).parent else files[0].path
         FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true) {
@@ -215,9 +219,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun compressSelection() {
-        if (selectedPositions.isEmpty())
-            return
-
         val firstPath = fileDirItems[selectedPositions.first()].path
         CompressAsDialog(activity, firstPath) {
             activity.handleSAFDialog(firstPath) {
@@ -239,9 +240,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun decompressSelection() {
-        if (selectedPositions.isEmpty())
-            return
-
         val firstPath = fileDirItems[selectedPositions.first()].path
         activity.handleSAFDialog(firstPath) {
             activity.toast(R.string.decompressing)
@@ -350,10 +348,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun deleteFiles() {
-        if (selectedPositions.isEmpty()) {
-            return
-        }
-
         val files = ArrayList<FileDirItem>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
         val SAFPath = fileDirItems[selectedPositions.first()].path
@@ -361,7 +355,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         activity.handleSAFDialog(SAFPath) {
             selectedPositions.sortedDescending().forEach {
                 val file = fileDirItems[it]
-                files.add(FileDirItem(file.path, file.name))
+                files.add(file)
                 removeFiles.add(file)
                 activity.config.removeFavorite(file.path)
             }
