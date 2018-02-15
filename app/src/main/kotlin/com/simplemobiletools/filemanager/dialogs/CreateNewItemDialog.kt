@@ -32,11 +32,11 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
                         }
 
                         if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
-                            createDirectory(file, this) {
+                            createDirectory("$path/$name", this) {
                                 callback(it)
                             }
                         } else {
-                            createFile(file, this) {
+                            createFile("$path/$name", this) {
                                 callback(it)
                             }
                         }
@@ -48,41 +48,41 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
         }
     }
 
-    private fun createDirectory(file: File, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
+    private fun createDirectory(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         when {
-            activity.needsStupidWritePermissions(path) -> activity.handleSAFDialog(file) {
-                val documentFile = activity.getFileDocument(file.absolutePath)
+            activity.needsStupidWritePermissions(this.path) -> activity.handleSAFDialog(path) {
+                val documentFile = activity.getFileDocument(path)
                 if (documentFile == null) {
-                    val error = String.format(activity.getString(R.string.could_not_create_folder), file.absolutePath)
+                    val error = String.format(activity.getString(R.string.could_not_create_folder), path)
                     activity.showErrorToast(error)
                     callback(false)
                     return@handleSAFDialog
                 }
-                documentFile.createDirectory(file.name)
+                documentFile.createDirectory(path.getFilenameFromPath())
                 success(alertDialog)
             }
-            file.mkdirs() -> {
+            File(path).mkdirs() -> {
                 success(alertDialog)
             }
             else -> callback(false)
         }
     }
 
-    private fun createFile(file: File, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
+    private fun createFile(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         try {
             if (activity.needsStupidWritePermissions(path)) {
-                activity.handleSAFDialog(file) {
-                    val documentFile = activity.getFileDocument(file.absolutePath)
+                activity.handleSAFDialog(path) {
+                    val documentFile = activity.getFileDocument(path)
                     if (documentFile == null) {
-                        val error = String.format(activity.getString(R.string.could_not_create_file), file.absolutePath)
+                        val error = String.format(activity.getString(R.string.could_not_create_file), path)
                         activity.showErrorToast(error)
                         callback(false)
                         return@handleSAFDialog
                     }
-                    documentFile.createFile("", file.name)
+                    documentFile.createFile("", path.getFilenameFromPath())
                     success(alertDialog)
                 }
-            } else if (file.createNewFile()) {
+            } else if (File(path).createNewFile()) {
                 success(alertDialog)
             }
         } catch (exception: IOException) {

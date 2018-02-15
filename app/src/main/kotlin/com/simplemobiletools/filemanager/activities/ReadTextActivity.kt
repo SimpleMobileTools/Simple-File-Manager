@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
+import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.dialogs.SaveAsDialog
 import com.simplemobiletools.filemanager.extensions.config
@@ -50,7 +51,7 @@ class ReadTextActivity : SimpleActivity() {
         }
 
         SaveAsDialog(this, filePath) {
-            getFileOutputStream(File(it)) {
+            getFileOutputStream(FileDirItem(it, it.getFilenameFromPath())) {
                 if (it != null) {
                     it.bufferedWriter().use { it.write(read_text_view.text.toString()) }
                     toast(R.string.file_saved)

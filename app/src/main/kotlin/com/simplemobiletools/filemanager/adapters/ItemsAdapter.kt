@@ -220,7 +220,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
         val firstPath = fileDirItems[selectedPositions.first()].path
         CompressAsDialog(activity, firstPath) {
-            activity.handleSAFDialog(File(firstPath)) {
+            activity.handleSAFDialog(firstPath) {
                 activity.toast(R.string.compressing)
                 val paths = selectedPositions.map { fileDirItems[it].path }
                 Thread {
@@ -243,7 +243,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             return
 
         val firstPath = fileDirItems[selectedPositions.first()].path
-        activity.handleSAFDialog(File(firstPath)) {
+        activity.handleSAFDialog(firstPath) {
             activity.toast(R.string.decompressing)
             val paths = selectedPositions.map { fileDirItems[it].path }.filter { it.isZipFile() }
             Thread {
@@ -356,9 +356,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
         val files = ArrayList<FileDirItem>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
-        val SAFFile = File(fileDirItems[selectedPositions.first()].path)
+        val SAFPath = fileDirItems[selectedPositions.first()].path
 
-        activity.handleSAFDialog(SAFFile) {
+        activity.handleSAFDialog(SAFPath) {
             selectedPositions.sortedDescending().forEach {
                 val file = fileDirItems[it]
                 files.add(FileDirItem(file.path, file.name))
