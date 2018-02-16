@@ -9,17 +9,15 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
 import kotlinx.android.synthetic.main.dialog_compress_as.view.*
-import java.io.File
 
 class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_compress_as, null)
 
     init {
-        val file = File(path)
         val filename = path.getFilenameFromPath()
-        val indexOfDot = if (filename.contains('.') && file.isFile) filename.lastIndexOf(".") else filename.length
+        val indexOfDot = if (filename.contains('.') && !activity.getIsPathDirectory(path)) filename.lastIndexOf(".") else filename.length
         val baseFilename = filename.substring(0, indexOfDot)
-        var realPath = file.parent.trimEnd('/')
+        var realPath = path.getParentPath()
 
         view.apply {
             file_name.setText(baseFilename)
@@ -44,14 +42,14 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                     when {
                         name.isEmpty() -> activity.toast(R.string.empty_name)
                         name.isAValidFilename() -> {
-                            val newFile = File(realPath, "$name.zip")
-                            if (newFile.exists()) {
+                            val newPath = "$realPath/$name.zip"
+                            if (activity.doesFilePathExist(newPath)) {
                                 activity.toast(R.string.name_taken)
                                 return@OnClickListener
                             }
 
                             dismiss()
-                            callback(newFile.absolutePath)
+                            callback(newPath)
                         }
                         else -> activity.toast(R.string.invalid_name)
                     }

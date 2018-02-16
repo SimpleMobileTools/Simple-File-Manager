@@ -8,16 +8,15 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
 import kotlinx.android.synthetic.main.dialog_save_as.view.*
-import java.io.File
 
 class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callback: (savePath: String) -> Unit) {
 
     init {
         if (path.isEmpty()) {
-            path = "${activity.internalStoragePath}/${System.currentTimeMillis()}.txt"
+            path = "${activity.internalStoragePath}/${activity.getCurrentFormattedDateTime()}.txt"
         }
 
-        var realPath = File(path).parent.trimEnd('/')
+        var realPath = path.getParentPath()
         val view = activity.layoutInflater.inflate(R.layout.dialog_save_as, null).apply {
             save_as_path.text = activity.humanizePath(realPath)
 
@@ -60,20 +59,21 @@ class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callb
                         return@setOnClickListener
                     }
 
-                    val newFile = File(realPath, "$filename.$extension")
-                    if (!newFile.name.isAValidFilename()) {
+                    val newFilename = "$filename.$extension"
+                    val newPath = "$realPath/$newFilename"
+                    if (!newFilename.isAValidFilename()) {
                         activity.toast(R.string.filename_invalid_characters)
                         return@setOnClickListener
                     }
 
-                    if (newFile.exists()) {
-                        val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFile.name)
+                    if (activity.doesFilePathExist(newPath)) {
+                        val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFilename)
                         ConfirmationDialog(activity, title) {
-                            callback(newFile.absolutePath)
+                            callback(newPath)
                             dismiss()
                         }
                     } else {
-                        callback(newFile.absolutePath)
+                        callback(newPath)
                         dismiss()
                     }
                 }

@@ -25,18 +25,18 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
                     if (name.isEmpty()) {
                         activity.toast(R.string.empty_name)
                     } else if (name.isAValidFilename()) {
-                        val file = File(path, name)
-                        if (file.exists()) {
+                        val newPath = "$path/$name"
+                        if (activity.doesFilePathExist(newPath)) {
                             activity.toast(R.string.name_taken)
                             return@OnClickListener
                         }
 
                         if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
-                            createDirectory("$path/$name", this) {
+                            createDirectory(newPath, this) {
                                 callback(it)
                             }
                         } else {
-                            createFile("$path/$name", this) {
+                            createFile(newPath, this) {
                                 callback(it)
                             }
                         }
@@ -51,7 +51,7 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
     private fun createDirectory(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         when {
             activity.needsStupidWritePermissions(this.path) -> activity.handleSAFDialog(path) {
-                val documentFile = activity.getDocumentFile(path)
+                val documentFile = activity.getDocumentFile(path.getParentPath())
                 if (documentFile == null) {
                     val error = String.format(activity.getString(R.string.could_not_create_folder), path)
                     activity.showErrorToast(error)
@@ -72,14 +72,14 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
         try {
             if (activity.needsStupidWritePermissions(path)) {
                 activity.handleSAFDialog(path) {
-                    val documentFile = activity.getDocumentFile(path)
+                    val documentFile = activity.getDocumentFile(path.getParentPath())
                     if (documentFile == null) {
                         val error = String.format(activity.getString(R.string.could_not_create_file), path)
                         activity.showErrorToast(error)
                         callback(false)
                         return@handleSAFDialog
                     }
-                    documentFile.createFile("", path.getFilenameFromPath())
+                    documentFile.createFile(path.getMimeType(), path.getFilenameFromPath())
                     success(alertDialog)
                 }
             } else if (File(path).createNewFile()) {

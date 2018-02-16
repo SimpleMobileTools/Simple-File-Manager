@@ -200,40 +200,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     continue
                 }
 
-                val children = getChildrenCount(file)
-                val size = if (file.isDirectory && context?.config?.sorting == SORT_BY_SIZE) getDirectorySize(file) else file.length()
+                val children = file.getDirectChildrenCount(showHidden)
+                val size = if (file.isDirectory && context?.config?.sorting == SORT_BY_SIZE) file.getProperSize(showHidden) else file.length()
                 val fileDirItem = FileDirItem(curPath, curName, file.isDirectory, children, size)
                 items.add(fileDirItem)
             }
         }
         callback(path, items)
-    }
-
-    private fun getChildrenCount(file: File): Int {
-        val fileList: Array<out String>? = file.list() ?: return 0
-
-        if (file.isDirectory) {
-            return if (showHidden) {
-                fileList!!.size
-            } else {
-                fileList!!.count { fileName -> fileName[0] != '.' }
-            }
-        }
-        return 0
-    }
-
-    private fun getDirectorySize(directory: File): Long {
-        if (directory.exists()) {
-            val fileList = directory.listFiles() ?: return 0
-            return fileList.indices.map {
-                if (fileList[it].isDirectory) {
-                    getDirectorySize(fileList[it])
-                } else {
-                    fileList[it].length()
-                }
-            }.sum()
-        }
-        return 0
     }
 
     private fun itemClicked(item: FileDirItem) {

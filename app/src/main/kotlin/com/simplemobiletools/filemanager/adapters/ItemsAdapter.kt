@@ -183,7 +183,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         selectedPositions.forEach { files.add(fileDirItems[it]) }
 
         val firstFile = files[0]
-        val source = if (!firstFile.isDirectory) firstFile.path.substring(0, firstFile.path.length - firstFile.name.length) else firstFile.path
+        val source = if (firstFile.isDirectory) firstFile.path else firstFile.getParentPath()
         FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true) {
             if (activity.isPathOnRoot(it)) {
                 copyRootItems(files, it)
