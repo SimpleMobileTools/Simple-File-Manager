@@ -221,14 +221,19 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun compressSelection() {
         val firstPath = fileDirItems[selectedPositions.first()].path
+        if (activity.isPathOnOTG(firstPath)) {
+            activity.toast(R.string.unknown_error_occurred)
+            return
+        }
+
         CompressAsDialog(activity, firstPath) {
             activity.handleSAFDialog(firstPath) {
                 activity.toast(R.string.compressing)
                 val paths = selectedPositions.map { fileDirItems[it].path }
                 Thread {
                     if (zipPaths(paths, it)) {
-                        activity.toast(R.string.compression_successful)
                         activity.runOnUiThread {
+                            activity.toast(R.string.compression_successful)
                             listener?.refreshItems()
                             finishActMode()
                         }
@@ -242,6 +247,11 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun decompressSelection() {
         val firstPath = fileDirItems[selectedPositions.first()].path
+        if (activity.isPathOnOTG(firstPath)) {
+            activity.toast(R.string.unknown_error_occurred)
+            return
+        }
+
         activity.handleSAFDialog(firstPath) {
             activity.toast(R.string.decompressing)
             val paths = selectedPositions.map { fileDirItems[it].path }.filter { it.isZipFile() }
