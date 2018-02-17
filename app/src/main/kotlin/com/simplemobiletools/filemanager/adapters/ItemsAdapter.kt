@@ -42,6 +42,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private lateinit var folderDrawable: Drawable
     private lateinit var fileDrawable: Drawable
+    private var currentItemsHash = fileDirItems.hashCode()
 
     init {
         initDrawables()
@@ -387,9 +388,12 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     fun updateItems(newItems: MutableList<FileDirItem>) {
-        fileDirItems = newItems
-        notifyDataSetChanged()
-        finishActMode()
+        if (newItems.hashCode() != currentItemsHash) {
+            currentItemsHash = newItems.hashCode()
+            fileDirItems = newItems
+            notifyDataSetChanged()
+            finishActMode()
+        }
     }
 
     override fun onViewRecycled(holder: ViewHolder?) {
