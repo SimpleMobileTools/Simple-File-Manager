@@ -21,7 +21,7 @@ import com.simplemobiletools.filemanager.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.extensions.config
 import com.simplemobiletools.filemanager.extensions.isPathOnRoot
-import com.simplemobiletools.filemanager.extensions.openFile
+import com.simplemobiletools.filemanager.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.helpers.PATH
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
@@ -227,8 +227,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     activity?.toast(R.string.select_audio_file)
                 }
             } else {
-                val file = File(path)
-                activity!!.openFile(file, false)
+                activity!!.tryOpenPathIntent(path, false)
             }
         }
     }

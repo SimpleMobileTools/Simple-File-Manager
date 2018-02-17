@@ -5,7 +5,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -142,21 +141,27 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun shareFiles() {
         val selectedItems = getSelectedMedia()
-        val uris = ArrayList<Uri>(selectedItems.size)
+        val paths = ArrayList<String>(selectedItems.size)
         selectedItems.forEach {
-            addFileUris(File(it.path), uris)
+            addFileUris(it.path, paths)
         }
-        activity.shareUris(uris)
+        activity.sharePaths(paths)
     }
 
-    private fun addFileUris(file: File, uris: ArrayList<Uri>) {
-        if (file.isDirectory) {
+    private fun addFileUris(path: String, paths: ArrayList<String>) {
+        if (activity.getIsPathDirectory(path)) {
             val shouldShowHidden = activity.config.shouldShowHidden
-            file.listFiles()?.filter { if (shouldShowHidden) true else !it.isHidden }?.forEach {
-                addFileUris(it, uris)
+            if (activity.isPathOnOTG(path)) {
+                activity.getDocumentFile(path)?.listFiles()?.filter { if (shouldShowHidden) true else !it.name.startsWith(".") }?.forEach {
+                    addFileUris(it.uri.toString(), paths)
+                }
+            } else {
+                File(path).listFiles()?.filter { if (shouldShowHidden) true else !it.isHidden }?.forEach {
+                    addFileUris(it.absolutePath, paths)
+                }
             }
         } else {
-            uris.add(Uri.fromFile(file))
+            paths.add(path)
         }
     }
 
@@ -169,13 +174,11 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun setAs() {
-        val file = File(getSelectedMedia().first().path)
-        activity.setAs(Uri.fromFile(file))
+        activity.setAs(getSelectedMedia().first().path)
     }
 
     private fun openWith() {
-        val file = File(getSelectedMedia().first().path)
-        activity.openFile(file, true)
+        activity.tryOpenPathIntent(getSelectedMedia().first().path, true)
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {

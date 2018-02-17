@@ -9,12 +9,12 @@ import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.dialogs.SaveAsDialog
 import com.simplemobiletools.filemanager.extensions.config
-import com.simplemobiletools.filemanager.extensions.openFile
+import com.simplemobiletools.filemanager.extensions.openPath
 import kotlinx.android.synthetic.main.activity_read_text.*
 import java.io.File
 
 class ReadTextActivity : SimpleActivity() {
-    var filePath = ""
+    private var filePath = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class ReadTextActivity : SimpleActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_save -> saveText()
-            R.id.menu_open_with -> openFile(intent.data, true)
+            R.id.menu_open_with -> openPath(intent.dataString, true)
             else -> return super.onOptionsItemSelected(item)
         }
         return true

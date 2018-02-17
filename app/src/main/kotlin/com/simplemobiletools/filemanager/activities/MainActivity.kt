@@ -300,7 +300,7 @@ class MainActivity : SimpleActivity() {
     fun pickedPath(path: String) {
         val resultIntent = Intent()
         val uri = getFilePublicUri(File(path), BuildConfig.APPLICATION_ID)
-        val type = path.getMimeTypeFromPath()
+        val type = path.getMimeType()
         resultIntent.setDataAndType(uri, type)
         resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         setResult(Activity.RESULT_OK, resultIntent)
@@ -310,7 +310,7 @@ class MainActivity : SimpleActivity() {
     fun pickedRingtone(path: String) {
         val resultIntent = Intent()
         val uri = getFilePublicUri(File(path), BuildConfig.APPLICATION_ID)
-        val type = path.getMimeTypeFromPath()
+        val type = path.getMimeType()
         resultIntent.setDataAndType(uri, type)
         resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
         resultIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, uri)
@@ -319,10 +319,10 @@ class MainActivity : SimpleActivity() {
     }
 
     fun pickedPaths(paths: ArrayList<String>) {
-        val uris = paths.map { getFilePublicUri(File(it), BuildConfig.APPLICATION_ID) } as ArrayList
-        val clipData = ClipData("Attachment", arrayOf(uris.getMimeType()), ClipData.Item(uris.removeAt(0)))
+        val newPaths = paths.map { getFilePublicUri(File(it), BuildConfig.APPLICATION_ID).toString() } as ArrayList
+        val clipData = ClipData("Attachment", arrayOf(newPaths.getMimeType()), ClipData.Item(newPaths.removeAt(0)))
 
-        uris.forEach {
+        newPaths.forEach {
             clipData.addItem(ClipData.Item(it))
         }
 
