@@ -287,8 +287,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                     fileDirItems.add(fileDirItem)
                 }
 
-                val destinationFileDirItem = FileDirItem(fileDirItems.first().getParentPath().trimEnd('/'))
-                activity.checkConflicts(fileDirItems, destinationFileDirItem, 0, LinkedHashMap()) {
+                val destinationPath = fileDirItems.first().getParentPath().trimEnd('/')
+                activity.checkConflicts(fileDirItems, destinationPath, 0, LinkedHashMap()) {
                     Thread {
                         decompressPaths(sourcePaths, it, callback)
                     }.start()
