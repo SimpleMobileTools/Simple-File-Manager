@@ -66,7 +66,7 @@ class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callb
                         return@setOnClickListener
                     }
 
-                    if (activity.doesFilePathExist(newPath)) {
+                    if (activity.getDoesFilePathExist(newPath)) {
                         val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFilename)
                         ConfirmationDialog(activity, title) {
                             callback(newPath)

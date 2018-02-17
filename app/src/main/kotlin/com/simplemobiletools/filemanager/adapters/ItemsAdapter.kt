@@ -18,6 +18,8 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.dialogs.PropertiesDialog
 import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
+import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -235,7 +237,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 activity.toast(R.string.compressing)
                 val paths = selectedPositions.map { fileDirItems[it].path }
                 Thread {
-                    if (zipPaths(paths, it)) {
+                    if (compressPaths(paths, it)) {
                         activity.runOnUiThread {
                             activity.toast(R.string.compression_successful)
                             listener?.refreshItems()
@@ -257,10 +259,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         }
 
         activity.handleSAFDialog(firstPath) {
-            activity.toast(R.string.decompressing)
             val paths = selectedPositions.map { fileDirItems[it].path }.filter { it.isZipFile() }
-            Thread {
-                if (unzipPaths(paths)) {
+            tryDecompressingPaths(paths) {
+                if (it) {
                     activity.toast(R.string.decompression_successful)
                     activity.runOnUiThread {
                         listener?.refreshItems()
@@ -269,43 +270,105 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 } else {
                     activity.toast(R.string.decompressing_failed)
                 }
-            }.start()
+            }
         }
     }
 
-    private fun unzipPaths(sourcePaths: List<String>): Boolean {
-        sourcePaths.map { File(it) }
-                .forEach {
-                    try {
-                        val zipFile = ZipFile(it)
-                        val entries = zipFile.entries()
-                        while (entries.hasMoreElements()) {
-                            val entry = entries.nextElement()
-                            val file = File(it.parent, entry.name)
-                            if (entry.isDirectory) {
-                                if (!activity.createDirectorySync(file.absolutePath)) {
-                                    val error = String.format(activity.getString(R.string.could_not_create_file), file.absolutePath)
-                                    activity.showErrorToast(error)
-                                    return false
+    private fun tryDecompressingPaths(sourcePaths: List<String>, callback: (success: Boolean) -> Unit) {
+        sourcePaths.forEach {
+            try {
+                val zipFile = ZipFile(it)
+                val entries = zipFile.entries()
+                val fileDirItems = ArrayList<FileDirItem>()
+                while (entries.hasMoreElements()) {
+                    val entry = entries.nextElement()
+                    val currPath = if (entry.isDirectory) it else "${it.getParentPath()}${entry.name}"
+                    val fileDirItem = FileDirItem(currPath, entry.name, entry.isDirectory, 0, entry.size)
+                    fileDirItems.add(fileDirItem)
+                }
+
+                val destinationFileDirItem = FileDirItem(fileDirItems.first().getParentPath().trimEnd('/'))
+                activity.checkConflicts(fileDirItems, destinationFileDirItem, 0, LinkedHashMap()) {
+                    Thread {
+                        decompressPaths(sourcePaths, it, callback)
+                    }.start()
+                }
+            } catch (exception: Exception) {
+                activity.showErrorToast(exception)
+            }
+        }
+    }
+
+    private fun decompressPaths(paths: List<String>, conflictResolutions: LinkedHashMap<String, Int>, callback: (success: Boolean) -> Unit) {
+        paths.forEach {
+            try {
+                val zipFile = ZipFile(it)
+                val entries = zipFile.entries()
+                while (entries.hasMoreElements()) {
+                    val entry = entries.nextElement()
+                    val newPath = "${it.getParentPath()}${entry.name}"
+
+                    val resolution = getConflictResolution(conflictResolutions, newPath)
+                    val doesPathExist = activity.getDoesFilePathExist(newPath)
+                    if (doesPathExist && resolution == CONFLICT_OVERWRITE) {
+                        val fileDirItem = FileDirItem(newPath, newPath.getFilenameFromPath(), entry.isDirectory)
+                        if (activity.getIsPathDirectory(it)) {
+                            activity.deleteFolderBg(fileDirItem, false) {
+                                if (it) {
+                                    extractEntry(newPath, entry, zipFile)
+                                } else {
+                                    callback(false)
                                 }
-                            } else {
-                                val ins = zipFile.getInputStream(entry)
-                                ins.use {
-                                    val fos = activity.getFileOutputStreamSync(file.absolutePath, file.getMimeType())
-                                    if (fos != null)
-                                        ins.copyTo(fos)
+                            }
+                        } else {
+                            activity.deleteFileBg(fileDirItem, false) {
+                                if (it) {
+                                    extractEntry(newPath, entry, zipFile)
+                                } else {
+                                    callback(false)
                                 }
                             }
                         }
-                    } catch (exception: Exception) {
-                        activity.showErrorToast(exception)
-                        return false
+                    } else if (!doesPathExist) {
+                        extractEntry(newPath, entry, zipFile)
                     }
                 }
-        return true
+                callback(true)
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+                callback(false)
+            }
+        }
     }
 
-    private fun zipPaths(sourcePaths: List<String>, targetPath: String): Boolean {
+    private fun extractEntry(newPath: String, entry: ZipEntry, zipFile: ZipFile) {
+        if (entry.isDirectory) {
+            if (!activity.createDirectorySync(newPath)) {
+                val error = String.format(activity.getString(R.string.could_not_create_file), newPath)
+                activity.showErrorToast(error)
+            }
+        } else {
+            val ins = zipFile.getInputStream(entry)
+            ins.use {
+                val fos = activity.getFileOutputStreamSync(newPath, newPath.getMimeType())
+                if (fos != null) {
+                    ins.copyTo(fos)
+                }
+            }
+        }
+    }
+
+    private fun getConflictResolution(conflictResolutions: LinkedHashMap<String, Int>, path: String): Int {
+        return if (conflictResolutions.size == 1 && conflictResolutions.containsKey("")) {
+            conflictResolutions[""]!!
+        } else if (conflictResolutions.containsKey(path)) {
+            conflictResolutions[path]!!
+        } else {
+            CONFLICT_SKIP
+        }
+    }
+
+    private fun compressPaths(sourcePaths: List<String>, targetPath: String): Boolean {
         val queue = LinkedList<File>()
         val fos = activity.getFileOutputStreamSync(targetPath, "application/zip") ?: return false
 

@@ -26,7 +26,7 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
                         activity.toast(R.string.empty_name)
                     } else if (name.isAValidFilename()) {
                         val newPath = "$path/$name"
-                        if (activity.doesFilePathExist(newPath)) {
+                        if (activity.getDoesFilePathExist(newPath)) {
                             activity.toast(R.string.name_taken)
                             return@OnClickListener
                         }

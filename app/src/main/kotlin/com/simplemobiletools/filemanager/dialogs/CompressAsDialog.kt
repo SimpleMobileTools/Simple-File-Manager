@@ -43,7 +43,7 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                         name.isEmpty() -> activity.toast(R.string.empty_name)
                         name.isAValidFilename() -> {
                             val newPath = "$realPath/$name.zip"
-                            if (activity.doesFilePathExist(newPath)) {
+                            if (activity.getDoesFilePathExist(newPath)) {
                                 activity.toast(R.string.name_taken)
                                 return@OnClickListener
                             }
