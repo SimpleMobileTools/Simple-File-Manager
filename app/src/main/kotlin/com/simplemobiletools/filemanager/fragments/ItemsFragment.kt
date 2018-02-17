@@ -253,6 +253,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         CreateNewItemDialog(activity as SimpleActivity, currentPath) {
             if (it) {
                 refreshItems()
+            } else {
+                activity?.toast(R.string.unknown_error_occurred)
             }
         }
     }

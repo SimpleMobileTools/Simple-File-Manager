@@ -50,7 +50,7 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
 
     private fun createDirectory(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         when {
-            activity.needsStupidWritePermissions(this.path) -> activity.handleSAFDialog(path) {
+            activity.needsStupidWritePermissions(path) -> activity.handleSAFDialog(path) {
                 val documentFile = activity.getDocumentFile(path.getParentPath())
                 if (documentFile == null) {
                     val error = String.format(activity.getString(R.string.could_not_create_folder), path)
