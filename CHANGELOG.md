@@ -1,6 +1,15 @@
 Changelog
 ==========
 
+Version 3.3.0 *(2018-02-17)*
+----------------------------
+
+ * Improve file conflict handling at decompressing
+ * Show a copy/move progressbar at larger files
+ * Added initial OTG device support
+ * Fix blank screen after device rotation
+ * Rewrote file handling and third party intent handling, use with care!
+
 Version 3.2.1 *(2018-01-29)*
 ----------------------------
 
