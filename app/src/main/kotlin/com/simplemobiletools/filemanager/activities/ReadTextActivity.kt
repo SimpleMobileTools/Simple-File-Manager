@@ -1,10 +1,12 @@
 package com.simplemobiletools.filemanager.activities
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
+import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.dialogs.SaveAsDialog
@@ -65,7 +67,12 @@ class ReadTextActivity : SimpleActivity() {
 
     private fun checkIntent() {
         read_text_view.setTextColor(config.textColor)
-        val uri = intent.data
+        val uri = if (intent.extras.containsKey(REAL_FILE_PATH)) {
+            Uri.fromFile(File(intent.extras.get(REAL_FILE_PATH).toString()))
+        } else {
+            intent.data
+        }
+
         if (uri == null) {
             finish()
             return
