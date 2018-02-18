@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager.extensions
 
 import android.app.Activity
 import android.content.Intent
+import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.BuildConfig
 import java.util.*
@@ -17,7 +18,11 @@ fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean) {
             action = Intent.ACTION_VIEW
             setDataAndType(uri, getMimeTypeFromUri(uri))
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            startActivity(this)
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            } else {
+                toast(R.string.no_app_found)
+            }
         }
     } else {
         openPath(path, forceChooser)
