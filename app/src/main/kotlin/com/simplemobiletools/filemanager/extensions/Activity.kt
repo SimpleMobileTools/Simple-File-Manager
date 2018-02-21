@@ -2,9 +2,12 @@ package com.simplemobiletools.filemanager.extensions
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
+import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.BuildConfig
+import java.io.File
 import java.util.*
 
 fun Activity.sharePaths(paths: ArrayList<String>) {
@@ -13,7 +16,12 @@ fun Activity.sharePaths(paths: ArrayList<String>) {
 
 fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean) {
     if (!forceChooser && path.endsWith(".apk", true)) {
-        val uri = getFinalUriFromPath(path, BuildConfig.APPLICATION_ID) ?: return
+        val uri = if (isNougatPlus()) {
+            FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", File(path))
+        } else {
+            Uri.fromFile(File(path))
+        }
+
         Intent().apply {
             action = Intent.ACTION_VIEW
             setDataAndType(uri, getMimeTypeFromUri(uri))
