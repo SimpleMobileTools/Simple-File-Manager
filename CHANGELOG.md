@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 3.3.1 *(2018-02-21)*
+----------------------------
+
+ * Added a FAQ screen
+ * Fix installing apk files by clicking on them
+ * Properly display OTG image thumbnails
+ * Couple stability improvements
+
 Version 3.3.0 *(2018-02-17)*
 ----------------------------
 
