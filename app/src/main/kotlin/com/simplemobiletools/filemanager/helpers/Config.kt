@@ -3,8 +3,8 @@ package com.simplemobiletools.filemanager.helpers
 import android.content.Context
 import com.simplemobiletools.commons.extensions.getDocumentFile
 import com.simplemobiletools.commons.extensions.getInternalStoragePath
-import com.simplemobiletools.commons.extensions.isPathOnOTG
 import com.simplemobiletools.commons.helpers.BaseConfig
+import com.simplemobiletools.commons.helpers.OTG_PATH
 import java.io.File
 
 class Config(context: Context) : BaseConfig(context) {
@@ -26,8 +26,8 @@ class Config(context: Context) : BaseConfig(context) {
         get(): String {
             var path = prefs.getString(HOME_FOLDER, "")
             if (path.isEmpty() ||
-                    (context.isPathOnOTG(path) && context.getDocumentFile(path)?.isDirectory != true) ||
-                    (!context.isPathOnOTG(path) && !File(path).isDirectory)) {
+                    (path.startsWith(OTG_PATH) && context.getDocumentFile(path)?.isDirectory != true) ||
+                    (!path.startsWith(OTG_PATH) && !File(path).isDirectory)) {
                 path = context.getInternalStoragePath()
                 homeFolder = path
             }

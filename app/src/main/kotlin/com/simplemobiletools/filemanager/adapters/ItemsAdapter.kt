@@ -20,6 +20,7 @@ import com.simplemobiletools.commons.dialogs.RenameItemDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
 import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
+import com.simplemobiletools.commons.helpers.OTG_PATH
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -154,7 +155,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private fun addFileUris(path: String, paths: ArrayList<String>) {
         if (activity.getIsPathDirectory(path)) {
             val shouldShowHidden = activity.config.shouldShowHidden
-            if (activity.isPathOnOTG(path)) {
+            if (path.startsWith(OTG_PATH)) {
                 activity.getDocumentFile(path)?.listFiles()?.filter { if (shouldShowHidden) true else !it.name.startsWith(".") }?.forEach {
                     addFileUris(it.uri.toString(), paths)
                 }
@@ -227,7 +228,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun compressSelection() {
         val firstPath = fileDirItems[selectedPositions.first()].path
-        if (activity.isPathOnOTG(firstPath)) {
+        if (firstPath.startsWith(OTG_PATH)) {
             activity.toast(R.string.unknown_error_occurred)
             return
         }
@@ -253,7 +254,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun decompressSelection() {
         val firstPath = fileDirItems[selectedPositions.first()].path
-        if (activity.isPathOnOTG(firstPath)) {
+        if (firstPath.startsWith(OTG_PATH)) {
             activity.toast(R.string.unknown_error_occurred)
             return
         }

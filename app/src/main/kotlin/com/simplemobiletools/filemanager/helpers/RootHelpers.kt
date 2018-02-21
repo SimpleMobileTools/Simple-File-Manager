@@ -105,10 +105,12 @@ class RootHelpers {
                 files.forEachIndexed { index, fileDirItem ->
                     var line = lines[index]
                     if (line.isNotEmpty() && line != "0") {
-                        line = line.substring(fileDirItem.path.length).trim()
-                        val size = line.split(" ")[0]
-                        if (size.areDigitsOnly()) {
-                            fileDirItem.size = size.toLong()
+                        if (line.length >= fileDirItem.path.length) {
+                            line = line.substring(fileDirItem.path.length).trim()
+                            val size = line.split(" ")[0]
+                            if (size.areDigitsOnly()) {
+                                fileDirItem.size = size.toLong()
+                            }
                         }
                     }
                 }
