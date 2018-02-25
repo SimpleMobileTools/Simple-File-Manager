@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 3.3.2 *(2018-02-25)*
+----------------------------
+
+ * Fixed a couple file handling and third party intent handling issues
+ * Properly detect the SD card in a few new cases
+
 Version 3.3.1 *(2018-02-21)*
 ----------------------------
 
