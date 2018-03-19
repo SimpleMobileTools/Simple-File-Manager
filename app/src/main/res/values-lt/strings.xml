@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Paprasta bylų tvarkyklė</string>
+    <string name="app_launcher_name">Bylų tvarkyklė</string>
+    <string name="press_back_again">Paspauskite atgal mygtuką dar kartą, kad išeitumėte</string>
+    <string name="no_app_found">Nėra įdiegtos programėlės, kuri atvertų šio tipo bylą</string>
+    <string name="go_to_home_folder">Eiti į namų aplanką</string>
+    <string name="set_as_home_folder">Nustatyti kaip namų aplanką</string>
+    <string name="home_folder_updated">Namų aplankas atnaujintas</string>
+    <string name="copy_path">Kopijuoti kelią į iškarpinę</string>
+    <string name="path_copied">Kelias nukopijuotas</string>
+    <string name="select_audio_file">Prašome pasirinkti garso bylą</string>
+    <string name="search_folder">Ieškoti aplanke</string>
+
+    <!-- Compression -->
+    <string name="compress">Suspausti</string>
+    <string name="decompress">Išskleisti</string>
+    <string name="compress_as">Suspausti kaip</string>
+    <string name="compressing">Suspaudžiama…</string>
+    <string name="decompressing">išskleidžiama…</string>
+    <string name="compression_successful">Suspaudimas sėkmingas</string>
+    <string name="decompression_successful">išskleidimas sėkmingas</string>
+    <string name="compressing_failed">Suspaudimas nepavyko</string>
+    <string name="decompressing_failed">Išskleidimas nepavyko</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Mėgiamiausieji</string>
+    <string name="add_favorites">Pridėti mėgiamiausiuosius</string>
+    <string name="add_to_favorites">pridėti į mėgiamiausiuosius</string>
+    <string name="remove_from_favorites">Pašalinti iš mėgiamiausiųjų</string>
+    <string name="manage_favorites">Tvarkyti mėgiamiausiuosius</string>
+    <string name="go_to_favorite">Eiti į mėgiamiausįjį</string>
+    <string name="favorites_activity_placeholder">Jūs galite pridėti dažniausiai naudojamus aplankus į mėgiamiausiuosius, Kad lengvai pasiektumėte iš bet kur.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">Bylų redaktorius</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">Įgalinti šakninę prieigą</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Paprasta bylų tvarkyklė skirta bylų ir aplankų peržiūrai, bei redagavimui.</string>
+    <string name="app_long_description">
+        Taip pat gali būti naudojama šakninėms byloms, bei SD kortelės turiniui. Jūs galite lengvai pervardinti, kopijuoti, perkelti, ištrinti ir pasidalinti viskuo, kuo tik norite.
+
+        Piršto antspaudo leidimas reiklaingas paslėptų elementų arba visos programėlės užrakinimui.
+
+        Neturi reklamų ar nereikalingų leidimų. Programėlė visiškai atviro kodo, yra galimybė keisti spalvas.
+
+        Ši programėle yra vienintelė iš keletos mūsų programėlių. Likusias Jūs galite rasti čia http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
