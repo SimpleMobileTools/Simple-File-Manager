@@ -3,40 +3,40 @@
     <string name="app_name">シンプル ファイル マネージャー</string>
     <string name="app_launcher_name">ファイル マネージャー</string>
     <string name="press_back_again">もう一度戻るを押すと終了します</string>
-    <string name="no_app_found">No app for opening this type of file is available</string>
-    <string name="go_to_home_folder">Go to home folder</string>
-    <string name="set_as_home_folder">Set as home folder</string>
-    <string name="home_folder_updated">Home folder updated</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
-    <string name="select_audio_file">Please select an audio file</string>
-    <string name="search_folder">Search folder</string>
+    <string name="no_app_found">この種類のファイルを開くためのアプリがありません</string>
+    <string name="go_to_home_folder">ホームフォルダを開く</string>
+    <string name="set_as_home_folder">ホームフォルダに設定</string>
+    <string name="home_folder_updated">ホームフォルダを更新しました</string>
+    <string name="copy_path">パスをクリップボードにコピー</string>
+    <string name="path_copied">パスをコピーしました</string>
+    <string name="select_audio_file">オーディオファイルを選択してください</string>
+    <string name="search_folder">フォルダーを検索</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">圧縮</string>
+    <string name="decompress">解凍</string>
+    <string name="compress_as">形式を指定して圧縮</string>
+    <string name="compressing">圧縮しています…</string>
+    <string name="decompressing">解凍しています…</string>
+    <string name="compression_successful">正常に圧縮しました</string>
+    <string name="decompression_successful">正常に解凍しました</string>
+    <string name="compressing_failed">圧縮できませんでした</string>
+    <string name="decompressing_failed">解凍できませんでした</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favorites</string>
-    <string name="add_favorites">Add favorites</string>
-    <string name="add_to_favorites">Add to favorites</string>
-    <string name="remove_from_favorites">Remove from favorites</string>
-    <string name="manage_favorites">Manage favorites</string>
-    <string name="go_to_favorite">Go to favorite</string>
-    <string name="favorites_activity_placeholder">You can add frequently used folders to favorites for easy access from anywhere.</string>
+    <string name="favorites">お気に入り</string>
+    <string name="add_favorites">お気に入りを追加</string>
+    <string name="add_to_favorites">お気に入りに追加</string>
+    <string name="remove_from_favorites">お気に入りから削除</string>
+    <string name="manage_favorites">お気に入りを管理</string>
+    <string name="go_to_favorite">お気に入りを開く</string>
+    <string name="favorites_activity_placeholder">よく使うフォルダをお気に入りに追加して、どこからでも簡単にアクセスできます。</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">ファイル エディター</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">ルートアクセスを有効にする</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
@@ -44,7 +44,7 @@
     <string name="app_long_description">
         ルートファイルやSDカードコンテンツの参照にも使用できます。 簡単に名前の変更、コピー、移動、削除、共有ができます。
 
-        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+        指紋の利用権限は隠し項目の表示設定やアプリをロックするために必要です。
 
         広告や不要なアクセス許可は含まれていません。 完全にオープンソースで、ダークテーマも提供しています。
 
