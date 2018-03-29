@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Jednostavan upravitelj datoteka</string>
+    <string name="app_launcher_name">Upravitelj datoteka</string>
+    <string name="press_back_again">Ponovno pritisnite natrag za izlaz</string>
+    <string name="no_app_found">Nijedna aplikacija za otvaranje ove vrste datoteka nije instalirana</string>
+    <string name="go_to_home_folder">Idi na početnu mapu</string>
+    <string name="set_as_home_folder">Postavi kao početnu mapu</string>
+    <string name="home_folder_updated">Početna mapa ažurirana</string>
+    <string name="copy_path">Kopiraj putanju u međuspremnik</string>
+    <string name="path_copied">Putanja kopirana</string>
+    <string name="select_audio_file">Odaberite audio datoteku</string>
+    <string name="search_folder">Pretraži mapu</string>
+
+    <!-- Compression -->
+    <string name="compress">Sažmi</string>
+    <string name="decompress">Otpakiraj</string>
+    <string name="compress_as">Sažmi kao</string>
+    <string name="compressing">Sažimanje...</string>
+    <string name="decompressing">Otpakiravanje...</string>
+    <string name="compression_successful">Sažimanje uspješno</string>
+    <string name="decompression_successful">Otpakiravanje uspješno</string>
+    <string name="compressing_failed">Sažimanje neuspješno</string>
+    <string name="decompressing_failed">Otpakiravanje neuspješno</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Favoriti</string>
+    <string name="add_favorites">Dodaj favorite</string>
+    <string name="add_to_favorites">Dodaj u favorite</string>
+    <string name="remove_from_favorites">Ukloni iz favorita</string>
+    <string name="manage_favorites">Upravljanje favoritima</string>
+    <string name="go_to_favorite">Idi na favorite</string>
+    <string name="favorites_activity_placeholder">Možete dodavati često korištene mape u favorite za jednostavan pristup s bilo kojeg mjesta.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">Uređivač datoteka</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">Omogući root pristup</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Jednostavan upravitelj datoteka za pregledavanje i uređivanje datoteka i mapa.</string>
+    <string name="app_long_description">
+        Može se koristiti i za pregledavanje root datoteka i sadržaja SD kartice. Možete jednostavno preimenovati, kopirati, premještati, brisati i dijeliti sve što želite.
+
+        Dopuštenje otiska prsta je potrebno za zaključavanje prikaza skrivene stavke ili cijele aplikacije.
+
+        Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
+
+        Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na http://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
