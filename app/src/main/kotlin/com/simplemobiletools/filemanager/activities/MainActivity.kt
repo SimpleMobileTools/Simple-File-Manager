@@ -38,8 +38,6 @@ class MainActivity : SimpleActivity() {
     private var wasBackJustPressed = false
     private var searchMenuItem: MenuItem? = null
 
-    private var storedUseEnglish = false
-
     private lateinit var fragment: ItemsFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,20 +57,6 @@ class MainActivity : SimpleActivity() {
 
         checkWhatsNewDialog()
         checkIfRootAvailable()
-        storeStateVariables()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (storedUseEnglish != config.useEnglish) {
-            restartActivity()
-            return
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        storeStateVariables()
     }
 
     override fun onStop() {
@@ -130,10 +114,6 @@ class MainActivity : SimpleActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         openPath(savedInstanceState.getString(PICKED_PATH), true)
-    }
-
-    private fun storeStateVariables() {
-        storedUseEnglish = config.useEnglish
     }
 
     private fun setupSearch(menu: Menu) {
