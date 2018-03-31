@@ -20,8 +20,8 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
                 .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            activity.setupDialogStuff(view, this, R.string.sort_by)
-        }
+                    activity.setupDialogStuff(view, this, R.string.sort_by)
+                }
 
         currSorting = config.getFolderSorting(path)
         setupSortRadio()

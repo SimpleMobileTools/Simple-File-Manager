@@ -1,7 +1,6 @@
 package com.simplemobiletools.filemanager.dialogs
 
 import android.support.v7.app.AlertDialog
-import android.view.WindowManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
@@ -43,41 +42,40 @@ class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callb
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-            activity.setupDialogStuff(view, this, R.string.save_as) {
-                getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                    val filename = view.save_as_name.value
-                    val extension = view.save_as_extension.value
+                    activity.setupDialogStuff(view, this, R.string.save_as) {
+                        showKeyboard(view.save_as_name)
+                        getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                            val filename = view.save_as_name.value
+                            val extension = view.save_as_extension.value
 
-                    if (filename.isEmpty()) {
-                        activity.toast(R.string.filename_cannot_be_empty)
-                        return@setOnClickListener
-                    }
+                            if (filename.isEmpty()) {
+                                activity.toast(R.string.filename_cannot_be_empty)
+                                return@setOnClickListener
+                            }
 
-                    if (extension.isEmpty()) {
-                        activity.toast(R.string.extension_cannot_be_empty)
-                        return@setOnClickListener
-                    }
+                            var newFilename = filename
+                            if (extension.isNotEmpty()) {
+                                newFilename += ".$extension"
+                            }
 
-                    val newFilename = "$filename.$extension"
-                    val newPath = "$realPath/$newFilename"
-                    if (!newFilename.isAValidFilename()) {
-                        activity.toast(R.string.filename_invalid_characters)
-                        return@setOnClickListener
-                    }
+                            val newPath = "$realPath/$newFilename"
+                            if (!newFilename.isAValidFilename()) {
+                                activity.toast(R.string.filename_invalid_characters)
+                                return@setOnClickListener
+                            }
 
-                    if (activity.getDoesFilePathExist(newPath)) {
-                        val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFilename)
-                        ConfirmationDialog(activity, title) {
-                            callback(newPath)
-                            dismiss()
+                            if (activity.getDoesFilePathExist(newPath)) {
+                                val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFilename)
+                                ConfirmationDialog(activity, title) {
+                                    callback(newPath)
+                                    dismiss()
+                                }
+                            } else {
+                                callback(newPath)
+                                dismiss()
+                            }
                         }
-                    } else {
-                        callback(newPath)
-                        dismiss()
                     }
                 }
-            }
-        }
     }
 }

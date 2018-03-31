@@ -2,7 +2,6 @@ package com.simplemobiletools.filemanager.dialogs
 
 import android.support.v7.app.AlertDialog
 import android.view.View
-import android.view.WindowManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
@@ -18,34 +17,34 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
-            activity.setupDialogStuff(view, this, R.string.create_new) {
-                window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-                getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                    val name = view.item_name.value
-                    if (name.isEmpty()) {
-                        activity.toast(R.string.empty_name)
-                    } else if (name.isAValidFilename()) {
-                        val newPath = "$path/$name"
-                        if (activity.getDoesFilePathExist(newPath)) {
-                            activity.toast(R.string.name_taken)
-                            return@OnClickListener
-                        }
+                    activity.setupDialogStuff(view, this, R.string.create_new) {
+                        showKeyboard(view.item_name)
+                        getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
+                            val name = view.item_name.value
+                            if (name.isEmpty()) {
+                                activity.toast(R.string.empty_name)
+                            } else if (name.isAValidFilename()) {
+                                val newPath = "$path/$name"
+                                if (activity.getDoesFilePathExist(newPath)) {
+                                    activity.toast(R.string.name_taken)
+                                    return@OnClickListener
+                                }
 
-                        if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
-                            createDirectory(newPath, this) {
-                                callback(it)
+                                if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
+                                    createDirectory(newPath, this) {
+                                        callback(it)
+                                    }
+                                } else {
+                                    createFile(newPath, this) {
+                                        callback(it)
+                                    }
+                                }
+                            } else {
+                                activity.toast(R.string.invalid_name)
                             }
-                        } else {
-                            createFile(newPath, this) {
-                                callback(it)
-                            }
-                        }
-                    } else {
-                        activity.toast(R.string.invalid_name)
+                        })
                     }
-                })
-            }
-        }
+                }
     }
 
     private fun createDirectory(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
