@@ -49,6 +49,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private val hasOTGConnected = activity.hasOTGConnected()
 
     init {
+        setupDragListener(true)
         initDrawables()
     }
 
@@ -452,10 +453,10 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         return selectedMedia
     }
 
-    fun updateItems(newItems: MutableList<FileDirItem>) {
+    fun updateItems(newItems: ArrayList<FileDirItem>) {
         if (newItems.hashCode() != currentItemsHash) {
             currentItemsHash = newItems.hashCode()
-            fileDirItems = newItems
+            fileDirItems = newItems.clone() as ArrayList<FileDirItem>
             notifyDataSetChanged()
             finishActMode()
         }

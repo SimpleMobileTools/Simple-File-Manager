@@ -6,6 +6,7 @@ import android.net.Uri
 import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.filemanager.BuildConfig
 import java.io.File
 import java.util.*

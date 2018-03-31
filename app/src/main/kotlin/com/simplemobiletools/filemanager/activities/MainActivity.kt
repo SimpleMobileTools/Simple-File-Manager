@@ -271,7 +271,7 @@ class MainActivity : SimpleActivity() {
                 FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
                 FAQItem(R.string.faq_3_title_commons, R.string.faq_3_text_commons))
 
-        startAboutActivity(R.string.app_name, LICENSE_KOTLIN or LICENSE_MULTISELECT or LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT,
+        startAboutActivity(R.string.app_name, LICENSE_MULTISELECT or LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT,
                 BuildConfig.VERSION_NAME, faqItems)
     }
 

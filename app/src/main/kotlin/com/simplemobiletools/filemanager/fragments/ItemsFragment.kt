@@ -150,7 +150,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
                     itemClicked(it as FileDirItem)
                 }.apply {
-                    setupDragListener(true)
                     addVerticalDividers(true)
                     items_list.adapter = this
                 }
