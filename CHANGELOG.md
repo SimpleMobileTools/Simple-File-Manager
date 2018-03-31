@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 3.3.3 *(2018-03-31)*
+----------------------------
+
+ * Improve some outgoing third party intents via Share etc
+ * Make sure Use English toggles language properly
+ * Allow saving files with empty extensions
+ * Couple smaller bugfixes and stability improvements
+
 Version 3.3.2 *(2018-02-25)*
 ----------------------------
 
