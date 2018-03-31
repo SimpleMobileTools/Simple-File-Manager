@@ -34,7 +34,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     override fun getSelectableItemCount() = favorites.size
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int) = createViewHolder(R.layout.item_manage_favorite, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_manage_favorite, parent)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val favorite = favorites[position]

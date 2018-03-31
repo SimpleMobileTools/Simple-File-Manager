@@ -80,7 +80,13 @@ class ReadTextActivity : SimpleActivity() {
 
         val text = if (uri.scheme == "file") {
             filePath = uri.path
-            File(uri.path).readText()
+            val file = File(filePath)
+            if (file.exists()) {
+                file.readText()
+            } else {
+                toast(R.string.unknown_error_occurred)
+                ""
+            }
         } else {
             try {
                 contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
