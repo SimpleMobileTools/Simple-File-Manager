@@ -423,7 +423,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun askConfirmDelete() {
-        ConfirmationDialog(activity) {
+        val items = resources.getQuantityString(R.plurals.delete_items, selectedPositions.size, selectedPositions.size)
+        val question = String.format(resources.getString(R.string.deletion_confirmation), items)
+        ConfirmationDialog(activity, question) {
             deleteFiles()
         }
     }
