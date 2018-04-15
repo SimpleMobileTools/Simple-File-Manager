@@ -31,8 +31,7 @@ import java.io.File
 import java.util.*
 
 class MainActivity : SimpleActivity() {
-    var isSearchOpen = false
-
+    private var isSearchOpen = false
     private val BACK_PRESS_TIMEOUT = 5000
     private val PICKED_PATH = "picked_path"
     private var wasBackJustPressed = false
@@ -138,6 +137,7 @@ class MainActivity : SimpleActivity() {
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 isSearchOpen = true
+                fragment.searchOpened()
                 return true
             }
 
@@ -249,7 +249,8 @@ class MainActivity : SimpleActivity() {
     private fun launchAbout() {
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_3_title_commons, R.string.faq_3_text_commons),
-                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
+                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons)
+        )
 
         startAboutActivity(R.string.app_name, LICENSE_MULTISELECT or LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT,
                 BuildConfig.VERSION_NAME, faqItems)

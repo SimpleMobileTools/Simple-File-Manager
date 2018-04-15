@@ -37,13 +37,14 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     var isGetContentIntent = false
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
-    var isFirstResume = true
-    var storedItems = ArrayList<FileDirItem>()
 
+    private var isFirstResume = true
     private var showHidden = false
     private var skipItemUpdating = false
+    private var isSearchOpen = false
     private var scrollStates = HashMap<String, Parcelable>()
 
+    private var storedItems = ArrayList<FileDirItem>()
     private var storedTextColor = 0
 
     private lateinit var mView: View
@@ -241,7 +242,12 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }.start()
     }
 
+    fun searchOpened() {
+        isSearchOpen = true
+    }
+
     fun searchClosed() {
+        isSearchOpen = false
         if (!skipItemUpdating) {
             (items_list.adapter as? ItemsAdapter)?.updateItems(storedItems)
         }
