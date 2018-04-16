@@ -129,4 +129,82 @@ class RootHelpers {
             activity.showErrorToast(e)
         }
     }
+
+    fun createFile(activity: SimpleActivity, path: String, callback: (success: Boolean) -> Unit) {
+        tryMountAsRW(activity, path) {
+            val mountPoint = it
+            val targetPath = path.trim('/')
+            val cmd = "touch \"/$targetPath\""
+            val command = object : Command(0, cmd) {
+                override fun commandCompleted(id: Int, exitcode: Int) {
+                    callback(exitcode == 0)
+                    mountAsRO(activity, mountPoint)
+                    super.commandCompleted(id, exitcode)
+                }
+            }
+
+            runCommand(activity, command)
+        }
+    }
+
+    private fun mountAsRO(activity: SimpleActivity, mountPoint: String?) {
+        if (mountPoint != null) {
+            val cmd = "umount -r \"$mountPoint\""
+            val command = object : Command(0, cmd) {}
+            runCommand(activity, command)
+        }
+    }
+
+    // inspired by Amaze File Manager
+    private fun tryMountAsRW(activity: SimpleActivity, path: String, callback: (mountPoint: String?) -> Unit) {
+        val mountPoints = ArrayList<String>()
+
+        val command = object : Command(0, "mount") {
+            override fun commandOutput(id: Int, line: String) {
+                mountPoints.add(line)
+                super.commandOutput(id, line)
+            }
+
+            override fun commandCompleted(id: Int, exitcode: Int) {
+                var mountPoint = ""
+                var types: String? = null
+                for (line in mountPoints) {
+                    val words = line.split(" ").filter { it.isNotEmpty() }
+
+                    if (path.contains(words[2])) {
+                        if (words[2].length > mountPoint.length) {
+                            mountPoint = words[2]
+                            types = words[5]
+                        }
+                    }
+                }
+
+                if (mountPoint != "" && types != null) {
+                    if (types.contains("rw")) {
+                        callback(null)
+                    } else if (types.contains("ro")) {
+                        val mountCommand = "mount -o rw,remount $mountPoint"
+                        mountAsRW(activity, mountCommand) {
+                            callback(it)
+                        }
+                    }
+                }
+
+                super.commandCompleted(id, exitcode)
+            }
+        }
+
+        runCommand(activity, command)
+    }
+
+    private fun mountAsRW(activity: SimpleActivity, commandString: String, callback: (mountPoint: String) -> Unit) {
+        val command = object : Command(0, commandString) {
+            override fun commandOutput(id: Int, line: String) {
+                callback(line)
+                super.commandOutput(id, line)
+            }
+        }
+
+        runCommand(activity, command)
+    }
 }

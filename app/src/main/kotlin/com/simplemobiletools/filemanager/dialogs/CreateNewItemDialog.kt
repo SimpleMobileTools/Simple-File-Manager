@@ -2,14 +2,15 @@ package com.simplemobiletools.filemanager.dialogs
 
 import android.support.v7.app.AlertDialog
 import android.view.View
-import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.activities.SimpleActivity
+import com.simplemobiletools.filemanager.helpers.RootHelpers
 import kotlinx.android.synthetic.main.dialog_create_new.view.*
 import java.io.File
 import java.io.IOException
 
-class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, val callback: (success: Boolean) -> Unit) {
+class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val callback: (success: Boolean) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
 
     init {
@@ -60,29 +61,44 @@ class CreateNewItemDialog(val activity: BaseSimpleActivity, val path: String, va
                 documentFile.createDirectory(path.getFilenameFromPath())
                 success(alertDialog)
             }
-            File(path).mkdirs() -> {
-                success(alertDialog)
+            path.startsWith(activity.internalStoragePath, true) -> {
+                if (File(path).mkdirs()) {
+                    success(alertDialog)
+                }
             }
-            else -> callback(false)
         }
     }
 
     private fun createFile(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         try {
-            if (activity.needsStupidWritePermissions(path)) {
-                activity.handleSAFDialog(path) {
-                    val documentFile = activity.getDocumentFile(path.getParentPath())
-                    if (documentFile == null) {
-                        val error = String.format(activity.getString(R.string.could_not_create_file), path)
-                        activity.showErrorToast(error)
-                        callback(false)
-                        return@handleSAFDialog
+            when {
+                activity.needsStupidWritePermissions(path) -> {
+                    activity.handleSAFDialog(path) {
+                        val documentFile = activity.getDocumentFile(path.getParentPath())
+                        if (documentFile == null) {
+                            val error = String.format(activity.getString(R.string.could_not_create_file), path)
+                            activity.showErrorToast(error)
+                            callback(false)
+                            return@handleSAFDialog
+                        }
+                        documentFile.createFile(path.getMimeType(), path.getFilenameFromPath())
+                        success(alertDialog)
                     }
-                    documentFile.createFile(path.getMimeType(), path.getFilenameFromPath())
-                    success(alertDialog)
                 }
-            } else if (File(path).createNewFile()) {
-                success(alertDialog)
+                path.startsWith(activity.internalStoragePath, true) -> {
+                    if (File(path).createNewFile()) {
+                        success(alertDialog)
+                    }
+                }
+                else -> {
+                    RootHelpers().createFile(activity, path) {
+                        if (it) {
+                            success(alertDialog)
+                        } else {
+                            callback(false)
+                        }
+                    }
+                }
             }
         } catch (exception: IOException) {
             activity.showErrorToast(exception)
