@@ -32,22 +32,47 @@ class RootHelpers(val activity: Activity) {
         val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
         val cmd = "ls $hiddenArgument$path"
 
+        getFullLines(path) {
+            val fullLines = it
+
+            val command = object : Command(0, cmd) {
+                override fun commandOutput(id: Int, line: String) {
+                    val file = File(path, line)
+                    val fullLine = fullLines.firstOrNull { it.endsWith(" $line") }
+                    val isDirectory = fullLine?.startsWith('d') ?: file.isDirectory
+                    val fileDirItem = FileDirItem(file.absolutePath, line, isDirectory, 0, 0)
+                    files.add(fileDirItem)
+                    super.commandOutput(id, line)
+                }
+
+                override fun commandCompleted(id: Int, exitcode: Int) {
+                    if (files.isEmpty()) {
+                        callback(path, files)
+                    } else {
+                        getChildrenCount(files, path, callback)
+                    }
+
+                    super.commandCompleted(id, exitcode)
+                }
+            }
+
+            runCommand(command)
+        }
+    }
+
+    private fun getFullLines(path: String, callback: (ArrayList<String>) -> Unit) {
+        val fullLines = ArrayList<String>()
+        val hiddenArgument = if (activity.config.shouldShowHidden) "-Al " else "-l "
+        val cmd = "ls $hiddenArgument$path"
+
         val command = object : Command(0, cmd) {
             override fun commandOutput(id: Int, line: String) {
-                val file = File(path, line)
-                val isDirectory = file.isDirectory
-                val fileDirItem = FileDirItem(file.absolutePath, line, isDirectory, 0, 0)
-                files.add(fileDirItem)
+                fullLines.add(line)
                 super.commandOutput(id, line)
             }
 
             override fun commandCompleted(id: Int, exitcode: Int) {
-                if (files.isEmpty()) {
-                    callback(path, files)
-                } else {
-                    getChildrenCount(files, path, callback)
-                }
-
+                callback(fullLines)
                 super.commandCompleted(id, exitcode)
             }
         }
