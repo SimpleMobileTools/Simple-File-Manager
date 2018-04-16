@@ -130,11 +130,12 @@ class RootHelpers {
         }
     }
 
-    fun createFile(activity: SimpleActivity, path: String, callback: (success: Boolean) -> Unit) {
+    fun createFileFolder(activity: SimpleActivity, path: String, isFile: Boolean, callback: (success: Boolean) -> Unit) {
         tryMountAsRW(activity, path) {
             val mountPoint = it
             val targetPath = path.trim('/')
-            val cmd = "touch \"/$targetPath\""
+            val mainCommand = if (isFile) "touch" else "mkdir"
+            val cmd = "$mainCommand \"/$targetPath\""
             val command = object : Command(0, cmd) {
                 override fun commandCompleted(id: Int, exitcode: Int) {
                     callback(exitcode == 0)
@@ -179,7 +180,7 @@ class RootHelpers {
                     }
                 }
 
-                if (mountPoint != "" && types != null) {
+                if (mountPoint.isNotEmpty() && types != null) {
                     if (types.contains("rw")) {
                         callback(null)
                     } else if (types.contains("ro")) {
