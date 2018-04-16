@@ -42,7 +42,12 @@ class RootHelpers {
             }
 
             override fun commandCompleted(id: Int, exitcode: Int) {
-                getChildrenCount(activity, files, path, callback)
+                if (files.isEmpty()) {
+                    callback(path, files)
+                } else {
+                    getChildrenCount(activity, files, path, callback)
+                }
+
                 super.commandCompleted(id, exitcode)
             }
         }
