@@ -28,8 +28,8 @@ import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.*
+import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
-import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
 import java.io.File
@@ -189,12 +189,14 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun copyMoveTo(isCopyOperation: Boolean) {
         val files = ArrayList<FileDirItem>()
-        selectedPositions.forEach { files.add(fileDirItems[it]) }
+        selectedPositions.forEach {
+            files.add(fileDirItems[it])
+        }
 
         val firstFile = files[0]
         val source = if (firstFile.isDirectory) firstFile.path else firstFile.getParentPath()
         FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true) {
-            if (activity.isPathOnRoot(it)) {
+            if (activity.isPathOnRoot(it) || activity.isPathOnRoot(firstFile.path)) {
                 copyRootItems(files, it)
             } else {
                 activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, activity.config.shouldShowHidden) {
@@ -208,22 +210,18 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private fun copyRootItems(files: ArrayList<FileDirItem>, destinationPath: String) {
         activity.toast(R.string.copying)
         Thread {
-            var fileCnt = files.count()
-            files.forEach {
-                if (RootTools.copyFile(it.path, destinationPath, false, true)) {
-                    fileCnt--
+            val fileCnt = files.size
+            RootHelpers(activity).copyFiles(files, destinationPath) {
+                when (it) {
+                    fileCnt -> activity.toast(R.string.copying_success)
+                    0 -> activity.toast(R.string.copy_failed)
+                    else -> activity.toast(R.string.copying_success_partial)
                 }
-            }
 
-            when {
-                fileCnt <= 0 -> activity.toast(R.string.copying_success)
-                fileCnt == files.count() -> activity.toast(R.string.copy_failed)
-                else -> activity.toast(R.string.copying_success_partial)
-            }
-
-            activity.runOnUiThread {
-                listener?.refreshItems()
-                finishActMode()
+                activity.runOnUiThread {
+                    listener?.refreshItems()
+                    finishActMode()
+                }
             }
         }.start()
     }

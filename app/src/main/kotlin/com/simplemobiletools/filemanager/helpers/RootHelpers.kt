@@ -255,4 +255,23 @@ class RootHelpers(val activity: Activity) {
             }
         }
     }
+
+    fun copyFiles(fileDirItems: ArrayList<FileDirItem>, destination: String, successes: Int = 0, callback: (Int) -> Unit) {
+        val fileDirItem = fileDirItems.first()
+        val mainCommand = if (fileDirItem.isDirectory) "cp -R" else "cp"
+        val cmd = "$mainCommand \"${fileDirItem.path}\" \"$destination\""
+        val command = object : Command(0, cmd) {
+            override fun commandCompleted(id: Int, exitcode: Int) {
+                val newSuccesses = successes + (if (exitcode == 0) 1 else 0)
+                if (fileDirItems.size == 1) {
+                    callback(newSuccesses)
+                } else {
+                    fileDirItems.removeAt(0)
+                    copyFiles(fileDirItems, destination, newSuccesses, callback)
+                }
+                super.commandCompleted(id, exitcode)
+            }
+        }
+        runCommand(command)
+    }
 }
