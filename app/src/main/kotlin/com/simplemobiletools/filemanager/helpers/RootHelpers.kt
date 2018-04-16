@@ -164,8 +164,8 @@ class RootHelpers(val activity: Activity) {
     // inspired by Amaze File Manager
     private fun tryMountAsRW(path: String, callback: (mountPoint: String?) -> Unit) {
         val mountPoints = ArrayList<String>()
-
-        val command = object : Command(0, "mount") {
+        val cmd = "mount"
+        val command = object : Command(0, cmd) {
             override fun commandOutput(id: Int, line: String) {
                 mountPoints.add(line)
                 super.commandOutput(id, line)
@@ -203,8 +203,8 @@ class RootHelpers(val activity: Activity) {
         runCommand(command)
     }
 
-    private fun mountAsRW(commandString: String, callback: (mountPoint: String) -> Unit) {
-        val command = object : Command(0, commandString) {
+    private fun mountAsRW(cmd: String, callback: (mountPoint: String) -> Unit) {
+        val command = object : Command(0, cmd) {
             override fun commandOutput(id: Int, line: String) {
                 callback(line)
                 super.commandOutput(id, line)
@@ -215,6 +215,19 @@ class RootHelpers(val activity: Activity) {
     }
 
     fun deleteFiles(fileDirItems: ArrayList<FileDirItem>) {
+        tryMountAsRW(fileDirItems.first().path) {
+            fileDirItems.forEach {
+                val targetPath = it.path.trim('/')
+                if (targetPath.isEmpty()) {
+                    return@forEach
+                }
 
+                val mainCommand = if (it.isDirectory) "rm -rf" else "rm"
+                val cmd = "$mainCommand \"/$targetPath\""
+                val command = object : Command(0, cmd) {}
+
+                runCommand(command)
+            }
+        }
     }
 }
