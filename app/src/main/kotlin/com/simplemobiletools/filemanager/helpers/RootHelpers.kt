@@ -1,18 +1,18 @@
 package com.simplemobiletools.filemanager.helpers
 
+import android.app.Activity
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.extensions.config
 import com.stericson.RootShell.execution.Command
 import com.stericson.RootTools.RootTools
 import java.io.File
-import java.util.*
 
-class RootHelpers {
-    fun askRootIfNeeded(activity: SimpleActivity, callback: (success: Boolean) -> Unit) {
-        val command = object : Command(0, "ls -lA") {
+class RootHelpers(val activity: Activity) {
+    fun askRootIfNeeded(callback: (success: Boolean) -> Unit) {
+        val cmd = "ls -lA"
+        val command = object : Command(0, cmd) {
             override fun commandOutput(id: Int, line: String) {
                 callback(true)
                 super.commandOutput(id, line)
@@ -27,7 +27,7 @@ class RootHelpers {
         }
     }
 
-    fun getFiles(activity: SimpleActivity, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    fun getFiles(path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val files = ArrayList<FileDirItem>()
         val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
         val cmd = "ls $hiddenArgument$path"
@@ -45,17 +45,17 @@ class RootHelpers {
                 if (files.isEmpty()) {
                     callback(path, files)
                 } else {
-                    getChildrenCount(activity, files, path, callback)
+                    getChildrenCount(files, path, callback)
                 }
 
                 super.commandCompleted(id, exitcode)
             }
         }
 
-        runCommand(activity, command)
+        runCommand(command)
     }
 
-    private fun getChildrenCount(activity: SimpleActivity, files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    private fun getChildrenCount(files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
         var cmd = ""
         files.forEach {
@@ -81,15 +81,15 @@ class RootHelpers {
                         fileDirItem.children = childrenCount.toInt()
                     }
                 }
-                getFileSizes(activity, files, path, callback)
+                getFileSizes(files, path, callback)
                 super.commandCompleted(id, exitcode)
             }
         }
 
-        runCommand(activity, command)
+        runCommand(command)
     }
 
-    private fun getFileSizes(activity: SimpleActivity, files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    private fun getFileSizes(files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         var cmd = ""
         files.forEach {
             cmd += if (it.isDirectory) {
@@ -124,10 +124,10 @@ class RootHelpers {
             }
         }
 
-        runCommand(activity, command)
+        runCommand(command)
     }
 
-    private fun runCommand(activity: SimpleActivity, command: Command) {
+    private fun runCommand(command: Command) {
         try {
             RootTools.getShell(true).add(command)
         } catch (e: Exception) {
@@ -135,8 +135,8 @@ class RootHelpers {
         }
     }
 
-    fun createFileFolder(activity: SimpleActivity, path: String, isFile: Boolean, callback: (success: Boolean) -> Unit) {
-        tryMountAsRW(activity, path) {
+    fun createFileFolder(path: String, isFile: Boolean, callback: (success: Boolean) -> Unit) {
+        tryMountAsRW(path) {
             val mountPoint = it
             val targetPath = path.trim('/')
             val mainCommand = if (isFile) "touch" else "mkdir"
@@ -144,25 +144,25 @@ class RootHelpers {
             val command = object : Command(0, cmd) {
                 override fun commandCompleted(id: Int, exitcode: Int) {
                     callback(exitcode == 0)
-                    mountAsRO(activity, mountPoint)
+                    mountAsRO(mountPoint)
                     super.commandCompleted(id, exitcode)
                 }
             }
 
-            runCommand(activity, command)
+            runCommand(command)
         }
     }
 
-    private fun mountAsRO(activity: SimpleActivity, mountPoint: String?) {
+    private fun mountAsRO(mountPoint: String?) {
         if (mountPoint != null) {
             val cmd = "umount -r \"$mountPoint\""
             val command = object : Command(0, cmd) {}
-            runCommand(activity, command)
+            runCommand(command)
         }
     }
 
     // inspired by Amaze File Manager
-    private fun tryMountAsRW(activity: SimpleActivity, path: String, callback: (mountPoint: String?) -> Unit) {
+    private fun tryMountAsRW(path: String, callback: (mountPoint: String?) -> Unit) {
         val mountPoints = ArrayList<String>()
 
         val command = object : Command(0, "mount") {
@@ -190,7 +190,7 @@ class RootHelpers {
                         callback(null)
                     } else if (types.contains("ro")) {
                         val mountCommand = "mount -o rw,remount $mountPoint"
-                        mountAsRW(activity, mountCommand) {
+                        mountAsRW(mountCommand) {
                             callback(it)
                         }
                     }
@@ -200,10 +200,10 @@ class RootHelpers {
             }
         }
 
-        runCommand(activity, command)
+        runCommand(command)
     }
 
-    private fun mountAsRW(activity: SimpleActivity, commandString: String, callback: (mountPoint: String) -> Unit) {
+    private fun mountAsRW(commandString: String, callback: (mountPoint: String) -> Unit) {
         val command = object : Command(0, commandString) {
             override fun commandOutput(id: Int, line: String) {
                 callback(line)
@@ -211,6 +211,10 @@ class RootHelpers {
             }
         }
 
-        runCommand(activity, command)
+        runCommand(command)
+    }
+
+    fun deleteFiles(fileDirItems: ArrayList<FileDirItem>) {
+
     }
 }

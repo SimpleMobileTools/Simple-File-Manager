@@ -136,7 +136,7 @@ class SettingsActivity : SimpleActivity() {
         settings_enable_root_access.isChecked = config.enableRootAccess
         settings_enable_root_access_holder.setOnClickListener {
             if (!config.enableRootAccess) {
-                RootHelpers().askRootIfNeeded(this) {
+                RootHelpers(this).askRootIfNeeded {
                     toggleRootAccess(it)
                 }
             } else {

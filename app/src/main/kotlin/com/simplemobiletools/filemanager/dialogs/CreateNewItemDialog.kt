@@ -67,7 +67,7 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 }
             }
             else -> {
-                RootHelpers().createFileFolder(activity, path, false) {
+                RootHelpers(activity).createFileFolder(path, false) {
                     if (it) {
                         success(alertDialog)
                     } else {
@@ -100,7 +100,7 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                     }
                 }
                 else -> {
-                    RootHelpers().createFileFolder(activity, path, true) {
+                    RootHelpers(activity).createFileFolder(path, true) {
                         if (it) {
                             success(alertDialog)
                         } else {

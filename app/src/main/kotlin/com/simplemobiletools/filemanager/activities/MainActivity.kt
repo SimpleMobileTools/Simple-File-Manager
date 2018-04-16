@@ -277,7 +277,7 @@ class MainActivity : SimpleActivity() {
         Thread {
             config.isRootAvailable = RootTools.isRootAvailable()
             if (config.isRootAvailable && config.enableRootAccess) {
-                RootHelpers().askRootIfNeeded(this) {
+                RootHelpers(this).askRootIfNeeded {
                     config.enableRootAccess = it
                 }
             }

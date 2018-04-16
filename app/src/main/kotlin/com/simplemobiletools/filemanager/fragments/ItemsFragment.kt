@@ -25,7 +25,6 @@ import com.simplemobiletools.filemanager.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.helpers.PATH
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
-import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
@@ -183,7 +182,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 } else if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                     getRegularItemsOf(path, callback)
                 } else {
-                    RootHelpers().getFiles(activity as SimpleActivity, path, callback)
+                    RootHelpers(activity!!).getFiles(path, callback)
                 }
             }
         }.start()
@@ -281,10 +280,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     override fun deleteFiles(files: ArrayList<FileDirItem>) {
         val hasFolder = files.any { it.isDirectory }
-        if (context!!.isPathOnRoot(files.firstOrNull()?.path ?: context!!.config.internalStoragePath)) {
-            files.forEach {
-                RootTools.deleteFileOrDirectory(it.path, false)
-            }
+        val firstPath = files.firstOrNull()?.path
+        if (firstPath == null || firstPath.isEmpty()) {
+            return
+        }
+
+        if (context!!.isPathOnRoot(firstPath)) {
+            RootHelpers(activity!!).deleteFiles(files)
         } else {
             (activity as SimpleActivity).deleteFiles(files, hasFolder) {
                 if (!it) {
