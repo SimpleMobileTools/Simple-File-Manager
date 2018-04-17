@@ -118,12 +118,8 @@ class RootHelpers(val activity: Activity) {
 
     private fun getFileSizes(files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         var cmd = ""
-        files.forEach {
-            cmd += if (it.isDirectory) {
-                "echo 0;"
-            } else {
-                "stat -t ${it.path};"
-            }
+        files.filter { !it.isDirectory }.forEach {
+            cmd += "stat -t ${it.path};"
         }
 
         val lines = ArrayList<String>()
@@ -134,7 +130,7 @@ class RootHelpers(val activity: Activity) {
             }
 
             override fun commandCompleted(id: Int, exitcode: Int) {
-                files.forEachIndexed { index, fileDirItem ->
+                files.filter { !it.isDirectory }.forEachIndexed { index, fileDirItem ->
                     var line = lines[index]
                     if (line.isNotEmpty() && line != "0") {
                         if (line.length >= fileDirItem.path.length) {
