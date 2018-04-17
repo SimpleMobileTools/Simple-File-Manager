@@ -199,7 +199,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         if (files != null) {
             for (file in files) {
                 val curPath = file.absolutePath
-                val curName = curPath.getFilenameFromPath()
+                val curName = file.name
                 if (!showHidden && curName.startsWith(".")) {
                     continue
                 }
