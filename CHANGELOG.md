@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 3.4.0 *(2018-04-17)*
+----------------------------
+
+ * Improved file operations at root files
+ * Improved file load performance, especially in root folders
+ * Misc smaller improvements and bugfixes
+
 Version 3.3.3 *(2018-03-31)*
 ----------------------------
 
