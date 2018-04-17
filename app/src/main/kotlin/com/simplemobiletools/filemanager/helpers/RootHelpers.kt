@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.helpers
 import android.app.Activity
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.extensions.config
 import com.stericson.RootShell.execution.Command
@@ -28,12 +29,12 @@ class RootHelpers(val activity: Activity) {
     }
 
     fun getFiles(path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
-        val files = ArrayList<FileDirItem>()
-        val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
-        val cmd = "ls $hiddenArgument$path"
-
         getFullLines(path) {
             val fullLines = it
+
+            val files = ArrayList<FileDirItem>()
+            val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
+            val cmd = "ls $hiddenArgument$path"
 
             val command = object : Command(0, cmd) {
                 override fun commandOutput(id: Int, line: String) {
@@ -83,12 +84,8 @@ class RootHelpers(val activity: Activity) {
     private fun getChildrenCount(files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
         val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
         var cmd = ""
-        files.forEach {
-            cmd += if (it.isDirectory) {
-                "ls $hiddenArgument${it.path} |wc -l;"
-            } else {
-                "echo 0;"
-            }
+        files.filter { it.isDirectory }.forEach {
+            cmd += "ls $hiddenArgument${it.path} |wc -l;"
         }
         cmd = cmd.trimEnd(';') + " | cat"
 
@@ -100,13 +97,18 @@ class RootHelpers(val activity: Activity) {
             }
 
             override fun commandCompleted(id: Int, exitcode: Int) {
-                files.forEachIndexed { index, fileDirItem ->
+                files.filter { it.isDirectory }.forEachIndexed { index, fileDirItem ->
                     val childrenCount = lines[index]
                     if (childrenCount.areDigitsOnly()) {
                         fileDirItem.children = childrenCount.toInt()
                     }
                 }
-                getFileSizes(files, path, callback)
+
+                if (activity.config.sorting and SORT_BY_SIZE == 0) {
+                    callback(path, files)
+                } else {
+                    getFileSizes(files, path, callback)
+                }
                 super.commandCompleted(id, exitcode)
             }
         }
@@ -144,6 +146,7 @@ class RootHelpers(val activity: Activity) {
                         }
                     }
                 }
+
                 callback(path, files)
                 super.commandCompleted(id, exitcode)
             }
