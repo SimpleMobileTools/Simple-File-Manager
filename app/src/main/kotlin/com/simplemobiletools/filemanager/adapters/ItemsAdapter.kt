@@ -197,7 +197,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         val source = if (firstFile.isDirectory) firstFile.path else firstFile.getParentPath()
         FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true) {
             if (activity.isPathOnRoot(it) || activity.isPathOnRoot(firstFile.path)) {
-                copyRootItems(files, it)
+                copyMoveRootItems(files, it, isCopyOperation)
             } else {
                 activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, activity.config.shouldShowHidden) {
                     listener?.refreshItems()
@@ -207,11 +207,11 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         }
     }
 
-    private fun copyRootItems(files: ArrayList<FileDirItem>, destinationPath: String) {
+    private fun copyMoveRootItems(files: ArrayList<FileDirItem>, destinationPath: String, isCopyOperation: Boolean) {
         activity.toast(R.string.copying)
         Thread {
             val fileCnt = files.size
-            RootHelpers(activity).copyFiles(files, destinationPath) {
+            RootHelpers(activity).copyMoveFiles(files, destinationPath, isCopyOperation) {
                 when (it) {
                     fileCnt -> activity.toast(R.string.copying_success)
                     0 -> activity.toast(R.string.copy_failed)
