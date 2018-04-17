@@ -11,6 +11,7 @@
     <string name="path_copied">Path Di Copy</string>
     <string name="select_audio_file">Pilih File Audio</string>
     <string name="search_folder">Cari Folder</string>
+    <string name="rooted_device_only">This operation works only on rooted devices</string>
 
     <!-- Compression -->
     <string name="compress">Compress</string>
@@ -48,7 +49,7 @@
 
         Tidak berisi iklan atau izin yang tidak perlu. Ini sepenuhnya opensource, menyediakan warna yang dapat disesuaikan.
 
-        Aplikasi ini hanyalah salah satu rangkaian aplikasi yang lebih besar. Anda bisa menemukannya di http://www.simplemobiletools.com
+        Aplikasi ini hanyalah salah satu rangkaian aplikasi yang lebih besar. Anda bisa menemukannya di https://www.simplemobiletools.com
     </string>
 
     <!--

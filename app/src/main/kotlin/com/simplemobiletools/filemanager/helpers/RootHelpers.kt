@@ -3,8 +3,10 @@ package com.simplemobiletools.filemanager.helpers
 import android.app.Activity
 import com.simplemobiletools.commons.extensions.areDigitsOnly
 import com.simplemobiletools.commons.extensions.showErrorToast
+import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.extensions.config
 import com.stericson.RootShell.execution.Command
 import com.stericson.RootTools.RootTools
@@ -160,6 +162,11 @@ class RootHelpers(val activity: Activity) {
     }
 
     fun createFileFolder(path: String, isFile: Boolean, callback: (success: Boolean) -> Unit) {
+        if (!RootTools.isRootAvailable()) {
+            activity.toast(R.string.rooted_device_only)
+            return
+        }
+
         tryMountAsRW(path) {
             val mountPoint = it
             val targetPath = path.trim('/')
@@ -239,6 +246,11 @@ class RootHelpers(val activity: Activity) {
     }
 
     fun deleteFiles(fileDirItems: ArrayList<FileDirItem>) {
+        if (!RootTools.isRootAvailable()) {
+            activity.toast(R.string.rooted_device_only)
+            return
+        }
+
         tryMountAsRW(fileDirItems.first().path) {
             fileDirItems.forEach {
                 val targetPath = it.path.trim('/')
@@ -256,6 +268,11 @@ class RootHelpers(val activity: Activity) {
     }
 
     fun copyMoveFiles(fileDirItems: ArrayList<FileDirItem>, destination: String, isCopyOperation: Boolean, successes: Int = 0, callback: (Int) -> Unit) {
+        if (!RootTools.isRootAvailable()) {
+            activity.toast(R.string.rooted_device_only)
+            return
+        }
+
         val fileDirItem = fileDirItems.first()
         val mainCommand = if (isCopyOperation) {
             if (fileDirItem.isDirectory) "cp -R" else "cp"

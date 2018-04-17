@@ -11,6 +11,7 @@
     <string name="path_copied">路徑已複製</string>
     <string name="select_audio_file">請選擇一個音訊檔案</string>
     <string name="search_folder">搜尋資料夾</string>
+    <string name="rooted_device_only">This operation works only on rooted devices</string>
 
     <!-- Compression -->
     <string name="compress">壓縮</string>
@@ -48,7 +49,7 @@
 
         不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
 		
-        這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 http://www.simplemobiletools.com
+        這程式只是一系列眾多應用程式的其中一項，你可以在這發現更多 https://www.simplemobiletools.com
     </string>
 
     <!--

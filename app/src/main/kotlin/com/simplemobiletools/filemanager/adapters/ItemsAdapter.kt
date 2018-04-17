@@ -30,6 +30,7 @@ import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.*
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
+import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
 import java.io.File
@@ -432,6 +433,11 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         val files = ArrayList<FileDirItem>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
         val SAFPath = fileDirItems[selectedPositions.first()].path
+
+        if (activity.isPathOnRoot(SAFPath) && !RootTools.isRootAvailable()) {
+            activity.toast(R.string.rooted_device_only)
+            return
+        }
 
         activity.handleSAFDialog(SAFPath) {
             selectedPositions.sortedDescending().forEach {
