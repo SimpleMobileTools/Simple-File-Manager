@@ -190,7 +190,12 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
         val items = ArrayList<FileDirItem>()
+        if (context == null) {
+            callback(path, items)
+        }
+
         val files = File(path).listFiles()?.filterNotNull()
+        val isSortingBySize = context!!.config.sorting and SORT_BY_SIZE != 0
         if (files != null) {
             for (file in files) {
                 val curPath = file.absolutePath
@@ -199,12 +204,22 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     continue
                 }
 
-                val children = file.getDirectChildrenCount(showHidden)
-                val size = if (file.isDirectory && context?.config?.sorting == SORT_BY_SIZE) file.getProperSize(showHidden) else file.length()
-                val fileDirItem = FileDirItem(curPath, curName, file.isDirectory, children, size)
+                val isDirectory = file.isDirectory
+                val children = if (isDirectory) file.getDirectChildrenCount(showHidden) else 0
+                val size = if (isDirectory) {
+                    if (isSortingBySize) {
+                        file.getProperSize(showHidden)
+                    } else {
+                        0L
+                    }
+                } else {
+                    file.length()
+                }
+                val fileDirItem = FileDirItem(curPath, curName, isDirectory, children, size)
                 items.add(fileDirItem)
             }
         }
+
         callback(path, items)
     }
 
