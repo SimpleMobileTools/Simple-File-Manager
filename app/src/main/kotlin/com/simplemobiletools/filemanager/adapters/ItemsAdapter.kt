@@ -430,6 +430,10 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun deleteFiles() {
+        if (selectedPositions.isEmpty()) {
+            return
+        }
+
         val files = ArrayList<FileDirItem>(selectedPositions.size)
         val removeFiles = ArrayList<FileDirItem>(selectedPositions.size)
         val SAFPath = fileDirItems[selectedPositions.first()].path
@@ -465,6 +469,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             fileDirItems = newItems.clone() as ArrayList<FileDirItem>
             notifyDataSetChanged()
             finishActMode()
+            fastScroller?.measureRecyclerView()
         }
     }
 
