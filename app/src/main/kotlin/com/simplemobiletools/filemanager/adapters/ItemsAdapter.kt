@@ -49,7 +49,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private var currentItemsHash = fileDirItems.hashCode()
     private val hasOTGConnected = activity.hasOTGConnected()
     private var textToHighlight = ""
-    private var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
+    var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
     init {
         setupDragListener(true)

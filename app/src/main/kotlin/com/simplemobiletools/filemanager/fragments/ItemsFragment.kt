@@ -83,7 +83,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         val newTextColor = context!!.config.textColor
         if (storedTextColor != newTextColor) {
             storedItems = ArrayList()
-            (items_list.adapter as? ItemsAdapter)?.apply {
+            getRecyclerAdapter()?.apply {
                 updateTextColor(newTextColor)
                 initDrawables()
             }
@@ -96,6 +96,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         if (!isFirstResume) {
             refreshItems()
         }
+        getRecyclerAdapter()?.adjustedPrimaryColor = context!!.getAdjustedPrimaryColor()
         isFirstResume = false
     }
 
@@ -251,7 +252,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             val filtered = storedItems.filter { it.name.contains(text, true) } as ArrayList
             filtered.sortBy { !it.name.startsWith(text, true) }
             activity?.runOnUiThread {
-                (items_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
+                getRecyclerAdapter()?.updateItems(filtered, text)
             }
         }.start()
     }
@@ -263,7 +264,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     fun searchClosed() {
         isSearchOpen = false
         if (!skipItemUpdating) {
-            (items_list.adapter as? ItemsAdapter)?.updateItems(storedItems)
+            getRecyclerAdapter()?.updateItems(storedItems)
         }
         skipItemUpdating = false
     }
@@ -277,6 +278,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             }
         }
     }
+
+    private fun getRecyclerAdapter() = items_list.adapter as? ItemsAdapter
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
