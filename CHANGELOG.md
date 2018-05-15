@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 4.0.0 *(2018-05-15)*
+----------------------------
+
+ * Allow customizing the app launcher icon color
+ * Couple OTG related improvements
+ * Some stability/performance improvements
+
 Version 3.4.0 *(2018-04-17)*
 ----------------------------
 
