@@ -48,6 +48,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private lateinit var fileDrawable: Drawable
     private var currentItemsHash = fileDirItems.hashCode()
     private val hasOTGConnected = activity.hasOTGConnected()
+    private var textToHighlight = ""
+    private var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
     init {
         setupDragListener(true)
@@ -463,14 +465,18 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         return selectedMedia
     }
 
-    fun updateItems(newItems: ArrayList<FileDirItem>) {
+    fun updateItems(newItems: ArrayList<FileDirItem>, highlightText: String = "") {
         if (newItems.hashCode() != currentItemsHash) {
             currentItemsHash = newItems.hashCode()
+            textToHighlight = highlightText
             fileDirItems = newItems.clone() as ArrayList<FileDirItem>
             notifyDataSetChanged()
             finishActMode()
-            fastScroller?.measureRecyclerView()
+        } else if (textToHighlight != highlightText) {
+            textToHighlight = highlightText
+            notifyDataSetChanged()
         }
+        fastScroller?.measureRecyclerView()
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -482,7 +488,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun setupView(view: View, fileDirItem: FileDirItem) {
         view.apply {
-            item_name.text = fileDirItem.name
+            val fileName = fileDirItem.name
+            item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
             item_name.setTextColor(textColor)
             item_details.setTextColor(textColor)
 

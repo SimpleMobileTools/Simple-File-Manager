@@ -251,7 +251,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             val filtered = storedItems.filter { it.name.contains(text, true) } as ArrayList
             filtered.sortBy { !it.name.startsWith(text, true) }
             activity?.runOnUiThread {
-                (items_list.adapter as? ItemsAdapter)?.updateItems(filtered)
+                (items_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
             }
         }.start()
     }

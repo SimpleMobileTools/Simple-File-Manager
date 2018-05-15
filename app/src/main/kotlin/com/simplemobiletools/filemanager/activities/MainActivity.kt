@@ -42,7 +42,7 @@ class MainActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        appLaunched()
+        appLaunched(BuildConfig.APPLICATION_ID)
 
         fragment = (fragment_holder as ItemsFragment).apply {
             isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
