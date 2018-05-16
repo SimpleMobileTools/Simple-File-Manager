@@ -10,10 +10,12 @@
     android:focusable="true"
     android:foreground="@drawable/selector">
 
+    <!-- Increase the item.-->
     <RelativeLayout
         android:id="@+id/item_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_height="70dp"
         android:paddingRight="@dimen/activity_margin">
 
         <ImageView
@@ -23,6 +25,7 @@
             android:padding="@dimen/medium_margin"
             android:src="@drawable/ic_folder"/>
 
+        <!-- Very small letters make the vision tired -->
         <TextView
             android:id="@+id/item_name"
             android:layout_width="match_parent"
@@ -33,6 +36,7 @@
             android:maxLines="1"
             android:paddingLeft="@dimen/small_margin"
             android:paddingTop="@dimen/small_margin"
+            android:textSize="18dp"
             tools:text="Directory"/>
 
         <TextView
