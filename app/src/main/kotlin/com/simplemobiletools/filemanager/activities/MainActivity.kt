@@ -39,6 +39,7 @@ class MainActivity : SimpleActivity() {
 
     private lateinit var fragment: ItemsFragment
 
+    //Put more comments in code
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
