@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sadə Fayl Meneceri</string>
+    <string name="app_launcher_name">Fayl Meneceri</string>
+    <string name="press_back_again">Çıxmaq üçün birdə basın</string>
+    <string name="no_app_found">Bu növ faylı açası heçbir tətbiq yüklənməyib</string>
+    <string name="go_to_home_folder">Əsas qovluğa qayıt</string>
+    <string name="set_as_home_folder">Əsas qovluq kimi təyin et</string>
+    <string name="home_folder_updated">Əsas qovluq yeniləndi</string>
+    <string name="copy_path">Məkanı kopyala</string>
+    <string name="path_copied">Məkan kopyalandı</string>
+    <string name="select_audio_file">Xahiş olunur səs faylı seçin</string>
+    <string name="search_folder">Qovluq axtar</string>
+    <string name="rooted_device_only">Bu əməliyyat yalnız root'lu cihazlarda işləyir</string>
+
+    <!-- Compression -->
+    <string name="compress">Sıxışdır</string>
+    <string name="decompress">Çıxar</string>
+    <string name="compress_as">Sıxışdır</string>
+    <string name="compressing">Sıxışdırılır…</string>
+    <string name="decompressing">Çıxarılır…</string>
+    <string name="compression_successful">Sıxışdırma uğurludur</string>
+    <string name="decompression_successful">Çıxarma uğurludur</string>
+    <string name="compressing_failed">Sıxışdırma alınmadı</string>
+    <string name="decompressing_failed">Çıxarma alınmadı</string>
+
+    <!-- Favorites -->
+    <string name="favorites">Sevimlilər</string>
+    <string name="add_favorites">Sevimlilər əlavə et</string>
+    <string name="add_to_favorites">Sevimlilərə əlavə et</string>
+    <string name="remove_from_favorites">Sevimlilərdən sil</string>
+    <string name="manage_favorites">Sevimliləri idarə et</string>
+    <string name="go_to_favorite">Sevimlilərə get</string>
+    <string name="favorites_activity_placeholder">Tez-tez istifadə olunan qovluqlara sürətli əlçatanlıq üçün sevimlilərə əlavə edə bilərsiniz.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">Fayl Redaktəsi</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">Root icazəsini aktivləşdir</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">A simple file manager for browsing and editing files and directories.</string>
+    <string name="app_long_description">
+        Can also be used for browsing root files and SD card content. You can easily rename, copy, move, delete and share anything you wish.
+
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
