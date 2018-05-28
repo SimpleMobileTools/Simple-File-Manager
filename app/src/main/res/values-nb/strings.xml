@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple File Manager</string>
-    <string name="app_launcher_name">Filbehanlder</string>
+    <string name="app_launcher_name">Filbehandler</string>
     <string name="press_back_again">Trykk Tilbake-knappen igjen for å avslutte.</string>
     <string name="no_app_found">Ingen apper for å åpne denne typen filer er installert.</string>
     <string name="go_to_home_folder">Gå til hjemmemappen</string>
