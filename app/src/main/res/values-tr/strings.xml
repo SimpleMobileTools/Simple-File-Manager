@@ -3,53 +3,53 @@
     <string name="app_name">Basit Dosya Yöneticisi</string>
     <string name="app_launcher_name">Dosya Yöneticisi</string>
     <string name="press_back_again">Çıkmak için tekrar basın</string>
-    <string name="no_app_found">No app for opening this type of file is available</string>
-    <string name="go_to_home_folder">Go to home folder</string>
-    <string name="set_as_home_folder">Set as home folder</string>
-    <string name="home_folder_updated">Home folder updated</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
-    <string name="select_audio_file">Please select an audio file</string>
-    <string name="search_folder">Search folder</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
+    <string name="no_app_found">Bu tür bir dosyayı açmak için uygulama yok</string>
+    <string name="go_to_home_folder">Ana klasöre git</string>
+    <string name="set_as_home_folder">Ana klasör olarak ayarla</string>
+    <string name="home_folder_updated">Ana klasör güncellendi</string>
+    <string name="copy_path">Yolu panoya kopyala</string>
+    <string name="path_copied">Yol kopyalandı</string>
+    <string name="select_audio_file">Lütfen bir ses dosyası seçin</string>
+    <string name="search_folder">Klasör ara</string>
+    <string name="rooted_device_only">Bu işlem sadece rootlu cihazlarda çalışır</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Sıkıştır</string>
+    <string name="decompress">Çöz</string>
+    <string name="compress_as">Sıkıştır:</string>
+    <string name="compressing">Sıkıştırılıyor…</string>
+    <string name="decompressing">Çözülüyor…</string>
+    <string name="compression_successful">Sıkıştırma başarılı</string>
+    <string name="decompression_successful">Çözme başarılı</string>
+    <string name="compressing_failed">Sıkıştırma başarısız</string>
+    <string name="decompressing_failed">Çözme başarısız</string>
 
     <!-- Favorites -->
     <string name="favorites">Favoriler</string>
-    <string name="add_favorites">Add favorites</string>
+    <string name="add_favorites">Favori ekle</string>
     <string name="add_to_favorites">Favorilere ekle</string>
     <string name="remove_from_favorites">Favorilerden kaldır</string>
-    <string name="manage_favorites">Manage favorites</string>
-    <string name="go_to_favorite">Go to favorite</string>
-    <string name="favorites_activity_placeholder">You can add frequently used folders to favorites for easy access from anywhere.</string>
+    <string name="manage_favorites">Favorileri yönet</string>
+    <string name="go_to_favorite">Favoriye git</string>
+    <string name="favorites_activity_placeholder">Sık kullanılan klasörleri her yerden kolay erişmek için favorilere ekleyebilirsiniz.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Dosya Düzenleyici</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Root erişimini etkinleştir</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Dosyaları ve dizinleri tarama ve düzenlemek için kullanılan bir dosya gezgini.</string>
+    <string name="app_short_description">Dosya ve dizinleri taramak ve düzenlemek için basit bir dosya yöneticisi.</string>
     <string name="app_long_description">
-        Kök dosyalara ve SD kart içeriğine göz atmak için de kullanılabilir. İstediğiniz her şeyi yeniden adlandırabilir, kopyalayabilir, taşıyabilir, silebilir ve paylaşabilirsiniz.
+        Kök dosyalarına ve SD kart içeriğine göz atmak için de kullanılabilir. İstediğiniz her şeyi yeniden adlandırabilir, kopyalayabilir, taşıyabilir, silebilir ve paylaşabilirsiniz.
 
-        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+        Parmak izi izni gizli öğe görünürlüğünü veya tüm uygulamayı kilitlemek için gereklidir.
 
-        Reklam içermeyen veya gereksiz izinler. Tamamen açık kaynaklı, Karanlık bir tema da sunuyor.
+        Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
 
-        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanını şu adresten bulabilirsiniz https://www.simplemobiletools.com
+        Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı http://www.simplemobiletools.com adresinde bulabilirsiniz
     </string>
 
     <!--
