@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Prosty Menedżer Plików</string>
-    <string name="app_launcher_name">Prosty Menedżer Plików</string>
+    <string name="app_name">Prosty menedżer plików</string>
+    <string name="app_launcher_name">Menedżer plików</string>
     <string name="press_back_again">Naciśnij jeszcze raz, aby wyjść</string>
     <string name="no_app_found">Brak aplikacji do otwarcia tego typu pliku</string>
     <string name="go_to_home_folder">Przejdź do folderu głównego</string>
@@ -11,7 +11,7 @@
     <string name="path_copied">Ścieżka została skopiowana</string>
     <string name="select_audio_file">Wybierz plik audio</string>
     <string name="search_folder">Przeszukaj folder</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
+    <string name="rooted_device_only">Ta operacja możliwa jest tylko na zrootowanym urządzeniu</string>
 
     <!-- Compression -->
     <string name="compress">Kompresuj</string>
@@ -21,8 +21,8 @@
     <string name="decompressing">Rozpakowywanie…</string>
     <string name="compression_successful">Kompresowanie zakończone</string>
     <string name="decompression_successful">Rozpakowywanie zakończone</string>
-    <string name="compressing_failed">Kompresowanie nie powidło się</string>
-    <string name="decompressing_failed">Rozpakowywanie nie powidło się</string>
+    <string name="compressing_failed">Kompresowanie nie powiodło się</string>
+    <string name="decompressing_failed">Rozpakowywanie nie powiodło się</string>
 
     <!-- Favorites -->
     <string name="favorites">Ulubione</string>
@@ -37,7 +37,7 @@
     <string name="file_editor">Edytor plików</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Zezwól na dostęp do uprawnień root\'a</string>
+    <string name="enable_root_access">Zezwól na dostęp do uprawnień roota</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
