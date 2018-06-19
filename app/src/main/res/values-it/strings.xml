@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Decompressione fallita</string>
 
     <!-- Favorites -->
-    <string name="favorites">Preferiti</string>
-    <string name="add_favorites">Aggiungi preferiti</string>
-    <string name="add_to_favorites">Aggiungi ai preferiti</string>
-    <string name="remove_from_favorites">Rimuovi dai preferiti</string>
     <string name="manage_favorites">Gestisci i preferiti</string>
     <string name="go_to_favorite">Vai al preferito</string>
     <string name="favorites_activity_placeholder">Puoi aggiungere le cartelle usate frequentemente ai preferiti per un rapido accesso da qualsiasi posizione.</string>

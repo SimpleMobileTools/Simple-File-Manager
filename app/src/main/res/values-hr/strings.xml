@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Otpakiravanje neuspješno</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favoriti</string>
-    <string name="add_favorites">Dodaj favorite</string>
-    <string name="add_to_favorites">Dodaj u favorite</string>
-    <string name="remove_from_favorites">Ukloni iz favorita</string>
     <string name="manage_favorites">Upravljanje favoritima</string>
     <string name="go_to_favorite">Idi na favorite</string>
     <string name="favorites_activity_placeholder">Možete dodavati često korištene mape u favorite za jednostavan pristup s bilo kojeg mjesta.</string>

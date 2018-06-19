@@ -25,10 +25,6 @@
     <string name="decompressing_failed">أخفق إلغاء الضغط</string>
 
     <!-- Favorites -->
-    <string name="favorites">المفضلة</string>
-    <string name="add_favorites">Add favorites</string>
-    <string name="add_to_favorites">اضافة الى المفضلة</string>
-    <string name="remove_from_favorites">حذف من المفضلة</string>
     <string name="manage_favorites">إدارة المفضلة</string>
     <string name="go_to_favorite">الذهاب الى المفضلة</string>
     <string name="favorites_activity_placeholder">يمكنك إضافة المجلدات المستخدمة بشكل متكرر إلى المفضلة لسهولة الوصول إليها من أي مكان.</string>

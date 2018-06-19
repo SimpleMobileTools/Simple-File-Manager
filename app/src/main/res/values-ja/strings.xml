@@ -25,10 +25,6 @@
     <string name="decompressing_failed">解凍できませんでした</string>
 
     <!-- Favorites -->
-    <string name="favorites">お気に入り</string>
-    <string name="add_favorites">お気に入りを追加</string>
-    <string name="add_to_favorites">お気に入りに追加</string>
-    <string name="remove_from_favorites">お気に入りから削除</string>
     <string name="manage_favorites">お気に入りを管理</string>
     <string name="go_to_favorite">お気に入りを開く</string>
     <string name="favorites_activity_placeholder">よく使うフォルダをお気に入りに追加して、どこからでも簡単にアクセスできます。</string>

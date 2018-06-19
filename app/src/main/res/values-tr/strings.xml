@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Çözme başarısız</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favoriler</string>
-    <string name="add_favorites">Favori ekle</string>
-    <string name="add_to_favorites">Favorilere ekle</string>
-    <string name="remove_from_favorites">Favorilerden kaldır</string>
     <string name="manage_favorites">Favorileri yönet</string>
     <string name="go_to_favorite">Favoriye git</string>
     <string name="favorites_activity_placeholder">Sık kullanılan klasörleri her yerden kolay erişmek için favorilere ekleyebilirsiniz.</string>

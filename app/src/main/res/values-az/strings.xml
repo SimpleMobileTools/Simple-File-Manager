@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Çıxarma alınmadı</string>
 
     <!-- Favorites -->
-    <string name="favorites">Sevimlilər</string>
-    <string name="add_favorites">Sevimlilər əlavə et</string>
-    <string name="add_to_favorites">Sevimlilərə əlavə et</string>
-    <string name="remove_from_favorites">Sevimlilərdən sil</string>
     <string name="manage_favorites">Sevimliləri idarə et</string>
     <string name="go_to_favorite">Sevimlilərə get</string>
     <string name="favorites_activity_placeholder">Tez-tez istifadə olunan qovluqlara sürətli əlçatanlıq üçün sevimlilərə əlavə edə bilərsiniz.</string>

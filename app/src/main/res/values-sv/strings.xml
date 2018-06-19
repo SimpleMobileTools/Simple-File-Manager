@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Uppackningen misslyckades</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favoriter</string>
-    <string name="add_favorites">Lägg till favoriter</string>
-    <string name="add_to_favorites">Lägg till i favoriter</string>
-    <string name="remove_from_favorites">Ta bort från favoriter</string>
     <string name="manage_favorites">Hantera favoriter</string>
     <string name="go_to_favorite">Gå till favorit</string>
     <string name="favorites_activity_placeholder">Du kan lägga till ofta använda mappar i favoriter för enkel åtkomst överallt.</string>

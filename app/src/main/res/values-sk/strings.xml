@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Dekompresia zlyhala</string>
 
     <!-- Favorites -->
-    <string name="favorites">Obľúbené</string>
-    <string name="add_favorites">Pridať obľúbené</string>
-    <string name="add_to_favorites">Pridať medzi obľúbené</string>
-    <string name="remove_from_favorites">Odstrániť spomedzi obľúbených</string>
     <string name="manage_favorites">Spravovať obľúbené</string>
     <string name="go_to_favorite">Ísť medzi obľúbené</string>
     <string name="favorites_activity_placeholder">Pre jednoduchý prístup k často používaným priečinkom si ich viete pridať medzi obľúbené</string>

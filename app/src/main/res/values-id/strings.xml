@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Decompressing Gagal</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favorit</string>
-    <string name="add_favorites">Tambahkan Favorit</string>
-    <string name="add_to_favorites">Tambahkan Ke Favorit</string>
-    <string name="remove_from_favorites">Hapus Dari Favorit</string>
     <string name="manage_favorites">Atur Favorit</string>
     <string name="go_to_favorite">Ke Favorit</string>
     <string name="favorites_activity_placeholder">Kamu bisa Menambahkan Frekuensi pemakaian Folder Ke Folder Untuk Kemudahan Akses Dari Mana Saja.</string>

@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Не удалось распаковать</string>
 
     <!-- Favorites -->
-    <string name="favorites">Избранное</string>
-    <string name="add_favorites">Добавить избранные</string>
-    <string name="add_to_favorites">Добавить в избранное</string>
-    <string name="remove_from_favorites">Убрать из избранного</string>
     <string name="manage_favorites">Настроить избранное</string>
     <string name="go_to_favorite">Открыть избранное</string>
     <string name="favorites_activity_placeholder">Вы можете добавить часто используемые папки в избранное для быстрого доступа к ним.</string>

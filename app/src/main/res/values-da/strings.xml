@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Dekomprimering mislykkedes</string>
 
     <!-- Favorites -->
-    <string name="favorites">Bogmærker</string>
-    <string name="add_favorites">Tilføj bogmærker</string>
-    <string name="add_to_favorites">Føj til bogmærker</string>
-    <string name="remove_from_favorites">Fjern fra bogmærker</string>
     <string name="manage_favorites">Håndter bogmærker</string>
     <string name="go_to_favorite">Gå til bogmærker</string>
     <string name="favorites_activity_placeholder">Du kan tilføje ofte benyttede mapper til bogmærker så du hurtigt kan finde dem igen.</string>

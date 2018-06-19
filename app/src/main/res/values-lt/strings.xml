@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Išskleidimas nepavyko</string>
 
     <!-- Favorites -->
-    <string name="favorites">Mėgiamiausieji</string>
-    <string name="add_favorites">Pridėti mėgiamiausiuosius</string>
-    <string name="add_to_favorites">pridėti į mėgiamiausiuosius</string>
-    <string name="remove_from_favorites">Pašalinti iš mėgiamiausiųjų</string>
     <string name="manage_favorites">Tvarkyti mėgiamiausiuosius</string>
     <string name="go_to_favorite">Eiti į mėgiamiausįjį</string>
     <string name="favorites_activity_placeholder">Jūs galite pridėti dažniausiai naudojamus aplankus į mėgiamiausiuosius, Kad lengvai pasiektumėte iš bet kur.</string>

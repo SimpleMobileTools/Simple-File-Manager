@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Dekomprimeringen mislyktes</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favoritter</string>
-    <string name="add_favorites">Legg til favoritter</string>
-    <string name="add_to_favorites">Legg til i favorittene</string>
-    <string name="remove_from_favorites">Fjern fra favorittene</string>
     <string name="manage_favorites">Behandle favorittene</string>
     <string name="go_to_favorite">Gå til favoritten</string>
     <string name="favorites_activity_placeholder">Du kan legge til ofte brukte mapper i favorittene, for enkel tilgang fra hvor som helst.</string>

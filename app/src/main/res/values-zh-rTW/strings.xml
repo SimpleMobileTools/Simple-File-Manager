@@ -25,10 +25,6 @@
     <string name="decompressing_failed">解壓縮失敗</string>
 
     <!-- Favorites -->
-    <string name="favorites">我的最愛</string>
-    <string name="add_favorites">添加我的最愛</string>
-    <string name="add_to_favorites">加入我的最愛</string>
-    <string name="remove_from_favorites">移除我的最愛</string>
     <string name="manage_favorites">管理我的最愛</string>
     <string name="go_to_favorite">前往我的最愛</string>
     <string name="favorites_activity_placeholder">你可以將經常使用的資料夾加入我的最愛，方便從任何地方開啟。</string>

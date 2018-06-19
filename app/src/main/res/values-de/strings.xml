@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Entpacken fehlgeschlagen</string>
 
     <!-- Favorites -->
-    <string name="favorites">Favoriten</string>
-    <string name="add_favorites">Favoriten hinzufügen</string>
-    <string name="add_to_favorites">Zu Favoriten hinzufügen</string>
-    <string name="remove_from_favorites">Aus Favoriten entfernen</string>
     <string name="manage_favorites">Favoriten verwalten</string>
     <string name="go_to_favorite">Gehe zu Favoriten</string>
     <string name="favorites_activity_placeholder">Du kannst häufig benutzte Ordner für einen einfacheren Zugriff zu den Favoriten hinzufügen</string>

@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Decompressing failed</string>
 
     <!-- Favorites -->
-    <string name="favorites">Kedvencek</string>
-    <string name="add_favorites">Add favorites</string>
-    <string name="add_to_favorites">Kedvencnek jelölés</string>
-    <string name="remove_from_favorites">Törlés a kedvencek közül</string>
     <string name="manage_favorites">Kedvencek kezelése</string>
     <string name="go_to_favorite">Ugrás kedvenchez</string>
     <string name="favorites_activity_placeholder">A gyakran használt mappákat kedvencnek jelölheted, hogy bárhonnan könnyen elérd őket.</string>

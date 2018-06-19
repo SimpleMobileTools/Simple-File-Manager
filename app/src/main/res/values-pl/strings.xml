@@ -25,10 +25,6 @@
     <string name="decompressing_failed">Rozpakowywanie nie powiodło się</string>
 
     <!-- Favorites -->
-    <string name="favorites">Ulubione</string>
-    <string name="add_favorites">Dodaj ulubione</string>
-    <string name="add_to_favorites">Dodaj do ulubionych</string>
-    <string name="remove_from_favorites">Usuń z ulubionych</string>
     <string name="manage_favorites">Zarządzaj ulubionymi</string>
     <string name="go_to_favorite">Przejdź do ulubionych</string>
     <string name="favorites_activity_placeholder">Możesz dodawać często używane foldery do ulubionych, aby ułatwić sobie do nich dostęp.</string>
