@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 4.1.0 *(2018-07-11)*
+----------------------------
+
+ * Added buttons for un/hiding files for easy visibility toggling
+ * Added a new menu button for opening files as Plain text
+ * Fixed some glitches around changing app icon color
+ * Couple other stability and UX improvements
+
 Version 4.0.0 *(2018-05-15)*
 ----------------------------
 
