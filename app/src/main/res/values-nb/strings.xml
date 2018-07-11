@@ -7,6 +7,7 @@
     <string name="go_to_home_folder">Gå til hjemmemappen</string>
     <string name="set_as_home_folder">Velg som hjemmemappen</string>
     <string name="home_folder_updated">Hjemmemappen er oppdatert</string>
+    <string name="open_as_text">Open as Plain Text</string>
     <string name="copy_path">Kopier filbanen til utklippstavlen</string>
     <string name="path_copied">Filbanen er kopiert</string>
     <string name="select_audio_file">Vennligst velg en lydfil</string>
