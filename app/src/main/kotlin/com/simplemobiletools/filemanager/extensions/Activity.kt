@@ -15,41 +15,8 @@ fun Activity.sharePaths(paths: ArrayList<String>) {
     sharePathsIntent(paths, BuildConfig.APPLICATION_ID)
 }
 
-fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, asText: Boolean = false) {
-    if (asText) {
-
-        //TODO: Improve
-
-        val uri = if (isNougatPlus()) {
-            FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", File(path))
-        } else {
-            Uri.fromFile(File(path))
-        }
-
-        Intent().apply {
-            action = Intent.ACTION_VIEW
-
-            val mimeType = "text/plain"
-            setDataAndType(uri, mimeType)
-
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-
-            if (resolveActivity(packageManager) != null) {
-                val chooser = Intent.createChooser(this, getString(R.string.open_with))
-                try {
-                    startActivity(if (forceChooser) chooser else this)
-                } catch (e: NullPointerException) {
-                    showErrorToast(e)
-                }
-            } else {
-                if (!tryGenericMimeType(this, mimeType, uri)) {
-                    toast(R.string.no_app_found)
-                }
-            }
-
-        }
-    }
-    else if (!forceChooser && path.endsWith(".apk", true)) {
+fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsText: Boolean = false) {
+    if (!forceChooser && path.endsWith(".apk", true)) {
         val uri = if (isNougatPlus()) {
             FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", File(path))
         } else {
@@ -67,12 +34,13 @@ fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, asText: Bool
             }
         }
     } else {
-        openPath(path, forceChooser)
+        openPath(path, forceChooser, openAsText)
     }
 }
 
-fun Activity.openPath(path: String, forceChooser: Boolean) {
-    openPathIntent(path, forceChooser, BuildConfig.APPLICATION_ID)
+fun Activity.openPath(path: String, forceChooser: Boolean, openAsText: Boolean = false) {
+    val mimeType = if (openAsText) "text/plain" else ""
+    openPathIntent(path, forceChooser, BuildConfig.APPLICATION_ID, mimeType)
 }
 
 fun Activity.setAs(path: String) {
