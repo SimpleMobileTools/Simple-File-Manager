@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v4.content.FileProvider
 import com.simplemobiletools.commons.R
+import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.filemanager.BuildConfig
@@ -45,4 +46,26 @@ fun Activity.openPath(path: String, forceChooser: Boolean, openAsText: Boolean =
 
 fun Activity.setAs(path: String) {
     setAsIntent(path, BuildConfig.APPLICATION_ID)
+}
+
+fun BaseSimpleActivity.toggleItemVisibility(oldPath: String, hide: Boolean, callback: ((newPath: String) -> Unit)? = null) {
+    val path = oldPath.getParentPath()
+    var filename = oldPath.getFilenameFromPath()
+    if ((hide && filename.startsWith('.')) || (!hide && !filename.startsWith('.'))) {
+        callback?.invoke(oldPath)
+        return
+    }
+
+    filename = if (hide) {
+        ".${filename.trimStart('.')}"
+    } else {
+        filename.substring(1, filename.length)
+    }
+
+    val newPath = "$path/$filename"
+    if (oldPath != newPath) {
+        renameFile(oldPath, newPath) {
+            callback?.invoke(newPath)
+        }
+    }
 }

@@ -66,6 +66,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             findItem(R.id.cab_copy_path).isVisible = isOneItemSelected()
             findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
             findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
+
+            checkHideBtnVisibility(this)
         }
     }
 
@@ -85,6 +87,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             R.id.cab_rename -> displayRenameDialog()
             R.id.cab_properties -> showProperties()
             R.id.cab_share -> shareFiles()
+            R.id.cab_hide -> toggleFileVisibility(true)
+            R.id.cab_unhide -> toggleFileVisibility(false)
             R.id.cab_copy_path -> copyPath()
             R.id.cab_set_as -> setAs()
             R.id.cab_open_with -> openWith()
@@ -123,6 +127,21 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun isOneFileSelected() = isOneItemSelected() && !fileDirItems[selectedPositions.first()].isDirectory
 
+    private fun checkHideBtnVisibility(menu: Menu) {
+        var hiddenCnt = 0
+        var unhiddenCnt = 0
+        selectedPositions.mapNotNull { fileDirItems.getOrNull(it)?.name }.forEach {
+            if (it.startsWith(".")) {
+                hiddenCnt++
+            } else {
+                unhiddenCnt++
+            }
+        }
+
+        menu.findItem(R.id.cab_hide).isVisible = unhiddenCnt > 0
+        menu.findItem(R.id.cab_unhide).isVisible = hiddenCnt > 0
+    }
+
     private fun confirmSelection() {
         if (selectedPositions.isNotEmpty()) {
             val paths = getSelectedMedia().filter { !it.isDirectory }.map { it.path } as ArrayList<String>
@@ -158,6 +177,18 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             addFileUris(it.path, paths)
         }
         activity.sharePaths(paths)
+    }
+
+    private fun toggleFileVisibility(hide: Boolean) {
+        Thread {
+            getSelectedMedia().forEach {
+                activity.toggleItemVisibility(it.path, hide)
+            }
+            activity.runOnUiThread {
+                listener?.refreshItems()
+                finishActMode()
+            }
+        }.start()
     }
 
     private fun addFileUris(path: String, paths: ArrayList<String>) {
