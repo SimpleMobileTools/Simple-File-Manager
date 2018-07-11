@@ -99,11 +99,13 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun getSelectableItemCount() = fileDirItems.size
 
+    override fun getIsItemSelectable(position: Int) = true
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.list_item, parent)
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = fileDirItems[position]
-        val view = holder.bindView(fileDirItem, true) { itemView, layoutPosition ->
+        val view = holder.bindView(fileDirItem, true, true) { itemView, layoutPosition ->
             setupView(itemView, fileDirItem)
         }
         bindViewHolder(holder, position, view)

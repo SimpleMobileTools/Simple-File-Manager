@@ -161,7 +161,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
                 getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
                 items_list.onGlobalLayout {
-                    items_fastscroller.setScrollTo(items_list.computeVerticalScrollOffset())
+                    items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
                 }
             }
         }
@@ -299,7 +299,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     override fun deleteFiles(files: ArrayList<FileDirItem>) {
         val hasFolder = files.any { it.isDirectory }
         val firstPath = files.firstOrNull()?.path
-        if (firstPath == null || firstPath.isEmpty()) {
+        if (firstPath == null || firstPath.isEmpty() || context == null) {
             return
         }
 
