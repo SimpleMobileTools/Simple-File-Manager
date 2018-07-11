@@ -7,11 +7,11 @@
     <string name="go_to_home_folder">Naar beginmap</string>
     <string name="set_as_home_folder">Als beginmap instellen</string>
     <string name="home_folder_updated">Beginmap ingesteld</string>
-    <string name="open_as_text">Open as Plain Text</string>
+    <string name="open_as_text">Als platte tekst openen</string>
     <string name="copy_path">Pad naar klembord kopiëren</string>
     <string name="path_copied">Pad gekopieerd</string>
     <string name="select_audio_file">Selecteer een geluidsbestand</string>
-    <string name="search_folder">Search folder</string>
+    <string name="search_folder">Map doorzoeken</string>
     <string name="rooted_device_only">Deze bewerking is alleen mogelijk op een geroot apparaat</string>
 
     <!-- Compression -->
