@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 4.1.1 *(2018-07-13)*
+----------------------------
+
+ * Fixed some glitch around launcher icon color customization
+ * Some translation improvements
+
 Version 4.1.0 *(2018-07-11)*
 ----------------------------
 
