@@ -10,8 +10,8 @@ android {
         applicationId "com.simplemobiletools.filemanager"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 53
-        versionName "4.1.1"
+        versionCode 54
+        versionName "4.1.2"
         setProperty("archivesBaseName", "file-manager")
     }
 
