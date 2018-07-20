@@ -2,17 +2,17 @@
 <resources>
     <string name="app_name">シンプル ファイル マネージャー</string>
     <string name="app_launcher_name">ファイル マネージャー</string>
-    <string name="press_back_again">もう一度戻るを押すと終了します</string>
+    <string name="press_back_again">もう一度[戻る]を押すと終了します</string>
     <string name="no_app_found">この種類のファイルを開くためのアプリがありません</string>
     <string name="go_to_home_folder">ホームフォルダを開く</string>
     <string name="set_as_home_folder">ホームフォルダに設定</string>
     <string name="home_folder_updated">ホームフォルダを更新しました</string>
-    <string name="open_as_text">Open as Plain Text</string>
+    <string name="open_as_text">プレーンテキストとして開く</string>
     <string name="copy_path">パスをクリップボードにコピー</string>
     <string name="path_copied">パスをコピーしました</string>
     <string name="select_audio_file">オーディオファイルを選択してください</string>
     <string name="search_folder">フォルダーを検索</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
+    <string name="rooted_device_only">この操作はルート化された端末でのみ機能します</string>
 
     <!-- Compression -->
     <string name="compress">圧縮</string>
@@ -38,11 +38,11 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">ファイルとディレクトリーを参照、編集するためのシンプルなファイルマネージャー。</string>
+    <string name="app_short_description">ファイルやディレクトリーを参照、編集するためのシンプルなファイルマネージャー。</string>
     <string name="app_long_description">
         ルートファイルやSDカードコンテンツの参照にも使用できます。 簡単に名前の変更、コピー、移動、削除、共有ができます。
 
-        指紋の利用権限は隠し項目の表示設定やアプリをロックするために必要です。
+        「指紋のアクセス許可」は非表示にしたアイテムの再表示や、アプリの操作をロックするために必要です。
 
         広告や不要なアクセス許可は含まれていません。 完全にオープンソースで、ダークテーマも提供しています。
 
