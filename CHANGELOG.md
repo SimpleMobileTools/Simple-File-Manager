@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 4.2.0 *(2018-08-07)*
+----------------------------
+
+ * Use real Move instead of copy/delete if both the source and destination are on an internal storage
+ * Add some simple text highlighting in the editor
+
 Version 4.1.2 *(2018-07-18)*
 ----------------------------
 
