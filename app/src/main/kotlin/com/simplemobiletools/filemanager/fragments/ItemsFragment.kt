@@ -191,11 +191,11 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
         val items = ArrayList<FileDirItem>()
+        val files = File(path).listFiles()?.filterNotNull()
         if (context == null) {
             callback(path, items)
         }
 
-        val files = File(path).listFiles()?.filterNotNull()
         val isSortingBySize = context!!.config.sorting and SORT_BY_SIZE != 0
         if (files != null) {
             for (file in files) {
