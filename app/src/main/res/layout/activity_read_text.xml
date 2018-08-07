@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:padding="@dimen/medium_margin"
+        android:inputType="textMultiLine|textNoSuggestions"
         android:textCursorDrawable="@null"
         android:textSize="@dimen/smaller_text_size"/>
 

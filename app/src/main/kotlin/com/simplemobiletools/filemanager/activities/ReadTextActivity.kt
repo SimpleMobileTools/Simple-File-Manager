@@ -1,7 +1,11 @@
 package com.simplemobiletools.filemanager.activities
 
+import android.app.SearchManager
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.*
@@ -17,6 +21,10 @@ import java.io.File
 
 class ReadTextActivity : SimpleActivity() {
     private var filePath = ""
+    private var originalText = ""
+    private var isSearchOpen = false
+
+    private var searchMenuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +43,7 @@ class ReadTextActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_editor, menu)
+        setupSearch(menu)
         return true
     }
 
@@ -45,6 +54,43 @@ class ReadTextActivity : SimpleActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun setupSearch(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchMenuItem = menu.findItem(R.id.search)
+        (searchMenuItem!!.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isSubmitButtonEnabled = false
+            setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String) = false
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (isSearchOpen) {
+                        searchQueryChanged(newText)
+                    }
+                    return true
+                }
+            })
+        }
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                isSearchOpen = true
+                searchQueryChanged("")
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                isSearchOpen = false
+                return true
+            }
+        })
+    }
+
+    private fun searchQueryChanged(text: String) {
+        val textToHighlight = if (text.length < 2) "" else text
+        read_text_view.setText(originalText.highlightTextPart(textToHighlight, getAdjustedPrimaryColor(), true))
     }
 
     private fun saveText() {
@@ -78,7 +124,7 @@ class ReadTextActivity : SimpleActivity() {
             return
         }
 
-        val text = if (uri.scheme == "file") {
+        originalText = if (uri.scheme == "file") {
             filePath = uri.path
             val file = File(filePath)
             if (file.exists()) {
@@ -97,6 +143,6 @@ class ReadTextActivity : SimpleActivity() {
             }
         }
 
-        read_text_view.setText(text)
+        read_text_view.setText(originalText)
     }
 }
