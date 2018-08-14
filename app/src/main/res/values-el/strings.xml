@@ -42,11 +42,11 @@
     <string name="app_long_description">
         Μπορεί επίσης να χρησιμοποιηθεί για περιήγηση σε αρχεία root και κάρτας SD. Μπορείτε εύκολα να μετονομάσετε, να αντιγράψετε, να μετακινήσετε, να διαγράψετε και να μοιραστείτε οτιδήποτε επιθυμείτε.
 
-        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+        Η εξουσιοδότηση δαχτυλικού αποτυπώματος χρειάζεται για το κλείδωμα των κρυφών αντικειμένων ή ολόκληρης της εφαρμογής.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Δεν περιέχει διαφημίσεις ή περιττά δικαιώματα. Έιναι όλη ανοιχτού κώδικα και παρέχει προσαρμόσιμα χρώματα για την εφαρμογή.
 
-        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+        Αυτή η εφαρμογή είναι μέρος μιας σειράς εφαρμογών. Μπορείτε να βρείτε τις υπόλοιπες στο https://www.simplemobiletools.com
     </string>
 
     <!--
