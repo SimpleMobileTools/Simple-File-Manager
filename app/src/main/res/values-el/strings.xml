@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Διαχείριση αρχείων</string>
+    <string name="press_back_again">Πατήστε πίσω ξανά για έξοδο</string>
+    <string name="no_app_found">Δεν υπάρχει εφαρμογή για το άνοιγμα αυτού του τύπου αρχείου</string>
+    <string name="go_to_home_folder">Μετάβαση στον αρχικό φάκελο</string>
+    <string name="set_as_home_folder">Ορισμός ως αρχικού φακέλου</string>
+    <string name="home_folder_updated">Ο Αρχικός φάκελος ενημερώθηκε</string>
+    <string name="open_as_text">Άνοιγμα ως απλό κείμενο</string>
+    <string name="copy_path">Αντιγραφή διαδρομής στο πρόχειρο</string>
+    <string name="path_copied">Η διαδρομή αντιγράφηκε</string>
+    <string name="select_audio_file">Επιλέξτε ένα αρχείο ήχου</string>
+    <string name="search_folder">Αναζήτηση φακέλου</string>
+    <string name="rooted_device_only">Αυτή η λειτουργία λειτουργεί μόνο σε συσκευές με πρόσβαση στον ριζικό κατάλογο.</string>
+
+    <!-- Compression -->
+    <string name="compress">Συμπίεση</string>
+    <string name="decompress">Αποσυμπίεση</string>
+    <string name="compress_as">Συμπίεση ως</string>
+    <string name="compressing">Συμπιέζεται…</string>
+    <string name="decompressing">Αποσυμιέζεται…</string>
+    <string name="compression_successful">Η Συμπίεση ολοκληρώθηκε</string>
+    <string name="decompression_successful">Η Αποσυμπίεση ολοκληρώθηκε</string>
+    <string name="compressing_failed">Σφάλμα Συμπίεσης</string>
+    <string name="decompressing_failed">Σφάλμα Αποσυμπίεσης</string>
+
+    <!-- Favorites -->
+    <string name="manage_favorites">Διαχείριση Αγαπημένων</string>
+    <string name="go_to_favorite">Μετάβαση στα Αγαπημένα</string>
+    <string name="favorites_activity_placeholder">Μπορείτε να προσθέσετε φακέλους που χρησιμοποιούνται συχνά στα Αγαπημένα για εύκολη πρόσβαση από οπουδήποτε.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">Επεξεργαστής αρχείων</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">Ενεργοποιήστε την πρόσβαση ριζικού καταλόγου</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Ένας απλός διαχειριστής αρχείων για την περιήγηση και επεξεργασία αρχείων και καταλόγων.</string>
+    <string name="app_long_description">
+        Μπορεί επίσης να χρησιμοποιηθεί για περιήγηση σε αρχεία root και κάρτας SD. Μπορείτε εύκολα να μετονομάσετε, να αντιγράψετε, να μετακινήσετε, να διαγράψετε και να μοιραστείτε οτιδήποτε επιθυμείτε.
+
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        This app is just one piece of a bigger series of apps. You can find the rest of them at https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
