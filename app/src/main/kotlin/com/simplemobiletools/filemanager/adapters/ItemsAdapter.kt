@@ -390,7 +390,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun extractEntry(newPath: String, entry: ZipEntry, zipFile: ZipFile) {
         if (entry.isDirectory) {
-            if (!activity.createDirectorySync(newPath)) {
+            if (!activity.createDirectorySync(newPath) && !activity.getDoesFilePathExist(newPath)) {
                 val error = String.format(activity.getString(R.string.could_not_create_file), newPath)
                 activity.showErrorToast(error)
             }
