@@ -92,7 +92,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             R.id.cab_copy_path -> copyPath()
             R.id.cab_set_as -> setAs()
             R.id.cab_open_with -> openWith()
-            R.id.cab_open_as_text -> openAsText()
+            R.id.cab_open_as -> openAsText()
             R.id.cab_copy_to -> copyMoveTo(true)
             R.id.cab_move_to -> copyMoveTo(false)
             R.id.cab_compress -> compressSelection()

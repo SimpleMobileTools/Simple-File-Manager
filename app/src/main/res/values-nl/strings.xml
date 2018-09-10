@@ -7,12 +7,19 @@
     <string name="go_to_home_folder">Naar beginmap</string>
     <string name="set_as_home_folder">Als beginmap instellen</string>
     <string name="home_folder_updated">Beginmap ingesteld</string>
-    <string name="open_as_text">Als platte tekst openen</string>
     <string name="copy_path">Pad naar klembord kopiëren</string>
     <string name="path_copied">Pad gekopieerd</string>
     <string name="select_audio_file">Selecteer een geluidsbestand</string>
     <string name="search_folder">Map doorzoeken</string>
     <string name="rooted_device_only">Deze bewerking is alleen mogelijk op een geroot apparaat</string>
+
+    <!-- Open as -->
+    <string name="open_as">Open as</string>
+    <string name="text_file">Text file</string>
+    <string name="image_file">Image file</string>
+    <string name="audio_file">Audio file</string>
+    <string name="video_file">Video file</string>
+    <string name="other_file">Other file</string>
 
     <!-- Compression -->
     <string name="compress">Inpakken</string>

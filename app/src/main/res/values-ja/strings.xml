@@ -7,12 +7,19 @@
     <string name="go_to_home_folder">ホームフォルダを開く</string>
     <string name="set_as_home_folder">ホームフォルダに設定</string>
     <string name="home_folder_updated">ホームフォルダを更新しました</string>
-    <string name="open_as_text">プレーンテキストとして開く</string>
     <string name="copy_path">パスをクリップボードにコピー</string>
     <string name="path_copied">パスをコピーしました</string>
     <string name="select_audio_file">オーディオファイルを選択してください</string>
     <string name="search_folder">フォルダーを検索</string>
     <string name="rooted_device_only">この操作はルート化された端末でのみ機能します</string>
+
+    <!-- Open as -->
+    <string name="open_as">Open as</string>
+    <string name="text_file">Text file</string>
+    <string name="image_file">Image file</string>
+    <string name="audio_file">Audio file</string>
+    <string name="video_file">Video file</string>
+    <string name="other_file">Other file</string>
 
     <!-- Compression -->
     <string name="compress">圧縮</string>

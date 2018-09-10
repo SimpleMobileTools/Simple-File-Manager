@@ -44,8 +44,8 @@
         android:title="@string/open_with"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/cab_open_as_text"
-        android:title="@string/open_as_text"
+        android:id="@+id/cab_open_as"
+        android:title="@string/open_as"
         app:showAsAction="never"/>
     <item
         android:id="@+id/cab_copy_to"
