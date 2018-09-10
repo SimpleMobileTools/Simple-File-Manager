@@ -348,7 +348,12 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 val entries = zipFile.entries()
                 while (entries.hasMoreElements()) {
                     val entry = entries.nextElement()
-                    val newPath = "${it.getParentPath()}${entry.name}"
+                    var parentPath = it.getParentPath()
+                    if (parentPath != OTG_PATH) {
+                        parentPath = "${parentPath.trimEnd('/')}/"
+                    }
+
+                    val newPath = "$parentPath${entry.name.trimEnd('/')}"
 
                     val resolution = getConflictResolution(conflictResolutions, newPath)
                     val doesPathExist = activity.getDoesFilePathExist(newPath)
