@@ -13,22 +13,20 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
-import com.simplemobiletools.commons.dialogs.FilePickerDialog
-import com.simplemobiletools.commons.dialogs.PropertiesDialog
-import com.simplemobiletools.commons.dialogs.RenameItemDialog
+import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
 import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
 import com.simplemobiletools.commons.helpers.OTG_PATH
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity
 import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.extensions.*
-import com.simplemobiletools.filemanager.helpers.RootHelpers
+import com.simplemobiletools.filemanager.helpers.*
 import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
@@ -65,6 +63,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
             findItem(R.id.cab_copy_path).isVisible = isOneItemSelected()
             findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
+            findItem(R.id.cab_open_as).isVisible = isOneFileSelected()
             findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
 
             checkHideBtnVisibility(this)
@@ -92,7 +91,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             R.id.cab_copy_path -> copyPath()
             R.id.cab_set_as -> setAs()
             R.id.cab_open_with -> openWith()
-            R.id.cab_open_as -> openAsText()
+            R.id.cab_open_as -> openAs()
             R.id.cab_copy_to -> copyMoveTo(true)
             R.id.cab_move_to -> copyMoveTo(false)
             R.id.cab_compress -> compressSelection()
@@ -224,8 +223,18 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         activity.tryOpenPathIntent(getSelectedMedia().first().path, true)
     }
 
-    private fun openAsText() {
-        activity.tryOpenPathIntent(getSelectedMedia().first().path, false, true)
+    private fun openAs() {
+        val res = activity.resources
+        val items = arrayListOf(
+                RadioItem(OPEN_AS_TEXT, res.getString(R.string.text_file)),
+                RadioItem(OPEN_AS_IMAGE, res.getString(R.string.image_file)),
+                RadioItem(OPEN_AS_AUDIO, res.getString(R.string.audio_file)),
+                RadioItem(OPEN_AS_VIDEO, res.getString(R.string.video_file)),
+                RadioItem(OPEN_AS_OTHER, res.getString(R.string.other_file)))
+
+        RadioGroupDialog(activity, items) {
+            activity.tryOpenPathIntent(getSelectedMedia().first().path, false, it as Int)
+        }
     }
 
     private fun copyMoveTo(isCopyOperation: Boolean) {

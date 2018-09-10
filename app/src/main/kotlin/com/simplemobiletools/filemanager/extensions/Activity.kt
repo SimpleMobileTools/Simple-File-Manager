@@ -9,6 +9,7 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.filemanager.BuildConfig
+import com.simplemobiletools.filemanager.helpers.*
 import java.io.File
 import java.util.*
 
@@ -16,7 +17,7 @@ fun Activity.sharePaths(paths: ArrayList<String>) {
     sharePathsIntent(paths, BuildConfig.APPLICATION_ID)
 }
 
-fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsText: Boolean = false) {
+fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsType: Int = OPEN_AS_DEFAULT) {
     if (!forceChooser && path.endsWith(".apk", true)) {
         val uri = if (isNougatPlus()) {
             FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", File(path))
@@ -35,13 +36,21 @@ fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsText: 
             }
         }
     } else {
-        openPath(path, forceChooser, openAsText)
+        openPath(path, forceChooser, openAsType)
     }
 }
 
-fun Activity.openPath(path: String, forceChooser: Boolean, openAsText: Boolean = false) {
-    val mimeType = if (openAsText) "text/plain" else ""
-    openPathIntent(path, forceChooser, BuildConfig.APPLICATION_ID, mimeType)
+fun Activity.openPath(path: String, forceChooser: Boolean, openAsType: Int = OPEN_AS_DEFAULT) {
+    openPathIntent(path, forceChooser, BuildConfig.APPLICATION_ID, getMimeType(openAsType))
+}
+
+private fun getMimeType(type: Int) = when (type) {
+    OPEN_AS_DEFAULT -> ""
+    OPEN_AS_TEXT -> "text/*"
+    OPEN_AS_IMAGE -> "image/*"
+    OPEN_AS_AUDIO -> "audio/*"
+    OPEN_AS_VIDEO -> "video/*"
+    else -> "*/*"
 }
 
 fun Activity.setAs(path: String) {
