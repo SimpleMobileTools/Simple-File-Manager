@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
 
     defaultConfig {
         applicationId "com.simplemobiletools.filemanager"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 55
         versionName "4.2.0"
         setProperty("archivesBaseName", "file-manager")
@@ -40,17 +40,10 @@ android {
     }
 }
 
-ext {
-    leakCanaryVersion = '1.5.4'
-}
-
 dependencies {
-    implementation 'com.simplemobiletools:commons:4.6.10'
+    implementation 'com.simplemobiletools:commons:4.7.5'
 
     implementation files('../libs/RootTools.jar')
-
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 }
 
 Properties props = new Properties()
