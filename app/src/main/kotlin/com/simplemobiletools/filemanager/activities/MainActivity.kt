@@ -52,10 +52,10 @@ class MainActivity : SimpleActivity() {
 
         if (savedInstanceState == null) {
             tryInitFileManager()
+            checkWhatsNewDialog()
+            checkIfRootAvailable()
+            checkInvalidFavorites()
         }
-
-        checkWhatsNewDialog()
-        checkIfRootAvailable()
     }
 
     override fun onStop() {
@@ -280,6 +280,16 @@ class MainActivity : SimpleActivity() {
             if (config.isRootAvailable && config.enableRootAccess) {
                 RootHelpers(this).askRootIfNeeded {
                     config.enableRootAccess = it
+                }
+            }
+        }.start()
+    }
+
+    private fun checkInvalidFavorites() {
+        Thread {
+            config.favorites.forEach {
+                if (!it.startsWith(OTG_PATH) && !isPathOnSD(it) && !getDoesFilePathExist(it)) {
+                    config.removeFavorite(it)
                 }
             }
         }.start()
