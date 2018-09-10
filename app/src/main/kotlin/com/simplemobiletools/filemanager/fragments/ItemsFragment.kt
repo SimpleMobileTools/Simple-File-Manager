@@ -194,6 +194,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         val files = File(path).listFiles()?.filterNotNull()
         if (context == null) {
             callback(path, items)
+            return
         }
 
         val isSortingBySize = context!!.config.sorting and SORT_BY_SIZE != 0
