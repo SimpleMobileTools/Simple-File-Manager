@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 4.3.0 *(2018-09-10)*
+----------------------------
+
+ * Added many decompression improvements
+ * Replaced "Open as Plain text" with "Open as" and multiple other file types
+
 Version 4.2.0 *(2018-08-07)*
 ----------------------------
 
