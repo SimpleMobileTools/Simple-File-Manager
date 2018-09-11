@@ -14,12 +14,12 @@
     <string name="rooted_device_only">この操作はルート化された端末でのみ機能します</string>
 
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">ファイル形式を指定して開く</string>
+    <string name="text_file">テキストファイル</string>
+    <string name="image_file">画像ファイル</string>
+    <string name="audio_file">音声ファイル</string>
+    <string name="video_file">動画ファイル</string>
+    <string name="other_file">その他のファイル</string>
 
     <!-- Compression -->
     <string name="compress">圧縮</string>
