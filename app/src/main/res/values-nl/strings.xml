@@ -14,12 +14,12 @@
     <string name="rooted_device_only">Deze bewerking is alleen mogelijk op een geroot apparaat</string>
 
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">Openen als</string>
+    <string name="text_file">Tekst</string>
+    <string name="image_file">Afbeelding</string>
+    <string name="audio_file">Geluid</string>
+    <string name="video_file">Video</string>
+    <string name="other_file">Overig</string>
 
     <!-- Compression -->
     <string name="compress">Inpakken</string>
