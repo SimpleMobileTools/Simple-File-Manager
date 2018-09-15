@@ -14,12 +14,12 @@
     <string name="rooted_device_only">Ova radnja funkcionira samo na uređajima s root pristupom</string>
 
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">Otvori kao</string>
+    <string name="text_file">Tekstualna datoteka</string>
+    <string name="image_file">Slikovna datoteka</string>
+    <string name="audio_file">Audio datoteka</string>
+    <string name="video_file">Video datoteka</string>
+    <string name="other_file">Ostala datoteka</string>
 
     <!-- Compression -->
     <string name="compress">Sažmi</string>
