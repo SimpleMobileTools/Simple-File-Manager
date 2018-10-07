@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple File Manager</string>
-    <string name="app_launcher_name">Gestore File</string>
+    <string name="app_launcher_name">Gestore dei file</string>
     <string name="press_back_again">Premi di nuovo indietro per uscire</string>
     <string name="no_app_found">Nessuna app disponibile per aprire questo tipo di file</string>
     <string name="go_to_home_folder">Vai alla cartella home</string>
@@ -11,7 +11,7 @@
     <string name="path_copied">Percorso copiato</string>
     <string name="select_audio_file">Seleziona un file audio</string>
     <string name="search_folder">Cerca cartella</string>
-    <string name="rooted_device_only">Questa operazione funziona solo nei dispositivi rootati</string>
+    <string name="rooted_device_only">Questa operazione funziona solo nei dispositivi con permessi di root</string>
 
     <!-- Open as -->
     <string name="open_as">Apri come</string>
@@ -29,8 +29,8 @@
     <string name="decompressing">Decompressione…</string>
     <string name="compression_successful">Compressione completata</string>
     <string name="decompression_successful">Decompressione completata</string>
-    <string name="compressing_failed">Compressione fallita</string>
-    <string name="decompressing_failed">Decompressione fallita</string>
+    <string name="compressing_failed">Impossibile comprimere</string>
+    <string name="decompressing_failed">Impossibile decomprimere</string>
 
     <!-- Favorites -->
     <string name="manage_favorites">Gestisci i preferiti</string>
@@ -45,15 +45,15 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Un semplice file manager per sfogliare e modificare file e cartelle.</string>
+    <string name="app_short_description">Un semplice gestore dei file per sfogliare e modificare file e cartelle.</string>
     <string name="app_long_description">
         Può anche essere usato per sfogliare file di sistema e della scheda SD. Puoi facilmente rinominare, copiare, spostare, eliminare e condividere qualsiasi cosa tu voglia.
 
-        L\'autorizzazione per le impronte è necessaria per bloccare la visibilità di alcuni elementi o dell\'intera app.
+        L\'autorizzazione per le impronte è necessaria per bloccare la visibilità di alcuni elementi o dell\'intera applicazione.
 
-        Non contiene pubblicità e non chiede autorizzazioni non necessarie. È completamente opensource, offre anche un tema scuro.
+        Non contiene pubblicità nè chiede autorizzazioni non necessarie. È completamente open source e permette di cambiare i colori.
 
-        Questa app è solo una piccola parte di una grande serie di altre app. Puoi trovarle tutte su https://www.simplemobiletools.com
+        Ques'app fa parte di una serie più grande. Puoi trovare le altre su https://www.simplemobiletools.com
     </string>
 
     <!--
