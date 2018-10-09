@@ -1,6 +1,6 @@
 package com.simplemobiletools.filemanager.dialogs
 
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
@@ -17,7 +17,7 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
         view.sorting_dialog_use_for_this_folder.isChecked = config.hasCustomSorting(path)
 
         AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, { dialog, which -> dialogConfirmed() })
+                .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
                     activity.setupDialogStuff(view, this, R.string.sort_by)

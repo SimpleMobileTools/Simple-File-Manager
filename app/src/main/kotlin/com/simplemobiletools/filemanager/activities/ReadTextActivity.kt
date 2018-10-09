@@ -4,10 +4,10 @@ import android.app.SearchManager
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.view.MenuItemCompat
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
@@ -62,7 +62,7 @@ class ReadTextActivity : SimpleActivity() {
         (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
-            setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String) = false
 
                 override fun onQueryTextChange(newText: String): Boolean {

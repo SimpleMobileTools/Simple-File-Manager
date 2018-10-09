@@ -37,6 +37,7 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
         ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) { }.apply {
             manage_favorites_list.adapter = this
+            initSelectionTracker()
         }
     }
 

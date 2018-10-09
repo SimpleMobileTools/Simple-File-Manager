@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         debug {
-	        applicationIdSuffix ".debug"
+            applicationIdSuffix ".debug"
         }
         release {
             minifyEnabled true
@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:4.8.8'
+    implementation 'com.simplemobiletools:commons:4.9.18'
 
     implementation files('../libs/RootTools.jar')
 }

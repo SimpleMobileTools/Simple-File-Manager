@@ -11,15 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"/>
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/manage_favorites_placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/small_margin"
         android:layout_marginTop="@dimen/activity_margin"
+        android:layout_marginBottom="@dimen/small_margin"
         android:gravity="center"
         android:lineSpacingExtra="@dimen/tiny_margin"
         android:paddingLeft="@dimen/activity_margin"

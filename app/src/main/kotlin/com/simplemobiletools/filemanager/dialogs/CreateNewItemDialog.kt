@@ -1,7 +1,7 @@
 package com.simplemobiletools.filemanager.dialogs
 
-import android.support.v7.app.AlertDialog
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.SimpleActivity

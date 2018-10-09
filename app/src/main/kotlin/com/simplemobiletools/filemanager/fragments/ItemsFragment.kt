@@ -2,11 +2,10 @@ package com.simplemobiletools.filemanager.fragments
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
@@ -14,6 +13,7 @@ import com.simplemobiletools.commons.helpers.OTG_PATH
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
+import com.simplemobiletools.commons.views.MyLinearLayoutManager
 import com.simplemobiletools.filemanager.R
 import com.simplemobiletools.filemanager.activities.MainActivity
 import com.simplemobiletools.filemanager.activities.SimpleActivity
@@ -25,7 +25,6 @@ import com.simplemobiletools.filemanager.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.helpers.PATH
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
-import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.HashMap
@@ -46,7 +45,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private var storedItems = ArrayList<FileDirItem>()
     private var storedTextColor = 0
 
-    private lateinit var mView: View
+    lateinit var mView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         mView = inflater.inflate(R.layout.items_fragment, container, false)!!
@@ -91,8 +90,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             storedTextColor = newTextColor
         }
 
-        items_fastscroller.updateBubbleColors()
-        items_fastscroller.allowBubbleDisplay = context!!.config.showInfoBubble
+        mView.items_fastscroller.updateBubbleColors()
+        mView.items_fastscroller.allowBubbleDisplay = context!!.config.showInfoBubble
         if (!isFirstResume) {
             refreshItems()
         }
@@ -121,7 +120,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             realPath = "/"
         }
 
-        scrollStates[currentPath] = getScrollState()
+        scrollStates[currentPath] = getScrollState()!!
         currentPath = realPath
         showHidden = context!!.config.shouldShowHidden
         getItems(currentPath) { originalPath, fileDirItems ->
@@ -153,9 +152,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }.apply {
                     addVerticalDividers(true)
                     items_list.adapter = this
+                    initSelectionTracker()
                 }
                 items_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
-                items_fastscroller.setViews(items_list, items_swipe_refresh) {
+                items_fastscroller.setViews(items_list, mView.items_swipe_refresh) {
                     items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText() ?: "")
                 }
 
@@ -169,7 +169,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
-    private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as LinearLayoutManager)
+    private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as MyLinearLayoutManager)
 
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
         skipItemUpdating = false
@@ -280,15 +280,16 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
     }
 
-    private fun getRecyclerAdapter() = items_list.adapter as? ItemsAdapter
+    private fun getRecyclerAdapter() = mView.items_list.adapter as? ItemsAdapter
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
             StoragePickerDialog(activity as SimpleActivity, currentPath) {
+                getRecyclerAdapter()?.finishActMode()
                 openPath(it)
             }
         } else {
-            val item = breadcrumbs.getChildAt(id).tag as FileDirItem
+            val item = mView.breadcrumbs.getChildAt(id).tag as FileDirItem
             openPath(item.path)
         }
     }

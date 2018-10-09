@@ -8,10 +8,10 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.view.MenuItemCompat
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -26,7 +26,7 @@ import com.simplemobiletools.filemanager.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.items_fragment.*
+import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
 
@@ -258,7 +258,7 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onBackPressed() {
-        if (fragment.breadcrumbs.childCount <= 1) {
+        if (fragment.mView.breadcrumbs.childCount <= 1) {
             if (!wasBackJustPressed) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -269,8 +269,8 @@ class MainActivity : SimpleActivity() {
                 finish()
             }
         } else {
-            fragment.breadcrumbs.removeBreadcrumb()
-            openPath(fragment.breadcrumbs.getLastItem().path)
+            fragment.mView.breadcrumbs.removeBreadcrumb()
+            openPath(fragment.mView.breadcrumbs.getLastItem().path)
         }
     }
 
