@@ -22,7 +22,7 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
     private fun updateFavorites() {
         val favorites = ArrayList<String>()
-        config.favorites.mapTo(favorites, { it })
+        config.favorites.mapTo(favorites) { it }
         manage_favorites_placeholder.beVisibleIf(favorites.isEmpty())
         manage_favorites_placeholder.setTextColor(config.textColor)
 
@@ -37,7 +37,6 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
         ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) { }.apply {
             manage_favorites_list.adapter = this
-            initSelectionTracker()
         }
     }
 

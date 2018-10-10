@@ -17,7 +17,6 @@ import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
 import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
-import com.simplemobiletools.commons.helpers.FileDirItemKeyProvider
 import com.simplemobiletools.commons.helpers.OTG_PATH
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
@@ -51,6 +50,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
     init {
+        setupDragListener(true)
         initDrawables()
     }
 
@@ -71,7 +71,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     override fun actionItemPressed(id: Int) {
-        if (getSelectedKeys().isEmpty) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
@@ -101,7 +101,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun getItemSelectionKey(position: Int) = fileDirItems[position].path
 
-    override fun getItemSelectionKeyProvider() = FileDirItemKeyProvider(fileDirItems)
+    override fun getItemKeyPosition(key: String) = fileDirItems.indexOfFirst { it.path == key }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.list_item, parent)
 
@@ -124,7 +124,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         fileDrawable.alpha = 180
     }
 
-    private fun isOneFileSelected() = isOneItemSelected() && getItemWithKey(getSelectedKeys().first())?.isDirectory == false
+    private fun isOneFileSelected() = isOneItemSelected() && getItemWithKey(selectedKeys.first())?.isDirectory == false
 
     private fun checkHideBtnVisibility(menu: Menu) {
         var hiddenCnt = 0
@@ -142,7 +142,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun confirmSelection() {
-        if (!getSelectedKeys().isEmpty) {
+        if (selectedKeys.isNotEmpty()) {
             val paths = getSelectedFileDirItems().filter { !it.isDirectory }.map { it.path } as ArrayList<String>
             listener?.selectedPaths(paths)
         }
@@ -160,7 +160,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun showProperties() {
-        if (getSelectedKeys().size() <= 1) {
+        if (selectedKeys.size <= 1) {
             PropertiesDialog(activity, getFirstSelectedItemPath(), activity.config.shouldShowHidden)
         } else {
             val paths = getSelectedFileDirItems().map { it.path }
@@ -470,7 +470,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun askConfirmDelete() {
-        val selectionSize = getSelectedKeys().size()
+        val selectionSize = selectedKeys.size
         val items = resources.getQuantityString(R.plurals.delete_items, selectionSize, selectionSize)
         val question = String.format(resources.getString(R.string.deletion_confirmation), items)
         ConfirmationDialog(activity, question) {
@@ -479,8 +479,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun deleteFiles() {
-        val selectedKeys = getSelectedKeys()
-        if (selectedKeys.isEmpty) {
+        if (selectedKeys.isEmpty()) {
             return
         }
 
@@ -491,9 +490,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         }
 
         activity.handleSAFDialog(SAFPath) {
-            val files = ArrayList<FileDirItem>(selectedKeys.size())
+            val files = ArrayList<FileDirItem>(selectedKeys.size)
             val positions = ArrayList<Int>()
-            getSelectedKeys().forEach {
+            selectedKeys.forEach {
                 activity.config.removeFavorite(it)
                 val key = it
                 val position = fileDirItems.indexOfFirst { it.path == key }
@@ -515,8 +514,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private fun getFirstSelectedItemPath() = getSelectedFileDirItems().first().path
 
     private fun getSelectedFileDirItems(): ArrayList<FileDirItem> {
-        val selectedKeys = getSelectedKeys()
-        val selectedFileDirItems = ArrayList<FileDirItem>(selectedKeys.size())
+        val selectedFileDirItems = ArrayList<FileDirItem>(selectedKeys.size)
         selectedKeys.forEach {
             getItemWithKey(it)?.apply {
                 selectedFileDirItems.add(this)

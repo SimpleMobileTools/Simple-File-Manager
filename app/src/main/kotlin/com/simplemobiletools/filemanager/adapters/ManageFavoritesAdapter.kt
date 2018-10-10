@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
-import com.simplemobiletools.commons.helpers.StringListKeyProvider
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.R
@@ -17,6 +16,10 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
                              recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) : MyRecyclerViewAdapter(activity, recyclerView, null, itemClick) {
 
     private val config = activity.config
+
+    init {
+        setupDragListener(true)
+    }
 
     override fun getActionMenuId() = R.menu.cab_remove_only
 
@@ -32,7 +35,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     override fun getItemSelectionKey(position: Int) = favorites[position]
 
-    override fun getItemSelectionKeyProvider() = StringListKeyProvider(favorites)
+    override fun getItemKeyPosition(key: String) = favorites.indexOfFirst { it == key }
 
     override fun prepareActionMode(menu: Menu) {}
 
@@ -60,10 +63,9 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
     }
 
     private fun removeSelection() {
-        val selectedKeys = getSelectedKeys()
-        val removeFavorites = ArrayList<String>(selectedKeys.size())
+        val removeFavorites = ArrayList<String>(selectedKeys.size)
         val positions = java.util.ArrayList<Int>()
-        getSelectedKeys().forEach {
+        selectedKeys.forEach {
             val key = it
             val position = favorites.indexOfFirst { it == key }
             if (position != -1) {

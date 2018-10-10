@@ -152,7 +152,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }.apply {
                     addVerticalDividers(true)
                     items_list.adapter = this
-                    initSelectionTracker()
                 }
                 items_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
                 items_fastscroller.setViews(items_list, mView.items_swipe_refresh) {
