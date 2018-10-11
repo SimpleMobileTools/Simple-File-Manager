@@ -539,7 +539,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        if (!activity.isActivityDestroyed()) {
+        if (!activity.isDestroyed) {
             Glide.with(activity).clear(holder.itemView.item_icon!!)
         }
     }
@@ -577,7 +577,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                     path
                 }
 
-                if (!activity.isActivityDestroyed()) {
+                if (!activity.isDestroyed) {
                     if (hasOTGConnected && itemToLoad is String && itemToLoad.startsWith(OTG_PATH)) {
                         itemToLoad = itemToLoad.getOTGPublicPath(activity)
                     }

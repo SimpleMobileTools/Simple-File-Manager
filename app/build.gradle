@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.simplemobiletools.filemanager"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 57
         versionName "4.3.1"
@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:4.10.1'
+    implementation 'com.simplemobiletools:commons:5.0.2'
 
     implementation files('../libs/RootTools.jar')
 }

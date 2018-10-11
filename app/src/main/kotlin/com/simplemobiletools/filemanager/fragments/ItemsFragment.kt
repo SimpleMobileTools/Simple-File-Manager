@@ -173,7 +173,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
         skipItemUpdating = false
         Thread {
-            if (activity?.isActivityDestroyed() == false) {
+            if (activity?.isDestroyed == false) {
                 if (path.startsWith(OTG_PATH)) {
                     val getProperFileSize = context!!.config.sorting and SORT_BY_SIZE != 0
                     context!!.getOTGItems(path, context!!.config.shouldShowHidden, getProperFileSize) {
