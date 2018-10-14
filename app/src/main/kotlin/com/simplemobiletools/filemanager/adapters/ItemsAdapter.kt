@@ -99,9 +99,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun getIsItemSelectable(position: Int) = true
 
-    override fun getItemSelectionKey(position: Int) = fileDirItems.getOrNull(position)?.path
+    override fun getItemSelectionKey(position: Int) = fileDirItems.getOrNull(position)?.path?.hashCode()
 
-    override fun getItemKeyPosition(key: String) = fileDirItems.indexOfFirst { it.path == key }
+    override fun getItemKeyPosition(key: Int) = fileDirItems.indexOfFirst { it.path.hashCode() == key }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.list_item, parent)
 
@@ -115,7 +115,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun getItemCount() = fileDirItems.size
 
-    private fun getItemWithKey(key: String): FileDirItem? = fileDirItems.firstOrNull { it.path == key }
+    private fun getItemWithKey(key: Int): FileDirItem? = fileDirItems.firstOrNull { it.path.hashCode() == key }
 
     fun initDrawables() {
         folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
@@ -493,9 +493,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             val files = ArrayList<FileDirItem>(selectedKeys.size)
             val positions = ArrayList<Int>()
             selectedKeys.forEach {
-                activity.config.removeFavorite(it)
+                activity.config.removeFavorite(getItemWithKey(it)?.path ?: "")
                 val key = it
-                val position = fileDirItems.indexOfFirst { it.path == key }
+                val position = fileDirItems.indexOfFirst { it.path.hashCode() == key }
                 if (position != -1) {
                     positions.add(position)
                     files.add(fileDirItems[position])
@@ -545,7 +545,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun setupView(view: View, fileDirItem: FileDirItem) {
-        val isSelected = isKeySelected(fileDirItem.path)
+        val isSelected = isKeySelected(fileDirItem.path.hashCode())
         view.apply {
             item_frame.isSelected = isSelected
             val fileName = fileDirItem.name

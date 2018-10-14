@@ -33,9 +33,9 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     override fun getIsItemSelectable(position: Int) = true
 
-    override fun getItemSelectionKey(position: Int) = favorites.getOrNull(position)
+    override fun getItemSelectionKey(position: Int) = favorites.getOrNull(position)?.hashCode()
 
-    override fun getItemKeyPosition(key: String) = favorites.indexOfFirst { it == key }
+    override fun getItemKeyPosition(key: Int) = favorites.indexOfFirst { it.hashCode() == key }
 
     override fun prepareActionMode(menu: Menu) {}
 
@@ -44,7 +44,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val favorite = favorites[position]
         holder.bindView(favorite, true, true) { itemView, layoutPosition ->
-            setupView(itemView, favorite, isKeySelected(favorite))
+            setupView(itemView, favorite, isKeySelected(favorite.hashCode()))
         }
         bindViewHolder(holder)
     }
@@ -67,11 +67,15 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
         val positions = java.util.ArrayList<Int>()
         selectedKeys.forEach {
             val key = it
-            val position = favorites.indexOfFirst { it == key }
+            val position = favorites.indexOfFirst { it.hashCode() == key }
             if (position != -1) {
                 positions.add(position)
-                removeFavorites.add(key)
-                config.removeFavorite(key)
+
+                val favorite = getItemWithKey(key)
+                if (favorite != null) {
+                    removeFavorites.add(favorite)
+                    config.removeFavorite(favorite)
+                }
             }
         }
 
@@ -83,4 +87,6 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
             listener?.refreshItems()
         }
     }
+
+    private fun getItemWithKey(key: Int): String? = favorites.firstOrNull { it.hashCode() == key }
 }
