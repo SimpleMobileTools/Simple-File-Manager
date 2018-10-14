@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 5.0.1 *(2018-10-14)*
+----------------------------
+
+ * Replaced the G+ button with Reddit
+ * Couple stability and performance improvements
+
 Version 5.0.0 *(2018-10-11)*
 ----------------------------
 
