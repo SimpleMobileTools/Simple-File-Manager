@@ -14,12 +14,12 @@
     <string name="rooted_device_only">Αυτή η λειτουργία λειτουργεί μόνο σε συσκευές με πρόσβαση στον ριζικό κατάλογο.</string>
 
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">Άνοιγμα ως</string>
+    <string name="text_file">Αρχείο Κειμένου</string>
+    <string name="image_file">Αρχείο Εικόνας</string>
+    <string name="audio_file">Αρχείο Ήχου</string>
+    <string name="video_file">Αρχείο Βίντεο</string>
+    <string name="other_file">Άλλο τύπο</string>
 
     <!-- Compression -->
     <string name="compress">Συμπίεση</string>
