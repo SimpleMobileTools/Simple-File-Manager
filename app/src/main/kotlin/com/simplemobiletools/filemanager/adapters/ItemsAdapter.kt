@@ -513,15 +513,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun getFirstSelectedItemPath() = getSelectedFileDirItems().first().path
 
-    private fun getSelectedFileDirItems(): ArrayList<FileDirItem> {
-        val selectedFileDirItems = ArrayList<FileDirItem>(selectedKeys.size)
-        selectedKeys.forEach {
-            getItemWithKey(it)?.apply {
-                selectedFileDirItems.add(this)
-            }
-        }
-        return selectedFileDirItems
-    }
+    private fun getSelectedFileDirItems() = fileDirItems.filter { selectedKeys.contains(it.path.hashCode()) } as ArrayList<FileDirItem>
 
     fun updateItems(newItems: ArrayList<FileDirItem>, highlightText: String = "") {
         if (newItems.hashCode() != currentItemsHash) {
