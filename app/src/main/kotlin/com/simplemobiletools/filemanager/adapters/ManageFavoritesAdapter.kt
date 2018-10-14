@@ -33,7 +33,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     override fun getIsItemSelectable(position: Int) = true
 
-    override fun getItemSelectionKey(position: Int) = favorites[position]
+    override fun getItemSelectionKey(position: Int) = favorites.getOrNull(position)
 
     override fun getItemKeyPosition(key: String) = favorites.indexOfFirst { it == key }
 

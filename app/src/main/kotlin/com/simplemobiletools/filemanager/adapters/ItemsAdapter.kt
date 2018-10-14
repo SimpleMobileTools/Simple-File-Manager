@@ -99,7 +99,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun getIsItemSelectable(position: Int) = true
 
-    override fun getItemSelectionKey(position: Int) = fileDirItems[position].path
+    override fun getItemSelectionKey(position: Int) = fileDirItems.getOrNull(position)?.path
 
     override fun getItemKeyPosition(key: String) = fileDirItems.indexOfFirst { it.path == key }
 
@@ -108,7 +108,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = fileDirItems[position]
         holder.bindView(fileDirItem, true, true) { itemView, layoutPosition ->
-            setupView(itemView, fileDirItem, isKeySelected(fileDirItem.path))
+            setupView(itemView, fileDirItem)
         }
         bindViewHolder(holder)
     }
@@ -149,7 +149,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun displayRenameDialog() {
-        val oldPath = getSelectedFileDirItems()[0].path
+        val oldPath = getFirstSelectedItemPath()
         RenameItemDialog(activity, oldPath) {
             activity.config.moveFavorite(oldPath, it)
             activity.runOnUiThread {
@@ -544,7 +544,8 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         }
     }
 
-    private fun setupView(view: View, fileDirItem: FileDirItem, isSelected: Boolean) {
+    private fun setupView(view: View, fileDirItem: FileDirItem) {
+        val isSelected = isKeySelected(fileDirItem.path)
         view.apply {
             item_frame.isSelected = isSelected
             val fileName = fileDirItem.name
