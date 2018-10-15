@@ -33,7 +33,7 @@
     <string name="decompressing_failed">Entpacken fehlgeschlagen.</string>
 
     <!-- Favorites -->
-    <string name="manage_favorites">Favoriten verwalten</string>
+    <string name="manage_favorites">Verwalte Favoriten</string>
     <string name="go_to_favorite">Gehe zu Favoriten</string>
     <string name="favorites_activity_placeholder">Du kannst häufig benutzte Ordner für einen einfacheren Zugriff zu den Favoriten hinzufügen</string>
 
