@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 5.0.2 *(2018-10-23)*
+----------------------------
+
+ * Added an initial implementation of renaming multiple files at once
+ * Fixed third party intent handling with multiple files picked
+ * Allow enabling hidden item visibility at file picker dialogs
+
 Version 5.0.1 *(2018-10-14)*
 ----------------------------
 
