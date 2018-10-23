@@ -23,7 +23,7 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
 
             file_path.text = activity.humanizePath(realPath)
             file_path.setOnClickListener {
-                FilePickerDialog(activity, realPath, false, activity.config.shouldShowHidden, true) {
+                FilePickerDialog(activity, realPath, false, activity.config.shouldShowHidden, true, true) {
                     file_path.text = activity.humanizePath(it)
                     realPath = it
                 }
