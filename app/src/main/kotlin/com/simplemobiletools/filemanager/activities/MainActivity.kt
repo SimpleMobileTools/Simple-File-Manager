@@ -306,13 +306,14 @@ class MainActivity : SimpleActivity() {
     }
 
     fun pickedRingtone(path: String) {
-        val resultIntent = Intent()
         val uri = getFilePublicUri(File(path), BuildConfig.APPLICATION_ID)
         val type = path.getMimeType()
-        resultIntent.setDataAndType(uri, type)
-        resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-        resultIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, uri)
-        setResult(Activity.RESULT_OK, resultIntent)
+        Intent().apply {
+            setDataAndType(uri, type)
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            putExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI, uri)
+            setResult(Activity.RESULT_OK, this)
+        }
         finish()
     }
 
@@ -324,9 +325,11 @@ class MainActivity : SimpleActivity() {
             clipData.addItem(ClipData.Item(it))
         }
 
-        val resultIntent = Intent()
-        resultIntent.clipData = clipData
-        setResult(Activity.RESULT_OK, resultIntent)
+        Intent().apply {
+            this.clipData = clipData
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            setResult(Activity.RESULT_OK, this)
+        }
         finish()
     }
 
