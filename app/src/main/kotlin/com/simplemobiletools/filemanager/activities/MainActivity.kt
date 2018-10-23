@@ -191,8 +191,9 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun goHome() {
-        if (config.homeFolder != fragment.currentPath)
+        if (config.homeFolder != fragment.currentPath) {
             openPath(config.homeFolder)
+        }
     }
 
     private fun showSortingDialog() {
@@ -318,7 +319,7 @@ class MainActivity : SimpleActivity() {
     }
 
     fun pickedPaths(paths: ArrayList<String>) {
-        val newPaths = paths.map { getFilePublicUri(File(it), BuildConfig.APPLICATION_ID).toString() } as ArrayList
+        val newPaths = paths.map { getFilePublicUri(File(it), BuildConfig.APPLICATION_ID) } as ArrayList
         val clipData = ClipData("Attachment", arrayOf(paths.getMimeType()), ClipData.Item(newPaths.removeAt(0)))
 
         newPaths.forEach {
