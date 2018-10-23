@@ -58,7 +58,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun prepareActionMode(menu: Menu) {
         menu.apply {
-            findItem(R.id.cab_rename).isVisible = isOneItemSelected()
             findItem(R.id.cab_decompress).isVisible = getSelectedFileDirItems().map { it.path }.any { it.isZipFile() }
             findItem(R.id.cab_confirm_selection).isVisible = isPickMultipleIntent
             findItem(R.id.cab_copy_path).isVisible = isOneItemSelected()
@@ -153,12 +152,22 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun displayRenameDialog() {
-        val oldPath = getFirstSelectedItemPath()
-        RenameItemDialog(activity, oldPath) {
-            activity.config.moveFavorite(oldPath, it)
-            activity.runOnUiThread {
-                listener?.refreshItems()
-                finishActMode()
+        val paths = getSelectedFileDirItems().asSequence().map { it.path }.toMutableList() as ArrayList<String>
+        if (paths.size == 1) {
+            val oldPath = paths.first()
+            RenameItemDialog(activity, oldPath) {
+                activity.config.moveFavorite(oldPath, it)
+                activity.runOnUiThread {
+                    listener?.refreshItems()
+                    finishActMode()
+                }
+            }
+        } else {
+            RenameItemsDialog(activity, paths) {
+                activity.runOnUiThread {
+                    listener?.refreshItems()
+                    finishActMode()
+                }
             }
         }
     }
