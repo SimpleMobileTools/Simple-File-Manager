@@ -143,8 +143,12 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun confirmSelection() {
         if (selectedKeys.isNotEmpty()) {
-            val paths = getSelectedFileDirItems().filter { !it.isDirectory }.map { it.path } as ArrayList<String>
-            listener?.selectedPaths(paths)
+            val paths = getSelectedFileDirItems().asSequence().filter { !it.isDirectory }.map { it.path }.toMutableList() as ArrayList<String>
+            if (paths.isEmpty()) {
+                finishActMode()
+            } else {
+                listener?.selectedPaths(paths)
+            }
         }
     }
 
