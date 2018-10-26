@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.2.1'
+    implementation 'com.simplemobiletools:commons:5.2.10'
 
     implementation files('../libs/RootTools.jar')
 }

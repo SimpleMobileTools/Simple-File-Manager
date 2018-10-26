@@ -550,7 +550,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun setupView(view: View, fileDirItem: FileDirItem) {
-        val isSelected = isKeySelected(fileDirItem.path.hashCode())
+        val isSelected = selectedKeys.contains(fileDirItem.path.hashCode())
         view.apply {
             item_frame.isSelected = isSelected
             val fileName = fileDirItem.name

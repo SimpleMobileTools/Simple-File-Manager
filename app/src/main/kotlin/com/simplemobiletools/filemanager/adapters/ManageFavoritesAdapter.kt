@@ -44,7 +44,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val favorite = favorites[position]
         holder.bindView(favorite, true, true) { itemView, layoutPosition ->
-            setupView(itemView, favorite, isKeySelected(favorite.hashCode()))
+            setupView(itemView, favorite, selectedKeys.contains(favorite.hashCode()))
         }
         bindViewHolder(holder)
     }
