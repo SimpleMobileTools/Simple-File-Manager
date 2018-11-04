@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 5.0.3 *(2018-11-04)*
+----------------------------
+
+ * Adding a "Keep both" conflict resolution at copy/move (by Doubl3MM)
+ * This version of the app is no longer maintained. Please upgrade to the Pro version. It is free till Nov 12 2018. You can find the Upgrade button at the top of the app Settings.
+
 Version 5.0.2 *(2018-10-23)*
 ----------------------------
 
