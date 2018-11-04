@@ -22,13 +22,12 @@ class SettingsActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
 
-        setupPurchaseThankYou()
+        setupUpgradeToPro()
         setupCustomizeColors()
         setupUseEnglish()
-        setupAvoidWhatsNew()
         setupManageFavorites()
         setupShowHidden()
-        setupPasswordProtection()
+        setupHiddenItemPasswordProtection()
         setupKeepLastModified()
         setupShowInfoBubble()
         setupEnableRootAccess()
@@ -43,10 +42,10 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupPurchaseThankYou() {
-        settings_purchase_thank_you_holder.beVisibleIf(config.appRunCount > 10 && !isThankYouInstalled())
-        settings_purchase_thank_you_holder.setOnClickListener {
-            launchPurchaseThankYouIntent()
+    private fun setupUpgradeToPro() {
+        settings_upgrade_to_pro_holder.beGoneIf(isAProApp())
+        settings_upgrade_to_pro_holder.setOnClickListener {
+            launchUpgradeToProIntent()
         }
     }
 
@@ -72,14 +71,6 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupAvoidWhatsNew() {
-        settings_avoid_whats_new.isChecked = config.avoidWhatsNew
-        settings_avoid_whats_new_holder.setOnClickListener {
-            settings_avoid_whats_new.toggle()
-            config.avoidWhatsNew = settings_avoid_whats_new.isChecked
-        }
-    }
-
     private fun setupShowHidden() {
         settings_show_hidden.isChecked = config.showHidden
         settings_show_hidden_holder.setOnClickListener {
@@ -98,20 +89,20 @@ class SettingsActivity : SimpleActivity() {
         config.showHidden = settings_show_hidden.isChecked
     }
 
-    private fun setupPasswordProtection() {
-        settings_password_protection.isChecked = config.isPasswordProtectionOn
+    private fun setupHiddenItemPasswordProtection() {
+        settings_password_protection.isChecked = config.isHiddenPasswordProtectionOn
         settings_password_protection_holder.setOnClickListener {
-            val tabToShow = if (config.isPasswordProtectionOn) config.protectionType else SHOW_ALL_TABS
-            SecurityDialog(this, config.passwordHash, tabToShow) { hash, type, success ->
+            val tabToShow = if (config.isHiddenPasswordProtectionOn) config.hiddenProtectionType else SHOW_ALL_TABS
+            SecurityDialog(this, config.hiddenPasswordHash, tabToShow) { hash, type, success ->
                 if (success) {
-                    val hasPasswordProtection = config.isPasswordProtectionOn
+                    val hasPasswordProtection = config.isHiddenPasswordProtectionOn
                     settings_password_protection.isChecked = !hasPasswordProtection
-                    config.isPasswordProtectionOn = !hasPasswordProtection
-                    config.passwordHash = if (hasPasswordProtection) "" else hash
-                    config.protectionType = type
+                    config.isHiddenPasswordProtectionOn = !hasPasswordProtection
+                    config.hiddenPasswordHash = if (hasPasswordProtection) "" else hash
+                    config.hiddenProtectionType = type
 
-                    if (config.isPasswordProtectionOn) {
-                        val confirmationTextId = if (config.protectionType == PROTECTION_FINGERPRINT)
+                    if (config.isHiddenPasswordProtectionOn) {
+                        val confirmationTextId = if (config.hiddenProtectionType == PROTECTION_FINGERPRINT)
                             R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
                         ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
                     }
