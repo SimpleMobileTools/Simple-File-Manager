@@ -14,12 +14,12 @@
     <string name="rooted_device_only">Bu işlem sadece rootlu cihazlarda çalışır</string>
 
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">Farklı aç</string>
+    <string name="text_file">Metin dosyası</string>
+    <string name="image_file">Resim dosyası</string>
+    <string name="audio_file">Ses dosyası</string>
+    <string name="video_file">Video dosyası</string>
+    <string name="other_file">Diğer dosya</string>
 
     <!-- Compression -->
     <string name="compress">Sıkıştır</string>
