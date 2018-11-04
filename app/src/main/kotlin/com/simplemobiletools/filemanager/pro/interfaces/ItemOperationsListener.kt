@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.interfaces
+package com.simplemobiletools.filemanager.pro.interfaces
 
 import com.simplemobiletools.commons.models.FileDirItem
 import java.util.*

@@ -1,11 +1,11 @@
-package com.simplemobiletools.filemanager.dialogs
+package com.simplemobiletools.filemanager.pro.dialogs
 
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.pro.R
 import kotlinx.android.synthetic.main.dialog_save_as.view.*
 
 class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callback: (savePath: String) -> Unit) {

@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.activities
+package com.simplemobiletools.filemanager.pro.activities
 
 import android.content.Intent
 import com.simplemobiletools.commons.activities.BaseSplashActivity

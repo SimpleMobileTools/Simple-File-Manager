@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.activities
+package com.simplemobiletools.filemanager.pro.activities
 
 import android.app.Activity
 import android.app.SearchManager
@@ -13,18 +13,17 @@ import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
-import com.simplemobiletools.commons.dialogs.UpgradeToProDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
-import com.simplemobiletools.filemanager.BuildConfig
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.dialogs.ChangeSortingDialog
-import com.simplemobiletools.filemanager.extensions.config
-import com.simplemobiletools.filemanager.fragments.ItemsFragment
-import com.simplemobiletools.filemanager.helpers.RootHelpers
+import com.simplemobiletools.filemanager.pro.BuildConfig
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
+import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
+import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
@@ -56,11 +55,6 @@ class MainActivity : SimpleActivity() {
             checkWhatsNewDialog()
             checkIfRootAvailable()
             checkInvalidFavorites()
-        }
-
-        if (!config.wasInitialUpgradeToProShown) {
-            UpgradeToProDialog(this)
-            config.wasInitialUpgradeToProShown = true
         }
     }
 

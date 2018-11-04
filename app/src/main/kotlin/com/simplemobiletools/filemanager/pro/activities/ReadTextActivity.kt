@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.activities
+package com.simplemobiletools.filemanager.pro.activities
 
 import android.app.SearchManager
 import android.content.Context
@@ -12,10 +12,10 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.dialogs.SaveAsDialog
-import com.simplemobiletools.filemanager.extensions.config
-import com.simplemobiletools.filemanager.extensions.openPath
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.dialogs.SaveAsDialog
+import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.extensions.openPath
 import kotlinx.android.synthetic.main.activity_read_text.*
 import java.io.File
 

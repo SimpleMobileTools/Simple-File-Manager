@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.helpers
+package com.simplemobiletools.filemanager.pro.helpers
 
 import android.content.Context
 import com.simplemobiletools.commons.extensions.getDocumentFile

@@ -1,12 +1,12 @@
-package com.simplemobiletools.filemanager.dialogs
+package com.simplemobiletools.filemanager.pro.dialogs
 
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.extensions.config
 import kotlinx.android.synthetic.main.dialog_compress_as.view.*
 
 class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String) -> Unit) {

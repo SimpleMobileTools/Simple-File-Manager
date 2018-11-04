@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager
+package com.simplemobiletools.filemanager.pro
 
 import android.app.Application
 import com.github.ajalt.reprint.core.Reprint

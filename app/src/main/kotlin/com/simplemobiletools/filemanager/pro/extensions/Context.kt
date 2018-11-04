@@ -1,9 +1,9 @@
-package com.simplemobiletools.filemanager.extensions
+package com.simplemobiletools.filemanager.pro.extensions
 
 import android.content.Context
 import com.simplemobiletools.commons.extensions.hasExternalSDCard
 import com.simplemobiletools.commons.helpers.OTG_PATH
-import com.simplemobiletools.filemanager.helpers.Config
+import com.simplemobiletools.filemanager.pro.helpers.Config
 
 val Context.config: Config get() = Config.newInstance(applicationContext)
 

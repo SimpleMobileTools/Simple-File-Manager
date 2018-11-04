@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.adapters
+package com.simplemobiletools.filemanager.pro.adapters
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -22,12 +22,12 @@ import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.activities.SimpleActivity
-import com.simplemobiletools.filemanager.dialogs.CompressAsDialog
-import com.simplemobiletools.filemanager.extensions.*
-import com.simplemobiletools.filemanager.helpers.*
-import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.dialogs.CompressAsDialog
+import com.simplemobiletools.filemanager.pro.extensions.*
+import com.simplemobiletools.filemanager.pro.helpers.*
+import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable

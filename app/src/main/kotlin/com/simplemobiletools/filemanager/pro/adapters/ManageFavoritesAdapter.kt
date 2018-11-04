@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.adapters
+package com.simplemobiletools.filemanager.pro.adapters
 
 import android.view.Menu
 import android.view.View
@@ -7,8 +7,8 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.extensions.config
 import kotlinx.android.synthetic.main.item_manage_favorite.view.*
 import java.util.*
 

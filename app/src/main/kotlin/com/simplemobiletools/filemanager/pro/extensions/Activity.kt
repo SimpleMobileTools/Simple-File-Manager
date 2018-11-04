@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.extensions
+package com.simplemobiletools.filemanager.pro.extensions
 
 import android.app.Activity
 import android.content.Intent
@@ -8,8 +8,8 @@ import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isNougatPlus
-import com.simplemobiletools.filemanager.BuildConfig
-import com.simplemobiletools.filemanager.helpers.*
+import com.simplemobiletools.filemanager.pro.BuildConfig
+import com.simplemobiletools.filemanager.pro.helpers.*
 import java.io.File
 import java.util.*
 

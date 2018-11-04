@@ -1,7 +1,7 @@
-package com.simplemobiletools.filemanager.activities
+package com.simplemobiletools.filemanager.pro.activities
 
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
-import com.simplemobiletools.filemanager.R
+import com.simplemobiletools.filemanager.pro.R
 
 open class SimpleActivity : BaseSimpleActivity() {
     override fun getAppIconIDs() = arrayListOf(

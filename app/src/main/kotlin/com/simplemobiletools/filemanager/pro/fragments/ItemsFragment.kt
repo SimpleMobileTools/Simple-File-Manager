@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.fragments
+package com.simplemobiletools.filemanager.pro.fragments
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -14,17 +14,17 @@ import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyLinearLayoutManager
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.activities.MainActivity
-import com.simplemobiletools.filemanager.activities.SimpleActivity
-import com.simplemobiletools.filemanager.adapters.ItemsAdapter
-import com.simplemobiletools.filemanager.dialogs.CreateNewItemDialog
-import com.simplemobiletools.filemanager.extensions.config
-import com.simplemobiletools.filemanager.extensions.isPathOnRoot
-import com.simplemobiletools.filemanager.extensions.tryOpenPathIntent
-import com.simplemobiletools.filemanager.helpers.PATH
-import com.simplemobiletools.filemanager.helpers.RootHelpers
-import com.simplemobiletools.filemanager.interfaces.ItemOperationsListener
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.activities.MainActivity
+import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
+import com.simplemobiletools.filemanager.pro.dialogs.CreateNewItemDialog
+import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
+import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
+import com.simplemobiletools.filemanager.pro.helpers.PATH
+import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
+import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.HashMap

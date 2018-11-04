@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.helpers
+package com.simplemobiletools.filemanager.pro.helpers
 
 const val PATH = "path"
 

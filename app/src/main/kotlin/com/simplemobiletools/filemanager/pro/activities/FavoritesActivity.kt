@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.activities
+package com.simplemobiletools.filemanager.pro.activities
 
 import android.graphics.Paint
 import android.os.Bundle
@@ -8,9 +8,9 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.adapters.ManageFavoritesAdapter
-import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.adapters.ManageFavoritesAdapter
+import com.simplemobiletools.filemanager.pro.extensions.config
 import kotlinx.android.synthetic.main.activity_favorites.*
 
 class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {

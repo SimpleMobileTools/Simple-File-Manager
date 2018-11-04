@@ -1,4 +1,4 @@
-package com.simplemobiletools.filemanager.helpers
+package com.simplemobiletools.filemanager.pro.helpers
 
 import android.app.Activity
 import com.simplemobiletools.commons.extensions.areDigitsOnly
@@ -6,8 +6,8 @@ import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.extensions.config
 import com.stericson.RootShell.execution.Command
 import com.stericson.RootTools.RootTools
 import java.io.File

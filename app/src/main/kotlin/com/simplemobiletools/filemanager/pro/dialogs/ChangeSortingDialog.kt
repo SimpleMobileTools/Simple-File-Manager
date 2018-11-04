@@ -1,11 +1,11 @@
-package com.simplemobiletools.filemanager.dialogs
+package com.simplemobiletools.filemanager.pro.dialogs
 
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
-import com.simplemobiletools.filemanager.R
-import com.simplemobiletools.filemanager.extensions.config
+import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.extensions.config
 import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
 class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "", val callback: () -> Unit) {
