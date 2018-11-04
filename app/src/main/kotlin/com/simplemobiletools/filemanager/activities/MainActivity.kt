@@ -13,6 +13,7 @@ import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
+import com.simplemobiletools.commons.dialogs.UpgradeToProDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FAQItem
@@ -55,6 +56,11 @@ class MainActivity : SimpleActivity() {
             checkWhatsNewDialog()
             checkIfRootAvailable()
             checkInvalidFavorites()
+        }
+
+        if (!config.wasInitialUpgradeToProShown) {
+            UpgradeToProDialog(this)
+            config.wasInitialUpgradeToProShown = true
         }
     }
 
