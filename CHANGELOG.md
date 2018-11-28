@@ -6,6 +6,11 @@ Version 6.0.0 *(2018-11-04)*
 
  * Initial Pro version
 
+Version 5.0.4 *(2018-11-28)*
+----------------------------
+
+ * Make sure the "Upgrade to Pro" popup isnt shown at first launch
+
 Version 5.0.3 *(2018-11-04)*
 ----------------------------
 
