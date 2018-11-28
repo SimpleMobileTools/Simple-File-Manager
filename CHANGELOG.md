@@ -9,7 +9,7 @@ Version 6.0.0 *(2018-11-04)*
 Version 5.0.4 *(2018-11-28)*
 ----------------------------
 
- * Make sure the "Upgrade to Pro" popup isnt shown at first launch
+ * Make sure the "Upgrade to Pro" popup isn't shown at first launch
  * This version of the app is no longer maintained, please upgrade to the Pro version. It is free till Nov 12 2018. You can find the Upgrade button at the top of the app Settings.
 
 Version 5.0.3 *(2018-11-04)*
