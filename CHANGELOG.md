@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.0.1 *(2018-12-06)*
+----------------------------
+
+ * Fixed some item selection by long pressing the first and last item to be selected
+ * Fixed some OTG device recognition glitches
+
 Version 6.0.0 *(2018-11-04)*
 ----------------------------
 
