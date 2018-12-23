@@ -53,4 +53,5 @@ android {
 dependencies {
     implementation 'com.simplemobiletools:commons:5.6.1'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
+    implementation 'com.github.TeamAmaze:FilePreloaderLibrary:v0.1.0'
 }
