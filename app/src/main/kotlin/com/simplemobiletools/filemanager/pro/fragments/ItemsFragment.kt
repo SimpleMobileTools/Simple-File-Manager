@@ -5,7 +5,9 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.amaze.filepreloaderlibrary.FilePreloader
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
@@ -25,6 +27,7 @@ import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.helpers.PATH
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
+import com.simplemobiletools.filemanager.pro.models.FileData
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.HashMap
@@ -37,7 +40,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     var isPickMultipleIntent = false
 
     private var isFirstResume = true
-    private var showHidden = false
     private var skipItemUpdating = false
     private var isSearchOpen = false
     private var scrollStates = HashMap<String, Parcelable>()
@@ -122,7 +124,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
         scrollStates[currentPath] = getScrollState()!!
         currentPath = realPath
-        showHidden = context!!.config.shouldShowHidden
+        FileData.showHidden = context!!.config.shouldShowHidden
         getItems(currentPath) { originalPath, fileDirItems ->
             if (currentPath != originalPath || !isAdded) {
                 return@getItems
@@ -189,39 +191,25 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     }
 
     private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
-        val items = ArrayList<FileDirItem>()
-        val files = File(path).listFiles()?.filterNotNull()
-        if (context == null) {
-            callback(path, items)
-            return
-        }
+        FilePreloader.DEBUG = false
 
-        val isSortingBySize = context!!.config.sorting and SORT_BY_SIZE != 0
-        if (files != null) {
+        FileData.isSortingBySize = context!!.config.sorting and SORT_BY_SIZE != 0
+
+        FilePreloader.with(::FileData).load(requireActivity(), path) { files ->
+            val items = ArrayList<FileDirItem>()
+            if (context == null) {
+                callback(path, items)
+                return@load
+            }
+
             for (file in files) {
-                val curPath = file.absolutePath
-                val curName = file.name
-                if (!showHidden && curName.startsWith(".")) {
-                    continue
-                }
+                val fileDirItem = file.fileDirItem ?: continue
 
-                val isDirectory = file.isDirectory
-                val children = if (isDirectory) file.getDirectChildrenCount(showHidden) else 0
-                val size = if (isDirectory) {
-                    if (isSortingBySize) {
-                        file.getProperSize(showHidden)
-                    } else {
-                        0L
-                    }
-                } else {
-                    file.length()
-                }
-                val fileDirItem = FileDirItem(curPath, curName, isDirectory, children, size)
                 items.add(fileDirItem)
             }
-        }
 
-        callback(path, items)
+            callback(path, items)
+        }
     }
 
     private fun itemClicked(item: FileDirItem) {
