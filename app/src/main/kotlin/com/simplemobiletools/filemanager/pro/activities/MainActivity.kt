@@ -248,7 +248,7 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun launchAbout() {
-        val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT
+        val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS
 
         val faqItems = arrayListOf(
                 FAQItem(R.string.faq_3_title_commons, R.string.faq_3_text_commons),
