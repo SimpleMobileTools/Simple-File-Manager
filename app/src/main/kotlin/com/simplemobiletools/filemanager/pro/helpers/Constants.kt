@@ -10,6 +10,7 @@ const val SORT_FOLDER_PREFIX = "sort_folder_"
 const val TEMPORARILY_SHOW_HIDDEN = "temporarily_show_hidden"
 const val IS_ROOT_AVAILABLE = "is_root_available"
 const val ENABLE_ROOT_ACCESS = "enable_root_access"
+const val EDITOR_TEXT_ZOOM = "editor_text_zoom"
 
 // open as
 const val OPEN_AS_DEFAULT = 0

@@ -89,4 +89,8 @@ class Config(context: Context) : BaseConfig(context) {
     var enableRootAccess: Boolean
         get() = prefs.getBoolean(ENABLE_ROOT_ACCESS, false)
         set(enableRootAccess) = prefs.edit().putBoolean(ENABLE_ROOT_ACCESS, enableRootAccess).apply()
+
+    var editorTextZoom: Float
+        get() = prefs.getFloat(EDITOR_TEXT_ZOOM, 0f)
+        set(editorTextZoom) = prefs.edit().putFloat(EDITOR_TEXT_ZOOM, editorTextZoom).apply()
 }

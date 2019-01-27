@@ -9,6 +9,7 @@ import com.alexvasilkov.gestures.GestureController
 import com.alexvasilkov.gestures.State
 import com.alexvasilkov.gestures.views.interfaces.GestureView
 import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.onGlobalLayout
 import com.simplemobiletools.filemanager.pro.extensions.config
 
 // taken from
@@ -34,6 +35,14 @@ class GestureTextView @JvmOverloads constructor(context: Context, attrs: Attribu
         origSize = textSize
         setTextColor(context.config.textColor)
         setLinkTextColor(context.getAdjustedPrimaryColor())
+
+        val storedTextZoom = context.config.editorTextZoom
+        if (storedTextZoom != 0f) {
+            onGlobalLayout {
+                controller.state.zoomTo(storedTextZoom, width / 2f, height / 2f)
+                controller.updateState()
+            }
+        }
     }
 
     override fun getController() = controller
@@ -67,6 +76,7 @@ class GestureTextView @JvmOverloads constructor(context: Context, attrs: Attribu
         if (!State.equals(this.size, size)) {
             this.size = size
             super.setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+            context.config.editorTextZoom = state.zoom
         }
     }
 }
