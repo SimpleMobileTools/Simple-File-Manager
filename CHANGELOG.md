@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.1.0 *(2019-01-27)*
+----------------------------
+
+ * Allow zooming the text at file editor with gestures
+ * Some translation and stability improvements
+
 Version 6.0.2 *(2018-12-27)*
 ----------------------------
 
