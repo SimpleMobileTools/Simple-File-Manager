@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
-import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.AppCompatEditText
 import com.alexvasilkov.gestures.GestureController
 import com.alexvasilkov.gestures.State
 import com.alexvasilkov.gestures.views.interfaces.GestureView
@@ -14,14 +14,19 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 
 // taken from
 // https://github.com/alexvasilkov/GestureViews/blob/f0a4c266e31dcad23bd0d9013531bc1c501b9c9f/sample/src/main/java/com/alexvasilkov/gestures/sample/ex/custom/text/GestureTextView.java
-class GestureTextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : AppCompatTextView(context, attrs, defStyle), GestureView {
+class GestureTextView : AppCompatEditText, GestureView {
+    constructor(context: Context) : super(context)
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
+
     private val controller: GestureController = GestureController(this)
     private var origSize = 0f
     private var size = 0f
 
     init {
         controller.settings.setOverzoomFactor(1f).isPanEnabled = false
-        controller.settings.initFromAttributes(context, attrs)
         controller.addOnStateChangeListener(object : GestureController.OnStateChangeListener {
             override fun onStateChanged(state: State) {
                 applyState(state)
@@ -47,7 +52,10 @@ class GestureTextView @JvmOverloads constructor(context: Context, attrs: Attribu
 
     override fun getController() = controller
 
-    override fun onTouchEvent(event: MotionEvent) = controller.onTouch(this, event)
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        controller.onTouch(this, event)
+        return super.onTouchEvent(event)
+    }
 
     override fun setTextSize(size: Float) {
         super.setTextSize(size)
