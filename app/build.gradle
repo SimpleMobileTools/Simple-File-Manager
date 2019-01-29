@@ -14,8 +14,8 @@ android {
         applicationId "com.simplemobiletools.filemanager.pro"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 66
-        versionName "6.1.0"
+        versionCode 67
+        versionName "6.1.1"
         multiDexEnabled true
         setProperty("archivesBaseName", "file-manager")
     }
