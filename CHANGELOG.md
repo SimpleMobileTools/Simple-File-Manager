@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.1.1 *(2019-01-29)*
+----------------------------
+
+ * Allow editing text files in the editor
+
 Version 6.1.0 *(2019-01-27)*
 ----------------------------
 
