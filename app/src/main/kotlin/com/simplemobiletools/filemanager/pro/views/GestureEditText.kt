@@ -12,9 +12,9 @@ import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.commons.extensions.onGlobalLayout
 import com.simplemobiletools.filemanager.pro.extensions.config
 
-// taken from
+// inspired by
 // https://github.com/alexvasilkov/GestureViews/blob/f0a4c266e31dcad23bd0d9013531bc1c501b9c9f/sample/src/main/java/com/alexvasilkov/gestures/sample/ex/custom/text/GestureTextView.java
-class GestureTextView : AppCompatEditText, GestureView {
+class GestureEditText : AppCompatEditText, GestureView {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)

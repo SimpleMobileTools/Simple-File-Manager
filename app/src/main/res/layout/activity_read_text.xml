@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <com.simplemobiletools.filemanager.pro.views.GestureTextView
+    <com.simplemobiletools.filemanager.pro.views.GestureEditText
         android:id="@+id/read_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
