@@ -161,9 +161,12 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun initFileManager() {
-        if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
+        val absolutePath = intent.getStringExtra("org.openintents.extra.ABSOLUTE_PATH")
+        if (intent.action == Intent.ACTION_VIEW && (intent.data != null || absolutePath != null)) {
             val data = intent.data
-            if (data.scheme == "file") {
+            if (data == null && absolutePath != null) {
+                openPath(absolutePath);
+            } else if (data.scheme == "file") {
                 openPath(data.path)
             } else {
                 val path = getRealPathFromURI(data)
