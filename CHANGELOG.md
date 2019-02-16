@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.1.2 *(2019-02-16)*
+----------------------------
+
+ * Rewrote USB support, should be working a lot better
+ * Show the keyboard at opening an empty text file in the editor
+ * Fixed some File Editor glitches
+
 Version 6.1.1 *(2019-01-29)*
 ----------------------------
 
