@@ -183,7 +183,7 @@ class MainActivity : SimpleActivity() {
         val file = File(path)
         if (file.exists() && !file.isDirectory) {
             newPath = file.parent
-        } else if (!file.exists() && !newPath.startsWith(OTG_PATH)) {
+        } else if (!file.exists() && !isPathOnOTG(newPath)) {
             newPath = internalStoragePath
         }
 
@@ -290,7 +290,7 @@ class MainActivity : SimpleActivity() {
     private fun checkInvalidFavorites() {
         Thread {
             config.favorites.forEach {
-                if (!it.startsWith(OTG_PATH) && !isPathOnSD(it) && !getDoesFilePathExist(it)) {
+                if (!isPathOnOTG(it) && !isPathOnSD(it) && !File(it).exists()) {
                     config.removeFavorite(it)
                 }
             }

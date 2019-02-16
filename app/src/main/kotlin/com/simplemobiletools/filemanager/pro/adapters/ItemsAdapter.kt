@@ -17,7 +17,6 @@ import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
 import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
-import com.simplemobiletools.commons.helpers.OTG_PATH
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
@@ -203,9 +202,9 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun addFileUris(path: String, paths: ArrayList<String>) {
-        if (activity.getIsPathDirectory(path)) {
+        if (File(path).isDirectory) {
             val shouldShowHidden = activity.config.shouldShowHidden
-            if (path.startsWith(OTG_PATH)) {
+            if (activity.isPathOnOTG(path)) {
                 activity.getDocumentFile(path)?.listFiles()?.filter { if (shouldShowHidden) true else !it.name!!.startsWith(".") }?.forEach {
                     addFileUris(it.uri.toString(), paths)
                 }
@@ -285,17 +284,18 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun compressSelection() {
         val firstPath = getFirstSelectedItemPath()
-        if (firstPath.startsWith(OTG_PATH)) {
+        if (activity.isPathOnOTG(firstPath)) {
             activity.toast(R.string.unknown_error_occurred)
             return
         }
 
         CompressAsDialog(activity, firstPath) {
+            val destination = it
             activity.handleSAFDialog(firstPath) {
                 activity.toast(R.string.compressing)
                 val paths = getSelectedFileDirItems().map { it.path }
                 Thread {
-                    if (compressPaths(paths, it)) {
+                    if (compressPaths(paths, destination)) {
                         activity.runOnUiThread {
                             activity.toast(R.string.compression_successful)
                             listener?.refreshItems()
@@ -311,7 +311,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun decompressSelection() {
         val firstPath = getFirstSelectedItemPath()
-        if (firstPath.startsWith(OTG_PATH)) {
+        if (activity.isPathOnOTG(firstPath)) {
             activity.toast(R.string.unknown_error_occurred)
             return
         }
@@ -364,18 +364,14 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 val entries = zipFile.entries()
                 while (entries.hasMoreElements()) {
                     val entry = entries.nextElement()
-                    var parentPath = it.getParentPath()
-                    if (parentPath != OTG_PATH) {
-                        parentPath = "${parentPath.trimEnd('/')}/"
-                    }
-
+                    val parentPath = it.getParentPath()
                     val newPath = "$parentPath${entry.name.trimEnd('/')}"
 
                     val resolution = getConflictResolution(conflictResolutions, newPath)
-                    val doesPathExist = activity.getDoesFilePathExist(newPath)
+                    val doesPathExist = File(newPath).exists()
                     if (doesPathExist && resolution == CONFLICT_OVERWRITE) {
                         val fileDirItem = FileDirItem(newPath, newPath.getFilenameFromPath(), entry.isDirectory)
-                        if (activity.getIsPathDirectory(it)) {
+                        if (File(it).isDirectory) {
                             activity.deleteFolderBg(fileDirItem, false) {
                                 if (it) {
                                     extractEntry(newPath, entry, zipFile)
@@ -406,7 +402,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun extractEntry(newPath: String, entry: ZipEntry, zipFile: ZipFile) {
         if (entry.isDirectory) {
-            if (!activity.createDirectorySync(newPath) && !activity.getDoesFilePathExist(newPath)) {
+            if (!activity.createDirectorySync(newPath) && !File(newPath).exists()) {
                 val error = String.format(activity.getString(R.string.could_not_create_file), newPath)
                 activity.showErrorToast(error)
             }
@@ -584,9 +580,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                 }
 
                 if (!activity.isDestroyed) {
-                    if (hasOTGConnected && itemToLoad is String && itemToLoad.startsWith(OTG_PATH)) {
-                        itemToLoad = itemToLoad.getOTGPublicPath(activity)
-                    }
                     Glide.with(activity).load(itemToLoad).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
                 }
             }

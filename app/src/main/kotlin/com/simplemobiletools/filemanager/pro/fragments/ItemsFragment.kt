@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.OTG_PATH
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
@@ -115,7 +114,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             return
         }
 
-        var realPath = if (path == OTG_PATH) OTG_PATH else path.trimEnd('/')
+        var realPath = path.trimEnd('/')
         if (realPath.isEmpty()) {
             realPath = "/"
         }
@@ -174,12 +173,12 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         skipItemUpdating = false
         Thread {
             if (activity?.isDestroyed == false) {
-                if (path.startsWith(OTG_PATH)) {
+                /*if (path.startsWith(OTG_PATH)) {
                     val getProperFileSize = context!!.config.sorting and SORT_BY_SIZE != 0
                     context!!.getOTGItems(path, context!!.config.shouldShowHidden, getProperFileSize) {
                         callback(path, it)
                     }
-                } else if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+                } else */if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                     getRegularItemsOf(path, callback)
                 } else {
                     RootHelpers(activity!!).getFiles(path, callback)
