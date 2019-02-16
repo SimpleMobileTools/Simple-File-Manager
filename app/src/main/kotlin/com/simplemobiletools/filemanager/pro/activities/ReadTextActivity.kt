@@ -29,7 +29,6 @@ class ReadTextActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_text)
-        hideKeyboard()
 
         handlePermission(PERMISSION_WRITE_STORAGE) {
             if (it) {
@@ -144,5 +143,10 @@ class ReadTextActivity : SimpleActivity() {
         }
 
         read_text_view.setText(originalText)
+        if (originalText.isNotEmpty()) {
+            hideKeyboard()
+        } else {
+            showKeyboard(read_text_view)
+        }
     }
 }
