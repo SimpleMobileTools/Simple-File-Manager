@@ -154,7 +154,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
                 items_fastscroller.allowBubbleDisplay = context.config.showInfoBubble
                 items_fastscroller.setViews(items_list, mView.items_swipe_refresh) {
-                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText() ?: "")
+                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context) ?: "")
                 }
 
                 getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
