@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.1.3 *(2019-03-01)*
+----------------------------
+
+ * Improved SD card renaming
+ * Allow password protecting whole app or delete/rename
+
 Version 6.1.2 *(2019-02-16)*
 ----------------------------
 
