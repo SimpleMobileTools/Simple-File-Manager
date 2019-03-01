@@ -85,7 +85,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
             R.id.cab_open_with -> openWith()
             R.id.cab_open_as -> openAs()
             R.id.cab_copy_to -> copyMoveTo(true)
-            R.id.cab_move_to -> copyMoveTo(false)
+            R.id.cab_move_to -> tryMoveFiles()
             R.id.cab_compress -> compressSelection()
             R.id.cab_decompress -> decompressSelection()
             R.id.cab_select_all -> selectAll()
@@ -244,6 +244,12 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
         RadioGroupDialog(activity, items) {
             activity.tryOpenPathIntent(getFirstSelectedItemPath(), false, it as Int)
+        }
+    }
+
+    private fun tryMoveFiles() {
+        activity.handleDeletePasswordProtection {
+            copyMoveTo(false)
         }
     }
 
@@ -479,11 +485,13 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     }
 
     private fun askConfirmDelete() {
-        val selectionSize = selectedKeys.size
-        val items = resources.getQuantityString(R.plurals.delete_items, selectionSize, selectionSize)
-        val question = String.format(resources.getString(R.string.deletion_confirmation), items)
-        ConfirmationDialog(activity, question) {
-            deleteFiles()
+        activity.handleDeletePasswordProtection {
+            val selectionSize = selectedKeys.size
+            val items = resources.getQuantityString(R.plurals.delete_items, selectionSize, selectionSize)
+            val question = String.format(resources.getString(R.string.deletion_confirmation), items)
+            ConfirmationDialog(activity, question) {
+                deleteFiles()
+            }
         }
     }
 

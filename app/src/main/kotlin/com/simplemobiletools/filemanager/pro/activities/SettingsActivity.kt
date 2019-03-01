@@ -31,6 +31,7 @@ class SettingsActivity : SimpleActivity() {
         setupShowHidden()
         setupHiddenItemPasswordProtection()
         setupAppPasswordProtection()
+        setupFileDeletionPasswordProtection()
         setupKeepLastModified()
         setupShowInfoBubble()
         setupEnableRootAccess()
@@ -121,6 +122,28 @@ class SettingsActivity : SimpleActivity() {
 
                     if (config.isAppPasswordProtectionOn) {
                         val confirmationTextId = if (config.appProtectionType == PROTECTION_FINGERPRINT)
+                            R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
+                        ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupFileDeletionPasswordProtection() {
+        settings_file_deletion_password_protection.isChecked = config.isDeletePasswordProtectionOn
+        settings_file_deletion_password_protection_holder.setOnClickListener {
+            val tabToShow = if (config.isDeletePasswordProtectionOn) config.deleteProtectionType else SHOW_ALL_TABS
+            SecurityDialog(this, config.deletePasswordHash, tabToShow) { hash, type, success ->
+                if (success) {
+                    val hasPasswordProtection = config.isDeletePasswordProtectionOn
+                    settings_file_deletion_password_protection.isChecked = !hasPasswordProtection
+                    config.isDeletePasswordProtectionOn = !hasPasswordProtection
+                    config.deletePasswordHash = if (hasPasswordProtection) "" else hash
+                    config.deleteProtectionType = type
+
+                    if (config.isDeletePasswordProtectionOn) {
+                        val confirmationTextId = if (config.deleteProtectionType == PROTECTION_FINGERPRINT)
                             R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
                         ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
                     }
