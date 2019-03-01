@@ -31,10 +31,12 @@ import java.io.File
 import java.util.*
 
 class MainActivity : SimpleActivity() {
-    private var isSearchOpen = false
     private val BACK_PRESS_TIMEOUT = 5000
     private val PICKED_PATH = "picked_path"
+    private var isSearchOpen = false
     private var wasBackJustPressed = false
+    private var mIsPasswordProtectionPending = false
+    private var mWasProtectionHandled = false
     private var searchMenuItem: MenuItem? = null
 
     private lateinit var fragment: ItemsFragment
@@ -43,6 +45,7 @@ class MainActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+        mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
 
         fragment = (fragment_holder as ItemsFragment).apply {
             isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
@@ -51,10 +54,18 @@ class MainActivity : SimpleActivity() {
         }
 
         if (savedInstanceState == null) {
-            tryInitFileManager()
-            checkWhatsNewDialog()
-            checkIfRootAvailable()
-            checkInvalidFavorites()
+            handleAppPasswordProtection {
+                mWasProtectionHandled = it
+                if (it) {
+                    mIsPasswordProtectionPending = false
+                    tryInitFileManager()
+                    checkWhatsNewDialog()
+                    checkIfRootAvailable()
+                    checkInvalidFavorites()
+                } else {
+                    finish()
+                }
+            }
         }
     }
 
@@ -108,11 +119,27 @@ class MainActivity : SimpleActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(PICKED_PATH, (fragment_holder as ItemsFragment).currentPath)
+        outState.putBoolean(WAS_PROTECTION_HANDLED, mWasProtectionHandled)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        openPath(savedInstanceState.getString(PICKED_PATH), true)
+        mWasProtectionHandled = savedInstanceState.getBoolean(WAS_PROTECTION_HANDLED, false)
+        val path = savedInstanceState.getString(PICKED_PATH) ?: internalStoragePath
+
+        if (!mWasProtectionHandled) {
+            handleAppPasswordProtection {
+                mWasProtectionHandled = it
+                if (it) {
+                    mIsPasswordProtectionPending = false
+                    openPath(path, true)
+                } else {
+                    finish()
+                }
+            }
+        } else {
+            openPath(path, true)
+        }
     }
 
     private fun setupSearch(menu: Menu) {
@@ -179,6 +206,10 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun openPath(path: String, forceRefresh: Boolean = false) {
+        if (mIsPasswordProtectionPending && !mWasProtectionHandled) {
+            return
+        }
+
         var newPath = path
         val file = File(path)
         if (file.exists() && !file.isDirectory) {

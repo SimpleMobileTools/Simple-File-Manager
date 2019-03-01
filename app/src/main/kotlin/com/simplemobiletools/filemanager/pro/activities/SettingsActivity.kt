@@ -30,6 +30,7 @@ class SettingsActivity : SimpleActivity() {
         setupManageFavorites()
         setupShowHidden()
         setupHiddenItemPasswordProtection()
+        setupAppPasswordProtection()
         setupKeepLastModified()
         setupShowInfoBubble()
         setupEnableRootAccess()
@@ -98,6 +99,28 @@ class SettingsActivity : SimpleActivity() {
 
                     if (config.isHiddenPasswordProtectionOn) {
                         val confirmationTextId = if (config.hiddenProtectionType == PROTECTION_FINGERPRINT)
+                            R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
+                        ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupAppPasswordProtection() {
+        settings_app_password_protection.isChecked = config.isAppPasswordProtectionOn
+        settings_app_password_protection_holder.setOnClickListener {
+            val tabToShow = if (config.isAppPasswordProtectionOn) config.appProtectionType else SHOW_ALL_TABS
+            SecurityDialog(this, config.appPasswordHash, tabToShow) { hash, type, success ->
+                if (success) {
+                    val hasPasswordProtection = config.isAppPasswordProtectionOn
+                    settings_app_password_protection.isChecked = !hasPasswordProtection
+                    config.isAppPasswordProtectionOn = !hasPasswordProtection
+                    config.appPasswordHash = if (hasPasswordProtection) "" else hash
+                    config.appProtectionType = type
+
+                    if (config.isAppPasswordProtectionOn) {
+                        val confirmationTextId = if (config.appProtectionType == PROTECTION_FINGERPRINT)
                             R.string.fingerprint_setup_successfully else R.string.protection_setup_successfully
                         ConfirmationDialog(this, "", confirmationTextId, R.string.ok, 0) { }
                     }
