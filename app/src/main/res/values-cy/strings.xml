@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Rheolwr Ffeiliau</string>
+    <string name="press_back_again">Gwasga nôl eto i adael</string>
+    <string name="no_app_found">Does dim ap wedi\'i osod i fedru agor y math hon o ffeil</string>
+    <string name="go_to_home_folder">Mynd i\'r ffolder gartref</string>
+    <string name="set_as_home_folder">Gosod fel ffolder gartref</string>
+    <string name="home_folder_updated">Diweddarwyd ffolder gartref</string>
+    <string name="copy_path">Copïo\'r llwybr i\'r clipfwrdd</string>
+    <string name="path_copied">Copïwyd y llwybr</string>
+    <string name="select_audio_file">Dewisa ffeil sain</string>
+    <string name="search_folder">Chwilio\'r ffolder</string>
+    <string name="rooted_device_only">Dyw\'r weithred hon ond yn gweithio ar ddyfeisiau wedi\'u gwreddio</string>
+
+    <!-- Open as -->
+    <string name="open_as">Agor fel</string>
+    <string name="text_file">Ffeil testun</string>
+    <string name="image_file">Ffeil delwedd</string>
+    <string name="audio_file">Ffeil sain</string>
+    <string name="video_file">Ffeil fideo</string>
+    <string name="other_file">Ffeil arall</string>
+
+    <!-- Compression -->
+    <string name="compress">Cywasgu</strdsxcing>
+    <string name="decompress">Datgywasgu</string>
+    <string name="compress_as">Cywasgu fel</string>
+    <string name="compressing">Yn cywasgu…</string>
+    <string name="decompressing">Yn datgywasgu…</string>
+    <string name="compression_successful">Cywasgwyd yn llwyddiannus</string>
+    <string name="decompression_successful">Datgywasgwyd yn llwyddiannus</string>
+    <string name="compressing_failed">Methodd y cywasgu</string>
+    <string name="decompressing_failed">Methodd y datgywasgu</string>
+
+    <!-- Favorites -->
+    <string name="manage_favorites">Rheoli ffefrynnau</string>
+    <string name="go_to_favorite">Mynd at ffefryn</string>
+    <string name="favorites_activity_placeholder">Gellir ychwanegu ffolder a ddefnyddir yn aml at y ffefrynnau i gael atyn nhw\'n hawdd o unrhyw fan.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">Golygydd Ffeiliau</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">Galluogi mynediad craidd</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Rheolwr ffeiliau syml i bori a golygu ffeiliau a ffolderi.</string>
+    <string name="app_long_description">
+        Gellir hefyd ei ddefnyddio i bori ffeiliau craidd a chynnwys cerdyn SD. Gellir ailenwi, rhannu, symud, dileu a rhannu unrhyw beth wyt yn dymuno.
+
+        Mae angen caniatâd ôl bys i gloi eitemau neu\'r ap gyfan.
+
+        Gyda dim hysbysebion a dim eisiau unrhyw ganiatâd di-angen. Mae\'n gyfan gwbl god agored a gellir addasu lliwiau\'r ap.
+
+        Mae\'r ap hwn yn un mewn casgliad o apiau. Gweler y gweddill ar https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
