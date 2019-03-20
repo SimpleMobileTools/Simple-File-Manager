@@ -22,7 +22,7 @@
     <string name="other_file">Ffeil arall</string>
 
     <!-- Compression -->
-    <string name="compress">Cywasgu</strdsxcing>
+    <string name="compress">Cywasgu</string>
     <string name="decompress">Datgywasgu</string>
     <string name="compress_as">Cywasgu fel</string>
     <string name="compressing">Yn cywasgu…</string>
