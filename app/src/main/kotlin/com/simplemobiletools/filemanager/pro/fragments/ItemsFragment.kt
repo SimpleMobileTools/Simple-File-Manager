@@ -193,29 +193,36 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         val isSortingBySize = context!!.config.sorting and SORT_BY_SIZE != 0
         if (files != null) {
             for (file in files) {
-                val curPath = file.absolutePath
-                val curName = file.name
-                if (!showHidden && curName.startsWith(".")) {
-                    continue
+                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize)
+                if (fileDirItem != null) {
+                    items.add(fileDirItem)
                 }
-
-                val isDirectory = file.isDirectory
-                val children = if (isDirectory) file.getDirectChildrenCount(showHidden) else 0
-                val size = if (isDirectory) {
-                    if (isSortingBySize) {
-                        file.getProperSize(showHidden)
-                    } else {
-                        0L
-                    }
-                } else {
-                    file.length()
-                }
-                val fileDirItem = FileDirItem(curPath, curName, isDirectory, children, size)
-                items.add(fileDirItem)
             }
         }
 
         callback(path, items)
+    }
+
+    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean): FileDirItem? {
+        val curPath = file.absolutePath
+        val curName = file.name
+        if (!showHidden && curName.startsWith(".")) {
+            return null
+        }
+
+        val isDirectory = file.isDirectory
+        val children = if (isDirectory) file.getDirectChildrenCount(showHidden) else 0
+        val size = if (isDirectory) {
+            if (isSortingBySize) {
+                file.getProperSize(showHidden)
+            } else {
+                0L
+            }
+        } else {
+            file.length()
+        }
+
+        return FileDirItem(curPath, curName, isDirectory, children, size)
     }
 
     private fun itemClicked(item: FileDirItem) {
