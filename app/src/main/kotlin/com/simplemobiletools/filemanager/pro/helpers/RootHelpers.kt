@@ -106,7 +106,7 @@ class RootHelpers(val activity: Activity) {
                     }
                 }
 
-                if (activity.config.sorting and SORT_BY_SIZE == 0) {
+                if (activity.config.getFolderSorting(path) and SORT_BY_SIZE == 0) {
                     callback(path, files)
                 } else {
                     getFileSizes(files, path, callback)

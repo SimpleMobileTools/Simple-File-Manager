@@ -190,7 +190,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             return
         }
 
-        val isSortingBySize = context!!.config.sorting and SORT_BY_SIZE != 0
+        val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         if (files != null) {
             for (file in files) {
                 val fileDirItem = getFileDirItemFromFile(file, isSortingBySize)
