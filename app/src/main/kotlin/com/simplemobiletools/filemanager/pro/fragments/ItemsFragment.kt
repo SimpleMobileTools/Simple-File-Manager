@@ -249,16 +249,39 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     }
 
     fun searchQueryChanged(text: String) {
+        val searchText = text.trim()
         Thread {
-            val filtered = storedItems.filter { it.name.contains(text, true) } as ArrayList
-            filtered.sortBy { !it.name.startsWith(text, true) }
-            activity?.runOnUiThread {
-                getRecyclerAdapter()?.updateItems(filtered, text)
-            }
+            when {
+                searchText.isEmpty() -> activity?.runOnUiThread {
+                    mView.apply {
+                        if (items_list.isGone()) {
+                            items_list.beVisible()
+                            getRecyclerAdapter()?.updateItems(storedItems)
+                        }
+                        items_placeholder.beGone()
+                        items_placeholder_2.beGone()
+                    }
+                }
+                searchText.length == 1 -> activity?.runOnUiThread {
+                    mView.apply {
+                        items_list.beGone()
+                        items_placeholder.beVisible()
+                        items_placeholder_2.beVisible()
+                    }
+                }
+                else -> {
+                    val fileDirItems = ArrayList<FileDirItem>()
+                    fileDirItems.addAll(searchFiles(searchText, currentPath))
 
-            if (text.trim().length > 2) {
-                val fileDirItems = ArrayList<FileDirItem>()
-                fileDirItems.addAll(searchFiles(text.trim(), currentPath))
+                    activity?.runOnUiThread {
+                        getRecyclerAdapter()?.updateItems(fileDirItems, text)
+                        mView.apply {
+                            items_list.beVisibleIf(fileDirItems.isNotEmpty())
+                            items_placeholder.beVisibleIf(fileDirItems.isEmpty())
+                            items_placeholder_2.beGone()
+                        }
+                    }
+                }
             }
         }.start()
     }
