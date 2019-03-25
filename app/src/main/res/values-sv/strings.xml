@@ -11,6 +11,8 @@
     <string name="path_copied">Sökvägen har kopierats</string>
     <string name="select_audio_file">Välj en ljudfil</string>
     <string name="search_folder">Sök i mappen</string>
+    <string name="in_this_folder">Items in this folder</string>
+    <string name="in_subfolders">Items in subfolders</string>
     <string name="rooted_device_only">Åtgärden fungerar bara på rotade enheter</string>
 
     <!-- Open as -->
