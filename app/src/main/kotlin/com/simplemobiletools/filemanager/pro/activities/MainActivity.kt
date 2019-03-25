@@ -178,6 +178,7 @@ class MainActivity : SimpleActivity() {
 
     private fun tryInitFileManager() {
         handlePermission(PERMISSION_WRITE_STORAGE) {
+            checkOTGPath()
             if (it) {
                 initFileManager()
             } else {
@@ -203,6 +204,17 @@ class MainActivity : SimpleActivity() {
         } else {
             openPath(config.homeFolder)
         }
+    }
+
+    private fun checkOTGPath() {
+        Thread {
+            if (!config.wasOTGHandled && hasPermission(PERMISSION_WRITE_STORAGE) && hasOTGConnected() && config.OTGPath.isEmpty()) {
+                config.wasOTGHandled = true
+                getStorageDirectories().firstOrNull { it.trimEnd('/') != internalStoragePath && it.trimEnd('/') != sdCardPath }?.apply {
+                    config.OTGPath = trimEnd('/')
+                }
+            }
+        }.start()
     }
 
     private fun openPath(path: String, forceRefresh: Boolean = false) {
