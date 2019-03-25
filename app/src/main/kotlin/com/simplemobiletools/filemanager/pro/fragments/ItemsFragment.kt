@@ -255,7 +255,30 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             activity?.runOnUiThread {
                 getRecyclerAdapter()?.updateItems(filtered, text)
             }
+
+            if (text.trim().length > 2) {
+                val fileDirItems = ArrayList<FileDirItem>()
+                fileDirItems.addAll(searchFiles(text.trim(), currentPath))
+            }
         }.start()
+    }
+
+    private fun searchFiles(text: String, path: String): ArrayList<FileDirItem> {
+        val files = ArrayList<FileDirItem>()
+        val isSortingBySize = context!!.config.getFolderSorting(path) and SORT_BY_SIZE != 0
+        File(path).listFiles()?.forEach {
+            if (it.isDirectory) {
+                files.addAll(searchFiles(text, it.absolutePath))
+            } else {
+                if (it.name.startsWith(text, true)) {
+                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize)
+                    if (fileDirItem != null) {
+                        files.add(fileDirItem)
+                    }
+                }
+            }
+        }
+        return files
     }
 
     fun searchOpened() {
