@@ -44,7 +44,6 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
     private lateinit var folderDrawable: Drawable
     private lateinit var fileDrawable: Drawable
     private var currentItemsHash = fileDirItems.hashCode()
-    private val hasOTGConnected = activity.hasOTGConnected()
     private var textToHighlight = ""
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
@@ -573,7 +572,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
                         .error(fileDrawable)
                         .centerCrop()
 
-                var itemToLoad = if (fileDirItem.name.endsWith(".apk", true)) {
+                val itemToLoad = if (fileDirItem.name.endsWith(".apk", true)) {
                     val packageInfo = context.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
                     if (packageInfo != null) {
                         val appInfo = packageInfo.applicationInfo
