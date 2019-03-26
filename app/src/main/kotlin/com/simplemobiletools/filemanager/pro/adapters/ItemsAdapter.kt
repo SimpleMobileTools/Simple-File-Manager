@@ -27,6 +27,7 @@ import com.simplemobiletools.filemanager.pro.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.pro.extensions.*
 import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
+import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.list_item.view.*
 import java.io.Closeable
@@ -37,7 +38,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
-class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileDirItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
+class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
                    val isPickMultipleIntent: Boolean, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
@@ -94,7 +95,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     override fun getSelectableItemCount() = fileDirItems.size
 
-    override fun getIsItemSelectable(position: Int) = true
+    override fun getIsItemSelectable(position: Int) = !fileDirItems[position].isSectionTitle
 
     override fun getItemSelectionKey(position: Int) = fileDirItems.getOrNull(position)?.path?.hashCode()
 
@@ -531,11 +532,11 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
 
     private fun getSelectedFileDirItems() = fileDirItems.filter { selectedKeys.contains(it.path.hashCode()) } as ArrayList<FileDirItem>
 
-    fun updateItems(newItems: ArrayList<FileDirItem>, highlightText: String = "") {
+    fun updateItems(newItems: ArrayList<ListItem>, highlightText: String = "") {
         if (newItems.hashCode() != currentItemsHash) {
             currentItemsHash = newItems.hashCode()
             textToHighlight = highlightText
-            fileDirItems = newItems.clone() as ArrayList<FileDirItem>
+            fileDirItems = newItems.clone() as ArrayList<ListItem>
             notifyDataSetChanged()
             finishActMode()
         } else if (textToHighlight != highlightText) {
@@ -552,7 +553,7 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<FileD
         }
     }
 
-    private fun setupView(view: View, fileDirItem: FileDirItem) {
+    private fun setupView(view: View, fileDirItem: ListItem) {
         val isSelected = selectedKeys.contains(fileDirItem.path.hashCode())
         view.apply {
             item_frame.isSelected = isSelected

@@ -24,6 +24,7 @@ import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.helpers.PATH
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
+import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.HashMap
@@ -146,7 +147,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
                 mView.breadcrumbs.setBreadcrumb(currentPath)
                 storedItems = items
-                ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
+                ItemsAdapter(activity as SimpleActivity, getListItemsFromFileDirItems(storedItems), this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
                     itemClicked(it as FileDirItem)
                 }.apply {
                     addVerticalDividers(true)
@@ -225,6 +226,15 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         return FileDirItem(curPath, curName, isDirectory, children, size)
     }
 
+    private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
+        val listItems = ArrayList<ListItem>()
+        fileDirItems.forEach {
+            val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, false)
+            listItems.add(listItem)
+        }
+        return listItems
+    }
+
     private fun itemClicked(item: FileDirItem) {
         if (item.isDirectory) {
             (activity as? MainActivity)?.apply {
@@ -256,7 +266,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     mView.apply {
                         if (items_list.isGone()) {
                             items_list.beVisible()
-                            getRecyclerAdapter()?.updateItems(storedItems)
+                            getRecyclerAdapter()?.updateItems(getListItemsFromFileDirItems(storedItems))
                         }
                         items_placeholder.beGone()
                         items_placeholder_2.beGone()
@@ -274,7 +284,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     fileDirItems.addAll(searchFiles(searchText, currentPath))
 
                     activity?.runOnUiThread {
-                        getRecyclerAdapter()?.updateItems(fileDirItems, text)
+                        getRecyclerAdapter()?.updateItems(getListItemsFromFileDirItems(fileDirItems), text)
                         mView.apply {
                             items_list.beVisibleIf(fileDirItems.isNotEmpty())
                             items_placeholder.beVisibleIf(fileDirItems.isEmpty())
@@ -311,7 +321,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     fun searchClosed() {
         isSearchOpen = false
         if (!skipItemUpdating) {
-            getRecyclerAdapter()?.updateItems(storedItems)
+            getRecyclerAdapter()?.updateItems(getListItemsFromFileDirItems(storedItems))
         }
         skipItemUpdating = false
     }
