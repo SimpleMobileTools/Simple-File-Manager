@@ -3,7 +3,7 @@
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Διαχείριση αρχείων</string>
     <string name="press_back_again">Πατήστε πίσω ξανά για έξοδο</string>
-    <string name="no_app_found">Δεν υπάρχει εφαρμογή για το άνοιγμα αυτού του τύπου αρχείου</string>
+    <string name="no_app_found">Δεν βρέθηκε εφαρμογή για το άνοιγμα αυτού του τύπου αρχείου</string>
     <string name="go_to_home_folder">Μετάβαση στον αρχικό φάκελο</string>
     <string name="set_as_home_folder">Ορισμός ως αρχικού φακέλου</string>
     <string name="home_folder_updated">Ο Αρχικός φάκελος ενημερώθηκε</string>
@@ -11,8 +11,8 @@
     <string name="path_copied">Η διαδρομή αντιγράφηκε</string>
     <string name="select_audio_file">Επιλέξτε ένα αρχείο ήχου</string>
     <string name="search_folder">Αναζήτηση φακέλου</string>
-    <string name="in_this_folder">Items in this folder</string>
-    <string name="in_subfolders">Items in subfolders</string>
+    <string name="in_this_folder">Στοιχεία στον φάκελο</string>
+    <string name="in_subfolders">Στοιχεία στους υποφακέλους</string>
     <string name="rooted_device_only">Αυτή η λειτουργία λειτουργεί μόνο σε συσκευές με πρόσβαση στον ριζικό κατάλογο.</string>
 
     <!-- Open as -->
@@ -28,7 +28,7 @@
     <string name="decompress">Αποσυμπίεση</string>
     <string name="compress_as">Συμπίεση ως</string>
     <string name="compressing">Συμπιέζεται…</string>
-    <string name="decompressing">Αποσυμιέζεται…</string>
+    <string name="decompressing">Αποσυμπιέζεται…</string>
     <string name="compression_successful">Η Συμπίεση ολοκληρώθηκε</string>
     <string name="decompression_successful">Η Αποσυμπίεση ολοκληρώθηκε</string>
     <string name="compressing_failed">Σφάλμα Συμπίεσης</string>
