@@ -204,7 +204,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         callback(path, items)
     }
 
-    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean, nestingLevel: Int = 0): ListItem? {
+    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean): ListItem? {
         val curPath = file.absolutePath
         val curName = file.name
         if (!showHidden && curName.startsWith(".")) {
@@ -271,8 +271,18 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     }
                 }
                 else -> {
+                    val files = searchFiles(searchText, currentPath)
                     val listItems = ArrayList<ListItem>()
-                    listItems.addAll(searchFiles(searchText, currentPath, 0))
+
+                    var previousParent = ""
+                    files.forEach {
+                        val parent = it.mPath.getParentPath()
+                        if (parent != previousParent) {
+                            listItems.add(ListItem("", context!!.humanizePath(parent), false, 0, 0, true))
+                            previousParent = parent
+                        }
+                        listItems.add(it)
+                    }
 
                     activity?.runOnUiThread {
                         getRecyclerAdapter()?.updateItems(listItems, text)
@@ -287,15 +297,15 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }.start()
     }
 
-    private fun searchFiles(text: String, path: String, nestingLevel: Int): ArrayList<ListItem> {
+    private fun searchFiles(text: String, path: String): ArrayList<ListItem> {
         val files = ArrayList<ListItem>()
         val isSortingBySize = context!!.config.getFolderSorting(path) and SORT_BY_SIZE != 0
         File(path).listFiles()?.forEach {
             if (it.isDirectory) {
-                files.addAll(searchFiles(text, it.absolutePath, nestingLevel + 1))
+                files.addAll(searchFiles(text, it.absolutePath))
             } else {
                 if (it.name.startsWith(text, true)) {
-                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, nestingLevel)
+                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }

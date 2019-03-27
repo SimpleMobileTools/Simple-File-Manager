@@ -575,7 +575,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         view.apply {
             if (listItem.isSectionTitle) {
                 item_section.text = listItem.mName
-                item_section.setTextColor(adjustedPrimaryColor)
+                item_section.setTextColor(textColor)
             } else {
                 item_frame.isSelected = isSelected
                 val fileName = listItem.name
