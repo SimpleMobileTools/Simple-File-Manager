@@ -96,7 +96,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         }
     }
 
-    override fun getSelectableItemCount() = listItems.size
+    override fun getSelectableItemCount() = listItems.filter { !it.isSectionTitle }.size
 
     override fun getIsItemSelectable(position: Int) = !listItems[position].isSectionTitle
 
@@ -119,7 +119,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = listItems[position]
-        holder.bindView(fileDirItem, true, true) { itemView, layoutPosition ->
+        holder.bindView(fileDirItem, !fileDirItem.isSectionTitle, !fileDirItem.isSectionTitle) { itemView, layoutPosition ->
             setupView(itemView, fileDirItem)
         }
         bindViewHolder(holder)
