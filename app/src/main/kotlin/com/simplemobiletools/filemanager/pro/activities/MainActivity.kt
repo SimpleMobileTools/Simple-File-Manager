@@ -149,7 +149,7 @@ class MainActivity : SimpleActivity() {
         (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
-            queryHint = getString(R.string.search_folder)
+            queryHint = getString(R.string.search)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String) = false
 
