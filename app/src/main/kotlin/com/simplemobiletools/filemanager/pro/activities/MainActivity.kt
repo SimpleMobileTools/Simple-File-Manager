@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -209,9 +210,18 @@ class MainActivity : SimpleActivity() {
     private fun checkOTGPath() {
         Thread {
             if (!config.wasOTGHandled && hasPermission(PERMISSION_WRITE_STORAGE) && hasOTGConnected() && config.OTGPath.isEmpty()) {
-                config.wasOTGHandled = true
                 getStorageDirectories().firstOrNull { it.trimEnd('/') != internalStoragePath && it.trimEnd('/') != sdCardPath }?.apply {
+                    config.wasOTGHandled = true
                     config.OTGPath = trimEnd('/')
+                }
+
+                if (config.OTGPath.isEmpty()) {
+                    runOnUiThread {
+                        ConfirmationDialog(this, getString(R.string.usb_detected), positive = R.string.ok, negative = 0) {
+                            config.wasOTGHandled = true
+                            showOTGPermissionDialog()
+                        }
+                    }
                 }
             }
         }.start()
