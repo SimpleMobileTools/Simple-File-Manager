@@ -255,10 +255,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             when {
                 searchText.isEmpty() -> activity?.runOnUiThread {
                     mView.apply {
-                        if (items_list.isGone()) {
-                            items_list.beVisible()
-                            getRecyclerAdapter()?.updateItems(storedItems)
-                        }
+                        items_list.beVisible()
+                        getRecyclerAdapter()?.updateItems(storedItems)
                         items_placeholder.beGone()
                         items_placeholder_2.beGone()
                     }
