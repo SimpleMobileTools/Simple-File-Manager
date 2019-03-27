@@ -174,12 +174,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         skipItemUpdating = false
         Thread {
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
-                if (context!!.isPathOnOTG(path)) {
-                    val getProperFileSize = context!!.config.sorting and SORT_BY_SIZE != 0
-                    context!!.getOTGItems(path, context!!.config.shouldShowHidden, getProperFileSize) {
+                val config = context!!.config
+                if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                    val getProperFileSize = config.sorting and SORT_BY_SIZE != 0
+                    context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
                         callback(path, getListItemsFromFileDirItems(it))
                     }
-                } else if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+                } else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                     getRegularItemsOf(path, callback)
                 } else {
                     RootHelpers(activity!!).getFiles(path, callback)
