@@ -302,7 +302,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             if (it.isDirectory) {
                 files.addAll(searchFiles(text, it.absolutePath))
             } else {
-                if (it.name.startsWith(text, true)) {
+                if (it.name.contains(text, true)) {
                     val fileDirItem = getFileDirItemFromFile(it, isSortingBySize)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
