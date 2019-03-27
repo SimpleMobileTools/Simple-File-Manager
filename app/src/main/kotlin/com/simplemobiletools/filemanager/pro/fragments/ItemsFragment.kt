@@ -173,8 +173,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
         Thread {
-            if (activity?.isDestroyed == false) {
-                if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+            if (activity?.isDestroyed == false && activity?.isFinishing == false) {
+                if (context!!.isPathOnOTG(path)) {
+                    val getProperFileSize = context!!.config.sorting and SORT_BY_SIZE != 0
+                    context!!.getOTGItems(path, context!!.config.shouldShowHidden, getProperFileSize) {
+                        callback(path, getListItemsFromFileDirItems(it))
+                    }
+                } else if (!context!!.config.enableRootAccess || !context!!.isPathOnRoot(path)) {
                     getRegularItemsOf(path, callback)
                 } else {
                     RootHelpers(activity!!).getFiles(path, callback)
@@ -224,6 +229,15 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
 
         return ListItem(curPath, curName, isDirectory, children, size, false)
+    }
+
+    private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
+        val listItems = ArrayList<ListItem>()
+        fileDirItems.forEach {
+            val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, false)
+            listItems.add(listItem)
+        }
+        return listItems
     }
 
     private fun itemClicked(item: FileDirItem) {
