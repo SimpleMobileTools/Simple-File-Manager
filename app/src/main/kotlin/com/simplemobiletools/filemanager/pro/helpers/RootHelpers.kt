@@ -8,6 +8,7 @@ import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootShell.execution.Command
 import com.stericson.RootTools.RootTools
 import java.io.File
@@ -30,11 +31,11 @@ class RootHelpers(val activity: Activity) {
         }
     }
 
-    fun getFiles(path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    fun getFiles(path: String, callback: (originalPath: String, listItems: ArrayList<ListItem>) -> Unit) {
         getFullLines(path) {
             val fullLines = it
 
-            val files = ArrayList<FileDirItem>()
+            val files = ArrayList<ListItem>()
             val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
             val cmd = "ls $hiddenArgument$path"
 
@@ -43,7 +44,7 @@ class RootHelpers(val activity: Activity) {
                     val file = File(path, line)
                     val fullLine = fullLines.firstOrNull { it.endsWith(" $line") }
                     val isDirectory = fullLine?.startsWith('d') ?: file.isDirectory
-                    val fileDirItem = FileDirItem(file.absolutePath, line, isDirectory, 0, 0)
+                    val fileDirItem = ListItem(file.absolutePath, line, isDirectory, 0, 0, false)
                     files.add(fileDirItem)
                     super.commandOutput(id, line)
                 }
@@ -83,7 +84,7 @@ class RootHelpers(val activity: Activity) {
         runCommand(command)
     }
 
-    private fun getChildrenCount(files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    private fun getChildrenCount(files: ArrayList<ListItem>, path: String, callback: (originalPath: String, listItems: ArrayList<ListItem>) -> Unit) {
         val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
         var cmd = ""
         files.filter { it.isDirectory }.forEach {
@@ -118,7 +119,7 @@ class RootHelpers(val activity: Activity) {
         runCommand(command)
     }
 
-    private fun getFileSizes(files: ArrayList<FileDirItem>, path: String, callback: (originalPath: String, fileDirItems: ArrayList<FileDirItem>) -> Unit) {
+    private fun getFileSizes(files: ArrayList<ListItem>, path: String, callback: (originalPath: String, listItems: ArrayList<ListItem>) -> Unit) {
         var cmd = ""
         files.filter { !it.isDirectory }.forEach {
             cmd += "stat -t ${it.path};"

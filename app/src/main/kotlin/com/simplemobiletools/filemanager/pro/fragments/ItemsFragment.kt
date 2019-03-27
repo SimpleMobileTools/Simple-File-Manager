@@ -42,7 +42,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private var isSearchOpen = false
     private var scrollStates = HashMap<String, Parcelable>()
 
-    private var storedItems = ArrayList<FileDirItem>()
+    private var storedItems = ArrayList<ListItem>()
     private var storedTextColor = 0
 
     lateinit var mView: View
@@ -123,20 +123,20 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         scrollStates[currentPath] = getScrollState()!!
         currentPath = realPath
         showHidden = context!!.config.shouldShowHidden
-        getItems(currentPath) { originalPath, fileDirItems ->
+        getItems(currentPath) { originalPath, listItems ->
             if (currentPath != originalPath || !isAdded) {
                 return@getItems
             }
 
             FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
-            fileDirItems.sort()
+            listItems.sort()
             activity?.runOnUiThread {
-                addItems(fileDirItems, forceRefresh)
+                addItems(listItems, forceRefresh)
             }
         }
     }
 
-    private fun addItems(items: ArrayList<FileDirItem>, forceRefresh: Boolean = false) {
+    private fun addItems(items: ArrayList<ListItem>, forceRefresh: Boolean = false) {
         skipItemUpdating = false
         mView.apply {
             activity?.runOnUiThread {
@@ -147,7 +147,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
                 mView.breadcrumbs.setBreadcrumb(currentPath)
                 storedItems = items
-                ItemsAdapter(activity as SimpleActivity, getListItemsFromFileDirItems(storedItems), this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
+                ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
                     itemClicked(it as FileDirItem)
                 }.apply {
                     addVerticalDividers(true)
@@ -170,7 +170,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as MyLinearLayoutManager)
 
-    private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
+    private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
         Thread {
             if (activity?.isDestroyed == false) {
@@ -183,8 +183,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }.start()
     }
 
-    private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<FileDirItem>) -> Unit) {
-        val items = ArrayList<FileDirItem>()
+    private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
+        val items = ArrayList<ListItem>()
         val files = File(path).listFiles()?.filterNotNull()
         if (context == null) {
             callback(path, items)
@@ -204,7 +204,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         callback(path, items)
     }
 
-    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean): FileDirItem? {
+    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean, nestingLevel: Int = 0): ListItem? {
         val curPath = file.absolutePath
         val curName = file.name
         if (!showHidden && curName.startsWith(".")) {
@@ -223,16 +223,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             file.length()
         }
 
-        return FileDirItem(curPath, curName, isDirectory, children, size)
-    }
-
-    private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
-        val listItems = ArrayList<ListItem>()
-        fileDirItems.forEach {
-            val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, false)
-            listItems.add(listItem)
-        }
-        return listItems
+        return ListItem(curPath, curName, isDirectory, children, size, false)
     }
 
     private fun itemClicked(item: FileDirItem) {
@@ -266,7 +257,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     mView.apply {
                         if (items_list.isGone()) {
                             items_list.beVisible()
-                            getRecyclerAdapter()?.updateItems(getListItemsFromFileDirItems(storedItems))
+                            getRecyclerAdapter()?.updateItems(storedItems)
                         }
                         items_placeholder.beGone()
                         items_placeholder_2.beGone()
@@ -280,14 +271,14 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     }
                 }
                 else -> {
-                    val fileDirItems = ArrayList<FileDirItem>()
-                    fileDirItems.addAll(searchFiles(searchText, currentPath))
+                    val listItems = ArrayList<ListItem>()
+                    listItems.addAll(searchFiles(searchText, currentPath, 0))
 
                     activity?.runOnUiThread {
-                        getRecyclerAdapter()?.updateItems(getListItemsFromFileDirItems(fileDirItems), text)
+                        getRecyclerAdapter()?.updateItems(listItems, text)
                         mView.apply {
-                            items_list.beVisibleIf(fileDirItems.isNotEmpty())
-                            items_placeholder.beVisibleIf(fileDirItems.isEmpty())
+                            items_list.beVisibleIf(listItems.isNotEmpty())
+                            items_placeholder.beVisibleIf(listItems.isEmpty())
                             items_placeholder_2.beGone()
                         }
                     }
@@ -296,15 +287,15 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }.start()
     }
 
-    private fun searchFiles(text: String, path: String): ArrayList<FileDirItem> {
-        val files = ArrayList<FileDirItem>()
+    private fun searchFiles(text: String, path: String, nestingLevel: Int): ArrayList<ListItem> {
+        val files = ArrayList<ListItem>()
         val isSortingBySize = context!!.config.getFolderSorting(path) and SORT_BY_SIZE != 0
         File(path).listFiles()?.forEach {
             if (it.isDirectory) {
-                files.addAll(searchFiles(text, it.absolutePath))
+                files.addAll(searchFiles(text, it.absolutePath, nestingLevel + 1))
             } else {
                 if (it.name.startsWith(text, true)) {
-                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize)
+                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, nestingLevel)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }
@@ -321,7 +312,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     fun searchClosed() {
         isSearchOpen = false
         if (!skipItemUpdating) {
-            getRecyclerAdapter()?.updateItems(getListItemsFromFileDirItems(storedItems))
+            getRecyclerAdapter()?.updateItems(storedItems)
         }
         skipItemUpdating = false
     }
