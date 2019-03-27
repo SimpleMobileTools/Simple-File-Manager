@@ -14,7 +14,7 @@
         android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/activity_margin">
+        android:paddingEnd="@dimen/activity_margin">
 
         <ImageView
             android:id="@+id/item_icon"
@@ -28,10 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/item_icon"
-            android:layout_toRightOf="@+id/item_icon"
+            android:layout_toEndOf="@+id/item_icon"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingLeft="@dimen/small_margin"
+            android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/small_margin"
             tools:text="Directory"/>
 
@@ -40,8 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_name"
-            android:layout_toRightOf="@+id/item_icon"
-            android:paddingLeft="@dimen/small_margin"
+            android:layout_toEndOf="@+id/item_icon"
+            android:paddingStart="@dimen/small_margin"
             android:textSize="@dimen/smaller_text_size"
             tools:text="1 KB"/>
 

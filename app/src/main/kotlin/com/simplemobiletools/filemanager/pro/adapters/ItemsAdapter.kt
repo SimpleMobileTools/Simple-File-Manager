@@ -29,7 +29,8 @@ import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootTools.RootTools
-import kotlinx.android.synthetic.main.list_item.view.*
+import kotlinx.android.synthetic.main.item_list_file_dir.view.*
+import kotlinx.android.synthetic.main.item_list_section.view.*
 import java.io.Closeable
 import java.io.File
 import java.io.FileInputStream
@@ -38,13 +39,15 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
-class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
+class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
                    val isPickMultipleIntent: Boolean, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
+    private val TYPE_FILE_DIR = 1
+    private val TYPE_SECTION = 2
     private lateinit var folderDrawable: Drawable
     private lateinit var fileDrawable: Drawable
-    private var currentItemsHash = fileDirItems.hashCode()
+    private var currentItemsHash = listItems.hashCode()
     private var textToHighlight = ""
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
@@ -93,27 +96,38 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<ListI
         }
     }
 
-    override fun getSelectableItemCount() = fileDirItems.size
+    override fun getSelectableItemCount() = listItems.size
 
-    override fun getIsItemSelectable(position: Int) = !fileDirItems[position].isSectionTitle
+    override fun getIsItemSelectable(position: Int) = !listItems[position].isSectionTitle
 
-    override fun getItemSelectionKey(position: Int) = fileDirItems.getOrNull(position)?.path?.hashCode()
+    override fun getItemSelectionKey(position: Int) = listItems.getOrNull(position)?.path?.hashCode()
 
-    override fun getItemKeyPosition(key: Int) = fileDirItems.indexOfFirst { it.path.hashCode() == key }
+    override fun getItemKeyPosition(key: Int) = listItems.indexOfFirst { it.path.hashCode() == key }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.list_item, parent)
+    override fun getItemViewType(position: Int): Int {
+        return if (listItems[position].isSectionTitle) {
+            TYPE_SECTION
+        } else {
+            TYPE_FILE_DIR
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layout = if (viewType == TYPE_SECTION) R.layout.item_list_section else R.layout.item_list_file_dir
+        return createViewHolder(layout, parent)
+    }
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
-        val fileDirItem = fileDirItems[position]
+        val fileDirItem = listItems[position]
         holder.bindView(fileDirItem, true, true) { itemView, layoutPosition ->
             setupView(itemView, fileDirItem)
         }
         bindViewHolder(holder)
     }
 
-    override fun getItemCount() = fileDirItems.size
+    override fun getItemCount() = listItems.size
 
-    private fun getItemWithKey(key: Int): FileDirItem? = fileDirItems.firstOrNull { it.path.hashCode() == key }
+    private fun getItemWithKey(key: Int): FileDirItem? = listItems.firstOrNull { it.path.hashCode() == key }
 
     fun initDrawables() {
         folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
@@ -512,10 +526,10 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<ListI
             selectedKeys.forEach {
                 activity.config.removeFavorite(getItemWithKey(it)?.path ?: "")
                 val key = it
-                val position = fileDirItems.indexOfFirst { it.path.hashCode() == key }
+                val position = listItems.indexOfFirst { it.path.hashCode() == key }
                 if (position != -1) {
                     positions.add(position)
-                    files.add(fileDirItems[position])
+                    files.add(listItems[position])
                 }
             }
 
@@ -523,20 +537,20 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<ListI
             removeSelectedItems(positions)
             listener?.deleteFiles(files)
             positions.forEach {
-                fileDirItems.removeAt(it)
+                listItems.removeAt(it)
             }
         }
     }
 
     private fun getFirstSelectedItemPath() = getSelectedFileDirItems().first().path
 
-    private fun getSelectedFileDirItems() = fileDirItems.filter { selectedKeys.contains(it.path.hashCode()) } as ArrayList<FileDirItem>
+    private fun getSelectedFileDirItems() = listItems.filter { selectedKeys.contains(it.path.hashCode()) } as ArrayList<FileDirItem>
 
     fun updateItems(newItems: ArrayList<ListItem>, highlightText: String = "") {
         if (newItems.hashCode() != currentItemsHash) {
             currentItemsHash = newItems.hashCode()
             textToHighlight = highlightText
-            fileDirItems = newItems.clone() as ArrayList<ListItem>
+            listItems = newItems.clone() as ArrayList<ListItem>
             notifyDataSetChanged()
             finishActMode()
         } else if (textToHighlight != highlightText) {
@@ -548,47 +562,55 @@ class ItemsAdapter(activity: SimpleActivity, var fileDirItems: MutableList<ListI
 
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
-        if (!activity.isDestroyed) {
-            Glide.with(activity).clear(holder.itemView.item_icon!!)
+        if (!activity.isDestroyed && !activity.isFinishing) {
+            val icon = holder.itemView.item_icon
+            if (icon != null) {
+                Glide.with(activity).clear(icon)
+            }
         }
     }
 
-    private fun setupView(view: View, fileDirItem: ListItem) {
-        val isSelected = selectedKeys.contains(fileDirItem.path.hashCode())
+    private fun setupView(view: View, listItem: ListItem) {
+        val isSelected = selectedKeys.contains(listItem.path.hashCode())
         view.apply {
-            item_frame.isSelected = isSelected
-            val fileName = fileDirItem.name
-            item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
-            item_name.setTextColor(textColor)
-            item_details.setTextColor(textColor)
-
-            if (fileDirItem.isDirectory) {
-                item_icon.setImageDrawable(folderDrawable)
-                item_details.text = getChildrenCnt(fileDirItem)
+            if (listItem.isSectionTitle) {
+                item_section.text = listItem.mName
+                item_section.setTextColor(adjustedPrimaryColor)
             } else {
-                item_details.text = fileDirItem.size.formatSize()
-                val path = fileDirItem.path
-                val options = RequestOptions()
-                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                        .error(fileDrawable)
-                        .centerCrop()
+                item_frame.isSelected = isSelected
+                val fileName = listItem.name
+                item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                item_name.setTextColor(textColor)
+                item_details.setTextColor(textColor)
 
-                val itemToLoad = if (fileDirItem.name.endsWith(".apk", true)) {
-                    val packageInfo = context.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
-                    if (packageInfo != null) {
-                        val appInfo = packageInfo.applicationInfo
-                        appInfo.sourceDir = path
-                        appInfo.publicSourceDir = path
-                        appInfo.loadIcon(context.packageManager)
+                if (listItem.isDirectory) {
+                    item_icon.setImageDrawable(folderDrawable)
+                    item_details.text = getChildrenCnt(listItem)
+                } else {
+                    item_details.text = listItem.size.formatSize()
+                    val path = listItem.path
+                    val options = RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                            .error(fileDrawable)
+                            .centerCrop()
+
+                    val itemToLoad = if (listItem.name.endsWith(".apk", true)) {
+                        val packageInfo = context.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
+                        if (packageInfo != null) {
+                            val appInfo = packageInfo.applicationInfo
+                            appInfo.sourceDir = path
+                            appInfo.publicSourceDir = path
+                            appInfo.loadIcon(context.packageManager)
+                        } else {
+                            path
+                        }
                     } else {
                         path
                     }
-                } else {
-                    path
-                }
 
-                if (!activity.isDestroyed) {
-                    Glide.with(activity).load(itemToLoad).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
+                    if (!activity.isDestroyed) {
+                        Glide.with(activity).load(itemToLoad).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
+                    }
                 }
             }
         }
