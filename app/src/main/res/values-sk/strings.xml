@@ -11,8 +11,6 @@
     <string name="path_copied">Cesta skopírovaná</string>
     <string name="select_audio_file">Prosím zvoľte audio súbor</string>
     <string name="search_folder">Hľadať v priečinku</string>
-    <string name="in_this_folder">Položky v tomto priečinku</string>
-    <string name="in_subfolders">Položky v podpriečinkoch</string>
     <string name="rooted_device_only">Táto operácia funguje iba na rootnutých zariadeniach</string>
 
     <!-- Open as -->

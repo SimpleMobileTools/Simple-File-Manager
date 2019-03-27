@@ -11,8 +11,6 @@
     <string name="path_copied">Pad gekopieerd</string>
     <string name="select_audio_file">Selecteer een geluidsbestand</string>
     <string name="search_folder">Map doorzoeken</string>
-    <string name="in_this_folder">Items in deze map</string>
-    <string name="in_subfolders">Items in onderliggende mappen</string>
     <string name="rooted_device_only">Deze bewerking is alleen mogelijk op een geroot apparaat</string>
 
     <!-- Open as -->

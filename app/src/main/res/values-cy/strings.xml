@@ -11,8 +11,6 @@
     <string name="path_copied">Copïwyd y llwybr</string>
     <string name="select_audio_file">Dewisa ffeil sain</string>
     <string name="search_folder">Chwilio\'r ffolder</string>
-    <string name="in_this_folder">Items in this folder</string>
-    <string name="in_subfolders">Items in subfolders</string>
     <string name="rooted_device_only">Dyw\'r weithred hon ond yn gweithio ar ddyfeisiau wedi\'u gwreddio</string>
 
     <!-- Open as -->
