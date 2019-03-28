@@ -49,6 +49,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private lateinit var fileDrawable: Drawable
     private var currentItemsHash = listItems.hashCode()
     private var textToHighlight = ""
+    private val hasOTGConnected = activity.hasOTGConnected()
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
     init {
@@ -594,7 +595,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                             .error(fileDrawable)
                             .centerCrop()
 
-                    val itemToLoad = if (listItem.name.endsWith(".apk", true)) {
+                    var itemToLoad = if (listItem.name.endsWith(".apk", true)) {
                         val packageInfo = context.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
                         if (packageInfo != null) {
                             val appInfo = packageInfo.applicationInfo
@@ -606,6 +607,11 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                         }
                     } else {
                         path
+                    }
+
+
+                    if (hasOTGConnected && itemToLoad is String && activity.isPathOnOTG(itemToLoad) && baseConfig.OTGTreeUri.isNotEmpty() && baseConfig.OTGPartition.isNotEmpty()) {
+                        itemToLoad = getOTGPublicPath(itemToLoad)
                     }
 
                     if (!activity.isDestroyed) {
@@ -620,4 +626,6 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         val children = item.children
         return activity.resources.getQuantityString(R.plurals.items, children, children)
     }
+
+    private fun getOTGPublicPath(itemToLoad: String) = "${baseConfig.OTGTreeUri}/document/${baseConfig.OTGPartition}%3A${itemToLoad.substring(baseConfig.OTGPath.length).replace("/", "%2F")}"
 }
