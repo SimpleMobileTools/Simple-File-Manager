@@ -234,7 +234,9 @@ class MainActivity : SimpleActivity() {
 
         var newPath = path
         val file = File(path)
-        if (file.exists() && !file.isDirectory) {
+        if (config.OTGPath.isNotEmpty() && config.OTGPath == path.trimEnd('/')) {
+            newPath = path
+        } else if (file.exists() && !file.isDirectory) {
             newPath = file.parent
         } else if (!file.exists() && !isPathOnOTG(newPath)) {
             newPath = internalStoragePath
