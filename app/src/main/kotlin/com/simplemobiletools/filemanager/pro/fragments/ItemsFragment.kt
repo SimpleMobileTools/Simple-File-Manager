@@ -312,7 +312,9 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun searchFiles(text: String, path: String): ArrayList<ListItem> {
         val files = ArrayList<ListItem>()
-        val isSortingBySize = context!!.config.getFolderSorting(path) and SORT_BY_SIZE != 0
+        val sorting = context!!.config.getFolderSorting(path)
+        FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
+        val isSortingBySize = sorting and SORT_BY_SIZE != 0
         File(path).listFiles()?.forEach {
             if (it.isDirectory) {
                 files.addAll(searchFiles(text, it.absolutePath))
@@ -325,6 +327,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
             }
         }
+        files.sort()
         return files
     }
 
