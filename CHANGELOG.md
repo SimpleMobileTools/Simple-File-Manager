@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.2.0 *(2019-03-29)*
+----------------------------
+
+ * Made searching recursive, searching in subfolders too
+ * Improved some USB handling
+
 Version 6.1.3 *(2019-03-01)*
 ----------------------------
 
