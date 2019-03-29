@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Release notes -->
+    <string name="release_71">Made Search recursive, searching in subfolders too</string>
     <string name="release_37">
         Added a toggle for keeping last-modified value at file copy/move/rename\n
         Added new actionmenu items "Set As", "Open With" and "Copy path to clipboard"
