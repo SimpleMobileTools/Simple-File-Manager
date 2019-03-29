@@ -176,7 +176,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
                 val config = context!!.config
                 if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
-                    val getProperFileSize = config.sorting and SORT_BY_SIZE != 0
+                    val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
                     context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
                         callback(path, getListItemsFromFileDirItems(it))
                     }
