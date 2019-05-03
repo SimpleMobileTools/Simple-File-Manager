@@ -1,10 +1,18 @@
 package com.simplemobiletools.filemanager.pro.adapters
 
+import android.annotation.SuppressLint
+import android.app.PendingIntent
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
+import android.graphics.drawable.LayerDrawable
+import android.net.Uri
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -17,12 +25,14 @@ import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
 import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
+import com.simplemobiletools.commons.helpers.isNougatMR1Plus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.activities.SplashActivity
 import com.simplemobiletools.filemanager.pro.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.pro.extensions.*
 import com.simplemobiletools.filemanager.pro.helpers.*
@@ -67,6 +77,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
             findItem(R.id.cab_open_as).isVisible = isOneFileSelected()
             findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
+            findItem(R.id.cab_create_shortcut).isVisible = isNougatMR1Plus() && isOneItemSelected() && File(getFirstSelectedItemPath()).isDirectory
 
             checkHideBtnVisibility(this)
         }
@@ -84,6 +95,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             R.id.cab_share -> shareFiles()
             R.id.cab_hide -> toggleFileVisibility(true)
             R.id.cab_unhide -> toggleFileVisibility(false)
+            R.id.cab_create_shortcut -> createShortcut()
             R.id.cab_copy_path -> copyPath()
             R.id.cab_set_as -> setAs()
             R.id.cab_open_with -> openWith()
@@ -214,6 +226,37 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 finishActMode()
             }
         }.start()
+    }
+
+    @SuppressLint("NewApi")
+    private fun createShortcut() {
+        val manager = activity.getSystemService(ShortcutManager::class.java)
+        if (manager.isRequestPinShortcutSupported) {
+            val path = getFirstSelectedItemPath()
+
+            val appIconColor = baseConfig.appIconColor
+            val drawable = resources.getDrawable(R.drawable.shortcut_folder)
+            (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(appIconColor)
+            val bmp = drawable.convertToBitmap()
+
+            val intent = Intent(activity, SplashActivity::class.java)
+            intent.action = Intent.ACTION_VIEW
+            intent.data = Uri.fromFile(File(path))
+
+            val shortcut = ShortcutInfo.Builder(activity, path)
+                    .setShortLabel(path.getFilenameFromPath())
+                    .setIcon(Icon.createWithBitmap(bmp))
+                    .setIntent(intent)
+                    .build()
+
+            manager.dynamicShortcuts = Arrays.asList(shortcut)
+
+            val pinShortcutInfo = ShortcutInfo.Builder(activity, path).build()
+            val pinnedShortcutCallbackIntent = manager.createShortcutResultIntent(pinShortcutInfo)
+
+            val successCallback = PendingIntent.getBroadcast(activity, 0, pinnedShortcutCallbackIntent, 0)
+            manager.requestPinShortcut(pinShortcutInfo, successCallback.intentSender)
+        }
     }
 
     private fun addFileUris(path: String, paths: ArrayList<String>) {

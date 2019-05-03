@@ -32,6 +32,10 @@
         android:title="@string/unhide"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/cab_create_shortcut"
+        android:title="@string/create_shortcut"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/cab_copy_path"
         android:title="@string/copy_path"
         app:showAsAction="never"/>
