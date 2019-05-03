@@ -23,6 +23,7 @@ import com.simplemobiletools.filemanager.pro.BuildConfig
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
@@ -201,6 +202,10 @@ class MainActivity : SimpleActivity() {
                 } else {
                     openPath(config.homeFolder)
                 }
+            }
+
+            if (!File(data.path).isDirectory) {
+                tryOpenPathIntent(data.path, false)
             }
         } else {
             openPath(config.homeFolder)

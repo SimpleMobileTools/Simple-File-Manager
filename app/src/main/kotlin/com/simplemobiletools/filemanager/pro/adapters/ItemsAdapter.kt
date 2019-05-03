@@ -77,7 +77,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
             findItem(R.id.cab_open_as).isVisible = isOneFileSelected()
             findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
-            findItem(R.id.cab_create_shortcut).isVisible = isNougatMR1Plus() && isOneItemSelected() && File(getFirstSelectedItemPath()).isDirectory
+            findItem(R.id.cab_create_shortcut).isVisible = isNougatMR1Plus() && isOneItemSelected()
 
             checkHideBtnVisibility(this)
         }
