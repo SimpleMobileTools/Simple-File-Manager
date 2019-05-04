@@ -312,6 +312,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun searchFiles(text: String, path: String): ArrayList<ListItem> {
         val files = ArrayList<ListItem>()
+        if (context == null) {
+            return files
+        }
+
         val sorting = context!!.config.getFolderSorting(path)
         FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
         val isSortingBySize = sorting and SORT_BY_SIZE != 0
