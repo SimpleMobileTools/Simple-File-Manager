@@ -141,11 +141,11 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         mView.apply {
             activity?.runOnUiThread {
                 items_swipe_refresh?.isRefreshing = false
+                mView.breadcrumbs.setBreadcrumb(currentPath)
                 if (!forceRefresh && items.hashCode() == storedItems.hashCode()) {
                     return@runOnUiThread
                 }
 
-                mView.breadcrumbs.setBreadcrumb(currentPath)
                 storedItems = items
                 ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
                     itemClicked(it as FileDirItem)
