@@ -461,10 +461,12 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             try {
                 val zipFile = ZipFile(it)
                 val entries = zipFile.entries()
+                val zipFileName = it.getFilenameFromPath()
+                val newFolderName = zipFileName.subSequence(0, zipFileName.length-4)
                 while (entries.hasMoreElements()) {
                     val entry = entries.nextElement()
                     val parentPath = it.getParentPath()
-                    val newPath = "$parentPath${entry.name.trimEnd('/')}"
+                    val newPath = "$parentPath/$newFolderName/${entry.name.trimEnd('/')}"
 
                     val resolution = getConflictResolution(conflictResolutions, newPath)
                     val doesPathExist = File(newPath).exists()
