@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.3.0 *(2019-05-04)*
+----------------------------
+
+ * Allow creating file and folder home screen shortcuts for quick access on Android 7.1+
+ * Fixed some compressing related glitches
+ * Other stability and translation improvements
+
 Version 6.2.0 *(2019-03-29)*
 ----------------------------
 
