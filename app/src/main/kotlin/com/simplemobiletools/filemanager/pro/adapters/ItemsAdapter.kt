@@ -439,7 +439,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 val fileDirItems = ArrayList<FileDirItem>()
                 while (entries.hasMoreElements()) {
                     val entry = entries.nextElement()
-                    val currPath = if (entry.isDirectory) it else "${it.getParentPath()}${entry.name}"
+                    val currPath = if (entry.isDirectory) it else "${it.getParentPath().trimEnd('/')}/${entry.name}"
                     val fileDirItem = FileDirItem(currPath, entry.name, entry.isDirectory, 0, entry.size)
                     fileDirItems.add(fileDirItem)
                 }
@@ -462,7 +462,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 val zipFile = ZipFile(it)
                 val entries = zipFile.entries()
                 val zipFileName = it.getFilenameFromPath()
-                val newFolderName = zipFileName.subSequence(0, zipFileName.length-4)
+                val newFolderName = zipFileName.subSequence(0, zipFileName.length - 4)
                 while (entries.hasMoreElements()) {
                     val entry = entries.nextElement()
                     val parentPath = it.getParentPath()
