@@ -1,7 +1,6 @@
 package com.simplemobiletools.filemanager.pro.adapters
 
 import android.annotation.SuppressLint
-import android.app.PendingIntent
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -246,13 +245,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                         .setIntent(intent)
                         .build()
 
-                manager.dynamicShortcuts = Arrays.asList(shortcut)
-
-                val pinShortcutInfo = ShortcutInfo.Builder(activity, path).build()
-                val pinnedShortcutCallbackIntent = manager.createShortcutResultIntent(pinShortcutInfo)
-
-                val successCallback = PendingIntent.getBroadcast(activity, 0, pinnedShortcutCallbackIntent, 0)
-                manager.requestPinShortcut(pinShortcutInfo, successCallback.intentSender)
+                manager.requestPinShortcut(shortcut, null)
             }
         }
     }
