@@ -17,6 +17,7 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -233,29 +234,63 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         val manager = activity.getSystemService(ShortcutManager::class.java)
         if (manager.isRequestPinShortcutSupported) {
             val path = getFirstSelectedItemPath()
+            val drawable = resources.getDrawable(R.drawable.shortcut_folder).mutate()
+            getShortcutImage(path, drawable) {
+                val intent = Intent(activity, SplashActivity::class.java)
+                intent.action = Intent.ACTION_VIEW
+                intent.data = Uri.fromFile(File(path))
 
-            val appIconColor = baseConfig.appIconColor
-            val drawable = resources.getDrawable(R.drawable.shortcut_folder)
-            (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(appIconColor)
-            val bmp = drawable.convertToBitmap()
+                val shortcut = ShortcutInfo.Builder(activity, path)
+                        .setShortLabel(path.getFilenameFromPath())
+                        .setIcon(Icon.createWithBitmap(drawable.convertToBitmap()))
+                        .setIntent(intent)
+                        .build()
 
-            val intent = Intent(activity, SplashActivity::class.java)
-            intent.action = Intent.ACTION_VIEW
-            intent.data = Uri.fromFile(File(path))
+                manager.dynamicShortcuts = Arrays.asList(shortcut)
 
-            val shortcut = ShortcutInfo.Builder(activity, path)
-                    .setShortLabel(path.getFilenameFromPath())
-                    .setIcon(Icon.createWithBitmap(bmp))
-                    .setIntent(intent)
-                    .build()
+                val pinShortcutInfo = ShortcutInfo.Builder(activity, path).build()
+                val pinnedShortcutCallbackIntent = manager.createShortcutResultIntent(pinShortcutInfo)
 
-            manager.dynamicShortcuts = Arrays.asList(shortcut)
+                val successCallback = PendingIntent.getBroadcast(activity, 0, pinnedShortcutCallbackIntent, 0)
+                manager.requestPinShortcut(pinShortcutInfo, successCallback.intentSender)
+            }
+        }
+    }
 
-            val pinShortcutInfo = ShortcutInfo.Builder(activity, path).build()
-            val pinnedShortcutCallbackIntent = manager.createShortcutResultIntent(pinShortcutInfo)
+    private fun getShortcutImage(path: String, drawable: Drawable, callback: () -> Unit) {
+        val appIconColor = baseConfig.appIconColor
+        (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(appIconColor)
+        if (File(path).isDirectory) {
+            callback()
+        } else {
+            Thread {
+                val options = RequestOptions()
+                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .fitCenter()
 
-            val successCallback = PendingIntent.getBroadcast(activity, 0, pinnedShortcutCallbackIntent, 0)
-            manager.requestPinShortcut(pinShortcutInfo, successCallback.intentSender)
+                val size = activity.resources.getDimension(R.dimen.shortcut_size).toInt()
+                val builder = Glide.with(activity)
+                        .asDrawable()
+                        .load(getImagePathToLoad(path))
+                        .apply(options)
+                        .centerCrop()
+                        .into(size, size)
+
+                try {
+                    val bitmap = builder.get()
+                    drawable.findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(0)
+                    drawable.setDrawableByLayerId(R.id.shortcut_folder_image, bitmap)
+                } catch (e: Exception) {
+                    val fileIcon = activity.resources.getDrawable(R.drawable.ic_file)
+                    drawable.setDrawableByLayerId(R.id.shortcut_folder_image, fileIcon)
+                }
+
+                activity.runOnUiThread {
+                    callback()
+                }
+            }.start()
         }
     }
 
@@ -632,31 +667,12 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     item_details.text = getChildrenCnt(listItem)
                 } else {
                     item_details.text = listItem.size.formatSize()
-                    val path = listItem.path
                     val options = RequestOptions()
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                             .error(fileDrawable)
                             .centerCrop()
 
-                    var itemToLoad = if (listItem.name.endsWith(".apk", true)) {
-                        val packageInfo = context.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
-                        if (packageInfo != null) {
-                            val appInfo = packageInfo.applicationInfo
-                            appInfo.sourceDir = path
-                            appInfo.publicSourceDir = path
-                            appInfo.loadIcon(context.packageManager)
-                        } else {
-                            path
-                        }
-                    } else {
-                        path
-                    }
-
-
-                    if (hasOTGConnected && itemToLoad is String && activity.isPathOnOTG(itemToLoad) && baseConfig.OTGTreeUri.isNotEmpty() && baseConfig.OTGPartition.isNotEmpty()) {
-                        itemToLoad = getOTGPublicPath(itemToLoad)
-                    }
-
+                    val itemToLoad = getImagePathToLoad(listItem.path)
                     if (!activity.isDestroyed) {
                         Glide.with(activity).load(itemToLoad).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
                     }
@@ -671,4 +687,26 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     }
 
     private fun getOTGPublicPath(itemToLoad: String) = "${baseConfig.OTGTreeUri}/document/${baseConfig.OTGPartition}%3A${itemToLoad.substring(baseConfig.OTGPath.length).replace("/", "%2F")}"
+
+    private fun getImagePathToLoad(path: String): Any {
+        var itemToLoad = if (path.endsWith(".apk", true)) {
+            val packageInfo = activity.packageManager.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES)
+            if (packageInfo != null) {
+                val appInfo = packageInfo.applicationInfo
+                appInfo.sourceDir = path
+                appInfo.publicSourceDir = path
+                appInfo.loadIcon(activity.packageManager)
+            } else {
+                path
+            }
+        } else {
+            path
+        }
+
+        if (hasOTGConnected && itemToLoad is String && activity.isPathOnOTG(itemToLoad) && baseConfig.OTGTreeUri.isNotEmpty() && baseConfig.OTGPartition.isNotEmpty()) {
+            itemToLoad = getOTGPublicPath(itemToLoad)
+        }
+
+        return itemToLoad
+    }
 }
