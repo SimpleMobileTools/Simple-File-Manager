@@ -25,7 +25,7 @@ import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
 import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
-import com.simplemobiletools.commons.helpers.isNougatMR1Plus
+import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.FastScroller
@@ -77,7 +77,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             findItem(R.id.cab_open_with).isVisible = isOneFileSelected()
             findItem(R.id.cab_open_as).isVisible = isOneFileSelected()
             findItem(R.id.cab_set_as).isVisible = isOneFileSelected()
-            findItem(R.id.cab_create_shortcut).isVisible = isNougatMR1Plus() && isOneItemSelected()
+            findItem(R.id.cab_create_shortcut).isVisible = isOreoPlus() && isOneItemSelected()
 
             checkHideBtnVisibility(this)
         }
