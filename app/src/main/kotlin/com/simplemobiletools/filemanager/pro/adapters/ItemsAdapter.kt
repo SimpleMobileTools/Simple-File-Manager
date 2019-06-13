@@ -656,12 +656,17 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 item_name.setTextColor(textColor)
                 item_details.setTextColor(textColor)
+                item_date.setTextColor(textColor)
 
                 if (listItem.isDirectory) {
                     item_icon.setImageDrawable(folderDrawable)
                     item_details.text = getChildrenCnt(listItem)
+                    item_date.beGone()
                 } else {
                     item_details.text = listItem.size.formatSize()
+                    item_date.beVisible()
+                    item_date.text = listItem.modified.formatDate(activity)
+
                     val options = RequestOptions()
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                             .error(fileDrawable)

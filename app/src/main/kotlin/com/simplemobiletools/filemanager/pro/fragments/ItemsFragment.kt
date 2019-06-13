@@ -229,13 +229,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             file.length()
         }
 
-        return ListItem(curPath, curName, isDirectory, children, size, false)
+        return ListItem(curPath, curName, isDirectory, children, size, file.lastModified(), false)
     }
 
     private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
         val listItems = ArrayList<ListItem>()
         fileDirItems.forEach {
-            val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, false)
+            val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, it.modified, false)
             listItems.add(listItem)
         }
         return listItems
@@ -295,7 +295,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     files.forEach {
                         val parent = it.mPath.getParentPath()
                         if (parent != previousParent) {
-                            listItems.add(ListItem("", context!!.humanizePath(parent), false, 0, 0, true))
+                            listItems.add(ListItem("", context!!.humanizePath(parent), false, 0, 0, 0, true))
                             previousParent = parent
                         }
                         listItems.add(it)

@@ -37,13 +37,26 @@
 
         <TextView
             android:id="@+id/item_details"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_name"
             android:layout_toEndOf="@+id/item_icon"
+            android:alpha="0.6"
             android:paddingStart="@dimen/small_margin"
             android:textSize="@dimen/smaller_text_size"
             tools:text="1 KB"/>
+
+        <TextView
+            android:id="@+id/item_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/item_details"
+            android:layout_alignBottom="@+id/item_details"
+            android:layout_toEndOf="@+id/item_details"
+            android:alpha="0.6"
+            android:gravity="end"
+            android:textSize="@dimen/smaller_text_size"
+            tools:text="1.1.1970"/>
 
     </RelativeLayout>
 </FrameLayout>
