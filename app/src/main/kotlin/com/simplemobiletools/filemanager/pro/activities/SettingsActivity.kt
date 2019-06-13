@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager.pro.activities
 
 import android.content.Intent
 import android.os.Bundle
+import com.simplemobiletools.commons.dialogs.ChangeDateTimeFormatDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.SecurityDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
@@ -28,6 +29,7 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupUseEnglish()
         setupManageFavorites()
+        setupChangeDateTimeFormat()
         setupShowHidden()
         setupHiddenItemPasswordProtection()
         setupAppPasswordProtection()
@@ -52,12 +54,6 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
-    private fun setupManageFavorites() {
-        settings_manage_favorites_holder.setOnClickListener {
-            startActivity(Intent(this, FavoritesActivity::class.java))
-        }
-    }
-
     private fun setupUseEnglish() {
         settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
         settings_use_english.isChecked = config.useEnglish
@@ -65,6 +61,18 @@ class SettingsActivity : SimpleActivity() {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
             System.exit(0)
+        }
+    }
+
+    private fun setupManageFavorites() {
+        settings_manage_favorites_holder.setOnClickListener {
+            startActivity(Intent(this, FavoritesActivity::class.java))
+        }
+    }
+
+    private fun setupChangeDateTimeFormat() {
+        settings_change_date_time_format_holder.setOnClickListener {
+            ChangeDateTimeFormatDialog(this) {}
         }
     }
 
