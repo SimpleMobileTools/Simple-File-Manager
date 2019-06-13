@@ -267,6 +267,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     fun searchQueryChanged(text: String) {
         val searchText = text.trim()
         Thread {
+            if (context == null) {
+                return@Thread
+            }
+
             when {
                 searchText.isEmpty() -> activity?.runOnUiThread {
                     mView.apply {
