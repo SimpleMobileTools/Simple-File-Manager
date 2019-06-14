@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.3.1 *(2019-06-14)*
+----------------------------
+
+ * Show the Last Modified value at items, date format is customizable in the app settings
+ * Use the more advanced file renaming with date/time patterns
+ * Improved file thumbnail caching
+ * Misc translation and stability improvements
+
 Version 6.3.0 *(2019-05-04)*
 ----------------------------
 
