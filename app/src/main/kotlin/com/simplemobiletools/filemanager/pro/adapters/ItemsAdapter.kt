@@ -676,6 +676,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     item_date.text = listItem.modified.formatDate(activity)
 
                     val options = RequestOptions()
+                            .signature(listItem.mPath.getFileSignature())
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                             .error(fileDrawable)
                             .centerCrop()
