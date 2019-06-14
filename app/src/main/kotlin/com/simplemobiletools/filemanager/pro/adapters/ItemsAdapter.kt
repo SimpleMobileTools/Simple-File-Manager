@@ -178,18 +178,26 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     }
 
     private fun displayRenameDialog() {
-        val paths = getSelectedFileDirItems().asSequence().map { it.path }.toMutableList() as ArrayList<String>
-        if (paths.size == 1) {
-            val oldPath = paths.first()
-            RenameItemDialog(activity, oldPath) {
-                activity.config.moveFavorite(oldPath, it)
+        val fileDirItems = getSelectedFileDirItems()
+        val paths = fileDirItems.asSequence().map { it.path }.toMutableList() as ArrayList<String>
+        when {
+            paths.size == 1 -> {
+                val oldPath = paths.first()
+                RenameItemDialog(activity, oldPath) {
+                    activity.config.moveFavorite(oldPath, it)
+                    activity.runOnUiThread {
+                        listener?.refreshItems()
+                        finishActMode()
+                    }
+                }
+            }
+            fileDirItems.any { it.isDirectory } -> RenameItemsDialog(activity, paths) {
                 activity.runOnUiThread {
                     listener?.refreshItems()
                     finishActMode()
                 }
             }
-        } else {
-            RenameItemsDialog(activity, paths) {
+            else -> RenameItemsPatternDialog(activity, paths) {
                 activity.runOnUiThread {
                     listener?.refreshItems()
                     finishActMode()
