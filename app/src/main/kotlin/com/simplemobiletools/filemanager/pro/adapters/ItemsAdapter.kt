@@ -245,6 +245,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             getShortcutImage(path, drawable) {
                 val intent = Intent(activity, SplashActivity::class.java)
                 intent.action = Intent.ACTION_VIEW
+                intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
                 intent.data = Uri.fromFile(File(path))
 
                 val shortcut = ShortcutInfo.Builder(activity, path)
