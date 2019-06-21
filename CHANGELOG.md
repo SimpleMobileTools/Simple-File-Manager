@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.3.2 *(2019-06-21)*
+----------------------------
+
+ * Added Print functionality to the text editor
+ * Fixed some shortcut and search related glitches
+ * Some translations and stability related improvements
+
 Version 6.3.1 *(2019-06-14)*
 ----------------------------
 
