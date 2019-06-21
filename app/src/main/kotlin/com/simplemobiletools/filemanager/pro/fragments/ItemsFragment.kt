@@ -27,7 +27,7 @@ import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
-import java.util.HashMap
+import java.util.*
 import kotlin.collections.ArrayList
 
 class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
@@ -294,7 +294,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     var previousParent = ""
                     files.forEach {
                         val parent = it.mPath.getParentPath()
-                        if (parent != previousParent) {
+                        if (parent != previousParent && context != null) {
                             listItems.add(ListItem("", context!!.humanizePath(parent), false, 0, 0, 0, true))
                             previousParent = parent
                         }
