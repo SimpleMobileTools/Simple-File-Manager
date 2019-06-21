@@ -4,8 +4,13 @@ import android.app.SearchManager
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintManager
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.extensions.*
@@ -50,6 +55,7 @@ class ReadTextActivity : SimpleActivity() {
         when (item.itemId) {
             R.id.menu_save -> saveText()
             R.id.menu_open_with -> openPath(intent.dataString, true)
+            R.id.menu_print -> printText()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -57,7 +63,7 @@ class ReadTextActivity : SimpleActivity() {
 
     private fun setupSearch(menu: Menu) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchMenuItem = menu.findItem(R.id.search)
+        searchMenuItem = menu.findItem(R.id.menu_search)
         (searchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
@@ -107,6 +113,32 @@ class ReadTextActivity : SimpleActivity() {
                     toast(R.string.unknown_error_occurred)
                 }
             }
+        }
+    }
+
+    private fun printText() {
+        try {
+            val webView = WebView(this)
+            webView.webViewClient = object : WebViewClient() {
+                override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) = false
+
+                override fun onPageFinished(view: WebView, url: String) {
+                    createWebPrintJob(view)
+                }
+            }
+
+            webView.loadData(read_text_view.text.toString(), "text/plain", "UTF-8")
+        } catch (e: Exception) {
+            showErrorToast(e)
+        }
+    }
+
+    private fun createWebPrintJob(webView: WebView) {
+        val jobName = if (filePath.isNotEmpty()) filePath.getFilenameFromPath() else getString(R.string.app_name)
+        val printAdapter = webView.createPrintDocumentAdapter(jobName)
+
+        (getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.apply {
+            print(jobName, printAdapter, PrintAttributes.Builder().build())
         }
     }
 

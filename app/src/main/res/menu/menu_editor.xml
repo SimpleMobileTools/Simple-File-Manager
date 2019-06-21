@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/search"
+        android:id="@+id/menu_search"
         android:icon="@drawable/ic_search"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
@@ -15,5 +15,9 @@
     <item
         android:id="@+id/menu_open_with"
         android:title="@string/open_with"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_print"
+        android:title="@string/print"
         app:showAsAction="never"/>
 </menu>
