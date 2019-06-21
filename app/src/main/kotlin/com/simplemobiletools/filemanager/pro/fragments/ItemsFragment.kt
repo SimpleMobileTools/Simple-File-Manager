@@ -40,6 +40,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private var showHidden = false
     private var skipItemUpdating = false
     private var isSearchOpen = false
+    private var lastSearchedText = ""
     private var scrollStates = HashMap<String, Parcelable>()
 
     private var storedItems = ArrayList<ListItem>()
@@ -266,6 +267,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     fun searchQueryChanged(text: String) {
         val searchText = text.trim()
+        lastSearchedText = searchText
         Thread {
             if (context == null) {
                 return@Thread
@@ -289,6 +291,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
                 else -> {
                     val files = searchFiles(searchText, currentPath)
+                    if (lastSearchedText != searchText) {
+                        return@Thread
+                    }
+
                     val listItems = ArrayList<ListItem>()
 
                     var previousParent = ""
@@ -341,6 +347,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     fun searchOpened() {
         isSearchOpen = true
+        lastSearchedText = ""
     }
 
     fun searchClosed() {
@@ -349,6 +356,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             getRecyclerAdapter()?.updateItems(storedItems)
         }
         skipItemUpdating = false
+        lastSearchedText = ""
     }
 
     private fun createNewItem() {
