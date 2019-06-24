@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">File Manager</string>
+    <string name="press_back_again">Tekan sekali lagi untuk keluar</string>
+    <string name="no_app_found">Tidak ada aplikasi untuk membuka berkas ini</string>
+    <string name="go_to_home_folder">Buka folder beranda</string>
+    <string name="set_as_home_folder">Set sebagai folder beranda</string>
+    <string name="home_folder_updated">Folder beranda diperbarui</string>
+    <string name="copy_path">Salin jalur ke papan klip</string>
+    <string name="path_copied">Jalur disalin</string>
+    <string name="select_audio_file">Silakan pilih berkas audio</string>
+    <string name="search_folder">Cari folder</string>
+    <string name="rooted_device_only">Tindakan ini hanya bekerja pada perangkat dengan akses root</string>
+
+    <!-- Open as -->
+    <string name="open_as">Buka sebagai</string>
+    <string name="text_file">Berkas teks</string>
+    <string name="image_file">Berkas gambar</string>
+    <string name="audio_file">Berkas audio</string>
+    <string name="video_file">Berkas video</string>
+    <string name="other_file">Berkas lainnya</string>
+
+    <!-- Compression -->
+    <string name="compress">Kompres</string>
+    <string name="decompress">Dekompres</string>
+    <string name="compress_as">Kompres sebagai</string>
+    <string name="compressing">Mengompres…</string>
+    <string name="decompressing">Dekompres…</string>
+    <string name="compression_successful">Berhasil mengompres</string>
+    <string name="decompression_successful">Berhasil dekompresi</string>
+    <string name="compressing_failed">Gagal mengompres</string>
+    <string name="decompressing_failed">Gagal dekompresi</string>
+
+    <!-- Favorites -->
+    <string name="manage_favorites">Kelola favorit</string>
+    <string name="go_to_favorite">Buka favorit</string>
+    <string name="favorites_activity_placeholder">Anda bisa menambahkan folder yang sering digunakan ke favorit untuk kemudahan akses dari mana saja.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">Penyunting Berkas</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">Aktifkan akses root</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Pengelola berkas sederhana untuk menjelajahi dan menyunting berkas dan direktori</string>
+    <string name="app_long_description">
+        Juga bisa digunakan untuk menjelajahi berkas root dan isi kartu SD. Dengan mudah mengubah nama, menyalin, memindahkan, menghapus dan membagikan apapun yang anda inginkan.
+
+        Membutuhkan izin sidik jari untuk mengunci keterlihatan item tersembunyi, atau seluruh aplikasi.
+
+        Sama sekali tidak berisi iklan dan tidak membutuhkan perizinan yang tidak perlu. Sepenuhnya sumber terbuka, dengan warna yang bisa disesuaikan.
+
+        Aplikasi ini hanya salah satu bagian dari rangkaian aplikasi yang lebih besar. Anda bisa menemukan yang lainnya di https://www.simplemobiletools.com
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
