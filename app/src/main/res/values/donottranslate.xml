@@ -3,6 +3,10 @@
     <string name="package_name">com.simplemobiletools.filemanager.pro</string>
 
     <!-- Release notes -->
+    <string name="release_75">
+        Allow customizing the bottom navigation bar color\n
+        Allow toggling between the old renaming by append/prepend and the new pattern
+    </string>
     <string name="release_71">Made Search recursive, searching in subfolders too</string>
     <string name="release_37">
         Added a toggle for keeping last-modified value at file copy/move/rename\n
