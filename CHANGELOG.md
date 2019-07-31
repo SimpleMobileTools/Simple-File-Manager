@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.3.3 *(2019-07-31)*
+----------------------------
+
+ * Allow customizing the bottom navigation bar color
+ * Allow toggling between the old renaming by append/prepend and the new pattern
+
 Version 6.3.2 *(2019-06-21)*
 ----------------------------
 
