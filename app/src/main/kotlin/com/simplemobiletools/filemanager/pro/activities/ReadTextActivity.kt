@@ -35,6 +35,10 @@ class ReadTextActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_text)
 
+        if (checkAppSideloading()) {
+            return
+        }
+
         handlePermission(PERMISSION_WRITE_STORAGE) {
             if (it) {
                 checkIntent()
