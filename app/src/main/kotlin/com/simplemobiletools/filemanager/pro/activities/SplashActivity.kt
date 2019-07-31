@@ -4,8 +4,6 @@ import android.content.Intent
 import com.simplemobiletools.commons.activities.BaseSplashActivity
 
 class SplashActivity : BaseSplashActivity() {
-    override fun getAppPackageName() = packageName
-
     override fun initActivity() {
         if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
             Intent(this, MainActivity::class.java).apply {
