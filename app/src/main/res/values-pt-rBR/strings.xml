@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Um gerenciador de arquivos para explorar e editar as pastas e arquivos.</string>
+    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         Pode-se utilizar o aplicativo para explorar a pasta \'root\' e os armazenamentos interno e externo. Pode-se renomear, copiar, mover, apagar e compartilhar todos os arquivos que quiser.
 

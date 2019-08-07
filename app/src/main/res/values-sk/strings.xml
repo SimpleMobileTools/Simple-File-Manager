@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Jednoduchý správca súborov pre prehliadanie a úpravu súborov a priečinkov.</string>
+    <string name="app_short_description">Spravujte svoje súbory profesionálne bez reklám, 100% garancia vrátenia peňazí.</string>
     <string name="app_long_description">
         Môže byť použitý na prehliadanie koreňového priečinka a SD kariet. Viete jednoducho premenovať, kopírovať, vymazať a zdieľať hocičo.
 

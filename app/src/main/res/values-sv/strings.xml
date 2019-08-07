@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">En enkel filhanterare för att bläddra bland och redigera filer och kataloger.</string>
+    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         Filhanteraren kan också användas för att bläddra bland rotfiler och innehållet på SD-kort. Du kan enkelt byta namn på, kopiera, flytta, ta bort och dela vad du vill.
 

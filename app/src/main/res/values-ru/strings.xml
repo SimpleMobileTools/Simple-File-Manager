@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Простой файловый менеджер для просмотра и редактирования файлов и папок.</string>
+    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         Это приложение можно использовать для просмотра файлов корневой файловой системы и содержимого SD-карты. Можно переименовывать, удалять, копировать, перемещать и делиться файлами.
 

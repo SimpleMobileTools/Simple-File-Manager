@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">En simpel filbrowser til håndtering af filer og mapper.</string>
+    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         Kan også bruges til root-filer og indhold på SD-kort. Du kan nemt omdøbe, kopiere, flytte, slette og dele det du har gemt.
 

@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">一個用來瀏覽及編輯檔案和目錄的簡易檔案管理器。</string>
+    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         也能用來瀏覽根目錄和SD卡的內容。你可以輕易地照你想要的重新命名、複製、移動、刪除及分享任何內容。
 		
