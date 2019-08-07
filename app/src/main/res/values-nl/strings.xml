@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
+    <string name="app_short_description">Eenvoudig bestandsbeheer zonder advertenties. 100% niet-goed-geld-teruggarantie.</string>
     <string name="app_long_description">
         Kan ook gebruikt worden voor root-toegang en het verkennen van bestanden op de SD-kaart. Hernoem, kopieer, verplaats, verwijder of deel uw bestanden.
 
