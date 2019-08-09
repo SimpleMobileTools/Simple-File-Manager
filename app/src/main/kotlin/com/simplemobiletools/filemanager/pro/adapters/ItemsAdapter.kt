@@ -143,8 +143,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private fun getItemWithKey(key: Int): FileDirItem? = listItems.firstOrNull { it.path.hashCode() == key }
 
     fun initDrawables() {
-        folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder, textColor)
-        fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file, textColor)
+        folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder_vector, textColor)
+        fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file_vector, textColor)
         folderDrawable.alpha = 180
         fileDrawable.alpha = 180
     }
@@ -285,7 +285,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     drawable.findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(0)
                     drawable.setDrawableByLayerId(R.id.shortcut_folder_image, bitmap)
                 } catch (e: Exception) {
-                    val fileIcon = activity.resources.getDrawable(R.drawable.ic_file)
+                    val fileIcon = activity.resources.getDrawable(R.drawable.ic_file_vector)
                     drawable.setDrawableByLayerId(R.id.shortcut_folder_image, fileIcon)
                 }
 

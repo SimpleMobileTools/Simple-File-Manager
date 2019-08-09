@@ -3,7 +3,7 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_search_vector"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom"/>
@@ -14,22 +14,22 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/go_to_favorite"
-        android:icon="@drawable/ic_open"
+        android:icon="@drawable/ic_folder_open_vector"
         android:title="@string/go_to_favorite"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/sort"
-        android:icon="@drawable/ic_sort"
+        android:icon="@drawable/ic_sort_vector"
         android:title="@string/sort_by"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/add_favorite"
-        android:icon="@drawable/ic_star_off"
+        android:icon="@drawable/ic_star_off_vector"
         android:title="@string/add_to_favorites"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/remove_favorite"
-        android:icon="@drawable/ic_star_on"
+        android:icon="@drawable/ic_star_on_vector"
         android:title="@string/remove_from_favorites"
         app:showAsAction="ifRoom"/>
     <item

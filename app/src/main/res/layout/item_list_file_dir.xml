@@ -21,7 +21,7 @@
             android:layout_width="@dimen/normal_icon_size"
             android:layout_height="@dimen/normal_icon_size"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_folder"/>
+            android:src="@drawable/ic_folder_vector"/>
 
         <TextView
             android:id="@+id/item_name"

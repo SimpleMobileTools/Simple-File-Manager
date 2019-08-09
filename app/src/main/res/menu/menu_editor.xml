@@ -3,13 +3,13 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_search"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_search_vector"
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom"/>
     <item
         android:id="@+id/menu_save"
-        android:icon="@drawable/ic_save"
+        android:icon="@drawable/ic_save_vector"
         android:title="@string/save_as"
         app:showAsAction="ifRoom"/>
     <item
