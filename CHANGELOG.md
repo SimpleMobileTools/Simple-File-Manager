@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.3.4 *(2019-08-09)*
+----------------------------
+
+ * Show a warning if the copy/move destination is full
+ * Replaced icons with vectors for reduced size and more quality
+
 Version 6.3.3 *(2019-07-31)*
 ----------------------------
 
