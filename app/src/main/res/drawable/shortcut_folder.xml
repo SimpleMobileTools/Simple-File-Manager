@@ -9,7 +9,7 @@
     <item
         android:id="@+id/shortcut_folder_image"
         android:bottom="@dimen/medium_margin"
-        android:drawable="@drawable/ic_folder_big"
+        android:drawable="@drawable/ic_folder_vector"
         android:left="@dimen/medium_margin"
         android:right="@dimen/medium_margin"
         android:top="@dimen/medium_margin"/>

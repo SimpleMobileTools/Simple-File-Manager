@@ -9,7 +9,7 @@
         app:showAsAction="collapseActionView|ifRoom"/>
     <item
         android:id="@+id/go_home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_home_vector"
         android:title="@string/go_to_home_folder"
         app:showAsAction="ifRoom"/>
     <item
