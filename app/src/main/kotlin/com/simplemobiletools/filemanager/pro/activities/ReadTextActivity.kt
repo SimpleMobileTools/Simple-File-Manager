@@ -16,6 +16,7 @@ import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.SaveAsDialog
@@ -41,7 +42,9 @@ class ReadTextActivity : SimpleActivity() {
 
         handlePermission(PERMISSION_WRITE_STORAGE) {
             if (it) {
-                checkIntent()
+                read_text_view.onGlobalLayout {
+                    checkIntent()
+                }
             } else {
                 toast(R.string.no_storage_permissions)
                 finish()
@@ -160,30 +163,34 @@ class ReadTextActivity : SimpleActivity() {
             return
         }
 
-        originalText = if (uri.scheme == "file") {
-            filePath = uri.path
-            val file = File(filePath)
-            if (file.exists()) {
-                file.readText()
+        ensureBackgroundThread {
+            originalText = if (uri.scheme == "file") {
+                filePath = uri.path
+                val file = File(filePath)
+                if (file.exists()) {
+                    file.readText()
+                } else {
+                    toast(R.string.unknown_error_occurred)
+                    ""
+                }
             } else {
-                toast(R.string.unknown_error_occurred)
-                ""
+                try {
+                    contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
+                } catch (e: Exception) {
+                    showErrorToast(e)
+                    finish()
+                    return@ensureBackgroundThread
+                }
             }
-        } else {
-            try {
-                contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
-            } catch (e: Exception) {
-                showErrorToast(e)
-                finish()
-                return
-            }
-        }
 
-        read_text_view.setText(originalText)
-        if (originalText.isNotEmpty()) {
-            hideKeyboard()
-        } else {
-            showKeyboard(read_text_view)
+            runOnUiThread {
+                read_text_view.setText(originalText)
+                if (originalText.isNotEmpty()) {
+                    hideKeyboard()
+                } else {
+                    showKeyboard(read_text_view)
+                }
+            }
         }
     }
 }
