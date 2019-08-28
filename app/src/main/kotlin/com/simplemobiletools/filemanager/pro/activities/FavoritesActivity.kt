@@ -20,6 +20,20 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
         updateFavorites()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_favorites, menu)
+        updateMenuItemColors(menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.add_favorite -> addFavorite()
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
+
     private fun updateFavorites() {
         val favorites = ArrayList<String>()
         config.favorites.mapTo(favorites) { it }
@@ -38,19 +52,6 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
         ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) { }.apply {
             manage_favorites_list.adapter = this
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_favorites, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.add_favorite -> addFavorite()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
     }
 
     override fun refreshItems() {

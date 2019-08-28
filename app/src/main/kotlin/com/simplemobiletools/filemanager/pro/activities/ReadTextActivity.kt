@@ -52,6 +52,7 @@ class ReadTextActivity : SimpleActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_editor, menu)
         setupSearch(menu)
+        updateMenuItemColors(menu)
         return true
     }
 

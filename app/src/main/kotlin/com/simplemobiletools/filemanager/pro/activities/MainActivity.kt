@@ -71,6 +71,11 @@ class MainActivity : SimpleActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        invalidateOptionsMenu()
+    }
+
     override fun onStop() {
         super.onStop()
         searchMenuItem?.collapseActionView()
@@ -84,6 +89,7 @@ class MainActivity : SimpleActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         setupSearch(menu)
+        updateMenuItemColors(menu)
         return true
     }
 

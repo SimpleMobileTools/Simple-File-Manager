@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager.pro.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import com.simplemobiletools.commons.dialogs.ChangeDateTimeFormatDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.SecurityDialog
@@ -39,6 +40,12 @@ class SettingsActivity : SimpleActivity() {
         setupEnableRootAccess()
         updateTextColors(settings_holder)
         setupSectionColors()
+        invalidateOptionsMenu()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        updateMenuItemColors(menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun setupSectionColors() {
