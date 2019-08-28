@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.3.5 *(2019-08-28)*
+----------------------------
+
+ * Properly keep the old last_modified value at file copying in some cases
+ * Added some theming improvements
+ * Fixed the performance at opening huge files in the editor
+
 Version 6.3.4 *(2019-08-09)*
 ----------------------------
 
