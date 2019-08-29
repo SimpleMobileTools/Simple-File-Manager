@@ -403,9 +403,7 @@ class MainActivity : SimpleActivity() {
     }
 
     fun openedDirectory() {
-        if (searchMenuItem != null) {
-            MenuItemCompat.collapseActionView(searchMenuItem)
-        }
+        searchMenuItem?.collapseActionView()
     }
 
     private fun checkWhatsNewDialog() {
