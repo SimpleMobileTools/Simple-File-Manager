@@ -410,4 +410,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     override fun selectedPaths(paths: ArrayList<String>) {
         (activity as MainActivity).pickedPaths(paths)
     }
+
+    fun getItemsSize() : Int{
+        return storedItems.size
+    }
 }

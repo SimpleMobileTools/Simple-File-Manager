@@ -179,6 +179,13 @@ class MainActivity : SimpleActivity() {
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 isSearchOpen = false
                 fragment.searchClosed()
+                if(fragment.getItemsSize() != 0){
+                    fragment.mView.apply {
+                        items_list.beVisible()
+                        items_placeholder.beInvisible()
+                        items_placeholder_2.beInvisible()
+                    }
+                }
                 return true
             }
         })
