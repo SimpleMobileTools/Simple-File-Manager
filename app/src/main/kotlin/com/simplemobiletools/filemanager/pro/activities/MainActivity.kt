@@ -169,7 +169,7 @@ class MainActivity : SimpleActivity() {
             })
         }
 
-        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+        searchMenuItem?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener{
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 isSearchOpen = true
                 fragment.searchOpened()
