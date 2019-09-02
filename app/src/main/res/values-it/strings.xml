@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
+    <string name="app_short_description">Gestisci i file professionalmente senza pubblicità, soddisfatti o rimborsati.</string>
     <string name="app_long_description">
         Può anche essere usato per sfogliare file di sistema e della scheda SD. Si possono facilmente rinominare, copiare, spostare, eliminare e condividere qualsiasi file.
 
