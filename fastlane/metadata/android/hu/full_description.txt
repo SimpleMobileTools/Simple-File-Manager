@@ -1,0 +1,7 @@
+Rendszerfájlok és SD kártya böngészésére is használható. Egyszerűen átnevezhető, másolható, mozgatható, törölhető és megosztható bármi, amit szeretnél.
+
+The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
+Nincsenek reklámok, sem felesleges engedélykérések. Teljesen nyílt forráskódú. Sötét téma is elérhető.
+
+Ez az alkalmazás egy nagyobb sorozat egyik darabja. A többit is megtalálod itt: https://www.simplemobiletools.com

@@ -1,0 +1,7 @@
+Kann auch zum Durchsuchen der SD-Karte oder von Root-Dateien verwendet werden. Du kannst Dateien ganz einfach nach deinen Wünschen umbenennen, kopieren, verschieben, löschen oder teilen.
+
+Die Berechtigung für Fingerabdrücke wird nur benötigt, um die Sichtbarkeit von versteckten Dateien oder die gesamte App zu sperren.
+
+Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
+
+Diese App ist nur eine aus einer größeren Serie von schlichten Apps. Der Rest davon findet sich auf https://www.simplemobiletools.com

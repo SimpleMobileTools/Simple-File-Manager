@@ -1,0 +1,7 @@
+Filhanteraren kan också användas för att bläddra bland rotfiler och innehållet på SD-kort. Du kan enkelt byta namn på, kopiera, flytta, ta bort och dela vad du vill.
+
+Fingeravtrycksbehörigheten behövs för att låsa hela appen eller synligheten för dolda objekt.
+
+Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
+
+Denna app är bara en del av en större serie appar. Du hittar resten av dem på https://www.simplemobiletools.com

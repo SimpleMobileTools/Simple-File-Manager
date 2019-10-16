@@ -1,0 +1,7 @@
+Peut aussi être utilisé pour naviguer dans les fichiers à la racines et ceux de la carte SD. Vous pouvez facilement renommer, copier, déplacer, supprimmer et partager ce que vous voulez.
+
+L'autorisation d'accès à l'empreinte digitale est nécessaire pour verrouiller la visibilité d'un élément masqué ou de l'ensemble de l'application.
+
+Ne contient pas de pubs ou de permissions inutiles. C'est un logiciel libre et open-source. Il y a un thème sombre.
+
+Cette app est juste une pièce d'une plus grande série d'apps. Vous pouvez trouver le reste à https://www.simplemobiletools.com

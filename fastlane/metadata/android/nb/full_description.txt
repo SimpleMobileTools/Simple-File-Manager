@@ -1,0 +1,7 @@
+Kan også bli brukt til å bla i root-filer og innholdene til SD-kort. Du kan enkelt gi nye navn til, kopiere, slette og dele alt du vil.
+
+Fingeravtrykkstillatelsen trengs for å låse enten synligheten til skjulte gjenstander, eller hele appen.
+
+Inneholder ingen reklamer eller unødvendige tillatelser. Den er fullstendig åpen-kildet, og fargene dens kan tilpasses.
+
+Denne appen er bare én av en større serie med apper. Du kan finne resten av dem på https://www.simplemobiletools.com

@@ -1,0 +1,7 @@
+Pode utilizar a aplicação para explorar a pasta 'root' e os armazenamentos interno e externo. Pode renomear, copiar, mover, apagar e partilhar todos os ficheiros que quiser.
+
+A permissão Impressão digital é necessária para bloquear a visibilidade dos itens ocultos ou de toda a aplicação.
+
+Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente 'open source'.
+
+Esta aplicação é apenas parte de um conjunto mais vasto de aplicações. Saiba mais em https://www.simplemobiletools.com

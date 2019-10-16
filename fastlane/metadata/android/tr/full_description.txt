@@ -1,0 +1,7 @@
+Kök dosyalarına ve SD kart içeriğine göz atmak için de kullanılabilir. İstediğiniz her şeyi yeniden adlandırabilir, kopyalayabilir, taşıyabilir, silebilir ve paylaşabilirsiniz.
+
+Parmak izi izni gizli öğe görünürlüğünü veya tüm uygulamayı kilitlemek için gereklidir.
+
+Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
+
+Bu uygulama, daha büyük bir uygulama serisinden sadece bir parça. Geri kalanı https://www.simplemobiletools.com adresinde bulabilirsiniz

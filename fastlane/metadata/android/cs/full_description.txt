@@ -1,0 +1,7 @@
+Umožňuje také procházení root složek a obsahu SD karet. Můžete jednoduše přejmenovat, kopírovat, přesunovat a sdílet cokoli chcete.
+
+The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
+Neobsahuje žádné reklamy a nepotřebná oprávnění. Aplikace je plně opensource a mimo jiné obsahuje také Tmavé téma.
+
+Tato aplikace je pouze jedna část větší série aplikací. Zbytek aplikací můžete nalézt na https://www.simplemobiletools.com

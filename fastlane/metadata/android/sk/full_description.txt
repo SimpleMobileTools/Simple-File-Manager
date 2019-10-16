@@ -1,0 +1,7 @@
+Môže byť použitý na prehliadanie koreňového priečinka a SD kariet. Viete jednoducho premenovať, kopírovať, vymazať a zdieľať hocičo.
+
+Prístup ku odtlačkom prstov je potrebný pre uzamykanie skrytých položiek, alebo celej apky.
+
+Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
+
+Táto aplikácia je iba jednou zo skupiny aplikácií. Ostatné viete nájsť na https://www.simplemobiletools.com

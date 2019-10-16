@@ -1,0 +1,7 @@
+Može se koristiti i za pregledavanje root datoteka i sadržaja SD kartice. Možete jednostavno preimenovati, kopirati, premještati, brisati i dijeliti sve što želite.
+
+Dopuštenje otiska prsta je potrebno za zaključavanje prikaza skrivene stavke ili cijele aplikacije.
+
+Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
+
+Ova je aplikacija samo dio većeg broja aplikacija. Možete pronaći ostatak na https://www.simplemobiletools.com

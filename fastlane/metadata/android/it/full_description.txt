@@ -1,0 +1,7 @@
+Può anche essere usato per sfogliare file di sistema e della scheda SD. Si possono facilmente rinominare, copiare, spostare, eliminare e condividere qualsiasi file.
+
+L'autorizzazione per le impronte digitali è necessaria per bloccare la visibilità di alcuni elementi o l'intera applicazione.
+
+L'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
+
+Questa è solamente una delle tante applicazioni della serie Simple Mobile Tools. Si possono trovare le altre su https://www.simplemobiletools.com

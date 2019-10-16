@@ -1,0 +1,7 @@
+Kan ook gebruikt worden voor root-toegang en het verkennen van bestanden op de SD-kaart. Hernoem, kopieer, verplaats, verwijder of deel uw bestanden.
+
+The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
+Bevat geen advertenties of onnodige permissies. Volledig open-source. Kleuren van de app kunnen worden aangepast.
+
+Deze app is onderdeel van een grotere verzameling. Vind de andere apps op https://www.simplemobiletools.com

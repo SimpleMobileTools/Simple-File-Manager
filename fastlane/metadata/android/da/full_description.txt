@@ -1,0 +1,7 @@
+Kan også bruges til root-filer og indhold på SD-kort. Du kan nemt omdøbe, kopiere, flytte, slette og dele det du har gemt.
+
+Adgang med fingeraftryk kræves til at låse enten synligheden af skjulte elementer eller hele appen.
+
+Uden reklamer og unødvendige tilladelser. Den er helt igennem open source, og du kan selv bestemme farverne.
+
+Denne app er en enkelt del af en større serie apps. Du finder dem alle på siden https://www.simplemobiletools.com

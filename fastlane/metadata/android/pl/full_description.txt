@@ -1,0 +1,7 @@
+Może być używany także do przeglądania systemowych zakamarków i zewnętrznych kart pamięci. Z łatwością możesz zmieniać nazwy, przenosić, kopiować, usuwać i udostępniać pliki.
+
+Uprawnienie odnośnie linii papilarnych potrzebne jest do blokowania widoczności plików i folderów lub też dostępu do aplikacji.
+
+Aplikacja nie zawiera żadnych żadnych reklam, nie potrzebuje masy uprawnień, jest w pełni otwartoźródłowa, posiada ciemny motyw dla osób z wrażliwymi oczami.
+
+Niniejsza aplikacja jest tylko częścią naszej kolekcji prostych narzędzi. Ta, jak i pozostałe, dostępne są na stronie https://www.simplemobiletools.com
