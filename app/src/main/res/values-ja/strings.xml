@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
+    <string name="app_short_description">Manage your files professionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         ルートファイルやSDカードコンテンツの参照にも使用できます。 簡単に名前の変更、コピー、移動、削除、共有ができます。
 

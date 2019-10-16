@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
+    <string name="app_short_description">Manage your files professionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         Može se koristiti i za pregledavanje root datoteka i sadržaja SD kartice. Možete jednostavno preimenovati, kopirati, premještati, brisati i dijeliti sve što želite.
 

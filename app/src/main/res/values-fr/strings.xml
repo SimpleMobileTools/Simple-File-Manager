@@ -45,7 +45,7 @@
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Manage your files profesionally without ads, 100% money back guarantee.</string>
+    <string name="app_short_description">Manage your files professionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
         Peut aussi être utilisé pour naviguer dans les fichiers à la racines et ceux de la carte SD. Vous pouvez facilement renommer, copier, déplacer, supprimmer et partager ce que vous voulez.
 
