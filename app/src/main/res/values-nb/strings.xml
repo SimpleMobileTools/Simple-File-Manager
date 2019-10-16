@@ -56,4 +56,8 @@
         Denne appen er bare én av en større serie med apper. Du kan finne resten av dem på https://www.simplemobiletools.com
     </string>
 
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
 </resources>
