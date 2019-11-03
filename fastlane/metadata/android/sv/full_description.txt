@@ -1,4 +1,4 @@
-Filhanteraren kan också användas för att bläddra bland rotfiler och innehållet på SD-kort. Du kan enkelt byta namn på, kopiera, flytta, ta bort och dela vad du vill.
+Appen kan också användas för att bläddra bland rotfiler och innehållet på SD-kort. Du kan enkelt byta namn på, kopiera, flytta, ta bort och dela vad du vill.
 
 Fingeravtrycksbehörigheten behövs för att låsa hela appen eller synligheten för dolda objekt.
 
