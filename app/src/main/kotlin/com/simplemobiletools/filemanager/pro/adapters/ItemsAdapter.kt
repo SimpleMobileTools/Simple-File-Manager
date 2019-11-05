@@ -262,7 +262,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private fun getShortcutImage(path: String, drawable: Drawable, callback: () -> Unit) {
         val appIconColor = baseConfig.appIconColor
         (drawable as LayerDrawable).findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(appIconColor)
-        if (File(path).isDirectory) {
+        if (activity.getIsPathDirectory(path)) {
             callback()
         } else {
             Thread {
@@ -297,7 +297,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     }
 
     private fun addFileUris(path: String, paths: ArrayList<String>) {
-        if (File(path).isDirectory) {
+        if (activity.getIsPathDirectory(path)) {
             val shouldShowHidden = activity.config.shouldShowHidden
             if (activity.isPathOnOTG(path)) {
                 activity.getDocumentFile(path)?.listFiles()?.filter { if (shouldShowHidden) true else !it.name!!.startsWith(".") }?.forEach {
@@ -471,10 +471,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     val newPath = "$parentPath/$newFolderName/${entry.name.trimEnd('/')}"
 
                     val resolution = getConflictResolution(conflictResolutions, newPath)
-                    val doesPathExist = File(newPath).exists()
+                    val doesPathExist = activity.getDoesFilePathExist(newPath)
                     if (doesPathExist && resolution == CONFLICT_OVERWRITE) {
                         val fileDirItem = FileDirItem(newPath, newPath.getFilenameFromPath(), entry.isDirectory)
-                        if (File(it).isDirectory) {
+                        if (activity.getIsPathDirectory(it)) {
                             activity.deleteFolderBg(fileDirItem, false) {
                                 if (it) {
                                     extractEntry(newPath, entry, zipFile)
@@ -505,7 +505,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     private fun extractEntry(newPath: String, entry: ZipEntry, zipFile: ZipFile) {
         if (entry.isDirectory) {
-            if (!activity.createDirectorySync(newPath) && !File(newPath).exists()) {
+            if (!activity.createDirectorySync(newPath) && !activity.getDoesFilePathExist(newPath)) {
                 val error = String.format(activity.getString(R.string.could_not_create_file), newPath)
                 activity.showErrorToast(error)
             }
@@ -544,17 +544,17 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 val base = mainFile.parentFile.toURI()
                 res = zout
                 queue.push(mainFile)
-                if (mainFile.isDirectory) {
+                if (activity.getIsPathDirectory(mainFile.absolutePath)) {
                     name = "${mainFile.name.trimEnd('/')}/"
                     zout.putNextEntry(ZipEntry(name))
                 }
 
                 while (!queue.isEmpty()) {
                     mainFile = queue.pop()
-                    if (mainFile.isDirectory) {
+                    if (activity.getIsPathDirectory(mainFile.absolutePath)) {
                         for (file in mainFile.listFiles()) {
                             name = base.relativize(file.toURI()).path
-                            if (file.isDirectory) {
+                            if (activity.getIsPathDirectory(file.absolutePath)) {
                                 queue.push(file)
                                 name = "${name.trimEnd('/')}/"
                                 zout.putNextEntry(ZipEntry(name))
