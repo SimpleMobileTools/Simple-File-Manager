@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.3.7 *(2019-11-05)*
+----------------------------
+
+ * Improved USB device handling
+ * Some stability and translation improvements
+
 Version 6.3.6 *(2019-10-28)*
 ----------------------------
 
