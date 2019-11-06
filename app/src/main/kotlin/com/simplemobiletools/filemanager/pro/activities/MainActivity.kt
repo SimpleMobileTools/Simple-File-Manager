@@ -224,15 +224,6 @@ class MainActivity : SimpleActivity() {
                     config.wasOTGHandled = true
                     config.OTGPath = trimEnd('/')
                 }
-
-                /*if (config.OTGPath.isEmpty()) {
-                    runOnUiThread {
-                        ConfirmationDialog(this, getString(R.string.usb_detected), positive = R.string.ok, negative = 0) {
-                            config.wasOTGHandled = true
-                            showOTGPermissionDialog()
-                        }
-                    }
-                }*/
             }
         }.start()
     }
