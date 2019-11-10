@@ -44,6 +44,8 @@
     <string name="enable_root_access">Активувати root-доступ</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple File Manager Pro - Manage your files easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Manage your files professionally without ads, 100% money back guarantee.</string>
     <string name="app_long_description">
