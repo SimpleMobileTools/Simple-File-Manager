@@ -99,6 +99,8 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
             findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
 
+            findItem(R.id.set_as_home).isVisible = fragment.currentPath != config.homeFolder
+
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
         }
