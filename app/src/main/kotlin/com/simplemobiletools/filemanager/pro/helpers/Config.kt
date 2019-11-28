@@ -22,7 +22,7 @@ class Config(context: Context) : BaseConfig(context) {
 
     var homeFolder: String
         get(): String {
-            var path = prefs.getString(HOME_FOLDER, "")
+            var path = prefs.getString(HOME_FOLDER, "")!!
             if (path.isEmpty() || !File(path).isDirectory) {
                 path = context.getInternalStoragePath()
                 homeFolder = path
@@ -59,7 +59,7 @@ class Config(context: Context) : BaseConfig(context) {
     }
 
     var favorites: MutableSet<String>
-        get() = prefs.getStringSet(FAVORITES, HashSet<String>())
+        get() = prefs.getStringSet(FAVORITES, HashSet<String>())!!
         set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
 
     fun saveFolderSorting(path: String, value: Int) {

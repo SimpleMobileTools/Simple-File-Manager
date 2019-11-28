@@ -198,10 +198,10 @@ class MainActivity : SimpleActivity() {
     private fun initFileManager() {
         if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
             val data = intent.data
-            if (data.scheme == "file") {
-                openPath(data.path)
+            if (data?.scheme == "file") {
+                openPath(data.path!!)
             } else {
-                val path = getRealPathFromURI(data)
+                val path = getRealPathFromURI(data!!)
                 if (path != null) {
                     openPath(path)
                 } else {
@@ -209,8 +209,8 @@ class MainActivity : SimpleActivity() {
                 }
             }
 
-            if (!File(data.path).isDirectory) {
-                tryOpenPathIntent(data.path, false)
+            if (!File(data.path!!).isDirectory) {
+                tryOpenPathIntent(data.path!!, false)
             }
         } else {
             openPath(config.homeFolder)

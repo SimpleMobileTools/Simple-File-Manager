@@ -315,7 +315,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     private fun copyPath() {
         val clip = ClipData.newPlainText(activity.getString(R.string.app_name), getFirstSelectedItemPath())
-        (activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).primaryClip = clip
+        (activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
         finishActMode()
         activity.toast(R.string.path_copied)
     }

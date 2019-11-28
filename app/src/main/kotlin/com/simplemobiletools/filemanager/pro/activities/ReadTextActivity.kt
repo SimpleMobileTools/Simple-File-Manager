@@ -62,7 +62,7 @@ class ReadTextActivity : SimpleActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_save -> saveText()
-            R.id.menu_open_with -> openPath(intent.dataString, true)
+            R.id.menu_open_with -> openPath(intent.dataString!!, true)
             R.id.menu_print -> printText()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -108,7 +108,7 @@ class ReadTextActivity : SimpleActivity() {
 
     private fun saveText() {
         if (filePath.isEmpty()) {
-            filePath = getRealPathFromURI(intent.data) ?: ""
+            filePath = getRealPathFromURI(intent.data!!) ?: ""
         }
 
         SaveAsDialog(this, filePath) {
@@ -165,7 +165,7 @@ class ReadTextActivity : SimpleActivity() {
 
         ensureBackgroundThread {
             originalText = if (uri.scheme == "file") {
-                filePath = uri.path
+                filePath = uri.path!!
                 val file = File(filePath)
                 if (file.exists()) {
                     file.readText()
@@ -175,7 +175,7 @@ class ReadTextActivity : SimpleActivity() {
                 }
             } else {
                 try {
-                    contentResolver.openInputStream(uri).bufferedReader().use { it.readText() }
+                    contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() }
                 } catch (e: Exception) {
                     showErrorToast(e)
                     finish()

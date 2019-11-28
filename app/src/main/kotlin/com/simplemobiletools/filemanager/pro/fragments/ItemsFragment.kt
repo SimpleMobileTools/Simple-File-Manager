@@ -71,7 +71,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         if (savedInstanceState != null) {
-            currentPath = savedInstanceState.getString(PATH)
+            currentPath = savedInstanceState.getString(PATH)!!
             storedItems.clear()
         }
     }
