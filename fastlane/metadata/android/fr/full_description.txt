@@ -1,4 +1,4 @@
-Peut aussi être utilisé pour naviguer dans les fichiers à la racines et ceux de la carte SD. Vous pouvez facilement renommer, copier, déplacer, supprimmer et partager ce que vous voulez.
+Peut aussi être utilisé pour naviguer dans les fichiers à la racine et ceux de la carte SD. Vous pouvez facilement renommer, copier, déplacer, supprimer et partager ce que vous voulez.
 
 L'autorisation d'accès à l'empreinte digitale est nécessaire pour verrouiller la visibilité d'un élément masqué ou de l'ensemble de l'application.
 
