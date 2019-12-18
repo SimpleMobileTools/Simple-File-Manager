@@ -37,6 +37,10 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     override fun getItemKeyPosition(key: Int) = favorites.indexOfFirst { it.hashCode() == key }
 
+    override fun onActionModeCreated() {}
+
+    override fun onActionModeDestroyed() {}
+
     override fun prepareActionMode(menu: Menu) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_manage_favorite, parent)
@@ -64,7 +68,7 @@ class ManageFavoritesAdapter(activity: BaseSimpleActivity, var favorites: ArrayL
 
     private fun removeSelection() {
         val removeFavorites = ArrayList<String>(selectedKeys.size)
-        val positions = java.util.ArrayList<Int>()
+        val positions = ArrayList<Int>()
         selectedKeys.forEach {
             val key = it
             val position = favorites.indexOfFirst { it.hashCode() == key }

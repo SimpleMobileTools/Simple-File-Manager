@@ -117,6 +117,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     override fun getItemKeyPosition(key: Int) = listItems.indexOfFirst { it.path.hashCode() == key }
 
+    override fun onActionModeCreated() {}
+
+    override fun onActionModeDestroyed() {}
+
     override fun getItemViewType(position: Int): Int {
         return if (listItems[position].isSectionTitle) {
             TYPE_SECTION
