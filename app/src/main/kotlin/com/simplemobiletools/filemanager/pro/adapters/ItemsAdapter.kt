@@ -397,6 +397,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         CompressAsDialog(activity, firstPath) {
             val destination = it
             activity.handleSAFDialog(firstPath) {
+                if (!it) {
+                    return@handleSAFDialog
+                }
+
                 activity.toast(R.string.compressing)
                 val paths = getSelectedFileDirItems().map { it.path }
                 Thread {
@@ -422,6 +426,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         }
 
         activity.handleSAFDialog(firstPath) {
+            if (!it) {
+                return@handleSAFDialog
+            }
+
             val paths = getSelectedFileDirItems().asSequence().map { it.path }.filter { it.isZipFile() }.toList()
             tryDecompressingPaths(paths) {
                 if (it) {
@@ -608,6 +616,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         }
 
         activity.handleSAFDialog(SAFPath) {
+            if (!it) {
+                return@handleSAFDialog
+            }
+
             val files = ArrayList<FileDirItem>(selectedKeys.size)
             val positions = ArrayList<Int>()
             selectedKeys.forEach {
