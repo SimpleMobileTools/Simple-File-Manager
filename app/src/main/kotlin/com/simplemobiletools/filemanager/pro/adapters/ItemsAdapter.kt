@@ -25,6 +25,7 @@ import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.CONFLICT_OVERWRITE
 import com.simplemobiletools.commons.helpers.CONFLICT_SKIP
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
@@ -229,7 +230,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     }
 
     private fun toggleFileVisibility(hide: Boolean) {
-        Thread {
+        ensureBackgroundThread {
             getSelectedFileDirItems().forEach {
                 activity.toggleItemVisibility(it.path, hide)
             }
@@ -237,7 +238,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 listener?.refreshItems()
                 finishActMode()
             }
-        }.start()
+        }
     }
 
     @SuppressLint("NewApi")
@@ -269,7 +270,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         if (activity.getIsPathDirectory(path)) {
             callback()
         } else {
-            Thread {
+            ensureBackgroundThread {
                 val options = RequestOptions()
                         .format(DecodeFormat.PREFER_ARGB_8888)
                         .skipMemoryCache(true)
@@ -296,7 +297,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 activity.runOnUiThread {
                     callback()
                 }
-            }.start()
+            }
         }
     }
 
@@ -370,7 +371,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     private fun copyMoveRootItems(files: ArrayList<FileDirItem>, destinationPath: String, isCopyOperation: Boolean) {
         activity.toast(R.string.copying)
-        Thread {
+        ensureBackgroundThread {
             val fileCnt = files.size
             RootHelpers(activity).copyMoveFiles(files, destinationPath, isCopyOperation) {
                 when (it) {
@@ -384,7 +385,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     finishActMode()
                 }
             }
-        }.start()
+        }
     }
 
     private fun compressSelection() {
@@ -403,7 +404,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
                 activity.toast(R.string.compressing)
                 val paths = getSelectedFileDirItems().map { it.path }
-                Thread {
+                ensureBackgroundThread {
                     if (compressPaths(paths, destination)) {
                         activity.runOnUiThread {
                             activity.toast(R.string.compression_successful)
@@ -413,7 +414,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     } else {
                         activity.toast(R.string.compressing_failed)
                     }
-                }.start()
+                }
             }
         }
     }
@@ -460,9 +461,9 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
                 val destinationPath = fileDirItems.first().getParentPath().trimEnd('/')
                 activity.checkConflicts(fileDirItems, destinationPath, 0, LinkedHashMap()) {
-                    Thread {
+                    ensureBackgroundThread {
                         decompressPaths(sourcePaths, it, callback)
-                    }.start()
+                    }
                 }
             } catch (exception: Exception) {
                 activity.showErrorToast(exception)

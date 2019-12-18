@@ -10,6 +10,7 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyLinearLayoutManager
@@ -173,7 +174,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
-        Thread {
+        ensureBackgroundThread {
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
                 val config = context!!.config
                 if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
@@ -187,7 +188,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     RootHelpers(activity!!).getFiles(path, callback)
                 }
             }
-        }.start()
+        }
     }
 
     private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
@@ -268,9 +269,9 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     fun searchQueryChanged(text: String) {
         val searchText = text.trim()
         lastSearchedText = searchText
-        Thread {
+        ensureBackgroundThread {
             if (context == null) {
-                return@Thread
+                return@ensureBackgroundThread
             }
 
             when {
@@ -292,7 +293,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 else -> {
                     val files = searchFiles(searchText, currentPath)
                     if (lastSearchedText != searchText) {
-                        return@Thread
+                        return@ensureBackgroundThread
                     }
 
                     val listItems = ArrayList<ListItem>()
@@ -317,7 +318,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     }
                 }
             }
-        }.start()
+        }
     }
 
     private fun searchFiles(text: String, path: String): ArrayList<ListItem> {

@@ -220,14 +220,14 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun checkOTGPath() {
-        Thread {
+        ensureBackgroundThread {
             if (!config.wasOTGHandled && hasPermission(PERMISSION_WRITE_STORAGE) && hasOTGConnected() && config.OTGPath.isEmpty()) {
                 getStorageDirectories().firstOrNull { it.trimEnd('/') != internalStoragePath && it.trimEnd('/') != sdCardPath }?.apply {
                     config.wasOTGHandled = true
                     config.OTGPath = trimEnd('/')
                 }
             }
-        }.start()
+        }
     }
 
     private fun openPath(path: String, forceRefresh: Boolean = false) {
@@ -336,24 +336,24 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun checkIfRootAvailable() {
-        Thread {
+        ensureBackgroundThread {
             config.isRootAvailable = RootTools.isRootAvailable()
             if (config.isRootAvailable && config.enableRootAccess) {
                 RootHelpers(this).askRootIfNeeded {
                     config.enableRootAccess = it
                 }
             }
-        }.start()
+        }
     }
 
     private fun checkInvalidFavorites() {
-        Thread {
+        ensureBackgroundThread {
             config.favorites.forEach {
                 if (!isPathOnOTG(it) && !isPathOnSD(it) && !File(it).exists()) {
                     config.removeFavorite(it)
                 }
             }
-        }.start()
+        }
     }
 
     fun pickedPath(path: String) {
