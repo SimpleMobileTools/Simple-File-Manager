@@ -1,0 +1,2 @@
+ * Fixed various SD card related issues
+ * Fixed some glitches with inability to delete files from some folders

@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.4.0 *(2019-12-25)*
+----------------------------
+
+ * Fixed various SD card related issues
+ * Fixed some glitches with inability to delete files from some folders
+
 Version 6.3.8 *(2019-12-18)*
 ----------------------------
 
