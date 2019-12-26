@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.4.1 *(2019-12-26)*
+----------------------------
+
+ * Properly recognize a new SD card path
+
 Version 6.4.0 *(2019-12-25)*
 ----------------------------
 
