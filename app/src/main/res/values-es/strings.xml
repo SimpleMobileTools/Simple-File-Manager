@@ -7,30 +7,30 @@
     <string name="go_to_home_folder">Ir a carpeta principal</string>
     <string name="set_as_home_folder">Establecer como carpeta principal</string>
     <string name="home_folder_updated">Carpeta principal actualizada</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
-    <string name="select_audio_file">Please select an audio file</string>
-    <string name="search_folder">Search folder</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
+    <string name="copy_path">Copiar ruta al portapapeles</string>
+    <string name="path_copied">Ruta copiada</string>
+    <string name="select_audio_file">Por favor, seleccione un archivo de audio</string>
+    <string name="search_folder">Buscar carpeta</string>
+    <string name="rooted_device_only">Esta operación solo funciona en dispositivos rooteados</string>
 
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">Abrir como</string>
+    <string name="text_file">Archivo de texto</string>
+    <string name="image_file">Imagen</string>
+    <string name="audio_file">Archivo de audio</string>
+    <string name="video_file">Video</string>
+    <string name="other_file">Otro tipo de archivo</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Comprimir</string>
+    <string name="decompress">Descomprimir</string>
+    <string name="compress_as">Comprimir como</string>
+    <string name="compressing">Comprimiendo...</string>
+    <string name="decompressing">Descomprimiendo...</string>
+    <string name="compression_successful">Compresión exitosa</string>
+    <string name="decompression_successful">Descompresión exitosa</string>
+    <string name="compressing_failed">Compresión fallida</string>
+    <string name="decompressing_failed">Descompresión fallida</string>
 
     <!-- Favorites -->
     <string name="manage_favorites">Administrar favoritos</string>
@@ -38,22 +38,22 @@
     <string name="favorites_activity_placeholder">Puede agregar carpetas de uso frecuente a favoritos para facilitar el acceso desde cualquier lugar.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Editor de archivos</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Activar acceso root</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage your files easily</string>
+    <string name="app_title">Simple File Manager Pro - Gestiona tus archivos</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Manage your files professionally without ads, 100% money back guarantee.</string>
+    <string name="app_short_description">Administra tus archivos profesionalmente sin anuncios.</string>
     <string name="app_long_description">
         También puede ser utilizado para navegar por el directorio raíz y por el contenido de la tarjeta SD. Puede fácilmente renombrar, copiar, mover, eliminar y compartir lo que usted desee.
 
-        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+        El permiso de acceso a huella digital es necesitado para bloquear u ocultar la visibilidad de archivos o de la aplicación entera.
 
-        No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
+        No contiene anuncios ni permisos innecesarios. Es completamente de código abierto y además provee un tema oscuro.
 
         Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en https://www.simplemobiletools.com
     </string>
