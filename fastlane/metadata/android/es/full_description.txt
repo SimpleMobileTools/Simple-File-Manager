@@ -1,7 +1,7 @@
 También puede ser utilizado para navegar por el directorio raíz y por el contenido de la tarjeta SD. Puede fácilmente renombrar, copiar, mover, eliminar y compartir lo que usted desee.
 
-The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+El permiso de acceso a huella digital es necesitado para bloquear u ocultar la visibilidad de archivos o de la aplicación entera.
 
-No contiene anuncios ni permisos innecesarios. Es completamente OpenSource y además provee un tema oscuro.
+No contiene anuncios ni permisos innecesarios. Es completamente de código abierto y además provee un tema oscuro.
 
 Esta aplicación es tan solo una pequeña parte de una serie de aplicaciones. Puede encontrar el resto en https://www.simplemobiletools.com
