@@ -1,0 +1,2 @@
+ * Fixed some SD card move related issues
+ * Added some UI refreshments and translation improvements

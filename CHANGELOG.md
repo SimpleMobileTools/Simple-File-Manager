@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.4.2 *(2020-01-03)*
+----------------------------
+
+ * Fixed some SD card move related issues
+ * Added some UI refreshments and translation improvements
+
 Version 6.4.1 *(2019-12-26)*
 ----------------------------
 
