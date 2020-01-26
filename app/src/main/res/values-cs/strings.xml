@@ -4,7 +4,7 @@
     <string name="app_launcher_name">Správce souborů</string>
     <string name="press_back_again">Stiskněte znovu zpět pro ukončení</string>
     <string name="no_app_found">Není dostupná žádná aplikace pro tento typ souboru</string>
-    <string name="go_to_home_folder">Jít do domovské složky</string>
+    <string name="go_to_home_folder">Přejít do domovské složky</string>
     <string name="set_as_home_folder">Nastavit jako domovskou složku</string>
     <string name="home_folder_updated">Domovská složka aktualizována</string>
     <string name="copy_path">Kopírovat cestu do schránky</string>
@@ -23,19 +23,19 @@
 
     <!-- Compression -->
     <string name="compress">Komprimovat</string>
-    <string name="decompress">Dekomprimovat</string>
+    <string name="decompress">Rozbalit</string>
     <string name="compress_as">Komprimovat jako</string>
     <string name="compressing">Komprimuje se…</string>
-    <string name="decompressing">Dekomprimuje se…</string>
+    <string name="decompressing">Rozbaluje se…</string>
     <string name="compression_successful">Komprese byla úspěšná</string>
-    <string name="decompression_successful">Dekomprese byla úspěšná</string>
+    <string name="decompression_successful">Rozbalení bylo úspěšné</string>
     <string name="compressing_failed">Komprese selhala</string>
-    <string name="decompressing_failed">Dekomprese selhala</string>
+    <string name="decompressing_failed">Rozbalení selhalo</string>
 
     <!-- Favorites -->
     <string name="manage_favorites">Spravovat oblíbené</string>
-    <string name="go_to_favorite">Jít na oblíbené</string>
-    <string name="favorites_activity_placeholder">Můžete přidat často využívané složky do oblíbených pro jednoduchý přístup odkudkoli.</string>
+    <string name="go_to_favorite">Přejít na oblíbené</string>
+    <string name="favorites_activity_placeholder">Přidejte často používané složky mezi oblíbené pro jednoduchý přístup odkudkoli.</string>
 
     <!-- File Editor -->
     <string name="file_editor">Editor souborů</string>
@@ -49,13 +49,13 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Spravujte svoje soubory profesionálně bez reklam, 100% garance vrácení peněz.</string>
     <string name="app_long_description">
-        Umožňuje také procházení kořenových složek a obsahu SD karet. Můžete jednoduše přejmenovat, kopírovat, přesunovat a sdílet cokoli chcete.
+        Umožňuje také procházení souborů kořenového adresáře a obsahu SD karet. Můžete jednoduše přejmenovat, kopírovat, přesunovat a sdílet cokoli chcete.
 
-        Přístup k otiskům prstů je potřebný pro uzamykání skrytých položek, nebo celé aplikace.
+        Oprávnění pro přístup k otiskům prstů je potřebné pro uzamykání skrytých položek, nebo celé aplikace.
 
-        Neobsahuje žádné reklamy ani nepotřebná oprávnění. Má otevřený zdrojový kód a možnost změny barev.
+        Neobsahuje žádné reklamy, ani nepotřebná oprávnění. Má plně otevřený zdrojový kód a možnost změny barev.
 
-        Tato aplikace je jen jednou ze sady aplikací. Ostatní si můžete prohlédnout na https://www.simplemobiletools.com
+        Tato aplikace je jen jednou z většího celku aplikací. Ostatní z nich naleznete na https://www.simplemobiletools.com
     </string>
 
     <!--
