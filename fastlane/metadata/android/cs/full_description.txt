@@ -1,7 +1,7 @@
-Umožňuje také procházení kořenových složek a obsahu SD karet. Můžete jednoduše přejmenovat, kopírovat, přesunovat a sdílet cokoli chcete.
+Umožňuje také procházení souborů kořenového adresáře a obsahu SD karet. Můžete jednoduše přejmenovat, kopírovat, přesunovat a sdílet cokoli chcete.
 
-Přístup k otiskům prstů je potřebný pro uzamykání skrytých položek, nebo celé aplikace.
+Oprávnění pro přístup k otiskům prstů je potřebné pro uzamykání skrytých položek, nebo celé aplikace.
 
-Neobsahuje žádné reklamy ani nepotřebná oprávnění. Má otevřený zdrojový kód a možnost změny barev.
+Neobsahuje žádné reklamy, ani nepotřebná oprávnění. Má plně otevřený zdrojový kód a možnost změny barev.
 
-Tato aplikace je jen jednou ze sady aplikací. Ostatní si můžete prohlédnout na https://www.simplemobiletools.com
+Tato aplikace je jen jednou z většího celku aplikací. Ostatní z nich naleznete na https://www.simplemobiletools.com
