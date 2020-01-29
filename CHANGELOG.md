@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.5.0 *(2020-01-29)*
+----------------------------
+
+ * Fixed some SD card related issues
+ * Properly color the status bar icons at light primary colors
+ * Some stability and translation improvements
+
 Version 6.4.2 *(2020-01-03)*
 ----------------------------
 
