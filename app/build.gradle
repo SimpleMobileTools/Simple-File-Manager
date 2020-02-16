@@ -10,7 +10,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.simplemobiletools.filemanager.pro"
@@ -58,7 +58,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.21.28'
+    implementation 'com.simplemobiletools:commons:5.22.10'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
     implementation 'com.github.Stericson:RootShell:1.6'
     implementation 'com.alexvasilkov:gesture-views:2.5.2'
