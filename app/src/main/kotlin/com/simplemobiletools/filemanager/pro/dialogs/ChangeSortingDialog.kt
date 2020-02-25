@@ -1,5 +1,6 @@
 package com.simplemobiletools.filemanager.pro.dialogs
 
+import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
@@ -8,25 +9,32 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
 import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
+
+
 class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "", val callback: () -> Unit) {
     private var currSorting = 0
     private var config = activity.config
     private var view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null)
 
-    init {
-        view.sorting_dialog_use_for_this_folder.isChecked = config.hasCustomSorting(path)
 
+
+    init {
+
+        view.sorting_dialog_use_for_this_folder.isChecked = config.hasCustomSorting(path)
         AlertDialog.Builder(activity)
                 .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
                 .setNegativeButton(R.string.cancel, null)
                 .create().apply {
                     activity.setupDialogStuff(view, this, R.string.sort_by)
                 }
+        recentDialogConfirmed()
+
 
         currSorting = config.getFolderSorting(path)
         setupSortRadio()
         setupOrderRadio()
     }
+
 
     private fun setupSortRadio() {
         val sortingRadio = view.sorting_dialog_radio_sorting
@@ -49,12 +57,21 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
         orderBtn.isChecked = true
     }
 
+    private fun recentDialogConfirmed(){
+    var sorting = SORT_BY_DATE_MODIFIED
+        config.sorting=sorting
+        callback()
+
+    }
     private fun dialogConfirmed() {
         val sortingRadio = view.sorting_dialog_radio_sorting
         var sorting = when (sortingRadio.checkedRadioButtonId) {
             R.id.sorting_dialog_radio_name -> SORT_BY_NAME
             R.id.sorting_dialog_radio_size -> SORT_BY_SIZE
             R.id.sorting_dialog_radio_last_modified -> SORT_BY_DATE_MODIFIED
+
+
+
             else -> SORT_BY_EXTENSION
         }
 
@@ -70,4 +87,5 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
         }
         callback()
     }
+
 }

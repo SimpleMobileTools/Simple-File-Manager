@@ -21,6 +21,7 @@ import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.filemanager.pro.BuildConfig
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
+import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingRecentActivites
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
@@ -113,6 +114,7 @@ class MainActivity : SimpleActivity() {
             R.id.go_home -> goHome()
             R.id.go_to_favorite -> goToFavorite()
             R.id.sort -> showSortingDialog()
+            R.id.recent-> recentActivites()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
             R.id.set_as_home -> setAsHome()
@@ -150,6 +152,7 @@ class MainActivity : SimpleActivity() {
             openPath(path, true)
         }
     }
+
 
     private fun setupSearch(menu: Menu) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
@@ -258,6 +261,11 @@ class MainActivity : SimpleActivity() {
         ChangeSortingDialog(this, fragment.currentPath) {
             fragment.refreshItems()
         }
+    }
+
+    private fun recentActivites(){
+        ChangeSortingRecentActivites(this, fragment.currentPath) {
+            fragment.refreshItems()}
     }
 
     private fun addFavorite() {
