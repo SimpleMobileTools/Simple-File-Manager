@@ -45,9 +45,9 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage your files easily</string>
+    <string name="app_title">Basit Dosya Yöneticisi Pro - Dosyalarınızı kolayca yönetin</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Manage your files professionally without ads, 100% money back guarantee.</string>
+    <string name="app_short_description">Dosyalarınızı reklamsız profesyonel olarak yönetin, %100 para iade garantisi.</string>
     <string name="app_long_description">
         Kök dosyalarına ve SD kart içeriğine göz atmak için de kullanılabilir. İstediğiniz her şeyi yeniden adlandırabilir, kopyalayabilir, taşıyabilir, silebilir ve paylaşabilirsiniz.
 
@@ -55,10 +55,10 @@
 
         Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Basit Araçlar paketinin tamamını buradan inceleyin:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Basit Dosya Yöneticisi Pro'nun bağımsız web sitesi:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
