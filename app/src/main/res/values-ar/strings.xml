@@ -48,10 +48,25 @@
     <string name="app_title">Simple File Manager Pro - Manage your files easily</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Manage your files professionally without ads, 100% money back guarantee.</string>
-    <string name="app_long_description">ويمكن أيضا أن يستخدم لتصفح ملفات الجذر ومحتوى بطاقة الذاكرة. يمكنك بسهولة إعادة تسمية، نسخ، نقل وحذف ومشاركة أي شيء تريده. \n
- لا يحتوي على إعلانات أو أذونات لا حاجة لها. مفتوح المصدر بشكل كامل ، ويوفر الألوان للتخصيص. هذا التطبيق هو مجرد قطعة واحدة من سلسلة أكبر من التطبيقات. \n
- يمكنك العثور عليها هنا\n
- https://www.simplemobiletools.com</string>
+    <string name="app_long_description">
+        Can also be used for browsing root files and SD card content. You can easily rename, copy, move, delete and share anything you wish.
+
+        The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+
+        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+
+        <b>Check out the full suite of Simple Tools here:</b>
+        https://www.simplemobiletools.com
+
+        <b>Standalone website of Simple File Manager Pro:</b>
+        https://www.simplemobiletools.com/filemanager
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
 
     <!--
         Haven't found some strings? There's more at
