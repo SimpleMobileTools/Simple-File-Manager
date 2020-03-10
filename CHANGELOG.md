@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.5.2 *(2020-03-10)*
+----------------------------
+
+ * Make the default text a bit bigger and allow changing its size
+ * Added some translation impovements
+
 Version 6.5.1 *(2020-03-02)*
 ----------------------------
 
