@@ -62,6 +62,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             items_swipe_refresh.setOnRefreshListener { refreshItems() }
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
+            breadcrumbs.updateFontSize(context!!.getTextSize())
         }
     }
 
@@ -97,6 +98,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         if (storedFontSize != configFontSize) {
             getRecyclerAdapter()?.updateFontSizes()
             storedFontSize = configFontSize
+            mView.breadcrumbs.updateFontSize(context!!.getTextSize())
         }
 
         mView.items_fastscroller.updateBubbleColors()
