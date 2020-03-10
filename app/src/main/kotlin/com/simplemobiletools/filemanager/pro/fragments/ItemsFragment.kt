@@ -46,6 +46,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private var storedItems = ArrayList<ListItem>()
     private var storedTextColor = 0
+    private var storedFontSize = 0
 
     lateinit var mView: View
 
@@ -92,6 +93,12 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             storedTextColor = newTextColor
         }
 
+        val configFontSize = context!!.config.fontSize
+        if (storedFontSize != configFontSize) {
+            getRecyclerAdapter()?.updateFontSizes()
+            storedFontSize = configFontSize
+        }
+
         mView.items_fastscroller.updateBubbleColors()
         mView.items_fastscroller.allowBubbleDisplay = true
         if (!isFirstResume) {
@@ -109,6 +116,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private fun storeStateVariables() {
         context!!.config.apply {
             storedTextColor = textColor
+            storedFontSize = fontSize
         }
     }
 

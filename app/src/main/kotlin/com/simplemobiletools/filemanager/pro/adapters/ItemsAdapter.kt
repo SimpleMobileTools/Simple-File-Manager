@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
+import android.util.TypedValue
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
@@ -61,11 +62,15 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private var currentItemsHash = listItems.hashCode()
     private var textToHighlight = ""
     private val hasOTGConnected = activity.hasOTGConnected()
+    private var fontSize = 0f
+    private var smallerFontSize = 0f
+
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
     init {
         setupDragListener(true)
         initDrawables()
+        updateFontSizes()
     }
 
     override fun getActionMenuId() = R.menu.cab
@@ -660,6 +665,12 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         fastScroller?.measureRecyclerView()
     }
 
+    fun updateFontSizes() {
+        fontSize = activity.getTextSize()
+        smallerFontSize = fontSize * 0.8f
+        notifyDataSetChanged()
+    }
+
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
@@ -676,13 +687,19 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             if (listItem.isSectionTitle) {
                 item_section.text = listItem.mName
                 item_section.setTextColor(textColor)
+                item_section.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             } else {
                 item_frame.isSelected = isSelected
                 val fileName = listItem.name
                 item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 item_name.setTextColor(textColor)
+                item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+
                 item_details.setTextColor(textColor)
+                item_details.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
+
                 item_date.setTextColor(textColor)
+                item_date.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
 
                 if (listItem.isDirectory) {
                     item_icon.setImageDrawable(folderDrawable)
