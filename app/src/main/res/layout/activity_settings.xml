@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings_scrollview"
     android:layout_width="match_parent"
@@ -29,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/customize_colors"/>
+                android:text="@string/customize_colors" />
 
         </RelativeLayout>
 
@@ -52,7 +51,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/use_english_language"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -73,8 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
-                android:text="@string/manage_favorites"/>
+                android:text="@string/manage_favorites" />
 
         </RelativeLayout>
 
@@ -95,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingStart="@dimen/medium_margin"
-                android:text="@string/change_date_and_time_format"/>
+                android:text="@string/change_date_and_time_format" />
 
         </RelativeLayout>
 
@@ -118,7 +116,7 @@
                 android:layout_toStartOf="@+id/settings_font_size"
                 android:paddingLeft="@dimen/medium_margin"
                 android:paddingRight="@dimen/medium_margin"
-                android:text="@string/font_size"/>
+                android:text="@string/font_size" />
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/settings_font_size"
@@ -127,7 +125,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/medium_margin"
                 android:background="@null"
-                android:clickable="false"/>
+                android:clickable="false" />
 
         </RelativeLayout>
 
@@ -136,18 +134,17 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/divider_grey"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/visibility_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/bigger_margin"
-            android:layout_marginLeft="@dimen/bigger_margin"
             android:layout_marginTop="@dimen/activity_margin"
             android:text="@string/visibility"
             android:textAllCaps="true"
-            android:textSize="@dimen/smaller_text_size"/>
+            android:textSize="@dimen/smaller_text_size" />
 
         <RelativeLayout
             android:id="@+id/settings_show_hidden_holder"
@@ -168,7 +165,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/show_hidden_items"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -177,7 +174,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/divider_grey"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/file_operations_label"
@@ -187,7 +184,7 @@
             android:layout_marginTop="@dimen/activity_margin"
             android:text="@string/file_operations"
             android:textAllCaps="true"
-            android:textSize="@dimen/smaller_text_size"/>
+            android:textSize="@dimen/smaller_text_size" />
 
         <RelativeLayout
             android:id="@+id/settings_keep_last_modified_holder"
@@ -208,7 +205,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/keep_last_modified"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -217,7 +214,7 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:background="@color/divider_grey"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/security_label"
@@ -227,7 +224,7 @@
             android:layout_marginTop="@dimen/activity_margin"
             android:text="@string/security"
             android:textAllCaps="true"
-            android:textSize="@dimen/smaller_text_size"/>
+            android:textSize="@dimen/smaller_text_size" />
 
         <RelativeLayout
             android:id="@+id/settings_password_protection_holder"
@@ -248,7 +245,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/password_protect_hidden_items"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -271,7 +268,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/password_protect_whole_app"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -294,7 +291,7 @@
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
                 android:text="@string/password_protect_file_deletion"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
 
@@ -316,9 +313,8 @@
                 android:background="@null"
                 android:clickable="false"
                 android:paddingStart="@dimen/medium_margin"
-                android:paddingLeft="@dimen/medium_margin"
                 android:text="@string/enable_root_access"
-                app:switchPadding="@dimen/medium_margin"/>
+                app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
     </LinearLayout>
