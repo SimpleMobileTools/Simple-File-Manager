@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.view.Menu
 import com.simplemobiletools.commons.dialogs.ChangeDateTimeFormatDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.dialogs.SecurityDialog
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
-import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
-import com.simplemobiletools.commons.extensions.updateTextColors
-import com.simplemobiletools.commons.helpers.PROTECTION_FINGERPRINT
-import com.simplemobiletools.commons.helpers.SHOW_ALL_TABS
+import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
@@ -31,6 +29,7 @@ class SettingsActivity : SimpleActivity() {
         setupUseEnglish()
         setupManageFavorites()
         setupChangeDateTimeFormat()
+        setupFontSize()
         setupShowHidden()
         setupHiddenItemPasswordProtection()
         setupAppPasswordProtection()
@@ -80,6 +79,22 @@ class SettingsActivity : SimpleActivity() {
     private fun setupChangeDateTimeFormat() {
         settings_change_date_time_format_holder.setOnClickListener {
             ChangeDateTimeFormatDialog(this) {}
+        }
+    }
+
+    private fun setupFontSize() {
+        settings_font_size.text = getFontSizeText()
+        settings_font_size_holder.setOnClickListener {
+            val items = arrayListOf(
+                    RadioItem(FONT_SIZE_SMALL, getString(R.string.small)),
+                    RadioItem(FONT_SIZE_MEDIUM, getString(R.string.medium)),
+                    RadioItem(FONT_SIZE_LARGE, getString(R.string.large)),
+                    RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large)))
+
+            RadioGroupDialog(this@SettingsActivity, items, config.fontSize) {
+                config.fontSize = it as Int
+                settings_font_size.text = getFontSizeText()
+            }
         }
     }
 
