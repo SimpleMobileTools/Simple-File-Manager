@@ -35,7 +35,6 @@ class SettingsActivity : SimpleActivity() {
         setupAppPasswordProtection()
         setupFileDeletionPasswordProtection()
         setupKeepLastModified()
-        setupShowInfoBubble()
         setupEnableRootAccess()
         updateTextColors(settings_holder)
         setupSectionColors()
@@ -49,7 +48,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupSectionColors() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        arrayListOf(visibility_label, file_operations_label, scrolling_label, security_label).forEach {
+        arrayListOf(visibility_label, file_operations_label, security_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
         }
     }
@@ -187,14 +186,6 @@ class SettingsActivity : SimpleActivity() {
         settings_keep_last_modified_holder.setOnClickListener {
             settings_keep_last_modified.toggle()
             config.keepLastModified = settings_keep_last_modified.isChecked
-        }
-    }
-
-    private fun setupShowInfoBubble() {
-        settings_show_info_bubble.isChecked = config.showInfoBubble
-        settings_show_info_bubble_holder.setOnClickListener {
-            settings_show_info_bubble.toggle()
-            config.showInfoBubble = settings_show_info_bubble.isChecked
         }
     }
 

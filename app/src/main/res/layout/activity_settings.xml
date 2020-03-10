@@ -213,46 +213,6 @@
         </RelativeLayout>
 
         <View
-            android:id="@+id/scrolling_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider_grey"
-            android:importantForAccessibility="no"/>
-
-        <com.simplemobiletools.commons.views.MyTextView
-            android:id="@+id/scrolling_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/bigger_margin"
-            android:layout_marginTop="@dimen/activity_margin"
-            android:text="@string/scrolling"
-            android:textAllCaps="true"
-            android:textSize="@dimen/smaller_text_size"/>
-
-        <RelativeLayout
-            android:id="@+id/settings_show_info_bubble_holder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:background="?attr/selectableItemBackground"
-            android:paddingLeft="@dimen/normal_margin"
-            android:paddingTop="@dimen/activity_margin"
-            android:paddingRight="@dimen/normal_margin"
-            android:paddingBottom="@dimen/activity_margin">
-
-            <com.simplemobiletools.commons.views.MySwitchCompat
-                android:id="@+id/settings_show_info_bubble"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:clickable="false"
-                android:paddingStart="@dimen/medium_margin"
-                android:text="@string/show_info_bubble"
-                app:switchPadding="@dimen/medium_margin"/>
-
-        </RelativeLayout>
-
-        <View
             android:id="@+id/security_divider"
             android:layout_width="match_parent"
             android:layout_height="1px"
