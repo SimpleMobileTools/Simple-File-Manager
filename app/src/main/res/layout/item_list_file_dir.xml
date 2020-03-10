@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_frame"
     android:layout_width="match_parent"
@@ -20,8 +19,9 @@
             android:id="@+id/item_icon"
             android:layout_width="@dimen/normal_icon_size"
             android:layout_height="@dimen/normal_icon_size"
+            android:layout_centerVertical="true"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_folder_vector"/>
+            android:src="@drawable/ic_folder_vector" />
 
         <TextView
             android:id="@+id/item_name"
@@ -33,7 +33,7 @@
             android:maxLines="1"
             android:paddingStart="@dimen/small_margin"
             android:paddingTop="@dimen/small_margin"
-            tools:text="Directory"/>
+            tools:text="Directory" />
 
         <TextView
             android:id="@+id/item_details"
@@ -44,7 +44,7 @@
             android:alpha="0.6"
             android:paddingStart="@dimen/small_margin"
             android:textSize="@dimen/smaller_text_size"
-            tools:text="1 KB"/>
+            tools:text="1 KB" />
 
         <TextView
             android:id="@+id/item_date"
@@ -56,7 +56,7 @@
             android:alpha="0.6"
             android:gravity="end"
             android:textSize="@dimen/smaller_text_size"
-            tools:text="1.1.1970"/>
+            tools:text="1.1.1970" />
 
     </RelativeLayout>
 </FrameLayout>
