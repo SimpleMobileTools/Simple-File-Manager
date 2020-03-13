@@ -45,29 +45,29 @@
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Απλός Διαχειριστής Αρχείων Pro - Εύκολη διαχείριση</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Διαχείριση των αρχείων σας χωρίς διαφημίσεις, σεβόμενη απόρρητο &amp; ασφάλεια σας</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Ένας ελαφρύς γρήγορος διαχειριστής αρχείων για καθημερινή χρήση. Προσφέρει χρήσιμη λειτουργία αναζήτησης, μπορείτε επίσης να προσαρμόσετε τον αρχικό φάκελο και να επιλέξετε αγαπημένους φακέλους για γρήγορη πρόσβαση.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        Η εφαρμογή περιέχει πολλές ισχυρές λειτουργίες που σχετίζονται με την ασφάλεια, όπως προστασία με κωδικό πρόσβασης κρυφών στοιχείων, διαγραφή αρχείων ή ολόκληρη την εφαρμογή. Μπορείτε να επιλέξετε μεταξύ της χρήσης μοτίβου, αριθμού ή δακτυλικού αποτυπώματος για την προστασία των δεδομένων σας.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Αυτός ο σύγχρονος διαχειριστής αρχείων υποστηρίζει γρήγορη περιήγηση αρχείων root, καρτών SD και συσκευών USB.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Για να διατηρήσετε την παραγωγικότητά σας, προφανώς διαθέτει όλες τις τυπικές λειτουργίες αρχείων, όπως μετονομασία, αντιγραφή, μετακίνηση, διαγραφή, κοινή χρήση κλπ. Μπορεί επίσης να χρησιμοποιηθεί για την εξοικονόμηση χώρου αποθήκευσης, καθώς επιτρέπει τη συμπίεση και την αποσυμπίεση επίσης. Μπορείτε εύκολα να δημιουργήσετε νέα αρχεία ή φακέλους, αν το επιθυμείτε.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Μπορείτε προφανώς να επιλέξετε την ταξινόμησΓια να αποκτήσετε γρήγορα μια διαδρομή αρχείου ή φακέλων, μπορείτε να την επιλέξετε εύκολα πατώντας και αντιγράφοντάς το στο πρόχειρο.η με πολλαπλές διαφορετικές τιμές, να αλλάξετε μεταξύ αύξουσας και φθίνουσας, ή να χρησιμοποιήσετε μια ταξινόμηση συγκεκριμένων φακέλων.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Με μερικά μόνο κλικ μπορείτε επίσης να ελέγξετε τις ιδιότητες των αρχείων ή των φακέλων, τα οποία εμφανίζουν διάφορα πεδία όπως το μέγεθος του αρχείου, την ημερομηνία της τελευταίας τροποποίησης ή τις τιμές EXIF, όπως η ημερομηνία δημιουργίας, το μοντέλο φωτογραφικών μηχανών σε φωτογραφίες κ.λπ.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Για να αποκτήσετε γρήγορα μια διαδρομή αρχείου ή φακέλων, μπορείτε να την επιλέξετε εύκολα πατώντας και αντιγράφοντάς το στο πρόχειρο.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Μπορείτε να δημιουργήσετε εύκολα συντομεύσεις στην αρχική οθόνη για γρήγορη πρόσβαση στα αγαπημένα σας αντικείμενα.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Περιέχει έναν ελαφρύ επεξεργαστή αρχείων που μπορείτε να χρησιμοποιήσετε είτε για την εκτύπωση εγγράφων, την επεξεργασία τους είτε για εύκολη ανάγνωση με τη χρήση ζουμ, όποτε χρειάζεται.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Διατίθεται με σχεδίαση υλικού και σκούρο θέμα από προεπιλογή, παρέχει εξαιρετική εμπειρία χρήστη για εύκολη χρήση. Η έλλειψη πρόσβασης στο διαδίκτυο σάς παρέχει περισσότερο απόρρητο, ασφάλεια και σταθερότητα από ό,τι άλλες εφαρμογές.
 
         Δεν περιέχει διαφημίσεις ή περιττά δικαιώματα. Έιναι όλη ανοιχτού κώδικα και παρέχει προσαρμόσιμα χρώματα για την εφαρμογή.
 
