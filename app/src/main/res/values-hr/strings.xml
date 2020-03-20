@@ -3,7 +3,6 @@
     <string name="app_name">Jednostavan upravitelj datoteka</string>
     <string name="app_launcher_name">Upravitelj datoteka</string>
     <string name="press_back_again">Ponovno pritisnite natrag za izlaz</string>
-    <string name="no_app_found">Nijedna aplikacija za otvaranje ove vrste datoteka nije instalirana</string>
     <string name="go_to_home_folder">Idi na početnu mapu</string>
     <string name="set_as_home_folder">Postavi kao početnu mapu</string>
     <string name="home_folder_updated">Početna mapa ažurirana</string>

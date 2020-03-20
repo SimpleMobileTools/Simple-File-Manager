@@ -3,7 +3,6 @@
     <string name="app_name">簡易檔案管理器</string>
     <string name="app_launcher_name">簡易檔案管理器</string>
     <string name="press_back_again">再按一次返回以離開</string>
-    <string name="no_app_found">沒有安裝開啟這類型檔案的應用程式</string>
     <string name="go_to_home_folder">前往主資料夾</string>
     <string name="set_as_home_folder">設為主資料夾</string>
     <string name="home_folder_updated">主資料夾已更新</string>

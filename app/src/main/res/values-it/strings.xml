@@ -3,7 +3,6 @@
     <string name="app_name">Semplice Gestore dei file</string>
     <string name="app_launcher_name">Gestore dei file</string>
     <string name="press_back_again">Premi di nuovo indietro per uscire</string>
-    <string name="no_app_found">Nessuna app disponibile per aprire questo tipo di file</string>
     <string name="go_to_home_folder">Vai alla cartella casa</string>
     <string name="set_as_home_folder">Imposta come cartella casa</string>
     <string name="home_folder_updated">Cartella casa aggiornata</string>

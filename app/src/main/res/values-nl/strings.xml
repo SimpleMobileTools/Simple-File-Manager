@@ -3,7 +3,6 @@
     <string name="app_name">Eenvoudig Bestandsbeheer</string>
     <string name="app_launcher_name">Bestandsbeheer</string>
     <string name="press_back_again">Druk nogmaals op terug om af te sluiten</string>
-    <string name="no_app_found">Geen app gevonden om dit bestand mee te openen</string>
     <string name="go_to_home_folder">Naar beginmap</string>
     <string name="set_as_home_folder">Als beginmap instellen</string>
     <string name="home_folder_updated">Beginmap ingesteld</string>

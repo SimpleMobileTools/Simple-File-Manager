@@ -3,7 +3,6 @@
     <string name="app_name">Jednoduchý správca súborov</string>
     <string name="app_launcher_name">Správca súborov</string>
     <string name="press_back_again">Pre opustenie aplikácie opäť stlačte tlačidlo späť</string>
-    <string name="no_app_found">Nenašla sa žiadna aplikácia na otvorenie tohto typu súboru</string>
     <string name="go_to_home_folder">Ísť do domovského priečinka</string>
     <string name="set_as_home_folder">Nastaviť ako domovský priečinok</string>
     <string name="home_folder_updated">Domovský priečinok bol nastavený</string>

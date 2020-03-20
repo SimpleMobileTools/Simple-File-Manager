@@ -3,7 +3,6 @@
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Rheolwr Ffeiliau</string>
     <string name="press_back_again">Gwasga nôl eto i adael</string>
-    <string name="no_app_found">Does dim ap wedi\'i osod i fedru agor y math hon o ffeil</string>
     <string name="go_to_home_folder">Mynd i\'r ffolder gartref</string>
     <string name="set_as_home_folder">Gosod fel ffolder gartref</string>
     <string name="home_folder_updated">Diweddarwyd ffolder gartref</string>

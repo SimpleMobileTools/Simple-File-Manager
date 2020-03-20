@@ -3,7 +3,6 @@
     <string name="app_name">Schlichter Dateimanager</string>
     <string name="app_launcher_name">Dateimanager</string>
     <string name="press_back_again">Drücke erneut zum Schließen</string>
-    <string name="no_app_found">Keine App zum Öffnen dieses Dateityps vorhanden.</string>
     <string name="go_to_home_folder">Gehe zum Start-Verzeichnis</string>
     <string name="set_as_home_folder">Als Start-Verzeichnis setzen</string>
     <string name="home_folder_updated">Start-Verzeichnis aktualisiert</string>

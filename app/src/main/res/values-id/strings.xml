@@ -3,7 +3,6 @@
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">File Manager</string>
     <string name="press_back_again">Tekan sekali lagi untuk keluar</string>
-    <string name="no_app_found">Tidak ada aplikasi untuk membuka berkas ini</string>
     <string name="go_to_home_folder">Buka folder beranda</string>
     <string name="set_as_home_folder">Setel sebagai folder beranda</string>
     <string name="home_folder_updated">Folder beranda diperbarui</string>

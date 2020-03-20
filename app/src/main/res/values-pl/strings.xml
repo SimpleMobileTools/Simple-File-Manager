@@ -3,7 +3,6 @@
     <string name="app_name">Prosty menedżer plików</string>
     <string name="app_launcher_name">Menedżer plików</string>
     <string name="press_back_again">Naciśnij jeszcze raz, aby wyjść</string>
-    <string name="no_app_found">Brak aplikacji do otwarcia tego typu pliku</string>
     <string name="go_to_home_folder">Przejdź do folderu głównego</string>
     <string name="set_as_home_folder">Ustaw jako folder główny</string>
     <string name="home_folder_updated">Folder główny został zaktulizowany</string>

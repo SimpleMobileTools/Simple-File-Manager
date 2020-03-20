@@ -3,7 +3,6 @@
     <string name="app_name">Sadə Fayl Meneceri</string>
     <string name="app_launcher_name">Fayl Meneceri</string>
     <string name="press_back_again">Çıxmaq üçün birdə basın</string>
-    <string name="no_app_found">Bu növ faylı açası heçbir tətbiq yüklənməyib</string>
     <string name="go_to_home_folder">Əsas qovluğa qayıt</string>
     <string name="set_as_home_folder">Əsas qovluq kimi təyin et</string>
     <string name="home_folder_updated">Əsas qovluq yeniləndi</string>

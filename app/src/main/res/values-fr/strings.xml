@@ -3,7 +3,6 @@
     <string name="app_name">Gestionnaire de fichiers simple</string>
     <string name="app_launcher_name">Gestionnaire de fichiers</string>
     <string name="press_back_again">Appuyer à nouveau sur le bouton retour pour quitter</string>
-    <string name="no_app_found">Aucune application pour ouvrir ce type de fichier n\'est installée</string>
     <string name="go_to_home_folder">Aller au dossier par défaut</string>
     <string name="set_as_home_folder">Définir en tant que dossier par défaut</string>
     <string name="home_folder_updated">Dossier par défaut mis à jour</string>

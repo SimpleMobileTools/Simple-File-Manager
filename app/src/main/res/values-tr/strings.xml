@@ -3,7 +3,6 @@
     <string name="app_name">Basit Dosya Yöneticisi</string>
     <string name="app_launcher_name">Dosya Yöneticisi</string>
     <string name="press_back_again">Çıkmak için tekrar basın</string>
-    <string name="no_app_found">Bu tür bir dosyayı açmak için uygulama yok</string>
     <string name="go_to_home_folder">Ana klasöre git</string>
     <string name="set_as_home_folder">Ana klasör olarak ayarla</string>
     <string name="home_folder_updated">Ana klasör güncellendi</string>

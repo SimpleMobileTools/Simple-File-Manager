@@ -3,7 +3,6 @@
     <string name="app_name">Простий Менеджер Файлів</string>
     <string name="app_launcher_name">Менеджер Файлів</string>
     <string name="press_back_again">Для виходу натисніть Назад ще раз</string>
-    <string name="no_app_found">Не встановлено додатків, що здатні відкрити цей тип файлів</string>
     <string name="go_to_home_folder">Перейти у домашню теку</string>
     <string name="set_as_home_folder">Встановити як домашню теку</string>
     <string name="home_folder_updated">Домашню теку оновлено</string>

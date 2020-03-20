@@ -3,7 +3,6 @@
     <string name="app_name">Jednoduchý správce souborů</string>
     <string name="app_launcher_name">Správce souborů</string>
     <string name="press_back_again">Stiskněte znovu zpět pro ukončení</string>
-    <string name="no_app_found">Není dostupná žádná aplikace pro tento typ souboru</string>
     <string name="go_to_home_folder">Přejít do domovské složky</string>
     <string name="set_as_home_folder">Nastavit jako domovskou složku</string>
     <string name="home_folder_updated">Domovská složka aktualizována</string>

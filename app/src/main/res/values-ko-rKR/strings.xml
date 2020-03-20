@@ -3,7 +3,6 @@
     <string name="app_name">심플 파일 매니저</string>
     <string name="app_launcher_name">파일 매니저</string>
     <string name="press_back_again">뒤로가기 버튼을 다시 누르면 종료됩니다.</string>
-    <string name="no_app_found">해당 파일을 열수 있는 앱이 없습니다.</string>
     <string name="go_to_home_folder">홈 폴더 이동</string>
     <string name="set_as_home_folder">홈 폴더 설정</string>
     <string name="home_folder_updated">홈 폴더 설정완료</string>

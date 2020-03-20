@@ -3,7 +3,6 @@
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Filhanterare</string>
     <string name="press_back_again">Tryck på Tillbaka igen för att avsluta</string>
-    <string name="no_app_found">Ingen app som kan öppna den här filtypen hittades</string>
     <string name="go_to_home_folder">Gå till hemmappen</string>
     <string name="set_as_home_folder">Ange som hemmapp</string>
     <string name="home_folder_updated">Hemmappen har uppdaterats</string>

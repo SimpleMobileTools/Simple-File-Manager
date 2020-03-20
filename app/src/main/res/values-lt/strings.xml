@@ -3,7 +3,6 @@
     <string name="app_name">Paprasta bylų tvarkyklė</string>
     <string name="app_launcher_name">Bylų tvarkyklė</string>
     <string name="press_back_again">Paspauskite atgal mygtuką dar kartą, kad išeitumėte</string>
-    <string name="no_app_found">Nėra įdiegtos programėlės, kuri atvertų šio tipo bylą</string>
     <string name="go_to_home_folder">Eiti į namų aplanką</string>
     <string name="set_as_home_folder">Nustatyti kaip namų aplanką</string>
     <string name="home_folder_updated">Namų aplankas atnaujintas</string>

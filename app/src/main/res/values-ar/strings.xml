@@ -3,7 +3,6 @@
     <string name="app_name">مدير الملفات البسيط</string>
     <string name="app_launcher_name">مدير الملفات</string>
     <string name="press_back_again">اضغط مرة أخرى للخروج</string>
-    <string name="no_app_found">لم يتم تثبيت أي تطبيق لفتح هذا النوع من الملفات</string>
     <string name="go_to_home_folder">الذهاب الى الرئيسية</string>
     <string name="set_as_home_folder">تعيين كمجلد رئيسي</string>
     <string name="home_folder_updated">تم تحديث المجلد الرئيسي</string>

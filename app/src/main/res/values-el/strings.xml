@@ -3,7 +3,6 @@
     <string name="app_name">Απλός Διαχειριστής Αρχείων</string>
     <string name="app_launcher_name">Διαχείριση αρχείων</string>
     <string name="press_back_again">Πατήστε πίσω ξανά για έξοδο</string>
-    <string name="no_app_found">Δεν βρέθηκε εφαρμογή για το άνοιγμα αυτού του τύπου αρχείου</string>
     <string name="go_to_home_folder">Μετάβαση στον αρχικό φάκελο</string>
     <string name="set_as_home_folder">Ορισμός ως αρχικού φακέλου</string>
     <string name="home_folder_updated">Ο Αρχικός φάκελος ενημερώθηκε</string>

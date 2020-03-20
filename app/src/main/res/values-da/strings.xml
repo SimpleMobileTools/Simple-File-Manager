@@ -3,7 +3,6 @@
     <string name="app_name">Simpel Filhåndtering</string>
     <string name="app_launcher_name">Filhåndtering</string>
     <string name="press_back_again">Tryk tilbage igen for at afslutte</string>
-    <string name="no_app_found">Der er ingen apps installeret der kan åbne denne type filer</string>
     <string name="go_to_home_folder">Gå til hjemmemappen</string>
     <string name="set_as_home_folder">Sæt som hjemmemappe</string>
     <string name="home_folder_updated">Hjemmemappe opdateret</string>
