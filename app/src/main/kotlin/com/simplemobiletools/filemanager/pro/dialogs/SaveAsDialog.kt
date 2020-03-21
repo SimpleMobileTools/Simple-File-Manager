@@ -8,7 +8,8 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.pro.R
 import kotlinx.android.synthetic.main.dialog_save_as.view.*
 
-class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callback: (savePath: String) -> Unit) {
+class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val hidePath: Boolean,
+                   val callback: (path: String, filename: String) -> Unit) {
 
     init {
         if (path.isEmpty()) {
@@ -30,10 +31,16 @@ class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callb
             }
 
             save_as_name.setText(name)
-            save_as_path.setOnClickListener {
-                FilePickerDialog(activity, realPath, false, false, true, true) {
-                    save_as_path.text = activity.humanizePath(it)
-                    realPath = it
+
+            if (hidePath) {
+                save_as_path_label.beGone()
+                save_as_path.beGone()
+            } else {
+                save_as_path.setOnClickListener {
+                    FilePickerDialog(activity, realPath, false, false, true, true) {
+                        save_as_path.text = activity.humanizePath(it)
+                        realPath = it
+                    }
                 }
             }
         }
@@ -64,14 +71,14 @@ class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val callb
                                 return@setOnClickListener
                             }
 
-                            if (activity.getDoesFilePathExist(newPath)) {
+                            if (!hidePath && activity.getDoesFilePathExist(newPath)) {
                                 val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFilename)
                                 ConfirmationDialog(activity, title) {
-                                    callback(newPath)
+                                    callback(newPath, newFilename)
                                     dismiss()
                                 }
                             } else {
-                                callback(newPath)
+                                callback(newPath, newFilename)
                                 dismiss()
                             }
                         }

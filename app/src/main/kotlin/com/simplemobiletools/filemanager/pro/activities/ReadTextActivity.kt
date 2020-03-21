@@ -1,7 +1,9 @@
 package com.simplemobiletools.filemanager.pro.activities
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.print.PrintAttributes
@@ -24,8 +26,11 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.openPath
 import kotlinx.android.synthetic.main.activity_read_text.*
 import java.io.File
+import java.io.OutputStream
 
 class ReadTextActivity : SimpleActivity() {
+    private val SELECT_SAVE_FILE_INTENT = 1
+
     private var filePath = ""
     private var originalText = ""
     private var isSearchOpen = false
@@ -40,15 +45,8 @@ class ReadTextActivity : SimpleActivity() {
             return
         }
 
-        handlePermission(PERMISSION_WRITE_STORAGE) {
-            if (it) {
-                read_text_view.onGlobalLayout {
-                    checkIntent()
-                }
-            } else {
-                toast(R.string.no_storage_permissions)
-                finish()
-            }
+        read_text_view.onGlobalLayout {
+            checkIntent()
         }
     }
 
@@ -67,6 +65,14 @@ class ReadTextActivity : SimpleActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        if (requestCode == SELECT_SAVE_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
+            val outputStream = contentResolver.openOutputStream(resultData.data!!)
+            saveTextContent(outputStream)
+        }
     }
 
     private fun setupSearch(menu: Menu) {
@@ -111,16 +117,37 @@ class ReadTextActivity : SimpleActivity() {
             filePath = getRealPathFromURI(intent.data!!) ?: ""
         }
 
-        SaveAsDialog(this, filePath) {
-            getFileOutputStream(FileDirItem(it, it.getFilenameFromPath())) {
-                if (it != null) {
-                    it.bufferedWriter().use { it.write(read_text_view.text.toString()) }
-                    toast(R.string.file_saved)
-                    hideKeyboard()
-                } else {
-                    toast(R.string.unknown_error_occurred)
+        if (filePath.isEmpty()) {
+            SaveAsDialog(this, filePath, true) { path, filename ->
+                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TITLE, filename)
+                    addCategory(Intent.CATEGORY_OPENABLE)
+
+                    startActivityForResult(this, SELECT_SAVE_FILE_INTENT)
                 }
             }
+        } else {
+            SaveAsDialog(this, filePath, false) { path, filename ->
+                handlePermission(PERMISSION_WRITE_STORAGE) {
+                    if (it) {
+                        val file = File(path)
+                        getFileOutputStream(file.toFileDirItem(this), true) {
+                            saveTextContent(it)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun saveTextContent(outputStream: OutputStream?) {
+        if (outputStream != null) {
+            outputStream.bufferedWriter().use { it.write(read_text_view.text.toString()) }
+            toast(R.string.file_saved)
+            hideKeyboard()
+        } else {
+            toast(R.string.unknown_error_occurred)
         }
     }
 
