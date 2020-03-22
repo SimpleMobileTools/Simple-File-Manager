@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.5.3 *(2020-03-22)*
+----------------------------
+
+ * Updating the app icon
+ * Use Scoped Storage at the file editor
+
 Version 6.5.2 *(2020-03-10)*
 ----------------------------
 

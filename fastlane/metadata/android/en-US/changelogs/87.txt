@@ -1,0 +1,2 @@
+ * Updating the app icon
+ * Use Scoped Storage at the file editor
