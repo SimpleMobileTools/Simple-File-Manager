@@ -162,9 +162,9 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
                     itemClicked(it as FileDirItem)
                 }.apply {
-                    addVerticalDividers(true)
                     items_list.adapter = this
                 }
+
                 items_fastscroller.allowBubbleDisplay = true
                 items_fastscroller.setViews(items_list, mView.items_swipe_refresh) {
                     items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context) ?: "")

@@ -7,7 +7,9 @@
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="@drawable/selector">
+    android:foreground="@drawable/selector"
+    android:paddingTop="@dimen/tiny_margin"
+    android:paddingBottom="@dimen/tiny_margin">
 
     <RelativeLayout
         android:id="@+id/item_holder"
@@ -17,8 +19,8 @@
 
         <ImageView
             android:id="@+id/item_icon"
-            android:layout_width="@dimen/normal_icon_size"
-            android:layout_height="@dimen/normal_icon_size"
+            android:layout_width="@dimen/file_picker_icon_size"
+            android:layout_height="@dimen/file_picker_icon_size"
             android:layout_centerVertical="true"
             android:padding="@dimen/medium_margin"
             android:src="@drawable/ic_folder_vector" />
@@ -31,7 +33,7 @@
             android:layout_toEndOf="@+id/item_icon"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingStart="@dimen/small_margin"
+            android:paddingStart="@dimen/tiny_margin"
             android:paddingTop="@dimen/small_margin"
             tools:text="Directory" />
 
@@ -42,7 +44,7 @@
             android:layout_below="@+id/item_name"
             android:layout_toEndOf="@+id/item_icon"
             android:alpha="0.6"
-            android:paddingStart="@dimen/small_margin"
+            android:paddingStart="@dimen/tiny_margin"
             android:textSize="@dimen/smaller_text_size"
             tools:text="1 KB" />
 

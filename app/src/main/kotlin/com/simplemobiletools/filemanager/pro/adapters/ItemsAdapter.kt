@@ -696,7 +696,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
 
                 item_details.setTextColor(textColor)
-                item_details.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
+                item_details.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
 
                 item_date.setTextColor(textColor)
                 item_date.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
