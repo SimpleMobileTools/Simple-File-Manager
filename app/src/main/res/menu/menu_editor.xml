@@ -5,8 +5,7 @@
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search_vector"
         android:title="@string/search"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="collapseActionView|ifRoom"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/menu_save"
         android:icon="@drawable/ic_save_vector"

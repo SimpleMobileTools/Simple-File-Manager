@@ -1,7 +1,6 @@
 package com.simplemobiletools.filemanager.pro.activities
 
 import android.app.Activity
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -13,13 +12,10 @@ import android.view.MenuItem
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.SaveAsDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
@@ -33,9 +29,6 @@ class ReadTextActivity : SimpleActivity() {
 
     private var filePath = ""
     private var originalText = ""
-    private var isSearchOpen = false
-
-    private var searchMenuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,13 +45,13 @@ class ReadTextActivity : SimpleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_editor, menu)
-        setupSearch(menu)
         updateMenuItemColors(menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_search -> openSearch()
             R.id.menu_save -> saveText()
             R.id.menu_open_with -> openPath(intent.dataString!!, true)
             R.id.menu_print -> printText()
@@ -75,41 +68,8 @@ class ReadTextActivity : SimpleActivity() {
         }
     }
 
-    private fun setupSearch(menu: Menu) {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchMenuItem = menu.findItem(R.id.menu_search)
-        (searchMenuItem!!.actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            isSubmitButtonEnabled = false
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String) = false
+    private fun openSearch() {
 
-                override fun onQueryTextChange(newText: String): Boolean {
-                    if (isSearchOpen) {
-                        searchQueryChanged(newText)
-                    }
-                    return true
-                }
-            })
-        }
-
-        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                isSearchOpen = true
-                searchQueryChanged("")
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                isSearchOpen = false
-                return true
-            }
-        })
-    }
-
-    private fun searchQueryChanged(text: String) {
-        val textToHighlight = if (text.length < 2) "" else text
-        read_text_view.setText(originalText.highlightTextPart(textToHighlight, getAdjustedPrimaryColor(), true))
     }
 
     private fun saveText() {
