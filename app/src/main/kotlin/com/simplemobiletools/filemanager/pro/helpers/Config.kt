@@ -62,22 +62,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getStringSet(FAVORITES, HashSet<String>())!!
         set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
 
-    fun saveFolderSorting(path: String, value: Int) {
-        if (path.isEmpty()) {
-            sorting = value
-        } else {
-            prefs.edit().putInt(SORT_FOLDER_PREFIX + path, value).apply()
-        }
-    }
-
-    fun getFolderSorting(path: String) = prefs.getInt(SORT_FOLDER_PREFIX + path, sorting)
-
-    fun removeFolderSorting(path: String) {
-        prefs.edit().remove(SORT_FOLDER_PREFIX + path).apply()
-    }
-
-    fun hasCustomSorting(path: String) = prefs.contains(SORT_FOLDER_PREFIX + path)
-
     var isRootAvailable: Boolean
         get() = prefs.getBoolean(IS_ROOT_AVAILABLE, false)
         set(isRootAvailable) = prefs.edit().putBoolean(IS_ROOT_AVAILABLE, isRootAvailable).apply()

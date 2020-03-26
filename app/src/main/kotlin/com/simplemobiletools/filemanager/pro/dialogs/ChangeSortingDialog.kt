@@ -63,9 +63,9 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
         }
 
         if (view.sorting_dialog_use_for_this_folder.isChecked) {
-            config.saveFolderSorting(path, sorting)
+            config.saveCustomSorting(path, sorting)
         } else {
-            config.removeFolderSorting(path)
+            config.removeCustomSorting(path)
             config.sorting = sorting
         }
         callback()
