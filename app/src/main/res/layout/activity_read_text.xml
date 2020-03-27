@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/read_text_holder"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/read_text_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <com.simplemobiletools.filemanager.pro.views.GestureEditText
-        android:id="@+id/read_text_view"
+    <include
+        android:id="@+id/search_wrapper"
+        layout="@layout/search_bar" />
+
+    <ScrollView
+        android:id="@+id/read_text_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:gravity="top"
-        android:inputType="textMultiLine|textNoSuggestions"
-        android:padding="@dimen/medium_margin"
-        android:textCursorDrawable="@null"
-        android:textSize="@dimen/smaller_text_size"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-</ScrollView>
+        <com.simplemobiletools.filemanager.pro.views.GestureEditText
+            android:id="@+id/read_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="top"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:padding="@dimen/medium_margin"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/smaller_text_size" />
+
+    </ScrollView>
+</LinearLayout>

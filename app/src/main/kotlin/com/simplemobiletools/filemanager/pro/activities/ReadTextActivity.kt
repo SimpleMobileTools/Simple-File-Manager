@@ -9,17 +9,22 @@ import android.print.PrintAttributes
 import android.print.PrintManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
+import android.widget.TextView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.views.MyEditText
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.SaveAsDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.openPath
+import com.simplemobiletools.filemanager.pro.views.GestureEditText
 import kotlinx.android.synthetic.main.activity_read_text.*
 import java.io.File
 import java.io.OutputStream
@@ -29,10 +34,22 @@ class ReadTextActivity : SimpleActivity() {
 
     private var filePath = ""
     private var originalText = ""
+    private var searchIndex = 0
+    private var searchMatches = emptyList<Int>()
+    private var isSearchActive = false
+
+    private lateinit var searchQueryET: MyEditText
+    private lateinit var searchPrevBtn: ImageView
+    private lateinit var searchNextBtn: ImageView
+    private lateinit var searchClearBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_text)
+        searchQueryET = findViewById(R.id.search_query)
+        searchPrevBtn = findViewById(R.id.search_previous)
+        searchNextBtn = findViewById(R.id.search_next)
+        searchClearBtn = findViewById(R.id.search_clear)
 
         if (checkAppSideloading()) {
             return
@@ -41,6 +58,8 @@ class ReadTextActivity : SimpleActivity() {
         read_text_view.onGlobalLayout {
             checkIntent()
         }
+
+        setupSearchButtons()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,8 +87,26 @@ class ReadTextActivity : SimpleActivity() {
         }
     }
 
-    private fun openSearch() {
+    override fun onBackPressed() {
+        if (isSearchActive) {
+            closeSearch()
+        } else {
+            super.onBackPressed()
+        }
+    }
 
+    private fun openSearch() {
+        isSearchActive = true
+        search_wrapper.beVisible()
+
+        showKeyboard(searchQueryET)
+
+        read_text_view.requestFocus()
+        read_text_view.setSelection(0)
+
+        searchQueryET.postDelayed({
+            searchQueryET.requestFocus()
+        }, 250)
     }
 
     private fun saveText() {
@@ -129,7 +166,12 @@ class ReadTextActivity : SimpleActivity() {
     }
 
     private fun createWebPrintJob(webView: WebView) {
-        val jobName = if (filePath.isNotEmpty()) filePath.getFilenameFromPath() else getString(R.string.app_name)
+        val jobName = if (filePath.isNotEmpty()) {
+            filePath.getFilenameFromPath()
+        } else {
+            getString(R.string.app_name)
+        }
+
         val printAdapter = webView.createPrintDocumentAdapter(jobName)
 
         (getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.apply {
@@ -178,6 +220,92 @@ class ReadTextActivity : SimpleActivity() {
                     showKeyboard(read_text_view)
                 }
             }
+        }
+    }
+
+    private fun setupSearchButtons() {
+        searchQueryET.onTextChangeListener {
+            searchTextChanged(it)
+        }
+
+        searchPrevBtn.setOnClickListener {
+            goToPrevSearchResult()
+        }
+
+        searchNextBtn.setOnClickListener {
+            goToNextSearchResult()
+        }
+
+        searchClearBtn.setOnClickListener {
+            closeSearch()
+        }
+
+        searchQueryET.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchNextBtn.performClick()
+                return@OnEditorActionListener true
+            }
+
+            false
+        })
+
+        search_wrapper.setBackgroundColor(config.primaryColor)
+        val contrastColor = config.primaryColor.getContrastColor()
+        arrayListOf(searchPrevBtn, searchNextBtn, searchClearBtn).forEach {
+            it.applyColorFilter(contrastColor)
+        }
+    }
+
+    private fun searchTextChanged(text: String) {
+        read_text_view.text?.clearSpans()
+
+        if (text.isNotBlank() && text.length > 1) {
+            searchMatches = text.searchMatches(read_text_view.value)
+            read_text_view.highlightText(text, config.primaryColor)
+        }
+
+        if (searchMatches.isNotEmpty()) {
+            read_text_view.requestFocus()
+            read_text_view.setSelection(searchMatches.getOrNull(searchIndex) ?: 0)
+        }
+
+        searchQueryET.postDelayed({
+            searchQueryET.requestFocus()
+        }, 50)
+    }
+
+    private fun goToPrevSearchResult() {
+        if (searchIndex > 0) {
+            searchIndex--
+        } else {
+            searchIndex = searchMatches.lastIndex
+        }
+
+        selectSearchMatch(read_text_view)
+    }
+
+    private fun goToNextSearchResult() {
+        if (searchIndex < searchMatches.lastIndex) {
+            searchIndex++
+        } else {
+            searchIndex = 0
+        }
+
+        selectSearchMatch(read_text_view)
+    }
+
+    private fun closeSearch() {
+        searchQueryET.text.clear()
+        isSearchActive = false
+        search_wrapper.beGone()
+    }
+
+    private fun selectSearchMatch(editText: GestureEditText) {
+        if (searchMatches.isNotEmpty()) {
+            editText.requestFocus()
+            editText.setSelection(searchMatches.getOrNull(searchIndex) ?: 0)
+        } else {
+            hideKeyboard()
         }
     }
 }
