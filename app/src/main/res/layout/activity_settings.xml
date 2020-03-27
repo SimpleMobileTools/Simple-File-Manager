@@ -129,13 +129,6 @@
 
         </RelativeLayout>
 
-        <View
-            android:id="@+id/visibility_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider_grey"
-            android:importantForAccessibility="no" />
-
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/visibility_label"
             android:layout_width="wrap_content"
@@ -169,13 +162,6 @@
 
         </RelativeLayout>
 
-        <View
-            android:id="@+id/file_operations_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider_grey"
-            android:importantForAccessibility="no" />
-
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/file_operations_label"
             android:layout_width="wrap_content"
@@ -208,13 +194,6 @@
                 app:switchPadding="@dimen/medium_margin" />
 
         </RelativeLayout>
-
-        <View
-            android:id="@+id/security_divider"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/divider_grey"
-            android:importantForAccessibility="no" />
 
         <com.simplemobiletools.commons.views.MyTextView
             android:id="@+id/security_label"
