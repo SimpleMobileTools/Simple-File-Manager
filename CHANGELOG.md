@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.6.0 *(2020-03-27)*
+----------------------------
+
+ * Adding an improved Search at the file editor
+ * Removing the list view separators to make the UI cleaner
+ * Apply the selected folder sorting at the file/destination picker dialog too
+
 Version 6.5.3 *(2020-03-22)*
 ----------------------------
 
