@@ -256,7 +256,7 @@ class ReadTextActivity : SimpleActivity() {
     }
 
     private fun searchTextChanged(text: String) {
-        read_text_view.text?.clearSpans()
+        read_text_view.text?.clearBackgroundSpans()
 
         if (text.isNotBlank() && text.length > 1) {
             searchMatches = read_text_view.value.searchMatches(text)
