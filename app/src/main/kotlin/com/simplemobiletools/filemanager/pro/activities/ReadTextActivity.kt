@@ -98,7 +98,6 @@ class ReadTextActivity : SimpleActivity() {
     private fun openSearch() {
         isSearchActive = true
         search_wrapper.beVisible()
-
         showKeyboard(searchQueryET)
 
         read_text_view.requestFocus()
@@ -260,7 +259,7 @@ class ReadTextActivity : SimpleActivity() {
         read_text_view.text?.clearSpans()
 
         if (text.isNotBlank() && text.length > 1) {
-            searchMatches = text.searchMatches(read_text_view.value)
+            searchMatches = read_text_view.value.searchMatches(text)
             read_text_view.highlightText(text, config.primaryColor)
         }
 
