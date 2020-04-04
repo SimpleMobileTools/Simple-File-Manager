@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Semplice Gestore dei file</string>
-    <string name="app_launcher_name">Gestore dei file</string>
+    <string name="app_name">Semplice Gestore di file</string>
+    <string name="app_launcher_name">Gestore di file</string>
     <string name="press_back_again">Premi di nuovo indietro per uscire</string>
     <string name="go_to_home_folder">Vai alla cartella casa</string>
     <string name="set_as_home_folder">Imposta come cartella casa</string>
@@ -44,36 +44,36 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Semplice Gestore di file Pro - Facile e veloce</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Semplice app per gestire file senza pubblicità, rispetta privacy e sicurezza</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Un gestore di file leggero e veloce per l\'utilizzo quotidiano. Offre funzionalità di ricerca, puoi personalizzare la cartella home e selezionare le cartelle preferite per un accesso rapido.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        L\'app contiene diverse funzioni di sicurezza robuste, come la protezione con password per file nascosti, per l\'intera app o per l'\eliminazione di file. Puoi scegliere se usare una sequenza, un pin o l\'impronta per mantenere privati i dati.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Questo organizzatore di file moderno supporta l\'accesso ai file di root, alle schede SD e ai dispositivi USB.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Per la tua produttività, ovviamente ha tutte le operazioni standard di rinominazione, copia, spostamento, eliminazione, condivisione ecc. Può anche essere usato per risparmiare spazio, consentendo la compressione e la decompressione. Puoi creare facilmente nuovi file o cartelle quando vuoi.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Puoi ovviamente ordinare in diversi modi, cambiare tra crescente o decrescente, o usare un ordinamento specifico per cartella.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Con pochi clic puoi controllare le proprietà di file e cartelle, che mostrano voci come la dimensione, data o l\'ultima modifica, o valori EXIF come la data di creazione, modello della fotocamera per le foto ecc.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Per raggiungere il percorso di un file o cartella in modo rapido, puoi selezionarlo facilmente tenendolo premuto e copiandolo negli appunti.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Puoi creare utili scorciatoie per accedere velocemente ai tuoi elementi preferiti.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Contiene un editor di file leggero che puoi usare per stampare documenti, modificarli o leggerli anche ingrandendoli, se necessario.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Progettato con material design, offre anche un tema scuro, per una migliore esperienza utente e un facile utilizzo. La mancanza dell\'accesso a internet ti dà maggiore privacy, sicurezza e stabilità rispetto ad altre app.
 
         L\'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Controlla l\'intera raccolta di Strumenti Semplici qui:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Sito internet di Semplice Gestore di file Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
