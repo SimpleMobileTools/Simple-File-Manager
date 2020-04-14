@@ -1,0 +1,2 @@
+ * Fixed some SD card file operations
+ * Added some translation and stability improvements

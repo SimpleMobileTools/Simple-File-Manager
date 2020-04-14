@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.6.1 *(2020-04-14)*
+----------------------------
+
+ * Fixed some SD card file operations
+ * Added some translation and stability improvements
+
 Version 6.6.0 *(2020-03-27)*
 ----------------------------
 
