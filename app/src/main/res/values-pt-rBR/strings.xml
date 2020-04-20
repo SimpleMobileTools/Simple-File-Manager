@@ -21,15 +21,15 @@
     <string name="other_file">Outro arquivo</string>
 
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Compacte</string>
+    <string name="decompress">Descompacte</string>
+    <string name="compress_as">Compactar como</string>
+    <string name="compressing">Compactando…</string>
+    <string name="decompressing">Descompactando…</string>
+    <string name="compression_successful">Compactação bem sucedida</string>
+    <string name="decompression_successful">Descompactação bem sucedida</string>
+    <string name="compressing_failed">Compactação falhou</string>
+    <string name="decompressing_failed">Descompactação falhou</string>
 
     <!-- Favorites -->
     <string name="manage_favorites">Gerenciar favoritos</string>
@@ -37,10 +37,10 @@
     <string name="favorites_activity_placeholder">Pode adicionar pastas como favoritos, para um acesso mais rápido.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Editor de Arquivos</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
+    <string name="enable_root_access">Habilitar o acesso root</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
@@ -48,32 +48,32 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Um gerenciador de arquivos leve e rápido para uso diário. Ele oferece uma funcionalidade de busca fácil, você também pode personalizar a pasta principal e selecionar as pastas favoritas para acesso rápido.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        O aplicativo contém várias funções poderosas relacionadas à segurança, como proteção por senha de itens ocultos, exclusão de arquivos ou o aplicativo inteiro. Você pode escolher entre usar um padrão, um pin ou uma impressão digital para manter seus dados privados.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Este moderno organizador de arquivos suporta a navegação rápida de arquivos raiz, cartões SD e dispositivos USB.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Para manter sua produtividade, ele obviamente tem todas as operações de arquivo padrão como renomear, copiar, mover, excluir, compartilhar, etc. Ele também pode ser usado para economizar algum armazenamento, já que permite comprimir e descomprimir também. Você pode criar facilmente novos arquivos ou pastas, se assim o desejar.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Você pode obviamente selecionar a ordenação por vários valores diferentes, alternar entre ascendente e descendente, ou usar uma ordenação específica de pastas.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Com apenas alguns cliques você também pode verificar as propriedades do arquivo ou pasta, que mostra vários campos como o tamanho do arquivo, data da última modificação, ou valores EXIF como a data de criação, modelo da câmera nas fotos, etc.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Para obter um caminho de arquivo ou pastas rapidamente, você pode selecioná-lo facilmente pressionando e copiando-o por muito tempo na área de transferência.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Você pode criar atalhos úteis na área de trabalho para acessar seus itens favoritos rapidamente.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Ele contém um editor de arquivos leve que você pode usar tanto para imprimir documentos, editá-los ou lê-los facilmente com gestos de zoom, sempre que necessário.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Ele vem com design de material e tema escuro por padrão, fornece uma ótima experiência para o usuário para uma fácil utilização. A falta de acesso à Internet dá-lhe mais privacidade, segurança e estabilidade do que outras aplicações.
 
-        Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
+        Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'código aberto\'.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Confira o conjunto completo de Ferramentas Simples aqui:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Site autônomo do Simples Gerenciador de Arquivos Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
