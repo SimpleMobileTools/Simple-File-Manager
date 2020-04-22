@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sorting_dialog_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_margin"
-        android:paddingRight="@dimen/activity_margin"
-        android:paddingTop="@dimen/activity_margin">
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin"
+        android:paddingEnd="@dimen/activity_margin">
 
         <RadioGroup
             android:id="@+id/sorting_dialog_radio_sorting"
@@ -24,38 +23,37 @@
                 android:id="@+id/sorting_dialog_radio_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
                 android:paddingTop="@dimen/medium_margin"
-                android:text="@string/name"/>
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/name" />
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
                 android:paddingTop="@dimen/medium_margin"
-                android:text="@string/size"/>
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/size" />
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_last_modified"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
                 android:paddingTop="@dimen/medium_margin"
-                android:text="@string/last_modified"/>
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/last_modified" />
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_extension"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
                 android:paddingTop="@dimen/medium_margin"
-                android:text="@string/extension"/>
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/extension" />
 
         </RadioGroup>
 
-        <include
-            layout="@layout/divider"/>
+        <include layout="@layout/divider" />
 
         <RadioGroup
             android:id="@+id/sorting_dialog_radio_order"
@@ -68,30 +66,30 @@
                 android:id="@+id/sorting_dialog_radio_ascending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
                 android:paddingTop="@dimen/medium_margin"
-                android:text="@string/ascending"/>
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/ascending" />
 
             <com.simplemobiletools.commons.views.MyCompatRadioButton
                 android:id="@+id/sorting_dialog_radio_descending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/medium_margin"
                 android:paddingTop="@dimen/medium_margin"
-                android:text="@string/descending"/>
+                android:paddingBottom="@dimen/medium_margin"
+                android:text="@string/descending" />
         </RadioGroup>
 
         <include
             android:id="@+id/use_for_this_folder_divider"
-            layout="@layout/divider"/>
+            layout="@layout/divider" />
 
         <com.simplemobiletools.commons.views.MyAppCompatCheckbox
             android:id="@+id/sorting_dialog_use_for_this_folder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
-            android:text="@string/use_for_this_folder"/>
+            android:paddingBottom="@dimen/activity_margin"
+            android:text="@string/use_for_this_folder" />
 
     </LinearLayout>
 </ScrollView>
