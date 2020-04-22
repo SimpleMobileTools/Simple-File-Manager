@@ -753,7 +753,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     private fun getFileIcon(extension: String): Drawable {
         val id = when (extension) {
-            "aep" -> R.drawable.ic_file_after_effects
+            "aep" -> R.drawable.ic_file_aep
             "ai" -> R.drawable.ic_file_ai
             "avi" -> R.drawable.ic_file_avi
             "css" -> R.drawable.ic_file_css
@@ -769,7 +769,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             "indd" -> R.drawable.ic_file_indd
             "iso" -> R.drawable.ic_file_iso
             "jpg", "jpeg" -> R.drawable.ic_file_jpg
-            "js" -> R.drawable.ic_file_javascript
+            "js" -> R.drawable.ic_file_js
             "json" -> R.drawable.ic_file_json
             "m4a" -> R.drawable.ic_file_m4a
             "mp3" -> R.drawable.ic_file_mp3
