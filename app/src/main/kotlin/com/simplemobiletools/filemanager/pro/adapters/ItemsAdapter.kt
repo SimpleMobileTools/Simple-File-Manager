@@ -58,7 +58,6 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private val TYPE_FILE_DIR = 1
     private val TYPE_SECTION = 2
     private lateinit var folderDrawable: Drawable
-    private lateinit var fileDrawable: Drawable
     private var currentItemsHash = listItems.hashCode()
     private var textToHighlight = ""
     private val hasOTGConnected = activity.hasOTGConnected()
@@ -154,9 +153,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     fun initDrawables() {
         folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder_vector, textColor)
-        fileDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_file_vector, textColor)
         folderDrawable.alpha = 180
-        fileDrawable.alpha = 180
     }
 
     private fun isOneFileSelected() = isOneItemSelected() && getItemWithKey(selectedKeys.first())?.isDirectory == false
@@ -713,7 +710,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     val options = RequestOptions()
                             .signature(listItem.mPath.getFileSignature())
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .error(fileDrawable)
+                            .error(getFileIcon(fileName.substringAfterLast(".").toLowerCase()))
                             .centerCrop()
 
                     val itemToLoad = getImagePathToLoad(listItem.path)
@@ -752,5 +749,43 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         }
 
         return itemToLoad
+    }
+
+    private fun getFileIcon(extension: String): Drawable {
+        val id = when (extension) {
+            "aep" -> R.drawable.ic_file_after_effects
+            "ai" -> R.drawable.ic_file_ai
+            "avi" -> R.drawable.ic_file_avi
+            "css" -> R.drawable.ic_file_css
+            "csv" -> R.drawable.ic_file_csv
+            "dbf" -> R.drawable.ic_file_dbf
+            "doc", "docx" -> R.drawable.ic_file_doc
+            "dwg" -> R.drawable.ic_file_dwg
+            "exe" -> R.drawable.ic_file_exe
+            "fla" -> R.drawable.ic_file_fla
+            "flv" -> R.drawable.ic_file_flash
+            "htm", "html" -> R.drawable.ic_file_html
+            "indd" -> R.drawable.ic_file_indesign
+            "iso" -> R.drawable.ic_file_iso
+            "jpg", "jpeg" -> R.drawable.ic_file_jpg
+            "js" -> R.drawable.ic_file_javascript
+            "json" -> R.drawable.ic_file_json
+            "mp3" -> R.drawable.ic_file_mp3
+            "mp4" -> R.drawable.ic_file_mp4
+            "pdf" -> R.drawable.ic_file_pdf
+            "plproj" -> R.drawable.ic_file_prelude
+            "prproj" -> R.drawable.ic_file_premiere
+            "psd" -> R.drawable.ic_file_psd
+            "rtf" -> R.drawable.ic_file_rtf
+            "sesx" -> R.drawable.ic_file_audition
+            "svg" -> R.drawable.ic_file_svg
+            "txt" -> R.drawable.ic_file_txt
+            "xls" -> R.drawable.ic_file_xls
+            "xml" -> R.drawable.ic_file_xml
+            "zip" -> R.drawable.ic_file_zip
+            else -> R.drawable.ic_file_generic
+        }
+
+        return resources.getDrawable(id)
     }
 }
