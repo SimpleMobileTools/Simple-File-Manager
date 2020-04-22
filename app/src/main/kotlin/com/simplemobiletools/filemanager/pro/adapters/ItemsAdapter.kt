@@ -57,7 +57,9 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     private val TYPE_FILE_DIR = 1
     private val TYPE_SECTION = 2
+    private lateinit var fileDrawable: Drawable
     private lateinit var folderDrawable: Drawable
+    private var fileDrawables = HashMap<String, Drawable>()
     private var currentItemsHash = listItems.hashCode()
     private var textToHighlight = ""
     private val hasOTGConnected = activity.hasOTGConnected()
@@ -150,11 +152,6 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     override fun getItemCount() = listItems.size
 
     private fun getItemWithKey(key: Int): FileDirItem? = listItems.firstOrNull { it.path.hashCode() == key }
-
-    fun initDrawables() {
-        folderDrawable = activity.resources.getColoredDrawableWithColor(R.drawable.ic_folder_vector, textColor)
-        folderDrawable.alpha = 180
-    }
 
     private fun isOneFileSelected() = isOneItemSelected() && getItemWithKey(selectedKeys.first())?.isDirectory == false
 
@@ -707,10 +704,11 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     item_date.beVisible()
                     item_date.text = listItem.modified.formatDate(activity)
 
+                    val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                     val options = RequestOptions()
                             .signature(listItem.mPath.getFileSignature())
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .error(getFileIcon(fileName.substringAfterLast(".").toLowerCase()))
+                            .error(drawable)
                             .centerCrop()
 
                     val itemToLoad = getImagePathToLoad(listItem.path)
@@ -751,47 +749,53 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         return itemToLoad
     }
 
-    private fun getFileIcon(extension: String): Drawable {
-        val id = when (extension) {
-            "aep" -> R.drawable.ic_file_aep
-            "ai" -> R.drawable.ic_file_ai
-            "avi" -> R.drawable.ic_file_avi
-            "css" -> R.drawable.ic_file_css
-            "csv" -> R.drawable.ic_file_csv
-            "dbf" -> R.drawable.ic_file_dbf
-            "doc", "docx" -> R.drawable.ic_file_doc
-            "dwg" -> R.drawable.ic_file_dwg
-            "exe" -> R.drawable.ic_file_exe
-            "fla" -> R.drawable.ic_file_fla
-            "flv" -> R.drawable.ic_file_flv
-            "htm", "html" -> R.drawable.ic_file_html
-            "ics" -> R.drawable.ic_file_ics
-            "indd" -> R.drawable.ic_file_indd
-            "iso" -> R.drawable.ic_file_iso
-            "jpg", "jpeg" -> R.drawable.ic_file_jpg
-            "js" -> R.drawable.ic_file_js
-            "json" -> R.drawable.ic_file_json
-            "m4a" -> R.drawable.ic_file_m4a
-            "mp3" -> R.drawable.ic_file_mp3
-            "mp4" -> R.drawable.ic_file_mp4
-            "ogg" -> R.drawable.ic_file_ogg
-            "pdf" -> R.drawable.ic_file_pdf
-            "plproj" -> R.drawable.ic_file_plproj
-            "prproj" -> R.drawable.ic_file_prproj
-            "psd" -> R.drawable.ic_file_psd
-            "rtf" -> R.drawable.ic_file_rtf
-            "sesx" -> R.drawable.ic_file_sesx
-            "svg" -> R.drawable.ic_file_svg
-            "txt" -> R.drawable.ic_file_txt
-            "vcf" -> R.drawable.ic_file_vcf
-            "wav" -> R.drawable.ic_file_wav
-            "wmv" -> R.drawable.ic_file_wmv
-            "xls" -> R.drawable.ic_file_xls
-            "xml" -> R.drawable.ic_file_xml
-            "zip" -> R.drawable.ic_file_zip
-            else -> R.drawable.ic_file_generic
-        }
+    fun initDrawables() {
+        folderDrawable = resources.getColoredDrawableWithColor(R.drawable.ic_folder_vector, textColor)
+        folderDrawable.alpha = 180
+        fileDrawable = resources.getDrawable(R.drawable.ic_file_generic)
 
-        return resources.getDrawable(id)
+        hashMapOf<String, Int>().apply {
+            put("aep", R.drawable.ic_file_aep)
+            put("ai", R.drawable.ic_file_ai)
+            put("avi", R.drawable.ic_file_avi)
+            put("css", R.drawable.ic_file_css)
+            put("csv", R.drawable.ic_file_csv)
+            put("dbf", R.drawable.ic_file_dbf)
+            put("doc", R.drawable.ic_file_doc)
+            put("docx", R.drawable.ic_file_doc)
+            put("dwg", R.drawable.ic_file_dwg)
+            put("exe", R.drawable.ic_file_exe)
+            put("fla", R.drawable.ic_file_fla)
+            put("flv", R.drawable.ic_file_flv)
+            put("htm", R.drawable.ic_file_html)
+            put("html", R.drawable.ic_file_html)
+            put("ics", R.drawable.ic_file_ics)
+            put("indd", R.drawable.ic_file_indd)
+            put("iso", R.drawable.ic_file_iso)
+            put("jpg", R.drawable.ic_file_jpg)
+            put("jpeg", R.drawable.ic_file_jpg)
+            put("js", R.drawable.ic_file_js)
+            put("json", R.drawable.ic_file_json)
+            put("m4a", R.drawable.ic_file_m4a)
+            put("mp3", R.drawable.ic_file_mp3)
+            put("mp4", R.drawable.ic_file_mp4)
+            put("ogg", R.drawable.ic_file_ogg)
+            put("pdf", R.drawable.ic_file_pdf)
+            put("plproj", R.drawable.ic_file_plproj)
+            put("prproj", R.drawable.ic_file_prproj)
+            put("psd", R.drawable.ic_file_psd)
+            put("rtf", R.drawable.ic_file_rtf)
+            put("sesx", R.drawable.ic_file_sesx)
+            put("svg", R.drawable.ic_file_svg)
+            put("txt", R.drawable.ic_file_txt)
+            put("vcf", R.drawable.ic_file_vcf)
+            put("wav", R.drawable.ic_file_wav)
+            put("wmv", R.drawable.ic_file_wmv)
+            put("xls", R.drawable.ic_file_xls)
+            put("xml", R.drawable.ic_file_xml)
+            put("zip", R.drawable.ic_file_zip)
+        }.forEach { (key, value) ->
+            fileDrawables.put(key, resources.getDrawable(value))
+        }
     }
 }
