@@ -771,8 +771,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             "jpg", "jpeg" -> R.drawable.ic_file_jpg
             "js" -> R.drawable.ic_file_javascript
             "json" -> R.drawable.ic_file_json
+            "m4a" -> R.drawable.ic_file_m4a
             "mp3" -> R.drawable.ic_file_mp3
             "mp4" -> R.drawable.ic_file_mp4
+            "ogg" -> R.drawable.ic_file_ogg
             "pdf" -> R.drawable.ic_file_pdf
             "plproj" -> R.drawable.ic_file_prelude
             "prproj" -> R.drawable.ic_file_premiere
@@ -782,6 +784,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             "svg" -> R.drawable.ic_file_svg
             "txt" -> R.drawable.ic_file_txt
             "vcf" -> R.drawable.ic_file_vcf
+            "wav" -> R.drawable.ic_file_wav
             "xls" -> R.drawable.ic_file_xls
             "xml" -> R.drawable.ic_file_xml
             "zip" -> R.drawable.ic_file_zip
