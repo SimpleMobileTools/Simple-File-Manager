@@ -776,11 +776,11 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             "mp4" -> R.drawable.ic_file_mp4
             "ogg" -> R.drawable.ic_file_ogg
             "pdf" -> R.drawable.ic_file_pdf
-            "plproj" -> R.drawable.ic_file_prelude
-            "prproj" -> R.drawable.ic_file_premiere
+            "plproj" -> R.drawable.ic_file_plproj
+            "prproj" -> R.drawable.ic_file_prproj
             "psd" -> R.drawable.ic_file_psd
             "rtf" -> R.drawable.ic_file_rtf
-            "sesx" -> R.drawable.ic_file_audition
+            "sesx" -> R.drawable.ic_file_sesx
             "svg" -> R.drawable.ic_file_svg
             "txt" -> R.drawable.ic_file_txt
             "vcf" -> R.drawable.ic_file_vcf
