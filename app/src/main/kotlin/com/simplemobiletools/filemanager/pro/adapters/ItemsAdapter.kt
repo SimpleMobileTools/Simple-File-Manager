@@ -765,6 +765,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             "fla" -> R.drawable.ic_file_fla
             "flv" -> R.drawable.ic_file_flash
             "htm", "html" -> R.drawable.ic_file_html
+            "ics" -> R.drawable.ic_file_ics
             "indd" -> R.drawable.ic_file_indesign
             "iso" -> R.drawable.ic_file_iso
             "jpg", "jpeg" -> R.drawable.ic_file_jpg
@@ -780,6 +781,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             "sesx" -> R.drawable.ic_file_audition
             "svg" -> R.drawable.ic_file_svg
             "txt" -> R.drawable.ic_file_txt
+            "vcf" -> R.drawable.ic_file_vcf
             "xls" -> R.drawable.ic_file_xls
             "xml" -> R.drawable.ic_file_xml
             "zip" -> R.drawable.ic_file_zip
