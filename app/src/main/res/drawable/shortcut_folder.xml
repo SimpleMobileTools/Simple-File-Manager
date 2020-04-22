@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/shortcut_folder_background">
         <shape android:shape="oval">
-            <solid android:color="@color/color_primary"/>
+            <solid android:color="@color/color_primary" />
         </shape>
     </item>
 
@@ -12,6 +12,6 @@
         android:drawable="@drawable/ic_folder_vector"
         android:left="@dimen/medium_margin"
         android:right="@dimen/medium_margin"
-        android:top="@dimen/medium_margin"/>
+        android:top="@dimen/medium_margin" />
 
 </layer-list>
