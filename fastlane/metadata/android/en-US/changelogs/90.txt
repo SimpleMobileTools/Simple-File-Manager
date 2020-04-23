@@ -1,0 +1,3 @@
+ * Show nicer file placeholder icons depending on the file type
+ * Fixed some SD card related issues
+ * Added some translation and scrolling performance improvements

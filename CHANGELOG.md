@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.7.0 *(2020-04-23)*
+----------------------------
+
+ * Show nicer file placeholder icons depending on the file type
+ * Fixed some SD card related issues
+ * Added some translation and scrolling performance improvements
+
 Version 6.6.1 *(2020-04-14)*
 ----------------------------
 
