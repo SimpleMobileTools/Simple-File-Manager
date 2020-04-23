@@ -47,6 +47,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private var storedItems = ArrayList<ListItem>()
     private var storedTextColor = 0
     private var storedFontSize = 0
+    private var storedDateFormat = ""
+    private var storedTimeFormat = ""
 
     lateinit var mView: View
 
@@ -101,6 +103,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             mView.breadcrumbs.updateFontSize(context!!.getTextSize())
         }
 
+        if (storedDateFormat != context!!.config.dateFormat || storedTimeFormat != context!!.getTimeFormat()) {
+            getRecyclerAdapter()?.updateDateTimeFormat()
+        }
+
         mView.items_fastscroller.updateBubbleColors()
         mView.items_fastscroller.allowBubbleDisplay = true
         if (!isFirstResume) {
@@ -119,6 +125,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         context!!.config.apply {
             storedTextColor = textColor
             storedFontSize = fontSize
+            storedDateFormat = dateFormat
+            storedTimeFormat = context.getTimeFormat()
         }
     }
 

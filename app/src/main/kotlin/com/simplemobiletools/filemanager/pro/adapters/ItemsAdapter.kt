@@ -62,6 +62,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private val hasOTGConnected = activity.hasOTGConnected()
     private var fontSize = 0f
     private var smallerFontSize = 0f
+    private var dateFormat = ""
+    private var timeFormat = ""
 
     var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
 
@@ -69,6 +71,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         setupDragListener(true)
         initDrawables()
         updateFontSizes()
+        dateFormat = activity.config.dateFormat
+        timeFormat = activity.getTimeFormat()
     }
 
     override fun getActionMenuId() = R.menu.cab
@@ -662,6 +666,12 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         notifyDataSetChanged()
     }
 
+    fun updateDateTimeFormat() {
+        dateFormat = activity.config.dateFormat
+        timeFormat = activity.getTimeFormat()
+        notifyDataSetChanged()
+    }
+
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
@@ -699,7 +709,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 } else {
                     item_details.text = listItem.size.formatSize()
                     item_date.beVisible()
-                    item_date.text = listItem.modified.formatDate(activity)
+                    item_date.text = listItem.modified.formatDate(activity, dateFormat, timeFormat)
 
                     val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                     val options = RequestOptions()
