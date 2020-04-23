@@ -175,7 +175,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
                 items_fastscroller.allowBubbleDisplay = true
                 items_fastscroller.setViews(items_list, mView.items_swipe_refresh) {
-                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context) ?: "")
+                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context, storedDateFormat, storedTimeFormat) ?: "")
                 }
 
                 getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
@@ -186,7 +186,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
     }
 
-    fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
+    private fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
     private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as MyLinearLayoutManager)
 

@@ -720,7 +720,11 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
                     val itemToLoad = getImagePathToLoad(listItem.path)
                     if (!activity.isDestroyed) {
-                        Glide.with(activity).load(itemToLoad).transition(DrawableTransitionOptions.withCrossFade()).apply(options).into(item_icon)
+                        Glide.with(activity)
+                                .load(itemToLoad)
+                                .transition(DrawableTransitionOptions.withCrossFade())
+                                .apply(options)
+                                .into(item_icon)
                     }
                 }
             }
