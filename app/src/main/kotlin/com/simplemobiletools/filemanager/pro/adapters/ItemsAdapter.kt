@@ -254,10 +254,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 intent.data = Uri.fromFile(File(path))
 
                 val shortcut = ShortcutInfo.Builder(activity, path)
-                        .setShortLabel(path.getFilenameFromPath())
-                        .setIcon(Icon.createWithBitmap(drawable.convertToBitmap()))
-                        .setIntent(intent)
-                        .build()
+                    .setShortLabel(path.getFilenameFromPath())
+                    .setIcon(Icon.createWithBitmap(drawable.convertToBitmap()))
+                    .setIntent(intent)
+                    .build()
 
                 manager.requestPinShortcut(shortcut, null)
             }
@@ -272,25 +272,25 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         } else {
             ensureBackgroundThread {
                 val options = RequestOptions()
-                        .format(DecodeFormat.PREFER_ARGB_8888)
-                        .skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .fitCenter()
+                    .format(DecodeFormat.PREFER_ARGB_8888)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .fitCenter()
 
                 val size = activity.resources.getDimension(R.dimen.shortcut_size).toInt()
                 val builder = Glide.with(activity)
-                        .asDrawable()
-                        .load(getImagePathToLoad(path))
-                        .apply(options)
-                        .centerCrop()
-                        .into(size, size)
+                    .asDrawable()
+                    .load(getImagePathToLoad(path))
+                    .apply(options)
+                    .centerCrop()
+                    .into(size, size)
 
                 try {
                     val bitmap = builder.get()
                     drawable.findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(0)
                     drawable.setDrawableByLayerId(R.id.shortcut_folder_image, bitmap)
                 } catch (e: Exception) {
-                    val fileIcon = activity.resources.getDrawable(R.drawable.ic_file_vector)
+                    val fileIcon = activity.resources.getDrawable(R.drawable.ic_file_generic)
                     drawable.setDrawableByLayerId(R.id.shortcut_folder_image, fileIcon)
                 }
 
@@ -336,11 +336,11 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private fun openAs() {
         val res = activity.resources
         val items = arrayListOf(
-                RadioItem(OPEN_AS_TEXT, res.getString(R.string.text_file)),
-                RadioItem(OPEN_AS_IMAGE, res.getString(R.string.image_file)),
-                RadioItem(OPEN_AS_AUDIO, res.getString(R.string.audio_file)),
-                RadioItem(OPEN_AS_VIDEO, res.getString(R.string.video_file)),
-                RadioItem(OPEN_AS_OTHER, res.getString(R.string.other_file)))
+            RadioItem(OPEN_AS_TEXT, res.getString(R.string.text_file)),
+            RadioItem(OPEN_AS_IMAGE, res.getString(R.string.image_file)),
+            RadioItem(OPEN_AS_AUDIO, res.getString(R.string.audio_file)),
+            RadioItem(OPEN_AS_VIDEO, res.getString(R.string.video_file)),
+            RadioItem(OPEN_AS_OTHER, res.getString(R.string.other_file)))
 
         RadioGroupDialog(activity, items) {
             activity.tryOpenPathIntent(getFirstSelectedItemPath(), false, it as Int)
@@ -713,18 +713,18 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
                     val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                     val options = RequestOptions()
-                            .signature(listItem.mPath.getFileSignature())
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .error(drawable)
-                            .centerCrop()
+                        .signature(listItem.mPath.getFileSignature())
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                        .error(drawable)
+                        .centerCrop()
 
                     val itemToLoad = getImagePathToLoad(listItem.path)
                     if (!activity.isDestroyed) {
                         Glide.with(activity)
-                                .load(itemToLoad)
-                                .transition(DrawableTransitionOptions.withCrossFade())
-                                .apply(options)
-                                .into(item_icon)
+                            .load(itemToLoad)
+                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .apply(options)
+                            .into(item_icon)
                     }
                 }
             }
