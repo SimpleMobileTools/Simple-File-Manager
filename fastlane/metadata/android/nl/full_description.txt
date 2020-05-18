@@ -1,7 +1,33 @@
-Kan ook gebruikt worden voor root-toegang en het verkennen van bestanden op de SD-kaart. Hernoem, kopieer, verplaats, verwijder of deel uw bestanden.
+Een lichtgewicht app voor snel bestandsbeheer. Bevat een nuttige zoekfunctie en opties om de beginmap en favoriete mappen in te stellen voor extra snel dagelijks gebruik.
 
-The fingerprint permission is needed for locking either hidden item visibility, or the whole app.
+De app heeft diverse krachtige veiligheidsfuncties, zoals (wachtwoord)beveiliging voor verborgen items, voor het verwijderen van bestanden of zelfs van de gehele app. Er kan gekozen worden tussen beveiliging met een patroon, een pincode of een vingerafdruk om gegevens veilig te stellen.
+
+Deze moderne bestandsbeheerder ondersteunt het snel verkennen van de root-map, SD-kaarten en USB-apparaten.
+
+De gebruikelijke bestandsoperaties zoals hernoemen, kopiëren, verplaatsen, verwijderen en delen zijn natuurlijk aanwezig. Ook kan er wat opslagruimte worden bespaard door bestanden te comprimeren. Nieuwe bestanden of mappen kunnen gemakkelijk worden aangemaakt.
+
+Sorteren kan op verschillende manieren, alfabetisch of omgekeerd, en kan per map gespecificeerd worden.
+
+Met slechts enkele handelingen zijn de bestands- en mapeigenschappen te bekijken, waarbij grootte, datum laatst gewijzigd en (bij foto\'s) EXIF-informatie zoals opnamedatum en cameramodel kunnen worden uitgelezen.
+
+Om snel het pad naar een bestand of map te verkrijgen kan via een lange druk op het item gekozen worden om dit pad naar het klembord te kopiëren.
+
+Er kunnen handige snelkoppelingen op het thuisscherm worden aangemaakt om favoriete items direct te kunnen benaderen.
+
+Bevat een lichtgewicht bestandseditor om bestanden te bewerken, te printen of met zoomgebaren gemakkelijker te lezen.
+
+De app is ontworpen volgens material design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en voorziet van meer privacy, veiligheid en stabiliteit dan andere apps.
 
 Bevat geen advertenties of onnodige permissies. Volledig open-source. Kleuren van de app kunnen worden aangepast.
 
-Deze app is onderdeel van een grotere verzameling. Vind de andere apps op https://www.simplemobiletools.com
+<b>Probeer ook eens de andere apps van Simple Tools:</b>
+https://www.simplemobiletools.com
+
+<b>Website voor Eenvoudig Bestandsbeheer Pro:</b>
+https://www.simplemobiletools.com/filemanager
+
+<b>Facebook:</b>
+https://www.facebook.com/simplemobiletools
+
+<b>Reddit:</b>
+https://www.reddit.com/r/SimpleMobileTools
