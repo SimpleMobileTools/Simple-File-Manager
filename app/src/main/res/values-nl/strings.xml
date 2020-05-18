@@ -44,29 +44,29 @@
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Eenvoudig Bestandsbeheer Pro - Snel en gemakkelijk</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Eenvoudig bestandsbeheer, zonder advertenties, voor privacy en veiligheid</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Een lichtgewicht app voor snel bestandsbeheer. Bevat een nuttige zoekfunctie en opties om de beginmap en favoriete mappen in te stellen voor extra snel dagelijks gebruik.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        De app heeft diverse krachtige veiligheidsfuncties, zoals (wachtwoord)beveiliging voor verborgen items, voor het verwijderen van bestanden of zelfs van de gehele app. Er kan gekozen worden tussen beveiliging met een patroon, een pincode of een vingerafdruk om gegevens veilig te stellen.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Deze moderne bestandsbeheerder ondersteunt het snel verkennen van de root-map, SD-kaarten en USB-apparaten.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        De gebruikelijke bestandsoperaties zoals hernoemen, kopiëren, verplaatsen, verwijderen en delen zijn natuurlijk aanwezig. Ook kan er wat opslagruimte worden bespaard door bestanden te comprimeren. Nieuwe bestanden of mappen kunnen gemakkelijk worden aangemaakt.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Sorteren kan op verschillende manieren, alfabetisch of omgekeerd, en kan per map gespecificeerd worden.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Met slechts enkele handelingen zijn de bestands- en mapeigenschappen te bekijken, waarbij grootte, datum laatst gewijzigd en (bij foto\'s) EXIF-informatie zoals opnamedatum en cameramodel kunnen worden uitgelezen.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Om snel het pad naar een bestand of map te verkrijgen kan via een lange druk op het item gekozen worden om dit pad naar het klembord te kopiëren.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Er kunnen handige snelkoppelingen op het thuisscherm worden aangemaakt om favoriete items direct te kunnen benaderen.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Bevat een lichtgewicht bestandseditor om bestanden te bewerken, te printen of met zoomgebaren gemakkelijker te lezen.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        De app is ontworpen volgens material design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en voorziet van meer privacy, veiligheid en stabiliteit dan andere apps.
 
         Bevat geen advertenties of onnodige permissies. Volledig open-source. Kleuren van de app kunnen worden aangepast.
 
