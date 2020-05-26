@@ -9,7 +9,7 @@ import com.simplemobiletools.commons.extensions.showErrorToast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.filemanager.pro.R
-import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
+import com.simplemobiletools.filemanager.pro.adapters.DecompressItemsAdapter
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.activity_decompress.*
 import java.io.BufferedInputStream
@@ -27,13 +27,13 @@ class DecompressActivity : SimpleActivity() {
             return
         }
 
-        getRealPathFromURI(uri)?.apply {
-            title = getFilenameFromPath()
-        }
+        val realPath = getRealPathFromURI(uri)
+        title = realPath?.getFilenameFromPath() ?: uri.toString().getFilenameFromPath()
 
         try {
             val listItems = getListItems(uri)
-            ItemsAdapter(this, listItems, null, decompress_list, false, null) {
+            DecompressItemsAdapter(this, listItems, decompress_list) {
+
             }.apply {
                 decompress_list.adapter = this
             }
