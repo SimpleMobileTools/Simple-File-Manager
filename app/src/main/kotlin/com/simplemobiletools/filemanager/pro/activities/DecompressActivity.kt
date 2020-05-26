@@ -3,6 +3,8 @@ package com.simplemobiletools.filemanager.pro.activities
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.simplemobiletools.commons.extensions.getFilenameFromPath
 import com.simplemobiletools.commons.extensions.getRealPathFromURI
 import com.simplemobiletools.commons.extensions.showErrorToast
@@ -40,6 +42,24 @@ class DecompressActivity : SimpleActivity() {
         } catch (e: Exception) {
             showErrorToast(e)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_decompress, menu)
+        updateMenuItemColors(menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.decompress -> decompressFiles()
+        }
+
+        return true
+    }
+
+    private fun decompressFiles() {
+
     }
 
     @SuppressLint("NewApi")
