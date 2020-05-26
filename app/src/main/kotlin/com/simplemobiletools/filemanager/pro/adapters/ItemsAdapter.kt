@@ -49,7 +49,7 @@ import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
-                   val isPickMultipleIntent: Boolean, fastScroller: FastScroller, itemClick: (Any) -> Unit) :
+                   val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private val TYPE_FILE_DIR = 1
