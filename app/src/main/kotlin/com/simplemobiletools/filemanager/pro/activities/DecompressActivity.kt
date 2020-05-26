@@ -5,13 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.getFilenameFromPath
-import com.simplemobiletools.commons.extensions.getRealPathFromURI
-import com.simplemobiletools.commons.extensions.showErrorToast
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.dialogs.FilePickerDialog
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.DecompressItemsAdapter
+import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.activity_decompress.*
 import java.io.BufferedInputStream
@@ -59,7 +58,10 @@ class DecompressActivity : SimpleActivity() {
     }
 
     private fun decompressFiles() {
+        val defaultFolder = getRealPathFromURI(intent.data!!) ?: internalStoragePath
+        FilePickerDialog(this, defaultFolder, false, config.showHidden, true, true) {
 
+        }
     }
 
     @SuppressLint("NewApi")
