@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.DecompressItemsAdapter
@@ -33,11 +34,8 @@ class DecompressActivity : SimpleActivity() {
 
         try {
             val listItems = getListItems(uri)
-            DecompressItemsAdapter(this, listItems, decompress_list) {
-
-            }.apply {
-                decompress_list.adapter = this
-            }
+            val adapter = DecompressItemsAdapter(this, listItems, decompress_list) { }
+            decompress_list.adapter = adapter
         } catch (e: Exception) {
             showErrorToast(e)
         }
@@ -59,8 +57,46 @@ class DecompressActivity : SimpleActivity() {
 
     private fun decompressFiles() {
         val defaultFolder = getRealPathFromURI(intent.data!!) ?: internalStoragePath
-        FilePickerDialog(this, defaultFolder, false, config.showHidden, true, true) {
+        FilePickerDialog(this, defaultFolder, false, config.showHidden, true, true) { destination ->
+            handleSAFDialog(destination) {
+                if (it) {
+                    ensureBackgroundThread {
+                        decompressTo(destination)
+                    }
+                }
+            }
+        }
+    }
 
+    private fun decompressTo(destination: String) {
+        try {
+            val inputStream = contentResolver.openInputStream(intent.data!!)
+            val zipInputStream = ZipInputStream(BufferedInputStream(inputStream!!))
+            val buffer = ByteArray(1024)
+
+            zipInputStream.use {
+                while (true) {
+                    val entry = zipInputStream.nextEntry ?: break
+                    val newPath = "$destination/${entry.name}"
+                    val fos = getFileOutputStreamSync(newPath, newPath.getMimeType())
+
+                    var count: Int
+                    while (true) {
+                        count = zipInputStream.read(buffer)
+                        if (count == -1) {
+                            break
+                        }
+
+                        fos!!.write(buffer, 0, count)
+                    }
+                    fos!!.close()
+                }
+
+                toast(R.string.decompression_successful)
+                finish()
+            }
+        } catch (e: Exception) {
+            showErrorToast(e)
         }
     }
 
