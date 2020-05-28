@@ -99,9 +99,10 @@ class DecompressActivity : SimpleActivity() {
             zipInputStream.use {
                 while (true) {
                     val entry = zipInputStream.nextEntry ?: break
-                    val newPath = "$destination/${entry.name}"
-                    val fos = getFileOutputStreamSync(newPath, newPath.getMimeType())
+                    val filename = title.toString().substringBeforeLast(".")
+                    val newPath = "$destination/$filename/${entry.name.trimEnd('/')}"
 
+                    val fos = getFileOutputStreamSync(newPath, newPath.getMimeType())
                     var count: Int
                     while (true) {
                         count = zipInputStream.read(buffer)
