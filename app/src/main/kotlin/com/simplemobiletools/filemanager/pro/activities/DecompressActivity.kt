@@ -113,8 +113,12 @@ class DecompressActivity : SimpleActivity() {
                 break
             }
 
+            if (!zipEntry.isDirectory && zipEntry.name.contains("/")) {
+                continue
+            }
+
             val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime.toMillis() else 0
-            val listItem = ListItem(zipEntry.name, zipEntry.name, zipEntry.isDirectory, 0, 0L, lastModified, false)
+            val listItem = ListItem(zipEntry.name.removeSuffix("/"), zipEntry.name.removeSuffix("/"), zipEntry.isDirectory, 0, 0L, lastModified, false)
             listItems.add(listItem)
         }
         return listItems
