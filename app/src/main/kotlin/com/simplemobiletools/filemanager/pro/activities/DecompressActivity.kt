@@ -19,6 +19,7 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
 
 class DecompressActivity : SimpleActivity() {
+    private val allFiles = ArrayList<ListItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +34,13 @@ class DecompressActivity : SimpleActivity() {
         title = realPath?.getFilenameFromPath() ?: uri.toString().getFilenameFromPath()
 
         try {
-            val listItems = getListItems(uri)
-            val adapter = DecompressItemsAdapter(this, listItems, decompress_list) { }
-            decompress_list.adapter = adapter
+            fillAllListItems(uri)
+            val listItems = getFolderItems("")
+            DecompressItemsAdapter(this, listItems, decompress_list) {
+
+            }.apply {
+                decompress_list.adapter = this
+            }
         } catch (e: Exception) {
             showErrorToast(e)
         }
@@ -100,9 +105,20 @@ class DecompressActivity : SimpleActivity() {
         }
     }
 
+    private fun getFolderItems(parent: String): ArrayList<ListItem> {
+        return allFiles.filter {
+            val fileParent = if (it.path.contains("/")) {
+                it.path.getParentPath()
+            } else {
+                ""
+            }
+
+            fileParent == parent
+        }.toMutableList() as ArrayList<ListItem>
+    }
+
     @SuppressLint("NewApi")
-    private fun getListItems(uri: Uri): ArrayList<ListItem> {
-        val listItems = ArrayList<ListItem>()
+    private fun fillAllListItems(uri: Uri) {
         val inputStream = contentResolver.openInputStream(uri)
         val zipInputStream = ZipInputStream(BufferedInputStream(inputStream))
         var zipEntry: ZipEntry?
@@ -113,14 +129,9 @@ class DecompressActivity : SimpleActivity() {
                 break
             }
 
-            if (!zipEntry.isDirectory && zipEntry.name.contains("/")) {
-                continue
-            }
-
             val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime.toMillis() else 0
-            val listItem = ListItem(zipEntry.name.removeSuffix("/"), zipEntry.name.removeSuffix("/"), zipEntry.isDirectory, 0, 0L, lastModified, false)
-            listItems.add(listItem)
+            val listItem = ListItem(zipEntry.name.removeSuffix("/"), zipEntry.name.removeSuffix("/").getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false)
+            allFiles.add(listItem)
         }
-        return listItems
     }
 }
