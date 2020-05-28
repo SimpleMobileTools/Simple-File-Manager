@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.7.1 *(2020-05-28)*
+----------------------------
+
+ * Use a nicer app icon on older devices
+ * Allow browsing ZIP files before decompressing
+
 Version 6.7.0 *(2020-04-23)*
 ----------------------------
 

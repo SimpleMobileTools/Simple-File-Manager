@@ -1,0 +1,2 @@
+ * Use a nicer app icon on older devices
+ * Allow browsing ZIP files before decompressing
