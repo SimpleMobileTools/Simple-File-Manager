@@ -100,7 +100,18 @@ class DecompressActivity : SimpleActivity() {
                 while (true) {
                     val entry = zipInputStream.nextEntry ?: break
                     val filename = title.toString().substringBeforeLast(".")
-                    val newPath = "$destination/$filename/${entry.name.trimEnd('/')}"
+                    val parent = "$destination/$filename"
+                    val newPath = "$parent/${entry.name.trimEnd('/')}"
+
+                    if (!getDoesFilePathExist(parent)) {
+                        if (!createDirectorySync(parent)) {
+                            continue
+                        }
+                    }
+
+                    if (entry.isDirectory) {
+                        continue
+                    }
 
                     val fos = getFileOutputStreamSync(newPath, newPath.getMimeType())
                     var count: Int
