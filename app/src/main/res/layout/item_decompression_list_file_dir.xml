@@ -4,6 +4,7 @@
     android:id="@+id/item_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:paddingEnd="@dimen/activity_margin">
 
     <ImageView

@@ -65,7 +65,7 @@ class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableLis
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = listItems[position]
-        holder.bindView(fileDirItem, false, false) { itemView, layoutPosition ->
+        holder.bindView(fileDirItem, true, false) { itemView, layoutPosition ->
             setupView(itemView, fileDirItem)
         }
         bindViewHolder(holder)

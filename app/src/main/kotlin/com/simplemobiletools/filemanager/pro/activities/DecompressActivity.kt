@@ -20,24 +20,32 @@ import java.util.zip.ZipInputStream
 
 class DecompressActivity : SimpleActivity() {
     private val allFiles = ArrayList<ListItem>()
+    private var currentPath = ""
+    private var uri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_decompress)
-        val uri = intent.data
+        uri = intent.data
         if (uri == null) {
             toast(R.string.unknown_error_occurred)
             return
         }
 
-        val realPath = getRealPathFromURI(uri)
+        val realPath = getRealPathFromURI(uri!!)
         title = realPath?.getFilenameFromPath() ?: uri.toString().getFilenameFromPath()
+        fillAllListItems(uri!!)
+        updateCurrentPath("")
+    }
 
+    private fun updateCurrentPath(path: String) {
+        currentPath = path
         try {
-            fillAllListItems(uri)
-            val listItems = getFolderItems("")
+            val listItems = getFolderItems(currentPath)
             DecompressItemsAdapter(this, listItems, decompress_list) {
-
+                if ((it as ListItem).isDirectory) {
+                    updateCurrentPath(it.path)
+                }
             }.apply {
                 decompress_list.adapter = this
             }
@@ -60,8 +68,17 @@ class DecompressActivity : SimpleActivity() {
         return true
     }
 
+    override fun onBackPressed() {
+        if (currentPath.isEmpty()) {
+            super.onBackPressed()
+        } else {
+            val newPath = if (currentPath.contains("/")) currentPath.getParentPath() else ""
+            updateCurrentPath(newPath)
+        }
+    }
+
     private fun decompressFiles() {
-        val defaultFolder = getRealPathFromURI(intent.data!!) ?: internalStoragePath
+        val defaultFolder = getRealPathFromURI(uri!!) ?: internalStoragePath
         FilePickerDialog(this, defaultFolder, false, config.showHidden, true, true) { destination ->
             handleSAFDialog(destination) {
                 if (it) {
@@ -75,7 +92,7 @@ class DecompressActivity : SimpleActivity() {
 
     private fun decompressTo(destination: String) {
         try {
-            val inputStream = contentResolver.openInputStream(intent.data!!)
+            val inputStream = contentResolver.openInputStream(uri!!)
             val zipInputStream = ZipInputStream(BufferedInputStream(inputStream!!))
             val buffer = ByteArray(1024)
 
@@ -114,7 +131,7 @@ class DecompressActivity : SimpleActivity() {
             }
 
             fileParent == parent
-        }.toMutableList() as ArrayList<ListItem>
+        }.sortedWith(compareBy({ !it.isDirectory }, { it.mName })).toMutableList() as ArrayList<ListItem>
     }
 
     @SuppressLint("NewApi")
@@ -130,7 +147,8 @@ class DecompressActivity : SimpleActivity() {
             }
 
             val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime.toMillis() else 0
-            val listItem = ListItem(zipEntry.name.removeSuffix("/"), zipEntry.name.removeSuffix("/").getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false)
+            val filename = zipEntry.name.removeSuffix("/")
+            val listItem = ListItem(filename, filename.getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false)
             allFiles.add(listItem)
         }
     }
