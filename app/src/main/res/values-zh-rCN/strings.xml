@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">简易文件管理器</string>
+    <string name="app_launcher_name">文件管理器</string>
+    <string name="press_back_again">再次点击返回以退出</string>
+    <string name="go_to_home_folder">前往主文件夹</string>
+    <string name="set_as_home_folder">设定为主文件夹</string>
+    <string name="home_folder_updated">主文件夹已更新</string>
+    <string name="copy_path">复制路径至剪贴板</string>
+    <string name="path_copied">路径已复制</string>
+    <string name="select_audio_file">请选择一个音频文件</string>
+    <string name="search_folder">搜索文件夹</string>
+    <string name="rooted_device_only">该选项仅在 root 后的设备上工作</string>
+
+    <!-- Open as -->
+    <string name="open_as">打开为</string>
+    <string name="text_file">文本文件</string>
+    <string name="image_file">图像文件</string>
+    <string name="audio_file">音频文件</string>
+    <string name="video_file">视频文件</string>
+    <string name="other_file">其他文件</string>
+
+    <!-- Compression -->
+    <string name="compress">压缩</string>
+    <string name="decompress">解压缩</string>
+    <string name="compress_as">压缩为</string>
+    <string name="compressing">压缩中…</string>
+    <string name="decompressing">解压缩中…</string>
+    <string name="compression_successful">压缩成功</string>
+    <string name="decompression_successful">解压缩成功</string>
+    <string name="compressing_failed">压缩失败</string>
+    <string name="decompressing_failed">解压缩失败</string>
+
+    <!-- Favorites -->
+    <string name="manage_favorites">管理收藏</string>
+    <string name="go_to_favorite">前往收藏</string>
+    <string name="favorites_activity_placeholder">您可以将经常访问的文件夹添加至收藏便于从任意位置快速访问。</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">文件编辑器</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">启用 root 访问</string>
+
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">简易文件管理 Pro - 轻松管理文件 &amp; 快速体验</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">没有广告的文件管理器，尊重您的隐私 &amp; 和保密性</string>
+    <string name="app_long_description">
+        适用于每日使用的轻量级文件管理器。它提供了有用的搜索功能，您可以自定义主文件夹且可设定文件夹为收藏以便快速访问。
+
+        该应用程序包含多个强大的保密性相关功能，比如使用密码保护的隐藏条目、删除文件操作或者整个应用程序。您可以选择图案、PIN 或者指纹来保证您数据的私密性。
+
+        这款现代化的文件组织工具支持快速浏览根目录文件，SD 卡和 USB 设备。
+
+        为了您的生产力，它很显然的具备所有标准的文件操作诸如重命名、复制、移动、删除和分享等。它也可以被用作节省存储空间，因为它也支持压缩和解压缩。您当然也可以根据喜好创建新文件或者文件夹。
+
+        您可以根据多个选定的值进行排序，在升序和降序之间切换，或者使用文件夹特定的排序。
+
+        仅需轻点几下，您也可以检查文件或者文件夹属性，其显示诸多字段比如文件大小、最后修改的日期或者如创建日期、相机型号等 EXIF 数值。
+
+        要快速获知文件或者文件夹的路径，您可以通过长按快速选中它并复制至剪贴板。
+
+        您可以创建便捷的桌面快捷方式来快速访问您的收藏条目。
+
+        它包含一个轻量文件编辑器于是您可以用它打印文档、编辑或者使用缩放手势功能阅读，随您所需。
+
+        它遵循质感设计且默认应用黑暗模式，提供便于使用的极佳的用户体验。相对于其他应用，不包含互联网访问给予您更佳的隐私、保密性和稳定性。
+
+        不包含广告和不必要的权限。它完全开放源代码，提供可自定义的颜色。
+
+        <b>于此查看简易工具系列全套:</b>
+        https://www.simplemobiletools.com
+
+        <b>简易文件管理器 Pro 的独立网站:</b>
+        https://www.simplemobiletools.com/filemanager
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
+
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
