@@ -33,7 +33,7 @@ class DecompressActivity : SimpleActivity() {
         }
 
         val realPath = getRealPathFromURI(uri!!)
-        title = realPath?.getFilenameFromPath() ?: uri.toString().getFilenameFromPath()
+        title = realPath?.getFilenameFromPath() ?: Uri.decode(uri.toString().getFilenameFromPath())
         fillAllListItems(uri!!)
         updateCurrentPath("")
     }
