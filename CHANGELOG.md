@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.7.2 *(2020-06-07)*
+----------------------------
+
+ * Allow sorting items by proper numeric values
+ * Improve Search, do not reset it at opening a file
+ * Other translation, stability and UI improvements
+
 Version 6.7.1 *(2020-05-28)*
 ----------------------------
 
