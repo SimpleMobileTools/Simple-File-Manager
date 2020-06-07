@@ -152,7 +152,11 @@ class DecompressActivity : SimpleActivity() {
         val zipInputStream = ZipInputStream(BufferedInputStream(inputStream))
         var zipEntry: ZipEntry?
         while (true) {
-            zipEntry = zipInputStream.nextEntry
+            try {
+                zipEntry = zipInputStream.nextEntry
+            } catch (ignored: Exception) {
+                break
+            }
 
             if (zipEntry == null) {
                 break
