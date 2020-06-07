@@ -70,16 +70,6 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        invalidateOptionsMenu()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        searchMenuItem?.collapseActionView()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         config.temporarilyShowHidden = false
@@ -309,10 +299,10 @@ class MainActivity : SimpleActivity() {
         val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS
 
         val faqItems = arrayListOf(
-                FAQItem(R.string.faq_3_title_commons, R.string.faq_3_text_commons),
-                FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
-                FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
-                FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
+            FAQItem(R.string.faq_3_title_commons, R.string.faq_3_text_commons),
+            FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons),
+            FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons),
+            FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons)
         )
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
