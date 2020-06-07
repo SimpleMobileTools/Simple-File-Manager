@@ -175,7 +175,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
                 items_fastscroller.allowBubbleDisplay = true
                 items_fastscroller.setViews(items_list, mView.items_swipe_refresh) {
-                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context, storedDateFormat, storedTimeFormat) ?: "")
+                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context, storedDateFormat, storedTimeFormat)
+                        ?: "")
                 }
 
                 getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
@@ -348,7 +349,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         val sorting = context!!.config.getFolderSorting(path)
         FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
         val isSortingBySize = sorting and SORT_BY_SIZE != 0
-        File(path).listFiles()?.forEach {
+        File(path).listFiles()?.sortedBy { it.isDirectory }?.forEach {
             if (it.isDirectory) {
                 files.addAll(searchFiles(text, it.absolutePath))
             } else {
@@ -360,7 +361,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
             }
         }
-        files.sort()
         return files
     }
 
