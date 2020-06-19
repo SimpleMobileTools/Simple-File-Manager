@@ -290,7 +290,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     drawable.findDrawableByLayerId(R.id.shortcut_folder_background).applyColorFilter(0)
                     drawable.setDrawableByLayerId(R.id.shortcut_folder_image, bitmap)
                 } catch (e: Exception) {
-                    val fileIcon = activity.resources.getDrawable(R.drawable.ic_file_generic)
+                    val fileIcon = fileDrawables.getOrElse(path.substringAfterLast(".").toLowerCase(), { fileDrawable })
                     drawable.setDrawableByLayerId(R.id.shortcut_folder_image, fileIcon)
                 }
 
