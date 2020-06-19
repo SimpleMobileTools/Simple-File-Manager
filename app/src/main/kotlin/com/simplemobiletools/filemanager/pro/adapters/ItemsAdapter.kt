@@ -202,7 +202,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     finishActMode()
                 }
             }
-            else -> RenameDialog(activity, paths) {
+            else -> RenameDialog(activity, paths, false) {
                 activity.runOnUiThread {
                     listener?.refreshItems()
                     finishActMode()

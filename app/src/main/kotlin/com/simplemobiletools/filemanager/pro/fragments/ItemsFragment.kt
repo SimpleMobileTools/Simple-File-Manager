@@ -108,7 +108,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
 
         mView.items_fastscroller.updateBubbleColors()
-        mView.items_fastscroller.allowBubbleDisplay = true
         if (!isFirstResume) {
             refreshItems()
         }
@@ -161,7 +160,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         mView.apply {
             activity?.runOnUiThread {
                 items_swipe_refresh?.isRefreshing = false
-                mView.breadcrumbs.setBreadcrumb(currentPath)
+                breadcrumbs.setBreadcrumb(currentPath)
                 if (!forceRefresh && items.hashCode() == storedItems.hashCode()) {
                     return@runOnUiThread
                 }
@@ -173,8 +172,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     items_list.adapter = this
                 }
 
-                items_fastscroller.allowBubbleDisplay = true
-                items_fastscroller.setViews(items_list, mView.items_swipe_refresh) {
+                items_fastscroller.setViews(items_list, items_swipe_refresh) {
                     items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context, storedDateFormat, storedTimeFormat)
                         ?: "")
                 }
