@@ -173,8 +173,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
 
                 items_fastscroller.setViews(items_list, items_swipe_refresh) {
-                    items_fastscroller.updateBubbleText(storedItems.getOrNull(it)?.getBubbleText(context, storedDateFormat, storedTimeFormat)
-                        ?: "")
+                    val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
+                    items_fastscroller.updateBubbleText(listItem?.getBubbleText(context, storedDateFormat, storedTimeFormat) ?: "")
                 }
 
                 getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
