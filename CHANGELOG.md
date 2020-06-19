@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.7.3 *(2020-06-19)*
+----------------------------
+
+ * Improve the Search result sorting
+ * Use proper file icons at creating shortcuts
+ * Some other UX improvements
+
 Version 6.7.2 *(2020-06-07)*
 ----------------------------
 
