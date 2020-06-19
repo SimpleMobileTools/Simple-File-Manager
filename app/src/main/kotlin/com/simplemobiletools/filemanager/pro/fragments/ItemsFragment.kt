@@ -309,6 +309,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
                 else -> {
                     val files = searchFiles(searchText, currentPath)
+                    files.sortBy { it.getParentPath() }
+
                     if (lastSearchedText != searchText) {
                         return@ensureBackgroundThread
                     }
