@@ -1,0 +1,2 @@
+ * Improved the file loading performance in some cases
+ * Handle Send intent, allow saving files with the app

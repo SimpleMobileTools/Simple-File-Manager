@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.7.4 *(2020-09-16)*
+----------------------------
+
+ * Improved the file loading performance in some cases
+ * Handle Send intent, allow saving files with the app
+
 Version 6.7.3 *(2020-06-19)*
 ----------------------------
 
