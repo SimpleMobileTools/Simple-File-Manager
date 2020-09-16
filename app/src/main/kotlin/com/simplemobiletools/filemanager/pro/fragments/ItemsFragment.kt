@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager.pro.fragments
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -216,10 +217,11 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             return
         }
 
+        val lastModifieds = getFolderLastModifieds(path)
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         if (files != null) {
             for (file in files) {
-                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize)
+                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds)
                 if (fileDirItem != null) {
                     items.add(fileDirItem)
                 }
@@ -229,7 +231,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         callback(path, items)
     }
 
-    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean): ListItem? {
+    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean, lastModifieds: HashMap<String, Long>): ListItem? {
         val curPath = file.absolutePath
         val curName = file.name
         if (!showHidden && curName.startsWith(".")) {
@@ -248,7 +250,12 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             file.length()
         }
 
-        return ListItem(curPath, curName, isDirectory, children, size, file.lastModified(), false)
+        var lastModified = lastModifieds.remove(curPath)
+        if (lastModified == null) {
+            lastModified = file.lastModified()
+        }
+
+        return ListItem(curPath, curName, isDirectory, children, size, lastModified, false)
     }
 
     private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
@@ -258,6 +265,36 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             listItems.add(listItem)
         }
         return listItems
+    }
+
+    private fun getFolderLastModifieds(folder: String): HashMap<String, Long> {
+        val lastModifieds = HashMap<String, Long>()
+        val projection = arrayOf(
+            MediaStore.Images.Media.DISPLAY_NAME,
+            MediaStore.Images.Media.DATE_MODIFIED
+        )
+
+        val uri = MediaStore.Files.getContentUri("external")
+        val selection = "${MediaStore.Images.Media.DATA} LIKE ? AND ${MediaStore.Images.Media.DATA} NOT LIKE ?"
+        val selectionArgs = arrayOf("$folder/%", "$folder/%/%")
+
+        val cursor = context!!.contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                do {
+                    try {
+                        val lastModified = cursor.getLongValue(MediaStore.Images.Media.DATE_MODIFIED) * 1000
+                        if (lastModified != 0L) {
+                            val name = cursor.getStringValue(MediaStore.Images.Media.DISPLAY_NAME)
+                            lastModifieds["$folder/$name"] = lastModified
+                        }
+                    } catch (e: Exception) {
+                    }
+                } while (cursor.moveToNext())
+            }
+        }
+
+        return lastModifieds
     }
 
     private fun itemClicked(item: FileDirItem) {
@@ -354,7 +391,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 files.addAll(searchFiles(text, it.absolutePath))
             } else {
                 if (it.name.contains(text, true)) {
-                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize)
+                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, HashMap<String, Long>())
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }
