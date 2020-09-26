@@ -58,10 +58,6 @@ class Config(context: Context) : BaseConfig(context) {
         favorites = currFavorites
     }
 
-    var favorites: MutableSet<String>
-        get() = prefs.getStringSet(FAVORITES, HashSet<String>())!!
-        set(favorites) = prefs.edit().remove(FAVORITES).putStringSet(FAVORITES, favorites).apply()
-
     var isRootAvailable: Boolean
         get() = prefs.getBoolean(IS_ROOT_AVAILABLE, false)
         set(isRootAvailable) = prefs.edit().putBoolean(IS_ROOT_AVAILABLE, isRootAvailable).apply()

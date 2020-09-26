@@ -16,7 +16,7 @@ class SaveAsActivity : SimpleActivity() {
         setContentView(R.layout.activity_save_as)
 
         if (intent.action == Intent.ACTION_SEND && intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
-            FilePickerDialog(this, pickFile = false, showHidden = config.shouldShowHidden, showFAB = true) {
+            FilePickerDialog(this, pickFile = false, showHidden = config.shouldShowHidden, showFAB = true, showFavoritesButton = true) {
                 val destination = it
                 handleSAFDialog(destination) {
                     toast(R.string.saving)

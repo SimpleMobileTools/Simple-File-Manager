@@ -37,7 +37,7 @@ class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val hideP
                 save_as_path.beGone()
             } else {
                 save_as_path.setOnClickListener {
-                    FilePickerDialog(activity, realPath, false, false, true, true) {
+                    FilePickerDialog(activity, realPath, false, false, true, true, showFavoritesButton = true) {
                         save_as_path.text = activity.humanizePath(it)
                         realPath = it
                     }

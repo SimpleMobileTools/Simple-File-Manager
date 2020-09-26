@@ -79,7 +79,7 @@ class DecompressActivity : SimpleActivity() {
 
     private fun decompressFiles() {
         val defaultFolder = getRealPathFromURI(uri!!) ?: internalStoragePath
-        FilePickerDialog(this, defaultFolder, false, config.showHidden, true, true) { destination ->
+        FilePickerDialog(this, defaultFolder, false, config.showHidden, true, true, showFavoritesButton = true) { destination ->
             handleSAFDialog(destination) {
                 if (it) {
                     ensureBackgroundThread {
