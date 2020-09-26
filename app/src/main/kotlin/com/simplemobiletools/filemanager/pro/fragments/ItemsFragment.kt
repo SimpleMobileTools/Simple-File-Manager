@@ -413,6 +413,12 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
         skipItemUpdating = false
         lastSearchedText = ""
+
+        mView.apply {
+            items_list.beVisible()
+            items_placeholder.beGone()
+            items_placeholder_2.beGone()
+        }
     }
 
     private fun createNewItem() {
