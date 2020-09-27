@@ -2,7 +2,6 @@ package com.simplemobiletools.filemanager.pro.fragments
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.isRPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyLinearLayoutManager
@@ -218,7 +218,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             return
         }
 
-        val lastModifieds = getFolderLastModifieds(path)
+        val lastModifieds = if (isRPlus()) context!!.getFolderLastModifieds(path) else HashMap()
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         if (files != null) {
             for (file in files) {
@@ -266,36 +266,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             listItems.add(listItem)
         }
         return listItems
-    }
-
-    private fun getFolderLastModifieds(folder: String): HashMap<String, Long> {
-        val lastModifieds = HashMap<String, Long>()
-        val projection = arrayOf(
-            MediaStore.Images.Media.DISPLAY_NAME,
-            MediaStore.Images.Media.DATE_MODIFIED
-        )
-
-        val uri = MediaStore.Files.getContentUri("external")
-        val selection = "${MediaStore.Images.Media.DATA} LIKE ? AND ${MediaStore.Images.Media.DATA} NOT LIKE ?"
-        val selectionArgs = arrayOf("$folder/%", "$folder/%/%")
-
-        val cursor = context!!.contentResolver.query(uri, projection, selection, selectionArgs, null)
-        cursor?.use {
-            if (cursor.moveToFirst()) {
-                do {
-                    try {
-                        val lastModified = cursor.getLongValue(MediaStore.Images.Media.DATE_MODIFIED) * 1000
-                        if (lastModified != 0L) {
-                            val name = cursor.getStringValue(MediaStore.Images.Media.DISPLAY_NAME)
-                            lastModifieds["$folder/$name"] = lastModified
-                        }
-                    } catch (e: Exception) {
-                    }
-                } while (cursor.moveToNext())
-            }
-        }
-
-        return lastModifieds
     }
 
     private fun itemClicked(item: FileDirItem) {
