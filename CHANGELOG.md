@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Version 6.8.0 *(2020-09-27)*
+----------------------------
+
+ * Improved the file loading performance in some cases
+ * Allow quickly selecting Favorites at the folder picker dialog
+ * Do not trim strings to append/prepend at batch renaming
+ * Use rounded image thumbnails for nicer UI
+ * Hide the Go Home menu button when the current folder is Home
+ * Fixed some Search related glitches
+
 Version 6.7.4 *(2020-09-16)*
 ----------------------------
 
