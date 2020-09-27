@@ -239,7 +239,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             return null
         }
 
-        val isDirectory = file.isDirectory
+        var lastModified = lastModifieds.remove(curPath)
+        val isDirectory = if (lastModified != null) false else file.isDirectory
         val children = if (isDirectory) file.getDirectChildrenCount(showHidden) else 0
         val size = if (isDirectory) {
             if (isSortingBySize) {
@@ -251,7 +252,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             file.length()
         }
 
-        var lastModified = lastModifieds.remove(curPath)
         if (lastModified == null) {
             lastModified = file.lastModified()
         }

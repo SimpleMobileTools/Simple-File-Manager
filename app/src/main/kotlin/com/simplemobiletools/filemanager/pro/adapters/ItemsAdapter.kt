@@ -309,7 +309,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     addFileUris(it.uri.toString(), paths)
                 }
             } else {
-                File(path).listFiles()?.filter { if (shouldShowHidden) true else !it.isHidden }?.forEach {
+                File(path).listFiles()?.filter { if (shouldShowHidden) true else !it.name.startsWith('.') }?.forEach {
                     addFileUris(it.absolutePath, paths)
                 }
             }
