@@ -19,6 +19,8 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
@@ -716,7 +718,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                         .signature(listItem.mPath.getFileSignature())
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .error(drawable)
-                        .centerCrop()
+                        .transform(CenterCrop(), RoundedCorners(10))
 
                     val itemToLoad = getImagePathToLoad(listItem.path)
                     if (!activity.isDestroyed) {
