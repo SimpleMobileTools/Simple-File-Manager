@@ -151,6 +151,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
             listItems.sort()
             activity?.runOnUiThread {
+                activity?.invalidateOptionsMenu()
                 addItems(listItems, forceRefresh)
             }
         }
