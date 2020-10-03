@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Simple File Manager</string>
+    <string name="app_launcher_name">Xestor de ficheiros</string>
+    <string name="press_back_again">Preme novamente para saír</string>
+    <string name="go_to_home_folder">Ir para o cartafol persoal</string>
+    <string name="set_as_home_folder">Poñer como predeterminado este cartafol persoal</string>
+    <string name="home_folder_updated">Cartafol persoal actualizado</string>
+    <string name="copy_path">Copiar ruta para a área de transferencia</string>
+    <string name="path_copied">Ruta copiada</string>
+    <string name="select_audio_file">Seleccione un ficheiro de audio</string>
+    <string name="search_folder">Buscar cartafol</string>
+    <string name="rooted_device_only">Esta operación só funciona en dispositivos con root</string>
+
+    <!-- Open as -->
+    <string name="open_as">Abrir como</string>
+    <string name="text_file">Texto</string>
+    <string name="image_file">Imaxe</string>
+    <string name="audio_file">Audio</string>
+    <string name="video_file">Vídeo</string>
+    <string name="other_file">Outro tipo de ficheiro</string>
+
+    <!-- Compression -->
+    <string name="compress">Comprimir</string>
+    <string name="decompress">Descomprimir</string>
+    <string name="compress_as">Comprimir como</string>
+    <string name="compressing">Comprimindo…</string>
+    <string name="decompressing">Descomprimindo…</string>
+    <string name="compression_successful">Compresión terminada</string>
+    <string name="decompression_successful">Descompresión terminada</string>
+    <string name="compressing_failed">Erro ao comprimir</string>
+    <string name="decompressing_failed">Erro ao descomprimir</string>
+
+    <!-- Favorites -->
+    <string name="manage_favorites">Xestionar favoritos</string>
+    <string name="go_to_favorite">Ir a favorito</string>
+    <string name="favorites_activity_placeholder">Pode adiccionar cartafoles como favoritos para un acesso mais rápido.</string>
+
+    <!-- File Editor -->
+    <string name="file_editor">Editor de ficheiros</string>
+
+    <!-- Settings -->
+    <string name="enable_root_access">Activar acceso root</string>
+
+    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple File Manager Pro - Manage files easily & fast</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Quick file management with no ads. Browse files easily, securely & fast</string>
+    <string name="app_long_description">
+        Un xestor de ficheiros rápido e lixeiro para uso diario. Ofrece unha funcionalidade de busca útil e podes personalizar o cartafol de inicio e seleccionar os cartafoles favoritos para un acceso rápido.
+
+        O aplicativo contén múltiples funcións relacionadas coa seguridade, como a protección por contrasinal de elementos ocultos, a eliminación de ficheiros ou o aplicativo completo. Podes escoller entre usar un patrón, contrasinal ou unha pegada dixital para manter protexidos os teus datos.
+
+        TEste xestor de ficheiros admite a navegación rápida de ficheiros raíz, tarxetas SD e dispositivos USB.
+
+        Para manter a súa produtividade e ten todas as operacións de ficheiro estándar como renomear, copiar, mover, eliminar, compartir, etc. Tamén se pode usar para aforrar algo de almacenamento xa que tamén permite comprimir e descomprimir. Podes crear novos ficheiros ou cartafoles se o desexas.
+
+        Obviamente podes seleccionar a ordenación por varios valores diferentes, alternar entre ascendente e descendente ou usar unha clasificación específica para o cartafol.
+
+        Con só uns poucos clics, tamén podes comprobar as propiedades do ficheiro ou cartafol, que mostra varios campos como o tamaño do ficheiro, a data da última modificación ou os valores EXIF como a data de creación, o modelo da cámara nas fotos, etc.
+
+        Para obter unha ruta de ficheiros ou cartafoles rapidamente, podes seleccionalo facilmente premendo e copiándoo no portapapeis.
+
+        Podes crear accesos directos nas pantallas para acceder rapidamente aos teus elementos favoritos.
+
+        Contén un editor de ficheiros lixeiro que pode empregar para imprimir documentos, editalos ou lelos facilmente usando xestos de zoom, sempre que sexa necesario.
+        
+        E, por último, vén cun deseño material e un tema escuro de xeito predeterminado, fornece unha excelente experiencia de usuario cun uso sinxelo. Ao non requirir acceso a Internet, tes máis privacidade, seguridade e estabilidade
+
+        Non contén anuncios nin permisos innecesarios. Dispón dun tema escuro e é totalmente de código aberto.
+        
+        <b>Visita a páxina nesta ligazón:</b>
+        https://www.simplemobiletools.com
+
+        <b>Páxina web do Simple File Manager Pro:</b>
+        https://www.simplemobiletools.com/filemanager
+
+        <b>Facebook:</b>
+        https://www.facebook.com/simplemobiletools
+
+        <b>Reddit:</b>
+        https://www.reddit.com/r/SimpleMobileTools
+    </string>
+
+    <!--
+        Non atopou todas as cadeas que debería traducir? Existen algunhas máis en
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
+</resources>
