@@ -44,36 +44,36 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Simple File Manager Pro - Gestão de ficheiros</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Aplicação para gestão de ficheiros e pastas, sem anúncios e que respeita a sua privacidade</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Um gestor de ficheiros para o dia a dia. Disponibiliza uma funcionalidade de pesquisa, personalização da pasta inicial e a seleção de pastas favoritas para um acesso mais fácil e rápido.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        Esta aplicação contém diversas funcionalidade relacionadas com segurança tais como proteção contra edição ou remoção de ficheiros e pastas com palavra-passe ou até mesmo da aplicação. Pode optar entre os modos de padrão, PIn ou impressão digital para manter os seus dados seguros.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Este moderno gestor de ficheiros pemite a navegação nos armazenamentos (interno  externo), em unidades USB e também as ações típicas como root.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Disponibiliza todas as ações comuns como: mudar nome, copiar, mover, eliminar, partilhar, etc. Também pode ajudar a poupar algum espaço em disco pois permite a compressão e descompressão de arquivos.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        claro que também consegue organizar as pastas e ficheiros de diversas formas, seja a ordenação pelos métodos ascendentes ou descendentes, tanto globalmente como por pasta.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Com apenas alguns toques pode analisar as propriedades dos ficheiros e das pastas que lhe mostram diversos campos como, por exemplo, tamanho do ficheiro, data da última modificação e até mesmo os valores EXIF das imagens e vídeos.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Para obter rapidamente o caminho de um ficheiro ou de uma pasta, toque longo no caminho para o adicionar à área de transferência.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Também pode criar atalhos no seu ecrã para aceder rapidamente aos seus itens favoritos.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Tem também incorporado um editor de ficheiros para que os possa imprimir, editar ou ler sem distrações.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
+        A interface é em material design e tema escuro por definição, mas pode alterar os temas a seu gosto. Não requer acesso à Internet o que lhe confere mais privacidade, segurança e estabilidade.
+        
         Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Consulte o conjunto completo das aplicações Simple Tools aqui:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Site específico da aplicação Simple File Manager Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
