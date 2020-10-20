@@ -13,12 +13,12 @@
     <string name="rooted_device_only">Cette opération ne fonctionne que sur les périphériques rooté</string>
 
     <!-- Open as -->
-    <string name="open_as">Ouvert comme</string>
-    <string name="text_file">Fichier texte</string>
-    <string name="image_file">Fichier image</string>
-    <string name="audio_file">Fichier audio</string>
-    <string name="video_file">Fichier vidéo</string>
-    <string name="other_file">Autre fichier</string>
+    <string name="open_as">इसमें खोलें</string>
+    <string name="text_file">टेकस्ट फ़ाइलें</string>
+    <string name="image_file">इमेज फ़ाइलें</string>
+    <string name="audio_file">आॉडियो फ़ाइलें</string>
+    <string name="video_file">वीडियो फ़ाइलें</string>
+    <string name="other_file">दूसरी फ़ाइलें</string>
 
     <!-- Compression -->
     <string name="compress">Compresser</string>
@@ -37,7 +37,7 @@
     <string name="favorites_activity_placeholder">Vous pouvez ajouter des dossiers souvent utilisés comme favoris pour y avoir accès rapidement depuis n\'importe où.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">Éditeur de fichier</string>
+    <string name="file_editor">फ़ाइल में बदलाव करें</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Activer les droits root</string>
@@ -76,10 +76,10 @@
         <b>Standalone website of Simple File Manager Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
-        <b>Facebook:</b>
+        <b>फेसबुक:</b>
         https://www.facebook.com/simplemobiletools
 
-        <b>Reddit:</b>
+        <b>रेड्डिट:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
 
