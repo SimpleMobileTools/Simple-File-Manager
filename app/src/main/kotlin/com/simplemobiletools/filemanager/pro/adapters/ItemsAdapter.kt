@@ -67,8 +67,6 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private var dateFormat = ""
     private var timeFormat = ""
 
-    var adjustedPrimaryColor = activity.getAdjustedPrimaryColor()
-
     init {
         setupDragListener(true)
         initDrawables()

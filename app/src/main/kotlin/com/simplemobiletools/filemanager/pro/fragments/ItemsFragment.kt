@@ -112,7 +112,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         if (!isFirstResume) {
             refreshItems()
         }
-        getRecyclerAdapter()?.adjustedPrimaryColor = context!!.getAdjustedPrimaryColor()
+
         isFirstResume = false
     }
 
