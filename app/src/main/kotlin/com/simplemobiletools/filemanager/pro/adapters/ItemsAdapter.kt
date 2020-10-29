@@ -40,8 +40,8 @@ import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootTools.RootTools
-import kotlinx.android.synthetic.main.item_list_file_dir.view.*
-import kotlinx.android.synthetic.main.item_list_section.view.*
+import kotlinx.android.synthetic.main.item_file_dir_list.view.*
+import kotlinx.android.synthetic.main.item_section.view.*
 import java.io.Closeable
 import java.io.File
 import java.io.FileInputStream
@@ -138,7 +138,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layout = if (viewType == TYPE_SECTION) R.layout.item_list_section else R.layout.item_list_file_dir
+        val layout = if (viewType == TYPE_SECTION) R.layout.item_section else R.layout.item_file_dir_list
         return createViewHolder(layout, parent)
     }
 

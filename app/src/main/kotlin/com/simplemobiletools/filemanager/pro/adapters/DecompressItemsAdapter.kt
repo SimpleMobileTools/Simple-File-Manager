@@ -21,7 +21,7 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.item_list_file_dir.view.*
+import kotlinx.android.synthetic.main.item_file_dir_list.view.*
 import java.util.*
 
 class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem>, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
