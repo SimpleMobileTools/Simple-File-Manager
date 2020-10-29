@@ -189,6 +189,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
                 items_list.onGlobalLayout {
                     items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
+                    calculateContentHeight(storedItems)
                 }
             }
         }
@@ -469,6 +470,14 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
     }
 
+    private fun calculateContentHeight(items: ArrayList<ListItem>) {
+        val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+        val thumbnailHeight = layoutManager.getChildAt(0)?.height ?: 0
+        val fullHeight = ((items.size - 1) / layoutManager.spanCount + 1) * thumbnailHeight
+        mView.items_fastscroller.setContentHeight(fullHeight)
+        mView.items_fastscroller.setScrollToY(mView.items_list.computeVerticalScrollOffset())
+    }
+
     fun increaseColumnCount() {
         context?.config?.fileColumnCnt = ++(mView.items_list.layoutManager as MyGridLayoutManager).spanCount
         columnCountChanged()
@@ -481,6 +490,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun columnCountChanged() {
         mView.items_list.adapter?.notifyDataSetChanged()
+        calculateContentHeight(storedItems)
     }
 
     override fun breadcrumbClicked(id: Int) {
