@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.8.1 *(2020-10-29)*
+----------------------------
+
+ * Allow toggling between list and grid view
+ * Some translation and stability improvements
+
 Version 6.8.0 *(2020-09-27)*
 ----------------------------
 
