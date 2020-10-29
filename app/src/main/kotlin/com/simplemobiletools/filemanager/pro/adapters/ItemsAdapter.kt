@@ -706,7 +706,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 val fileName = listItem.name
                 item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 item_name.setTextColor(textColor)
-                item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+                item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, if (isListViewType) fontSize else smallerFontSize)
 
                 item_details?.setTextColor(textColor)
                 item_details?.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)

@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_frame"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
@@ -15,25 +15,25 @@
         android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/activity_margin">
+        android:layout_marginBottom="@dimen/normal_margin">
 
         <ImageView
             android:id="@+id/item_icon"
-            android:layout_width="@dimen/file_picker_icon_size"
-            android:layout_height="@dimen/file_picker_icon_size"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/medium_margin"
+            android:layout_width="@dimen/grid_view_icon_size"
+            android:layout_height="@dimen/grid_view_icon_size"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/ic_folder_vector" />
 
         <TextView
             android:id="@+id/item_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_icon"
             android:ellipsize="end"
-            android:maxLines="2"
-            android:paddingStart="@dimen/tiny_margin"
-            android:paddingTop="@dimen/small_margin"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:paddingStart="@dimen/medium_margin"
+            android:paddingEnd="@dimen/medium_margin"
             tools:text="Directory" />
 
     </RelativeLayout>
