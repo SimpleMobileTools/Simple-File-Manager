@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.pro.helpers
 
 const val PATH = "path"
+const val MAX_COLUMN_COUNT = 20
 
 // shared preferences
 const val SHOW_HIDDEN = "show_hidden"
@@ -11,6 +12,8 @@ const val ENABLE_ROOT_ACCESS = "enable_root_access"
 const val EDITOR_TEXT_ZOOM = "editor_text_zoom"
 const val VIEW_TYPE = "view_type"
 const val VIEW_TYPE_PREFIX = "view_type_folder_"
+const val FILE_COLUMN_CNT = "file_column_cnt"
+const val FILE_LANDSCAPE_COLUMN_CNT = "file_landscape_column_cnt"
 
 // open as
 const val OPEN_AS_DEFAULT = 0

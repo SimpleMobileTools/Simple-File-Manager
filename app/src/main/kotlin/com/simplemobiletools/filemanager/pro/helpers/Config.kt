@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.pro.helpers
 
 import android.content.Context
+import android.content.res.Configuration
 import com.simplemobiletools.commons.extensions.getInternalStoragePath
 import com.simplemobiletools.commons.helpers.BaseConfig
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
@@ -90,4 +91,22 @@ class Config(context: Context) : BaseConfig(context) {
     }
 
     fun hasCustomViewType(path: String) = prefs.contains(VIEW_TYPE_PREFIX + path.toLowerCase())
+
+    var fileColumnCnt: Int
+        get() = prefs.getInt(getFileColumnsField(), getDefaultFileColumnCount())
+        set(fileColumnCnt) = prefs.edit().putInt(getFileColumnsField(), fileColumnCnt).apply()
+
+    private fun getFileColumnsField(): String {
+        val isPortrait = context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        return if (isPortrait) {
+            FILE_COLUMN_CNT
+        } else {
+            FILE_LANDSCAPE_COLUMN_CNT
+        }
+    }
+
+    private fun getDefaultFileColumnCount(): Int {
+        val isPortrait = context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        return if (isPortrait) 3 else 5
+    }
 }

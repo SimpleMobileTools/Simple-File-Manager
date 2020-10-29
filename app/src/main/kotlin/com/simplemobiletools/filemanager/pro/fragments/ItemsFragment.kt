@@ -16,6 +16,7 @@ import com.simplemobiletools.commons.helpers.isRPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyGridLayoutManager
+import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -24,6 +25,7 @@ import com.simplemobiletools.filemanager.pro.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
+import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.PATH
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
@@ -45,6 +47,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private var isSearchOpen = false
     private var lastSearchedText = ""
     private var scrollStates = HashMap<String, Parcelable>()
+    private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
     private var storedItems = ArrayList<ListItem>()
     private var storedTextColor = 0
@@ -69,6 +72,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             breadcrumbs.updateFontSize(context!!.getTextSize())
         }
         setupLayoutManager(false)
+        initZoomListener()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -173,6 +177,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
                     itemClicked(it as FileDirItem)
                 }.apply {
+                    setupZoomListener(zoomListener)
                     items_list.adapter = this
                 }
 
@@ -421,12 +426,50 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun setupGridLayoutManager() {
         val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
-        layoutManager.spanCount = 4
+        layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
     }
 
     private fun setupListLayoutManager() {
         val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
+        zoomListener = null
+    }
+
+    private fun initZoomListener() {
+        if (context?.config?.viewType == VIEW_TYPE_GRID) {
+            val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+            zoomListener = object : MyRecyclerView.MyZoomListener {
+                override fun zoomIn() {
+                    if (layoutManager.spanCount > 1) {
+                        reduceColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+
+                override fun zoomOut() {
+                    if (layoutManager.spanCount < MAX_COLUMN_COUNT) {
+                        increaseColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+            }
+        } else {
+            zoomListener = null
+        }
+    }
+
+    fun increaseColumnCount() {
+        context?.config?.fileColumnCnt = ++(mView.items_list.layoutManager as MyGridLayoutManager).spanCount
+        columnCountChanged()
+    }
+
+    fun reduceColumnCount() {
+        context?.config?.fileColumnCnt = --(mView.items_list.layoutManager as MyGridLayoutManager).spanCount
+        columnCountChanged()
+    }
+
+    private fun columnCountChanged() {
+        mView.items_list.adapter?.notifyDataSetChanged()
     }
 
     override fun breadcrumbClicked(id: Int) {
