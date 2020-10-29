@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
@@ -427,6 +428,16 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private fun setupGridLayoutManager() {
         val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
+
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (getRecyclerAdapter()?.isASectionTitle(position) == true) {
+                    layoutManager.spanCount
+                } else {
+                    1
+                }
+            }
+        }
     }
 
     private fun setupListLayoutManager() {

@@ -688,6 +688,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         notifyDataSetChanged()
     }
 
+    fun isASectionTitle(position: Int) = listItems.getOrNull(position)?.isSectionTitle ?: false
+
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
