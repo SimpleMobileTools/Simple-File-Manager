@@ -69,7 +69,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             breadcrumbs.listener = this@ItemsFragment
             breadcrumbs.updateFontSize(context!!.getTextSize())
         }
-        initZoomListener()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -156,9 +155,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             activity?.runOnUiThread {
                 activity?.invalidateOptionsMenu()
                 addItems(listItems, forceRefresh)
-                val curr = context?.config?.getFolderViewType(currentPath)
                 if (currentViewType != context?.config?.getFolderViewType(currentPath)) {
-                    setupLayoutManager(true)
+                    setupLayoutManager()
                 }
             }
         }
@@ -412,7 +410,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getRecyclerAdapter() = mView.items_list.adapter as? ItemsAdapter
 
-    fun setupLayoutManager(resetAdapter: Boolean) {
+    fun setupLayoutManager() {
         if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
             currentViewType = VIEW_TYPE_GRID
             setupGridLayoutManager()
@@ -421,10 +419,9 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             setupListLayoutManager()
         }
 
-        if (resetAdapter) {
-            mView.items_list.adapter = null
-            addItems(storedItems, true)
-        }
+        mView.items_list.adapter = null
+        initZoomListener()
+        addItems(storedItems, true)
     }
 
     private fun setupGridLayoutManager() {
