@@ -8,14 +8,16 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="@drawable/selector"
+    android:paddingStart="@dimen/small_margin"
     android:paddingTop="@dimen/tiny_margin"
+    android:paddingEnd="@dimen/small_margin"
     android:paddingBottom="@dimen/tiny_margin">
 
     <RelativeLayout
         android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/normal_margin">
+        android:layout_marginBottom="@dimen/activity_margin">
 
         <ImageView
             android:id="@+id/item_icon"
@@ -29,12 +31,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_icon"
-            android:ellipsize="end"
+            android:ellipsize="middle"
             android:gravity="center_horizontal"
-            android:maxLines="1"
-            android:paddingStart="@dimen/medium_margin"
-            android:paddingEnd="@dimen/medium_margin"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingEnd="@dimen/small_margin"
+            android:singleLine="true"
             tools:text="Directory" />
+
+        <ImageView
+            android:id="@+id/item_check"
+            android:layout_width="@dimen/selection_check_size"
+            android:layout_height="@dimen/selection_check_size"
+            android:layout_alignEnd="@+id/item_icon"
+            android:layout_alignParentTop="true"
+            android:layout_margin="@dimen/small_margin"
+            android:background="@drawable/circle_background"
+            android:contentDescription="@null"
+            android:padding="@dimen/tiny_margin"
+            android:src="@drawable/ic_check_vector"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </FrameLayout>

@@ -421,7 +421,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun setupGridLayoutManager() {
         val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
-        layoutManager.spanCount = 3
+        layoutManager.spanCount = 4
     }
 
     private fun setupListLayoutManager() {

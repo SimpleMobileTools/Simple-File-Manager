@@ -40,7 +40,11 @@ import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootTools.RootTools
+import kotlinx.android.synthetic.main.item_file_dir_grid.view.*
 import kotlinx.android.synthetic.main.item_file_dir_list.view.*
+import kotlinx.android.synthetic.main.item_file_dir_list.view.item_frame
+import kotlinx.android.synthetic.main.item_file_dir_list.view.item_icon
+import kotlinx.android.synthetic.main.item_file_dir_list.view.item_name
 import kotlinx.android.synthetic.main.item_section.view.*
 import java.io.Closeable
 import java.io.File
@@ -713,6 +717,11 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
                 item_date?.setTextColor(textColor)
                 item_date?.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
+
+                item_check?.beVisibleIf(isSelected)
+                if (isSelected) {
+                    item_check?.background?.applyColorFilter(primaryColor)
+                }
 
                 if (listItem.isDirectory) {
                     item_icon.setImageDrawable(folderDrawable)
