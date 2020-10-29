@@ -67,6 +67,10 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private var dateFormat = ""
     private var timeFormat = ""
 
+    private val config = activity.config
+    private val viewType = config.getFolderViewType(listItems.firstOrNull { !it.isSectionTitle }?.mPath ?: "")
+    private val isListViewType = viewType == VIEW_TYPE_LIST
+
     init {
         setupDragListener(true)
         initDrawables()
@@ -138,7 +142,15 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layout = if (viewType == TYPE_SECTION) R.layout.item_section else R.layout.item_file_dir_list
+        val layout = if (viewType == TYPE_SECTION) {
+            R.layout.item_section
+        } else {
+            if (isListViewType) {
+                R.layout.item_file_dir_list
+            } else {
+                R.layout.item_file_dir_grid
+            }
+        }
         return createViewHolder(layout, parent)
     }
 
@@ -696,20 +708,20 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 item_name.setTextColor(textColor)
                 item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
 
-                item_details.setTextColor(textColor)
-                item_details.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+                item_details?.setTextColor(textColor)
+                item_details?.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
 
-                item_date.setTextColor(textColor)
-                item_date.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
+                item_date?.setTextColor(textColor)
+                item_date?.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
 
                 if (listItem.isDirectory) {
                     item_icon.setImageDrawable(folderDrawable)
-                    item_details.text = getChildrenCnt(listItem)
-                    item_date.beGone()
+                    item_details?.text = getChildrenCnt(listItem)
+                    item_date?.beGone()
                 } else {
-                    item_details.text = listItem.size.formatSize()
-                    item_date.beVisible()
-                    item_date.text = listItem.modified.formatDate(activity, dateFormat, timeFormat)
+                    item_details?.text = listItem.size.formatSize()
+                    item_date?.beVisible()
+                    item_date?.text = listItem.modified.formatDate(activity, dateFormat, timeFormat)
 
                     val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                     val options = RequestOptions()
