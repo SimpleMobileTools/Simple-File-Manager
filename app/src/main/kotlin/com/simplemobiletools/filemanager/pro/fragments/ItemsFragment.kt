@@ -10,11 +10,12 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isRPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
-import com.simplemobiletools.commons.views.MyLinearLayoutManager
+import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -67,6 +68,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             breadcrumbs.listener = this@ItemsFragment
             breadcrumbs.updateFontSize(context!!.getTextSize())
         }
+        setupLayoutManager(false)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -189,7 +191,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
-    private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as MyLinearLayoutManager)
+    private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as MyGridLayoutManager)
 
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
@@ -403,6 +405,29 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     }
 
     private fun getRecyclerAdapter() = mView.items_list.adapter as? ItemsAdapter
+
+    fun setupLayoutManager(resetAdapter: Boolean) {
+        if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
+            setupGridLayoutManager()
+        } else {
+            setupListLayoutManager()
+        }
+
+        if (resetAdapter) {
+            mView.items_list.adapter = null
+            addItems(storedItems, true)
+        }
+    }
+
+    private fun setupGridLayoutManager() {
+        val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = 3
+    }
+
+    private fun setupListLayoutManager() {
+        val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = 1
+    }
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
