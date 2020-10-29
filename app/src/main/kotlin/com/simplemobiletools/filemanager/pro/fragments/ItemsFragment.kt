@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
-import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.helpers.isRPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyGridLayoutManager
@@ -46,6 +43,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private var skipItemUpdating = false
     private var isSearchOpen = false
     private var lastSearchedText = ""
+    private var currentViewType = VIEW_TYPE_LIST
     private var scrollStates = HashMap<String, Parcelable>()
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
@@ -71,7 +69,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             breadcrumbs.listener = this@ItemsFragment
             breadcrumbs.updateFontSize(context!!.getTextSize())
         }
-        setupLayoutManager(false)
         initZoomListener()
     }
 
@@ -159,6 +156,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             activity?.runOnUiThread {
                 activity?.invalidateOptionsMenu()
                 addItems(listItems, forceRefresh)
+                val curr = context?.config?.getFolderViewType(currentPath)
+                if (currentViewType != context?.config?.getFolderViewType(currentPath)) {
+                    setupLayoutManager(true)
+                }
             }
         }
     }
@@ -413,8 +414,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     fun setupLayoutManager(resetAdapter: Boolean) {
         if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
+            currentViewType = VIEW_TYPE_GRID
             setupGridLayoutManager()
         } else {
+            currentViewType = VIEW_TYPE_LIST
             setupListLayoutManager()
         }
 
@@ -436,7 +439,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     }
 
     private fun initZoomListener() {
-        if (context?.config?.viewType == VIEW_TYPE_GRID) {
+        if (context?.config?.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
             val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
             zoomListener = object : MyRecyclerView.MyZoomListener {
                 override fun zoomIn() {

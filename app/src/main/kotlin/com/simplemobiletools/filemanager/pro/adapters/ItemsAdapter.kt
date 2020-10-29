@@ -72,7 +72,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private var timeFormat = ""
 
     private val config = activity.config
-    private val viewType = config.getFolderViewType(listItems.firstOrNull { !it.isSectionTitle }?.mPath ?: "")
+    private val viewType = config.getFolderViewType(listItems.firstOrNull { !it.isSectionTitle }?.mPath?.getParentPath() ?: "")
     private val isListViewType = viewType == VIEW_TYPE_LIST
 
     init {

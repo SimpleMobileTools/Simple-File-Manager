@@ -97,8 +97,8 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
-            findItem(R.id.increase_column_count).isVisible = config.viewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
-            findItem(R.id.reduce_column_count).isVisible = config.viewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1
+            findItem(R.id.increase_column_count).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
+            findItem(R.id.reduce_column_count).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt > 1
         }
 
         return true
