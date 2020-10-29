@@ -37,6 +37,10 @@
         android:title="@string/set_as_home_folder"
         app:showAsAction="never"/>
     <item
+        android:id="@+id/change_view_type"
+        android:title="@string/change_view_type"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/temporarily_show_hidden"
         android:title="@string/temporarily_show_hidden"
         app:showAsAction="never"/>

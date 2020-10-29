@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.pro.helpers
 import android.content.Context
 import com.simplemobiletools.commons.extensions.getInternalStoragePath
 import com.simplemobiletools.commons.helpers.BaseConfig
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import java.io.File
 
 class Config(context: Context) : BaseConfig(context) {
@@ -69,4 +70,24 @@ class Config(context: Context) : BaseConfig(context) {
     var editorTextZoom: Float
         get() = prefs.getFloat(EDITOR_TEXT_ZOOM, 1.2f)
         set(editorTextZoom) = prefs.edit().putFloat(EDITOR_TEXT_ZOOM, editorTextZoom).apply()
+
+    var viewType: Int
+        get() = prefs.getInt(VIEW_TYPE, VIEW_TYPE_LIST)
+        set(viewTypeFiles) = prefs.edit().putInt(VIEW_TYPE, viewTypeFiles).apply()
+
+    fun saveFolderViewType(path: String, value: Int) {
+        if (path.isEmpty()) {
+            viewType = value
+        } else {
+            prefs.edit().putInt(VIEW_TYPE_PREFIX + path.toLowerCase(), value).apply()
+        }
+    }
+
+    fun getFolderViewType(path: String) = prefs.getInt(VIEW_TYPE_PREFIX + path.toLowerCase(), viewType)
+
+    fun removeFolderViewType(path: String) {
+        prefs.edit().remove(VIEW_TYPE_PREFIX + path.toLowerCase()).apply()
+    }
+
+    fun hasCustomViewType(path: String) = prefs.contains(VIEW_TYPE_PREFIX + path.toLowerCase())
 }

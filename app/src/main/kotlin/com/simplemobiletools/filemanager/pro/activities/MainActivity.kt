@@ -21,6 +21,7 @@ import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.filemanager.pro.BuildConfig
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
+import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
@@ -107,6 +108,7 @@ class MainActivity : SimpleActivity() {
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
             R.id.set_as_home -> setAsHome()
+            R.id.change_view_type -> changeViewType()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
@@ -279,6 +281,12 @@ class MainActivity : SimpleActivity() {
     private fun setAsHome() {
         config.homeFolder = fragment.currentPath
         toast(R.string.home_folder_updated)
+    }
+
+    private fun changeViewType() {
+        ChangeViewTypeDialog(this, fragment.currentPath) {
+
+        }
     }
 
     private fun tryToggleTemporarilyShowHidden() {

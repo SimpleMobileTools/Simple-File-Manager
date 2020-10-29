@@ -9,6 +9,8 @@ const val TEMPORARILY_SHOW_HIDDEN = "temporarily_show_hidden"
 const val IS_ROOT_AVAILABLE = "is_root_available"
 const val ENABLE_ROOT_ACCESS = "enable_root_access"
 const val EDITOR_TEXT_ZOOM = "editor_text_zoom"
+const val VIEW_TYPE = "view_type"
+const val VIEW_TYPE_PREFIX = "view_type_folder_"
 
 // open as
 const val OPEN_AS_DEFAULT = 0
