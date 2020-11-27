@@ -156,7 +156,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             activity?.runOnUiThread {
                 activity?.invalidateOptionsMenu()
                 addItems(listItems, forceRefresh)
-                if (currentViewType != context?.config?.getFolderViewType(currentPath)) {
+                if (context != null && currentViewType != context!!.config.getFolderViewType(currentPath)) {
                     setupLayoutManager()
                 }
             }

@@ -148,7 +148,13 @@ class DecompressActivity : SimpleActivity() {
 
     @SuppressLint("NewApi")
     private fun fillAllListItems(uri: Uri) {
-        val inputStream = contentResolver.openInputStream(uri)
+        val inputStream = try {
+            contentResolver.openInputStream(uri)
+        } catch (e: Exception) {
+            showErrorToast(e)
+            return
+        }
+
         val zipInputStream = ZipInputStream(BufferedInputStream(inputStream))
         var zipEntry: ZipEntry?
         while (true) {
