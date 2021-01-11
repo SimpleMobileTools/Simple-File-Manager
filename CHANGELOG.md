@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.8.3 *(2021-01-11)*
+----------------------------
+
+ * Allow opening folders from search results
+ * Some stability and translation improvements
+
 Version 6.8.2 *(2020-11-27)*
 ----------------------------
 
