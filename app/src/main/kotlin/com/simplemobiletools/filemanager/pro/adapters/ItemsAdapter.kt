@@ -160,7 +160,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = listItems[position]
-        holder.bindView(fileDirItem, !fileDirItem.isSectionTitle, !fileDirItem.isSectionTitle) { itemView, layoutPosition ->
+        holder.bindView(fileDirItem, true, !fileDirItem.isSectionTitle) { itemView, layoutPosition ->
             setupView(itemView, fileDirItem)
         }
         bindViewHolder(holder)

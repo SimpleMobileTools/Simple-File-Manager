@@ -175,7 +175,12 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
                 storedItems = items
                 ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
-                    itemClicked(it as FileDirItem)
+                    if ((it as? ListItem)?.isSectionTitle == true) {
+                        openDirectory(it.mPath)
+                        searchClosed()
+                    } else {
+                        itemClicked(it as FileDirItem)
+                    }
                 }.apply {
                     setupZoomListener(zoomListener)
                     items_list.adapter = this
@@ -278,11 +283,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun itemClicked(item: FileDirItem) {
         if (item.isDirectory) {
-            (activity as? MainActivity)?.apply {
-                skipItemUpdating = isSearchOpen
-                openedDirectory()
-            }
-            openPath(item.path)
+            openDirectory(item.path)
         } else {
             val path = item.path
             if (isGetContentIntent) {
@@ -297,6 +298,14 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 activity!!.tryOpenPathIntent(path, false)
             }
         }
+    }
+
+    private fun openDirectory(path: String) {
+        (activity as? MainActivity)?.apply {
+            skipItemUpdating = isSearchOpen
+            openedDirectory()
+        }
+        openPath(path)
     }
 
     fun searchQueryChanged(text: String) {
@@ -337,7 +346,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     files.forEach {
                         val parent = it.mPath.getParentPath()
                         if (parent != previousParent && context != null) {
-                            listItems.add(ListItem("", context!!.humanizePath(parent), false, 0, 0, 0, true))
+                            val sectionTitle = ListItem(parent, context!!.humanizePath(parent), false, 0, 0, 0, true)
+                            listItems.add(sectionTitle)
                             previousParent = parent
                         }
                         listItems.add(it)

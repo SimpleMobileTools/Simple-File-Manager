@@ -4,6 +4,7 @@
     android:id="@+id/item_section"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
     android:paddingStart="@dimen/normal_margin"
     android:paddingTop="@dimen/activity_margin"
     android:paddingEnd="@dimen/normal_margin"
