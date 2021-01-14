@@ -231,7 +231,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             return
         }
 
-        val lastModifieds = if (isRPlus()) context!!.getFolderLastModifieds(path) else HashMap()
+        val lastModifieds = context!!.getFolderLastModifieds(path)
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         if (files != null) {
             for (file in files) {

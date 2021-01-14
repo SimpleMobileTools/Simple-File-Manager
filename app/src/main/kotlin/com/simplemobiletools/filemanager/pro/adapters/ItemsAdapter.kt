@@ -736,7 +736,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
                     val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                     val options = RequestOptions()
-                        .signature(listItem.mPath.getFileSignature())
+                        .signature(listItem.getKey())
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .error(drawable)
                         .transform(CenterCrop(), RoundedCorners(10))

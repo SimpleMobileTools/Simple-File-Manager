@@ -95,7 +95,7 @@ class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableLis
             } else {
                 val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                 val options = RequestOptions()
-                    .signature(listItem.mPath.getFileSignature())
+                    .signature(listItem.getKey())
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .error(drawable)
                     .centerCrop()
