@@ -233,9 +233,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
         val lastModifieds = context!!.getFolderLastModifieds(path)
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
+        val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
         if (files != null) {
             for (file in files) {
-                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds)
+                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, getProperChildCount)
                 if (fileDirItem != null) {
                     items.add(fileDirItem)
                 }
@@ -245,7 +246,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         callback(path, items)
     }
 
-    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean, lastModifieds: HashMap<String, Long>): ListItem? {
+    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean, lastModifieds: HashMap<String, Long>, getProperChildCount: Boolean): ListItem? {
         val curPath = file.absolutePath
         val curName = file.name
         if (!showHidden && curName.startsWith(".")) {
@@ -254,7 +255,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
         var lastModified = lastModifieds.remove(curPath)
         val isDirectory = if (lastModified != null) false else file.isDirectory
-        val children = if (isDirectory) file.getDirectChildrenCount(showHidden) else 0
+        val children = if (isDirectory && getProperChildCount) file.getDirectChildrenCount(showHidden) else 0
         val size = if (isDirectory) {
             if (isSortingBySize) {
                 file.getProperSize(showHidden)
@@ -380,7 +381,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 files.addAll(searchFiles(text, it.absolutePath))
             } else {
                 if (it.name.contains(text, true)) {
-                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, HashMap<String, Long>())
+                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }
