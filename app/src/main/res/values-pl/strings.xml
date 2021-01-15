@@ -11,6 +11,8 @@
     <string name="select_audio_file">Proszę wybrać plik audio</string>
     <string name="search_folder">Przeszukaj folder</string>
     <string name="rooted_device_only">Ta operacja działa tylko na zrootowanych urządzeniach</string>
+    <string name="recents">Recents</string>
+    <string name="show_recents">Show recents</string>
 
     <!-- Open as -->
     <string name="open_as">Otwórz jako</string>

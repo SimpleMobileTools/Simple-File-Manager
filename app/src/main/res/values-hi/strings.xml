@@ -11,6 +11,8 @@
     <string name="select_audio_file">Veuillez sélectionner un fichier audio</string>
     <string name="search_folder">Chercher dans le dossier</string>
     <string name="rooted_device_only">Cette opération ne fonctionne que sur les périphériques rooté</string>
+    <string name="recents">Recents</string>
+    <string name="show_recents">Show recents</string>
 
     <!-- Open as -->
     <string name="open_as">इसमें खोलें</string>
