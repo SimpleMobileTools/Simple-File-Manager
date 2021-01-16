@@ -346,12 +346,21 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     var previousParent = ""
                     files.forEach {
                         val parent = it.mPath.getParentPath()
-                        if (parent != previousParent && context != null) {
+                        if (!it.isDirectory && parent != previousParent && context != null) {
                             val sectionTitle = ListItem(parent, context!!.humanizePath(parent), false, 0, 0, 0, true)
                             listItems.add(sectionTitle)
                             previousParent = parent
                         }
-                        listItems.add(it)
+
+                        if (it.isDirectory) {
+                            val sectionTitle = ListItem(it.path, context!!.humanizePath(it.path), true, 0, 0, 0, true)
+                            listItems.add(sectionTitle)
+                            previousParent = parent
+                        }
+
+                        if (!it.isDirectory) {
+                            listItems.add(it)
+                        }
                     }
 
                     activity?.runOnUiThread {
@@ -378,6 +387,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         val isSortingBySize = sorting and SORT_BY_SIZE != 0
         File(path).listFiles()?.sortedBy { it.isDirectory }?.forEach {
             if (it.isDirectory) {
+                if (it.name.contains(text, true)) {
+                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
+                    if (fileDirItem != null) {
+                        files.add(fileDirItem)
+                    }
+                }
+
                 files.addAll(searchFiles(text, it.absolutePath))
             } else {
                 if (it.name.contains(text, true)) {

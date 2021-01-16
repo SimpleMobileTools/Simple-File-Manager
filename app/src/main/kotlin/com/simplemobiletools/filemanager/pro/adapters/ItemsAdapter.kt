@@ -706,7 +706,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             if (listItem.isSectionTitle) {
                 item_icon.setImageDrawable(folderDrawable)
 
-                item_section.text = listItem.mName
+                item_section.text = if (textToHighlight.isEmpty()) listItem.mName else listItem.mName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 item_section.setTextColor(textColor)
                 item_section.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             } else {
