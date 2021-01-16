@@ -410,6 +410,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     fun searchOpened() {
         isSearchOpen = true
         lastSearchedText = ""
+        mView.items_swipe_refresh.isEnabled = false
     }
 
     fun searchClosed() {
@@ -419,6 +420,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
         skipItemUpdating = false
         lastSearchedText = ""
+        mView.items_swipe_refresh.isEnabled = true
 
         mView.apply {
             items_list.beVisible()
