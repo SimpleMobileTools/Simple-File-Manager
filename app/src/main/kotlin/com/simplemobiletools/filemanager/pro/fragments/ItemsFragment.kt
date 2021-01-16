@@ -369,6 +369,11 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                             items_list.beVisibleIf(listItems.isNotEmpty())
                             items_placeholder.beVisibleIf(listItems.isEmpty())
                             items_placeholder_2.beGone()
+
+                            items_list.onGlobalLayout {
+                                items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
+                                calculateContentHeight(listItems)
+                            }
                         }
                     }
                 }
