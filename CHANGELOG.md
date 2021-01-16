@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.8.4 *(2021-01-16)*
+----------------------------
+
+ * Show folders at search results too
+ * Added some performance, translation, stability and UX improvements
+
 Version 6.8.3 *(2021-01-11)*
 ----------------------------
 
