@@ -704,6 +704,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         val isSelected = selectedKeys.contains(listItem.path.hashCode())
         view.apply {
             if (listItem.isSectionTitle) {
+                item_icon.setImageDrawable(folderDrawable)
+
                 item_section.text = listItem.mName
                 item_section.setTextColor(textColor)
                 item_section.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
