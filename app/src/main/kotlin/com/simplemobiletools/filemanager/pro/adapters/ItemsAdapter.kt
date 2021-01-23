@@ -372,14 +372,28 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private fun copyMoveTo(isCopyOperation: Boolean) {
         val files = getSelectedFileDirItems()
         val firstFile = files[0]
-        val source = if (firstFile.isDirectory) firstFile.path else firstFile.getParentPath()
+        val source = firstFile.getParentPath()
         FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true, true, showFavoritesButton = true) {
             if (activity.isPathOnRoot(it) || activity.isPathOnRoot(firstFile.path)) {
                 copyMoveRootItems(files, it, isCopyOperation)
             } else {
                 activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, activity.config.shouldShowHidden) {
-                    listener?.refreshItems()
-                    finishActMode()
+                    if (!isCopyOperation) {
+                        files.forEach { sourceFileDir ->
+                            val sourceFile = File(sourceFileDir.path)
+                            if (activity.getDoesFilePathExist(source) && activity.getIsPathDirectory(source) &&
+                                sourceFile.list()?.isEmpty() == true && sourceFile.getProperSize(true) == 0L && sourceFile.getFileCount(true) == 0) {
+                                val sourceFolder = sourceFile.toFileDirItem(activity)
+                                activity.deleteFile(sourceFolder, true) {
+                                    listener?.refreshItems()
+                                    finishActMode()
+                                }
+                            }
+                        }
+                    } else {
+                        listener?.refreshItems()
+                        finishActMode()
+                    }
                 }
             }
         }
