@@ -273,7 +273,8 @@ class MainActivity : SimpleActivity() {
         var currFavoriteIndex = -1
 
         favorites.forEachIndexed { index, path ->
-            items.add(RadioItem(index, path, path))
+            val visiblePath = humanizePath(path).replace("/", " / ")
+            items.add(RadioItem(index, visiblePath, path))
             if (path == fragment.currentPath) {
                 currFavoriteIndex = index
             }
