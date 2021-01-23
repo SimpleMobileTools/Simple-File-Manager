@@ -529,7 +529,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
-            StoragePickerDialog(activity as SimpleActivity, currentPath, true) {
+            StoragePickerDialog(activity as SimpleActivity, currentPath, context!!.config.enableRootAccess, true) {
                 getRecyclerAdapter()?.finishActMode()
                 openPath(it)
             }
