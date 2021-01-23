@@ -16,6 +16,7 @@ import android.util.TypedValue
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -55,7 +56,7 @@ import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
-                   val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, itemClick: (Any) -> Unit) :
+                   val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, val swipeRefreshLayout: SwipeRefreshLayout, itemClick: (Any) -> Unit) :
         MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private val TYPE_FILE_DIR = 1
@@ -133,9 +134,14 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     override fun getItemKeyPosition(key: Int) = listItems.indexOfFirst { it.path.hashCode() == key }
 
-    override fun onActionModeCreated() {}
+    override fun onActionModeCreated() {
+        swipeRefreshLayout.isRefreshing = false
+        swipeRefreshLayout.isEnabled = false
+    }
 
-    override fun onActionModeDestroyed() {}
+    override fun onActionModeDestroyed() {
+        swipeRefreshLayout.isEnabled = true
+    }
 
     override fun getItemViewType(position: Int): Int {
         return if (listItems[position].isSectionTitle) {

@@ -174,7 +174,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
 
                 storedItems = items
-                ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller) {
+                ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller,
+                    items_swipe_refresh) {
                     if ((it as? ListItem)?.isSectionTitle == true) {
                         openDirectory(it.mPath)
                         searchClosed()
