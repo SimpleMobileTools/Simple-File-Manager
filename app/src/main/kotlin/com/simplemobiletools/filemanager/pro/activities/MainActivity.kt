@@ -91,6 +91,7 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
             findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
 
+            findItem(R.id.toggle_filename).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID
             findItem(R.id.go_home).isVisible = fragment.currentPath != config.homeFolder
             findItem(R.id.set_as_home).isVisible = fragment.currentPath != config.homeFolder
 
@@ -111,6 +112,7 @@ class MainActivity : SimpleActivity() {
             R.id.sort -> showSortingDialog()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
+            R.id.toggle_filename -> toggleFilenameVisibility()
             R.id.set_as_home -> setAsHome()
             R.id.change_view_type -> changeViewType()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
@@ -265,6 +267,10 @@ class MainActivity : SimpleActivity() {
 
     private fun removeFavorite() {
         config.removeFavorite(fragment.currentPath)
+    }
+
+    private fun toggleFilenameVisibility() {
+
     }
 
     private fun goToFavorite() {

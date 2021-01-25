@@ -33,6 +33,11 @@
         android:title="@string/remove_from_favorites"
         app:showAsAction="ifRoom"/>
     <item
+        android:id="@+id/toggle_filename"
+        android:icon="@drawable/ic_label_vector"
+        android:title="@string/toggle_filename"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/set_as_home"
         android:title="@string/set_as_home_folder"
         app:showAsAction="never"/>
