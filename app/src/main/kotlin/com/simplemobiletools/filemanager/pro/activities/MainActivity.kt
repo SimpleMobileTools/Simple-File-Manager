@@ -294,7 +294,7 @@ class MainActivity : SimpleActivity() {
 
     private fun changeViewType() {
         ChangeViewTypeDialog(this, fragment.currentPath) {
-            fragment.setupLayoutManager()
+            fragment.refreshItems()
         }
     }
 
