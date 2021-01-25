@@ -14,6 +14,7 @@ const val VIEW_TYPE = "view_type"
 const val VIEW_TYPE_PREFIX = "view_type_folder_"
 const val FILE_COLUMN_CNT = "file_column_cnt"
 const val FILE_LANDSCAPE_COLUMN_CNT = "file_landscape_column_cnt"
+const val DISPLAY_FILE_NAMES = "display_file_names"
 
 // open as
 const val OPEN_AS_DEFAULT = 0

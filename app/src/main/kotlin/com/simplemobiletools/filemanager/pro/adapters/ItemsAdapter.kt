@@ -75,6 +75,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private val config = activity.config
     private val viewType = config.getFolderViewType(listItems.firstOrNull { !it.isSectionTitle }?.mPath?.getParentPath() ?: "")
     private val isListViewType = viewType == VIEW_TYPE_LIST
+    private var displayFilenamesInGrid = config.displayFilenames
 
     init {
         setupDragListener(true)
@@ -708,6 +709,11 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         notifyDataSetChanged()
     }
 
+    fun updateDisplayFilenamesInGrid() {
+        displayFilenamesInGrid = activity.config.displayFilenames
+        notifyDataSetChanged()
+    }
+
     fun isASectionTitle(position: Int) = listItems.getOrNull(position)?.isSectionTitle ?: false
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -745,6 +751,12 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 item_check?.beVisibleIf(isSelected)
                 if (isSelected) {
                     item_check?.background?.applyColorFilter(primaryColor)
+                }
+
+                if (!isListViewType && !listItem.isDirectory) {
+                    item_name.beVisibleIf(displayFilenamesInGrid)
+                } else {
+                    item_name.beVisible()
                 }
 
                 if (listItem.isDirectory) {

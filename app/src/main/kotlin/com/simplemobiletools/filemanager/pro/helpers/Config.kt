@@ -109,4 +109,8 @@ class Config(context: Context) : BaseConfig(context) {
         val isPortrait = context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
         return if (isPortrait) 3 else 5
     }
+
+    var displayFilenames: Boolean
+        get() = prefs.getBoolean(DISPLAY_FILE_NAMES, true)
+        set(displayFilenames) = prefs.edit().putBoolean(DISPLAY_FILE_NAMES, displayFilenames).apply()
 }

@@ -529,6 +529,11 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         calculateContentHeight(storedItems)
     }
 
+    fun toggleFilenameVisibility() {
+        context?.config?.displayFilenames = !context!!.config.displayFilenames
+        getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
+    }
+
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
             StoragePickerDialog(activity as SimpleActivity, currentPath, context!!.config.enableRootAccess, true) {

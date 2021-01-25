@@ -112,7 +112,7 @@ class MainActivity : SimpleActivity() {
             R.id.sort -> showSortingDialog()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
-            R.id.toggle_filename -> toggleFilenameVisibility()
+            R.id.toggle_filename -> fragment.toggleFilenameVisibility()
             R.id.set_as_home -> setAsHome()
             R.id.change_view_type -> changeViewType()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
@@ -267,10 +267,6 @@ class MainActivity : SimpleActivity() {
 
     private fun removeFavorite() {
         config.removeFavorite(fragment.currentPath)
-    }
-
-    private fun toggleFilenameVisibility() {
-
     }
 
     private fun goToFavorite() {
