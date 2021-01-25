@@ -423,6 +423,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         isSearchOpen = false
         if (!skipItemUpdating) {
             getRecyclerAdapter()?.updateItems(storedItems)
+            calculateContentHeight(storedItems)
         }
         skipItemUpdating = false
         lastSearchedText = ""
