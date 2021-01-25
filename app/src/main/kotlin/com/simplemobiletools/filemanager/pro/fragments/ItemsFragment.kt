@@ -427,9 +427,9 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
         skipItemUpdating = false
         lastSearchedText = ""
-        mView.items_swipe_refresh.isEnabled = true
 
         mView.apply {
+            items_swipe_refresh.isEnabled = true
             items_list.beVisible()
             items_placeholder.beGone()
             items_placeholder_2.beGone()
