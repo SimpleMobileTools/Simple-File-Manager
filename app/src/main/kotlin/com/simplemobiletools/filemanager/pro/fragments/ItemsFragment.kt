@@ -506,7 +506,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
     }
 
-    private fun calculateContentHeight(items: ArrayList<ListItem>) {
+    private fun calculateContentHeight(items: MutableList<ListItem>) {
         val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
         val thumbnailHeight = layoutManager.getChildAt(0)?.height ?: 0
         val fullHeight = ((items.size - 1) / layoutManager.spanCount + 1) * thumbnailHeight
@@ -525,8 +525,11 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     }
 
     private fun columnCountChanged() {
-        mView.items_list.adapter?.notifyDataSetChanged()
-        calculateContentHeight(storedItems)
+        activity?.invalidateOptionsMenu()
+        getRecyclerAdapter()?.apply {
+            notifyItemRangeChanged(0, listItems.size)
+            calculateContentHeight(listItems)
+        }
     }
 
     fun toggleFilenameVisibility() {
