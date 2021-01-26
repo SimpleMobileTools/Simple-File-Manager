@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Version 6.8.5 *(2021-01-26)*
+----------------------------
+
+ * Allow toggling filename visibility at the grid view
+ * Animate column count changes at the grid view
+ * Delete empty folders after move
+ * Do not show Root as an available storage option on not rooted devices
+ * If only one storage is available, select it automatically
+ * Many other UX and translation improvements
+
 Version 6.8.4 *(2021-01-16)*
 ----------------------------
 
