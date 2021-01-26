@@ -68,7 +68,6 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             items_swipe_refresh.setOnRefreshListener { refreshItems() }
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
-            breadcrumbs.updateFontSize(context!!.getTextSize())
         }
     }
 
@@ -174,6 +173,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 }
 
                 storedItems = items
+                if (items_list.adapter == null) {
+                    breadcrumbs.updateFontSize(context!!.getTextSize())
+                }
+
                 ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller,
                     items_swipe_refresh) {
                     if ((it as? ListItem)?.isSectionTitle == true) {
