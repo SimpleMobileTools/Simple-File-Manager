@@ -46,29 +46,29 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Basit Dosya Yöneticisi Pro -  Kolay ve hızlı</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Gizliliğinize ve güvenliğinize saygılı, dosyalarınızı reklamsız yöneten uygulama</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Günlük kullanım için hafif ve hızlı bir dosya yöneticisi. Kullanıcı dostu bir arama işlevi sunar, ayrıca ana klasörü özelleştirebilir ve hızlı erişim için favori klasörleri seçebilirsiniz.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        Uygulama, gizli öğeleri parolayla koruma, dosyaları silme veya tüm uygulama gibi güvenlikle ilgili çok sayıda güçlü işlev içerir. Verilerinizi gizli tutmak için desen, pin veya parmak izi kullanmayı seçebilirsiniz.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Bu modern dosya düzenleyici, root dosyalarının, SD kartların ve USB cihazlarının hızlı taranmasını destekler.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Üretkenliğinizi sürdürmek için, yeniden adlandırma, kopyalama, taşıma, silme, paylaşma vb. gibi tüm standart dosya işlemlerine sahiptir. Ayrıca, sıkıştırmaya ve sıkıştırmayı açmaya da izin verdiği için bir miktar depolama tasarrufu yapmak için de kullanılabilir. Dilerseniz kolayca yeni dosya veya klasör oluşturabilirsiniz.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Açıkça birden çok farklı değere göre sıralamayı seçebilir, artan ve azalan arasında geçiş yapabilir veya klasöre özel bir sıralama kullanabilirsiniz..
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Sadece birkaç tıklama ile dosya boyutu, son değişikliğin tarihi veya oluşturma tarihi, fotoğraflardaki kamera modeli gibi EXIF değerleri gibi çeşitli alanları gösteren dosya veya klasör özelliklerini de kontrol edebilirsiniz.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Bir dosya veya klasör yolunu hızlı bir şekilde almak için, uzun basıp panoya kopyalayarak onu kolayca seçebilirsiniz.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+         Favori öğelerinize hızlı bir şekilde erişmek için kullanışlı masaüstü kısayolları oluşturabilirsiniz.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+         Belgeleri yazdırmak, düzenlemek veya gerektiğinde yakınlaştırma hareketlerini kullanarak kolayca okumak için kullanabileceğiniz hafif bir dosya düzenleyici içerir.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+         Varsayılan olarak materyal tasarım ve koyu tema ile birlikte gelir, kolay kullanım için harika bir kullanıcı deneyimi sağlar. İnternet erişiminin olmaması size diğer uygulamalardan daha fazla gizlilik, güvenlik ve istikrar sağlar.
 
         Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
 
