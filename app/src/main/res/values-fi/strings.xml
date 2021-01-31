@@ -9,10 +9,10 @@
     <string name="copy_path">Kopioi polku työpöydälle</string>
     <string name="path_copied">Polku kopioitu</string>
     <string name="select_audio_file">Valitse äänitiedosto</string>
-    <string name="search_folder">Search folder</string>
+    <string name="search_folder">Etsi kansio</string>
     <string name="rooted_device_only">Tämä toiminto vaatii rootatun laitteen</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
+    <string name="recents">Äskeiset</string>
+    <string name="show_recents">Näytä äskeiset</string>
 
     <!-- Open as -->
     <string name="open_as">Avaa...</string>
@@ -36,7 +36,7 @@
     <!-- Favorites -->
     <string name="manage_favorites">Hallitse suosikkeja</string>
     <string name="go_to_favorite">Mene suosikkiin</string>
-    <string name="favorites_activity_placeholder">Voit lisätä usein käytettämiäsi kansiota suosikeiksi, jolloin niiden käyttöon helppoa mistä vain.</string>
+    <string name="favorites_activity_placeholder">Voit lisätä usein käytettämiäsi kansiota suosikeiksi, jolloin niiden käyttöo n helppoa mistä vain.</string>
 
     <!-- File Editor -->
     <string name="file_editor">Tiedoston muokkaus</string>
@@ -48,34 +48,34 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Helppo tiedostonhallinta turvallisesti yksityisyyttä kunnioittaen, ei mainoksia.</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Kevyt, nopea tiedostonhallintasovellus jokapäiväiseen käyttöön. Sovellus tarjoaa näppärän hakutoiminnon. Voit myös valita kotihakemiston ja valita suosikkikansiot nopeaan käyttöön.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        Sovellus sisältää useita tehokkaita turvallisuusominaisuuksia, kuten salasanasuojauksen piilotettujen kohteiden näyttämiseen, tiedostojen poistamiseen ja itse sovellukseen. Voit valita kuvion, PIN-koodin tai sormenjäljen pitääksesi tietosi yksityisenä.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Tämä moderni sovellus tukee root-kansion tiedostojen selausta, SD-kortteja sekä USB-laitteita.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Tuottavuuden takaamiseksi sovelluksessa on tietenkin kaikki standarditoiminnot kuten uudelleennimeäminen, kopiointi, siirtäminen, poistaminen, jakaminen jne. Sitä voi käyttää myös tilan säästämiseen, sillä sovelluksessa voit pakata ja purkaa tiedostoja. Voit halutessasi luoda helposti luoda uusia tiedostoja ja kansioita.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Voit tietenkin valita tietojen lajittelun useammalla eri arvolla, valita nousevan tai laskevan järjestyksen ja käyttää kansiokohtaista lajittelua.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Voit muutamalla painalluksella tarkistaa tiedoston tai kansion ominaisuudet; mm. tiedoston koko, viimeinen muokkauspäivä tai valokuvista EXIF-arvot kuten kuvanottopäivä, kameran malli jne.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Saat tiedoston tai kansion polun nopeasti painamalla kohdetta pitkään ja valitsemalla valikosta polon kopioinnin leikepöydälle.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Voit luoda käteviä pikakuvakkeita suosikkikohteillesi.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Sovellus sisältää kevyen tiedostojen muokkausmahdollisuuden, joten voit tulostaa, muokata tai lukea dokumentteja helposti, zoom-elein.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Sovellus on material-designing mukainen ja oletuksena tummalla teemalla. Se tarjoaa loistavan käyttökokemuksen ja helppokäyttöisyyden. Käyttö ei vaadi internetyhteyttä, joten sovelluksen vakaus sekä yksityisyytesi ja turvallisuutesi ovat paremmat kuin muissa sovelluksissa.
 
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
+        Ei sisällä mainoksia tai tarpeettomia käyttöoikeuksia. Sovellus on täysin vapaata lähdekoodia. Värimaailman voit mukauttaa mieluiseksesi.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Katso täältä koko Simple Tools-sovelluskokoelma:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Simple File Manager Pro:n kotisivu</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
