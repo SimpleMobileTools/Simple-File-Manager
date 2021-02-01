@@ -6,13 +6,13 @@
     <string name="go_to_home_folder">Mene kotikansioon</string>
     <string name="set_as_home_folder">Aseta kotikansioksi</string>
     <string name="home_folder_updated">Kotikansio päivitetty</string>
-    <string name="copy_path">Kopioi polku työpöydälle</string>
+    <string name="copy_path">Kopioi polku leikepöydälle</string>
     <string name="path_copied">Polku kopioitu</string>
     <string name="select_audio_file">Valitse äänitiedosto</string>
     <string name="search_folder">Etsi kansio</string>
     <string name="rooted_device_only">Tämä toiminto vaatii rootatun laitteen</string>
-    <string name="recents">Äskeiset</string>
-    <string name="show_recents">Näytä äskeiset</string>
+    <string name="recents">Viimeaikaiset</string>
+    <string name="show_recents">Näytä viimeaikaiset</string>
 
     <!-- Open as -->
     <string name="open_as">Avaa...</string>
@@ -20,7 +20,7 @@
     <string name="image_file">Kuvatiedostona</string>
     <string name="audio_file">Äänitiedostona</string>
     <string name="video_file">Videotiedostona</string>
-    <string name="other_file">Muuna tiedostona</string>
+    <string name="other_file">Jonakin muuna tiedostona</string>
 
     <!-- Compression -->
     <string name="compress">Pakkaa</string>
@@ -36,10 +36,10 @@
     <!-- Favorites -->
     <string name="manage_favorites">Hallitse suosikkeja</string>
     <string name="go_to_favorite">Mene suosikkiin</string>
-    <string name="favorites_activity_placeholder">Voit lisätä usein käytettämiäsi kansiota suosikeiksi, jolloin niiden käyttöo n helppoa mistä vain.</string>
+    <string name="favorites_activity_placeholder">Voit lisätä usein käyttämiäsi kansiota suosikeiksi, jolloin niiden käyttö on helppoa mistä vain.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">Tiedoston muokkaus</string>
+    <string name="file_editor">Tiedostoeditori</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Ota käyttöön root-ominaisuudet</string>
