@@ -11,8 +11,8 @@
     <string name="select_audio_file">Bitte wähle eine Audiodatei aus.</string>
     <string name="search_folder">Ordner suchen</string>
     <string name="rooted_device_only">Dies kann nur auf gerooteten Geräten durchgeführt werden.</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
+    <string name="recents">Neueste</string>
+    <string name="show_recents">Zeige die Neuesten</string>
 
     <!-- Open as -->
     <string name="open_as">Öffnen als</string>
@@ -50,32 +50,32 @@
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Ein leichter, schneller Dateimanager für den täglichen Gebrauch. Es bietet eine nützliche Suchfunktion; zudem kannst du den Home-Ordner anpassen und Lieblingsordner für den schnellen Zugriff konfigurieren.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        Die App beinhaltet mehrere leistungsstarke Sicherheitsfunktionen: z.B. kann sie versteckte Dateien, die ganze App und Dateilöschung & -verschiebung mit einem Passswort schützen. Du kannst zwischen einem Muster, einer Pin oder Fingerabdruck wählen, um deine Daten privat zu halten.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Dieser moderne Datei-Organisierer unterstützt das schnelle Durchsuchen von Root-Dateien, SD-Karten und USB-Geräten.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Damit sie produktiv bleiben, sind offensichtlich alle standard Dateioperationen wie umbenennen, kopieren, verschieben, löschen, teilen usw. vorhanden. Speicherplatz kann auch gespart werden, da die App Dateien komprimieren und dekomprimieren kann. Wenn du möchtest, kannst du ganz leicht neue Dateien und Ordner erstellen.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Offensichtlich kannst du anhand verschiedener Werte sortieren, beispielsweise aufsteigend und absteigend. Du kannst auch für einen bestimmten Ordner eine bestimmte Sortierreihenfolge auswählen.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Mit wenigen Klicks kannst du ebenso die Datei- und Ordnereigenschaften überprüfen, indem verschiedene Felder wie Dateigröße, Datum der letzten Bearbeitung, EXIF Daten wie das Erstelldatum, Kameramodel bei Fotos usw. angezeigt werden.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Den Datei- und Ordnerpfad kannst du schnel und bequem durch langes Drücken in die Zwischenablage kopieren.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Um schnell auf deine Lieblingsdateien zugreifen zu können, kannst du praktische Desktop-Verknüpfungen erstellen.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Ein einfacher Datei-Editor ist vorhanden, mit dem Dokumente gedruckt, editiert und gelesen werden können, wann immer es notwendig ist - auch Zoom-Gesten sind vorhanden.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Es kommt standardmäßig mit material design und Dunkelmodus, um eine großartige Nutzererfahrung und leichte Nutzung zu ermöglichen. Da die App keinen Internetzugriff hat, bietet sie mehr Datenschutz, Sicherheit und Stabilität als andere Apps.
 
         Beinhaltet keine Werbung oder unnötige Berechtigungen. Sie ist komplett Open Source, alle verwendeten Farben sind anpassbar.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Entdecke die gesamte Serie an schlichten Apps hier:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Standalone Webseite von Simple File Manager Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
