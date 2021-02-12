@@ -752,7 +752,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
                 item_check?.beVisibleIf(isSelected)
                 if (isSelected) {
-                    item_check?.background?.applyColorFilter(primaryColor)
+                    item_check?.background?.applyColorFilter(adjustedPrimaryColor)
+                    item_check?.applyColorFilter(contrastColor)
                 }
 
                 if (!isListViewType && !listItem.isDirectory) {
