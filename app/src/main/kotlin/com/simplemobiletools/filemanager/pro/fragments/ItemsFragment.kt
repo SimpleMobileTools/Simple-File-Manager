@@ -230,20 +230,19 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         val items = ArrayList<ListItem>()
         val files = File(path).listFiles()?.filterNotNull()
-        if (context == null) {
+        if (context == null || files == null) {
             callback(path, items)
             return
         }
 
-        val lastModifieds = context!!.getFolderLastModifieds(path)
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
-        if (files != null) {
-            for (file in files) {
-                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, getProperChildCount)
-                if (fileDirItem != null) {
-                    items.add(fileDirItem)
-                }
+        val lastModifieds = context!!.getFolderLastModifieds(path)
+
+        for (file in files) {
+            val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, getProperChildCount)
+            if (fileDirItem != null) {
+                items.add(fileDirItem)
             }
         }
 

@@ -393,7 +393,9 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                                 val sourceFolder = sourceFile.toFileDirItem(activity)
                                 activity.deleteFile(sourceFolder, true) {
                                     listener?.refreshItems()
-                                    finishActMode()
+                                    activity.runOnUiThread {
+                                        finishActMode()
+                                    }
                                 }
                             }
                         }
