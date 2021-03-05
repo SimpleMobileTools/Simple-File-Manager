@@ -58,7 +58,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.simplemobiletools:commons:5.33.35'
+    implementation 'com.simplemobiletools:commons:5.34.9'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
     implementation 'com.github.Stericson:RootShell:1.6'
     implementation 'com.alexvasilkov:gesture-views:2.5.2'
