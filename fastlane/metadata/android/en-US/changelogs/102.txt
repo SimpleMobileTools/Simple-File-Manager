@@ -1,0 +1,2 @@
+ * Properly refresh folders after moving files
+ * Added some design, stability and translation improvements

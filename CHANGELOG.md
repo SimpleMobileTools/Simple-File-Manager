@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.8.7 *(2021-03-05)*
+----------------------------
+
+ * Properly refresh folders after moving files
+ * Added some design, stability and translation improvements
+
 Version 6.8.6 *(2021-02-12)*
 ----------------------------
 
