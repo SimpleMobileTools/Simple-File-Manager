@@ -57,6 +57,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/breadcrumbs"
                 android:clipToPadding="false"
+                android:layoutAnimation="@anim/layout_animation"
                 android:scrollbars="none"
                 app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager" />
 

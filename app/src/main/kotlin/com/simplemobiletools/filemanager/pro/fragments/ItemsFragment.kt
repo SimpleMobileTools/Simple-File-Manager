@@ -190,6 +190,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     items_list.adapter = this
                 }
 
+                items_list.scheduleLayoutAnimation()
                 items_fastscroller.setViews(items_list, items_swipe_refresh) {
                     val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
                     items_fastscroller.updateBubbleText(listItem?.getBubbleText(context, storedDateFormat, storedTimeFormat) ?: "")
