@@ -719,6 +719,13 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         notifyDataSetChanged()
     }
 
+    fun updateChildCount(path: String, count: Int) {
+        val position = getItemKeyPosition(path.hashCode())
+        val item = listItems.getOrNull(position) ?: return
+        item.children = count
+        notifyItemChanged(position)
+    }
+
     fun isASectionTitle(position: Int) = listItems.getOrNull(position)?.isSectionTitle ?: false
 
     override fun onViewRecycled(holder: ViewHolder) {

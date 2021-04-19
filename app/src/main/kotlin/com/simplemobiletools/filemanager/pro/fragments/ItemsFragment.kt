@@ -241,13 +241,27 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         val lastModifieds = context!!.getFolderLastModifieds(path)
 
         for (file in files) {
-            val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, getProperChildCount)
+            val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, false)
             if (fileDirItem != null) {
                 items.add(fileDirItem)
             }
         }
 
+        // send out the initial item list asap, get proper child count asynchronously as it can be slow
         callback(path, items)
+
+        if (getProperChildCount) {
+            items.filter { it.mIsDirectory }.forEach {
+                if (context != null) {
+                    val childrenCount = it.getDirectChildrenCount(context!!, showHidden)
+                    if (childrenCount != 0) {
+                        activity?.runOnUiThread {
+                            getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean, lastModifieds: HashMap<String, Long>, getProperChildCount: Boolean): ListItem? {
@@ -451,7 +465,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun getRecyclerAdapter() = mView.items_list.adapter as? ItemsAdapter
 
-    fun setupLayoutManager() {
+    private fun setupLayoutManager() {
         if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
             currentViewType = VIEW_TYPE_GRID
             setupGridLayoutManager()
