@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.core.content.FileProvider
-import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isNougatPlus
@@ -29,11 +28,7 @@ fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsType: 
             action = Intent.ACTION_VIEW
             setDataAndType(uri, getMimeTypeFromUri(uri))
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
+            launchActivityIntent(this)
         }
     } else {
         openPath(path, forceChooser, openAsType)
