@@ -723,7 +723,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         val position = getItemKeyPosition(path.hashCode())
         val item = listItems.getOrNull(position) ?: return
         item.children = count
-        notifyItemChanged(position)
+        notifyItemChanged(position, Unit)
     }
 
     fun isASectionTitle(position: Int) = listItems.getOrNull(position)?.isSectionTitle ?: false
