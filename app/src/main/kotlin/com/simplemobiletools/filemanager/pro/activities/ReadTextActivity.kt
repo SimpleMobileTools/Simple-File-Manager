@@ -204,6 +204,9 @@ class ReadTextActivity : SimpleActivity() {
             } else {
                 try {
                     contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() }
+                } catch (e: OutOfMemoryError) {
+                    showErrorToast(e.toString())
+                    return@ensureBackgroundThread
                 } catch (e: Exception) {
                     showErrorToast(e)
                     finish()
