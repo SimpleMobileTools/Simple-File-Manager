@@ -1,0 +1,2 @@
+ * Improve the file loading performance
+ * Some stability and translation improvements

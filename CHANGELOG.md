@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.8.8 *(2021-04-19)*
+----------------------------
+
+ * Improve the file loading performance
+ * Some stability and translation improvements
+
 Version 6.8.7 *(2021-03-05)*
 ----------------------------
 
