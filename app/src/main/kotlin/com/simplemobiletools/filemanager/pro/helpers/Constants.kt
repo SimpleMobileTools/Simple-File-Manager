@@ -5,6 +5,7 @@ const val MAX_COLUMN_COUNT = 20
 
 // shared preferences
 const val SHOW_HIDDEN = "show_hidden"
+const val PRESS_BACK_TWICE = "press_back_twice"
 const val HOME_FOLDER = "home_folder"
 const val TEMPORARILY_SHOW_HIDDEN = "temporarily_show_hidden"
 const val IS_ROOT_AVAILABLE = "is_root_available"

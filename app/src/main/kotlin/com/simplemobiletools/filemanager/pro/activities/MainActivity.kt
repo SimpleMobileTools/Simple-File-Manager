@@ -330,7 +330,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onBackPressed() {
         if (fragment.mView.breadcrumbs.childCount <= 1) {
-            if (!wasBackJustPressed) {
+            if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
                 Handler().postDelayed({
