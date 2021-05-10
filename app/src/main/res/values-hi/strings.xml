@@ -1,87 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">साधा फ़ाइल मैंनेजर</string>
-    <string name="app_launcher_name">फ़ाइल मैंनेजर</string>
-    <string name="press_back_again">Appuyer à nouveau sur le bouton retour pour quitter</string>
-    <string name="go_to_home_folder">Aller au dossier par défaut</string>
-    <string name="set_as_home_folder">Définir en tant que dossier par défaut</string>
-    <string name="home_folder_updated">Dossier par défaut mis à jour</string>
-    <string name="copy_path">Copier le chemin du fichier dans le presse-papiers</string>
-    <string name="path_copied">Chemin du fichier copié</string>
-    <string name="select_audio_file">Veuillez sélectionner un fichier audio</string>
-    <string name="search_folder">Chercher dans le dossier</string>
-    <string name="rooted_device_only">Cette opération ne fonctionne que sur les périphériques rooté</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-
+    <string name="app_name">सरल फ़ाइल प्रबंधक</string>
+    <string name="app_launcher_name">फ़ाइल प्रबंधक</string>
+    <string name="press_back_again">फिर से बाहर निकलने के लिए प्रेस करें</string>
+    <string name="go_to_home_folder">घर फ़ोल्डर में जाओ</string>
+    <string name="set_as_home_folder">होम फ़ोल्डर के रूप में सेट करें</string>
+    <string name="home_folder_updated">होम फ़ोल्डर अद्यतन</string>
+    <string name="copy_path">क्लिपबोर्ड के लिए पथ कॉपी करें</string>
+    <string name="path_copied">पाथ कॉपी</string>
+    <string name="select_audio_file">कृपया एक ऑडियो फ़ाइल चुनें</string>
+    <string name="search_folder">खोज फ़ोल्डर</string>
+    <string name="rooted_device_only">यह ऑपरेशन केवल रूटेड डिवाइस पर काम करता है</string>
+    <string name="recents">हाल के</string>
+    <string name="show_recents">हाल ही में दिखाएं</string>
     <!-- Open as -->
-    <string name="open_as">इसमें खोलें</string>
+    <string name="open_as">इस रूप में खोलें</string>
     <string name="text_file">टेकस्ट फ़ाइलें</string>
     <string name="image_file">इमेज फ़ाइलें</string>
     <string name="audio_file">आॉडियो फ़ाइलें</string>
     <string name="video_file">वीडियो फ़ाइलें</string>
-    <string name="other_file">दूसरी फ़ाइलें</string>
+    <string name="other_file">अन्य फ़ाइलें</string>
 
     <!-- Compression -->
-    <string name="compress">Compresser</string>
-    <string name="decompress">Décompresser</string>
-    <string name="compress_as">Compresser sous</string>
-    <string name="compressing">Compression…</string>
-    <string name="decompressing">Décompression…</string>
-    <string name="compression_successful">Compression réussie</string>
-    <string name="decompression_successful">Décompression réussie</string>
-    <string name="compressing_failed">Compression ratée</string>
-    <string name="decompressing_failed">Décompression ratée</string>
+    <string name="compress">संपीड़न</string>
+    <string name="decompress">अवसाद</string>
+    <string name="compress_as">इस रूप में संपीड़न</string>
+    <string name="compressing">संपीड़न हो रहा है</string>
+    <string name="decompressing">अवसाद हो रहा है</string>
+    <string name="compression_successful">संपीड़न सफल</string>
+    <string name="decompression_successful">अवसाद सफल</string>
+    <string name="compressing_failed">संपीड़न विफल</string>
+    <string name="decompressing_failed">अवसाद विफल</string>
 
     <!-- Favorites -->
-    <string name="manage_favorites">Gérer les favoris</string>
-    <string name="go_to_favorite">Aller au favori</string>
-    <string name="favorites_activity_placeholder">Vous pouvez ajouter des dossiers souvent utilisés comme favoris pour y avoir accès rapidement depuis n\'importe où.</string>
+    <string name="manage_favorites">पसंदीदा प्रबंधित करें</string>
+    <string name="go_to_favorite">पसंदीदा के जाओ</string>
+    <string name="favorites_activity_placeholder">आप कहीं से भी आसानी से पहुंच के लिए पसंदीदा में अक्सर इस्तेमाल किए जाने वाले फ़ोल्डर जोड़ सकते हैं।</string>
 
     <!-- File Editor -->
-    <string name="file_editor">फ़ाइल में बदलाव करें</string>
+    <string name="file_editor">फ़ाइल संपादक</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Activer les droits root</string>
+    <string name="enable_root_access">रूट एक्सेस</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">सरल फ़ाइल प्रबंधक प्रो फ़ाइलों को आसान और तेज़ प्रबंधित करें</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">विज्ञापन के बिना अपनी फ़ाइलों को प्रबंधित करने के लिए आसान ऐप, अपनी गोपनीयता और सुरक्षा का सम्मान</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        रोजमर्रा के उपयोग के लिए एक हल्के त्वरित फ़ाइल प्रबंधक। यह एक उपयोगकर्ता की खोज कार्यक्षमता प्रदान करता है, आप होम फ़ोल्डर को भी कस्टमाइज़ कर सकते हैं और क्विक एक्सेस के लिए पसंदीदा फ़ोल्डर्स चुन सकते हैं। ऐप में कई शक्तिशाली सुरक्षा संबंधित कार्य शामिल हैं, जैसे पासवर्ड छुपा वस्तुओं की रक्षा करना, फ़ाइलों को हटाने, या पूरे ऐप को हटा देना। आप अपने डेटा को निजी रखने के लिए एक पैटर्न, पिन या फिंगरप्रिंट का उपयोग करने के बीच चयन कर सकते हैं।
+        यह आधुनिक फ़ाइल आयोजक रूट फ़ाइलों, एसडी कार्ड और यूएसबी उपकरणों के तेज ब्राउज़िंग का समर्थन करता है। अपने उत्पादक को रखने के लिए, यह स्पष्ट रूप से सभी मानक फ़ाइल संचालन जैसे नाम, प्रतिलिपि, चाल, हटाएं, शेयर आदि हैं। इसका उपयोग कुछ भंडारण को बचाने के लिए भी किया जा सकता है, क्योंकि यह भी संपीड़न और डीकंप्रेस करने की अनुमति देता है। यदि आप ऐसा करना चाहते हैं तो आप आसानी से नई फाइलें या फ़ोल्डर बना सकते हैं। 
+        आप स्पष्ट रूप से कई अलग-अलग मूल्यों द्वारा क्रमबद्ध चयन कर सकते हैं, आरोही और अवरोही के बीच टॉगल कर सकते हैं, या किसी फ़ोल्डर विशिष्ट छँटाई का उपयोग कर सकते हैं।        कुछ ही क्लिकों से आप फ़ाइल या फ़ोल्डर गुणों की भी जांच कर सकते हैं, जो फ़ाइल आकार, अंतिम संशोधन की तारीख, या EXIF मान जैसे निर्माण तिथि, फोटो पर कैमरा मॉडल इत्यादि जैसे विभिन्न क्षेत्रों को दर्शाता है।
+        जल्दी से एक फ़ाइल या फ़ोल्डर पथ प्राप्त करने के लिए, आप इसे लंबे समय तक दबाकर और इसे क्लिपबोर्ड में कॉपी करके आसानी से चुन सकते हैं।
+        आप अपनी पसंदीदा वस्तुओं को जल्दी से एक्सेस करने के लिए आसान डेस्कटॉप शॉर्टकट बना सकते हैं।
+        इसमें एक प्रकाश फ़ाइल संपादक शामिल है जिसे आप या तो प्रिंटिंग दस्तावेजों के लिए उपयोग कर सकते हैं, उन्हें संपादित कर सकते हैं, या ज़ूम इशारों का उपयोग करके आसानी से पढ़ सकते हैं, जब भी आवश्यक हो।
+        यह डिफ़ॉल्ट रूप से सामग्री डिजाइन और डार्क थीम के साथ आता है, आसान उपयोग के लिए महान उपयोगकर्ता अनुभव प्रदान करता है। इंटरनेट एक्सेस की कमी आपको अन्य ऐप्स की तुलना में गोपनीयता, सुरक्षा और स्थिरता प्रदान करती है।
+        इसमें कोई विज्ञापन या अनावश्यक अनुमति नहीं है। यह पूरी तरह से खुला स्रोत है, अनुकूलन योग्य रंग प्रदान करता है।
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
-
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
-
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
-
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
-
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
-
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
-
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
-
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Ne contient pas de pubs ou de permissions inutiles. C\'est un logiciel libre et open-source. Il y a un thème sombre.
-
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b> यहाँ सिंपल टूल के पूर्ण सूट की जाँच करें:</b>
         https://www.simplemobiletools.com
 
-        <b>साधा फ़ाइल मैंनेजर का खास  स्टैंडअलोन वेबसाइट:</b>
+        <b>Standalone वेबसाइट of Simple File Manager Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>फेसबुक:</b>
         https://www.facebook.com/simplemobiletools
 
-        <b>रेड्डिट:</b>
+        <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
 
