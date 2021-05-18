@@ -119,19 +119,9 @@ class SettingsActivity : SimpleActivity() {
     private fun setupPressBackTwice() {
         settings_press_back_twice.isChecked = config.pressBackTwice
         settings_press_back_twice_holder.setOnClickListener {
-            if (config.pressBackTwice) {
-                togglePressBackTwice()
-            } else {
-                handleHiddenFolderPasswordProtection {
-                    togglePressBackTwice()
-                }
-            }
+            settings_press_back_twice.toggle()
+            config.pressBackTwice = settings_press_back_twice.isChecked
         }
-    }
-
-    private fun togglePressBackTwice() {
-        settings_press_back_twice.toggle()
-        config.pressBackTwice = settings_press_back_twice.isChecked
     }
 
     private fun setupHiddenItemPasswordProtection() {
