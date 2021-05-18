@@ -409,6 +409,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
         val isSortingBySize = sorting and SORT_BY_SIZE != 0
         File(path).listFiles()?.sortedBy { it.isDirectory }?.forEach {
+            if (!showHidden && it.isHidden) {
+                return@forEach
+            }
+
             if (it.isDirectory) {
                 if (it.name.contains(text, true)) {
                     val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
