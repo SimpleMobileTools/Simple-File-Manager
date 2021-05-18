@@ -5,22 +5,22 @@
         android:id="@+id/cab_delete"
         android:icon="@drawable/ic_delete_vector"
         android:title="@string/delete"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/cab_confirm_selection"
         android:icon="@drawable/ic_check_vector"
         android:title="@string/confirm_selection"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/cab_properties"
         android:icon="@drawable/ic_info"
         android:title="@string/properties"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/cab_rename"
         android:icon="@drawable/ic_rename_new"
         android:title="@string/rename"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/cab_share"
         android:icon="@drawable/ic_share_vector"
