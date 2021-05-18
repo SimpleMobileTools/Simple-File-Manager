@@ -31,6 +31,7 @@ class SettingsActivity : SimpleActivity() {
         setupChangeDateTimeFormat()
         setupFontSize()
         setupShowHidden()
+        setupPressBackTwice()
         setupHiddenItemPasswordProtection()
         setupAppPasswordProtection()
         setupFileDeletionPasswordProtection()
@@ -113,6 +114,14 @@ class SettingsActivity : SimpleActivity() {
     private fun toggleShowHidden() {
         settings_show_hidden.toggle()
         config.showHidden = settings_show_hidden.isChecked
+    }
+
+    private fun setupPressBackTwice() {
+        settings_press_back_twice.isChecked = config.pressBackTwice
+        settings_press_back_twice_holder.setOnClickListener {
+            settings_press_back_twice.toggle()
+            config.pressBackTwice = settings_press_back_twice.isChecked
+        }
     }
 
     private fun setupHiddenItemPasswordProtection() {

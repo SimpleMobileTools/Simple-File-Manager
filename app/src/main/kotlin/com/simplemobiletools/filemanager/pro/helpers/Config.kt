@@ -22,6 +22,10 @@ class Config(context: Context) : BaseConfig(context) {
 
     var shouldShowHidden = showHidden || temporarilyShowHidden
 
+    var pressBackTwice: Boolean
+        get() = prefs.getBoolean(PRESS_BACK_TWICE, true)
+        set(pressBackTwice) = prefs.edit().putBoolean(PRESS_BACK_TWICE, pressBackTwice).apply()
+
     var homeFolder: String
         get(): String {
             var path = prefs.getString(HOME_FOLDER, "")!!
