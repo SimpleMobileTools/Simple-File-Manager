@@ -43,7 +43,7 @@
 
     <!-- Settings -->
     <string name="enable_root_access">Povoliť prístup ku koreňovým súborom</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="press_back_twice">Vyžadovať stlačenie Späť na opustenie apky dvakrát</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
