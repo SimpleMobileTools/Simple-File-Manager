@@ -37,7 +37,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
     var isPickMultipleIntent = false
 
     private var activity: SimpleActivity? = null
-    private var isFirstResume = true
     private var showHidden = false
     private var skipItemUpdating = false
     private var isSearchOpen = false
@@ -68,12 +67,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
 
         breadcrumbs.updateColor(textColor)
         items_fastscroller.updateBubbleColors()
-
-        if (!isFirstResume) {
-            refreshItems()
-        }
-
-        isFirstResume = false
     }
 
     fun updateFontSize() {
