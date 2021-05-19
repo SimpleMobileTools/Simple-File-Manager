@@ -259,6 +259,7 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun tryInitFileManager() {
+        val hadPermission = hasPermission(PERMISSION_WRITE_STORAGE)
         handlePermission(PERMISSION_WRITE_STORAGE) {
             checkOTGPath()
             if (it) {
@@ -267,7 +268,7 @@ class MainActivity : SimpleActivity() {
                 }
 
                 main_view_pager.onGlobalLayout {
-                    initFileManager()
+                    initFileManager(!hadPermission)
                 }
             } else {
                 toast(R.string.no_storage_permissions)
@@ -276,7 +277,7 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun initFileManager() {
+    private fun initFileManager(refreshRecents: Boolean) {
         if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
             val data = intent.data
             if (data?.scheme == "file") {
@@ -301,6 +302,10 @@ class MainActivity : SimpleActivity() {
             it?.isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
             it?.isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
             it?.isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+        }
+
+        if (refreshRecents) {
+            recents_fragment?.refreshItems()
         }
     }
 
