@@ -414,6 +414,7 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun toggleFilenameVisibility() {
+        config.displayFilenames = !config.displayFilenames
         getAllFragments().forEach {
             it?.toggleFilenameVisibility()
         }
@@ -455,8 +456,10 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun changeViewType() {
-        ChangeViewTypeDialog(this, getCurrentFragment().currentPath) {
-            getCurrentFragment().refreshItems()
+        ChangeViewTypeDialog(this, getCurrentFragment().currentPath, getCurrentFragment() is ItemsFragment) {
+            getAllFragments().forEach {
+                it?.refreshItems()
+            }
         }
     }
 
@@ -472,7 +475,9 @@ class MainActivity : SimpleActivity() {
 
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
-        openPath(getCurrentFragment().currentPath)
+        getAllFragments().forEach {
+            it?.refreshItems()
+        }
     }
 
     private fun launchAbout() {

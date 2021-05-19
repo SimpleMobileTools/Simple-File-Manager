@@ -44,6 +44,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {}
 
     private fun getRecents(callback: (recents: ArrayList<ListItem>) -> Unit) {
+        val showHidden = context?.config?.shouldShowHidden ?: return
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.DATA,
@@ -52,7 +53,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             MediaStore.Files.FileColumns.SIZE
         )
 
-        val sortOrder = "${MediaStore.Files.FileColumns.DATE_MODIFIED} DESC LIMIT 50"
+        val sortOrder = "${MediaStore.Files.FileColumns.DATE_MODIFIED} DESC"
         val cursor = context?.contentResolver?.query(uri, projection, null, null, sortOrder)
         val listItems = arrayListOf<ListItem>()
 
@@ -64,7 +65,9 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
                     val modified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
                     val fileDirItem = ListItem(path, name, false, 0, size, modified, false)
-                    listItems.add(fileDirItem)
+                    if (showHidden || !name.startsWith(".")) {
+                        listItems.add(fileDirItem)
+                    }
                 } while (cursor.moveToNext())
             }
         }
@@ -77,12 +80,10 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private fun getRecyclerAdapter() = recents_list.adapter as? ItemsAdapter
 
     override fun toggleFilenameVisibility() {
-        context?.config?.displayFilenames = !context!!.config.displayFilenames
         getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
     }
 
     override fun increaseColumnCount() {
-        context?.config?.fileColumnCnt = ++(recents_list.layoutManager as MyGridLayoutManager).spanCount
         columnCountChanged()
     }
 

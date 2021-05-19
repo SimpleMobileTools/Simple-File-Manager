@@ -477,7 +477,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     }
 
     override fun toggleFilenameVisibility() {
-        context?.config?.displayFilenames = !context!!.config.displayFilenames
         getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
     }
 
