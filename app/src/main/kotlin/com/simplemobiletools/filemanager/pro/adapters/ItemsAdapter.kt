@@ -638,8 +638,13 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
 
     private fun askConfirmDelete() {
         activity.handleDeletePasswordProtection {
-            val selectionSize = selectedKeys.size
-            val items = resources.getQuantityString(R.plurals.delete_items, selectionSize, selectionSize)
+            val itemsCnt = selectedKeys.size
+            val items = if (itemsCnt == 1) {
+                "\"${getFirstSelectedItemPath().getFilenameFromPath()}\""
+            } else {
+                resources.getQuantityString(R.plurals.delete_items, itemsCnt, itemsCnt)
+            }
+
             val question = String.format(resources.getString(R.string.deletion_confirmation), items)
             ConfirmationDialog(activity, question) {
                 deleteFiles()
