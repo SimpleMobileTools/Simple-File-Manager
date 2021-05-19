@@ -27,6 +27,7 @@ import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
+import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
@@ -129,22 +130,22 @@ class MainActivity : SimpleActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val favorites = config.favorites
-        val fragment = getCurrentFragment() ?: return true
+        val currentFragment = getCurrentFragment()
 
         menu!!.apply {
-            findItem(R.id.add_favorite).isVisible = !favorites.contains(fragment.currentPath)
-            findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
+            findItem(R.id.add_favorite).isVisible = !favorites.contains(currentFragment.currentPath)
+            findItem(R.id.remove_favorite).isVisible = favorites.contains(currentFragment.currentPath)
             findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
 
-            findItem(R.id.toggle_filename).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID
-            findItem(R.id.go_home).isVisible = fragment.currentPath != config.homeFolder
-            findItem(R.id.set_as_home).isVisible = fragment.currentPath != config.homeFolder
+            findItem(R.id.toggle_filename).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID
+            findItem(R.id.go_home).isVisible = currentFragment.currentPath != config.homeFolder
+            findItem(R.id.set_as_home).isVisible = currentFragment.currentPath != config.homeFolder
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
-            findItem(R.id.increase_column_count).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
-            findItem(R.id.reduce_column_count).isVisible = config.getFolderViewType(fragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt > 1
+            findItem(R.id.increase_column_count).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
+            findItem(R.id.reduce_column_count).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt > 1
         }
 
         return true
@@ -157,13 +158,13 @@ class MainActivity : SimpleActivity() {
             R.id.sort -> showSortingDialog()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
-            R.id.toggle_filename -> getCurrentFragment().toggleFilenameVisibility()
+            R.id.toggle_filename -> toggleFilenameVisibility()
             R.id.set_as_home -> setAsHome()
             R.id.change_view_type -> changeViewType()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.increase_column_count -> getCurrentFragment().increaseColumnCount()
-            R.id.reduce_column_count -> getCurrentFragment().reduceColumnCount()
+            R.id.increase_column_count -> increaseColumnCount()
+            R.id.reduce_column_count -> reduceColumnCount()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -173,7 +174,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(PICKED_PATH, getCurrentFragment().currentPath)
+        outState.putString(PICKED_PATH, items_fragment.currentPath)
         outState.putBoolean(WAS_PROTECTION_HANDLED, mWasProtectionHandled)
     }
 
@@ -230,13 +231,13 @@ class MainActivity : SimpleActivity() {
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 isSearchOpen = true
-                getCurrentFragment().searchOpened()
+                (getCurrentFragment() as? ItemsFragment)?.searchOpened()
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 isSearchOpen = false
-                getCurrentFragment().searchClosed()
+                (getCurrentFragment() as? ItemsFragment)?.searchClosed()
                 return true
             }
         })
@@ -289,10 +290,10 @@ class MainActivity : SimpleActivity() {
             openPath(config.homeFolder)
         }
 
-        getCurrentFragment()?.apply {
-            isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
-            isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
-            isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+        getAllFragments().forEach {
+            it?.isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
+            it?.isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+            it?.isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         }
     }
 
@@ -386,7 +387,7 @@ class MainActivity : SimpleActivity() {
             newPath = internalStoragePath
         }
 
-        getCurrentFragment()?.openPath(newPath, forceRefresh)
+        items_fragment?.openPath(newPath, forceRefresh)
     }
 
     private fun goHome() {
@@ -397,7 +398,7 @@ class MainActivity : SimpleActivity() {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this, getCurrentFragment().currentPath) {
-            getCurrentFragment().refreshItems()
+            (getCurrentFragment() as? ItemsFragment)?.refreshItems()
         }
     }
 
@@ -407,6 +408,24 @@ class MainActivity : SimpleActivity() {
 
     private fun removeFavorite() {
         config.removeFavorite(getCurrentFragment().currentPath)
+    }
+
+    private fun toggleFilenameVisibility() {
+        getAllFragments().forEach {
+            it?.toggleFilenameVisibility()
+        }
+    }
+
+    private fun increaseColumnCount() {
+        getAllFragments().forEach {
+            it?.increaseColumnCount()
+        }
+    }
+
+    private fun reduceColumnCount() {
+        getAllFragments().forEach {
+            it?.reduceColumnCount()
+        }
     }
 
     private fun goToFavorite() {
@@ -469,7 +488,12 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onBackPressed() {
-        if (getCurrentFragment().breadcrumbs.childCount <= 1) {
+        if (getCurrentFragment() !is ItemsFragment) {
+            super.onBackPressed()
+            return
+        }
+
+        if (getCurrentFragment().breadcrumbs.childCount ?: 2 <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -554,7 +578,10 @@ class MainActivity : SimpleActivity() {
 
     private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment)
 
-    private fun getCurrentFragment() = items_fragment
+    private fun getCurrentFragment(): MyViewPagerFragment = when (main_view_pager.currentItem) {
+        TAB_FILES -> items_fragment
+        else -> recents_fragment
+    }
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

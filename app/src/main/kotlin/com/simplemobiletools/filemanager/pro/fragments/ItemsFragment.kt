@@ -30,11 +30,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
-    var currentPath = ""
-    var isGetContentIntent = false
-    var isGetRingtonePicker = false
-    var isPickMultipleIntent = false
-
     private var activity: SimpleActivity? = null
     private var showHidden = false
     private var skipItemUpdating = false
@@ -476,12 +471,12 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
     }
 
-    fun increaseColumnCount() {
+    override fun increaseColumnCount() {
         context?.config?.fileColumnCnt = ++(items_list.layoutManager as MyGridLayoutManager).spanCount
         columnCountChanged()
     }
 
-    fun reduceColumnCount() {
+    override fun reduceColumnCount() {
         context?.config?.fileColumnCnt = --(items_list.layoutManager as MyGridLayoutManager).spanCount
         columnCountChanged()
     }
@@ -494,7 +489,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    fun toggleFilenameVisibility() {
+    override fun toggleFilenameVisibility() {
         context?.config?.displayFilenames = !context!!.config.displayFilenames
         getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
     }
