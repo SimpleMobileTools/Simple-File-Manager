@@ -5,6 +5,7 @@ import android.provider.MediaStore
 import android.util.AttributeSet
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getDoesFilePathExist
 import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
@@ -125,7 +126,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
                     val modified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
                     val fileDirItem = ListItem(path, name, false, 0, size, modified, false)
-                    if (showHidden || !name.startsWith(".")) {
+                    if ((showHidden || !name.startsWith(".")) && activity?.getDoesFilePathExist(path) == true) {
                         listItems.add(fileDirItem)
                     }
                 } while (cursor.moveToNext())
