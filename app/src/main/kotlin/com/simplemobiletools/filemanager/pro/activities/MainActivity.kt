@@ -133,13 +133,16 @@ class MainActivity : SimpleActivity() {
         val currentFragment = getCurrentFragment()
 
         menu!!.apply {
-            findItem(R.id.add_favorite).isVisible = !favorites.contains(currentFragment.currentPath)
-            findItem(R.id.remove_favorite).isVisible = favorites.contains(currentFragment.currentPath)
-            findItem(R.id.go_to_favorite).isVisible = favorites.isNotEmpty()
+            findItem(R.id.search).isVisible = currentFragment is ItemsFragment
+            findItem(R.id.sort).isVisible = currentFragment is ItemsFragment
+
+            findItem(R.id.add_favorite).isVisible = currentFragment is ItemsFragment && !favorites.contains(currentFragment.currentPath)
+            findItem(R.id.remove_favorite).isVisible = currentFragment is ItemsFragment && favorites.contains(currentFragment.currentPath)
+            findItem(R.id.go_to_favorite).isVisible = currentFragment is ItemsFragment && favorites.isNotEmpty()
 
             findItem(R.id.toggle_filename).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID
-            findItem(R.id.go_home).isVisible = currentFragment.currentPath != config.homeFolder
-            findItem(R.id.set_as_home).isVisible = currentFragment.currentPath != config.homeFolder
+            findItem(R.id.go_home).isVisible = currentFragment is ItemsFragment && currentFragment.currentPath != config.homeFolder
+            findItem(R.id.set_as_home).isVisible = currentFragment is ItemsFragment && currentFragment.currentPath != config.homeFolder
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
