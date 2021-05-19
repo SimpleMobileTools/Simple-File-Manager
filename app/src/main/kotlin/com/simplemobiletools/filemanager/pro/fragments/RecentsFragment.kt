@@ -1,7 +1,8 @@
 package com.simplemobiletools.filemanager.pro.fragments
 
 import android.content.Context
-import android.provider.MediaStore
+import android.provider.MediaStore.Files
+import android.provider.MediaStore.Files.FileColumns
 import android.util.AttributeSet
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.extensions.*
@@ -107,30 +108,26 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     private fun getRecents(callback: (recents: ArrayList<ListItem>) -> Unit) {
         val showHidden = context?.config?.shouldShowHidden ?: return
-        val uri = MediaStore.Files.getContentUri("external")
-        val projection = arrayOf(
-            MediaStore.Files.FileColumns.DATA,
-            MediaStore.Files.FileColumns.DISPLAY_NAME,
-            MediaStore.Files.FileColumns.DATE_MODIFIED,
-            MediaStore.Files.FileColumns.SIZE
-        )
-
-        val sortOrder = "${MediaStore.Files.FileColumns.DATE_MODIFIED} DESC LIMIT 50"
-        val cursor = context?.contentResolver?.query(uri, projection, null, null, sortOrder)
         val listItems = arrayListOf<ListItem>()
 
-        cursor?.use {
-            if (cursor.moveToFirst()) {
-                do {
-                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
-                    val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
-                    val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
-                    val modified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
-                    val fileDirItem = ListItem(path, name, false, 0, size, modified, false)
-                    if ((showHidden || !name.startsWith(".")) && activity?.getDoesFilePathExist(path) == true) {
-                        listItems.add(fileDirItem)
-                    }
-                } while (cursor.moveToNext())
+        val uri = Files.getContentUri("external")
+        val projection = arrayOf(
+            FileColumns.DATA,
+            FileColumns.DISPLAY_NAME,
+            FileColumns.DATE_MODIFIED,
+            FileColumns.SIZE
+        )
+
+        val sortOrder = "${FileColumns.DATE_MODIFIED} DESC LIMIT 50"
+
+        context?.queryCursor(uri, projection, sortOrder = sortOrder, showErrors = true) { cursor ->
+            val path = cursor.getStringValue(FileColumns.DATA)
+            val name = cursor.getStringValue(FileColumns.DISPLAY_NAME)
+            val size = cursor.getLongValue(FileColumns.SIZE)
+            val modified = cursor.getLongValue(FileColumns.DATE_MODIFIED) * 1000
+            val fileDirItem = ListItem(path, name, false, 0, size, modified, false)
+            if ((showHidden || !name.startsWith(".")) && activity?.getDoesFilePathExist(path) == true) {
+                listItems.add(fileDirItem)
             }
         }
 
