@@ -19,7 +19,6 @@ import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.CreateNewItemDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
-import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
@@ -30,7 +29,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
-    private var activity: SimpleActivity? = null
     private var showHidden = false
     private var skipItemUpdating = false
     private var isSearchOpen = false
@@ -248,18 +246,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         if (item.isDirectory) {
             openDirectory(item.path)
         } else {
-            val path = item.path
-            if (isGetContentIntent) {
-                (activity as MainActivity).pickedPath(path)
-            } else if (isGetRingtonePicker) {
-                if (path.isAudioFast()) {
-                    (activity as MainActivity).pickedRingtone(path)
-                } else {
-                    activity?.toast(R.string.select_audio_file)
-                }
-            } else {
-                activity?.tryOpenPathIntent(path, false)
-            }
+            clickedPath(item.path)
         }
     }
 

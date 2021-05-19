@@ -11,15 +11,12 @@ import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
-import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.recents_fragment.view.*
 import java.util.*
 
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
-    private var activity: SimpleActivity? = null
-
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
@@ -33,8 +30,8 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         ensureBackgroundThread {
             getRecents { recents ->
                 recents_swipe_refresh?.isRefreshing = false
-                ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, false, null, recents_swipe_refresh) {
-                    activity?.tryOpenPathIntent((it as FileDirItem).path, false)
+                ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, isPickMultipleIntent, null, recents_swipe_refresh) {
+                    clickedPath((it as FileDirItem).path)
                 }.apply {
                     recents_list.adapter = this
                 }
