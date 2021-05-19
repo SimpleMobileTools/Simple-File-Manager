@@ -43,7 +43,7 @@
 
     <!-- Settings -->
     <string name="enable_root_access">Ενεργοποιήστε την πρόσβαση ριζικού καταλόγου</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="press_back_twice">Απαιτείται διπλό πάτημα του πλήκτρου \"Πίσω\" για κλείσιμο εφαρμογής</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
