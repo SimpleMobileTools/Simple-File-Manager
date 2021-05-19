@@ -5,6 +5,7 @@ import android.app.SearchManager
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.Handler
@@ -88,6 +89,14 @@ class MainActivity : SimpleActivity() {
                 it.updateDateTimeFormat()
             }
         }
+
+        getInactiveTabIndexes(main_view_pager.currentItem).forEach {
+            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+        }
+
+        main_tabs_holder.background = ColorDrawable(config.backgroundColor)
+        main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
     }
 
     override fun onPause() {
@@ -163,7 +172,7 @@ class MainActivity : SimpleActivity() {
         val path = savedInstanceState.getString(PICKED_PATH) ?: internalStoragePath
 
         if (main_view_pager.adapter == null) {
-            main_view_pager.adapter = ViewPagerAdapter(this)
+            initFragments()
             main_view_pager.onGlobalLayout {
                 restorePath(path)
             }
@@ -273,6 +282,43 @@ class MainActivity : SimpleActivity() {
             isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
             isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
             isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+        }
+    }
+
+    private fun initFragments() {
+        main_view_pager.adapter = ViewPagerAdapter(this)
+        main_view_pager.onPageChangeListener {
+            main_tabs_holder.getTabAt(it)?.select()
+            invalidateOptionsMenu()
+        }
+
+        val tabToOpen = config.lastUsedViewPagerPage
+        main_view_pager.currentItem = tabToOpen
+        main_tabs_holder.onTabSelectionChanged(
+            tabUnselectedAction = {
+                it.icon?.applyColorFilter(config.textColor)
+            },
+            tabSelectedAction = {
+                main_view_pager.currentItem = it.position
+                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+            }
+        )
+
+        setupTabColors(tabToOpen)
+    }
+
+    private fun setupTabColors(lastUsedTab: Int) {
+        main_tabs_holder.apply {
+            background = ColorDrawable(config.backgroundColor)
+            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+            getTabAt(lastUsedTab)?.apply {
+                select()
+                icon?.applyColorFilter(getAdjustedPrimaryColor())
+            }
+
+            getInactiveTabIndexes(lastUsedTab).forEach {
+                getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+            }
         }
     }
 
@@ -465,6 +511,8 @@ class MainActivity : SimpleActivity() {
             MenuItemCompat.collapseActionView(searchMenuItem)
         }
     }
+
+    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1).filter { it != activeIndex }
 
     private fun getAllFragments() = arrayListOf(items_fragment)
 
