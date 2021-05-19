@@ -3,9 +3,13 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.content.Context
 import android.provider.MediaStore
 import android.util.AttributeSet
+import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.mydebug
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -13,6 +17,7 @@ import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
+import kotlinx.android.synthetic.main.items_fragment.view.*
 import kotlinx.android.synthetic.main.recents_fragment.view.*
 import java.util.*
 
@@ -30,18 +35,64 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         ensureBackgroundThread {
             getRecents { recents ->
                 recents_swipe_refresh?.isRefreshing = false
-                ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, isPickMultipleIntent, null, recents_swipe_refresh) {
-                    clickedPath((it as FileDirItem).path)
-                }.apply {
-                    recents_list.adapter = this
-                }
+                addItems(recents, false)
 
-                recents_list.scheduleLayoutAnimation()
+                if (context != null && currentViewType != context!!.config.getFolderViewType(currentPath)) {
+                    setupLayoutManager()
+                }
             }
         }
     }
 
+    private fun addItems(recents: ArrayList<ListItem>, forceRefresh: Boolean) {
+        if (!forceRefresh && recents.hashCode() == (recents_list.adapter as? ItemsAdapter)?.listItems.hashCode()) {
+            return
+        }
+
+        ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, isPickMultipleIntent, null, recents_swipe_refresh) {
+            clickedPath((it as FileDirItem).path)
+        }.apply {
+            recents_list.adapter = this
+        }
+
+        recents_list.scheduleLayoutAnimation()
+    }
+
     override fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {}
+
+    private fun setupLayoutManager() {
+        if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
+            currentViewType = VIEW_TYPE_GRID
+            setupGridLayoutManager()
+        } else {
+            currentViewType = VIEW_TYPE_LIST
+            setupListLayoutManager()
+        }
+
+        val oldItems = (recents_list.adapter as? ItemsAdapter)?.listItems?.toMutableList() as ArrayList<ListItem>
+        recents_list.adapter = null
+        addItems(oldItems, true)
+    }
+
+    private fun setupGridLayoutManager() {
+        val layoutManager = recents_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
+
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (getRecyclerAdapter()?.isASectionTitle(position) == true) {
+                    layoutManager.spanCount
+                } else {
+                    1
+                }
+            }
+        }
+    }
+
+    private fun setupListLayoutManager() {
+        val layoutManager = recents_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = 1
+    }
 
     private fun getRecents(callback: (recents: ArrayList<ListItem>) -> Unit) {
         val showHidden = context?.config?.shouldShowHidden ?: return
@@ -53,7 +104,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             MediaStore.Files.FileColumns.SIZE
         )
 
-        val sortOrder = "${MediaStore.Files.FileColumns.DATE_MODIFIED} DESC"
+        val sortOrder = "${MediaStore.Files.FileColumns.DATE_MODIFIED} DESC LIMIT 50"
         val cursor = context?.contentResolver?.query(uri, projection, null, null, sortOrder)
         val listItems = arrayListOf<ListItem>()
 
@@ -84,12 +135,17 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     override fun increaseColumnCount() {
-        columnCountChanged()
+        if (currentViewType == VIEW_TYPE_GRID) {
+            context?.config?.fileColumnCnt = ++(recents_list.layoutManager as MyGridLayoutManager).spanCount
+            columnCountChanged()
+        }
     }
 
     override fun reduceColumnCount() {
-        context?.config?.fileColumnCnt = --(recents_list.layoutManager as MyGridLayoutManager).spanCount
-        columnCountChanged()
+        if (currentViewType == VIEW_TYPE_GRID) {
+            context?.config?.fileColumnCnt = --(recents_list.layoutManager as MyGridLayoutManager).spanCount
+            columnCountChanged()
+        }
     }
 
     private fun columnCountChanged() {

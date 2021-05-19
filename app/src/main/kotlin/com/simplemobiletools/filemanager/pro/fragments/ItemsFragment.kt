@@ -33,7 +33,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     private var skipItemUpdating = false
     private var isSearchOpen = false
     private var lastSearchedText = ""
-    private var currentViewType = VIEW_TYPE_LIST
     private var scrollStates = HashMap<String, Parcelable>()
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
@@ -459,13 +458,17 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     }
 
     override fun increaseColumnCount() {
-        context?.config?.fileColumnCnt = ++(items_list.layoutManager as MyGridLayoutManager).spanCount
-        columnCountChanged()
+        if (currentViewType == VIEW_TYPE_GRID) {
+            context?.config?.fileColumnCnt = ++(items_list.layoutManager as MyGridLayoutManager).spanCount
+            columnCountChanged()
+        }
     }
 
     override fun reduceColumnCount() {
-        context?.config?.fileColumnCnt = --(items_list.layoutManager as MyGridLayoutManager).spanCount
-        columnCountChanged()
+        if (currentViewType == VIEW_TYPE_GRID) {
+            context?.config?.fileColumnCnt = --(items_list.layoutManager as MyGridLayoutManager).spanCount
+            columnCountChanged()
+        }
     }
 
     private fun columnCountChanged() {
