@@ -1,11 +1,9 @@
 package com.simplemobiletools.filemanager.pro.fragments
 
-import android.os.Bundle
+import android.content.Context
 import android.os.Parcelable
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.util.AttributeSet
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
@@ -24,7 +22,6 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
-import com.simplemobiletools.filemanager.pro.helpers.PATH
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
@@ -33,12 +30,13 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
+class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
     var currentPath = ""
     var isGetContentIntent = false
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
 
+    private var activity: SimpleActivity? = null
     private var isFirstResume = true
     private var showHidden = false
     private var skipItemUpdating = false
@@ -49,68 +47,51 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
     private var storedItems = ArrayList<ListItem>()
-    private var storedTextColor = 0
     private var storedFontSize = 0
     private var storedDateFormat = ""
     private var storedTimeFormat = ""
 
-    lateinit var mView: View
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        mView = inflater.inflate(R.layout.items_fragment, container, false)!!
-        storeStateVariables()
-        return mView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mView.apply {
+    fun setupFragment(activity: SimpleActivity) {
+        if (this.activity == null) {
+            this.activity = activity
             items_swipe_refresh.setOnRefreshListener { refreshItems() }
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString(PATH, currentPath)
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        if (savedInstanceState != null) {
-            currentPath = savedInstanceState.getString(PATH)!!
-            storedItems.clear()
+    private fun storeStateVariables() {
+        context!!.config.apply {
+            storedFontSize = fontSize
+            storedDateFormat = dateFormat
+            storedTimeFormat = context.getTimeFormat()
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        context!!.updateTextColors(mView as ViewGroup)
-        mView.items_fastscroller.updatePrimaryColor()
-        val newTextColor = context!!.config.textColor
-        if (storedTextColor != newTextColor) {
-            storedItems = ArrayList()
-            getRecyclerAdapter()?.apply {
-                updateTextColor(newTextColor)
-                initDrawables()
-            }
-            mView.breadcrumbs.updateColor(newTextColor)
-            storedTextColor = newTextColor
+    fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {
+        context!!.updateTextColors(this)
+        items_fastscroller.updatePrimaryColor()
+        storedItems = ArrayList()
+        getRecyclerAdapter()?.apply {
+            updateTextColor(textColor)
+            initDrawables()
         }
+
+        breadcrumbs.updateColor(textColor)
+
+        items_fastscroller.updateBubbleColors()
 
         val configFontSize = context!!.config.fontSize
         if (storedFontSize != configFontSize) {
             getRecyclerAdapter()?.updateFontSizes()
             storedFontSize = configFontSize
-            mView.breadcrumbs.updateFontSize(context!!.getTextSize())
+            breadcrumbs.updateFontSize(context!!.getTextSize())
         }
 
         if (storedDateFormat != context!!.config.dateFormat || storedTimeFormat != context!!.getTimeFormat()) {
             getRecyclerAdapter()?.updateDateTimeFormat()
         }
 
-        mView.items_fastscroller.updateBubbleColors()
         if (!isFirstResume) {
             refreshItems()
         }
@@ -118,22 +99,8 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         isFirstResume = false
     }
 
-    override fun onPause() {
-        super.onPause()
-        storeStateVariables()
-    }
-
-    private fun storeStateVariables() {
-        context!!.config.apply {
-            storedTextColor = textColor
-            storedFontSize = fontSize
-            storedDateFormat = dateFormat
-            storedTimeFormat = context.getTimeFormat()
-        }
-    }
-
     fun openPath(path: String, forceRefresh: Boolean = false) {
-        if (!isAdded || (activity as? BaseSimpleActivity)?.isAskingPermissions == true) {
+        if ((activity as? BaseSimpleActivity)?.isAskingPermissions == true) {
             return
         }
 
@@ -146,7 +113,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         currentPath = realPath
         showHidden = context!!.config.shouldShowHidden
         getItems(currentPath) { originalPath, listItems ->
-            if (currentPath != originalPath || !isAdded) {
+            if (currentPath != originalPath) {
                 return@getItems
             }
 
@@ -164,50 +131,48 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
     private fun addItems(items: ArrayList<ListItem>, forceRefresh: Boolean = false) {
         skipItemUpdating = false
-        mView.apply {
-            activity?.runOnUiThread {
-                items_swipe_refresh?.isRefreshing = false
-                breadcrumbs.setBreadcrumb(currentPath)
-                if (!forceRefresh && items.hashCode() == storedItems.hashCode()) {
-                    return@runOnUiThread
-                }
+        activity?.runOnUiThread {
+            items_swipe_refresh?.isRefreshing = false
+            breadcrumbs.setBreadcrumb(currentPath)
+            if (!forceRefresh && items.hashCode() == storedItems.hashCode()) {
+                return@runOnUiThread
+            }
 
-                storedItems = items
-                if (items_list.adapter == null) {
-                    breadcrumbs.updateFontSize(context!!.getTextSize())
-                }
+            storedItems = items
+            if (items_list.adapter == null) {
+                breadcrumbs.updateFontSize(context!!.getTextSize())
+            }
 
-                ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller,
-                    items_swipe_refresh) {
-                    if ((it as? ListItem)?.isSectionTitle == true) {
-                        openDirectory(it.mPath)
-                        searchClosed()
-                    } else {
-                        itemClicked(it as FileDirItem)
-                    }
-                }.apply {
-                    setupZoomListener(zoomListener)
-                    items_list.adapter = this
+            ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller,
+                items_swipe_refresh) {
+                if ((it as? ListItem)?.isSectionTitle == true) {
+                    openDirectory(it.mPath)
+                    searchClosed()
+                } else {
+                    itemClicked(it as FileDirItem)
                 }
+            }.apply {
+                setupZoomListener(zoomListener)
+                items_list.adapter = this
+            }
 
-                items_list.scheduleLayoutAnimation()
-                items_fastscroller.setViews(items_list, items_swipe_refresh) {
-                    val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
-                    items_fastscroller.updateBubbleText(listItem?.getBubbleText(context, storedDateFormat, storedTimeFormat) ?: "")
-                }
+            items_list.scheduleLayoutAnimation()
+            items_fastscroller.setViews(items_list, items_swipe_refresh) {
+                val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
+                items_fastscroller.updateBubbleText(listItem?.getBubbleText(context, storedDateFormat, storedTimeFormat) ?: "")
+            }
 
-                getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
-                items_list.onGlobalLayout {
-                    items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
-                    calculateContentHeight(storedItems)
-                }
+            getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
+            items_list.onGlobalLayout {
+                items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
+                calculateContentHeight(storedItems)
             }
         }
     }
 
     private fun getScrollState() = getRecyclerLayoutManager().onSaveInstanceState()
 
-    private fun getRecyclerLayoutManager() = (mView.items_list.layoutManager as MyGridLayoutManager)
+    private fun getRecyclerLayoutManager() = (items_list.layoutManager as MyGridLayoutManager)
 
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
@@ -314,7 +279,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                     activity?.toast(R.string.select_audio_file)
                 }
             } else {
-                activity!!.tryOpenPathIntent(path, false)
+                activity?.tryOpenPathIntent(path, false)
             }
         }
     }
@@ -337,19 +302,15 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
             when {
                 searchText.isEmpty() -> activity?.runOnUiThread {
-                    mView.apply {
-                        items_list.beVisible()
-                        getRecyclerAdapter()?.updateItems(storedItems)
-                        items_placeholder.beGone()
-                        items_placeholder_2.beGone()
-                    }
+                    items_list.beVisible()
+                    getRecyclerAdapter()?.updateItems(storedItems)
+                    items_placeholder.beGone()
+                    items_placeholder_2.beGone()
                 }
                 searchText.length == 1 -> activity?.runOnUiThread {
-                    mView.apply {
-                        items_list.beGone()
-                        items_placeholder.beVisible()
-                        items_placeholder_2.beVisible()
-                    }
+                    items_list.beGone()
+                    items_placeholder.beVisible()
+                    items_placeholder_2.beVisible()
                 }
                 else -> {
                     val files = searchFiles(searchText, currentPath)
@@ -383,15 +344,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
 
                     activity?.runOnUiThread {
                         getRecyclerAdapter()?.updateItems(listItems, text)
-                        mView.apply {
-                            items_list.beVisibleIf(listItems.isNotEmpty())
-                            items_placeholder.beVisibleIf(listItems.isEmpty())
-                            items_placeholder_2.beGone()
+                        items_list.beVisibleIf(listItems.isNotEmpty())
+                        items_placeholder.beVisibleIf(listItems.isEmpty())
+                        items_placeholder_2.beGone()
 
-                            items_list.onGlobalLayout {
-                                items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
-                                calculateContentHeight(listItems)
-                            }
+                        items_list.onGlobalLayout {
+                            items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
+                            calculateContentHeight(listItems)
                         }
                     }
                 }
@@ -437,7 +396,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     fun searchOpened() {
         isSearchOpen = true
         lastSearchedText = ""
-        mView.items_swipe_refresh.isEnabled = false
+        items_swipe_refresh.isEnabled = false
     }
 
     fun searchClosed() {
@@ -449,12 +408,10 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         skipItemUpdating = false
         lastSearchedText = ""
 
-        mView.apply {
-            items_swipe_refresh.isEnabled = true
-            items_list.beVisible()
-            items_placeholder.beGone()
-            items_placeholder_2.beGone()
-        }
+        items_swipe_refresh.isEnabled = true
+        items_list.beVisible()
+        items_placeholder.beGone()
+        items_placeholder_2.beGone()
     }
 
     private fun createNewItem() {
@@ -467,7 +424,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
         }
     }
 
-    private fun getRecyclerAdapter() = mView.items_list.adapter as? ItemsAdapter
+    private fun getRecyclerAdapter() = items_list.adapter as? ItemsAdapter
 
     private fun setupLayoutManager() {
         if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
@@ -478,13 +435,13 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
             setupListLayoutManager()
         }
 
-        mView.items_list.adapter = null
+        items_list.adapter = null
         initZoomListener()
         addItems(storedItems, true)
     }
 
     private fun setupGridLayoutManager() {
-        val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+        val layoutManager = items_list.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
 
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -499,14 +456,14 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     }
 
     private fun setupListLayoutManager() {
-        val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+        val layoutManager = items_list.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
         zoomListener = null
     }
 
     private fun initZoomListener() {
         if (context?.config?.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
-            val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+            val layoutManager = items_list.layoutManager as MyGridLayoutManager
             zoomListener = object : MyRecyclerView.MyZoomListener {
                 override fun zoomIn() {
                     if (layoutManager.spanCount > 1) {
@@ -528,20 +485,20 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
     }
 
     private fun calculateContentHeight(items: MutableList<ListItem>) {
-        val layoutManager = mView.items_list.layoutManager as MyGridLayoutManager
+        val layoutManager = items_list.layoutManager as MyGridLayoutManager
         val thumbnailHeight = layoutManager.getChildAt(0)?.height ?: 0
         val fullHeight = ((items.size - 1) / layoutManager.spanCount + 1) * thumbnailHeight
-        mView.items_fastscroller.setContentHeight(fullHeight)
-        mView.items_fastscroller.setScrollToY(mView.items_list.computeVerticalScrollOffset())
+        items_fastscroller.setContentHeight(fullHeight)
+        items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
     }
 
     fun increaseColumnCount() {
-        context?.config?.fileColumnCnt = ++(mView.items_list.layoutManager as MyGridLayoutManager).spanCount
+        context?.config?.fileColumnCnt = ++(items_list.layoutManager as MyGridLayoutManager).spanCount
         columnCountChanged()
     }
 
     fun reduceColumnCount() {
-        context?.config?.fileColumnCnt = --(mView.items_list.layoutManager as MyGridLayoutManager).spanCount
+        context?.config?.fileColumnCnt = --(items_list.layoutManager as MyGridLayoutManager).spanCount
         columnCountChanged()
     }
 
@@ -565,7 +522,7 @@ class ItemsFragment : Fragment(), ItemOperationsListener, Breadcrumbs.Breadcrumb
                 openPath(it)
             }
         } else {
-            val item = mView.breadcrumbs.getChildAt(id).tag as FileDirItem
+            val item = breadcrumbs.getChildAt(id).tag as FileDirItem
             openPath(item.path)
         }
     }

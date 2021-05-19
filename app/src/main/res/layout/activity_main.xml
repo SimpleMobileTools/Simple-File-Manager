@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/fragment_holder"
-        android:name="com.simplemobiletools.filemanager.pro.fragments.ItemsFragment"
+    <com.simplemobiletools.commons.views.MyViewPager
+        android:id="@+id/main_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

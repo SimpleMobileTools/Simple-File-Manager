@@ -20,15 +20,16 @@ import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.filemanager.pro.BuildConfig
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
-import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
@@ -42,19 +43,11 @@ class MainActivity : SimpleActivity() {
     private var mWasProtectionHandled = false
     private var searchMenuItem: MenuItem? = null
 
-    private lateinit var fragment: ItemsFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
-
-        fragment = (fragment_holder as ItemsFragment).apply {
-            isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
-            isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
-            isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
-        }
 
         if (savedInstanceState == null) {
             handleAppPasswordProtection {
@@ -86,6 +79,8 @@ class MainActivity : SimpleActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val favorites = config.favorites
+        val fragment = getCurrentFragment() ?: return true
+
         menu!!.apply {
             findItem(R.id.add_favorite).isVisible = !favorites.contains(fragment.currentPath)
             findItem(R.id.remove_favorite).isVisible = favorites.contains(fragment.currentPath)
@@ -112,13 +107,13 @@ class MainActivity : SimpleActivity() {
             R.id.sort -> showSortingDialog()
             R.id.add_favorite -> addFavorite()
             R.id.remove_favorite -> removeFavorite()
-            R.id.toggle_filename -> fragment.toggleFilenameVisibility()
+            R.id.toggle_filename -> getCurrentFragment().toggleFilenameVisibility()
             R.id.set_as_home -> setAsHome()
             R.id.change_view_type -> changeViewType()
             R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.increase_column_count -> fragment.increaseColumnCount()
-            R.id.reduce_column_count -> fragment.reduceColumnCount()
+            R.id.increase_column_count -> getCurrentFragment().increaseColumnCount()
+            R.id.reduce_column_count -> getCurrentFragment().reduceColumnCount()
             R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
@@ -128,7 +123,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(PICKED_PATH, (fragment_holder as ItemsFragment).currentPath)
+        outState.putString(PICKED_PATH, getCurrentFragment().currentPath)
         outState.putBoolean(WAS_PROTECTION_HANDLED, mWasProtectionHandled)
     }
 
@@ -137,6 +132,17 @@ class MainActivity : SimpleActivity() {
         mWasProtectionHandled = savedInstanceState.getBoolean(WAS_PROTECTION_HANDLED, false)
         val path = savedInstanceState.getString(PICKED_PATH) ?: internalStoragePath
 
+        if (main_view_pager.adapter == null) {
+            main_view_pager.adapter = ViewPagerAdapter(this)
+            main_view_pager.onGlobalLayout {
+                restorePath(path)
+            }
+        } else {
+            restorePath(path)
+        }
+    }
+
+    private fun restorePath(path: String) {
         if (!mWasProtectionHandled) {
             handleAppPasswordProtection {
                 mWasProtectionHandled = it
@@ -164,7 +170,7 @@ class MainActivity : SimpleActivity() {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        fragment.searchQueryChanged(newText)
+                        getCurrentFragment().searchQueryChanged(newText)
                     }
                     return true
                 }
@@ -174,13 +180,13 @@ class MainActivity : SimpleActivity() {
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 isSearchOpen = true
-                fragment.searchOpened()
+                getCurrentFragment().searchOpened()
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 isSearchOpen = false
-                fragment.searchClosed()
+                getCurrentFragment().searchClosed()
                 return true
             }
         })
@@ -190,7 +196,13 @@ class MainActivity : SimpleActivity() {
         handlePermission(PERMISSION_WRITE_STORAGE) {
             checkOTGPath()
             if (it) {
-                initFileManager()
+                if (main_view_pager.adapter == null) {
+                    main_view_pager.adapter = ViewPagerAdapter(this)
+                }
+
+                main_view_pager.onGlobalLayout {
+                    initFileManager()
+                }
             } else {
                 toast(R.string.no_storage_permissions)
                 finish()
@@ -217,6 +229,12 @@ class MainActivity : SimpleActivity() {
             }
         } else {
             openPath(config.homeFolder)
+        }
+
+        getCurrentFragment()?.apply {
+            isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
+            isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+            isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         }
     }
 
@@ -246,27 +264,27 @@ class MainActivity : SimpleActivity() {
             newPath = internalStoragePath
         }
 
-        (fragment_holder as ItemsFragment).openPath(newPath, forceRefresh)
+        getCurrentFragment()?.openPath(newPath, forceRefresh)
     }
 
     private fun goHome() {
-        if (config.homeFolder != fragment.currentPath) {
+        if (config.homeFolder != getCurrentFragment().currentPath) {
             openPath(config.homeFolder)
         }
     }
 
     private fun showSortingDialog() {
-        ChangeSortingDialog(this, fragment.currentPath) {
-            fragment.refreshItems()
+        ChangeSortingDialog(this, getCurrentFragment().currentPath) {
+            getCurrentFragment().refreshItems()
         }
     }
 
     private fun addFavorite() {
-        config.addFavorite(fragment.currentPath)
+        config.addFavorite(getCurrentFragment().currentPath)
     }
 
     private fun removeFavorite() {
-        config.removeFavorite(fragment.currentPath)
+        config.removeFavorite(getCurrentFragment().currentPath)
     }
 
     private fun goToFavorite() {
@@ -277,7 +295,7 @@ class MainActivity : SimpleActivity() {
         favorites.forEachIndexed { index, path ->
             val visiblePath = humanizePath(path).replace("/", " / ")
             items.add(RadioItem(index, visiblePath, path))
-            if (path == fragment.currentPath) {
+            if (path == getCurrentFragment().currentPath) {
                 currFavoriteIndex = index
             }
         }
@@ -288,13 +306,13 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun setAsHome() {
-        config.homeFolder = fragment.currentPath
+        config.homeFolder = getCurrentFragment().currentPath
         toast(R.string.home_folder_updated)
     }
 
     private fun changeViewType() {
-        ChangeViewTypeDialog(this, fragment.currentPath) {
-            fragment.refreshItems()
+        ChangeViewTypeDialog(this, getCurrentFragment().currentPath) {
+            getCurrentFragment().refreshItems()
         }
     }
 
@@ -310,7 +328,7 @@ class MainActivity : SimpleActivity() {
 
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
-        openPath(fragment.currentPath)
+        openPath(getCurrentFragment().currentPath)
     }
 
     private fun launchAbout() {
@@ -329,7 +347,7 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onBackPressed() {
-        if (fragment.mView.breadcrumbs.childCount <= 1) {
+        if (getCurrentFragment().breadcrumbs.childCount <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -340,8 +358,8 @@ class MainActivity : SimpleActivity() {
                 finish()
             }
         } else {
-            fragment.mView.breadcrumbs.removeBreadcrumb()
-            openPath(fragment.mView.breadcrumbs.getLastItem().path)
+            getCurrentFragment().breadcrumbs.removeBreadcrumb()
+            openPath(getCurrentFragment().breadcrumbs.getLastItem().path)
         }
     }
 
@@ -409,6 +427,8 @@ class MainActivity : SimpleActivity() {
             MenuItemCompat.collapseActionView(searchMenuItem)
         }
     }
+
+    private fun getCurrentFragment() = items_fragment
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
