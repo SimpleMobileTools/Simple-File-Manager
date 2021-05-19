@@ -4,19 +4,19 @@ import android.content.Context
 import android.provider.MediaStore
 import android.util.AttributeSet
 import androidx.recyclerview.widget.GridLayoutManager
-import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getDoesFilePathExist
-import com.simplemobiletools.commons.extensions.getLongValue
-import com.simplemobiletools.commons.extensions.getStringValue
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
+import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
+import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.recents_fragment.view.*
@@ -178,7 +178,24 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         (activity as MainActivity).pickedPaths(paths)
     }
 
-    override fun deleteFiles(files: ArrayList<FileDirItem>) {}
+    override fun deleteFiles(files: ArrayList<FileDirItem>) {
+        val firstPath = files.firstOrNull()?.path
+        if (firstPath == null || firstPath.isEmpty() || context == null) {
+            return
+        }
+
+        if (context!!.isPathOnRoot(firstPath)) {
+            RootHelpers(activity!!).deleteFiles(files)
+        } else {
+            (activity as SimpleActivity).deleteFiles(files, false) {
+                if (!it) {
+                    activity!!.runOnUiThread {
+                        activity!!.toast(R.string.unknown_error_occurred)
+                    }
+                }
+            }
+        }
+    }
 
     override fun searchQueryChanged(text: String) {}
 
