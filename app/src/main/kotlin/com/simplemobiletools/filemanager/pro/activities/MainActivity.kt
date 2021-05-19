@@ -105,7 +105,7 @@ class MainActivity : SimpleActivity() {
         main_tabs_holder.setSelectedTabIndicatorColor(adjustedPrimaryColor)
         main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(adjustedPrimaryColor)
 
-        if (main_view_pager.adapter == null) {
+        if (main_view_pager.adapter == null && mWasProtectionHandled) {
             initFragments()
         }
     }
@@ -130,7 +130,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val favorites = config.favorites
-        val currentFragment = getCurrentFragment()
+        val currentFragment = getCurrentFragment() ?: return true
 
         menu!!.apply {
             findItem(R.id.search).isVisible = currentFragment is ItemsFragment
@@ -155,6 +155,10 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (getCurrentFragment() == null) {
+            return true
+        }
+
         when (item.itemId) {
             R.id.go_home -> goHome()
             R.id.go_to_favorite -> goToFavorite()
@@ -224,7 +228,7 @@ class MainActivity : SimpleActivity() {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment().searchQueryChanged(newText)
+                        getCurrentFragment()?.searchQueryChanged(newText)
                     }
                     return true
                 }
@@ -394,23 +398,23 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun goHome() {
-        if (config.homeFolder != getCurrentFragment().currentPath) {
+        if (config.homeFolder != getCurrentFragment()?.currentPath) {
             openPath(config.homeFolder)
         }
     }
 
     private fun showSortingDialog() {
-        ChangeSortingDialog(this, getCurrentFragment().currentPath) {
+        ChangeSortingDialog(this, getCurrentFragment()!!.currentPath) {
             (getCurrentFragment() as? ItemsFragment)?.refreshItems()
         }
     }
 
     private fun addFavorite() {
-        config.addFavorite(getCurrentFragment().currentPath)
+        config.addFavorite(getCurrentFragment()!!.currentPath)
     }
 
     private fun removeFavorite() {
-        config.removeFavorite(getCurrentFragment().currentPath)
+        config.removeFavorite(getCurrentFragment()!!.currentPath)
     }
 
     private fun toggleFilenameVisibility() {
@@ -440,7 +444,7 @@ class MainActivity : SimpleActivity() {
         favorites.forEachIndexed { index, path ->
             val visiblePath = humanizePath(path).replace("/", " / ")
             items.add(RadioItem(index, visiblePath, path))
-            if (path == getCurrentFragment().currentPath) {
+            if (path == getCurrentFragment()!!.currentPath) {
                 currFavoriteIndex = index
             }
         }
@@ -451,12 +455,12 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun setAsHome() {
-        config.homeFolder = getCurrentFragment().currentPath
+        config.homeFolder = getCurrentFragment()!!.currentPath
         toast(R.string.home_folder_updated)
     }
 
     private fun changeViewType() {
-        ChangeViewTypeDialog(this, getCurrentFragment().currentPath, getCurrentFragment() is ItemsFragment) {
+        ChangeViewTypeDialog(this, getCurrentFragment()!!.currentPath, getCurrentFragment() is ItemsFragment) {
             getAllFragments().forEach {
                 it?.refreshItems()
             }
@@ -501,7 +505,7 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        if (getCurrentFragment().breadcrumbs.childCount ?: 2 <= 1) {
+        if (getCurrentFragment()!!.breadcrumbs.childCount <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -512,8 +516,8 @@ class MainActivity : SimpleActivity() {
                 finish()
             }
         } else {
-            getCurrentFragment().breadcrumbs.removeBreadcrumb()
-            openPath(getCurrentFragment().breadcrumbs.getLastItem().path)
+            getCurrentFragment()!!.breadcrumbs.removeBreadcrumb()
+            openPath(getCurrentFragment()!!.breadcrumbs.getLastItem().path)
         }
     }
 
@@ -586,7 +590,7 @@ class MainActivity : SimpleActivity() {
 
     private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment)
 
-    private fun getCurrentFragment(): MyViewPagerFragment = when (main_view_pager.currentItem) {
+    private fun getCurrentFragment(): MyViewPagerFragment? = when (main_view_pager.currentItem) {
         TAB_FILES -> items_fragment
         else -> recents_fragment
     }
