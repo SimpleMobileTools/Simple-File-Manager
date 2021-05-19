@@ -36,7 +36,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     abstract fun setupFragment(activity: SimpleActivity)
 
-    abstract fun setupColors(textColor: Int, adjustedPrimaryColor: Int)
+    abstract fun setupColors(textColor: Int, primaryColor: Int)
 
     abstract fun setupFontSize()
 

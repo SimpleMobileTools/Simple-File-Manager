@@ -59,7 +59,15 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         recents_list.scheduleLayoutAnimation()
     }
 
-    override fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {}
+    override fun setupColors(textColor: Int, primaryColor: Int) {
+        recents_placeholder.setTextColor(textColor)
+
+        getRecyclerAdapter()?.apply {
+            updatePrimaryColor(primaryColor)
+            updateTextColor(textColor)
+            initDrawables()
+        }
+    }
 
     private fun setupLayoutManager() {
         if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {

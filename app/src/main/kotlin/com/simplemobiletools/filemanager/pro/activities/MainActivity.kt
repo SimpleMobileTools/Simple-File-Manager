@@ -80,9 +80,8 @@ class MainActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        val adjustedPrimaryColor = getAdjustedPrimaryColor()
         getAllFragments().forEach {
-            it?.setupColors(config.textColor, adjustedPrimaryColor)
+            it?.setupColors(config.textColor, config.primaryColor)
         }
 
         if (storedFontSize != config.fontSize) {
@@ -101,9 +100,10 @@ class MainActivity : SimpleActivity() {
             main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
         }
 
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
         main_tabs_holder.background = ColorDrawable(config.backgroundColor)
-        main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
-        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+        main_tabs_holder.setSelectedTabIndicatorColor(adjustedPrimaryColor)
+        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(adjustedPrimaryColor)
 
         if (main_view_pager.adapter == null) {
             initFragments()

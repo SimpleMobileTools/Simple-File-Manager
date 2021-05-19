@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.pro.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.config
@@ -18,7 +17,7 @@ class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
 
         (view as MyViewPagerFragment).apply {
             setupFragment(activity)
-            setupColors(activity.config.textColor, activity.getAdjustedPrimaryColor())
+            setupColors(activity.config.textColor, activity.config.primaryColor)
         }
 
         return view

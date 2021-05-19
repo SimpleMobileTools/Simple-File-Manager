@@ -47,11 +47,12 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    override fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {
+    override fun setupColors(textColor: Int, primaryColor: Int) {
         context!!.updateTextColors(this)
         items_fastscroller.updatePrimaryColor()
         storedItems = ArrayList()
         getRecyclerAdapter()?.apply {
+            updatePrimaryColor(primaryColor)
             updateTextColor(textColor)
             initDrawables()
         }
