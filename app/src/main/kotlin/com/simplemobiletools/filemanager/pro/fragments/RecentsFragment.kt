@@ -64,6 +64,8 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
+    private fun getRecyclerAdapter() = recents_list.adapter as? ItemsAdapter
+
     override fun refreshItems() {}
 
     override fun deleteFiles(files: ArrayList<FileDirItem>) {}
@@ -73,4 +75,10 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun setupFontSize() {}
 
     override fun setupDateTimeFormat() {}
+
+    override fun searchQueryChanged(text: String) {}
+
+    override fun finishActMode() {
+        getRecyclerAdapter()?.finishActMode()
+    }
 }

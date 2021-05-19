@@ -77,7 +77,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         getRecyclerAdapter()?.updateDateTimeFormat()
     }
 
-    fun finishActMode() {
+    override fun finishActMode() {
         getRecyclerAdapter()?.finishActMode()
     }
 
@@ -276,7 +276,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         openPath(path)
     }
 
-    fun searchQueryChanged(text: String) {
+    override fun searchQueryChanged(text: String) {
         val searchText = text.trim()
         lastSearchedText = searchText
         ensureBackgroundThread {

@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -316,6 +317,25 @@ class MainActivity : SimpleActivity() {
         )
 
         setupTabColors(tabToOpen)
+
+        main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+                if (isSearchOpen) {
+                    getCurrentFragment()?.searchQueryChanged("")
+                    searchMenuItem?.collapseActionView()
+                }
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                main_tabs_holder.getTabAt(position)?.select()
+                getAllFragments().forEach {
+                    it?.finishActMode()
+                }
+                invalidateOptionsMenu()
+            }
+        })
     }
 
     private fun setupTabColors(lastUsedTab: Int) {

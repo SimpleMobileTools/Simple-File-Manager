@@ -13,4 +13,8 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     abstract fun setupFontSize()
 
     abstract fun setupDateTimeFormat()
+
+    abstract fun searchQueryChanged(text: String)
+
+    abstract fun finishActMode()
 }
