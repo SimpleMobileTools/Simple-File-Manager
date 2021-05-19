@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.9.0 *(2021-05-19)*
+----------------------------
+
+ * Added a Recents tab showing the latest 50 files
+ * Allow exiting the app with a single Back (by tkterris)
+ * Avoid mistakenly showing hidden items as search results
+ * Some UX, stability and translation improvements
+
 Version 6.8.8 *(2021-04-19)*
 ----------------------------
 
