@@ -24,3 +24,6 @@ const val OPEN_AS_IMAGE = 2
 const val OPEN_AS_AUDIO = 3
 const val OPEN_AS_VIDEO = 4
 const val OPEN_AS_OTHER = 5
+
+const val TAB_FILES = 0
+const val TAB_RECENTS = 1

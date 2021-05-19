@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
@@ -30,7 +29,7 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorLayout(context, attributeSet), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
+class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
     var currentPath = ""
     var isGetContentIntent = false
     var isGetRingtonePicker = false
@@ -47,7 +46,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
 
     private var storedItems = ArrayList<ListItem>()
 
-    fun setupFragment(activity: SimpleActivity) {
+    override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
             items_swipe_refresh.setOnRefreshListener { refreshItems() }
@@ -56,7 +55,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
         }
     }
 
-    fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {
+    override fun setupColors(textColor: Int, adjustedPrimaryColor: Int) {
         context!!.updateTextColors(this)
         items_fastscroller.updatePrimaryColor()
         storedItems = ArrayList()
@@ -69,12 +68,12 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
         items_fastscroller.updateBubbleColors()
     }
 
-    fun updateFontSize() {
+    override fun setupFontSize() {
         getRecyclerAdapter()?.updateFontSizes()
         breadcrumbs.updateFontSize(context!!.getTextSize())
     }
 
-    fun updateDateTimeFormat() {
+    override fun setupDateTimeFormat() {
         getRecyclerAdapter()?.updateDateTimeFormat()
     }
 

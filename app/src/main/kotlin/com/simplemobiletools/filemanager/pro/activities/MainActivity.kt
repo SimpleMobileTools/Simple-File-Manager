@@ -26,12 +26,16 @@ import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
+import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
+import com.simplemobiletools.filemanager.pro.helpers.TAB_FILES
+import com.simplemobiletools.filemanager.pro.helpers.TAB_RECENTS
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
+import kotlinx.android.synthetic.main.recents_fragment.*
 import java.io.File
 import java.util.*
 
@@ -59,6 +63,7 @@ class MainActivity : SimpleActivity() {
             handleAppPasswordProtection {
                 mWasProtectionHandled = it
                 if (it) {
+                    initFragments()
                     mIsPasswordProtectionPending = false
                     tryInitFileManager()
                     checkWhatsNewDialog()
@@ -80,13 +85,13 @@ class MainActivity : SimpleActivity() {
 
         if (storedFontSize != config.fontSize) {
             getAllFragments().forEach {
-                it.updateFontSize()
+                it?.setupFontSize()
             }
         }
 
         if (storedDateFormat != config.dateFormat || storedTimeFormat != getTimeFormat()) {
             getAllFragments().forEach {
-                it.updateDateTimeFormat()
+                it?.setupDateTimeFormat()
             }
         }
 
@@ -97,6 +102,10 @@ class MainActivity : SimpleActivity() {
         main_tabs_holder.background = ColorDrawable(config.backgroundColor)
         main_tabs_holder.setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
         main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+
+        if (main_view_pager.adapter == null) {
+            initFragments()
+        }
     }
 
     override fun onPause() {
@@ -106,6 +115,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        config.lastUsedViewPagerPage = main_view_pager.currentItem
         config.temporarilyShowHidden = false
     }
 
@@ -172,10 +182,10 @@ class MainActivity : SimpleActivity() {
         val path = savedInstanceState.getString(PICKED_PATH) ?: internalStoragePath
 
         if (main_view_pager.adapter == null) {
-            initFragments()
             main_view_pager.onGlobalLayout {
                 restorePath(path)
             }
+            updateTabColors()
         } else {
             restorePath(path)
         }
@@ -244,7 +254,7 @@ class MainActivity : SimpleActivity() {
             checkOTGPath()
             if (it) {
                 if (main_view_pager.adapter == null) {
-                    main_view_pager.adapter = ViewPagerAdapter(this)
+                    initFragments()
                 }
 
                 main_view_pager.onGlobalLayout {
@@ -287,6 +297,7 @@ class MainActivity : SimpleActivity() {
 
     private fun initFragments() {
         main_view_pager.adapter = ViewPagerAdapter(this)
+        main_view_pager.currentItem = config.lastUsedViewPagerPage
         main_view_pager.onPageChangeListener {
             main_tabs_holder.getTabAt(it)?.select()
             invalidateOptionsMenu()
@@ -320,6 +331,13 @@ class MainActivity : SimpleActivity() {
                 getTabAt(it)?.icon?.applyColorFilter(config.textColor)
             }
         }
+    }
+
+    private fun updateTabColors() {
+        getInactiveTabIndexes(main_view_pager.currentItem).forEach {
+            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+        }
+        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
     }
 
     private fun checkOTGPath() {
@@ -512,9 +530,9 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(0, 1).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(TAB_FILES, TAB_RECENTS).filter { it != activeIndex }
 
-    private fun getAllFragments() = arrayListOf(items_fragment)
+    private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment)
 
     private fun getCurrentFragment() = items_fragment
 
