@@ -125,7 +125,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 breadcrumbs.updateFontSize(context!!.getTextSize())
             }
 
-            ItemsAdapter(activity as SimpleActivity, storedItems, this@ItemsFragment, items_list, isPickMultipleIntent, items_fastscroller,
+            ItemsAdapter(activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_fastscroller,
                 items_swipe_refresh) {
                 if ((it as? ListItem)?.isSectionTitle == true) {
                     openDirectory(it.mPath)
