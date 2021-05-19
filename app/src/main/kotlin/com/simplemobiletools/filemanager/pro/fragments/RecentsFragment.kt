@@ -4,12 +4,12 @@ import android.content.Context
 import android.provider.MediaStore
 import android.util.AttributeSet
 import androidx.recyclerview.widget.GridLayoutManager
+import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getStringValue
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.helpers.mydebug
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -17,7 +17,6 @@ import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.items_fragment.view.*
 import kotlinx.android.synthetic.main.recents_fragment.view.*
 import java.util.*
 
@@ -35,6 +34,8 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         ensureBackgroundThread {
             getRecents { recents ->
                 recents_swipe_refresh?.isRefreshing = false
+                recents_list.beVisibleIf(recents.isNotEmpty())
+                recents_placeholder.beVisibleIf(recents.isEmpty())
                 addItems(recents, false)
 
                 if (context != null && currentViewType != context!!.config.getFolderViewType(currentPath)) {

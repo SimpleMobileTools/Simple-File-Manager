@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_margin"
         android:alpha="0.8"
         android:gravity="center"
         android:paddingStart="@dimen/activity_margin"
