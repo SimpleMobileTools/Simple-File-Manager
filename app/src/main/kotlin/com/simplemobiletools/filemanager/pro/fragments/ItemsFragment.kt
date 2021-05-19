@@ -47,9 +47,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
     private var storedItems = ArrayList<ListItem>()
-    private var storedFontSize = 0
-    private var storedDateFormat = ""
-    private var storedTimeFormat = ""
 
     fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
@@ -57,14 +54,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
             items_swipe_refresh.setOnRefreshListener { refreshItems() }
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
-        }
-    }
-
-    private fun storeStateVariables() {
-        context!!.config.apply {
-            storedFontSize = fontSize
-            storedDateFormat = dateFormat
-            storedTimeFormat = context.getTimeFormat()
         }
     }
 
@@ -78,25 +67,26 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
         }
 
         breadcrumbs.updateColor(textColor)
-
         items_fastscroller.updateBubbleColors()
-
-        val configFontSize = context!!.config.fontSize
-        if (storedFontSize != configFontSize) {
-            getRecyclerAdapter()?.updateFontSizes()
-            storedFontSize = configFontSize
-            breadcrumbs.updateFontSize(context!!.getTextSize())
-        }
-
-        if (storedDateFormat != context!!.config.dateFormat || storedTimeFormat != context!!.getTimeFormat()) {
-            getRecyclerAdapter()?.updateDateTimeFormat()
-        }
 
         if (!isFirstResume) {
             refreshItems()
         }
 
         isFirstResume = false
+    }
+
+    fun updateFontSize() {
+        getRecyclerAdapter()?.updateFontSizes()
+        breadcrumbs.updateFontSize(context!!.getTextSize())
+    }
+
+    fun updateDateTimeFormat() {
+        getRecyclerAdapter()?.updateDateTimeFormat()
+    }
+
+    fun finishActMode() {
+        getRecyclerAdapter()?.finishActMode()
     }
 
     fun openPath(path: String, forceRefresh: Boolean = false) {
@@ -157,9 +147,11 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : CoordinatorL
             }
 
             items_list.scheduleLayoutAnimation()
+            val dateFormat = context!!.config.dateFormat
+            val timeFormat = context!!.getTimeFormat()
             items_fastscroller.setViews(items_list, items_swipe_refresh) {
                 val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
-                items_fastscroller.updateBubbleText(listItem?.getBubbleText(context, storedDateFormat, storedTimeFormat) ?: "")
+                items_fastscroller.updateBubbleText(listItem?.getBubbleText(context, dateFormat, timeFormat) ?: "")
             }
 
             getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])

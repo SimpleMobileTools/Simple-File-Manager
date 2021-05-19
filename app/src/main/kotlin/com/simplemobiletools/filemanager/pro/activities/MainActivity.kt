@@ -43,10 +43,15 @@ class MainActivity : SimpleActivity() {
     private var mWasProtectionHandled = false
     private var searchMenuItem: MenuItem? = null
 
+    private var storedFontSize = 0
+    private var storedDateFormat = ""
+    private var storedTimeFormat = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+        storeStateVariables()
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
 
         if (savedInstanceState == null) {
@@ -63,6 +68,31 @@ class MainActivity : SimpleActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        getAllFragments().forEach {
+            it?.setupColors(config.textColor, adjustedPrimaryColor)
+        }
+
+        if (storedFontSize != config.fontSize) {
+            getAllFragments().forEach {
+                it.updateFontSize()
+            }
+        }
+
+        if (storedDateFormat != config.dateFormat || storedTimeFormat != getTimeFormat()) {
+            getAllFragments().forEach {
+                it.updateDateTimeFormat()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        storeStateVariables()
     }
 
     override fun onDestroy() {
@@ -190,6 +220,14 @@ class MainActivity : SimpleActivity() {
                 return true
             }
         })
+    }
+
+    private fun storeStateVariables() {
+        config.apply {
+            storedFontSize = fontSize
+            storedDateFormat = dateFormat
+            storedTimeFormat = context.getTimeFormat()
+        }
     }
 
     private fun tryInitFileManager() {
@@ -427,6 +465,8 @@ class MainActivity : SimpleActivity() {
             MenuItemCompat.collapseActionView(searchMenuItem)
         }
     }
+
+    private fun getAllFragments() = arrayListOf(items_fragment)
 
     private fun getCurrentFragment() = items_fragment
 
