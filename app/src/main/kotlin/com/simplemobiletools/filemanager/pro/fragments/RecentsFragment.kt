@@ -13,6 +13,7 @@ import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
+import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
@@ -165,13 +166,19 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
+    override fun setupFontSize() {
+        getRecyclerAdapter()?.updateFontSizes()
+    }
+
+    override fun setupDateTimeFormat() {
+        getRecyclerAdapter()?.updateDateTimeFormat()
+    }
+
+    override fun selectedPaths(paths: ArrayList<String>) {
+        (activity as MainActivity).pickedPaths(paths)
+    }
+
     override fun deleteFiles(files: ArrayList<FileDirItem>) {}
-
-    override fun selectedPaths(paths: ArrayList<String>) {}
-
-    override fun setupFontSize() {}
-
-    override fun setupDateTimeFormat() {}
 
     override fun searchQueryChanged(text: String) {}
 
