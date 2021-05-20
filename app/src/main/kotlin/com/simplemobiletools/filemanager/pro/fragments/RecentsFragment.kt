@@ -122,7 +122,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
         context?.queryCursor(uri, projection, sortOrder = sortOrder, showErrors = true) { cursor ->
             val path = cursor.getStringValue(FileColumns.DATA)
-            val name = cursor.getStringValue(FileColumns.DISPLAY_NAME)
+            val name = cursor.getStringValue(FileColumns.DISPLAY_NAME) ?: path.getFilenameFromPath()
             val size = cursor.getLongValue(FileColumns.SIZE)
             val modified = cursor.getLongValue(FileColumns.DATE_MODIFIED) * 1000
             val fileDirItem = ListItem(path, name, false, 0, size, modified, false)
