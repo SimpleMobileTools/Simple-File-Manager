@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.9.1 *(2021-05-21)*
+----------------------------
+
+ * Allow customizing visible tabs
+ * Some stability and translation improvements
+
 Version 6.9.0 *(2021-05-19)*
 ----------------------------
 

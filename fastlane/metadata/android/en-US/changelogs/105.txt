@@ -1,0 +1,2 @@
+ * Allow customizing visible tabs
+ * Some stability and translation improvements
