@@ -6,6 +6,7 @@ import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
 import android.os.Bundle
 import android.os.Handler
@@ -52,11 +53,13 @@ class MainActivity : SimpleActivity() {
     private var storedFontSize = 0
     private var storedDateFormat = ""
     private var storedTimeFormat = ""
+    private var storedShowTabs = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+        setupTabColors(config.lastUsedViewPagerPage)
         storeStateVariables()
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
 
@@ -79,6 +82,12 @@ class MainActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
+        if (storedShowTabs != config.showTabs) {
+            config.lastUsedViewPagerPage = 0
+            System.exit(0)
+            return
+        }
+
         getAllFragments().forEach {
             it?.setupColors(config.textColor, config.primaryColor)
         }
@@ -129,7 +138,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val favorites = config.favorites
-        val currentFragment = getCurrentFragment() ?: return true
+        val currentFragment = getCurrentFragment()
 
         menu!!.apply {
             findItem(R.id.search).isVisible = currentFragment is ItemsFragment
@@ -154,10 +163,6 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (getCurrentFragment() == null) {
-            return true
-        }
-
         when (item.itemId) {
             R.id.go_home -> goHome()
             R.id.go_to_favorite -> goToFavorite()
@@ -180,7 +185,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(PICKED_PATH, items_fragment.currentPath)
+        outState.putString(PICKED_PATH, items_fragment?.currentPath ?: "")
         outState.putBoolean(WAS_PROTECTION_HANDLED, mWasProtectionHandled)
     }
 
@@ -227,7 +232,7 @@ class MainActivity : SimpleActivity() {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment()?.searchQueryChanged(newText)
+                        getCurrentFragment().searchQueryChanged(newText)
                     }
                     return true
                 }
@@ -254,6 +259,7 @@ class MainActivity : SimpleActivity() {
             storedFontSize = fontSize
             storedDateFormat = dateFormat
             storedTimeFormat = context.getTimeFormat()
+            storedShowTabs = showTabs
         }
     }
 
@@ -328,12 +334,10 @@ class MainActivity : SimpleActivity() {
             }
         )
 
-        setupTabColors(tabToOpen)
-
         main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
-                    getCurrentFragment()?.searchQueryChanged("")
+                    getCurrentFragment().searchQueryChanged("")
                     searchMenuItem?.collapseActionView()
                 }
             }
@@ -348,6 +352,27 @@ class MainActivity : SimpleActivity() {
                 invalidateOptionsMenu()
             }
         })
+
+        main_tabs_holder.removeAllTabs()
+        var skippedTabs = 0
+        tabsList.forEachIndexed { index, value ->
+            if (config.showTabs and value == 0) {
+                skippedTabs++
+            } else {
+                val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
+                main_tabs_holder.addTab(tab, index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
+            }
+        }
+
+        // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
+        main_tabs_holder.onGlobalLayout {
+            Handler().postDelayed({
+                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
+                invalidateOptionsMenu()
+            }, 100L)
+        }
+
+        main_tabs_holder.beVisibleIf(skippedTabs < tabsList.size - 1)
     }
 
     private fun setupTabColors(lastUsedTab: Int) {
@@ -370,6 +395,15 @@ class MainActivity : SimpleActivity() {
             main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
         }
         main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+    }
+
+    private fun getTabIcon(position: Int): Drawable {
+        val drawableId = when (position) {
+            0 -> R.drawable.ic_folder_vector
+            else -> R.drawable.ic_clock_vector
+        }
+
+        return resources.getColoredDrawableWithColor(drawableId, config.textColor)
     }
 
     private fun checkOTGPath() {
@@ -402,23 +436,23 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun goHome() {
-        if (config.homeFolder != getCurrentFragment()?.currentPath) {
+        if (config.homeFolder != getCurrentFragment().currentPath) {
             openPath(config.homeFolder)
         }
     }
 
     private fun showSortingDialog() {
-        ChangeSortingDialog(this, getCurrentFragment()!!.currentPath) {
+        ChangeSortingDialog(this, getCurrentFragment().currentPath) {
             (getCurrentFragment() as? ItemsFragment)?.refreshItems()
         }
     }
 
     private fun addFavorite() {
-        config.addFavorite(getCurrentFragment()!!.currentPath)
+        config.addFavorite(getCurrentFragment().currentPath)
     }
 
     private fun removeFavorite() {
-        config.removeFavorite(getCurrentFragment()!!.currentPath)
+        config.removeFavorite(getCurrentFragment().currentPath)
     }
 
     private fun toggleFilenameVisibility() {
@@ -448,7 +482,7 @@ class MainActivity : SimpleActivity() {
         favorites.forEachIndexed { index, path ->
             val visiblePath = humanizePath(path).replace("/", " / ")
             items.add(RadioItem(index, visiblePath, path))
-            if (path == getCurrentFragment()!!.currentPath) {
+            if (path == getCurrentFragment().currentPath) {
                 currFavoriteIndex = index
             }
         }
@@ -459,12 +493,12 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun setAsHome() {
-        config.homeFolder = getCurrentFragment()!!.currentPath
+        config.homeFolder = getCurrentFragment().currentPath
         toast(R.string.home_folder_updated)
     }
 
     private fun changeViewType() {
-        ChangeViewTypeDialog(this, getCurrentFragment()!!.currentPath, getCurrentFragment() is ItemsFragment) {
+        ChangeViewTypeDialog(this, getCurrentFragment().currentPath, getCurrentFragment() is ItemsFragment) {
             getAllFragments().forEach {
                 it?.refreshItems()
             }
@@ -509,7 +543,7 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        if (getCurrentFragment()!!.breadcrumbs.childCount <= 1) {
+        if (getCurrentFragment().breadcrumbs.childCount <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -520,8 +554,8 @@ class MainActivity : SimpleActivity() {
                 finish()
             }
         } else {
-            getCurrentFragment()!!.breadcrumbs.removeBreadcrumb()
-            openPath(getCurrentFragment()!!.breadcrumbs.getLastItem().path)
+            getCurrentFragment().breadcrumbs.removeBreadcrumb()
+            openPath(getCurrentFragment().breadcrumbs.getLastItem().path)
         }
     }
 
@@ -594,7 +628,19 @@ class MainActivity : SimpleActivity() {
 
     private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment)
 
-    private fun getCurrentFragment() = getAllFragments().getOrNull(main_view_pager.currentItem)
+    private fun getCurrentFragment(): MyViewPagerFragment {
+        val showTabs = config.showTabs
+        val fragments = arrayListOf<MyViewPagerFragment>()
+        if (showTabs and TAB_FILES != 0) {
+            fragments.add(items_fragment)
+        }
+
+        if (showTabs and TAB_RECENT_FILES != 0) {
+            fragments.add(recents_fragment)
+        }
+
+        return fragments[main_view_pager.currentItem]
+    }
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

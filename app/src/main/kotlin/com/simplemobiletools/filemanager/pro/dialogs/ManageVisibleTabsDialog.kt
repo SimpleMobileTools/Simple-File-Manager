@@ -3,7 +3,8 @@ package com.simplemobiletools.filemanager.pro.dialogs
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.TAB_FILES
+import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config

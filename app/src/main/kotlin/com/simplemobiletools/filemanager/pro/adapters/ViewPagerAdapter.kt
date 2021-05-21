@@ -3,10 +3,13 @@ package com.simplemobiletools.filemanager.pro.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
+import com.simplemobiletools.commons.helpers.TAB_FILES
+import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
+import com.simplemobiletools.filemanager.pro.helpers.tabsList
 
 class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -26,12 +29,21 @@ class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
         container.removeView(item as View)
     }
 
-    override fun getCount() = 2
+    override fun getCount() = tabsList.filter { it and activity.config.showTabs != 0 }.size
 
     override fun isViewFromObject(view: View, item: Any) = view == item
 
     private fun getFragment(position: Int): Int {
-        val fragments = arrayListOf(R.layout.items_fragment, R.layout.recents_fragment)
+        val showTabs = activity.config.showTabs
+        val fragments = arrayListOf<Int>()
+        if (showTabs and TAB_FILES != 0) {
+            fragments.add(R.layout.items_fragment)
+        }
+
+        if (showTabs and TAB_RECENT_FILES != 0) {
+            fragments.add(R.layout.recents_fragment)
+        }
+
         return fragments[position]
     }
 }
