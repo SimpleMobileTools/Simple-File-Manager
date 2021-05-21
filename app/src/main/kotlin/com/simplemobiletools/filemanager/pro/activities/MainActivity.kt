@@ -31,8 +31,7 @@ import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
-import com.simplemobiletools.filemanager.pro.helpers.TAB_FILES
-import com.simplemobiletools.filemanager.pro.helpers.TAB_RECENTS
+import com.simplemobiletools.filemanager.pro.helpers.tabsList
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.items_fragment.*
@@ -591,14 +590,11 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = arrayListOf(TAB_FILES, TAB_RECENTS).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until tabsList.size).filter { it != activeIndex }
 
     private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment)
 
-    private fun getCurrentFragment(): MyViewPagerFragment? = when (main_view_pager.currentItem) {
-        TAB_FILES -> items_fragment
-        else -> recents_fragment
-    }
+    private fun getCurrentFragment() = getAllFragments().getOrNull(main_view_pager.currentItem)
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

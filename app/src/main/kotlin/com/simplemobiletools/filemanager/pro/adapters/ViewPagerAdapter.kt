@@ -7,7 +7,6 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.filemanager.pro.helpers.TAB_FILES
 
 class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -31,8 +30,8 @@ class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
 
     override fun isViewFromObject(view: View, item: Any) = view == item
 
-    private fun getFragment(position: Int) = when (position) {
-        TAB_FILES -> R.layout.items_fragment
-        else -> R.layout.recents_fragment
+    private fun getFragment(position: Int): Int {
+        val fragments = arrayListOf(R.layout.items_fragment, R.layout.recents_fragment)
+        return fragments[position]
     }
 }

@@ -1,5 +1,8 @@
 package com.simplemobiletools.filemanager.pro.helpers
 
+import com.simplemobiletools.commons.helpers.TAB_FILES
+import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
+
 const val PATH = "path"
 const val MAX_COLUMN_COUNT = 20
 
@@ -25,5 +28,5 @@ const val OPEN_AS_AUDIO = 3
 const val OPEN_AS_VIDEO = 4
 const val OPEN_AS_OTHER = 5
 
-const val TAB_FILES = 0
-const val TAB_RECENTS = 1
+const val ALL_TABS_MASK = TAB_FILES or TAB_RECENT_FILES
+val tabsList = arrayListOf(TAB_FILES, TAB_RECENT_FILES)
