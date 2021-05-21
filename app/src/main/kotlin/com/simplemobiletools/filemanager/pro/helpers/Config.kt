@@ -117,4 +117,8 @@ class Config(context: Context) : BaseConfig(context) {
     var displayFilenames: Boolean
         get() = prefs.getBoolean(DISPLAY_FILE_NAMES, true)
         set(displayFilenames) = prefs.edit().putBoolean(DISPLAY_FILE_NAMES, displayFilenames).apply()
+
+    var showTabs: Int
+        get() = prefs.getInt(SHOW_TABS, ALL_TABS_MASK)
+        set(showTabs) = prefs.edit().putInt(SHOW_TABS, showTabs).apply()
 }

@@ -11,6 +11,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.dialogs.ManageVisibleTabsDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import kotlinx.android.synthetic.main.activity_settings.*
@@ -28,6 +29,7 @@ class SettingsActivity : SimpleActivity() {
         setupCustomizeColors()
         setupUseEnglish()
         setupManageFavorites()
+        setupManageShownTabs()
         setupChangeDateTimeFormat()
         setupFontSize()
         setupShowHidden()
@@ -76,6 +78,12 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
+    private fun setupManageShownTabs() {
+        settings_manage_tabs_holder.setOnClickListener {
+            ManageVisibleTabsDialog(this)
+        }
+    }
+
     private fun setupChangeDateTimeFormat() {
         settings_change_date_time_format_holder.setOnClickListener {
             ChangeDateTimeFormatDialog(this) {}
@@ -86,10 +94,10 @@ class SettingsActivity : SimpleActivity() {
         settings_font_size.text = getFontSizeText()
         settings_font_size_holder.setOnClickListener {
             val items = arrayListOf(
-                    RadioItem(FONT_SIZE_SMALL, getString(R.string.small)),
-                    RadioItem(FONT_SIZE_MEDIUM, getString(R.string.medium)),
-                    RadioItem(FONT_SIZE_LARGE, getString(R.string.large)),
-                    RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large)))
+                RadioItem(FONT_SIZE_SMALL, getString(R.string.small)),
+                RadioItem(FONT_SIZE_MEDIUM, getString(R.string.medium)),
+                RadioItem(FONT_SIZE_LARGE, getString(R.string.large)),
+                RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large)))
 
             RadioGroupDialog(this@SettingsActivity, items, config.fontSize) {
                 config.fontSize = it as Int
