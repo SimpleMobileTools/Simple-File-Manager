@@ -137,8 +137,8 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val favorites = config.favorites
         val currentFragment = getCurrentFragment() ?: return true
+        val favorites = config.favorites
 
         menu!!.apply {
             findItem(R.id.search).isVisible = currentFragment is ItemsFragment
