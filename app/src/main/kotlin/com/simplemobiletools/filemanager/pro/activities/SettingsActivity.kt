@@ -38,6 +38,7 @@ class SettingsActivity : SimpleActivity() {
         setupAppPasswordProtection()
         setupFileDeletionPasswordProtection()
         setupKeepLastModified()
+        setupDeleteConfirmation()
         setupEnableRootAccess()
         updateTextColors(settings_holder)
         setupSectionColors()
@@ -203,6 +204,14 @@ class SettingsActivity : SimpleActivity() {
         settings_keep_last_modified_holder.setOnClickListener {
             settings_keep_last_modified.toggle()
             config.keepLastModified = settings_keep_last_modified.isChecked
+        }
+    }
+
+    private fun setupDeleteConfirmation() {
+        settings_delete_confirmation.isChecked = config.skipDeleteConfirmation
+        settings_delete_confirmation_holder.setOnClickListener {
+            settings_delete_confirmation.toggle()
+            config.skipDeleteConfirmation = settings_delete_confirmation.isChecked
         }
     }
 

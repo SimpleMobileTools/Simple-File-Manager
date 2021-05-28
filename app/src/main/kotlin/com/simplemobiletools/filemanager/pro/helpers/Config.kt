@@ -76,6 +76,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getFloat(EDITOR_TEXT_ZOOM, 1.2f)
         set(editorTextZoom) = prefs.edit().putFloat(EDITOR_TEXT_ZOOM, editorTextZoom).apply()
 
+   /* var skipDeleteConfirmation: Boolean
+        get() = prefs.getBoolean(SKIP_DELETE_CONFIRMATION, true)
+        set(deleteConfirmationEnabled) = prefs.edit().putBoolean(SKIP_DELETE_CONFIRMATION, deleteConfirmationEnabled).apply()*/
+
     var viewType: Int
         get() = prefs.getInt(VIEW_TYPE, VIEW_TYPE_LIST)
         set(viewTypeFiles) = prefs.edit().putInt(VIEW_TYPE, viewTypeFiles).apply()
