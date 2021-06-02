@@ -11,8 +11,8 @@
     <string name="select_audio_file">Будь ласка, оберіть аудіо файл</string>
     <string name="search_folder">Шукати теку</string>
     <string name="rooted_device_only">Ця команда працює лише на пристроях з root-доступом</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
+    <string name="recents">Останні</string>
+    <string name="show_recents">Показати останні</string>
 
     <!-- Open as -->
     <string name="open_as">Відкрити як файл</string>
@@ -43,40 +43,40 @@
 
     <!-- Settings -->
     <string name="enable_root_access">Активувати root-доступ</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="press_back_twice">Натисніть Назад двічі, щоб вийти з додатка</string>
 
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Simple File Manager Pro - Керуйте файлами легко &amp; швидко</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Зручний додаток для керування вашими файлами без реклами, з повагою до вашої приватності &amp; безпеки</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Простий і швидкий файловий менеджер нащодень. Він пропонує корисні функціональні пошукові можливості. Налаштовуйте домашню теку і обирайте улюблені теки для швидкого доступу.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        Додаток містить численні дієві функції, що пов\'язані з безпекою, а саме: захист паролем прихованих елементів, видалення файлів або цілого додатка. Обирайте, як зберігати ваші дані у приватності, використовуючи ключ, PIN чи відбиток пальця.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Цей сучасний файловий органайзер підтримує швидкий перегляд файлів із root доступом, SD карт та USB пристроїв.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Очевидно, що додаток може виконувати всі стандартні дії з файлами, наприклад: перейменувати, копіювати, перемістити, видалити, поділитися тощо, що дозволить вам залишатися продуктивним. Додаток також можна використовувати для звільнення пам\'яті, оскільки він підтримує стиснення та розпакування. Ви можете легко створювати нові файли чи теки, якщо забажаєте.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Сортуйте елементи за різними параметрами, за зростанням чи спаданням.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Лише кілька натисків - і ви можете переглянути деталі файлу чи теки, що містять такі дані, як розмір файлу, дату останньої зміни, чи EXIF дані, а саме: дату створення фотографії, модель камери тощо.
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Щоб швидко отримати штях до файлу чи теки, здійсніть тривалий натиск, і ви скопіюєте його у буфер обміну.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Створюйте зручні ярлики на головному екрані для швидкого доступу до ваших улюблених елементів.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Додаток містить простий файловий редактор. Використовуйте його для друку документів, редагуйте їх або просто переглядайте, використовуючи жести наближення, коли це необхідно.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Додаток має просте оформлення і темну тему, забезпечує чудовий користувацький досвід. Відсутність доступу до інтернету надає більше приватності, безпеки та стабільності, ніж інші додатки.
 
         Цей додаток не буде показувати рекламу, потрібні лише найнеобхідніші дозволи. Додаток має повністю відкритий програмний код, кольори оформлення можна легко налаштувати.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Ознайомтеся з Простими Інструментами тут:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Веб-сайт Simple File Manager Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
