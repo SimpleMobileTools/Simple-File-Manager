@@ -59,7 +59,9 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             recents_list.adapter = this
         }
 
-        recents_list.scheduleLayoutAnimation()
+        if (context.areSystemAnimationsEnabled) {
+            recents_list.scheduleLayoutAnimation()
+        }
     }
 
     override fun setupColors(textColor: Int, primaryColor: Int) {

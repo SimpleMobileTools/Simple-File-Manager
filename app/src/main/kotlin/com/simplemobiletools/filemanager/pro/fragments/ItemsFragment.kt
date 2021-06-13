@@ -131,7 +131,10 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 items_list.adapter = this
             }
 
-            items_list.scheduleLayoutAnimation()
+            if (context.areSystemAnimationsEnabled) {
+                items_list.scheduleLayoutAnimation()
+            }
+
             val dateFormat = context!!.config.dateFormat
             val timeFormat = context!!.getTimeFormat()
             items_fastscroller.setViews(items_list, items_swipe_refresh) {
