@@ -208,10 +208,10 @@ class SettingsActivity : SimpleActivity() {
     }
 
     private fun setupDeleteConfirmation() {
-        settings_delete_confirmation.isChecked = config.skipDeleteConfirmation
-        settings_delete_confirmation_holder.setOnClickListener {
-            settings_delete_confirmation.toggle()
-            config.skipDeleteConfirmation = settings_delete_confirmation.isChecked
+        settings_skip_delete_confirmation.isChecked = config.skipDeleteConfirmation
+        settings_skip_delete_confirmation_holder.setOnClickListener {
+            settings_skip_delete_confirmation.toggle()
+            config.skipDeleteConfirmation = settings_skip_delete_confirmation.isChecked
         }
     }
 
