@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.9.3 *(2021-06-14)*
+----------------------------
+
+ * Allow permanently disabling the Delete confirmation dialog
+ * Do not use animations if they are disabled systemwide
+ * Added some translation improvements
+
 Version 6.9.2 *(2021-05-22)*
 ----------------------------
 
