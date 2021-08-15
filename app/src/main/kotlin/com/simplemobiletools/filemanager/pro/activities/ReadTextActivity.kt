@@ -15,9 +15,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
+import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
+import com.simplemobiletools.commons.helpers.SAVE_DISCARD_PROMPT_INTERVAL
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.MyEditText
 import com.simplemobiletools.filemanager.pro.R
@@ -31,10 +33,12 @@ import java.io.OutputStream
 
 class ReadTextActivity : SimpleActivity() {
     private val SELECT_SAVE_FILE_INTENT = 1
+    private val SELECT_SAVE_FILE_AND_EXIT_INTENT = 2
 
     private var filePath = ""
     private var originalText = ""
     private var searchIndex = 0
+    private var lastSavePromptTS = 0L
     private var searchMatches = emptyList<Int>()
     private var isSearchActive = false
 
@@ -83,15 +87,35 @@ class ReadTextActivity : SimpleActivity() {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == SELECT_SAVE_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
             val outputStream = contentResolver.openOutputStream(resultData.data!!)
-            saveTextContent(outputStream)
+
+            val shouldExitAfterSaving = requestCode == SELECT_SAVE_FILE_AND_EXIT_INTENT
+
+            val selectedFilePath = getRealPathFromURI(intent.data!!)
+            val shouldOverwriteOriginalText = selectedFilePath == filePath
+
+            saveTextContent(outputStream, shouldExitAfterSaving, shouldOverwriteOriginalText)
         }
     }
 
     override fun onBackPressed() {
-        if (isSearchActive) {
-            closeSearch()
-        } else {
-            super.onBackPressed()
+        val hasUnsavedChanges = originalText != read_text_view.text.toString()
+        when {
+            isSearchActive -> {
+                closeSearch()
+            }
+            hasUnsavedChanges && System.currentTimeMillis() - lastSavePromptTS > SAVE_DISCARD_PROMPT_INTERVAL -> {
+                lastSavePromptTS = System.currentTimeMillis()
+                ConfirmationAdvancedDialog(this, "", R.string.save_before_closing, R.string.save, R.string.discard) {
+                    if (it) {
+                        saveText(shouldExitAfterSaving = true)
+                    } else {
+                        super.onBackPressed()
+                    }
+                }
+            }
+            else -> {
+                super.onBackPressed()
+            }
         }
     }
 
@@ -108,28 +132,34 @@ class ReadTextActivity : SimpleActivity() {
         }, 250)
     }
 
-    private fun saveText() {
+    private fun saveText(shouldExitAfterSaving: Boolean = false) {
         if (filePath.isEmpty()) {
             filePath = getRealPathFromURI(intent.data!!) ?: ""
         }
 
         if (filePath.isEmpty()) {
-            SaveAsDialog(this, filePath, true) { path, filename ->
+            SaveAsDialog(this, filePath, true) { _, filename ->
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TITLE, filename)
                     addCategory(Intent.CATEGORY_OPENABLE)
 
-                    startActivityForResult(this, SELECT_SAVE_FILE_INTENT)
+                    val requestCode = if (shouldExitAfterSaving) {
+                        SELECT_SAVE_FILE_AND_EXIT_INTENT
+                    } else {
+                        SELECT_SAVE_FILE_INTENT
+                    }
+                    startActivityForResult(this, requestCode)
                 }
             }
         } else {
-            SaveAsDialog(this, filePath, false) { path, filename ->
-                handlePermission(PERMISSION_WRITE_STORAGE) {
-                    if (it) {
+            SaveAsDialog(this, filePath, false) { path, _ ->
+                handlePermission(PERMISSION_WRITE_STORAGE) { isPermissionGranted ->
+                    if (isPermissionGranted) {
                         val file = File(path)
                         getFileOutputStream(file.toFileDirItem(this), true) {
-                            saveTextContent(it)
+                            val shouldOverwriteOriginalText = path == filePath
+                            saveTextContent(it, shouldExitAfterSaving, shouldOverwriteOriginalText)
                         }
                     }
                 }
@@ -137,11 +167,20 @@ class ReadTextActivity : SimpleActivity() {
         }
     }
 
-    private fun saveTextContent(outputStream: OutputStream?) {
+    private fun saveTextContent(outputStream: OutputStream?, shouldExitAfterSaving: Boolean, shouldOverwriteOriginalText: Boolean) {
         if (outputStream != null) {
-            outputStream.bufferedWriter().use { it.write(read_text_view.text.toString()) }
+            val currentText = read_text_view.text.toString()
+            outputStream.bufferedWriter().use { it.write(currentText) }
             toast(R.string.file_saved)
             hideKeyboard()
+
+            if (shouldOverwriteOriginalText) {
+                originalText = currentText
+            }
+
+            if (shouldExitAfterSaving)  {
+                super.onBackPressed()
+            }
         } else {
             toast(R.string.unknown_error_occurred)
         }
