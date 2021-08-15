@@ -87,8 +87,13 @@ class ReadTextActivity : SimpleActivity() {
         super.onActivityResult(requestCode, resultCode, resultData)
         if (requestCode == SELECT_SAVE_FILE_INTENT && resultCode == Activity.RESULT_OK && resultData != null && resultData.data != null) {
             val outputStream = contentResolver.openOutputStream(resultData.data!!)
-            saveTextContent(outputStream, shouldExitAfterSaving = requestCode == SELECT_SAVE_FILE_AND_EXIT_INTENT,
-                shouldOverwriteOriginalText = getRealPathFromURI(intent.data!!) == filePath)
+
+            val shouldExitAfterSaving = requestCode == SELECT_SAVE_FILE_AND_EXIT_INTENT
+
+            val selectedFilePath = getRealPathFromURI(intent.data!!)
+            val shouldOverwriteOriginalText = selectedFilePath == filePath
+
+            saveTextContent(outputStream, shouldExitAfterSaving, shouldOverwriteOriginalText)
         }
     }
 
@@ -133,7 +138,7 @@ class ReadTextActivity : SimpleActivity() {
         }
 
         if (filePath.isEmpty()) {
-            SaveAsDialog(this, filePath, true) { path, filename ->
+            SaveAsDialog(this, filePath, true) { _, filename ->
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                     type = "text/plain"
                     putExtra(Intent.EXTRA_TITLE, filename)
@@ -148,12 +153,13 @@ class ReadTextActivity : SimpleActivity() {
                 }
             }
         } else {
-            SaveAsDialog(this, filePath, false) { path, filename ->
-                handlePermission(PERMISSION_WRITE_STORAGE) {
-                    if (it) {
+            SaveAsDialog(this, filePath, false) { path, _ ->
+                handlePermission(PERMISSION_WRITE_STORAGE) { isPermissionGranted ->
+                    if (isPermissionGranted) {
                         val file = File(path)
                         getFileOutputStream(file.toFileDirItem(this), true) {
-                            saveTextContent(it, shouldExitAfterSaving, shouldOverwriteOriginalText = path == filePath)
+                            val shouldOverwriteOriginalText = path == filePath
+                            saveTextContent(it, shouldExitAfterSaving, shouldOverwriteOriginalText)
                         }
                     }
                 }
