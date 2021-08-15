@@ -107,7 +107,7 @@ class ReadTextActivity : SimpleActivity() {
                 lastSavePromptTS = System.currentTimeMillis()
                 ConfirmationAdvancedDialog(this, "", R.string.save_before_closing, R.string.save, R.string.discard) {
                     if (it) {
-                        saveText(shouldExitAfterSaving = true)
+                        saveText(true)
                     } else {
                         super.onBackPressed()
                     }
@@ -178,7 +178,7 @@ class ReadTextActivity : SimpleActivity() {
                 originalText = currentText
             }
 
-            if (shouldExitAfterSaving)  {
+            if (shouldExitAfterSaving) {
                 super.onBackPressed()
             }
         } else {
