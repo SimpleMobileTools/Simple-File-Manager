@@ -100,9 +100,7 @@ class ReadTextActivity : SimpleActivity() {
     override fun onBackPressed() {
         val hasUnsavedChanges = originalText != read_text_view.text.toString()
         when {
-            isSearchActive -> {
-                closeSearch()
-            }
+            isSearchActive -> closeSearch()
             hasUnsavedChanges && System.currentTimeMillis() - lastSavePromptTS > SAVE_DISCARD_PROMPT_INTERVAL -> {
                 lastSavePromptTS = System.currentTimeMillis()
                 ConfirmationAdvancedDialog(this, "", R.string.save_before_closing, R.string.save, R.string.discard) {
@@ -113,9 +111,7 @@ class ReadTextActivity : SimpleActivity() {
                     }
                 }
             }
-            else -> {
-                super.onBackPressed()
-            }
+            else -> super.onBackPressed()
         }
     }
 
