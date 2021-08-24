@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
@@ -23,12 +24,13 @@ import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.items_fragment.view.*
 
-class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
+class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener,
+    Breadcrumbs.BreadcrumbsListener {
     private var showHidden = false
     private var skipItemUpdating = false
     private var isSearchOpen = false
@@ -156,18 +158,47 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
-        ensureBackgroundThread {
-            if (activity?.isDestroyed == false && activity?.isFinishing == false) {
-                val config = context!!.config
-                if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
-                    val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
-                    context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
-                        callback(path, getListItemsFromFileDirItems(it))
+        Log.d(TAG, "getItems: $path")
+
+        if (isRPlus() && context.isAndroidDataRoot(path)) {
+            activity?.handleSAFDialog(path) { granted ->
+                Log.d(TAG, "getItems: $granted")
+                if (!granted) {
+                    return@handleSAFDialog
+                }
+                ensureBackgroundThread {
+                    if (activity?.isDestroyed == false && activity?.isFinishing == false) {
+                        val config = context!!.config
+                        if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                            val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
+                            context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
+                                callback(path, getListItemsFromFileDirItems(it))
+                            }
+                        }else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+                            val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
+                            context!!.getStorageItems(path, config.shouldShowHidden, getProperFileSize){
+                                callback(path, getListItemsFromFileDirItems(it))
+                            }
+                        } else {
+                            RootHelpers(activity!!).getFiles(path, callback)
+                        }
                     }
-                } else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {
-                    getRegularItemsOf(path, callback)
-                } else {
-                    RootHelpers(activity!!).getFiles(path, callback)
+                }
+            }
+        } else {
+            ensureBackgroundThread {
+                if (activity?.isDestroyed == false && activity?.isFinishing == false) {
+                    val config = context!!.config
+                    if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                        val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
+                        context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
+                            callback(path, getListItemsFromFileDirItems(it))
+                        }
+                    } else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+                        getRegularItemsOf(path, callback)
+                    } else {
+                        RootHelpers(activity!!).getFiles(path, callback)
+                    }
                 }
             }
         }
@@ -525,5 +556,9 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     override fun selectedPaths(paths: ArrayList<String>) {
         (activity as MainActivity).pickedPaths(paths)
+    }
+
+    companion object {
+        private const val TAG = "ItemsFragment"
     }
 }

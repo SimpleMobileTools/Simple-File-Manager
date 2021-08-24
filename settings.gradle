@@ -1,1 +1,3 @@
 include ':app'
+include ':commons'
+project(":commons").projectDir = new File("/Users/cyberman/StudioProjects/Simple-Commons/commons")
