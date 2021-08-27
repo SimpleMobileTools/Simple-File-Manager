@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.10.0 *(2021-08-27)*
+----------------------------
+
+ * Rewrote the current folder path into a 1 liner
+ * Show a save/discard prompt when exiting file editor with unsaved changes
+
 Version 6.9.3 *(2021-06-14)*
 ----------------------------
 
