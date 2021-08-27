@@ -494,7 +494,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 openPath(it)
             }
         } else {
-            val item = breadcrumbs.getChildAt(id).tag as FileDirItem
+            val item = breadcrumbs.getItem(id)
             openPath(item.path)
         }
     }
