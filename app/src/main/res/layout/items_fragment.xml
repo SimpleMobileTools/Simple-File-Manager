@@ -24,7 +24,11 @@
                     android:id="@+id/breadcrumbs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_margin" />
+                    android:paddingStart="@dimen/activity_margin"
+                    android:paddingEnd="@dimen/small_margin"
+                    android:paddingTop="@dimen/small_margin"
+                    android:paddingBottom="@dimen/small_margin"
+                    />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/items_placeholder"
