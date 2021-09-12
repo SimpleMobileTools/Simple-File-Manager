@@ -16,8 +16,8 @@ android {
         applicationId "com.simplemobiletools.filemanager.pro"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 107
-        versionName "6.9.3"
+        versionCode 108
+        versionName "6.9.4"
         multiDexEnabled true
         setProperty("archivesBaseName", "file-manager")
         vectorDrawables.useSupportLibrary = true
@@ -58,8 +58,7 @@ android {
 }
 
 dependencies {
-//    implementation 'com.github.SimpleMobileTools:Simple-Commons:e56c724d04'
-    implementation project(":commons")
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:649211e294'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
     implementation 'com.github.Stericson:RootShell:1.6'
     implementation 'com.alexvasilkov:gesture-views:2.5.2'

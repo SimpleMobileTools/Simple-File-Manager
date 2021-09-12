@@ -547,7 +547,7 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        if (getCurrentFragment()!!.breadcrumbs.childCount <= 1) {
+        if (getCurrentFragment()!!.breadcrumbs.itemsCount <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
