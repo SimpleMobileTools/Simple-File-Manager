@@ -33,6 +33,7 @@ import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.helpers.tabsList
+import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.items_fragment.*
@@ -94,13 +95,13 @@ class MainActivity : SimpleActivity() {
 
         if (storedFontSize != config.fontSize) {
             getAllFragments().forEach {
-                it?.setupFontSize()
+                (it as? ItemOperationsListener)?.setupFontSize()
             }
         }
 
         if (storedDateFormat != config.dateFormat || storedTimeFormat != getTimeFormat()) {
             getAllFragments().forEach {
-                it?.setupDateTimeFormat()
+                (it as? ItemOperationsListener)?.setupDateTimeFormat()
             }
         }
 
@@ -237,7 +238,7 @@ class MainActivity : SimpleActivity() {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment()?.searchQueryChanged(newText)
+                        (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged(newText)
                     }
                     return true
                 }
@@ -342,7 +343,7 @@ class MainActivity : SimpleActivity() {
         main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
-                    getCurrentFragment()?.searchQueryChanged("")
+                    (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged("")
                     searchMenuItem?.collapseActionView()
                 }
             }
@@ -352,7 +353,7 @@ class MainActivity : SimpleActivity() {
             override fun onPageSelected(position: Int) {
                 main_tabs_holder.getTabAt(position)?.select()
                 getAllFragments().forEach {
-                    it?.finishActMode()
+                    (it as? ItemOperationsListener)?.finishActMode()
                 }
                 invalidateOptionsMenu()
             }
@@ -463,19 +464,19 @@ class MainActivity : SimpleActivity() {
     private fun toggleFilenameVisibility() {
         config.displayFilenames = !config.displayFilenames
         getAllFragments().forEach {
-            it?.toggleFilenameVisibility()
+            (it as? ItemOperationsListener)?.toggleFilenameVisibility()
         }
     }
 
     private fun increaseColumnCount() {
         getAllFragments().forEach {
-            it?.increaseColumnCount()
+            (it as? ItemOperationsListener)?.increaseColumnCount()
         }
     }
 
     private fun reduceColumnCount() {
         getAllFragments().forEach {
-            it?.reduceColumnCount()
+            (it as? ItemOperationsListener)?.reduceColumnCount()
         }
     }
 

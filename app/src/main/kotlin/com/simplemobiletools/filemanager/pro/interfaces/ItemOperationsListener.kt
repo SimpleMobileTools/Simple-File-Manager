@@ -9,4 +9,18 @@ interface ItemOperationsListener {
     fun deleteFiles(files: ArrayList<FileDirItem>)
 
     fun selectedPaths(paths: ArrayList<String>)
+
+    fun searchQueryChanged(text: String)
+
+    fun setupDateTimeFormat()
+
+    fun setupFontSize()
+
+    fun toggleFilenameVisibility()
+
+    fun increaseColumnCount()
+
+    fun reduceColumnCount()
+
+    fun finishActMode()
 }

@@ -15,21 +15,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun setupColors(textColor: Int, primaryColor: Int) {}
 
-    override fun toggleFilenameVisibility() {}
-
-    override fun increaseColumnCount() {}
-
-    override fun reduceColumnCount() {}
-
-    override fun setupFontSize() {}
-
-    override fun setupDateTimeFormat() {}
-
-    override fun searchQueryChanged(text: String) {}
-
-    override fun finishActMode() {}
-
-    private fun getFileTypeSize(uri: Uri): Long {
+    private fun getMediaTypeSize(uri: Uri): Long {
         val projection = arrayOf(
             MediaStore.Files.FileColumns.SIZE
         )
