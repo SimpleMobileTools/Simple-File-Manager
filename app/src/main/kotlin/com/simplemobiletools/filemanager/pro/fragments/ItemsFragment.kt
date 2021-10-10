@@ -41,7 +41,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
-            items_swipe_refresh.setOnRefreshListener { refreshItems() }
+            items_swipe_refresh.setOnRefreshListener { refreshFragment() }
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
         }
@@ -386,7 +386,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     private fun createNewItem() {
         CreateNewItemDialog(activity as SimpleActivity, currentPath) {
             if (it) {
-                refreshItems()
+                refreshFragment()
             } else {
                 activity?.toast(R.string.unknown_error_occurred)
             }
@@ -499,7 +499,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    override fun refreshItems() {
+    override fun refreshFragment() {
         openPath(currentPath)
     }
 

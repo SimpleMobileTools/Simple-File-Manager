@@ -214,20 +214,20 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 RenameItemDialog(activity, oldPath) {
                     activity.config.moveFavorite(oldPath, it)
                     activity.runOnUiThread {
-                        listener?.refreshItems()
+                        listener?.refreshFragment()
                         finishActMode()
                     }
                 }
             }
             fileDirItems.any { it.isDirectory } -> RenameItemsDialog(activity, paths) {
                 activity.runOnUiThread {
-                    listener?.refreshItems()
+                    listener?.refreshFragment()
                     finishActMode()
                 }
             }
             else -> RenameDialog(activity, paths, false) {
                 activity.runOnUiThread {
-                    listener?.refreshItems()
+                    listener?.refreshFragment()
                     finishActMode()
                 }
             }
@@ -258,7 +258,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 activity.toggleItemVisibility(it.path, hide)
             }
             activity.runOnUiThread {
-                listener?.refreshItems()
+                listener?.refreshFragment()
                 finishActMode()
             }
         }
@@ -392,18 +392,18 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                                 sourceFile.list()?.isEmpty() == true && sourceFile.getProperSize(true) == 0L && sourceFile.getFileCount(true) == 0) {
                                 val sourceFolder = sourceFile.toFileDirItem(activity)
                                 activity.deleteFile(sourceFolder, true) {
-                                    listener?.refreshItems()
+                                    listener?.refreshFragment()
                                     activity.runOnUiThread {
                                         finishActMode()
                                     }
                                 }
                             } else {
-                                listener?.refreshItems()
+                                listener?.refreshFragment()
                                 finishActMode()
                             }
                         }
                     } else {
-                        listener?.refreshItems()
+                        listener?.refreshFragment()
                         finishActMode()
                     }
                 }
@@ -423,7 +423,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 }
 
                 activity.runOnUiThread {
-                    listener?.refreshItems()
+                    listener?.refreshFragment()
                     finishActMode()
                 }
             }
@@ -450,7 +450,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                     if (compressPaths(paths, destination)) {
                         activity.runOnUiThread {
                             activity.toast(R.string.compression_successful)
-                            listener?.refreshItems()
+                            listener?.refreshFragment()
                             finishActMode()
                         }
                     } else {
@@ -478,7 +478,7 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 if (it) {
                     activity.toast(R.string.decompression_successful)
                     activity.runOnUiThread {
-                        listener?.refreshItems()
+                        listener?.refreshFragment()
                         finishActMode()
                     }
                 } else {

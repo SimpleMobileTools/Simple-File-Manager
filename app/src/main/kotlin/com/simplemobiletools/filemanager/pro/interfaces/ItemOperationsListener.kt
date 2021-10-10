@@ -4,7 +4,7 @@ import com.simplemobiletools.commons.models.FileDirItem
 import java.util.*
 
 interface ItemOperationsListener {
-    fun refreshItems()
+    fun refreshFragment()
 
     fun deleteFiles(files: ArrayList<FileDirItem>)
 

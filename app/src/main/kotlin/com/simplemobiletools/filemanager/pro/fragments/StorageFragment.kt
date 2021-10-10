@@ -11,7 +11,7 @@ import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun setupFragment(activity: SimpleActivity) {}
 
-    override fun refreshItems() {}
+    override fun refreshFragment() {}
 
     override fun setupColors(textColor: Int, primaryColor: Int) {}
 

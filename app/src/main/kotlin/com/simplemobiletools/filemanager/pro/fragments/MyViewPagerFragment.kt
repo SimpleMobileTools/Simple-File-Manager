@@ -38,5 +38,5 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     abstract fun setupColors(textColor: Int, primaryColor: Int)
 
-    abstract fun refreshItems()
+    abstract fun refreshFragment()
 }

@@ -316,7 +316,7 @@ class MainActivity : SimpleActivity() {
         }
 
         if (refreshRecents) {
-            recents_fragment?.refreshItems()
+            recents_fragment?.refreshFragment()
         }
     }
 
@@ -449,7 +449,7 @@ class MainActivity : SimpleActivity() {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this, getCurrentFragment()!!.currentPath) {
-            (getCurrentFragment() as? ItemsFragment)?.refreshItems()
+            (getCurrentFragment() as? ItemsFragment)?.refreshFragment()
         }
     }
 
@@ -506,7 +506,7 @@ class MainActivity : SimpleActivity() {
     private fun changeViewType() {
         ChangeViewTypeDialog(this, getCurrentFragment()!!.currentPath, getCurrentFragment() is ItemsFragment) {
             getAllFragments().forEach {
-                it?.refreshItems()
+                it?.refreshFragment()
             }
         }
     }
@@ -524,7 +524,7 @@ class MainActivity : SimpleActivity() {
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
         getAllFragments().forEach {
-            it?.refreshItems()
+            it?.refreshFragment()
         }
     }
 
