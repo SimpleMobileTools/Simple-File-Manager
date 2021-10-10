@@ -138,6 +138,7 @@ class MainActivity : SimpleActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val currentFragment = getCurrentFragment() ?: return true
+        val currentViewType = config.getFolderViewType(currentFragment.currentPath)
         val favorites = config.favorites
 
         menu!!.apply {
@@ -148,15 +149,15 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.remove_favorite).isVisible = currentFragment is ItemsFragment && favorites.contains(currentFragment.currentPath)
             findItem(R.id.go_to_favorite).isVisible = currentFragment is ItemsFragment && favorites.isNotEmpty()
 
-            findItem(R.id.toggle_filename).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID
+            findItem(R.id.toggle_filename).isVisible = currentViewType == VIEW_TYPE_GRID
             findItem(R.id.go_home).isVisible = currentFragment is ItemsFragment && currentFragment.currentPath != config.homeFolder
             findItem(R.id.set_as_home).isVisible = currentFragment is ItemsFragment && currentFragment.currentPath != config.homeFolder
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
-            findItem(R.id.increase_column_count).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
-            findItem(R.id.reduce_column_count).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt > 1
+            findItem(R.id.increase_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
+            findItem(R.id.reduce_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1
         }
 
         return true
