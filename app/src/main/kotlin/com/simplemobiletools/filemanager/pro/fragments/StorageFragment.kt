@@ -30,6 +30,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             activity.runOnUiThread {
                 images_size.text = imagesSize.formatSize()
                 images_progressbar.progress = (imagesSize / 1000000).toInt()
+
+                videos_size.text = videosSize.formatSize()
+                videos_progressbar.progress = (videosSize / 1000000).toInt()
             }
         }
     }
@@ -45,6 +48,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val redColor = context.resources.getColor(R.color.md_red_700)
         images_progressbar.setIndicatorColor(redColor)
         images_progressbar.trackColor = redColor.adjustAlpha(0.3f)
+
+        val greenColor = context.resources.getColor(R.color.md_green_700)
+        videos_progressbar.setIndicatorColor(greenColor)
+        videos_progressbar.trackColor = greenColor.adjustAlpha(0.3f)
     }
 
     private fun getMediaTypeSize(uri: Uri): Long {
@@ -82,7 +89,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
                 activity.runOnUiThread {
-                    arrayOf(main_storage_usage_progressbar, images_progressbar).forEach {
+                    arrayOf(main_storage_usage_progressbar, images_progressbar, videos_progressbar).forEach {
                         it.max = (totalSpace / 1000000).toInt()
                     }
 

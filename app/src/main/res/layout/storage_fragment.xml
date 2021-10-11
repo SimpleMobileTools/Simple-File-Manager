@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/total_space"
-        android:layout_marginTop="@dimen/big_text_size"
+        android:layout_marginTop="@dimen/big_margin"
         android:text="@string/images"
         android:textSize="@dimen/bigger_text_size" />
 
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/total_space"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/big_text_size"
+        android:layout_marginTop="@dimen/big_margin"
         android:alpha="0.7"
         android:textSize="@dimen/normal_text_size"
         tools:text="20 GB" />
@@ -72,6 +72,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/images_label"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:max="100"
+        app:trackThickness="2dp" />
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/videos_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/images_progressbar"
+        android:layout_marginTop="@dimen/big_margin"
+        android:text="@string/videos"
+        android:textSize="@dimen/bigger_text_size" />
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/videos_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/images_progressbar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/big_margin"
+        android:alpha="0.7"
+        android:textSize="@dimen/normal_text_size"
+        tools:text="20 GB" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/videos_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/videos_label"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_marginBottom="@dimen/medium_margin"
         android:max="100"
