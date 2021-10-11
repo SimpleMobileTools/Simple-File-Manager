@@ -331,6 +331,7 @@ class MainActivity : SimpleActivity() {
 
     private fun initFragments() {
         main_view_pager.adapter = ViewPagerAdapter(this)
+        main_view_pager.offscreenPageLimit = 2
         main_view_pager.currentItem = config.lastUsedViewPagerPage
         main_view_pager.onPageChangeListener {
             main_tabs_holder.getTabAt(it)?.select()
