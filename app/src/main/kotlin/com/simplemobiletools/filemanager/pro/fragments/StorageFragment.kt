@@ -18,14 +18,19 @@ import kotlinx.android.synthetic.main.storage_fragment.view.*
 
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun setupFragment(activity: SimpleActivity) {
-        val imagesSize = getMediaTypeSize(MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        val videosSize = getMediaTypeSize(MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
-        val audioSize = getMediaTypeSize(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
-        val documents = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getProperSize(true)
-        val downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
-
         ensureBackgroundThread {
             getStorageStats(activity)
+
+            val imagesSize = getMediaTypeSize(MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            val videosSize = getMediaTypeSize(MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+            val audioSize = getMediaTypeSize(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
+            val documents = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getProperSize(true)
+            val downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
+
+            activity.runOnUiThread {
+                images_size.text = imagesSize.formatSize()
+                images_progressbar.progress = (imagesSize / 1000000).toInt()
+            }
         }
     }
 
@@ -36,6 +41,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
         main_storage_usage_progressbar.setIndicatorColor(primaryColor)
         main_storage_usage_progressbar.trackColor = primaryColor.adjustAlpha(0.3f)
+
+        val redColor = context.resources.getColor(R.color.md_red_700)
+        images_progressbar.setIndicatorColor(redColor)
+        images_progressbar.trackColor = redColor.adjustAlpha(0.3f)
     }
 
     private fun getMediaTypeSize(uri: Uri): Long {
@@ -73,10 +82,13 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
                 activity.runOnUiThread {
-                    main_storage_usage_progressbar.max = (totalSpace / 1000000).toInt()
-                    main_storage_usage_progressbar.progress = ((totalSpace - freeSpace) / 1000000).toInt()
-                    main_storage_usage_progressbar.beVisible()
+                    arrayOf(main_storage_usage_progressbar, images_progressbar).forEach {
+                        it.max = (totalSpace / 1000000).toInt()
+                    }
 
+                    main_storage_usage_progressbar.progress = ((totalSpace - freeSpace) / 1000000).toInt()
+
+                    main_storage_usage_progressbar.beVisible()
                     free_space_value.text = freeSpace.formatSizeThousand()
                     total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
                     free_space_label.beVisible()
