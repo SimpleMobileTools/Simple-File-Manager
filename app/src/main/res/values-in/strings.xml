@@ -41,6 +41,17 @@
     <!-- File Editor -->
     <string name="file_editor">Penyunting Berkas</string>
 
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Storage analysis</string>
+    <string name="images">Images</string>
+    <string name="videos">Videos</string>
+    <string name="audio">Audio</string>
+    <string name="documents">Documents</string>
+    <string name="downloads">Downloads</string>
+    <string name="others">Others</string>
+    <string name="storage_free">free</string>
+    <string name="total_storage">Total storage: %s</string>
+
     <!-- Settings -->
     <string name="enable_root_access">Aktifkan akses root</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>

@@ -8,8 +8,8 @@
     <string name="home_folder_updated">Folder główny zaktualizowany</string>
     <string name="copy_path">Kopiuj ścieżkę do schowka</string>
     <string name="path_copied">Ścieżka skopiowana</string>
-    <string name="select_audio_file">Proszę wybrać plik audio</string>
-    <string name="search_folder">Przeszukaj folder</string>
+    <string name="select_audio_file">Proszę wybrać plik audio</string>
+    <string name="search_folder">Przeszukaj folder</string>
     <string name="rooted_device_only">Ta operacja działa tylko na zrootowanych urządzeniach</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
@@ -23,13 +23,13 @@
     <string name="other_file">Inny plik</string>
 
     <!-- Compression -->
-    <string name="compress">Skompresuj</string>
+    <string name="compress">Skompresuj</string>
     <string name="decompress">Rozpakuj</string>
-    <string name="compress_as">Skompresuj jako</string>
+    <string name="compress_as">Skompresuj jako</string>
     <string name="compressing">Kompresowanie…</string>
     <string name="decompressing">Rozpakowywanie…</string>
-    <string name="compression_successful">Kompresja udana</string>
-    <string name="decompression_successful">Rozpakowywanie udane</string>
+    <string name="compression_successful">Kompresja udana</string>
+    <string name="decompression_successful">Rozpakowywanie udane</string>
     <string name="compressing_failed">Kompresja nie powiodła się</string>
     <string name="decompressing_failed">Rozpakowywanie nie powiodło się</string>
 
@@ -39,7 +39,18 @@
     <string name="favorites_activity_placeholder">Możesz dodać często używane foldery do ulubionych, aby mieć do nich łatwy dostęp z dowolnego miejsca.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">Edytor Plików</string>
+    <string name="file_editor">Edytor Plików</string>
+
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Storage analysis</string>
+    <string name="images">Images</string>
+    <string name="videos">Videos</string>
+    <string name="audio">Audio</string>
+    <string name="documents">Documents</string>
+    <string name="downloads">Downloads</string>
+    <string name="others">Others</string>
+    <string name="storage_free">free</string>
+    <string name="total_storage">Total storage: %s</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Zezwól na dostęp do uprawnień roota</string>
@@ -49,7 +60,7 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Prosty Menedżer Plików Pro - Zarządzaj plikami</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
     <string name="app_long_description">
         A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
 
@@ -71,7 +82,7 @@
 
         It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
 
-        Aplikacja nie zawiera żadnych żadnych reklam, nie potrzebuje masy uprawnień, jest w pełni otwartoźródłowa, posiada ciemny motyw dla osób z wrażliwymi oczami.
+        Aplikacja nie zawiera żadnych żadnych reklam, nie potrzebuje masy uprawnień, jest w pełni otwartoźródłowa, posiada ciemny motyw dla osób z wrażliwymi oczami.
 
         <b>Check out the full suite of Simple Tools here:</b>
         https://www.simplemobiletools.com
