@@ -12,7 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getProperSize
 import com.simplemobiletools.commons.extensions.queryCursor
+import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
+import kotlinx.android.synthetic.main.storage_fragment.view.*
 
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     override fun setupFragment(activity: SimpleActivity) {
@@ -21,11 +26,17 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val audioSize = getMediaTypeSize(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
         val documents = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getProperSize(true)
         val downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
+
+        ensureBackgroundThread {
+            getStorageStats(activity)
+        }
     }
 
     override fun refreshFragment() {}
 
-    override fun setupColors(textColor: Int, primaryColor: Int) {}
+    override fun setupColors(textColor: Int, primaryColor: Int) {
+        context.updateTextColors(storage_fragment)
+    }
 
     private fun getMediaTypeSize(uri: Uri): Long {
         val projection = arrayOf(
@@ -48,22 +59,23 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     @SuppressLint("NewApi")
-    private fun getStorageStats() {
-        if (activity == null) {
-            return
-        }
-
-        val externalDirs = activity!!.getExternalFilesDirs(null)
-        val storageManager = activity!!.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
+    private fun getStorageStats(activity: SimpleActivity) {
+        val externalDirs = activity.getExternalFilesDirs(null)
+        val storageManager = activity.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
 
         externalDirs.forEach { file ->
             val storageVolume = storageManager.getStorageVolume(file) ?: return
             if (storageVolume.isPrimary) {
                 // internal storage
-                val storageStatsManager = activity!!.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
+                val storageStatsManager = activity.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
                 val uuid = StorageManager.UUID_DEFAULT
                 val totalSpace = storageStatsManager.getTotalBytes(uuid)
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
+
+                activity.runOnUiThread {
+                    free_space_value.text = freeSpace.formatSizeThousand()
+                    total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
+                }
             } else {
                 // sd card
                 val totalSpace = file.totalSpace

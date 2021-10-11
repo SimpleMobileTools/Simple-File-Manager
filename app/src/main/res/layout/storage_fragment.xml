@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.simplemobiletools.filemanager.pro.fragments.StorageFragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/storage_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_margin">
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/free_space_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/storage_free_space_text_size"
+        tools:text="23 GB" />
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/free_space_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/total_space"
+        android:layout_alignBaseline="@+id/free_space_value"
+        android:layout_alignBottom="@+id/free_space_value"
+        android:layout_marginStart="@dimen/medium_margin"
+        android:layout_toEndOf="@+id/free_space_value"
+        android:text="@string/storage_free"
+        android:textSize="@dimen/big_text_size" />
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/total_space"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/free_space_value"
+        android:textSize="@dimen/big_text_size"
+        tools:text="Total storage: 64 GB" />
 
 </com.simplemobiletools.filemanager.pro.fragments.StorageFragment>
