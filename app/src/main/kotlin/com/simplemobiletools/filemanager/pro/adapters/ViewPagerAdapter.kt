@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.simplemobiletools.commons.helpers.TAB_FILES
 import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
+import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.config
@@ -42,6 +43,10 @@ class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
 
         if (showTabs and TAB_RECENT_FILES != 0) {
             fragments.add(R.layout.recents_fragment)
+        }
+
+        if (showTabs and TAB_STORAGE_ANALYSIS != 0) {
+            fragments.add(R.layout.storage_fragment)
         }
 
         return fragments[position]
