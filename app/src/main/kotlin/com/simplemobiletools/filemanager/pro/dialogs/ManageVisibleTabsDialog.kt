@@ -5,6 +5,7 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.TAB_FILES
 import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
+import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
@@ -18,6 +19,7 @@ class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
         tabs.apply {
             put(TAB_FILES, R.id.manage_visible_tabs_files)
             put(TAB_RECENT_FILES, R.id.manage_visible_tabs_recent_files)
+            put(TAB_STORAGE_ANALYSIS, R.id.manage_visible_tabs_storage_analysis)
         }
 
         val showTabs = activity.config.showTabs

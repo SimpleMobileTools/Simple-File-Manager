@@ -121,4 +121,8 @@ class Config(context: Context) : BaseConfig(context) {
     var showTabs: Int
         get() = prefs.getInt(SHOW_TABS, ALL_TABS_MASK)
         set(showTabs) = prefs.edit().putInt(SHOW_TABS, showTabs).apply()
+
+    var wasStorageAnalysisTabAdded: Boolean
+        get() = prefs.getBoolean(WAS_STORAGE_ANALYSIS_TAB_ADDED, false)
+        set(wasStorageAnalysisTabAdded) = prefs.edit().putBoolean(WAS_STORAGE_ANALYSIS_TAB_ADDED, wasStorageAnalysisTabAdded).apply()
 }

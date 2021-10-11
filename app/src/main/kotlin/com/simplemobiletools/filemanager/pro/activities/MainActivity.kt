@@ -60,6 +60,12 @@ class MainActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+
+        if (!config.wasStorageAnalysisTabAdded) {
+            config.wasStorageAnalysisTabAdded = true
+            config.showTabs += TAB_STORAGE_ANALYSIS
+        }
+
         setupTabColors(config.lastUsedViewPagerPage)
         storeStateVariables()
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
