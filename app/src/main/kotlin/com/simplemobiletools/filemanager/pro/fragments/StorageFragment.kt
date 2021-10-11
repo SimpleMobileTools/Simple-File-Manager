@@ -70,6 +70,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
                 activity.runOnUiThread {
+                    storage_usage_progressbar.max = (totalSpace / 1000).toInt()
+                    storage_usage_progressbar.progress = ((totalSpace - freeSpace) / 1000).toInt()
+                    storage_usage_progressbar.beVisible()
+
                     free_space_value.text = freeSpace.formatSizeThousand()
                     total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
                     free_space_label.beVisible()

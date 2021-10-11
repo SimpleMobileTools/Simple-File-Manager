@@ -26,11 +26,21 @@
         android:textSize="@dimen/big_text_size"
         android:visibility="gone" />
 
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/storage_usage_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/free_space_value"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:max="100"
+        android:visibility="gone" />
+
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/total_space"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/free_space_value"
+        android:layout_below="@+id/storage_usage_progressbar"
         android:textSize="@dimen/big_text_size"
         tools:text="Total storage: 64 GB" />
 
