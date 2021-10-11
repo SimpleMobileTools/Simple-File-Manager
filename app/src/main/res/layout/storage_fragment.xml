@@ -23,7 +23,8 @@
         android:layout_marginStart="@dimen/medium_margin"
         android:layout_toEndOf="@+id/free_space_value"
         android:text="@string/storage_free"
-        android:textSize="@dimen/big_text_size" />
+        android:textSize="@dimen/big_text_size"
+        android:visibility="gone" />
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/total_space"

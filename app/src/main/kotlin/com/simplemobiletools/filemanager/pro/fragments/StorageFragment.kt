@@ -9,10 +9,7 @@ import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
-import com.simplemobiletools.commons.extensions.getLongValue
-import com.simplemobiletools.commons.extensions.getProperSize
-import com.simplemobiletools.commons.extensions.queryCursor
-import com.simplemobiletools.commons.extensions.updateTextColors
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -75,6 +72,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 activity.runOnUiThread {
                     free_space_value.text = freeSpace.formatSizeThousand()
                     total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
+                    free_space_label.beVisible()
                 }
             } else {
                 // sd card
