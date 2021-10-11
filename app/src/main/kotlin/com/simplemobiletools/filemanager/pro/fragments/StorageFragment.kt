@@ -24,8 +24,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             val imagesSize = getMediaTypeSize(MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             val videosSize = getMediaTypeSize(MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
             val audioSize = getMediaTypeSize(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
-            val documents = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getProperSize(true)
-            val downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
+            val documentsSize = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getProperSize(true)
+            val downloadsSize = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
 
             activity.runOnUiThread {
                 images_size.text = imagesSize.formatSize()
@@ -33,6 +33,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
                 videos_size.text = videosSize.formatSize()
                 videos_progressbar.progress = (videosSize / 1000000).toInt()
+
+                audio_size.text = audioSize.formatSize()
+                audio_progressbar.progress = (audioSize / 1000000).toInt()
             }
         }
     }
@@ -52,6 +55,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val greenColor = context.resources.getColor(R.color.md_green_700)
         videos_progressbar.setIndicatorColor(greenColor)
         videos_progressbar.trackColor = greenColor.adjustAlpha(0.3f)
+
+        val blueColor = context.resources.getColor(R.color.md_blue_700)
+        audio_progressbar.setIndicatorColor(blueColor)
+        audio_progressbar.trackColor = blueColor.adjustAlpha(0.3f)
     }
 
     private fun getMediaTypeSize(uri: Uri): Long {
@@ -89,7 +96,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
                 activity.runOnUiThread {
-                    arrayOf(main_storage_usage_progressbar, images_progressbar, videos_progressbar).forEach {
+                    arrayOf(main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar).forEach {
                         it.max = (totalSpace / 1000000).toInt()
                     }
 
