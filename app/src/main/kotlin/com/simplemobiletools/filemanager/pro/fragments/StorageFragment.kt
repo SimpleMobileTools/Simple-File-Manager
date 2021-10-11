@@ -33,6 +33,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun setupColors(textColor: Int, primaryColor: Int) {
         context.updateTextColors(storage_fragment)
+
+        main_storage_usage_progressbar.setIndicatorColor(primaryColor)
+        main_storage_usage_progressbar.trackColor = primaryColor.adjustAlpha(0.3f)
     }
 
     private fun getMediaTypeSize(uri: Uri): Long {
@@ -70,9 +73,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
                 activity.runOnUiThread {
-                    storage_usage_progressbar.max = (totalSpace / 1000).toInt()
-                    storage_usage_progressbar.progress = ((totalSpace - freeSpace) / 1000).toInt()
-                    storage_usage_progressbar.beVisible()
+                    main_storage_usage_progressbar.max = (totalSpace / 1000000).toInt()
+                    main_storage_usage_progressbar.progress = ((totalSpace - freeSpace) / 1000000).toInt()
+                    main_storage_usage_progressbar.beVisible()
 
                     free_space_value.text = freeSpace.formatSizeThousand()
                     total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
