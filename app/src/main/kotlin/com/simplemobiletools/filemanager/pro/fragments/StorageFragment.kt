@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.annotation.SuppressLint
 import android.app.usage.StorageStatsManager
 import android.content.Context
-import android.net.Uri
 import android.os.Environment
 import android.os.storage.StorageManager
 import android.provider.MediaStore
@@ -17,13 +16,18 @@ import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
 import kotlinx.android.synthetic.main.storage_fragment.view.*
 
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
+    private val IMAGES = "images"
+    private val VIDEOS = "videos"
+    private val AUDIO = "audio"
+
     override fun setupFragment(activity: SimpleActivity) {
         ensureBackgroundThread {
             getStorageStats(activity)
 
-            val imagesSize = getMediaTypeSize(MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            val videosSize = getMediaTypeSize(MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
-            val audioSize = getMediaTypeSize(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
+            val filesSize = getSizesByMimeType()
+            val imagesSize = filesSize[IMAGES]!!
+            val videosSize = filesSize[VIDEOS]!!
+            val audioSize = filesSize[AUDIO]!!
             val documentsSize = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getProperSize(true)
             val downloadsSize = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
 
@@ -61,24 +65,39 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         audio_progressbar.trackColor = blueColor.adjustAlpha(0.3f)
     }
 
-    private fun getMediaTypeSize(uri: Uri): Long {
+    private fun getSizesByMimeType(): HashMap<String, Long> {
+        val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
-            MediaStore.Files.FileColumns.SIZE
+            MediaStore.Files.FileColumns.SIZE,
+            MediaStore.Files.FileColumns.MIME_TYPE
         )
 
-        var totalSize = 0L
+        var imagesSize = 0L
+        var videosSize = 0L
+        var audioSize = 0L
         try {
             context.queryCursor(uri, projection) { cursor ->
                 try {
+                    val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE) ?: return@queryCursor
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
-                    totalSize += size
+                    when (mimeType.substringBefore("/")) {
+                        "image" -> imagesSize += size
+                        "video" -> videosSize += size
+                        "audio" -> audioSize += size
+                    }
                 } catch (e: Exception) {
                 }
             }
         } catch (e: Exception) {
         }
 
-        return totalSize
+        val mimeTypeSizes = HashMap<String, Long>().apply {
+            put(IMAGES, imagesSize)
+            put(VIDEOS, videosSize)
+            put(AUDIO, audioSize)
+        }
+
+        return mimeTypeSizes
     }
 
     @SuppressLint("NewApi")
