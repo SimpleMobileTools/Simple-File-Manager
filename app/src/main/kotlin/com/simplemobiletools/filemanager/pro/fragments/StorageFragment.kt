@@ -1,10 +1,14 @@
 package com.simplemobiletools.filemanager.pro.fragments
 
+import android.annotation.SuppressLint
+import android.app.usage.StorageStatsManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.util.AttributeSet
+import androidx.appcompat.app.AppCompatActivity
 import com.simplemobiletools.commons.extensions.getLongValue
 import com.simplemobiletools.commons.extensions.getProperSize
 import com.simplemobiletools.commons.extensions.queryCursor
@@ -41,5 +45,30 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
 
         return totalSize
+    }
+
+    @SuppressLint("NewApi")
+    private fun getStorageStats() {
+        if (activity == null) {
+            return
+        }
+
+        val externalDirs = activity!!.getExternalFilesDirs(null)
+        val storageManager = activity!!.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
+
+        externalDirs.forEach { file ->
+            val storageVolume = storageManager.getStorageVolume(file) ?: return
+            if (storageVolume.isPrimary) {
+                // internal storage
+                val storageStatsManager = activity!!.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
+                val uuid = StorageManager.UUID_DEFAULT
+                val totalSpace = storageStatsManager.getTotalBytes(uuid)
+                val freeSpace = storageStatsManager.getFreeBytes(uuid)
+            } else {
+                // sd card
+                val totalSpace = file.totalSpace
+                val freeSpace = file.freeSpace
+            }
+        }
     }
 }
