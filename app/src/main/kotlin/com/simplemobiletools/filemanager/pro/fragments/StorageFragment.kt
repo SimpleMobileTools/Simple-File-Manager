@@ -14,11 +14,17 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
 import kotlinx.android.synthetic.main.storage_fragment.view.*
+import java.util.*
+import kotlin.collections.HashMap
 
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     private val IMAGES = "images"
     private val VIDEOS = "videos"
     private val AUDIO = "audio"
+    private val DOCUMENTS = "documents"
+
+    // what else should we count as a document except "text/*" mimetype
+    private val extraDocumentMimeTypes = arrayListOf("application/pdf", "application/msword")
 
     override fun setupFragment(activity: SimpleActivity) {
         ensureBackgroundThread {
@@ -28,7 +34,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             val imagesSize = filesSize[IMAGES]!!
             val videosSize = filesSize[VIDEOS]!!
             val audioSize = filesSize[AUDIO]!!
-            val documentsSize = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getProperSize(true)
+            val documentsSize = filesSize[DOCUMENTS]!!
             val downloadsSize = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
 
             activity.runOnUiThread {
@@ -40,6 +46,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
                 audio_size.text = audioSize.formatSize()
                 audio_progressbar.progress = (audioSize / 1000000).toInt()
+
+                documents_size.text = documentsSize.formatSize()
+                documents_progressbar.progress = (documentsSize / 1000000).toInt()
             }
         }
     }
@@ -63,6 +72,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val blueColor = context.resources.getColor(R.color.md_blue_700)
         audio_progressbar.setIndicatorColor(blueColor)
         audio_progressbar.trackColor = blueColor.adjustAlpha(0.3f)
+
+        val yellowColor = context.resources.getColor(R.color.md_yellow_700)
+        documents_progressbar.setIndicatorColor(yellowColor)
+        documents_progressbar.trackColor = yellowColor.adjustAlpha(0.3f)
     }
 
     private fun getSizesByMimeType(): HashMap<String, Long> {
@@ -75,15 +88,22 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         var imagesSize = 0L
         var videosSize = 0L
         var audioSize = 0L
+        var documentsSize = 0L
         try {
             context.queryCursor(uri, projection) { cursor ->
                 try {
                     val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE) ?: return@queryCursor
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
-                    when (mimeType.substringBefore("/")) {
+                    when (mimeType.substringBefore("/").lowercase(Locale.getDefault())) {
                         "image" -> imagesSize += size
                         "video" -> videosSize += size
                         "audio" -> audioSize += size
+                        "text" -> documentsSize += size
+                        else -> {
+                            if (extraDocumentMimeTypes.contains(mimeType.lowercase(Locale.getDefault()))) {
+                                documentsSize += size
+                            }
+                        }
                     }
                 } catch (e: Exception) {
                 }
@@ -95,6 +115,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             put(IMAGES, imagesSize)
             put(VIDEOS, videosSize)
             put(AUDIO, audioSize)
+            put(DOCUMENTS, documentsSize)
         }
 
         return mimeTypeSizes
@@ -115,7 +136,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
                 activity.runOnUiThread {
-                    arrayOf(main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar).forEach {
+                    arrayOf(main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar).forEach {
                         it.max = (totalSpace / 1000000).toInt()
                     }
 
