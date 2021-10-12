@@ -22,6 +22,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private val AUDIO = "audio"
     private val DOCUMENTS = "documents"
     private val ARCHIVES = "archives"
+    private val OTHERS = "others"
 
     private val SIZE_DIVIDER = 100000
 
@@ -43,6 +44,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             val audioSize = filesSize[AUDIO]!!
             val documentsSize = filesSize[DOCUMENTS]!!
             val archivesSize = filesSize[ARCHIVES]!!
+            val othersSize = filesSize[OTHERS]!!
 
             activity.runOnUiThread {
                 images_size.text = imagesSize.formatSize()
@@ -59,6 +61,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
                 archives_size.text = archivesSize.formatSize()
                 archives_progressbar.progress = (archivesSize / SIZE_DIVIDER).toInt()
+
+                others_size.text = othersSize.formatSize()
+                others_progressbar.progress = (othersSize / SIZE_DIVIDER).toInt()
             }
         }
     }
@@ -79,25 +84,28 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         videos_progressbar.setIndicatorColor(greenColor)
         videos_progressbar.trackColor = greenColor.adjustAlpha(0.3f)
 
-        val blueColor = context.resources.getColor(R.color.md_blue_700)
-        audio_progressbar.setIndicatorColor(blueColor)
-        audio_progressbar.trackColor = blueColor.adjustAlpha(0.3f)
+        val lightBlueColor = context.resources.getColor(R.color.md_light_blue_700)
+        audio_progressbar.setIndicatorColor(lightBlueColor)
+        audio_progressbar.trackColor = lightBlueColor.adjustAlpha(0.3f)
 
         val yellowColor = context.resources.getColor(R.color.md_yellow_700)
         documents_progressbar.setIndicatorColor(yellowColor)
         documents_progressbar.trackColor = yellowColor.adjustAlpha(0.3f)
 
-        val greyColor = context.resources.getColor(R.color.md_grey_700)
-        archives_progressbar.setIndicatorColor(greyColor)
-        archives_progressbar.trackColor = greyColor.adjustAlpha(0.3f)
+        val whiteColor = context.resources.getColor(R.color.md_grey_white)
+        archives_progressbar.setIndicatorColor(whiteColor)
+        archives_progressbar.trackColor = whiteColor.adjustAlpha(0.3f)
+
+        val pinkColor = context.resources.getColor(R.color.md_pink_700)
+        others_progressbar.setIndicatorColor(pinkColor)
+        others_progressbar.trackColor = pinkColor.adjustAlpha(0.3f)
     }
 
     private fun getSizesByMimeType(): HashMap<String, Long> {
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.SIZE,
-            MediaStore.Files.FileColumns.MIME_TYPE,
-            MediaStore.Files.FileColumns.DISPLAY_NAME
+            MediaStore.Files.FileColumns.MIME_TYPE
         )
 
         var imagesSize = 0L
@@ -105,12 +113,12 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         var audioSize = 0L
         var documentsSize = 0L
         var archivesSize = 0L
+        var othersSize = 0L
         try {
             context.queryCursor(uri, projection) { cursor ->
                 try {
                     val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault()) ?: return@queryCursor
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
-                    val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
                     when (mimeType.substringBefore("/")) {
                         "image" -> imagesSize += size
                         "video" -> videosSize += size
@@ -121,6 +129,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                                 extraDocumentMimeTypes.contains(mimeType) -> documentsSize += size
                                 extraAudioMimeTypes.contains(mimeType) -> audioSize += size
                                 archiveMimeTypes.contains(mimeType) -> archivesSize += size
+                                else -> othersSize += size
                             }
                         }
                     }
@@ -136,6 +145,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             put(AUDIO, audioSize)
             put(DOCUMENTS, documentsSize)
             put(ARCHIVES, archivesSize)
+            put(OTHERS, othersSize)
         }
 
         return mimeTypeSizes
@@ -158,7 +168,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 activity.runOnUiThread {
                     arrayOf(
                         main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar,
-                        archives_progressbar
+                        archives_progressbar, others_progressbar
                     ).forEach {
                         it.max = (totalSpace / SIZE_DIVIDER).toInt()
                     }
