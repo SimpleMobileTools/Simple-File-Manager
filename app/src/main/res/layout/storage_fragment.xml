@@ -167,4 +167,34 @@
         android:max="100"
         app:trackThickness="2dp" />
 
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/archives_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/documents_progressbar"
+        android:layout_marginTop="@dimen/big_margin"
+        android:text="@string/archives"
+        android:textSize="@dimen/bigger_text_size" />
+
+    <com.simplemobiletools.commons.views.MyTextView
+        android:id="@+id/archives_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/documents_progressbar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/big_margin"
+        android:alpha="0.7"
+        android:textSize="@dimen/normal_text_size"
+        tools:text="20 GB" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/archives_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/archives_label"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:max="100"
+        app:trackThickness="2dp" />
+
 </com.simplemobiletools.filemanager.pro.fragments.StorageFragment>

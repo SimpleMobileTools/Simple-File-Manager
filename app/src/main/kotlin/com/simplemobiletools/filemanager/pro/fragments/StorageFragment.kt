@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.annotation.SuppressLint
 import android.app.usage.StorageStatsManager
 import android.content.Context
-import android.os.Environment
 import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.util.AttributeSet
@@ -22,33 +21,40 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private val VIDEOS = "videos"
     private val AUDIO = "audio"
     private val DOCUMENTS = "documents"
+    private val ARCHIVES = "archives"
+
+    private val SIZE_DIVIDER = 100000
 
     // what else should we count as a document except "text/*" mimetype
     private val extraDocumentMimeTypes = arrayListOf("application/pdf", "application/msword")
+    private val archiveMimeTypes = arrayListOf("application/zip", "application/x-tar")
 
     override fun setupFragment(activity: SimpleActivity) {
         ensureBackgroundThread {
-            getStorageStats(activity)
+            getMainStorageStats(activity)
 
             val filesSize = getSizesByMimeType()
             val imagesSize = filesSize[IMAGES]!!
             val videosSize = filesSize[VIDEOS]!!
             val audioSize = filesSize[AUDIO]!!
             val documentsSize = filesSize[DOCUMENTS]!!
-            val downloadsSize = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getProperSize(true)
+            val archivesSize = filesSize[ARCHIVES]!!
 
             activity.runOnUiThread {
                 images_size.text = imagesSize.formatSize()
-                images_progressbar.progress = (imagesSize / 1000000).toInt()
+                images_progressbar.progress = (imagesSize / SIZE_DIVIDER).toInt()
 
                 videos_size.text = videosSize.formatSize()
-                videos_progressbar.progress = (videosSize / 1000000).toInt()
+                videos_progressbar.progress = (videosSize / SIZE_DIVIDER).toInt()
 
                 audio_size.text = audioSize.formatSize()
-                audio_progressbar.progress = (audioSize / 1000000).toInt()
+                audio_progressbar.progress = (audioSize / SIZE_DIVIDER).toInt()
 
                 documents_size.text = documentsSize.formatSize()
-                documents_progressbar.progress = (documentsSize / 1000000).toInt()
+                documents_progressbar.progress = (documentsSize / SIZE_DIVIDER).toInt()
+
+                archives_size.text = archivesSize.formatSize()
+                archives_progressbar.progress = (archivesSize / SIZE_DIVIDER).toInt()
             }
         }
     }
@@ -76,6 +82,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val yellowColor = context.resources.getColor(R.color.md_yellow_700)
         documents_progressbar.setIndicatorColor(yellowColor)
         documents_progressbar.trackColor = yellowColor.adjustAlpha(0.3f)
+
+        val greyColor = context.resources.getColor(R.color.md_grey_700)
+        archives_progressbar.setIndicatorColor(greyColor)
+        archives_progressbar.trackColor = greyColor.adjustAlpha(0.3f)
     }
 
     private fun getSizesByMimeType(): HashMap<String, Long> {
@@ -89,19 +99,21 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         var videosSize = 0L
         var audioSize = 0L
         var documentsSize = 0L
+        var archivesSize = 0L
         try {
             context.queryCursor(uri, projection) { cursor ->
                 try {
-                    val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE) ?: return@queryCursor
+                    val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault()) ?: return@queryCursor
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
-                    when (mimeType.substringBefore("/").lowercase(Locale.getDefault())) {
+                    when (mimeType.substringBefore("/")) {
                         "image" -> imagesSize += size
                         "video" -> videosSize += size
                         "audio" -> audioSize += size
                         "text" -> documentsSize += size
                         else -> {
-                            if (extraDocumentMimeTypes.contains(mimeType.lowercase(Locale.getDefault()))) {
-                                documentsSize += size
+                            when {
+                                extraDocumentMimeTypes.contains(mimeType) -> documentsSize += size
+                                archiveMimeTypes.contains(mimeType) -> archivesSize += size
                             }
                         }
                     }
@@ -116,13 +128,14 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             put(VIDEOS, videosSize)
             put(AUDIO, audioSize)
             put(DOCUMENTS, documentsSize)
+            put(ARCHIVES, archivesSize)
         }
 
         return mimeTypeSizes
     }
 
     @SuppressLint("NewApi")
-    private fun getStorageStats(activity: SimpleActivity) {
+    private fun getMainStorageStats(activity: SimpleActivity) {
         val externalDirs = activity.getExternalFilesDirs(null)
         val storageManager = activity.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
 
@@ -136,11 +149,14 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
                 activity.runOnUiThread {
-                    arrayOf(main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar).forEach {
-                        it.max = (totalSpace / 1000000).toInt()
+                    arrayOf(
+                        main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar,
+                        archives_progressbar
+                    ).forEach {
+                        it.max = (totalSpace / SIZE_DIVIDER).toInt()
                     }
 
-                    main_storage_usage_progressbar.progress = ((totalSpace - freeSpace) / 1000000).toInt()
+                    main_storage_usage_progressbar.progress = ((totalSpace - freeSpace) / SIZE_DIVIDER).toInt()
 
                     main_storage_usage_progressbar.beVisible()
                     free_space_value.text = freeSpace.formatSizeThousand()
