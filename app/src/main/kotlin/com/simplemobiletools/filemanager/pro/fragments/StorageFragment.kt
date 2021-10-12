@@ -25,9 +25,13 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     private val SIZE_DIVIDER = 100000
 
-    // what else should we count as a document except "text/*" mimetype
-    private val extraDocumentMimeTypes = arrayListOf("application/pdf", "application/msword")
-    private val archiveMimeTypes = arrayListOf("application/zip", "application/x-tar")
+    // what else should we count as an audio except "audio/*" mimetype
+    private val extraAudioMimeTypes = arrayListOf("application/ogg")
+    private val extraDocumentMimeTypes = arrayListOf(
+        "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    private val archiveMimeTypes = arrayListOf("application/zip", "application/x-tar", "application/octet-stream", "application/json")
 
     override fun setupFragment(activity: SimpleActivity) {
         ensureBackgroundThread {
@@ -92,7 +96,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.SIZE,
-            MediaStore.Files.FileColumns.MIME_TYPE
+            MediaStore.Files.FileColumns.MIME_TYPE,
+            MediaStore.Files.FileColumns.DISPLAY_NAME
         )
 
         var imagesSize = 0L
@@ -105,6 +110,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 try {
                     val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault()) ?: return@queryCursor
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
+                    val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
                     when (mimeType.substringBefore("/")) {
                         "image" -> imagesSize += size
                         "video" -> videosSize += size
@@ -113,6 +119,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                         else -> {
                             when {
                                 extraDocumentMimeTypes.contains(mimeType) -> documentsSize += size
+                                extraAudioMimeTypes.contains(mimeType) -> audioSize += size
                                 archiveMimeTypes.contains(mimeType) -> archivesSize += size
                             }
                         }
