@@ -105,7 +105,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.SIZE,
-            MediaStore.Files.FileColumns.MIME_TYPE
+            MediaStore.Files.FileColumns.MIME_TYPE,
+            MediaStore.Files.FileColumns.DATA
         )
 
         var imagesSize = 0L
@@ -117,8 +118,18 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         try {
             context.queryCursor(uri, projection) { cursor ->
                 try {
-                    val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault()) ?: return@queryCursor
+                    val mimeType = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault())
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
+                    if (mimeType == null) {
+                        if (size > 0 && size != 4096L) {
+                            val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
+                            if (!context.getIsPathDirectory(path)) {
+                                othersSize += size
+                            }
+                        }
+                        return@queryCursor
+                    }
+
                     when (mimeType.substringBefore("/")) {
                         "image" -> imagesSize += size
                         "video" -> videosSize += size
