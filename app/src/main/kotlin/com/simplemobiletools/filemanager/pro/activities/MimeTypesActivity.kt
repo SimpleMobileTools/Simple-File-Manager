@@ -132,7 +132,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
             searchText.isEmpty() -> {
                 mimetypes_list.beVisible()
                 getRecyclerAdapter()?.updateItems(storedItems)
-                mimetypes_placeholder.beGone()
+                mimetypes_placeholder.beGoneIf(storedItems.isNotEmpty())
                 mimetypes_placeholder_2.beGone()
             }
             searchText.length == 1 -> {
@@ -233,7 +233,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         lastSearchedText = ""
 
         mimetypes_list.beVisible()
-        mimetypes_placeholder.beGone()
+        mimetypes_placeholder.beGoneIf(storedItems.isNotEmpty())
         mimetypes_placeholder_2.beGone()
     }
 
@@ -338,6 +338,8 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
             val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
             items_fastscroller.updateBubbleText(listItem?.getBubbleText(this, dateFormat, timeFormat) ?: "")
         }
+
+        mimetypes_placeholder.beVisibleIf(items.isEmpty())
     }
 
     private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
