@@ -238,6 +238,14 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
                                 fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
+                        OTHERS -> {
+                            if (mimetype != "image" && mimetype != "video" && mimetype != "audio" && mimetype != "text" &&
+                                !extraAudioMimeTypes.contains(fullMimetype) && !extraDocumentMimeTypes.contains(fullMimetype) &&
+                                !archiveMimeTypes.contains(fullMimetype)
+                            ) {
+                                fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
+                            }
+                        }
                     }
                 } catch (e: Exception) {
                 }
