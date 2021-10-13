@@ -64,7 +64,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    override fun setupColors(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int, primaryColor: Int) {
         recents_placeholder.setTextColor(textColor)
 
         getRecyclerAdapter()?.apply {

@@ -20,7 +20,7 @@ class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
 
         (view as MyViewPagerFragment).apply {
             setupFragment(activity)
-            setupColors(activity.config.textColor, activity.config.primaryColor)
+            onResume(activity.config.textColor, activity.config.primaryColor)
         }
 
         return view

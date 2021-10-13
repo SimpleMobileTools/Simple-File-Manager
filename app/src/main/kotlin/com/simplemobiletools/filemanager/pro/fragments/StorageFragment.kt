@@ -25,38 +25,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun setupFragment(activity: SimpleActivity) {
         total_space.text = String.format(context.getString(R.string.total_storage), "…")
-
-        ensureBackgroundThread {
-            getMainStorageStats(activity)
-
-            val filesSize = getSizesByMimeType()
-            val imagesSize = filesSize[IMAGES]!!
-            val videosSize = filesSize[VIDEOS]!!
-            val audioSize = filesSize[AUDIO]!!
-            val documentsSize = filesSize[DOCUMENTS]!!
-            val archivesSize = filesSize[ARCHIVES]!!
-            val othersSize = filesSize[OTHERS]!!
-
-            activity.runOnUiThread {
-                images_size.text = imagesSize.formatSize()
-                images_progressbar.progress = (imagesSize / SIZE_DIVIDER).toInt()
-
-                videos_size.text = videosSize.formatSize()
-                videos_progressbar.progress = (videosSize / SIZE_DIVIDER).toInt()
-
-                audio_size.text = audioSize.formatSize()
-                audio_progressbar.progress = (audioSize / SIZE_DIVIDER).toInt()
-
-                documents_size.text = documentsSize.formatSize()
-                documents_progressbar.progress = (documentsSize / SIZE_DIVIDER).toInt()
-
-                archives_size.text = archivesSize.formatSize()
-                archives_progressbar.progress = (archivesSize / SIZE_DIVIDER).toInt()
-
-                others_size.text = othersSize.formatSize()
-                others_progressbar.progress = (othersSize / SIZE_DIVIDER).toInt()
-            }
-        }
+        getSizes()
 
         free_space_holder.setOnClickListener {
             try {
@@ -77,7 +46,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun refreshFragment() {}
 
-    override fun setupColors(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int, primaryColor: Int) {
+        getSizes()
         context.updateTextColors(storage_fragment)
 
         main_storage_usage_progressbar.setIndicatorColor(primaryColor)
@@ -112,6 +82,40 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         Intent(context, MimeTypesActivity::class.java).apply {
             putExtra(SHOW_MIMETYPE, mimetype)
             context.startActivity(this)
+        }
+    }
+
+    private fun getSizes() {
+        ensureBackgroundThread {
+            getMainStorageStats(context)
+
+            val filesSize = getSizesByMimeType()
+            val imagesSize = filesSize[IMAGES]!!
+            val videosSize = filesSize[VIDEOS]!!
+            val audioSize = filesSize[AUDIO]!!
+            val documentsSize = filesSize[DOCUMENTS]!!
+            val archivesSize = filesSize[ARCHIVES]!!
+            val othersSize = filesSize[OTHERS]!!
+
+            post {
+                images_size.text = imagesSize.formatSize()
+                images_progressbar.progress = (imagesSize / SIZE_DIVIDER).toInt()
+
+                videos_size.text = videosSize.formatSize()
+                videos_progressbar.progress = (videosSize / SIZE_DIVIDER).toInt()
+
+                audio_size.text = audioSize.formatSize()
+                audio_progressbar.progress = (audioSize / SIZE_DIVIDER).toInt()
+
+                documents_size.text = documentsSize.formatSize()
+                documents_progressbar.progress = (documentsSize / SIZE_DIVIDER).toInt()
+
+                archives_size.text = archivesSize.formatSize()
+                archives_progressbar.progress = (archivesSize / SIZE_DIVIDER).toInt()
+
+                others_size.text = othersSize.formatSize()
+                others_progressbar.progress = (othersSize / SIZE_DIVIDER).toInt()
+            }
         }
     }
 
@@ -177,20 +181,20 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     @SuppressLint("NewApi")
-    private fun getMainStorageStats(activity: SimpleActivity) {
-        val externalDirs = activity.getExternalFilesDirs(null)
-        val storageManager = activity.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
+    private fun getMainStorageStats(context: Context) {
+        val externalDirs = context.getExternalFilesDirs(null)
+        val storageManager = context.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
 
         externalDirs.forEach { file ->
             val storageVolume = storageManager.getStorageVolume(file) ?: return
             if (storageVolume.isPrimary) {
                 // internal storage
-                val storageStatsManager = activity.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
+                val storageStatsManager = context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
                 val uuid = StorageManager.UUID_DEFAULT
                 val totalSpace = storageStatsManager.getTotalBytes(uuid)
                 val freeSpace = storageStatsManager.getFreeBytes(uuid)
 
-                activity.runOnUiThread {
+                post {
                     arrayOf(
                         main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar,
                         archives_progressbar, others_progressbar

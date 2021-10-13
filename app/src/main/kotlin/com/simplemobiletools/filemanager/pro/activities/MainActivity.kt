@@ -98,7 +98,7 @@ class MainActivity : SimpleActivity() {
         }
 
         getAllFragments().forEach {
-            it?.setupColors(config.textColor, config.primaryColor)
+            it?.onResume(config.textColor, config.primaryColor)
         }
 
         if (storedFontSize != config.fontSize) {

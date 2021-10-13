@@ -47,7 +47,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    override fun setupColors(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int, primaryColor: Int) {
         context!!.updateTextColors(this)
         items_fastscroller.updatePrimaryColor()
         storedItems = ArrayList()
