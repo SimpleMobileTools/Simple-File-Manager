@@ -12,6 +12,7 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
@@ -121,9 +122,18 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     }
 
     override fun increaseColumnCount() {
+        if (config.getFolderViewType(currentMimeType) == VIEW_TYPE_GRID) {
+            config.fileColumnCnt = ++(mimetypes_list.layoutManager as MyGridLayoutManager).spanCount
+            columnCountChanged()
+        }
     }
 
-    override fun reduceColumnCount() {}
+    override fun reduceColumnCount() {
+        if (config.getFolderViewType(currentMimeType) == VIEW_TYPE_GRID) {
+            config.fileColumnCnt = --(mimetypes_list.layoutManager as MyGridLayoutManager).spanCount
+            columnCountChanged()
+        }
+    }
 
     override fun finishActMode() {}
 
@@ -280,6 +290,22 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         if (listItems != null) {
             setupAdapter(listItems as ArrayList<ListItem>)
         }
+    }
+
+    private fun columnCountChanged() {
+        invalidateOptionsMenu()
+        getRecyclerAdapter()?.apply {
+            notifyItemRangeChanged(0, listItems.size)
+            calculateContentHeight(listItems)
+        }
+    }
+
+    private fun calculateContentHeight(items: MutableList<ListItem>) {
+        val layoutManager = mimetypes_list.layoutManager as MyGridLayoutManager
+        val thumbnailHeight = layoutManager.getChildAt(0)?.height ?: 0
+        val fullHeight = ((items.size - 1) / layoutManager.spanCount + 1) * thumbnailHeight
+        items_fastscroller.setContentHeight(fullHeight)
+        items_fastscroller.setScrollToY(mimetypes_list.computeVerticalScrollOffset())
     }
 
     private fun tryToggleTemporarilyShowHidden() {
