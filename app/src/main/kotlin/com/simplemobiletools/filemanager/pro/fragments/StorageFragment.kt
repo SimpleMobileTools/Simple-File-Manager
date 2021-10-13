@@ -53,6 +53,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     )
 
     override fun setupFragment(activity: SimpleActivity) {
+        total_space.text = String.format(context.getString(R.string.total_storage), "…")
+
         ensureBackgroundThread {
             getMainStorageStats(activity)
 

@@ -15,7 +15,7 @@
             android:id="@+id/storage_holder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:ignore="RelativeOverlap">
+            tools:ignore="HardcodedText,RelativeOverlap">
 
             <RelativeLayout
                 android:id="@+id/free_space_holder"
@@ -30,6 +30,7 @@
                     android:id="@+id/free_space_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="…"
                     android:textSize="@dimen/storage_free_space_text_size"
                     tools:text="23 GB" />
 
@@ -54,7 +55,6 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    android:visibility="invisible"
                     app:trackThickness="4dp" />
 
                 <com.simplemobiletools.commons.views.MyTextView
@@ -91,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:alpha="0.7"
+                    android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
 
@@ -129,6 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:alpha="0.7"
+                    android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
 
@@ -167,6 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:alpha="0.7"
+                    android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
 
@@ -205,6 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:alpha="0.7"
+                    android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
 
@@ -243,6 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:alpha="0.7"
+                    android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
 
@@ -281,6 +286,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:alpha="0.7"
+                    android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
 
