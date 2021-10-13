@@ -23,30 +23,6 @@ import kotlin.collections.HashMap
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     private val SIZE_DIVIDER = 100000
 
-    // what else should we count as an audio except "audio/*" mimetype
-    private val extraAudioMimeTypes = arrayListOf("application/ogg")
-    private val extraDocumentMimeTypes = arrayListOf(
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "application/javascript"
-    )
-
-    private val archiveMimeTypes = arrayListOf(
-        "application/zip",
-        "application/octet-stream",
-        "application/json",
-        "application/x-tar",
-        "application/x-rar-compressed",
-        "application/x-zip-compressed",
-        "application/x-7z-compressed",
-        "application/x-compressed",
-        "application/x-gzip",
-        "application/java-archive",
-        "multipart/x-zip"
-    )
-
     override fun setupFragment(activity: SimpleActivity) {
         total_space.text = String.format(context.getString(R.string.total_storage), "…")
 
