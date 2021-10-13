@@ -32,6 +32,7 @@ import java.util.*
 class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private var isSearchOpen = false
     private var currentMimeType = ""
+    private var lastSearchedText = ""
     private var searchMenuItem: MenuItem? = null
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
     private var storedItems = ArrayList<ListItem>()
@@ -124,7 +125,44 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
     override fun selectedPaths(paths: ArrayList<String>) {}
 
-    override fun searchQueryChanged(text: String) {}
+    override fun searchQueryChanged(text: String) {
+        val searchText = text.trim()
+        lastSearchedText = searchText
+        when {
+            searchText.isEmpty() -> {
+                mimetypes_list.beVisible()
+                getRecyclerAdapter()?.updateItems(storedItems)
+                mimetypes_placeholder.beGone()
+                mimetypes_placeholder_2.beGone()
+            }
+            searchText.length == 1 -> {
+                mimetypes_list.beGone()
+                mimetypes_placeholder.beVisible()
+                mimetypes_placeholder_2.beVisible()
+            }
+            else -> {
+                ensureBackgroundThread {
+                    if (lastSearchedText != searchText) {
+                        return@ensureBackgroundThread
+                    }
+
+                    val listItems = storedItems.filter { it.name.contains(searchText, true) } as ArrayList<ListItem>
+
+                    runOnUiThread {
+                        getRecyclerAdapter()?.updateItems(listItems, text)
+                        mimetypes_list.beVisibleIf(listItems.isNotEmpty())
+                        mimetypes_placeholder.beVisibleIf(listItems.isEmpty())
+                        mimetypes_placeholder_2.beGone()
+
+                        mimetypes_list.onGlobalLayout {
+                            items_fastscroller.setScrollToY(mimetypes_list.computeVerticalScrollOffset())
+                            calculateContentHeight(listItems)
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     override fun setupDateTimeFormat() {}
 
@@ -163,6 +201,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
+                        searchQueryChanged(newText)
                     }
                     return true
                 }
@@ -172,14 +211,30 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 isSearchOpen = true
+                searchOpened()
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 isSearchOpen = false
+                searchClosed()
                 return true
             }
         })
+    }
+
+    fun searchOpened() {
+        isSearchOpen = true
+        lastSearchedText = ""
+    }
+
+    fun searchClosed() {
+        isSearchOpen = false
+        lastSearchedText = ""
+
+        mimetypes_list.beVisible()
+        mimetypes_placeholder.beGone()
+        mimetypes_placeholder_2.beGone()
     }
 
     private fun getProperFileDirItems(callback: (ArrayList<FileDirItem>) -> Unit) {

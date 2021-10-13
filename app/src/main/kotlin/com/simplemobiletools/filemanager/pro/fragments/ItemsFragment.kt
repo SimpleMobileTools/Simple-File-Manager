@@ -28,7 +28,8 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener, Breadcrumbs.BreadcrumbsListener {
+class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener,
+    Breadcrumbs.BreadcrumbsListener {
     private var showHidden = false
     private var skipItemUpdating = false
     private var isSearchOpen = false
@@ -118,8 +119,10 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 breadcrumbs.updateFontSize(context!!.getTextSize())
             }
 
-            ItemsAdapter(activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_fastscroller,
-                items_swipe_refresh) {
+            ItemsAdapter(
+                activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_fastscroller,
+                items_swipe_refresh
+            ) {
                 if ((it as? ListItem)?.isSectionTitle == true) {
                     openDirectory(it.mPath)
                     searchClosed()
@@ -264,24 +267,24 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     override fun searchQueryChanged(text: String) {
         val searchText = text.trim()
         lastSearchedText = searchText
-        ensureBackgroundThread {
-            if (context == null) {
-                return@ensureBackgroundThread
-            }
+        if (context == null) {
+            return
+        }
 
-            when {
-                searchText.isEmpty() -> activity?.runOnUiThread {
-                    items_list.beVisible()
-                    getRecyclerAdapter()?.updateItems(storedItems)
-                    items_placeholder.beGone()
-                    items_placeholder_2.beGone()
-                }
-                searchText.length == 1 -> activity?.runOnUiThread {
-                    items_list.beGone()
-                    items_placeholder.beVisible()
-                    items_placeholder_2.beVisible()
-                }
-                else -> {
+        when {
+            searchText.isEmpty() -> {
+                items_list.beVisible()
+                getRecyclerAdapter()?.updateItems(storedItems)
+                items_placeholder.beGone()
+                items_placeholder_2.beGone()
+            }
+            searchText.length == 1 -> {
+                items_list.beGone()
+                items_placeholder.beVisible()
+                items_placeholder_2.beVisible()
+            }
+            else -> {
+                ensureBackgroundThread {
                     val files = searchFiles(searchText, currentPath)
                     files.sortBy { it.getParentPath() }
 
