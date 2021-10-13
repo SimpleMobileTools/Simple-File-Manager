@@ -11,11 +11,13 @@ import androidx.core.view.MenuItemCompat
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.*
+import com.simplemobiletools.filemanager.pro.models.ListItem
 import java.util.*
 
 class MimeTypesActivity : SimpleActivity() {
@@ -44,7 +46,11 @@ class MimeTypesActivity : SimpleActivity() {
         )
 
         ensureBackgroundThread {
-            getProperFilePaths { paths ->
+            getProperFileDirItems { fileDirItems ->
+                FileDirItem.sorting = config.getFolderSorting(currentMimeType)
+                fileDirItems.sort()
+                val listItems = getListItemsFromFileDirItems(fileDirItems)
+
                 runOnUiThread {
 
                 }
@@ -97,12 +103,15 @@ class MimeTypesActivity : SimpleActivity() {
         return true
     }
 
-    private fun getProperFilePaths(callback: (ArrayList<String>) -> Unit) {
-        val filePaths = ArrayList<String>()
+    private fun getProperFileDirItems(callback: (ArrayList<FileDirItem>) -> Unit) {
+        val fileDirItems = ArrayList<FileDirItem>()
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.MIME_TYPE,
-            MediaStore.Files.FileColumns.DATA
+            MediaStore.Files.FileColumns.DATA,
+            MediaStore.Files.FileColumns.DISPLAY_NAME,
+            MediaStore.Files.FileColumns.SIZE,
+            MediaStore.Files.FileColumns.DATE_MODIFIED
         )
 
         try {
@@ -110,32 +119,35 @@ class MimeTypesActivity : SimpleActivity() {
                 try {
                     val fullMimetype = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault()) ?: return@queryCursor
                     val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
+                    val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
+                    val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
+                    val lastModified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
 
                     val mimetype = fullMimetype.substringBefore("/")
                     when (currentMimeType) {
                         IMAGES -> {
                             if (mimetype == "image") {
-                                filePaths.add(path)
+                                fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
                         VIDEOS -> {
                             if (mimetype == "video") {
-                                filePaths.add(path)
+                                fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
                         AUDIO -> {
                             if (mimetype == "audio" || extraAudioMimeTypes.contains(fullMimetype)) {
-                                filePaths.add(path)
+                                fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
                         DOCUMENTS -> {
                             if (mimetype == "text" || extraDocumentMimeTypes.contains(fullMimetype)) {
-                                filePaths.add(path)
+                                fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
                         ARCHIVES -> {
                             if (archiveMimeTypes.contains(fullMimetype)) {
-                                filePaths.add(path)
+                                fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
                     }
@@ -146,7 +158,16 @@ class MimeTypesActivity : SimpleActivity() {
             showErrorToast(e)
         }
 
-        callback(filePaths)
+        callback(fileDirItems)
+    }
+
+    private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
+        val listItems = ArrayList<ListItem>()
+        fileDirItems.forEach {
+            val listItem = ListItem(it.path, it.name, false, 0, it.size, it.modified, false)
+            listItems.add(listItem)
+        }
+        return listItems
     }
 
     private fun setupSearch(menu: Menu) {
