@@ -63,7 +63,7 @@ class MainActivity : SimpleActivity() {
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
 
-        if (!config.wasStorageAnalysisTabAdded) {
+        if (!config.wasStorageAnalysisTabAdded && isOreoPlus()) {
             config.wasStorageAnalysisTabAdded = true
             config.showTabs += TAB_STORAGE_ANALYSIS
         }
