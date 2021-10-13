@@ -8,11 +8,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
+import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
@@ -28,8 +31,11 @@ import java.util.*
 
 class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private var isSearchOpen = false
-    private var searchMenuItem: MenuItem? = null
     private var currentMimeType = ""
+    private var searchMenuItem: MenuItem? = null
+    private var zoomListener: MyRecyclerView.MyZoomListener? = null
+    private var storedItems = ArrayList<ListItem>()
+    private var currentViewType = VIEW_TYPE_LIST
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,14 +128,14 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     }
 
     override fun increaseColumnCount() {
-        if (config.getFolderViewType(currentMimeType) == VIEW_TYPE_GRID) {
+        if (currentViewType == VIEW_TYPE_GRID) {
             config.fileColumnCnt = ++(mimetypes_list.layoutManager as MyGridLayoutManager).spanCount
             columnCountChanged()
         }
     }
 
     override fun reduceColumnCount() {
-        if (config.getFolderViewType(currentMimeType) == VIEW_TYPE_GRID) {
+        if (currentViewType == VIEW_TYPE_GRID) {
             config.fileColumnCnt = --(mimetypes_list.layoutManager as MyGridLayoutManager).spanCount
             columnCountChanged()
         }
@@ -235,27 +241,31 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         callback(fileDirItems)
     }
 
-    private fun setupAdapter(listItems: ArrayList<ListItem>) {
+    private fun addItems(items: ArrayList<ListItem>) {
         FileDirItem.sorting = config.getFolderSorting(currentMimeType)
-        listItems.sort()
+        items.sort()
 
-        runOnUiThread {
-            ItemsAdapter(this as SimpleActivity, listItems, this, mimetypes_list, false, items_fastscroller, null) {
-                tryOpenPathIntent((it as ListItem).path, false)
-            }.apply {
-                mimetypes_list.adapter = this
-            }
+        if (isDestroyed || isFinishing) {
+            return
+        }
 
-            if (areSystemAnimationsEnabled) {
-                mimetypes_list.scheduleLayoutAnimation()
-            }
+        storedItems = items
+        ItemsAdapter(this as SimpleActivity, storedItems, this, mimetypes_list, false, items_fastscroller, null) {
+            tryOpenPathIntent((it as ListItem).path, false)
+        }.apply {
+            setupZoomListener(zoomListener)
+            mimetypes_list.adapter = this
+        }
 
-            val dateFormat = config.dateFormat
-            val timeFormat = getTimeFormat()
-            items_fastscroller.setViews(mimetypes_list) {
-                val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
-                items_fastscroller.updateBubbleText(listItem?.getBubbleText(this, dateFormat, timeFormat) ?: "")
-            }
+        if (areSystemAnimationsEnabled) {
+            mimetypes_list.scheduleLayoutAnimation()
+        }
+
+        val dateFormat = config.dateFormat
+        val timeFormat = getTimeFormat()
+        items_fastscroller.setViews(mimetypes_list) {
+            val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
+            items_fastscroller.updateBubbleText(listItem?.getBubbleText(this, dateFormat, timeFormat) ?: "")
         }
     }
 
@@ -279,20 +289,27 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private fun changeViewType() {
         ChangeViewTypeDialog(this, currentMimeType, true) {
             recreateList()
+            setupLayoutManager()
         }
     }
 
     private fun reFetchItems() {
         getProperFileDirItems { fileDirItems ->
             val listItems = getListItemsFromFileDirItems(fileDirItems)
-            setupAdapter(listItems)
+
+            runOnUiThread {
+                addItems(listItems)
+                if (currentViewType != config.getFolderViewType(currentMimeType)) {
+                    setupLayoutManager()
+                }
+            }
         }
     }
 
     private fun recreateList() {
         val listItems = getRecyclerAdapter()?.listItems
         if (listItems != null) {
-            setupAdapter(listItems as ArrayList<ListItem>)
+            addItems(listItems as ArrayList<ListItem>)
         }
     }
 
@@ -312,6 +329,64 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         items_fastscroller.setScrollToY(mimetypes_list.computeVerticalScrollOffset())
     }
 
+    private fun setupLayoutManager() {
+        if (config.getFolderViewType(currentMimeType) == VIEW_TYPE_GRID) {
+            currentViewType = VIEW_TYPE_GRID
+            setupGridLayoutManager()
+        } else {
+            currentViewType = VIEW_TYPE_LIST
+            setupListLayoutManager()
+        }
+
+        mimetypes_list.adapter = null
+        initZoomListener()
+        addItems(storedItems)
+    }
+
+    private fun setupGridLayoutManager() {
+        val layoutManager = mimetypes_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = config.fileColumnCnt ?: 3
+
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (getRecyclerAdapter()?.isASectionTitle(position) == true) {
+                    layoutManager.spanCount
+                } else {
+                    1
+                }
+            }
+        }
+    }
+
+    private fun setupListLayoutManager() {
+        val layoutManager = mimetypes_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = 1
+        zoomListener = null
+    }
+
+    private fun initZoomListener() {
+        if (config.getFolderViewType(currentMimeType) == VIEW_TYPE_GRID) {
+            val layoutManager = mimetypes_list.layoutManager as MyGridLayoutManager
+            zoomListener = object : MyRecyclerView.MyZoomListener {
+                override fun zoomIn() {
+                    if (layoutManager.spanCount > 1) {
+                        reduceColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+
+                override fun zoomOut() {
+                    if (layoutManager.spanCount < MAX_COLUMN_COUNT) {
+                        increaseColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+            }
+        } else {
+            zoomListener = null
+        }
+    }
+
     private fun tryToggleTemporarilyShowHidden() {
         if (config.temporarilyShowHidden) {
             toggleTemporarilyShowHidden(false)
@@ -324,6 +399,8 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
-        reFetchItems()
+        ensureBackgroundThread {
+            reFetchItems()
+        }
     }
 }
