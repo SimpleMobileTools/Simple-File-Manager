@@ -33,3 +33,11 @@ const val OPEN_AS_OTHER = 5
 
 const val ALL_TABS_MASK = TAB_FILES or TAB_RECENT_FILES or TAB_STORAGE_ANALYSIS
 val tabsList = arrayListOf(TAB_FILES, TAB_RECENT_FILES, TAB_STORAGE_ANALYSIS)
+
+const val IMAGES = "images"
+const val VIDEOS = "videos"
+const val AUDIO = "audio"
+const val DOCUMENTS = "documents"
+const val ARCHIVES = "archives"
+const val OTHERS = "others"
+const val SHOW_MIMETYPE = "show_mimetype"

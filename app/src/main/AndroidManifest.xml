@@ -54,6 +54,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activities.MimeTypesActivity" />
+
         <activity
             android:name=".activities.ReadTextActivity"
             android:label="@string/file_editor">

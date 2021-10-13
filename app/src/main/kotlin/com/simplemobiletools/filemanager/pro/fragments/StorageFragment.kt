@@ -12,20 +12,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.activities.MimeTypesActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
+import com.simplemobiletools.filemanager.pro.helpers.*
 import kotlinx.android.synthetic.main.storage_fragment.view.*
 import java.util.*
 import kotlin.collections.HashMap
 
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
-    private val IMAGES = "images"
-    private val VIDEOS = "videos"
-    private val AUDIO = "audio"
-    private val DOCUMENTS = "documents"
-    private val ARCHIVES = "archives"
-    private val OTHERS = "others"
-
     private val SIZE_DIVIDER = 100000
 
     // what else should we count as an audio except "audio/*" mimetype
@@ -96,12 +91,12 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             }
         }
 
-        images_holder.setOnClickListener { }
-        videos_holder.setOnClickListener { }
-        audio_holder.setOnClickListener { }
-        documents_holder.setOnClickListener { }
-        archives_holder.setOnClickListener { }
-        others_holder.setOnClickListener { }
+        images_holder.setOnClickListener { launchMimetypeActivity(IMAGES) }
+        videos_holder.setOnClickListener { launchMimetypeActivity(VIDEOS) }
+        audio_holder.setOnClickListener { launchMimetypeActivity(AUDIO) }
+        documents_holder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
+        archives_holder.setOnClickListener { launchMimetypeActivity(ARCHIVES) }
+        others_holder.setOnClickListener { launchMimetypeActivity(OTHERS) }
     }
 
     override fun refreshFragment() {}
@@ -135,6 +130,13 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val pinkColor = context.resources.getColor(R.color.md_pink_700)
         others_progressbar.setIndicatorColor(pinkColor)
         others_progressbar.trackColor = pinkColor.adjustAlpha(0.3f)
+    }
+
+    private fun launchMimetypeActivity(mimetype: String) {
+        Intent(context, MimeTypesActivity::class.java).apply {
+            putExtra(SHOW_MIMETYPE, mimetype)
+            context.startActivity(this)
+        }
     }
 
     private fun getSizesByMimeType(): HashMap<String, Long> {
