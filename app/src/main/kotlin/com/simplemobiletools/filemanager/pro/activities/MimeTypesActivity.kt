@@ -110,7 +110,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     }
 
     override fun refreshFragment() {
-        recreateList()
+        reFetchItems()
     }
 
     override fun deleteFiles(files: ArrayList<FileDirItem>) {
