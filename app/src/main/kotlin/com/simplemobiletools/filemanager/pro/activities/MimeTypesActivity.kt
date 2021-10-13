@@ -112,7 +112,15 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         recreateList()
     }
 
-    override fun deleteFiles(files: ArrayList<FileDirItem>) {}
+    override fun deleteFiles(files: ArrayList<FileDirItem>) {
+        deleteFiles(files, false) {
+            if (!it) {
+                runOnUiThread {
+                    toast(R.string.unknown_error_occurred)
+                }
+            }
+        }
+    }
 
     override fun selectedPaths(paths: ArrayList<String>) {}
 
