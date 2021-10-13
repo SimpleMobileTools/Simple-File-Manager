@@ -189,8 +189,12 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
                         return@queryCursor
                     }
 
-                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
+                    if (size == 0L) {
+                        return@queryCursor
+                    }
+
+                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
                     val lastModified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
 
                     val mimetype = fullMimetype.substringBefore("/")
