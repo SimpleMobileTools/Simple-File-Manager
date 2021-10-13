@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.storage_fragment.view.*
 import java.util.*
 import kotlin.collections.HashMap
 
-
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     private val IMAGES = "images"
     private val VIDEOS = "videos"
