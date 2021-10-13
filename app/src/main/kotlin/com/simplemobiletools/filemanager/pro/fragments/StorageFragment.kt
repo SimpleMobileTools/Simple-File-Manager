@@ -36,20 +36,19 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         "application/javascript"
     )
 
-    private val archiveMimeTypes =
-        arrayListOf(
-            "application/zip",
-            "application/octet-stream",
-            "application/json",
-            "application/x-tar",
-            "application/x-rar-compressed",
-            "application/x-zip-compressed",
-            "application/x-7z-compressed",
-            "application/x-compressed",
-            "application/x-gzip",
-            "application/java-archive",
-            "multipart/x-zip"
-        )
+    private val archiveMimeTypes = arrayListOf(
+        "application/zip",
+        "application/octet-stream",
+        "application/json",
+        "application/x-tar",
+        "application/x-rar-compressed",
+        "application/x-zip-compressed",
+        "application/x-7z-compressed",
+        "application/x-compressed",
+        "application/x-gzip",
+        "application/java-archive",
+        "multipart/x-zip"
+    )
 
     override fun setupFragment(activity: SimpleActivity) {
         ensureBackgroundThread {
