@@ -3,8 +3,10 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.annotation.SuppressLint
 import android.app.usage.StorageStatsManager
 import android.content.Context
+import android.content.Intent
 import android.os.storage.StorageManager
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import com.simplemobiletools.commons.extensions.*
@@ -15,6 +17,7 @@ import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
 import kotlinx.android.synthetic.main.storage_fragment.view.*
 import java.util.*
 import kotlin.collections.HashMap
+
 
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     private val IMAGES = "images"
@@ -82,6 +85,22 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 others_progressbar.progress = (othersSize / SIZE_DIVIDER).toInt()
             }
         }
+
+        free_space_holder.setOnClickListener {
+            try {
+                val storageSettingsIntent = Intent(Settings.ACTION_INTERNAL_STORAGE_SETTINGS)
+                activity.startActivity(storageSettingsIntent)
+            } catch (e: Exception) {
+                activity.showErrorToast(e)
+            }
+        }
+
+        images_holder.setOnClickListener { }
+        videos_holder.setOnClickListener { }
+        audio_holder.setOnClickListener { }
+        documents_holder.setOnClickListener { }
+        archives_holder.setOnClickListener { }
+        others_holder.setOnClickListener { }
     }
 
     override fun refreshFragment() {}
