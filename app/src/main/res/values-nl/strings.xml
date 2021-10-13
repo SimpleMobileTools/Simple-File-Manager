@@ -42,16 +42,16 @@
     <string name="file_editor">Bewerken</string>
 
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
+    <string name="storage_analysis">Opslaganalyse</string>
+    <string name="images">Afbeeldingen</string>
+    <string name="videos">Video</string>
+    <string name="audio">Geluid</string>
+    <string name="documents">Documenten</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="archives">Archieven</string>
+    <string name="others">Overig</string>
+    <string name="storage_free">vrij</string>
+    <string name="total_storage">Totale opslag: %s</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Root-toegang inschakelen</string>
