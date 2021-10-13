@@ -3,18 +3,20 @@ package com.simplemobiletools.filemanager.pro.activities
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
-import com.simplemobiletools.commons.extensions.handleHiddenFolderPasswordProtection
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.*
+import java.util.*
 
 class MimeTypesActivity : SimpleActivity() {
     private var isSearchOpen = false
@@ -40,6 +42,14 @@ class MimeTypesActivity : SimpleActivity() {
                 }
             }
         )
+
+        ensureBackgroundThread {
+            getProperFilePaths { paths ->
+                runOnUiThread {
+
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -85,6 +95,58 @@ class MimeTypesActivity : SimpleActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun getProperFilePaths(callback: (ArrayList<String>) -> Unit) {
+        val filePaths = ArrayList<String>()
+        val uri = MediaStore.Files.getContentUri("external")
+        val projection = arrayOf(
+            MediaStore.Files.FileColumns.MIME_TYPE,
+            MediaStore.Files.FileColumns.DATA
+        )
+
+        try {
+            queryCursor(uri, projection) { cursor ->
+                try {
+                    val fullMimetype = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault()) ?: return@queryCursor
+                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
+
+                    val mimetype = fullMimetype.substringBefore("/")
+                    when (currentMimeType) {
+                        IMAGES -> {
+                            if (mimetype == "image") {
+                                filePaths.add(path)
+                            }
+                        }
+                        VIDEOS -> {
+                            if (mimetype == "video") {
+                                filePaths.add(path)
+                            }
+                        }
+                        AUDIO -> {
+                            if (mimetype == "audio" || extraAudioMimeTypes.contains(fullMimetype)) {
+                                filePaths.add(path)
+                            }
+                        }
+                        DOCUMENTS -> {
+                            if (mimetype == "text" || extraDocumentMimeTypes.contains(fullMimetype)) {
+                                filePaths.add(path)
+                            }
+                        }
+                        ARCHIVES -> {
+                            if (archiveMimeTypes.contains(fullMimetype)) {
+                                filePaths.add(path)
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                }
+            }
+        } catch (e: Exception) {
+            showErrorToast(e)
+        }
+
+        callback(filePaths)
     }
 
     private fun setupSearch(menu: Menu) {
