@@ -52,32 +52,11 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
         ensureBackgroundThread {
             getProperFileDirItems { fileDirItems ->
-                FileDirItem.sorting = config.getFolderSorting(currentMimeType)
-                fileDirItems.sort()
                 val listItems = getListItemsFromFileDirItems(fileDirItems)
-                runOnUiThread {
-                    ItemsAdapter(this as SimpleActivity, listItems, this, mimetypes_list, false, items_fastscroller, null) {
-                        tryOpenPathIntent((it as ListItem).path, false)
-                    }.apply {
-                        mimetypes_list.adapter = this
-                    }
-
-                    if (areSystemAnimationsEnabled) {
-                        mimetypes_list.scheduleLayoutAnimation()
-                    }
-
-                    val dateFormat = config.dateFormat
-                    val timeFormat = getTimeFormat()
-                    items_fastscroller.setViews(mimetypes_list) {
-                        val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
-                        items_fastscroller.updateBubbleText(listItem?.getBubbleText(this, dateFormat, timeFormat) ?: "")
-                    }
-                }
+                setupAdapter(listItems)
             }
         }
     }
-
-    private fun getRecyclerAdapter() = mimetypes_list.adapter as? ItemsAdapter
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -121,7 +100,61 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
             R.id.reduce_column_count -> reduceColumnCount()
             else -> return super.onOptionsItemSelected(item)
         }
+
         return true
+    }
+
+    override fun refreshFragment() {}
+
+    override fun deleteFiles(files: ArrayList<FileDirItem>) {}
+
+    override fun selectedPaths(paths: ArrayList<String>) {}
+
+    override fun searchQueryChanged(text: String) {}
+
+    override fun setupDateTimeFormat() {}
+
+    override fun setupFontSize() {}
+
+    override fun toggleFilenameVisibility() {
+        config.displayFilenames = !config.displayFilenames
+    }
+
+    override fun increaseColumnCount() {}
+
+    override fun reduceColumnCount() {}
+
+    override fun finishActMode() {}
+
+    private fun setupSearch(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchMenuItem = menu.findItem(R.id.search)
+        (searchMenuItem!!.actionView as SearchView).apply {
+            setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            isSubmitButtonEnabled = false
+            queryHint = getString(R.string.search)
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String) = false
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    if (isSearchOpen) {
+                    }
+                    return true
+                }
+            })
+        }
+
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
+                isSearchOpen = true
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
+                isSearchOpen = false
+                return true
+            }
+        })
     }
 
     private fun getProperFileDirItems(callback: (ArrayList<FileDirItem>) -> Unit) {
@@ -187,6 +220,30 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         callback(fileDirItems)
     }
 
+    private fun setupAdapter(listItems: ArrayList<ListItem>) {
+        FileDirItem.sorting = config.getFolderSorting(currentMimeType)
+        listItems.sort()
+
+        runOnUiThread {
+            ItemsAdapter(this as SimpleActivity, listItems, this, mimetypes_list, false, items_fastscroller, null) {
+                tryOpenPathIntent((it as ListItem).path, false)
+            }.apply {
+                mimetypes_list.adapter = this
+            }
+
+            if (areSystemAnimationsEnabled) {
+                mimetypes_list.scheduleLayoutAnimation()
+            }
+
+            val dateFormat = config.dateFormat
+            val timeFormat = getTimeFormat()
+            items_fastscroller.setViews(mimetypes_list) {
+                val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
+                items_fastscroller.updateBubbleText(listItem?.getBubbleText(this, dateFormat, timeFormat) ?: "")
+            }
+        }
+    }
+
     private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
         val listItems = ArrayList<ListItem>()
         fileDirItems.forEach {
@@ -196,63 +253,16 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         return listItems
     }
 
-    private fun setupSearch(menu: Menu) {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchMenuItem = menu.findItem(R.id.search)
-        (searchMenuItem!!.actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            isSubmitButtonEnabled = false
-            queryHint = getString(R.string.search)
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String) = false
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    if (isSearchOpen) {
-                    }
-                    return true
-                }
-            })
-        }
-
-        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                isSearchOpen = true
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                isSearchOpen = false
-                return true
-            }
-        })
-    }
+    private fun getRecyclerAdapter() = mimetypes_list.adapter as? ItemsAdapter
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this, currentMimeType) {
+            val listItems = getRecyclerAdapter()?.listItems
+            if (listItems != null) {
+                setupAdapter(listItems as ArrayList<ListItem>)
+            }
         }
     }
-
-    override fun refreshFragment() {}
-
-    override fun deleteFiles(files: ArrayList<FileDirItem>) {}
-
-    override fun selectedPaths(paths: ArrayList<String>) {}
-
-    override fun searchQueryChanged(text: String) {}
-
-    override fun setupDateTimeFormat() {}
-
-    override fun setupFontSize() {}
-
-    override fun toggleFilenameVisibility() {
-        config.displayFilenames = !config.displayFilenames
-    }
-
-    override fun increaseColumnCount() {}
-
-    override fun reduceColumnCount() {}
-
-    override fun finishActMode() {}
 
     private fun changeViewType() {
         ChangeViewTypeDialog(this, currentMimeType, true) { }
