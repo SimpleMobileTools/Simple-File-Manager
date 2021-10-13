@@ -51,10 +51,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         )
 
         ensureBackgroundThread {
-            getProperFileDirItems { fileDirItems ->
-                val listItems = getListItemsFromFileDirItems(fileDirItems)
-                setupAdapter(listItems)
-            }
+            reFetchItems()
         }
     }
 
@@ -104,7 +101,9 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         return true
     }
 
-    override fun refreshFragment() {}
+    override fun refreshFragment() {
+        recreateList()
+    }
 
     override fun deleteFiles(files: ArrayList<FileDirItem>) {}
 
@@ -118,9 +117,11 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
     override fun toggleFilenameVisibility() {
         config.displayFilenames = !config.displayFilenames
+        getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
     }
 
-    override fun increaseColumnCount() {}
+    override fun increaseColumnCount() {
+    }
 
     override fun reduceColumnCount() {}
 
@@ -257,15 +258,28 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this, currentMimeType) {
-            val listItems = getRecyclerAdapter()?.listItems
-            if (listItems != null) {
-                setupAdapter(listItems as ArrayList<ListItem>)
-            }
+            recreateList()
         }
     }
 
     private fun changeViewType() {
-        ChangeViewTypeDialog(this, currentMimeType, true) { }
+        ChangeViewTypeDialog(this, currentMimeType, true) {
+            recreateList()
+        }
+    }
+
+    private fun reFetchItems() {
+        getProperFileDirItems { fileDirItems ->
+            val listItems = getListItemsFromFileDirItems(fileDirItems)
+            setupAdapter(listItems)
+        }
+    }
+
+    private fun recreateList() {
+        val listItems = getRecyclerAdapter()?.listItems
+        if (listItems != null) {
+            setupAdapter(listItems as ArrayList<ListItem>)
+        }
     }
 
     private fun tryToggleTemporarilyShowHidden() {
@@ -280,5 +294,6 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
+        reFetchItems()
     }
 }
