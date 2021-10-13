@@ -17,6 +17,7 @@ import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
@@ -56,7 +57,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
                 val listItems = getListItemsFromFileDirItems(fileDirItems)
                 runOnUiThread {
                     ItemsAdapter(this as SimpleActivity, listItems, this, mimetypes_list, false, items_fastscroller, null) {
-
+                        tryOpenPathIntent((it as ListItem).path, false)
                     }.apply {
                         mimetypes_list.adapter = this
                     }
