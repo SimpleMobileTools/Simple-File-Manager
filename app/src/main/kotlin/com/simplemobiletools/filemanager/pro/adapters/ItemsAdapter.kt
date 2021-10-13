@@ -55,8 +55,10 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
 
-class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
-                   val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, val swipeRefreshLayout: SwipeRefreshLayout, itemClick: (Any) -> Unit) :
+class ItemsAdapter(
+    activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
+    val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, val swipeRefreshLayout: SwipeRefreshLayout?, itemClick: (Any) -> Unit
+) :
     MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
     private val TYPE_FILE_DIR = 1
@@ -136,12 +138,12 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     override fun getItemKeyPosition(key: Int) = listItems.indexOfFirst { it.path.hashCode() == key }
 
     override fun onActionModeCreated() {
-        swipeRefreshLayout.isRefreshing = false
-        swipeRefreshLayout.isEnabled = false
+        swipeRefreshLayout?.isRefreshing = false
+        swipeRefreshLayout?.isEnabled = false
     }
 
     override fun onActionModeDestroyed() {
-        swipeRefreshLayout.isEnabled = true
+        swipeRefreshLayout?.isEnabled = true
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -363,7 +365,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             RadioItem(OPEN_AS_IMAGE, res.getString(R.string.image_file)),
             RadioItem(OPEN_AS_AUDIO, res.getString(R.string.audio_file)),
             RadioItem(OPEN_AS_VIDEO, res.getString(R.string.video_file)),
-            RadioItem(OPEN_AS_OTHER, res.getString(R.string.other_file)))
+            RadioItem(OPEN_AS_OTHER, res.getString(R.string.other_file))
+        )
 
         RadioGroupDialog(activity, items) {
             activity.tryOpenPathIntent(getFirstSelectedItemPath(), false, it as Int)
@@ -389,7 +392,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                         files.forEach { sourceFileDir ->
                             val sourceFile = File(sourceFileDir.path)
                             if (activity.getDoesFilePathExist(source) && activity.getIsPathDirectory(source) &&
-                                sourceFile.list()?.isEmpty() == true && sourceFile.getProperSize(true) == 0L && sourceFile.getFileCount(true) == 0) {
+                                sourceFile.list()?.isEmpty() == true && sourceFile.getProperSize(true) == 0L && sourceFile.getFileCount(true) == 0
+                            ) {
                                 val sourceFolder = sourceFile.toFileDirItem(activity)
                                 activity.deleteFile(sourceFolder, true) {
                                     listener?.refreshFragment()
@@ -811,7 +815,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
         return activity.resources.getQuantityString(R.plurals.items, children, children)
     }
 
-    private fun getOTGPublicPath(itemToLoad: String) = "${baseConfig.OTGTreeUri}/document/${baseConfig.OTGPartition}%3A${itemToLoad.substring(baseConfig.OTGPath.length).replace("/", "%2F")}"
+    private fun getOTGPublicPath(itemToLoad: String) =
+        "${baseConfig.OTGTreeUri}/document/${baseConfig.OTGPartition}%3A${itemToLoad.substring(baseConfig.OTGPath.length).replace("/", "%2F")}"
 
     private fun getImagePathToLoad(path: String): Any {
         var itemToLoad = if (path.endsWith(".apk", true)) {

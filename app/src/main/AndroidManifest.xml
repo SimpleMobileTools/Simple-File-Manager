@@ -54,7 +54,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.MimeTypesActivity" />
+        <activity
+            android:name=".activities.MimeTypesActivity"
+            android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name=".activities.ReadTextActivity"

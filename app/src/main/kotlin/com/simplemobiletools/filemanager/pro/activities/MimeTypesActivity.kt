@@ -13,14 +13,18 @@ import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.*
+import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
+import kotlinx.android.synthetic.main.activity_mimetypes.*
+import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.util.*
 
-class MimeTypesActivity : SimpleActivity() {
+class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private var isSearchOpen = false
     private var searchMenuItem: MenuItem? = null
     private var currentMimeType = ""
@@ -50,13 +54,29 @@ class MimeTypesActivity : SimpleActivity() {
                 FileDirItem.sorting = config.getFolderSorting(currentMimeType)
                 fileDirItems.sort()
                 val listItems = getListItemsFromFileDirItems(fileDirItems)
-
                 runOnUiThread {
+                    ItemsAdapter(this as SimpleActivity, listItems, this, mimetypes_list, false, items_fastscroller, null) {
 
+                    }.apply {
+                        mimetypes_list.adapter = this
+                    }
+
+                    if (areSystemAnimationsEnabled) {
+                        mimetypes_list.scheduleLayoutAnimation()
+                    }
+
+                    val dateFormat = config.dateFormat
+                    val timeFormat = getTimeFormat()
+                    items_fastscroller.setViews(mimetypes_list) {
+                        val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
+                        items_fastscroller.updateBubbleText(listItem?.getBubbleText(this, dateFormat, timeFormat) ?: "")
+                    }
                 }
             }
         }
     }
+
+    private fun getRecyclerAdapter() = mimetypes_list.adapter as? ItemsAdapter
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -105,6 +125,7 @@ class MimeTypesActivity : SimpleActivity() {
 
     private fun getProperFileDirItems(callback: (ArrayList<FileDirItem>) -> Unit) {
         val fileDirItems = ArrayList<FileDirItem>()
+        val showHidden = config.shouldShowHidden
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.MIME_TYPE,
@@ -118,8 +139,12 @@ class MimeTypesActivity : SimpleActivity() {
             queryCursor(uri, projection) { cursor ->
                 try {
                     val fullMimetype = cursor.getStringValue(MediaStore.Files.FileColumns.MIME_TYPE)?.lowercase(Locale.getDefault()) ?: return@queryCursor
-                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
                     val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
+                    if (!showHidden && name.startsWith(".")) {
+                        return@queryCursor
+                    }
+
+                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
                     val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
                     val lastModified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
 
@@ -206,13 +231,27 @@ class MimeTypesActivity : SimpleActivity() {
         }
     }
 
-    private fun toggleFilenameVisibility() {
+    override fun refreshFragment() {}
+
+    override fun deleteFiles(files: ArrayList<FileDirItem>) {}
+
+    override fun selectedPaths(paths: ArrayList<String>) {}
+
+    override fun searchQueryChanged(text: String) {}
+
+    override fun setupDateTimeFormat() {}
+
+    override fun setupFontSize() {}
+
+    override fun toggleFilenameVisibility() {
         config.displayFilenames = !config.displayFilenames
     }
 
-    private fun increaseColumnCount() {}
+    override fun increaseColumnCount() {}
 
-    private fun reduceColumnCount() {}
+    override fun reduceColumnCount() {}
+
+    override fun finishActMode() {}
 
     private fun changeViewType() {
         ChangeViewTypeDialog(this, currentMimeType, true) { }
