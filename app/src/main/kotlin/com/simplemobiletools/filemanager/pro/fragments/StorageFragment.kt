@@ -69,9 +69,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         documents_progressbar.setIndicatorColor(yellowColor)
         documents_progressbar.trackColor = yellowColor.adjustAlpha(0.3f)
 
-        val whiteColor = context.resources.getColor(R.color.md_grey_white)
-        archives_progressbar.setIndicatorColor(whiteColor)
-        archives_progressbar.trackColor = whiteColor.adjustAlpha(0.3f)
+        val tealColor = context.resources.getColor(R.color.md_teal_700)
+        archives_progressbar.setIndicatorColor(tealColor)
+        archives_progressbar.trackColor = tealColor.adjustAlpha(0.3f)
 
         val pinkColor = context.resources.getColor(R.color.md_pink_700)
         others_progressbar.setIndicatorColor(pinkColor)
