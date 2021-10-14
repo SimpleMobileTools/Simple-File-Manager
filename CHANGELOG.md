@@ -1,7 +1,15 @@
 Changelog
 ==========
 
-Version 6.10.0 *(2021-08-27)*
+Version 6.10.0 *(2021-10-14)*
+----------------------------
+
+ * Added a Storage Analyzer tab on Android 8+
+ * Allow saving any file type with the Save as action
+ * Some Android 11 related file operation improvements
+ * Couple stability, translation and UX improvements
+
+Version 6.9.4 *(2021-08-27)*
 ----------------------------
 
  * Rewrote the current folder path into a 1 liner

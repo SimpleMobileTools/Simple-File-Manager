@@ -1,0 +1,4 @@
+ * Added a Storage Analyzer tab on Android 8+
+ * Allow saving any file type with the Save as action
+ * Some Android 11 related file operation improvements
+ * Couple stability, translation and UX improvements
