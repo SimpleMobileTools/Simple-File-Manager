@@ -65,7 +65,9 @@ class MainActivity : SimpleActivity() {
 
         if (!config.wasStorageAnalysisTabAdded && isOreoPlus()) {
             config.wasStorageAnalysisTabAdded = true
-            config.showTabs += TAB_STORAGE_ANALYSIS
+            if (config.showTabs and TAB_STORAGE_ANALYSIS == 0) {
+                config.showTabs += TAB_STORAGE_ANALYSIS
+            }
         }
 
         setupTabColors(config.lastUsedViewPagerPage)
