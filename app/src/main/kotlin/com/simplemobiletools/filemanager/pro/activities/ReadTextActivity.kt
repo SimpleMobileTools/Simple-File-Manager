@@ -231,7 +231,12 @@ class ReadTextActivity : SimpleActivity() {
                 filePath = uri.path!!
                 val file = File(filePath)
                 if (file.exists()) {
-                    file.readText()
+                    try {
+                        file.readText()
+                    } catch (e: Exception) {
+                        showErrorToast(e)
+                        ""
+                    }
                 } else {
                     toast(R.string.unknown_error_occurred)
                     ""

@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MimeTypesActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -86,6 +87,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun getSizes() {
+        if (!isOreoPlus()) {
+            return
+        }
+
         ensureBackgroundThread {
             getMainStorageStats(context)
 
