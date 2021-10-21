@@ -33,6 +33,7 @@ class SettingsActivity : SimpleActivity() {
         setupChangeDateTimeFormat()
         setupFontSize()
         setupShowHidden()
+        setupEnablePullToRefresh()
         setupPressBackTwice()
         setupHiddenItemPasswordProtection()
         setupAppPasswordProtection()
@@ -52,7 +53,7 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupSectionColors() {
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        arrayListOf(visibility_label, file_operations_label, security_label).forEach {
+        arrayListOf(visibility_label, scrolling_label, file_operations_label, security_label).forEach {
             it.setTextColor(adjustedPrimaryColor)
         }
     }
@@ -123,6 +124,14 @@ class SettingsActivity : SimpleActivity() {
     private fun toggleShowHidden() {
         settings_show_hidden.toggle()
         config.showHidden = settings_show_hidden.isChecked
+    }
+
+    private fun setupEnablePullToRefresh() {
+        settings_enable_pull_to_refresh.isChecked = config.enablePullToRefresh
+        settings_enable_pull_to_refresh_holder.setOnClickListener {
+            settings_enable_pull_to_refresh.toggle()
+            config.enablePullToRefresh = settings_enable_pull_to_refresh.isChecked
+        }
     }
 
     private fun setupPressBackTwice() {
