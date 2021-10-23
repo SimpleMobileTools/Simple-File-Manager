@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
@@ -120,8 +119,10 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 breadcrumbs.updateFontSize(context!!.getTextSize())
             }
 
-            ItemsAdapter(activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_fastscroller,
-                items_swipe_refresh) {
+            ItemsAdapter(
+                activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_fastscroller,
+                items_swipe_refresh
+            ) {
                 if ((it as? ListItem)?.isSectionTitle == true) {
                     openDirectory(it.mPath)
                     searchClosed()
@@ -158,47 +159,18 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
-        Log.d(TAG, "getItems: $path")
-
-        if (isRPlus() && context.isAndroidDataRoot(path)) {
-            activity?.handleSAFDialog(path) { granted ->
-                Log.d(TAG, "getItems: $granted")
-                if (!granted) {
-                    return@handleSAFDialog
-                }
-                ensureBackgroundThread {
-                    if (activity?.isDestroyed == false && activity?.isFinishing == false) {
-                        val config = context!!.config
-                        if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
-                            val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
-                            context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
-                                callback(path, getListItemsFromFileDirItems(it))
-                            }
-                        }else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {
-                            val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
-                            context!!.getStorageItems(path, config.shouldShowHidden, getProperFileSize){
-                                callback(path, getListItemsFromFileDirItems(it))
-                            }
-                        } else {
-                            RootHelpers(activity!!).getFiles(path, callback)
-                        }
+        ensureBackgroundThread {
+            if (activity?.isDestroyed == false && activity?.isFinishing == false) {
+                val config = context!!.config
+                if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                    val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
+                    context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
+                        callback(path, getListItemsFromFileDirItems(it))
                     }
-                }
-            }
-        } else {
-            ensureBackgroundThread {
-                if (activity?.isDestroyed == false && activity?.isFinishing == false) {
-                    val config = context!!.config
-                    if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
-                        val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
-                        context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
-                            callback(path, getListItemsFromFileDirItems(it))
-                        }
-                    } else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {
-                        getRegularItemsOf(path, callback)
-                    } else {
-                        RootHelpers(activity!!).getFiles(path, callback)
-                    }
+                } else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {
+                    getRegularItemsOf(path, callback)
+                } else {
+                    RootHelpers(activity!!).getFiles(path, callback)
                 }
             }
         }
@@ -206,33 +178,47 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         val items = ArrayList<ListItem>()
-        val files = File(path).listFiles()?.filterNotNull()
-        if (context == null || files == null) {
+
+        if (context == null) {
             callback(path, items)
             return
         }
 
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
-        val lastModifieds = context!!.getFolderLastModifieds(path)
 
-        for (file in files) {
-            val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, false)
-            if (fileDirItem != null) {
-                items.add(fileDirItem)
+        if (isRPlus() && context.isSAFOnlyRoot(path)) {
+            activity?.handlePrimarySAFDialog(path) {
+                context.getStorageItemsWithTreeUri(path, context.config.shouldShowHidden, getProperChildCount) {
+                    callback(path, getListItemsFromFileDirItems(it))
+                }
             }
-        }
+        } else {
+            val files = File(path).listFiles()?.filterNotNull()
+            if (files == null) {
+                callback(path, items)
+                return
+            }
+            val lastModifieds = context!!.getFolderLastModifieds(path)
 
-        // send out the initial item list asap, get proper child count asynchronously as it can be slow
-        callback(path, items)
+            for (file in files) {
+                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, false)
+                if (fileDirItem != null) {
+                    items.add(fileDirItem)
+                }
+            }
 
-        if (getProperChildCount) {
-            items.filter { it.mIsDirectory }.forEach {
-                if (context != null) {
-                    val childrenCount = it.getDirectChildrenCount(context!!, showHidden)
-                    if (childrenCount != 0) {
-                        activity?.runOnUiThread {
-                            getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
+            // send out the initial item list asap, get proper child count asynchronously as it can be slow
+            callback(path, items)
+
+            if (getProperChildCount) {
+                items.filter { it.mIsDirectory }.forEach {
+                    if (context != null) {
+                        val childrenCount = it.getDirectChildrenCount(context!!, showHidden)
+                        if (childrenCount != 0) {
+                            activity?.runOnUiThread {
+                                getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
+                            }
                         }
                     }
                 }
@@ -556,9 +542,5 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     override fun selectedPaths(paths: ArrayList<String>) {
         (activity as MainActivity).pickedPaths(paths)
-    }
-
-    companion object {
-        private const val TAG = "ItemsFragment"
     }
 }
