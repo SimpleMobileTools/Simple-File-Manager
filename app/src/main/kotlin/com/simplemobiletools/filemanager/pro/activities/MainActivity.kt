@@ -8,11 +8,15 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityCompat
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -39,10 +43,12 @@ import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import kotlinx.android.synthetic.main.recents_fragment.*
 import java.io.File
+import java.lang.Exception
 import java.util.*
 
 class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
+    private val MANAGE_STORAGE_RC = 201
     private val PICKED_PATH = "picked_path"
     private var isSearchOpen = false
     private var wasBackJustPressed = false
@@ -155,7 +161,8 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
-            findItem(R.id.increase_column_count).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
+            findItem(R.id.increase_column_count).isVisible =
+                config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
             findItem(R.id.reduce_column_count).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt > 1
         }
 
@@ -268,8 +275,8 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun tryInitFileManager() {
-        val hadPermission = hasPermission(PERMISSION_WRITE_STORAGE)
-        handlePermission(PERMISSION_WRITE_STORAGE) {
+        val hadPermission = hasStoragePermission()
+        handleStoragePermission {
             checkOTGPath()
             if (it) {
                 if (main_view_pager.adapter == null) {
@@ -283,6 +290,43 @@ class MainActivity : SimpleActivity() {
                 toast(R.string.no_storage_permissions)
                 finish()
             }
+        }
+    }
+
+    private fun handleStoragePermission(callback: (granted: Boolean) -> Unit) {
+        actionOnPermission = null
+        if (hasStoragePermission()) {
+            callback(true)
+        } else {
+            if (isRPlus()) {
+                isAskingPermissions = true
+                actionOnPermission = callback
+                try {
+                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                    intent.addCategory("android.intent.category.DEFAULT")
+                    intent.data = Uri.parse(String.format("package:%s", applicationContext.packageName))
+                    startActivityForResult(intent, MANAGE_STORAGE_RC)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    val intent = Intent()
+                    intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                    startActivityForResult(intent, MANAGE_STORAGE_RC)
+                }
+            } else {
+                handlePermission(PERMISSION_WRITE_STORAGE, callback)
+            }
+        }
+    }
+
+    private fun hasStoragePermission(): Boolean {
+        return if (isRPlus()) Environment.isExternalStorageManager() else hasPermission(PERMISSION_WRITE_STORAGE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        isAskingPermissions = false
+        if(requestCode == MANAGE_STORAGE_RC && isRPlus()){
+            actionOnPermission?.invoke(Environment.isExternalStorageManager())
         }
     }
 
