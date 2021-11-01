@@ -55,7 +55,7 @@
 
     <!-- Settings -->
     <string name="enable_root_access">Ativar acesso root</string>
-    <string name="press_back_twice">Tem que premir duas vezes a tecla Back para sair da aplicação</string>
+    <string name="press_back_twice">Premir duas vezes a tecla Back para sair da aplicação</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
