@@ -187,7 +187,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
 
-        if (isRPlus() && context.isSAFOnlyRoot(path)) {
+        if (context.isRestrictedAndroidDir(path)) {
             activity?.handlePrimarySAFDialog(path) {
                 context.getStorageItemsWithTreeUri(path, context.config.shouldShowHidden, getProperChildCount) {
                     callback(path, getListItemsFromFileDirItems(it))
@@ -214,7 +214,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             if (getProperChildCount) {
                 items.filter { it.mIsDirectory }.forEach {
                     if (context != null) {
-                        val childrenCount = it.getDirectChildrenCount(context!!, showHidden)
+                        val childrenCount = it.getDirectChildrenCount(activity as BaseSimpleActivity, showHidden)
                         if (childrenCount != 0) {
                             activity?.runOnUiThread {
                                 getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
@@ -235,7 +235,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
         var lastModified = lastModifieds.remove(curPath)
         val isDirectory = if (lastModified != null) false else file.isDirectory
-        val children = if (isDirectory && getProperChildCount) file.getDirectChildrenCount(showHidden) else 0
+        val children = if (isDirectory && getProperChildCount) file.getDirectChildrenCount(context, showHidden) else 0
         val size = if (isDirectory) {
             if (isSortingBySize) {
                 file.getProperSize(showHidden)

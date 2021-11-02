@@ -327,13 +327,25 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
     private fun addFileUris(path: String, paths: ArrayList<String>) {
         if (activity.getIsPathDirectory(path)) {
             val shouldShowHidden = activity.config.shouldShowHidden
-            if (activity.isPathOnOTG(path)) {
-                activity.getDocumentFile(path)?.listFiles()?.filter { if (shouldShowHidden) true else !it.name!!.startsWith(".") }?.forEach {
-                    addFileUris(it.uri.toString(), paths)
+            when {
+                activity.isRestrictedAndroidDir(path) -> {
+                    activity.getStorageItemsWithTreeUri(path, shouldShowHidden, false){ files->
+                        files.forEach {
+                            addFileUris(activity.getPrimaryAndroidSAFUri(it.path).toString(), paths)
+                        }
+                    }
                 }
-            } else {
-                File(path).listFiles()?.filter { if (shouldShowHidden) true else !it.name.startsWith('.') }?.forEach {
-                    addFileUris(it.absolutePath, paths)
+
+                activity.isPathOnOTG(path) -> {
+                    activity.getDocumentFile(path)?.listFiles()?.filter { if (shouldShowHidden) true else !it.name!!.startsWith(".") }?.forEach {
+                        addFileUris(it.uri.toString(), paths)
+                    }
+                }
+
+                else -> {
+                    File(path).listFiles()?.filter { if (shouldShowHidden) true else !it.name.startsWith('.') }?.forEach {
+                        addFileUris(it.absolutePath, paths)
+                    }
                 }
             }
         } else {
@@ -363,7 +375,8 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             RadioItem(OPEN_AS_IMAGE, res.getString(R.string.image_file)),
             RadioItem(OPEN_AS_AUDIO, res.getString(R.string.audio_file)),
             RadioItem(OPEN_AS_VIDEO, res.getString(R.string.video_file)),
-            RadioItem(OPEN_AS_OTHER, res.getString(R.string.other_file)))
+            RadioItem(OPEN_AS_OTHER, res.getString(R.string.other_file))
+        )
 
         RadioGroupDialog(activity, items) {
             activity.tryOpenPathIntent(getFirstSelectedItemPath(), false, it as Int)
@@ -387,19 +400,30 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
                 activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, activity.config.shouldShowHidden) {
                     if (!isCopyOperation) {
                         files.forEach { sourceFileDir ->
-                            val sourceFile = File(sourceFileDir.path)
-                            if (activity.getDoesFilePathExist(source) && activity.getIsPathDirectory(source) &&
-                                sourceFile.list()?.isEmpty() == true && sourceFile.getProperSize(true) == 0L && sourceFile.getFileCount(true) == 0) {
-                                val sourceFolder = sourceFile.toFileDirItem(activity)
-                                activity.deleteFile(sourceFolder, true) {
+                            val sourcePath = sourceFileDir.path
+                            if (activity.isRestrictedAndroidDir(sourcePath) && activity.getDoesFilePathExist(sourcePath)) {
+                                activity.deleteFile(sourceFileDir, true) {
                                     listener?.refreshItems()
                                     activity.runOnUiThread {
                                         finishActMode()
                                     }
                                 }
                             } else {
-                                listener?.refreshItems()
-                                finishActMode()
+                                val sourceFile = File(sourcePath)
+                                if (activity.getDoesFilePathExist(source) && activity.getIsPathDirectory(source) &&
+                                    sourceFile.list()?.isEmpty() == true && sourceFile.getProperSize(true) == 0L && sourceFile.getFileCount(true) == 0
+                                ) {
+                                    val sourceFolder = sourceFile.toFileDirItem(activity)
+                                    activity.deleteFile(sourceFolder, true) {
+                                        listener?.refreshItems()
+                                        activity.runOnUiThread {
+                                            finishActMode()
+                                        }
+                                    }
+                                } else {
+                                    listener?.refreshItems()
+                                    finishActMode()
+                                }
                             }
                         }
                     } else {
@@ -828,9 +852,12 @@ class ItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem
             path
         }
 
-        if (hasOTGConnected && itemToLoad is String && activity.isPathOnOTG(itemToLoad) && baseConfig.OTGTreeUri.isNotEmpty() && baseConfig.OTGPartition.isNotEmpty()) {
+        if (activity.isRestrictedAndroidDir(path)) {
+            itemToLoad = activity.getPrimaryAndroidSAFUri(path)
+        } else if (hasOTGConnected && itemToLoad is String && activity.isPathOnOTG(itemToLoad) && baseConfig.OTGTreeUri.isNotEmpty() && baseConfig.OTGPartition.isNotEmpty()) {
             itemToLoad = getOTGPublicPath(itemToLoad)
         }
+
 
         return itemToLoad
     }

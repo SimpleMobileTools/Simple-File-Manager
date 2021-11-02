@@ -304,7 +304,7 @@ class MainActivity : SimpleActivity() {
                 try {
                     val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
                     intent.addCategory("android.intent.category.DEFAULT")
-                    intent.data = Uri.parse(String.format("package:%s", applicationContext.packageName))
+                    intent.data = Uri.parse("package:$packageName")
                     startActivityForResult(intent, MANAGE_STORAGE_RC)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -325,7 +325,7 @@ class MainActivity : SimpleActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
         isAskingPermissions = false
-        if(requestCode == MANAGE_STORAGE_RC && isRPlus()){
+        if (requestCode == MANAGE_STORAGE_RC && isRPlus()) {
             actionOnPermission?.invoke(Environment.isExternalStorageManager())
         }
     }
