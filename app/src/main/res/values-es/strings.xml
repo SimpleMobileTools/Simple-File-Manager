@@ -50,7 +50,7 @@
     <string name="downloads">Descargas</string>
     <string name="archives">Archivos</string>
     <string name="others">Otros</string>
-    <string name="storage_free">gratis</string>
+    <string name="storage_free">libre</string>
     <string name="total_storage">Almacenamiento total: %s</string>
 
     <!-- Settings -->
