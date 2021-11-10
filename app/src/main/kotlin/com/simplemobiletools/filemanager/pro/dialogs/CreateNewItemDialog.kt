@@ -66,7 +66,7 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 documentFile.createDirectory(path.getFilenameFromPath())
                 success(alertDialog)
             }
-            path.startsWith(activity.internalStoragePath, true) -> {
+            isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
                 if (activity.isRestrictedAndroidDir(path)) {
                     activity.handlePrimarySAFDialog(path) {
                         if (!it) {
@@ -136,7 +136,7 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                     }
                 }
 
-                path.startsWith(activity.internalStoragePath, true) -> {
+                isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
                     if (File(path).createNewFile()) {
                         success(alertDialog)
                     }
