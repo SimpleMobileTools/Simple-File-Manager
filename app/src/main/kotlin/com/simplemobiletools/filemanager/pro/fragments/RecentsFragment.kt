@@ -122,19 +122,18 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             FileColumns.SIZE
         )
 
-        val cursor = if (isOreoPlus()) {
-            val queryArgs = bundleOf(
-                ContentResolver.QUERY_ARG_LIMIT to RECENTS_LIMIT,
-                ContentResolver.QUERY_ARG_SORT_COLUMNS to arrayOf(FileColumns.DATE_MODIFIED),
-                ContentResolver.QUERY_ARG_SORT_DIRECTION to ContentResolver.QUERY_SORT_DIRECTION_DESCENDING
-            )
-            context?.contentResolver?.query(uri, projection, queryArgs, null)
-        } else {
-            val sortOrder = "${FileColumns.DATE_MODIFIED} DESC LIMIT $RECENTS_LIMIT"
-            context?.contentResolver?.query(uri, projection, null, null, sortOrder)
-        }
-
         try {
+            val cursor = if (isOreoPlus()) {
+                val queryArgs = bundleOf(
+                    ContentResolver.QUERY_ARG_LIMIT to RECENTS_LIMIT,
+                    ContentResolver.QUERY_ARG_SORT_COLUMNS to arrayOf(FileColumns.DATE_MODIFIED),
+                    ContentResolver.QUERY_ARG_SORT_DIRECTION to ContentResolver.QUERY_SORT_DIRECTION_DESCENDING
+                )
+                context?.contentResolver?.query(uri, projection, queryArgs, null)
+            } else {
+                val sortOrder = "${FileColumns.DATE_MODIFIED} DESC LIMIT $RECENTS_LIMIT"
+                context?.contentResolver?.query(uri, projection, null, null, sortOrder)
+            }
             cursor?.use {
                 if (cursor.moveToFirst()) {
                     do {

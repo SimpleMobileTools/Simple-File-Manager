@@ -188,7 +188,12 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
 
         if (context.isRestrictedAndroidDir(path)) {
-            activity?.handlePrimarySAFDialog(path) {
+            activity?.handlePrimaryAndroidSAFDialog(path) {
+                if (!it) {
+                    activity?.toast(R.string.no_storage_permissions)
+                    return@handlePrimaryAndroidSAFDialog
+                }
+
                 context.getStorageItemsWithTreeUri(path, context.config.shouldShowHidden, getProperChildCount) {
                     callback(path, getListItemsFromFileDirItems(it))
                 }

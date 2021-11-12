@@ -50,12 +50,8 @@ import kotlinx.android.synthetic.main.item_file_dir_list.view.item_name
 import kotlinx.android.synthetic.main.item_section.view.*
 import java.io.Closeable
 import java.io.File
-import java.io.FileInputStream
-import java.net.URI
-import java.net.URLEncoder
 import java.util.*
 import java.util.zip.ZipEntry
-import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
@@ -469,9 +465,9 @@ class ItemsAdapter(
 
         CompressAsDialog(activity, firstPath) {
             val destination = it
-            activity.handlePrimarySAFDialog(firstPath) { granted ->
+            activity.handlePrimaryAndroidSAFDialog(firstPath) { granted ->
                 if (!granted) {
-                    return@handlePrimarySAFDialog
+                    return@handlePrimaryAndroidSAFDialog
                 }
                 activity.handleSAFDialog(firstPath) {
                     if (!it) {

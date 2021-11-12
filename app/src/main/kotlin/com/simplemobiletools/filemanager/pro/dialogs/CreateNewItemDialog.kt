@@ -68,10 +68,10 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
             }
             isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
                 if (activity.isRestrictedAndroidDir(path)) {
-                    activity.handlePrimarySAFDialog(path) {
+                    activity.handlePrimaryAndroidSAFDialog(path) {
                         if (!it) {
                             callback(false)
-                            return@handlePrimarySAFDialog
+                            return@handlePrimaryAndroidSAFDialog
                         }
                         if (activity.createSAFOnlyDirectory(path)) {
                             success(alertDialog)
@@ -103,10 +103,10 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
         try {
             when {
                 activity.isRestrictedAndroidDir(path) -> {
-                    activity.handlePrimarySAFDialog(path) {
+                    activity.handlePrimaryAndroidSAFDialog(path) {
                         if (!it) {
                             callback(false)
-                            return@handlePrimarySAFDialog
+                            return@handlePrimaryAndroidSAFDialog
                         }
                         if (activity.createSAFOnlyFile(path)) {
                             success(alertDialog)
