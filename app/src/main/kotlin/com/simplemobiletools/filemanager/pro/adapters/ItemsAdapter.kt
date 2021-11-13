@@ -57,7 +57,7 @@ import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(
     activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
-    val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, val swipeRefreshLayout: SwipeRefreshLayout, itemClick: (Any) -> Unit
+    val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, val swipeRefreshLayout: SwipeRefreshLayout?, itemClick: (Any) -> Unit
 ) :
     MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
 
@@ -138,12 +138,12 @@ class ItemsAdapter(
     override fun getItemKeyPosition(key: Int) = listItems.indexOfFirst { it.path.hashCode() == key }
 
     override fun onActionModeCreated() {
-        swipeRefreshLayout.isRefreshing = false
-        swipeRefreshLayout.isEnabled = false
+        swipeRefreshLayout?.isRefreshing = false
+        swipeRefreshLayout?.isEnabled = false
     }
 
     override fun onActionModeDestroyed() {
-        swipeRefreshLayout.isEnabled = true
+        swipeRefreshLayout?.isEnabled = true
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -216,20 +216,20 @@ class ItemsAdapter(
                 RenameItemDialog(activity, oldPath) {
                     activity.config.moveFavorite(oldPath, it)
                     activity.runOnUiThread {
-                        listener?.refreshItems()
+                        listener?.refreshFragment()
                         finishActMode()
                     }
                 }
             }
             fileDirItems.any { it.isDirectory } -> RenameItemsDialog(activity, paths) {
                 activity.runOnUiThread {
-                    listener?.refreshItems()
+                    listener?.refreshFragment()
                     finishActMode()
                 }
             }
             else -> RenameDialog(activity, paths, false) {
                 activity.runOnUiThread {
-                    listener?.refreshItems()
+                    listener?.refreshFragment()
                     finishActMode()
                 }
             }
@@ -260,7 +260,7 @@ class ItemsAdapter(
                 activity.toggleItemVisibility(it.path, hide)
             }
             activity.runOnUiThread {
-                listener?.refreshItems()
+                listener?.refreshFragment()
                 finishActMode()
             }
         }
@@ -405,7 +405,7 @@ class ItemsAdapter(
                             val sourcePath = sourceFileDir.path
                             if (activity.isRestrictedAndroidDir(sourcePath) && activity.getDoesFilePathExist(sourcePath)) {
                                 activity.deleteFile(sourceFileDir, true) {
-                                    listener?.refreshItems()
+                                    listener?.refreshFragment()
                                     activity.runOnUiThread {
                                         finishActMode()
                                     }
@@ -417,19 +417,19 @@ class ItemsAdapter(
                                 ) {
                                     val sourceFolder = sourceFile.toFileDirItem(activity)
                                     activity.deleteFile(sourceFolder, true) {
-                                        listener?.refreshItems()
+                                        listener?.refreshFragment()
                                         activity.runOnUiThread {
                                             finishActMode()
                                         }
                                     }
                                 } else {
-                                    listener?.refreshItems()
+                                    listener?.refreshFragment()
                                     finishActMode()
                                 }
                             }
                         }
                     } else {
-                        listener?.refreshItems()
+                        listener?.refreshFragment()
                         finishActMode()
                     }
                 }
@@ -449,7 +449,7 @@ class ItemsAdapter(
                 }
 
                 activity.runOnUiThread {
-                    listener?.refreshItems()
+                    listener?.refreshFragment()
                     finishActMode()
                 }
             }
@@ -480,7 +480,7 @@ class ItemsAdapter(
                         if (compressPaths(paths, destination)) {
                             activity.runOnUiThread {
                                 activity.toast(R.string.compression_successful)
-                                listener?.refreshItems()
+                                listener?.refreshFragment()
                                 finishActMode()
                             }
                         } else {
@@ -509,7 +509,7 @@ class ItemsAdapter(
                 if (it) {
                     activity.toast(R.string.decompression_successful)
                     activity.runOnUiThread {
-                        listener?.refreshItems()
+                        listener?.refreshFragment()
                         finishActMode()
                     }
                 } else {
@@ -541,7 +541,6 @@ class ItemsAdapter(
                         }
                     }
                 } catch (exception: Exception) {
-                    exception.printStackTrace()
                     activity.showErrorToast(exception)
                 }
             }
@@ -684,7 +683,6 @@ class ItemsAdapter(
                 }
             }
         } catch (exception: Exception) {
-            exception.printStackTrace()
             activity.showErrorToast(exception)
             return false
         } finally {
@@ -891,7 +889,6 @@ class ItemsAdapter(
         } else if (hasOTGConnected && itemToLoad is String && activity.isPathOnOTG(itemToLoad) && baseConfig.OTGTreeUri.isNotEmpty() && baseConfig.OTGPartition.isNotEmpty()) {
             itemToLoad = getOTGPublicPath(itemToLoad)
         }
-
 
         return itemToLoad
     }

@@ -56,6 +56,10 @@
         </activity>
 
         <activity
+            android:name=".activities.MimeTypesActivity"
+            android:parentActivityName=".activities.MainActivity" />
+
+        <activity
             android:name=".activities.ReadTextActivity"
             android:label="@string/file_editor">
 
@@ -91,9 +95,7 @@
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
 
-                <data android:mimeType="text/plain" />
-                <data android:mimeType="image/*" />
-                <data android:mimeType="video/*" />
+                <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
 

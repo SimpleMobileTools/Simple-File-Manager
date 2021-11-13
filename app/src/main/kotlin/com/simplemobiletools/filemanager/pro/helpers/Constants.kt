@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager.pro.helpers
 
 import com.simplemobiletools.commons.helpers.TAB_FILES
 import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
+import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
 
 const val PATH = "path"
 const val MAX_COLUMN_COUNT = 20
@@ -20,6 +21,7 @@ const val FILE_COLUMN_CNT = "file_column_cnt"
 const val FILE_LANDSCAPE_COLUMN_CNT = "file_landscape_column_cnt"
 const val DISPLAY_FILE_NAMES = "display_file_names"
 const val SHOW_TABS = "show_tabs"
+const val WAS_STORAGE_ANALYSIS_TAB_ADDED = "was_storage_analysis_tab_added"
 
 // open as
 const val OPEN_AS_DEFAULT = 0
@@ -29,5 +31,37 @@ const val OPEN_AS_AUDIO = 3
 const val OPEN_AS_VIDEO = 4
 const val OPEN_AS_OTHER = 5
 
-const val ALL_TABS_MASK = TAB_FILES or TAB_RECENT_FILES
-val tabsList = arrayListOf(TAB_FILES, TAB_RECENT_FILES)
+const val ALL_TABS_MASK = TAB_FILES or TAB_RECENT_FILES or TAB_STORAGE_ANALYSIS
+val tabsList = arrayListOf(TAB_FILES, TAB_RECENT_FILES, TAB_STORAGE_ANALYSIS)
+
+const val IMAGES = "images"
+const val VIDEOS = "videos"
+const val AUDIO = "audio"
+const val DOCUMENTS = "documents"
+const val ARCHIVES = "archives"
+const val OTHERS = "others"
+const val SHOW_MIMETYPE = "show_mimetype"
+
+// what else should we count as an audio except "audio/*" mimetype
+val extraAudioMimeTypes = arrayListOf("application/ogg")
+val extraDocumentMimeTypes = arrayListOf(
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/javascript"
+)
+
+val archiveMimeTypes = arrayListOf(
+    "application/zip",
+    "application/octet-stream",
+    "application/json",
+    "application/x-tar",
+    "application/x-rar-compressed",
+    "application/x-zip-compressed",
+    "application/x-7z-compressed",
+    "application/x-compressed",
+    "application/x-gzip",
+    "application/java-archive",
+    "multipart/x-zip"
+)

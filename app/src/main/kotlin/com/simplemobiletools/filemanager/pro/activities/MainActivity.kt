@@ -34,14 +34,17 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
+import com.simplemobiletools.filemanager.pro.fragments.StorageFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.helpers.tabsList
+import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import kotlinx.android.synthetic.main.recents_fragment.*
+import kotlinx.android.synthetic.main.storage_fragment.*
 import java.io.File
 import java.lang.Exception
 import java.util.*
@@ -65,6 +68,14 @@ class MainActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+
+        if (!config.wasStorageAnalysisTabAdded && isOreoPlus()) {
+            config.wasStorageAnalysisTabAdded = true
+            if (config.showTabs and TAB_STORAGE_ANALYSIS == 0) {
+                config.showTabs += TAB_STORAGE_ANALYSIS
+            }
+        }
+
         setupTabColors(config.lastUsedViewPagerPage)
         storeStateVariables()
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
@@ -95,18 +106,18 @@ class MainActivity : SimpleActivity() {
         }
 
         getAllFragments().forEach {
-            it?.setupColors(config.textColor, config.primaryColor)
+            it?.onResume(config.textColor, config.primaryColor)
         }
 
         if (storedFontSize != config.fontSize) {
             getAllFragments().forEach {
-                it?.setupFontSize()
+                (it as? ItemOperationsListener)?.setupFontSize()
             }
         }
 
         if (storedDateFormat != config.dateFormat || storedTimeFormat != getTimeFormat()) {
             getAllFragments().forEach {
-                it?.setupDateTimeFormat()
+                (it as? ItemOperationsListener)?.setupDateTimeFormat()
             }
         }
 
@@ -144,26 +155,28 @@ class MainActivity : SimpleActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val currentFragment = getCurrentFragment() ?: return true
+        val currentViewType = config.getFolderViewType(currentFragment.currentPath)
         val favorites = config.favorites
 
         menu!!.apply {
             findItem(R.id.search).isVisible = currentFragment is ItemsFragment
             findItem(R.id.sort).isVisible = currentFragment is ItemsFragment
+            findItem(R.id.change_view_type).isVisible = currentFragment !is StorageFragment
 
             findItem(R.id.add_favorite).isVisible = currentFragment is ItemsFragment && !favorites.contains(currentFragment.currentPath)
             findItem(R.id.remove_favorite).isVisible = currentFragment is ItemsFragment && favorites.contains(currentFragment.currentPath)
             findItem(R.id.go_to_favorite).isVisible = currentFragment is ItemsFragment && favorites.isNotEmpty()
 
-            findItem(R.id.toggle_filename).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID
+            findItem(R.id.toggle_filename).isVisible = currentViewType == VIEW_TYPE_GRID
             findItem(R.id.go_home).isVisible = currentFragment is ItemsFragment && currentFragment.currentPath != config.homeFolder
             findItem(R.id.set_as_home).isVisible = currentFragment is ItemsFragment && currentFragment.currentPath != config.homeFolder
 
-            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
-            findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
+            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden && currentFragment !is StorageFragment
+            findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden && currentFragment !is StorageFragment
 
             findItem(R.id.increase_column_count).isVisible =
-                config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
-            findItem(R.id.reduce_column_count).isVisible = config.getFolderViewType(currentFragment.currentPath) == VIEW_TYPE_GRID && config.fileColumnCnt > 1
+                currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT && currentFragment !is StorageFragment
+            findItem(R.id.reduce_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1 && currentFragment !is StorageFragment
         }
 
         return true
@@ -243,7 +256,7 @@ class MainActivity : SimpleActivity() {
 
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (isSearchOpen) {
-                        getCurrentFragment()?.searchQueryChanged(newText)
+                        (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged(newText)
                     }
                     return true
                 }
@@ -358,12 +371,13 @@ class MainActivity : SimpleActivity() {
         }
 
         if (refreshRecents) {
-            recents_fragment?.refreshItems()
+            recents_fragment?.refreshFragment()
         }
     }
 
     private fun initFragments() {
         main_view_pager.adapter = ViewPagerAdapter(this)
+        main_view_pager.offscreenPageLimit = 2
         main_view_pager.currentItem = config.lastUsedViewPagerPage
         main_view_pager.onPageChangeListener {
             main_tabs_holder.getTabAt(it)?.select()
@@ -385,7 +399,7 @@ class MainActivity : SimpleActivity() {
         main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
                 if (isSearchOpen) {
-                    getCurrentFragment()?.searchQueryChanged("")
+                    (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged("")
                     searchMenuItem?.collapseActionView()
                 }
             }
@@ -395,7 +409,7 @@ class MainActivity : SimpleActivity() {
             override fun onPageSelected(position: Int) {
                 main_tabs_holder.getTabAt(position)?.select()
                 getAllFragments().forEach {
-                    it?.finishActMode()
+                    (it as? ItemOperationsListener)?.finishActMode()
                 }
                 invalidateOptionsMenu()
             }
@@ -448,7 +462,8 @@ class MainActivity : SimpleActivity() {
     private fun getTabIcon(position: Int): Drawable {
         val drawableId = when (position) {
             0 -> R.drawable.ic_folder_vector
-            else -> R.drawable.ic_clock_vector
+            1 -> R.drawable.ic_clock_vector
+            else -> R.drawable.ic_storage_vector
         }
 
         return resources.getColoredDrawableWithColor(drawableId, config.textColor)
@@ -491,7 +506,7 @@ class MainActivity : SimpleActivity() {
 
     private fun showSortingDialog() {
         ChangeSortingDialog(this, getCurrentFragment()!!.currentPath) {
-            (getCurrentFragment() as? ItemsFragment)?.refreshItems()
+            (getCurrentFragment() as? ItemsFragment)?.refreshFragment()
         }
     }
 
@@ -506,19 +521,19 @@ class MainActivity : SimpleActivity() {
     private fun toggleFilenameVisibility() {
         config.displayFilenames = !config.displayFilenames
         getAllFragments().forEach {
-            it?.toggleFilenameVisibility()
+            (it as? ItemOperationsListener)?.toggleFilenameVisibility()
         }
     }
 
     private fun increaseColumnCount() {
         getAllFragments().forEach {
-            it?.increaseColumnCount()
+            (it as? ItemOperationsListener)?.increaseColumnCount()
         }
     }
 
     private fun reduceColumnCount() {
         getAllFragments().forEach {
-            it?.reduceColumnCount()
+            (it as? ItemOperationsListener)?.reduceColumnCount()
         }
     }
 
@@ -548,7 +563,7 @@ class MainActivity : SimpleActivity() {
     private fun changeViewType() {
         ChangeViewTypeDialog(this, getCurrentFragment()!!.currentPath, getCurrentFragment() is ItemsFragment) {
             getAllFragments().forEach {
-                it?.refreshItems()
+                it?.refreshFragment()
             }
         }
     }
@@ -566,7 +581,7 @@ class MainActivity : SimpleActivity() {
     private fun toggleTemporarilyShowHidden(show: Boolean) {
         config.temporarilyShowHidden = show
         getAllFragments().forEach {
-            it?.refreshItems()
+            it?.refreshFragment()
         }
     }
 
@@ -674,7 +689,7 @@ class MainActivity : SimpleActivity() {
 
     private fun getInactiveTabIndexes(activeIndex: Int) = (0 until tabsList.size).filter { it != activeIndex }
 
-    private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment)
+    private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment, storage_fragment)
 
     private fun getCurrentFragment(): MyViewPagerFragment? {
         val showTabs = config.showTabs
@@ -685,6 +700,10 @@ class MainActivity : SimpleActivity() {
 
         if (showTabs and TAB_RECENT_FILES != 0) {
             fragments.add(recents_fragment)
+        }
+
+        if (showTabs and TAB_STORAGE_ANALYSIS != 0) {
+            fragments.add(storage_fragment)
         }
 
         return fragments.getOrNull(main_view_pager.currentItem)

@@ -41,6 +41,18 @@
     <!-- File Editor -->
     <string name="file_editor">Επεξεργαστής αρχείων</string>
 
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Ανάλυση Αποθήκευσης</string>
+    <string name="images">Εικόνες</string>
+    <string name="videos">Βίντεο</string>
+    <string name="audio">Ήχοι</string>
+    <string name="documents">Έγγραφα</string>
+    <string name="downloads">Λήψεις</string>
+    <string name="archives">Αρχεία</string>
+    <string name="others">Άλλα</string>
+    <string name="storage_free">ελεύθερα</string>
+    <string name="total_storage">Σύνολο: %s</string>
+
     <!-- Settings -->
     <string name="enable_root_access">Ενεργοποιήστε την πρόσβαση ριζικού καταλόγου</string>
     <string name="press_back_twice">Απαιτείται διπλό πάτημα του πλήκτρου \"Πίσω\" για κλείσιμο εφαρμογής</string>

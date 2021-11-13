@@ -29,13 +29,13 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
-            recents_swipe_refresh.setOnRefreshListener { refreshItems() }
+            recents_swipe_refresh.setOnRefreshListener { refreshFragment() }
         }
 
-        refreshItems()
+        refreshFragment()
     }
 
-    override fun refreshItems() {
+    override fun refreshFragment() {
         ensureBackgroundThread {
             getRecents { recents ->
                 recents_swipe_refresh?.isRefreshing = false
@@ -66,7 +66,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    override fun setupColors(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int, primaryColor: Int) {
         recents_placeholder.setTextColor(textColor)
 
         getRecyclerAdapter()?.apply {

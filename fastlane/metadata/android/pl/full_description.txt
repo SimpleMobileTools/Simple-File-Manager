@@ -1,7 +1,33 @@
-Może być używany także do przeglądania systemowych zakamarków i zewnętrznych kart pamięci. Z łatwością możesz zmieniać nazwy, przenosić, kopiować, usuwać i udostępniać pliki.
+Lekki, szybki menedżer plików do codziennego użytku. Oferuje użyteczną funkcję wyszukiwania, możesz także dostosować folder domowy i wybrać ulubione foldery, aby uzyskać szybki dostęp.
 
-Uprawnienie odnośnie linii papilarnych potrzebne jest do blokowania widoczności plików i folderów lub też dostępu do aplikacji.
+Aplikacja zawiera wiele zaawansowanych funkcji związanych z bezpieczeństwem, takich jak ochrona hasłem ukrytych elementów lub całej aplikacji. Aby zachować prywatność danych, możesz wybrać wzór, PIN lub odcisk palca.
 
-Aplikacja nie zawiera żadnych żadnych reklam, nie potrzebuje masy uprawnień, jest w pełni otwartoźródłowa, posiada ciemny motyw dla osób z wrażliwymi oczami.
+Ten nowoczesny organizer plików obsługuje szybkie przeglądanie plików w folderze głównym, kart SD i urządzeń USB.
 
-Niniejsza aplikacja jest tylko częścią naszej kolekcji prostych narzędzi. Ta, jak i pozostałe, dostępne są na stronie https://www.simplemobiletools.com
+Aby utrzymać Twoją produktywność, oczywiście ma wszystkie standardowe operacje na plikach, takie jak zmiana nazwy, kopiowanie, przenoszenie, usuwanie, udostępnianie itp. Może być też używany do oszczędzania miejsca, ponieważ umożliwia również pakowanie i rozpakowywanie. Jeśli chcesz, możesz łatwo tworzyć nowe pliki lub foldery.
+
+Możesz oczywiście wybrać sortowanie według wielu różnych wartości, przełączać się między rosnącym i malejącym lub użyć sortowania specyficznego dla folderu.
+
+Za pomocą kilku naciśnięć możesz również sprawdzić właściwości pliku lub folderu, które pokazują różne pola, takie jak rozmiar pliku, data ostatniej modyfikacji lub wartości EXIF (data utworzenia, model aparatu itp.).
+
+Aby szybko uzyskać ścieżkę do pliku lub folderów, możesz ją łatwo wybrać, naciskając i kopiując ją do schowka.
+
+Możesz tworzyć przydatne skróty na pulpicie, aby szybko uzyskać dostęp do ulubionych elementów.
+
+Zawiera lekki edytor plików, którego można używać do drukowania dokumentów, ich edycji lub łatwego czytania za pomocą gestów powiększania, gdy jest to konieczne.
+
+Domyślnie jest wyposażony w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje.
+
+Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę.
+
+<b>Sprawdź pełen zestaw od Simple Tools tutaj:</b>
+https://www.simplemobiletools.com
+
+<b>Strona internetowa Prostego menedżera plików Pro:</b>
+https://www.simplemobiletools.com/filemanager
+
+<b>Facebook:</b>
+https://www.facebook.com/simplemobiletools
+
+<b>Reddit:</b>
+https://www.reddit.com/r/SimpleMobileTools

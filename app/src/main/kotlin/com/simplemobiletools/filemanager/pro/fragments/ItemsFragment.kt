@@ -42,13 +42,13 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
-            items_swipe_refresh.setOnRefreshListener { refreshItems() }
+            items_swipe_refresh.setOnRefreshListener { refreshFragment() }
             items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
         }
     }
 
-    override fun setupColors(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int, primaryColor: Int) {
         context!!.updateTextColors(this)
         items_fastscroller.updatePrimaryColor()
         storedItems = ArrayList()
@@ -286,24 +286,24 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     override fun searchQueryChanged(text: String) {
         val searchText = text.trim()
         lastSearchedText = searchText
-        ensureBackgroundThread {
-            if (context == null) {
-                return@ensureBackgroundThread
-            }
+        if (context == null) {
+            return
+        }
 
-            when {
-                searchText.isEmpty() -> activity?.runOnUiThread {
-                    items_list.beVisible()
-                    getRecyclerAdapter()?.updateItems(storedItems)
-                    items_placeholder.beGone()
-                    items_placeholder_2.beGone()
-                }
-                searchText.length == 1 -> activity?.runOnUiThread {
-                    items_list.beGone()
-                    items_placeholder.beVisible()
-                    items_placeholder_2.beVisible()
-                }
-                else -> {
+        when {
+            searchText.isEmpty() -> {
+                items_list.beVisible()
+                getRecyclerAdapter()?.updateItems(storedItems)
+                items_placeholder.beGone()
+                items_placeholder_2.beGone()
+            }
+            searchText.length == 1 -> {
+                items_list.beGone()
+                items_placeholder.beVisible()
+                items_placeholder_2.beVisible()
+            }
+            else -> {
+                ensureBackgroundThread {
                     val files = searchFiles(searchText, currentPath)
                     files.sortBy { it.getParentPath() }
 
@@ -408,7 +408,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     private fun createNewItem() {
         CreateNewItemDialog(activity as SimpleActivity, currentPath) {
             if (it) {
-                refreshItems()
+                refreshFragment()
             } else {
                 activity?.toast(R.string.unknown_error_occurred)
             }
@@ -521,7 +521,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    override fun refreshItems() {
+    override fun refreshFragment() {
         openPath(currentPath)
     }
 

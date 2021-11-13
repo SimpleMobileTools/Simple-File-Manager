@@ -36,21 +36,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     abstract fun setupFragment(activity: SimpleActivity)
 
-    abstract fun setupColors(textColor: Int, primaryColor: Int)
+    abstract fun onResume(textColor: Int, primaryColor: Int)
 
-    abstract fun setupFontSize()
-
-    abstract fun setupDateTimeFormat()
-
-    abstract fun searchQueryChanged(text: String)
-
-    abstract fun finishActMode()
-
-    abstract fun toggleFilenameVisibility()
-
-    abstract fun increaseColumnCount()
-
-    abstract fun reduceColumnCount()
-
-    abstract fun refreshItems()
+    abstract fun refreshFragment()
 }

@@ -11,8 +11,8 @@
     <string name="select_audio_file">Por favor, selecione um arquivo de áudio</string>
     <string name="search_folder">Procurar pasta</string>
     <string name="rooted_device_only">Esta operação só funciona em dispositivos rooteados</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
+    <string name="recents">Recentes</string>
+    <string name="show_recents">Mostrar recentes</string>
 
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
@@ -30,8 +30,8 @@
     <string name="decompressing">Descompactando…</string>
     <string name="compression_successful">Compactado com sucesso</string>
     <string name="decompression_successful">Descompactado com sucesso</string>
-    <string name="compressing_failed">Compactação falhou</string>
-    <string name="decompressing_failed">Descompactação falhou</string>
+    <string name="compressing_failed">A compactação falhou</string>
+    <string name="decompressing_failed">A descompactação falhou</string>
 
     <!-- Favorites -->
     <string name="manage_favorites">Gerenciar favoritos</string>
@@ -41,9 +41,21 @@
     <!-- File Editor -->
     <string name="file_editor">Editor de Arquivos</string>
 
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Storage analysis</string>
+    <string name="images">Images</string>
+    <string name="videos">Videos</string>
+    <string name="audio">Audio</string>
+    <string name="documents">Documents</string>
+    <string name="downloads">Downloads</string>
+    <string name="archives">Archives</string>
+    <string name="others">Others</string>
+    <string name="storage_free">free</string>
+    <string name="total_storage">Total storage: %s</string>
+
     <!-- Settings -->
     <string name="enable_root_access">Ativar o acesso root</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="press_back_twice">Requira o duplo pressionamento do botão "voltar" para sair do app</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->

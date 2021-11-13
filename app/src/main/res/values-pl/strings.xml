@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Prosty Menedżer Plików</string>
-    <string name="app_launcher_name">Menedżer Plików</string>
-    <string name="press_back_again">Naciśnij jeszcze raz, aby wyjść</string>
-    <string name="go_to_home_folder">Przejdź do folderu głównego</string>
-    <string name="set_as_home_folder">Ustaw jako folder główny</string>
-    <string name="home_folder_updated">Folder główny zaktualizowany</string>
+    <string name="app_name">Prosty menedżer plików</string>
+    <string name="app_launcher_name">Menedżer plików</string>
+    <string name="press_back_again">Naciśnij ponownie przycisk wstecz, aby wyjść</string>
+    <string name="go_to_home_folder">Przejdź do folderu domowego</string>
+    <string name="set_as_home_folder">Ustaw jako folder domowy</string>
+    <string name="home_folder_updated">Folder domowy zaktualizowany</string>
     <string name="copy_path">Kopiuj ścieżkę do schowka</string>
     <string name="path_copied">Ścieżka skopiowana</string>
-    <string name="select_audio_file">Proszę wybrać plik audio</string>
-    <string name="search_folder">Przeszukaj folder</string>
+    <string name="select_audio_file">Wybierz plik audio</string>
+    <string name="search_folder">Przeszukaj folder</string>
     <string name="rooted_device_only">Ta operacja działa tylko na zrootowanych urządzeniach</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
+    <string name="recents">Ostatnie</string>
+    <string name="show_recents">Pokaż ostatnie</string>
 
     <!-- Open as -->
     <string name="open_as">Otwórz jako</string>
@@ -23,14 +23,14 @@
     <string name="other_file">Inny plik</string>
 
     <!-- Compression -->
-    <string name="compress">Skompresuj</string>
+    <string name="compress">Spakuj</string>
     <string name="decompress">Rozpakuj</string>
-    <string name="compress_as">Skompresuj jako</string>
-    <string name="compressing">Kompresowanie…</string>
+    <string name="compress_as">Spakuj jako</string>
+    <string name="compressing">Pakowanie…</string>
     <string name="decompressing">Rozpakowywanie…</string>
-    <string name="compression_successful">Kompresja udana</string>
-    <string name="decompression_successful">Rozpakowywanie udane</string>
-    <string name="compressing_failed">Kompresja nie powiodła się</string>
+    <string name="compression_successful">Pakowanie powiodło się</string>
+    <string name="decompression_successful">Rozpakowywanie powiodło się</string>
+    <string name="compressing_failed">Pakowanie nie powiodło się</string>
     <string name="decompressing_failed">Rozpakowywanie nie powiodło się</string>
 
     <!-- Favorites -->
@@ -39,44 +39,56 @@
     <string name="favorites_activity_placeholder">Możesz dodać często używane foldery do ulubionych, aby mieć do nich łatwy dostęp z dowolnego miejsca.</string>
 
     <!-- File Editor -->
-    <string name="file_editor">Edytor Plików</string>
+    <string name="file_editor">Edytor plików</string>
+
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Analiza pamięci</string>
+    <string name="images">Obrazy</string>
+    <string name="videos">Wideo</string>
+    <string name="audio">Audio</string>
+    <string name="documents">Dokumenty</string>
+    <string name="downloads">Pobrane</string>
+    <string name="archives">Archiwa</string>
+    <string name="others">Inne</string>
+    <string name="storage_free">wolne</string>
+    <string name="total_storage">Całkowita pamięć: %s</string>
 
     <!-- Settings -->
-    <string name="enable_root_access">Zezwól na dostęp do uprawnień roota</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="enable_root_access">Włącz dostęp do roota</string>
+    <string name="press_back_twice">Wymagaj dwukrotnego naciśnięcia przycisku Wstecz, aby wyjść z aplikacji</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Prosty Menedżer Plików Pro - Zarządzaj plikami</string>
+    <string name="app_title">Prosty menedżer plików Pro - Zarządzaj plikami</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Prosta aplikacja do zarządzania plikami bez reklam, szanująca Twoją prywatność</string>
     <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+        Lekki, szybki menedżer plików do codziennego użytku. Oferuje użyteczną funkcję wyszukiwania, możesz także dostosować folder domowy i wybrać ulubione foldery, aby uzyskać szybki dostęp.
 
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+        Aplikacja zawiera wiele zaawansowanych funkcji związanych z bezpieczeństwem, takich jak ochrona hasłem ukrytych elementów lub całej aplikacji. Aby zachować prywatność danych, możesz wybrać wzór, PIN lub odcisk palca.
 
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+        Ten nowoczesny organizer plików obsługuje szybkie przeglądanie plików w folderze głównym, kart SD i urządzeń USB.
 
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+        Aby utrzymać Twoją produktywność, oczywiście ma wszystkie standardowe operacje na plikach, takie jak zmiana nazwy, kopiowanie, przenoszenie, usuwanie, udostępnianie itp. Może być też używany do oszczędzania miejsca, ponieważ umożliwia również pakowanie i rozpakowywanie. Jeśli chcesz, możesz łatwo tworzyć nowe pliki lub foldery.
 
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+        Możesz oczywiście wybrać sortowanie według wielu różnych wartości, przełączać się między rosnącym i malejącym lub użyć sortowania specyficznego dla folderu.
 
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+        Za pomocą kilku naciśnięć możesz również sprawdzić właściwości pliku lub folderu, które pokazują różne pola, takie jak rozmiar pliku, data ostatniej modyfikacji lub wartości EXIF (data utworzenia, model aparatu itp.).
 
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+        Aby szybko uzyskać ścieżkę do pliku lub folderów, możesz ją łatwo wybrać, naciskając i kopiując ją do schowka.
 
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
+        Możesz tworzyć przydatne skróty na pulpicie, aby szybko uzyskać dostęp do ulubionych elementów.
 
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
+        Zawiera lekki edytor plików, którego można używać do drukowania dokumentów, ich edycji lub łatwego czytania za pomocą gestów powiększania, gdy jest to konieczne.
 
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+        Domyślnie jest wyposażony w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje.
 
-        Aplikacja nie zawiera żadnych żadnych reklam, nie potrzebuje masy uprawnień, jest w pełni otwartoźródłowa, posiada ciemny motyw dla osób z wrażliwymi oczami.
+        Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę.
 
-        <b>Check out the full suite of Simple Tools here:</b>
+        <b>Sprawdź pełen zestaw od Simple Tools tutaj:</b>
         https://www.simplemobiletools.com
 
-        <b>Standalone website of Simple File Manager Pro:</b>
+        <b>Strona internetowa Prostego menedżera plików Pro:</b>
         https://www.simplemobiletools.com/filemanager
 
         <b>Facebook:</b>
