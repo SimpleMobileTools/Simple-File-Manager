@@ -505,15 +505,17 @@ class ItemsAdapter(
             }
 
             val paths = getSelectedFileDirItems().asSequence().map { it.path }.filter { it.isZipFile() }.toList()
-            tryDecompressingPaths(paths) {
-                if (it) {
-                    activity.toast(R.string.decompression_successful)
+            ensureBackgroundThread {
+                tryDecompressingPaths(paths) { success ->
                     activity.runOnUiThread {
-                        listener?.refreshFragment()
-                        finishActMode()
+                        if (success) {
+                            activity.toast(R.string.decompression_successful)
+                            listener?.refreshFragment()
+                            finishActMode()
+                        } else {
+                            activity.toast(R.string.decompressing_failed)
+                        }
                     }
-                } else {
-                    activity.toast(R.string.decompressing_failed)
                 }
             }
         }
@@ -540,7 +542,6 @@ class ItemsAdapter(
                         }
                     }
                 } catch (exception: Exception) {
-                    exception.printStackTrace()
                     activity.showErrorToast(exception)
                 }
             }
@@ -589,7 +590,6 @@ class ItemsAdapter(
                     }
                     callback(true)
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     activity.showErrorToast(e)
                     callback(false)
                 }
