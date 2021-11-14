@@ -330,10 +330,10 @@ class ItemsAdapter(
         if (activity.getIsPathDirectory(path)) {
             val shouldShowHidden = activity.config.shouldShowHidden
             when {
-                activity.isRestrictedAndroidDir(path) -> {
-                    activity.getStorageItemsWithTreeUri(path, shouldShowHidden, false) { files ->
+                activity.isRestrictedSAFOnlyRoot(path) -> {
+                    activity.getAndroidSAFFileItems(path, shouldShowHidden, false) { files ->
                         files.forEach {
-                            addFileUris(activity.getPrimaryAndroidSAFUri(it.path).toString(), paths)
+                            addFileUris(activity.getAndroidSAFUri(it.path).toString(), paths)
                         }
                     }
                 }
@@ -403,7 +403,7 @@ class ItemsAdapter(
                     if (!isCopyOperation) {
                         files.forEach { sourceFileDir ->
                             val sourcePath = sourceFileDir.path
-                            if (activity.isRestrictedAndroidDir(sourcePath) && activity.getDoesFilePathExist(sourcePath)) {
+                            if (activity.isRestrictedSAFOnlyRoot(sourcePath) && activity.getDoesFilePathExist(sourcePath)) {
                                 activity.deleteFile(sourceFileDir, true) {
                                     listener?.refreshFragment()
                                     activity.runOnUiThread {
@@ -521,8 +521,7 @@ class ItemsAdapter(
 
     private fun tryDecompressingPaths(sourcePaths: List<String>, callback: (success: Boolean) -> Unit) {
         sourcePaths.forEach { path ->
-            val zipInputStream = ZipInputStream(BufferedInputStream(activity.getFileInputStreamSync(path)))
-            zipInputStream.use {
+            ZipInputStream(BufferedInputStream(activity.getFileInputStreamSync(path))).use { zipInputStream ->
                 try {
                     val fileDirItems = ArrayList<FileDirItem>()
                     var entry = zipInputStream.nextEntry
@@ -541,6 +540,7 @@ class ItemsAdapter(
                         }
                     }
                 } catch (exception: Exception) {
+                    exception.printStackTrace()
                     activity.showErrorToast(exception)
                 }
             }
@@ -643,8 +643,8 @@ class ItemsAdapter(
                 while (!queue.isEmpty()) {
                     mainFilePath = queue.pop()
                     if (activity.getIsPathDirectory(mainFilePath)) {
-                        if (activity.isRestrictedAndroidDir(mainFilePath)) {
-                            activity.getStorageItemsWithTreeUri(mainFilePath, true) { files ->
+                        if (activity.isRestrictedSAFOnlyRoot(mainFilePath)) {
+                            activity.getAndroidSAFFileItems(mainFilePath, true) { files ->
                                 for (file in files) {
                                     name = file.path.relativizeWith(base)
                                     if (activity.getIsPathDirectory(file.path)) {
@@ -884,8 +884,8 @@ class ItemsAdapter(
             path
         }
 
-        if (activity.isRestrictedAndroidDir(path)) {
-            itemToLoad = activity.getPrimaryAndroidSAFUri(path)
+        if (activity.isRestrictedSAFOnlyRoot(path)) {
+            itemToLoad = activity.getAndroidSAFUri(path)
         } else if (hasOTGConnected && itemToLoad is String && activity.isPathOnOTG(itemToLoad) && baseConfig.OTGTreeUri.isNotEmpty() && baseConfig.OTGPartition.isNotEmpty()) {
             itemToLoad = getOTGPublicPath(itemToLoad)
         }

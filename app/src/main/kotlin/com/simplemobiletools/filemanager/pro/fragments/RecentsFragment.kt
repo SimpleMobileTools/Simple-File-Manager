@@ -149,7 +149,6 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 }
             }
         } catch (e: Exception) {
-            e.printStackTrace()
             activity?.showErrorToast(e)
         }
 

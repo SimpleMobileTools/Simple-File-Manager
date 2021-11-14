@@ -51,6 +51,27 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
 
     private fun createDirectory(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         when {
+            isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
+                if (activity.isRestrictedSAFOnlyRoot(path)) {
+                    activity.handlePrimaryAndroidSAFDialog(path) {
+                        if (!it) {
+                            callback(false)
+                            return@handlePrimaryAndroidSAFDialog
+                        }
+                        if (activity.createAndroidSAFDirectory(path)) {
+                            success(alertDialog)
+                        } else {
+                            val error = String.format(activity.getString(R.string.could_not_create_folder), path)
+                            activity.showErrorToast(error)
+                            callback(false)
+                        }
+                    }
+                } else {
+                    if (File(path).mkdirs()) {
+                        success(alertDialog)
+                    }
+                }
+            }
             activity.needsStupidWritePermissions(path) -> activity.handleSAFDialog(path) {
                 if (!it) {
                     return@handleSAFDialog
@@ -65,27 +86,6 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 }
                 documentFile.createDirectory(path.getFilenameFromPath())
                 success(alertDialog)
-            }
-            isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
-                if (activity.isRestrictedAndroidDir(path)) {
-                    activity.handlePrimaryAndroidSAFDialog(path) {
-                        if (!it) {
-                            callback(false)
-                            return@handlePrimaryAndroidSAFDialog
-                        }
-                        if (activity.createSAFOnlyDirectory(path)) {
-                            success(alertDialog)
-                        } else {
-                            val error = String.format(activity.getString(R.string.could_not_create_folder), path)
-                            activity.showErrorToast(error)
-                            callback(false)
-                        }
-                    }
-                } else {
-                    if (File(path).mkdirs()) {
-                        success(alertDialog)
-                    }
-                }
             }
             else -> {
                 RootHelpers(activity).createFileFolder(path, false) {
@@ -102,13 +102,13 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
     private fun createFile(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         try {
             when {
-                activity.isRestrictedAndroidDir(path) -> {
+                activity.isRestrictedSAFOnlyRoot(path) -> {
                     activity.handlePrimaryAndroidSAFDialog(path) {
                         if (!it) {
                             callback(false)
                             return@handlePrimaryAndroidSAFDialog
                         }
-                        if (activity.createSAFOnlyFile(path)) {
+                        if (activity.createAndroidSAFFile(path)) {
                             success(alertDialog)
                         } else {
                             val error = String.format(activity.getString(R.string.could_not_create_file), path)
@@ -141,7 +141,6 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                         success(alertDialog)
                     }
                 }
-
                 else -> {
                     RootHelpers(activity).createFileFolder(path, true) {
                         if (it) {

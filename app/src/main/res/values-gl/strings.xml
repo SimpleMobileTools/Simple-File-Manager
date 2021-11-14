@@ -44,9 +44,9 @@
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easily & fast</string>
+    <string name="app_title">Simple File Manager Pro - Manage files easily &amp; fast</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Quick file management with no ads. Browse files easily, securely & fast</string>
+    <string name="app_short_description">Quick file management with no ads. Browse files easily, securely &amp; fast</string>
     <string name="app_long_description">
         Un xestor de ficheiros rápido e lixeiro para uso diario. Ofrece unha funcionalidade de busca útil e podes personalizar o cartafol de inicio e seleccionar os cartafoles favoritos para un acceso rápido.
 
