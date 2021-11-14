@@ -53,10 +53,10 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
         when {
             isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
                 if (activity.isRestrictedSAFOnlyRoot(path)) {
-                    activity.handlePrimaryAndroidSAFDialog(path) {
+                    activity.handleAndroidSAFDialog(path) {
                         if (!it) {
                             callback(false)
-                            return@handlePrimaryAndroidSAFDialog
+                            return@handleAndroidSAFDialog
                         }
                         if (activity.createAndroidSAFDirectory(path)) {
                             success(alertDialog)
@@ -103,10 +103,10 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
         try {
             when {
                 activity.isRestrictedSAFOnlyRoot(path) -> {
-                    activity.handlePrimaryAndroidSAFDialog(path) {
+                    activity.handleAndroidSAFDialog(path) {
                         if (!it) {
                             callback(false)
-                            return@handlePrimaryAndroidSAFDialog
+                            return@handleAndroidSAFDialog
                         }
                         if (activity.createAndroidSAFFile(path)) {
                             success(alertDialog)

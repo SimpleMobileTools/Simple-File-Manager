@@ -465,9 +465,9 @@ class ItemsAdapter(
 
         CompressAsDialog(activity, firstPath) {
             val destination = it
-            activity.handlePrimaryAndroidSAFDialog(firstPath) { granted ->
+            activity.handleAndroidSAFDialog(firstPath) { granted ->
                 if (!granted) {
-                    return@handlePrimaryAndroidSAFDialog
+                    return@handleAndroidSAFDialog
                 }
                 activity.handleSAFDialog(firstPath) {
                     if (!it) {

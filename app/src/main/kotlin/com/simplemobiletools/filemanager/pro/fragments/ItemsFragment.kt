@@ -162,7 +162,18 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         ensureBackgroundThread {
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
                 val config = context!!.config
-                if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                if (context.isRestrictedSAFOnlyRoot(path)) {
+                    activity?.handleAndroidSAFDialog(path) {
+                        if (!it) {
+                            activity?.toast(R.string.no_storage_permissions)
+                            return@handleAndroidSAFDialog
+                        }
+                        val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
+                        context.getAndroidSAFFileItems(path, context.config.shouldShowHidden, getProperChildCount) { fileItems ->
+                            callback(path, getListItemsFromFileDirItems(fileItems))
+                        }
+                    }
+                } else if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
                     val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
                     context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
                         callback(path, getListItemsFromFileDirItems(it))
@@ -178,52 +189,33 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     private fun getRegularItemsOf(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         val items = ArrayList<ListItem>()
-
-        if (context == null) {
+        val files = File(path).listFiles()?.filterNotNull()
+        if (context == null || files == null) {
             callback(path, items)
             return
         }
 
         val isSortingBySize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
         val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
+        val lastModifieds = context!!.getFolderLastModifieds(path)
 
-        if (context.isRestrictedSAFOnlyRoot(path)) {
-            activity?.handlePrimaryAndroidSAFDialog(path) {
-                if (!it) {
-                    activity?.toast(R.string.no_storage_permissions)
-                    return@handlePrimaryAndroidSAFDialog
-                }
-
-                context.getAndroidSAFFileItems(path, context.config.shouldShowHidden, getProperChildCount) { fileItems ->
-                    callback(path, getListItemsFromFileDirItems(fileItems))
-                }
+        for (file in files) {
+            val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, false)
+            if (fileDirItem != null) {
+                items.add(fileDirItem)
             }
-        } else {
-            val files = File(path).listFiles()?.filterNotNull()
-            if (files == null) {
-                callback(path, items)
-                return
-            }
-            val lastModifieds = context!!.getFolderLastModifieds(path)
+        }
 
-            for (file in files) {
-                val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, false)
-                if (fileDirItem != null) {
-                    items.add(fileDirItem)
-                }
-            }
+        // send out the initial item list asap, get proper child count asynchronously as it can be slow
+        callback(path, items)
 
-            // send out the initial item list asap, get proper child count asynchronously as it can be slow
-            callback(path, items)
-
-            if (getProperChildCount) {
-                items.filter { it.mIsDirectory }.forEach {
-                    if (context != null) {
-                        val childrenCount = it.getDirectChildrenCount(activity as BaseSimpleActivity, showHidden)
-                        if (childrenCount != 0) {
-                            activity?.runOnUiThread {
-                                getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
-                            }
+        if (getProperChildCount) {
+            items.filter { it.mIsDirectory }.forEach {
+                if (context != null) {
+                    val childrenCount = it.getDirectChildrenCount(activity as BaseSimpleActivity, showHidden)
+                    if (childrenCount != 0) {
+                        activity?.runOnUiThread {
+                            getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
                         }
                     }
                 }
