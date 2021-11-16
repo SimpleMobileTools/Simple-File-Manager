@@ -320,7 +320,6 @@ class MainActivity : SimpleActivity() {
                     intent.data = Uri.parse("package:$packageName")
                     startActivityForResult(intent, MANAGE_STORAGE_RC)
                 } catch (e: Exception) {
-                    e.printStackTrace()
                     val intent = Intent()
                     intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
                     startActivityForResult(intent, MANAGE_STORAGE_RC)
