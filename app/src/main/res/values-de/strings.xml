@@ -8,12 +8,11 @@
     <string name="home_folder_updated">Start-Verzeichnis aktualisiert</string>
     <string name="copy_path">Kopiere Pfad in die Zwischenablage</string>
     <string name="path_copied">Pfad kopiert</string>
-    <string name="select_audio_file">Bitte wähle eine Audiodatei aus.</string>
+    <string name="select_audio_file">Bitte wähle eine Audiodatei aus</string>
     <string name="search_folder">Ordner suchen</string>
-    <string name="rooted_device_only">Dies kann nur auf gerooteten Geräten durchgeführt werden.</string>
+    <string name="rooted_device_only">Dies kann nur auf gerooteten Geräten durchgeführt werden</string>
     <string name="recents">Neueste</string>
     <string name="show_recents">Zeige die Neuesten</string>
-
     <!-- Open as -->
     <string name="open_as">Öffnen als</string>
     <string name="text_file">Text-Datei</string>
@@ -21,47 +20,41 @@
     <string name="audio_file">Audio-Datei</string>
     <string name="video_file">Video-Datei</string>
     <string name="other_file">Anderer Dateityp</string>
-
     <!-- Compression -->
     <string name="compress">Komprimieren</string>
     <string name="decompress">Entpacken</string>
     <string name="compress_as">Komprimieren als</string>
     <string name="compressing">Komprimiere…</string>
     <string name="decompressing">Entpacke…</string>
-    <string name="compression_successful">Komprimieren erfolgreich.</string>
-    <string name="decompression_successful">Entpacken erfolgreich.</string>
-    <string name="compressing_failed">Komprimieren fehlgeschlagen.</string>
-    <string name="decompressing_failed">Entpacken fehlgeschlagen.</string>
-
+    <string name="compression_successful">Komprimieren erfolgreich</string>
+    <string name="decompression_successful">Entpacken erfolgreich</string>
+    <string name="compressing_failed">Komprimieren fehlgeschlagen</string>
+    <string name="decompressing_failed">Entpacken fehlgeschlagen</string>
     <!-- Favorites -->
     <string name="manage_favorites">Verwalte Favoriten</string>
     <string name="go_to_favorite">Gehe zu Favoriten</string>
-    <string name="favorites_activity_placeholder">Du kannst häufig benutzte Ordner für einen einfacheren Zugriff zu den Favoriten hinzufügen</string>
-
+    <string name="favorites_activity_placeholder">Du kannst häufig benutzte Ordner für einen einfacheren Zugriff zu den Favoriten hinzufügen.</string>
     <!-- File Editor -->
     <string name="file_editor">Dateieditor</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
+    <string name="storage_analysis">Speicheranalyse</string>
+    <string name="images">Bilder</string>
     <string name="videos">Videos</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">Archiv</string>
+    <string name="others">Andere</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="total_storage">Gesamter Speicherplatz: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Root-Zugriff erlauben</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
+    <string name="press_back_twice">Zweimaliges Drücken von Zurück ist erforderlich, um die Anwendung zu verlassen</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Simple File Manager Pro - Dateien einfach und schnell verwalten</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Einfache Anwendung zur Verwaltung Ihrer Dateien ohne Werbung, unter Wahrung Ihrer Privatsphäre und Sicherheit</string>
     <string name="app_long_description">
         Ein leichter, schneller Dateimanager für den täglichen Gebrauch. Es bietet eine nützliche Suchfunktion; zudem kannst du den Home-Ordner anpassen und Lieblingsordner für den schnellen Zugriff konfigurieren.
 
@@ -97,7 +90,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
