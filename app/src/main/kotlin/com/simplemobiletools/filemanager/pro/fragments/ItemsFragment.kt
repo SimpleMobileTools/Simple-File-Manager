@@ -23,10 +23,10 @@ import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
+import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlinx.android.synthetic.main.items_fragment.view.*
 
 class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener,
     Breadcrumbs.BreadcrumbsListener {
@@ -58,13 +58,18 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             initDrawables()
         }
 
-        breadcrumbs.updateColor(textColor)
         items_fastscroller.updateBubbleColors()
+
+        if (currentPath != "") {
+            breadcrumbs.updateColor(textColor)
+        }
     }
 
     override fun setupFontSize() {
         getRecyclerAdapter()?.updateFontSizes()
-        breadcrumbs.updateFontSize(context!!.getTextSize())
+        if (currentPath != "") {
+            breadcrumbs.updateFontSize(context!!.getTextSize())
+        }
     }
 
     override fun setupDateTimeFormat() {
