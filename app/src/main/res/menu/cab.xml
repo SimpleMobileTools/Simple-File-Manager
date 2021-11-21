@@ -13,12 +13,12 @@
         app:showAsAction="always"/>
     <item
         android:id="@+id/cab_properties"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/ic_info_vector"
         android:title="@string/properties"
         app:showAsAction="always"/>
     <item
         android:id="@+id/cab_rename"
-        android:icon="@drawable/ic_rename_new"
+        android:icon="@drawable/ic_rename_vector"
         android:title="@string/rename"
         app:showAsAction="always"/>
     <item
@@ -28,7 +28,7 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/cab_hide"
-        android:icon="@drawable/ic_hide"
+        android:icon="@drawable/ic_hide_vector"
         android:title="@string/hide"
         app:showAsAction="ifRoom"/>
     <item

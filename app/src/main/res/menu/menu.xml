@@ -24,12 +24,12 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/add_favorite"
-        android:icon="@drawable/ic_star_off_vector"
+        android:icon="@drawable/ic_star_outline_vector"
         android:title="@string/add_to_favorites"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/remove_favorite"
-        android:icon="@drawable/ic_star_on_vector"
+        android:icon="@drawable/ic_star_vector"
         android:title="@string/remove_from_favorites"
         app:showAsAction="ifRoom" />
     <item
@@ -64,10 +64,12 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/settings"
+        android:icon="@drawable/ic_settings_cog_vector"
         android:title="@string/settings"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/about"
+        android:icon="@drawable/ic_info_vector"
         android:title="@string/about"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>
