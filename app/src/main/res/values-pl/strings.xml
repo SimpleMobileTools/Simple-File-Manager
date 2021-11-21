@@ -13,8 +13,7 @@
     <string name="rooted_device_only">Ta operacja działa tylko na zrootowanych urządzeniach</string>
     <string name="recents">Ostatnie</string>
     <string name="show_recents">Pokaż ostatnie</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
+    <string name="access_storage_prompt">Przyznaj naszej aplikacji dostęp do wszystkich swoich plików. Bez niego może nie działać dobrze.</string>
     <!-- Open as -->
     <string name="open_as">Otwórz jako</string>
     <string name="text_file">Plik tekstowy</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Plik audio</string>
     <string name="video_file">Plik wideo</string>
     <string name="other_file">Inny plik</string>
-
     <!-- Compression -->
     <string name="compress">Spakuj</string>
     <string name="decompress">Rozpakuj</string>
@@ -33,15 +31,12 @@
     <string name="decompression_successful">Rozpakowywanie powiodło się</string>
     <string name="compressing_failed">Pakowanie nie powiodło się</string>
     <string name="decompressing_failed">Rozpakowywanie nie powiodło się</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Zarządzaj ulubionymi</string>
     <string name="go_to_favorite">Przejdź do ulubionych</string>
     <string name="favorites_activity_placeholder">Możesz dodać często używane foldery do ulubionych, aby mieć do nich łatwy dostęp z dowolnego miejsca.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Edytor plików</string>
-
     <!-- Storage analysis -->
     <string name="storage_analysis">Analiza pamięci</string>
     <string name="images">Obrazy</string>
@@ -53,11 +48,9 @@
     <string name="others">Inne</string>
     <string name="storage_free">wolne</string>
     <string name="total_storage">Całkowita pamięć: %s</string>
-
     <!-- Settings -->
     <string name="enable_root_access">Włącz dostęp do roota</string>
     <string name="press_back_twice">Wymagaj dwukrotnego naciśnięcia przycisku Wstecz, aby wyjść z aplikacji</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Prosty menedżer plików Pro - Zarządzaj plikami</string>
@@ -98,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
