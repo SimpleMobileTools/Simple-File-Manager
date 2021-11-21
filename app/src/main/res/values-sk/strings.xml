@@ -13,6 +13,7 @@
     <string name="rooted_device_only">Táto operácia funguje iba na rootnutých zariadeniach</string>
     <string name="recents">Nedávne</string>
     <string name="show_recents">Zobraziť nedávne</string>
+    <string name="access_storage_prompt">Prosím povoľte našej apke prístup ku všetkým vašim súborom. Bez neho nebude fungovať správne.</string>
 
     <!-- Open as -->
     <string name="open_as">Otvoriť ako</string>
