@@ -23,10 +23,10 @@ import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.items_fragment.view.*
 
 class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener,
     Breadcrumbs.BreadcrumbsListener {
@@ -162,7 +162,18 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         ensureBackgroundThread {
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
                 val config = context!!.config
-                if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                if (context.isRestrictedSAFOnlyRoot(path)) {
+                    activity?.handleAndroidSAFDialog(path) {
+                        if (!it) {
+                            activity?.toast(R.string.no_storage_permissions)
+                            return@handleAndroidSAFDialog
+                        }
+                        val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
+                        context.getAndroidSAFFileItems(path, context.config.shouldShowHidden, getProperChildCount) { fileItems ->
+                            callback(path, getListItemsFromFileDirItems(fileItems))
+                        }
+                    }
+                } else if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
                     val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
                     context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
                         callback(path, getListItemsFromFileDirItems(it))
@@ -201,7 +212,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         if (getProperChildCount) {
             items.filter { it.mIsDirectory }.forEach {
                 if (context != null) {
-                    val childrenCount = it.getDirectChildrenCount(context!!, showHidden)
+                    val childrenCount = it.getDirectChildrenCount(activity as BaseSimpleActivity, showHidden)
                     if (childrenCount != 0) {
                         activity?.runOnUiThread {
                             getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)

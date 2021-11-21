@@ -1,5 +1,6 @@
 package com.simplemobiletools.filemanager.pro.activities
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.SearchManager
 import android.content.ClipData
@@ -8,13 +9,18 @@ import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
+import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -46,6 +52,7 @@ import java.util.*
 
 class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
+    private val MANAGE_STORAGE_RC = 201
     private val PICKED_PATH = "picked_path"
     private var isSearchOpen = false
     private var wasBackJustPressed = false
@@ -282,8 +289,8 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun tryInitFileManager() {
-        val hadPermission = hasPermission(PERMISSION_WRITE_STORAGE)
-        handlePermission(PERMISSION_WRITE_STORAGE) {
+        val hadPermission = hasStoragePermission()
+        handleStoragePermission {
             checkOTGPath()
             if (it) {
                 if (main_view_pager.adapter == null) {
@@ -297,6 +304,56 @@ class MainActivity : SimpleActivity() {
                 toast(R.string.no_storage_permissions)
                 finish()
             }
+        }
+    }
+
+    @SuppressLint("InlinedApi")
+    private fun handleStoragePermission(callback: (granted: Boolean) -> Unit) {
+        actionOnPermission = null
+        if (hasStoragePermission()) {
+            callback(true)
+        } else {
+            if (isRPlus()) {
+                ConfirmationAdvancedDialog(this, "", R.string.access_storage_prompt, R.string.ok, 0) { success ->
+                    if (success ) {
+                        isAskingPermissions = true
+                        actionOnPermission = callback
+                        try {
+                            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                            intent.addCategory("android.intent.category.DEFAULT")
+                            intent.data = Uri.parse("package:$packageName")
+                            startActivityForResult(intent, MANAGE_STORAGE_RC)
+                        } catch (e: Exception) {
+                            showErrorToast(e)
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                            startActivityForResult(intent, MANAGE_STORAGE_RC)
+                        }
+                    } else {
+                        finish()
+                    }
+                }
+            } else {
+                handlePermission(PERMISSION_WRITE_STORAGE, callback)
+            }
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun hasStoragePermission(): Boolean {
+        return if (isRPlus()) {
+            Environment.isExternalStorageManager()
+        } else {
+            hasPermission(PERMISSION_WRITE_STORAGE)
+        }
+    }
+
+    @SuppressLint("NewApi")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        isAskingPermissions = false
+        if (requestCode == MANAGE_STORAGE_RC && isRPlus()) {
+            actionOnPermission?.invoke(Environment.isExternalStorageManager())
         }
     }
 
