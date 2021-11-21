@@ -1,5 +1,6 @@
 package com.simplemobiletools.filemanager.pro.activities
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.SearchManager
 import android.content.ClipData
@@ -16,9 +17,10 @@ import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
-import androidx.core.app.ActivityCompat
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
+import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -46,7 +48,6 @@ import kotlinx.android.synthetic.main.items_fragment.view.*
 import kotlinx.android.synthetic.main.recents_fragment.*
 import kotlinx.android.synthetic.main.storage_fragment.*
 import java.io.File
-import java.lang.Exception
 import java.util.*
 
 class MainActivity : SimpleActivity() {
@@ -306,23 +307,31 @@ class MainActivity : SimpleActivity() {
         }
     }
 
+    @SuppressLint("InlinedApi")
     private fun handleStoragePermission(callback: (granted: Boolean) -> Unit) {
         actionOnPermission = null
         if (hasStoragePermission()) {
             callback(true)
         } else {
             if (isRPlus()) {
-                isAskingPermissions = true
-                actionOnPermission = callback
-                try {
-                    val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                    intent.addCategory("android.intent.category.DEFAULT")
-                    intent.data = Uri.parse("package:$packageName")
-                    startActivityForResult(intent, MANAGE_STORAGE_RC)
-                } catch (e: Exception) {
-                    val intent = Intent()
-                    intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
-                    startActivityForResult(intent, MANAGE_STORAGE_RC)
+                ConfirmationAdvancedDialog(this, "", R.string.access_storage_prompt, R.string.ok, 0) { success ->
+                    if (success ) {
+                        isAskingPermissions = true
+                        actionOnPermission = callback
+                        try {
+                            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                            intent.addCategory("android.intent.category.DEFAULT")
+                            intent.data = Uri.parse("package:$packageName")
+                            startActivityForResult(intent, MANAGE_STORAGE_RC)
+                        } catch (e: Exception) {
+                            showErrorToast(e)
+                            val intent = Intent()
+                            intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
+                            startActivityForResult(intent, MANAGE_STORAGE_RC)
+                        }
+                    } else {
+                        finish()
+                    }
                 }
             } else {
                 handlePermission(PERMISSION_WRITE_STORAGE, callback)
@@ -330,10 +339,16 @@ class MainActivity : SimpleActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun hasStoragePermission(): Boolean {
-        return if (isRPlus()) Environment.isExternalStorageManager() else hasPermission(PERMISSION_WRITE_STORAGE)
+        return if (isRPlus()) {
+            Environment.isExternalStorageManager()
+        } else {
+            hasPermission(PERMISSION_WRITE_STORAGE)
+        }
     }
 
+    @SuppressLint("NewApi")
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
         isAskingPermissions = false
