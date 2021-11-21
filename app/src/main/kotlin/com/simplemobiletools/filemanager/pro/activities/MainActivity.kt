@@ -138,11 +138,11 @@ class MainActivity : SimpleActivity() {
     override fun onPause() {
         super.onPause()
         storeStateVariables()
+        config.lastUsedViewPagerPage = main_view_pager.currentItem
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        config.lastUsedViewPagerPage = main_view_pager.currentItem
         config.temporarilyShowHidden = false
     }
 
