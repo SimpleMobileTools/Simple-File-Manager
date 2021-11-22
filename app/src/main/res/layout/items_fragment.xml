@@ -60,27 +60,22 @@
                     android:textStyle="italic"
                     android:visibility="gone" />
 
-                <com.simplemobiletools.commons.views.MyRecyclerView
-                    android:id="@+id/items_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/breadcrumbs"
-                    android:clipToPadding="false"
-                    android:layoutAnimation="@anim/layout_animation"
-                    android:scrollbars="none"
-                    app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager" />
-
-                <com.simplemobiletools.commons.views.FastScroller
+                <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
                     android:id="@+id/items_fastscroller"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/breadcrumbs"
-                    android:layout_alignParentEnd="true"
-                    android:paddingStart="@dimen/normal_margin">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/breadcrumbs">
 
-                    <include layout="@layout/fastscroller_handle_vertical" />
+                    <com.simplemobiletools.commons.views.MyRecyclerView
+                        android:id="@+id/items_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:layoutAnimation="@anim/layout_animation"
+                        android:scrollbars="none"
+                        app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager" />
 
-                </com.simplemobiletools.commons.views.FastScroller>
+                </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
             </RelativeLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -12,7 +12,6 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.extensions.getColoredDrawableWithColor
-import com.simplemobiletools.commons.extensions.getFileSignature
 import com.simplemobiletools.commons.extensions.getTextSize
 import com.simplemobiletools.commons.extensions.getTimeFormat
 import com.simplemobiletools.commons.helpers.getFilePlaceholderDrawables
@@ -25,7 +24,7 @@ import kotlinx.android.synthetic.main.item_file_dir_list.view.*
 import java.util.*
 
 class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem>, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
-        MyRecyclerViewAdapter(activity, recyclerView, null, itemClick) {
+    MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
 
     private lateinit var fileDrawable: Drawable
     private lateinit var folderDrawable: Drawable
