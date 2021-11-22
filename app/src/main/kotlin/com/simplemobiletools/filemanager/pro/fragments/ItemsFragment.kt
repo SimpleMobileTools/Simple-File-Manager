@@ -58,13 +58,18 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             initDrawables()
         }
 
-        breadcrumbs.updateColor(textColor)
         items_fastscroller.updateBubbleColors()
+
+        if (currentPath != "") {
+            breadcrumbs.updateColor(textColor)
+        }
     }
 
     override fun setupFontSize() {
         getRecyclerAdapter()?.updateFontSizes()
-        breadcrumbs.updateFontSize(context!!.getTextSize())
+        if (currentPath != "") {
+            breadcrumbs.updateFontSize(context!!.getTextSize())
+        }
     }
 
     override fun setupDateTimeFormat() {
@@ -162,7 +167,18 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         ensureBackgroundThread {
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
                 val config = context!!.config
-                if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                if (context.isRestrictedSAFOnlyRoot(path)) {
+                    activity?.handleAndroidSAFDialog(path) {
+                        if (!it) {
+                            activity?.toast(R.string.no_storage_permissions)
+                            return@handleAndroidSAFDialog
+                        }
+                        val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
+                        context.getAndroidSAFFileItems(path, context.config.shouldShowHidden, getProperChildCount) { fileItems ->
+                            callback(path, getListItemsFromFileDirItems(fileItems))
+                        }
+                    }
+                } else if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
                     val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
                     context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
                         callback(path, getListItemsFromFileDirItems(it))
@@ -201,7 +217,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         if (getProperChildCount) {
             items.filter { it.mIsDirectory }.forEach {
                 if (context != null) {
-                    val childrenCount = it.getDirectChildrenCount(context!!, showHidden)
+                    val childrenCount = it.getDirectChildrenCount(activity as BaseSimpleActivity, showHidden)
                     if (childrenCount != 0) {
                         activity?.runOnUiThread {
                             getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
