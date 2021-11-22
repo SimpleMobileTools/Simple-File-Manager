@@ -24,13 +24,13 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
 import com.simplemobiletools.commons.dialogs.*
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.models.RadioItem
-import com.simplemobiletools.commons.views.FastScroller
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -41,13 +41,13 @@ import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootTools.RootTools
-import java.io.BufferedInputStream
 import kotlinx.android.synthetic.main.item_file_dir_grid.view.*
 import kotlinx.android.synthetic.main.item_file_dir_list.view.*
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_frame
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_icon
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_name
 import kotlinx.android.synthetic.main.item_section.view.*
+import java.io.BufferedInputStream
 import java.io.Closeable
 import java.io.File
 import java.util.*
@@ -57,9 +57,9 @@ import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(
     activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
-    val isPickMultipleIntent: Boolean, fastScroller: FastScroller?, val swipeRefreshLayout: SwipeRefreshLayout?, itemClick: (Any) -> Unit
+    val isPickMultipleIntent: Boolean, val swipeRefreshLayout: SwipeRefreshLayout?, itemClick: (Any) -> Unit
 ) :
-    MyRecyclerViewAdapter(activity, recyclerView, fastScroller, itemClick) {
+    MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
     private val TYPE_FILE_DIR = 1
     private val TYPE_SECTION = 2
@@ -326,6 +326,7 @@ class ItemsAdapter(
         }
     }
 
+    @SuppressLint("NewApi")
     private fun addFileUris(path: String, paths: ArrayList<String>) {
         if (activity.getIsPathDirectory(path)) {
             val shouldShowHidden = activity.config.shouldShowHidden
@@ -621,6 +622,7 @@ class ItemsAdapter(
         }
     }
 
+    @SuppressLint("NewApi")
     private fun compressPaths(sourcePaths: List<String>, targetPath: String): Boolean {
         val queue = LinkedList<String>()
         val fos = activity.getFileOutputStreamSync(targetPath, "application/zip") ?: return false
@@ -759,7 +761,6 @@ class ItemsAdapter(
             textToHighlight = highlightText
             notifyDataSetChanged()
         }
-        fastScroller?.measureRecyclerView()
     }
 
     fun updateFontSizes() {
@@ -899,4 +900,6 @@ class ItemsAdapter(
         fileDrawable = resources.getDrawable(R.drawable.ic_file_generic)
         fileDrawables = getFilePlaceholderDrawables(activity)
     }
+
+    override fun onChange(position: Int) = listItems.getOrNull(position)?.getBubbleText(activity, dateFormat, timeFormat) ?: ""
 }

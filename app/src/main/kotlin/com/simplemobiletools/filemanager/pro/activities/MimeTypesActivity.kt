@@ -61,6 +61,9 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         ensureBackgroundThread {
             reFetchItems()
         }
+
+        val adjustedPrimaryColor = getAdjustedPrimaryColor()
+        mimetypes_fastscroller.updateColors(adjustedPrimaryColor, adjustedPrimaryColor.getContrastColor())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -130,13 +133,13 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         lastSearchedText = searchText
         when {
             searchText.isEmpty() -> {
-                mimetypes_list.beVisible()
+                mimetypes_fastscroller.beVisible()
                 getRecyclerAdapter()?.updateItems(storedItems)
                 mimetypes_placeholder.beGoneIf(storedItems.isNotEmpty())
                 mimetypes_placeholder_2.beGone()
             }
             searchText.length == 1 -> {
-                mimetypes_list.beGone()
+                mimetypes_fastscroller.beGone()
                 mimetypes_placeholder.beVisible()
                 mimetypes_placeholder_2.beVisible()
             }
@@ -150,14 +153,9 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
                     runOnUiThread {
                         getRecyclerAdapter()?.updateItems(listItems, text)
-                        mimetypes_list.beVisibleIf(listItems.isNotEmpty())
+                        mimetypes_fastscroller.beVisibleIf(listItems.isNotEmpty())
                         mimetypes_placeholder.beVisibleIf(listItems.isEmpty())
                         mimetypes_placeholder_2.beGone()
-
-                        mimetypes_list.onGlobalLayout {
-                            items_fastscroller.setScrollToY(mimetypes_list.computeVerticalScrollOffset())
-                            calculateContentHeight(listItems)
-                        }
                     }
                 }
             }
@@ -232,7 +230,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         isSearchOpen = false
         lastSearchedText = ""
 
-        mimetypes_list.beVisible()
+        mimetypes_fastscroller.beVisible()
         mimetypes_placeholder.beGoneIf(storedItems.isNotEmpty())
         mimetypes_placeholder_2.beGone()
     }
@@ -321,7 +319,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         }
 
         storedItems = items
-        ItemsAdapter(this as SimpleActivity, storedItems, this, mimetypes_list, false, items_fastscroller, null) {
+        ItemsAdapter(this as SimpleActivity, storedItems, this, mimetypes_list, false, null) {
             tryOpenPathIntent((it as ListItem).path, false)
         }.apply {
             setupZoomListener(zoomListener)
@@ -330,13 +328,6 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
         if (areSystemAnimationsEnabled) {
             mimetypes_list.scheduleLayoutAnimation()
-        }
-
-        val dateFormat = config.dateFormat
-        val timeFormat = getTimeFormat()
-        items_fastscroller.setViews(mimetypes_list) {
-            val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
-            items_fastscroller.updateBubbleText(listItem?.getBubbleText(this, dateFormat, timeFormat) ?: "")
         }
 
         mimetypes_placeholder.beVisibleIf(items.isEmpty())
@@ -390,16 +381,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         invalidateOptionsMenu()
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
-            calculateContentHeight(listItems)
         }
-    }
-
-    private fun calculateContentHeight(items: MutableList<ListItem>) {
-        val layoutManager = mimetypes_list.layoutManager as MyGridLayoutManager
-        val thumbnailHeight = layoutManager.getChildAt(0)?.height ?: 0
-        val fullHeight = ((items.size - 1) / layoutManager.spanCount + 1) * thumbnailHeight
-        items_fastscroller.setContentHeight(fullHeight)
-        items_fastscroller.setScrollToY(mimetypes_list.computeVerticalScrollOffset())
     }
 
     private fun setupLayoutManager() {
