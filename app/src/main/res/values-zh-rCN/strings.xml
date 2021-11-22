@@ -13,7 +13,7 @@
     <string name="rooted_device_only">该选项仅在 root 后的设备上工作</string>
     <string name="recents">最近</string>
     <string name="show_recents">显示最近</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
+    <string name="access_storage_prompt">请允许我们的应用程序访问您的所有文件，没有此权限它们可能不能正常工作。</string>
     <!-- Open as -->
     <string name="open_as">打开为</string>
     <string name="text_file">文本文件</string>
