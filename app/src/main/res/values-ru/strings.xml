@@ -13,7 +13,7 @@
     <string name="rooted_device_only">Это работает только на устройствах с root-доступом</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
-
+    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
     <!-- Open as -->
     <string name="open_as">Открыть как</string>
     <string name="text_file">Текст</string>
@@ -21,7 +21,6 @@
     <string name="audio_file">Аудио</string>
     <string name="video_file">Видео</string>
     <string name="other_file">Другое</string>
-
     <!-- Compression -->
     <string name="compress">Сжать</string>
     <string name="decompress">Распаковать</string>
@@ -32,18 +31,15 @@
     <string name="decompression_successful">Распаковка успешна</string>
     <string name="compressing_failed">Не удалось сжать</string>
     <string name="decompressing_failed">Не удалось распаковать</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Настроить избранное</string>
     <string name="go_to_favorite">Открыть избранное</string>
     <string name="favorites_activity_placeholder">Вы можете добавить часто используемые папки в избранное для быстрого доступа к ним.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Редактор файлов</string>
-
     <!-- Storage analysis -->
     <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
+    <string name="images">Изображения</string>
     <string name="videos">Videos</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
@@ -52,11 +48,9 @@
     <string name="others">Others</string>
     <string name="storage_free">free</string>
     <string name="total_storage">Total storage: %s</string>
-
     <!-- Settings -->
     <string name="enable_root_access">Включить root-доступ</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
@@ -97,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

@@ -11,6 +11,9 @@
     <string name="select_audio_file">Seleccione un ficheiro de audio</string>
     <string name="search_folder">Buscar cartafol</string>
     <string name="rooted_device_only">Esta operación só funciona en dispositivos con root</string>
+    <string name="recents">Recents</string>
+    <string name="show_recents">Show recents</string>
+    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
 
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
@@ -39,14 +42,27 @@
     <!-- File Editor -->
     <string name="file_editor">Editor de ficheiros</string>
 
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Storage analysis</string>
+    <string name="images">Images</string>
+    <string name="videos">Videos</string>
+    <string name="audio">Audio</string>
+    <string name="documents">Documents</string>
+    <string name="downloads">Downloads</string>
+    <string name="archives">Archives</string>
+    <string name="others">Others</string>
+    <string name="storage_free">free</string>
+    <string name="total_storage">Total storage: %s</string>
+
     <!-- Settings -->
     <string name="enable_root_access">Activar acceso root</string>
+    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
 
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easily & fast</string>
+    <string name="app_title">Simple File Manager Pro - Manage files easily &amp; fast</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Quick file management with no ads. Browse files easily, securely & fast</string>
+    <string name="app_short_description">Quick file management with no ads. Browse files easily, securely &amp; fast</string>
     <string name="app_long_description">
         Un xestor de ficheiros rápido e lixeiro para uso diario. Ofrece unha funcionalidade de busca útil e podes personalizar o cartafol de inicio e seleccionar os cartafoles favoritos para un acceso rápido.
 
@@ -65,11 +81,11 @@
         Podes crear accesos directos nas pantallas para acceder rapidamente aos teus elementos favoritos.
 
         Contén un editor de ficheiros lixeiro que pode empregar para imprimir documentos, editalos ou lelos facilmente usando xestos de zoom, sempre que sexa necesario.
-        
+
         E, por último, vén cun deseño material e un tema escuro de xeito predeterminado, fornece unha excelente experiencia de usuario cun uso sinxelo. Ao non requirir acceso a Internet, tes máis privacidade, seguridade e estabilidade
 
         Non contén anuncios nin permisos innecesarios. Dispón dun tema escuro e é totalmente de código aberto.
-        
+
         <b>Visita a páxina nesta ligazón:</b>
         https://www.simplemobiletools.com
 

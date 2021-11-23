@@ -13,6 +13,7 @@
     <string name="rooted_device_only">這操作只對已root的裝置有用</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
+    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
 
     <!-- Open as -->
     <string name="open_as">開啟成</string>

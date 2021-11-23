@@ -1,5 +1,6 @@
 package com.simplemobiletools.filemanager.pro.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
@@ -51,7 +52,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     override fun onResume(textColor: Int, primaryColor: Int) {
         context!!.updateTextColors(this)
-        items_fastscroller.updatePrimaryColor()
         storedItems = ArrayList()
         getRecyclerAdapter()?.apply {
             updatePrimaryColor(primaryColor)
@@ -59,14 +59,19 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             initDrawables()
         }
 
-        breadcrumbs.updateColor(textColor)
-        items_fastscroller.updateBubbleColors()
+        items_fastscroller.updateColors(primaryColor, primaryColor.getContrastColor())
+
+        if (currentPath != "") {
+            breadcrumbs.updateColor(textColor)
+        }
         items_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
     }
 
     override fun setupFontSize() {
         getRecyclerAdapter()?.updateFontSizes()
-        breadcrumbs.updateFontSize(context!!.getTextSize())
+        if (currentPath != "") {
+            breadcrumbs.updateFontSize(context!!.getTextSize())
+        }
     }
 
     override fun setupDateTimeFormat() {
@@ -121,10 +126,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 breadcrumbs.updateFontSize(context!!.getTextSize())
             }
 
-            ItemsAdapter(
-                activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_fastscroller,
-                items_swipe_refresh
-            ) {
+            ItemsAdapter(activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_swipe_refresh) {
                 if ((it as? ListItem)?.isSectionTitle == true) {
                     openDirectory(it.mPath)
                     searchClosed()
@@ -140,18 +142,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 items_list.scheduleLayoutAnimation()
             }
 
-            val dateFormat = context!!.config.dateFormat
-            val timeFormat = context!!.getTimeFormat()
-            items_fastscroller.setViews(items_list, items_swipe_refresh) {
-                val listItem = getRecyclerAdapter()?.listItems?.getOrNull(it)
-                items_fastscroller.updateBubbleText(listItem?.getBubbleText(context, dateFormat, timeFormat) ?: "")
-            }
-
             getRecyclerLayoutManager().onRestoreInstanceState(scrollStates[currentPath])
-            items_list.onGlobalLayout {
-                items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
-                calculateContentHeight(storedItems)
-            }
         }
     }
 
@@ -159,12 +150,24 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     private fun getRecyclerLayoutManager() = (items_list.layoutManager as MyGridLayoutManager)
 
+    @SuppressLint("NewApi")
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
         skipItemUpdating = false
         ensureBackgroundThread {
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
                 val config = context!!.config
-                if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
+                if (context.isRestrictedSAFOnlyRoot(path)) {
+                    activity?.handleAndroidSAFDialog(path) {
+                        if (!it) {
+                            activity?.toast(R.string.no_storage_permissions)
+                            return@handleAndroidSAFDialog
+                        }
+                        val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
+                        context.getAndroidSAFFileItems(path, context.config.shouldShowHidden, getProperChildCount) { fileItems ->
+                            callback(path, getListItemsFromFileDirItems(fileItems))
+                        }
+                    }
+                } else if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
                     val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
                     context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
                         callback(path, getListItemsFromFileDirItems(it))
@@ -203,7 +206,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         if (getProperChildCount) {
             items.filter { it.mIsDirectory }.forEach {
                 if (context != null) {
-                    val childrenCount = it.getDirectChildrenCount(context!!, showHidden)
+                    val childrenCount = it.getDirectChildrenCount(activity as BaseSimpleActivity, showHidden)
                     if (childrenCount != 0) {
                         activity?.runOnUiThread {
                             getRecyclerAdapter()?.updateChildCount(it.mPath, childrenCount)
@@ -223,7 +226,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
         var lastModified = lastModifieds.remove(curPath)
         val isDirectory = if (lastModified != null) false else file.isDirectory
-        val children = if (isDirectory && getProperChildCount) file.getDirectChildrenCount(showHidden) else 0
+        val children = if (isDirectory && getProperChildCount) file.getDirectChildrenCount(context, showHidden) else 0
         val size = if (isDirectory) {
             if (isSortingBySize) {
                 file.getProperSize(showHidden)
@@ -275,13 +278,13 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
         when {
             searchText.isEmpty() -> {
-                items_list.beVisible()
+                items_fastscroller.beVisible()
                 getRecyclerAdapter()?.updateItems(storedItems)
                 items_placeholder.beGone()
                 items_placeholder_2.beGone()
             }
             searchText.length == 1 -> {
-                items_list.beGone()
+                items_fastscroller.beGone()
                 items_placeholder.beVisible()
                 items_placeholder_2.beVisible()
             }
@@ -318,14 +321,9 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
                     activity?.runOnUiThread {
                         getRecyclerAdapter()?.updateItems(listItems, text)
-                        items_list.beVisibleIf(listItems.isNotEmpty())
+                        items_fastscroller.beVisibleIf(listItems.isNotEmpty())
                         items_placeholder.beVisibleIf(listItems.isEmpty())
                         items_placeholder_2.beGone()
-
-                        items_list.onGlobalLayout {
-                            items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
-                            calculateContentHeight(listItems)
-                        }
                     }
                 }
             }
@@ -377,13 +375,13 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         isSearchOpen = false
         if (!skipItemUpdating) {
             getRecyclerAdapter()?.updateItems(storedItems)
-            calculateContentHeight(storedItems)
         }
+
         skipItemUpdating = false
         lastSearchedText = ""
 
         items_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
-        items_list.beVisible()
+        items_fastscroller.beVisible()
         items_placeholder.beGone()
         items_placeholder_2.beGone()
     }
@@ -458,14 +456,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    private fun calculateContentHeight(items: MutableList<ListItem>) {
-        val layoutManager = items_list.layoutManager as MyGridLayoutManager
-        val thumbnailHeight = layoutManager.getChildAt(0)?.height ?: 0
-        val fullHeight = ((items.size - 1) / layoutManager.spanCount + 1) * thumbnailHeight
-        items_fastscroller.setContentHeight(fullHeight)
-        items_fastscroller.setScrollToY(items_list.computeVerticalScrollOffset())
-    }
-
     override fun increaseColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
             context?.config?.fileColumnCnt = ++(items_list.layoutManager as MyGridLayoutManager).spanCount
@@ -484,7 +474,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         activity?.invalidateOptionsMenu()
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
-            calculateContentHeight(listItems)
         }
     }
 

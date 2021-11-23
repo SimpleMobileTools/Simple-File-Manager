@@ -11,9 +11,9 @@
     <string name="select_audio_file">请选择一个音频文件</string>
     <string name="search_folder">搜索文件夹</string>
     <string name="rooted_device_only">该选项仅在 root 后的设备上工作</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-
+    <string name="recents">最近</string>
+    <string name="show_recents">显示最近</string>
+    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
     <!-- Open as -->
     <string name="open_as">打开为</string>
     <string name="text_file">文本文件</string>
@@ -21,7 +21,6 @@
     <string name="audio_file">音频文件</string>
     <string name="video_file">视频文件</string>
     <string name="other_file">其他文件</string>
-
     <!-- Compression -->
     <string name="compress">压缩</string>
     <string name="decompress">解压缩</string>
@@ -32,31 +31,26 @@
     <string name="decompression_successful">解压缩成功</string>
     <string name="compressing_failed">压缩失败</string>
     <string name="decompressing_failed">解压缩失败</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">管理收藏</string>
     <string name="go_to_favorite">前往收藏</string>
     <string name="favorites_activity_placeholder">您可以将经常访问的文件夹添加至收藏便于从任意位置快速访问。</string>
-
     <!-- File Editor -->
     <string name="file_editor">文件编辑器</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
+    <string name="storage_analysis">存储分析</string>
+    <string name="images">图片</string>
+    <string name="videos">视频</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">存档</string>
+    <string name="others">其他</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="total_storage">总存储: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">启用 root 访问</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
+    <string name="press_back_twice">需要按两次返回键才能离开应用程序</string>
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">简易文件管理 Pro - 轻松管理文件 &amp; 快速体验</string>
@@ -97,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

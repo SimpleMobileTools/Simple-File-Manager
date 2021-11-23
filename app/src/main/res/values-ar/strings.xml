@@ -9,11 +9,11 @@
     <string name="copy_path">نسخ المسار الى الحافظة</string>
     <string name="path_copied">تم نسخ المسار</string>
     <string name="select_audio_file">الرجاء تحديد ملف صوتي</string>
-    <string name="search_folder">Search folder</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-
+    <string name="search_folder">مجلد البحث</string>
+    <string name="rooted_device_only">تعمل هذه العملية فقط على الأجهزة المتجذرة</string>
+    <string name="recents">الأحدث</string>
+    <string name="show_recents">إظهار الأحدث</string>
+    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
     <!-- Open as -->
     <string name="open_as">Open as</string>
     <string name="text_file">Text file</string>
@@ -21,7 +21,6 @@
     <string name="audio_file">Audio file</string>
     <string name="video_file">Video file</string>
     <string name="other_file">Other file</string>
-
     <!-- Compression -->
     <string name="compress">ضغط</string>
     <string name="decompress">فك الضغط</string>
@@ -32,72 +31,32 @@
     <string name="decompression_successful">نجح التفكيك</string>
     <string name="compressing_failed">أخفق الضغط</string>
     <string name="decompressing_failed">أخفق إلغاء الضغط</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">إدارة المفضلة</string>
     <string name="go_to_favorite">الذهاب الى المفضلة</string>
     <string name="favorites_activity_placeholder">يمكنك إضافة المجلدات المستخدمة بشكل متكرر إلى المفضلة لسهولة الوصول إليها من أي مكان.</string>
-
     <!-- File Editor -->
     <string name="file_editor">محرر الملفات</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
+    <string name="storage_analysis">تحليل التخزين</string>
+    <string name="images">الصور</string>
+    <string name="videos">الفيديوات</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">الأرشيف</string>
+    <string name="others">الاخرين</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="total_storage">إجمالي مساحة التخزين: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">تفعيل الدخول الى مسار الروت</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
+    <string name="press_back_twice">تتطلب الضغط على رجوع مرتين لمغادرة التطبيق</string>
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">مدير الملفات البسيط برو -- إدارة الملفات سهلة وسريعة</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
-    <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
-
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
-
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
-
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
-
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
-
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
-
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
-
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
-
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">التطبيق السهل لإدارة الملفات الخاصة بك دون إعلانات، واحترام خصوصيتك والأمن</string>
+    <string name="app_long_description"> مدير ملفات سريع خفيف الوزن للاستخدام اليومي. وهو يوفر وظيفة بحث المستخدم، يمكنك أيضا تخصيص المجلد الرئيسي وتحديد المجلدات المفضلة للوصول السريع. يحتوي التطبيق على العديد من الوظائف الأمنية القوية ذات الصلة، مثل كلمة المرور لحماية العناصر المخفية، وحذف الملفات، أو التطبيق بأكمله. يمكنك الاختيار بين استخدام نمط أو دبوس أو بصمة إصبع للحفاظ على خصوصية بياناتك. يدعم منظم الملفات الحديث هذا التصفح السريع للملفات الجذرية وبطاقات SD وأجهزة USB. للحفاظ على الإنتاجية الخاصة بك، فمن الواضح أن لديها كل عمليات الملفات القياسية مثل إعادة تسمية، نسخ، نقل، حذف، مشاركة الخ. ويمكن أيضا أن تستخدم لتوفير بعض التخزين، لأنه يسمح ضغط وفك الضغط أيضا. يمكنك بسهولة إنشاء ملفات أو مجلدات جديدة إذا كنت ترغب في ذلك. من الواضح أنه يمكنك تحديد الفرز حسب قيم مختلفة متعددة أو التبديل بين تصاعدي و تنازلي أو استخدام فرز مجلد معين. من خلال عدد قليل من النقرات يمكنك أيضا التحقق من خصائص الملف أو المجلد ، والتي تظهر حقولا مختلفة مثل حجم الملف ، وتاريخ التعديل الأخير ، أو قيم EXIF مثل تاريخ الإنشاء ، طراز الكاميرا في الصور وما إلى ذلك. للحصول على مسار ملف أو مجلدات بسرعة، يمكنك تحديده بسهولة عن طريق الضغط عليه ونسخه لفترة طويلة في الحافظة. يمكنك إنشاء اختصارات سطح المكتب مفيد للوصول إلى العناصر المفضلة لديك بسرعة. وهو يحتوي على محرر ملفات خفيف يمكنك استخدامه إما لطباعة المستندات أو تحريرها أو قراءتها بسهولة باستخدام إيماءات التكبير/ التصغير، كلما دعت الحاجة. لأنه يأتي مع تصميم المواد وموضوع الظلام افتراضيا، ويوفر تجربة مستخدم كبيرة لسهولة الاستخدام. عدم الوصول إلى الإنترنت يمنحك المزيد من الخصوصية والأمان والاستقرار أكثر من التطبيقات الأخرى. لا يحتوي على إعلانات أو أذونات غير ضرورية. فمن مفتوحة المصدر تماما، ويوفر ألوان قابلة للتخصيص. <b> تحقق من مجموعة كاملة من أدوات بسيطة هنا:</b> https://www.simplemobiletools.com <b>موقع مستقل من مدير الملفات البسيطة برو:</b> https://www.simplemobiletools.com/filemanager <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

@@ -35,24 +35,20 @@
         android:textStyle="italic"
         android:visibility="gone" />
 
-    <com.simplemobiletools.commons.views.MyRecyclerView
-        android:id="@+id/mimetypes_list"
+    <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
+        android:id="@+id/mimetypes_fastscroller"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:layoutAnimation="@anim/layout_animation"
-        android:paddingTop="@dimen/small_margin"
-        android:scrollbars="none"
-        app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager" />
+        android:layout_height="wrap_content">
 
-    <com.simplemobiletools.commons.views.FastScroller
-        android:id="@+id/items_fastscroller"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:paddingStart="@dimen/normal_margin">
+        <com.simplemobiletools.commons.views.MyRecyclerView
+            android:id="@+id/mimetypes_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:layoutAnimation="@anim/layout_animation"
+            android:paddingTop="@dimen/small_margin"
+            android:scrollbars="none"
+            app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager" />
 
-        <include layout="@layout/fastscroller_handle_vertical" />
-
-    </com.simplemobiletools.commons.views.FastScroller>
+    </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
 </RelativeLayout>

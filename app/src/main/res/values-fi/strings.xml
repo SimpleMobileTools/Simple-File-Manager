@@ -13,7 +13,7 @@
     <string name="rooted_device_only">Tämä toiminto vaatii rootatun laitteen</string>
     <string name="recents">Viimeaikaiset</string>
     <string name="show_recents">Näytä viimeaikaiset</string>
-
+    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
     <!-- Open as -->
     <string name="open_as">Avaa...</string>
     <string name="text_file">Tekstitiedostona</string>
@@ -21,7 +21,6 @@
     <string name="audio_file">Äänitiedostona</string>
     <string name="video_file">Videotiedostona</string>
     <string name="other_file">Jonakin muuna tiedostona</string>
-
     <!-- Compression -->
     <string name="compress">Pakkaa</string>
     <string name="decompress">Pura</string>
@@ -32,34 +31,29 @@
     <string name="decompression_successful">Purkaminen valmis</string>
     <string name="compressing_failed">Pakkaaminen epäonnistui</string>
     <string name="decompressing_failed">Purkaminen epäonnistui</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Hallitse suosikkeja</string>
     <string name="go_to_favorite">Mene suosikkiin</string>
     <string name="favorites_activity_placeholder">Voit lisätä usein käyttämiäsi kansiota suosikeiksi, jolloin niiden käyttö on helppoa mistä vain.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Tiedostoeditori</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
+    <string name="storage_analysis">Tallennustilan analyysi</string>
+    <string name="images">Kuvat</string>
+    <string name="videos">Videot</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">Arkistot</string>
+    <string name="others">Muut</string>
     <string name="storage_free">free</string>
     <string name="total_storage">Total storage: %s</string>
-
     <!-- Settings -->
     <string name="enable_root_access">Ota käyttöön root-ominaisuudet</string>
     <string name="press_back_twice">Ota käyttöön sovelluksesta poistuminen kahdella takaisin-painikkeen painalluksella</string>
-
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Simple File Manager Pro - Tehokas tiedostohallinta</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Helppo tiedostonhallinta turvallisesti yksityisyyttä kunnioittaen, ei mainoksia.</string>
     <string name="app_long_description">
@@ -97,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
