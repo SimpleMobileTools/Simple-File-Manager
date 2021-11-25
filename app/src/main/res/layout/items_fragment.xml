@@ -10,61 +10,62 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/items_swipe_refresh"
+        <RelativeLayout
+            android:id="@+id/items_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/items_wrapper"
+            <com.simplemobiletools.commons.views.Breadcrumbs
+                android:id="@+id/breadcrumbs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingTop="@dimen/small_margin"
+                android:paddingEnd="@dimen/small_margin"
+                android:paddingBottom="@dimen/small_margin" />
 
-                <com.simplemobiletools.commons.views.Breadcrumbs
-                    android:id="@+id/breadcrumbs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:paddingStart="@dimen/activity_margin"
-                    android:paddingTop="@dimen/small_margin"
-                    android:paddingEnd="@dimen/small_margin"
-                    android:paddingBottom="@dimen/small_margin" />
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/items_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/breadcrumbs"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:paddingStart="@dimen/activity_margin"
+                android:paddingEnd="@dimen/activity_margin"
+                android:text="@string/no_items_found"
+                android:textSize="@dimen/bigger_text_size"
+                android:textStyle="italic"
+                android:visibility="gone" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/items_placeholder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/breadcrumbs"
-                    android:layout_centerHorizontal="true"
-                    android:alpha="0.8"
-                    android:gravity="center"
-                    android:paddingStart="@dimen/activity_margin"
-                    android:paddingEnd="@dimen/activity_margin"
-                    android:text="@string/no_items_found"
-                    android:textSize="@dimen/bigger_text_size"
-                    android:textStyle="italic"
-                    android:visibility="gone" />
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/items_placeholder_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/items_placeholder"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.8"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:padding="@dimen/activity_margin"
+                android:text="@string/type_2_characters"
+                android:textSize="@dimen/bigger_text_size"
+                android:textStyle="italic"
+                android:visibility="gone" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/items_placeholder_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/items_placeholder"
-                    android:layout_centerHorizontal="true"
-                    android:alpha="0.8"
-                    android:background="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:padding="@dimen/activity_margin"
-                    android:text="@string/type_2_characters"
-                    android:textSize="@dimen/bigger_text_size"
-                    android:textStyle="italic"
-                    android:visibility="gone" />
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/items_swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/breadcrumbs">
 
                 <com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller
                     android:id="@+id/items_fastscroller"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/breadcrumbs">
+                    app:supportSwipeToRefresh="true">
 
                     <com.simplemobiletools.commons.views.MyRecyclerView
                         android:id="@+id/items_list"
@@ -76,8 +77,8 @@
                         app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager" />
 
                 </com.qtalk.recyclerviewfastscroller.RecyclerViewFastScroller>
-            </RelativeLayout>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </RelativeLayout>
 
         <com.simplemobiletools.commons.views.MyFloatingActionButton
             android:id="@+id/items_fab"
