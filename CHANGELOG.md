@@ -1,6 +1,16 @@
 Changelog
 ==========
 
+Version 6.11.0 *(2021-11-26)*
+----------------------------
+
+ * Use the latest way of working with files on Android 10+
+ * Improve SD card and OTG device handling
+ * Redesigned some screens, added an Auto theme
+ * Added a more reliable fast scrollbar
+ * Allow disabling Pull-to-Refresh
+ * Added some other stability, translation and UX improvements
+
 Version 6.10.1 *(2021-10-16)*
 ----------------------------
 
