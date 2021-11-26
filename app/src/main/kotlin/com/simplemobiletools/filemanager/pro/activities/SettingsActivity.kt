@@ -42,20 +42,34 @@ class SettingsActivity : SimpleActivity() {
         setupDeleteConfirmation()
         setupEnableRootAccess()
         updateTextColors(settings_holder)
-        setupSectionColors()
         invalidateOptionsMenu()
+
+        arrayOf(
+            settings_color_customization_label,
+            settings_general_settings_label,
+            settings_visibility_label,
+            settings_scrolling_label,
+            settings_file_operations_label,
+            settings_security_label
+        ).forEach {
+            it.setTextColor(getAdjustedPrimaryColor())
+        }
+
+        arrayOf(
+            settings_color_customization_holder,
+            settings_general_settings_holder,
+            settings_visibility_holder,
+            settings_scrolling_holder,
+            settings_file_operations_holder,
+            settings_security_holder
+        ).forEach {
+            it.background.applyColorFilter(baseConfig.backgroundColor.getContrastColor())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         updateMenuItemColors(menu)
         return super.onCreateOptionsMenu(menu)
-    }
-
-    private fun setupSectionColors() {
-        val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        arrayListOf(visibility_label, scrolling_label, file_operations_label, security_label).forEach {
-            it.setTextColor(adjustedPrimaryColor)
-        }
     }
 
     private fun setupCustomizeColors() {
@@ -67,6 +81,11 @@ class SettingsActivity : SimpleActivity() {
     private fun setupUseEnglish() {
         settings_use_english_holder.beVisibleIf(config.wasUseEnglishToggled || Locale.getDefault().language != "en")
         settings_use_english.isChecked = config.useEnglish
+
+        if (settings_use_english_holder.isGone()) {
+            settings_manage_favorites_holder.background = resources.getDrawable(R.drawable.ripple_top_corners, theme)
+        }
+
         settings_use_english_holder.setOnClickListener {
             settings_use_english.toggle()
             config.useEnglish = settings_use_english.isChecked
@@ -99,7 +118,8 @@ class SettingsActivity : SimpleActivity() {
                 RadioItem(FONT_SIZE_SMALL, getString(R.string.small)),
                 RadioItem(FONT_SIZE_MEDIUM, getString(R.string.medium)),
                 RadioItem(FONT_SIZE_LARGE, getString(R.string.large)),
-                RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large)))
+                RadioItem(FONT_SIZE_EXTRA_LARGE, getString(R.string.extra_large))
+            )
 
             RadioGroupDialog(this@SettingsActivity, items, config.fontSize) {
                 config.fontSize = it as Int
@@ -227,6 +247,15 @@ class SettingsActivity : SimpleActivity() {
     private fun setupEnableRootAccess() {
         settings_enable_root_access_holder.beVisibleIf(config.isRootAvailable)
         settings_enable_root_access.isChecked = config.enableRootAccess
+
+        settings_file_deletion_password_protection_holder.background = resources.getDrawable(
+            if (settings_enable_root_access_holder.isGone()) {
+                R.drawable.ripple_bottom_corners
+            } else {
+                R.drawable.ripple_background
+            }, theme
+        )
+
         settings_enable_root_access_holder.setOnClickListener {
             if (!config.enableRootAccess) {
                 RootHelpers(this).askRootIfNeeded {
