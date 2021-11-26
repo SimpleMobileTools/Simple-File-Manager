@@ -74,6 +74,8 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             updateTextColor(textColor)
             initDrawables()
         }
+
+        recents_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
     }
 
     private fun setupLayoutManager() {

@@ -24,6 +24,7 @@ import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
+import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
 import java.util.*
@@ -63,6 +64,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         if (currentPath != "") {
             breadcrumbs.updateColor(textColor)
         }
+        items_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
     }
 
     override fun setupFontSize() {
@@ -378,7 +380,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         skipItemUpdating = false
         lastSearchedText = ""
 
-        items_swipe_refresh.isEnabled = true
+        items_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
         items_fastscroller.beVisible()
         items_placeholder.beGone()
         items_placeholder_2.beGone()
