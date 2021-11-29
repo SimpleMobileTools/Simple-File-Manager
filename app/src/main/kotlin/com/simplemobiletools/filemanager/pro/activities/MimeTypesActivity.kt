@@ -63,7 +63,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         }
 
         val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        mimetypes_fastscroller.updateColors(adjustedPrimaryColor, adjustedPrimaryColor.getContrastColor())
+        mimetypes_fastscroller.updateColors(adjustedPrimaryColor)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

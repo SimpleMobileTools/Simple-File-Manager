@@ -59,7 +59,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             initDrawables()
         }
 
-        items_fastscroller.updateColors(primaryColor, primaryColor.getContrastColor())
+        items_fastscroller.updateColors(primaryColor)
 
         if (currentPath != "") {
             breadcrumbs.updateColor(textColor)
