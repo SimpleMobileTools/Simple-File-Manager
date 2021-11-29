@@ -14,7 +14,6 @@
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
     <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
     <!-- Open as -->
     <string name="open_as">Open as</string>
     <string name="text_file">Text file</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Audio file</string>
     <string name="video_file">Video file</string>
     <string name="other_file">Other file</string>
-
     <!-- Compression -->
     <string name="compress">Compress</string>
     <string name="decompress">Decompress</string>
@@ -33,18 +31,15 @@
     <string name="decompression_successful">Decompression successful</string>
     <string name="compressing_failed">Compressing failed</string>
     <string name="decompressing_failed">Decompressing failed</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Kedvencek kezelése</string>
     <string name="go_to_favorite">Ugrás kedvenchez</string>
     <string name="favorites_activity_placeholder">A gyakran használt mappákat kedvencnek jelölheted, hogy bárhonnan könnyen elérd őket.</string>
-
     <!-- File Editor -->
     <string name="file_editor">File Editor</string>
-
     <!-- Storage analysis -->
     <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
+    <string name="images">Kép</string>
     <string name="videos">Videos</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
@@ -53,11 +48,9 @@
     <string name="others">Others</string>
     <string name="storage_free">free</string>
     <string name="total_storage">Total storage: %s</string>
-
     <!-- Settings -->
     <string name="enable_root_access">Enable root access</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
@@ -98,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
