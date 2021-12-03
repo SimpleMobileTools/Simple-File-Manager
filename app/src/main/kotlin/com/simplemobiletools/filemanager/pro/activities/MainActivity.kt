@@ -20,7 +20,6 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
-import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -315,7 +314,7 @@ class MainActivity : SimpleActivity() {
         } else {
             if (isRPlus()) {
                 ConfirmationAdvancedDialog(this, "", R.string.access_storage_prompt, R.string.ok, 0) { success ->
-                    if (success ) {
+                    if (success) {
                         isAskingPermissions = true
                         actionOnPermission = callback
                         try {
