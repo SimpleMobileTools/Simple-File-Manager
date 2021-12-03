@@ -40,7 +40,7 @@
     <!-- Storage analysis -->
     <string name="storage_analysis">تحليل التخزين</string>
     <string name="images">الصور</string>
-    <string name="videos">الفيديوات</string>
+    <string name="videos">الفيديوهات</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
