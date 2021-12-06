@@ -13,7 +13,7 @@
     <string name="rooted_device_only">Esta operación solo funciona en dispositivos rooteados</string>
     <string name="recents">Recientes</string>
     <string name="show_recents">Mostrar recientes</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
+    <string name="access_storage_prompt">Por favor conceda a nuestra aplicación el acceso a todos los archivos, es posible que no funcione bien sin ella.</string>
 
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
