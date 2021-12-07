@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.11.2 *(2021-12-07)*
+----------------------------
+
+ * Fixed a biometric authentication related glitch
+
 Version 6.11.1 *(2021-12-06)*
 ----------------------------
 
