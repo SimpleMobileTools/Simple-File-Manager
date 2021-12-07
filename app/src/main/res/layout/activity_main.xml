@@ -13,27 +13,7 @@
         app:tabIndicatorColor="@android:color/white"
         app:tabIndicatorHeight="2dp"
         app:tabMinWidth="150dp"
-        app:tabSelectedTextColor="@android:color/white">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_files"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_folder_vector" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_recents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_clock_vector" />
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_storage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_storage_vector" />
-
-    </com.google.android.material.tabs.TabLayout>
+        app:tabSelectedTextColor="@android:color/white" />
 
     <com.simplemobiletools.commons.views.MyViewPager
         android:id="@+id/main_view_pager"
