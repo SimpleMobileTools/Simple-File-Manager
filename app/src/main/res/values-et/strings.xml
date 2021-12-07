@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="press_back_again">Väljumiseks vajuta tagasi-nuppu teist korda</string>
+    <string name="set_as_home_folder">Määra kodukaustaks</string>
+    <string name="app_name">Lihtne failihaldur</string>
+    <string name="app_launcher_name">Failihaldur</string>
+    <string name="home_folder_updated">Kodukaust on uuendatud</string>
+    <string name="copy_path">Kopeeri asukoht lõikelauale</string>
+    <string name="path_copied">Asukoht kopeeritud</string>
+    <string name="select_audio_file">Palun vali helifail</string>
+    <string name="go_to_home_folder">Ava kodukaust</string>
+</resources>
