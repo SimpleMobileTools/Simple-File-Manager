@@ -33,7 +33,7 @@
     <string name="decompressing_failed">Rozpakowywanie nie powiodło się</string>
     <!-- Favorites -->
     <string name="manage_favorites">Zarządzaj ulubionymi</string>
-    <string name="go_to_favorite">Przejdź do ulubionych</string>
+    <string name="go_to_favorite">Przejdź do ulubionego</string>
     <string name="favorites_activity_placeholder">Możesz dodać często używane foldery do ulubionych, aby mieć do nich łatwy dostęp z dowolnego miejsca.</string>
     <!-- File Editor -->
     <string name="file_editor">Edytor plików</string>
