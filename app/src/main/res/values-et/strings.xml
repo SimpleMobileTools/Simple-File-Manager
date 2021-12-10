@@ -32,4 +32,13 @@
     <string name="go_to_favorite">Ava mõni lemmikutest</string>
     <string name="storage_analysis">Andmekandja analüüs</string>
     <string name="decompressing_failed">Kokkupakkimine ei õnnestunud</string>
+    <string name="favorites_activity_placeholder">Selleks, et alati oleks mugav ligipääs, lisa enamkasutatud kaustad lemmikuteks.</string>
+    <string name="file_editor">Failiredaktor</string>
+    <string name="images">Pildid</string>
+    <string name="videos">Videod</string>
+    <string name="audio">Helifailid</string>
+    <string name="documents">Dokumendid</string>
+    <string name="downloads">Allalaadimised</string>
+    <string name="archives">Failiarhiivid</string>
+    <string name="others">Muud failid</string>
 </resources>
