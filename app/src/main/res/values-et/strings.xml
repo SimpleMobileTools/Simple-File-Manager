@@ -41,4 +41,10 @@
     <string name="downloads">Allalaadimised</string>
     <string name="archives">Failiarhiivid</string>
     <string name="others">Muud failid</string>
+    <string name="app_short_description">Lihtne rakendus oma failide haldamiseks privaatselt, turvaliselt ja reklaamideta</string>
+    <string name="press_back_twice">Rakendusest väljumiseks eelda kahte Tagasi-nupu vajutust</string>
+    <string name="app_title">Lihtne failihaldur Pro - halda oma faile mugavalt</string>
+    <string name="storage_free">vaba</string>
+    <string name="total_storage">Kogu salvestusruum: %s</string>
+    <string name="enable_root_access">Luba ligipääs juurkasutajale</string>
 </resources>
