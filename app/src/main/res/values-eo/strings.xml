@@ -1,2 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_launcher_name">Dosieradministrilo</string>
+    <string name="open_as">Malfermi kiel</string>
+    <string name="audio_file">Sondosiero</string>
+    <string name="text_file">Teksta dosiero</string>
+    <string name="image_file">Bilda dosiero</string>
+    <string name="other_file">Alia dosiero</string>
+    <string name="compress">Densigi</string>
+    <string name="decompress">Maldensigi</string>
+    <string name="compress_as">Densigi kiel</string>
+    <string name="compressing">Densigante…</string>
+    <string name="decompressing">Maldensigante…</string>
+    <string name="file_editor">Dosierredaktilo</string>
+    <string name="compression_successful">Densigo sukcesis</string>
+    <string name="decompression_successful">Maldensigo sukcesis</string>
+    <string name="compressing_failed">Densigo malsukcesis</string>
+    <string name="decompressing_failed">Maldensigo malsukcesis</string>
+    <string name="audio">Sonoj</string>
+    <string name="documents">Dokumentoj</string>
+    <string name="downloads">Elŝutoj</string>
+    <string name="others">Aliaj</string>
+    <string name="app_name">Simpla Dosieradministrilo</string>
+    <string name="video_file">Filma dosiero</string>
+    <string name="images">Bildoj</string>
+    <string name="videos">Filmoj</string>
+</resources>
