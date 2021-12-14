@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="press_back_again">Väljumiseks vajuta tagasi-nuppu teist korda</string>
-    <string name="set_as_home_folder">Määra kodukaustaks</string>
     <string name="app_name">Lihtne failihaldur</string>
     <string name="app_launcher_name">Failihaldur</string>
+    <string name="press_back_again">Väljumiseks vajuta tagasi-nuppu teist korda</string>
+    <string name="go_to_home_folder">Ava kodukaust</string>
+    <string name="set_as_home_folder">Määra kodukaustaks</string>
     <string name="home_folder_updated">Kodukaust on uuendatud</string>
     <string name="copy_path">Kopeeri asukoht lõikelauale</string>
     <string name="path_copied">Asukoht kopeeritud</string>
     <string name="select_audio_file">Palun vali helifail</string>
-    <string name="go_to_home_folder">Ava kodukaust</string>
     <string name="search_folder">Otsi kausta</string>
     <string name="rooted_device_only">See tegevus on võimalik vaid juurkasutaja kontrollitud seadmetes</string>
     <string name="recents">Viimati kasutatud</string>
     <string name="show_recents">Näita viimatikasutatud faile</string>
     <string name="access_storage_prompt">Palun anna rakendusele õigused lugeda kõiki sinu faile, vastasel juhul ta ei toimi eriti hästi.</string>
-    <string name="open_as">Ava...</string>
+    <!-- Open as -->
+    <string name="open_as">Ava…</string>
     <string name="text_file">tekstifailina</string>
     <string name="image_file">pildifailina</string>
     <string name="audio_file">helifailina</string>
     <string name="video_file">videofailina</string>
     <string name="other_file">muu failina</string>
+    <!-- Compression -->
     <string name="compress">Paki kokku</string>
     <string name="decompress">Paki lahti</string>
     <string name="compress_as">Paki kokku kui</string>
@@ -28,12 +30,15 @@
     <string name="compression_successful">Kokkupakitud</string>
     <string name="decompression_successful">Lahtipakitud</string>
     <string name="compressing_failed">Lahtipakkimine ei õnnestunud</string>
+    <string name="decompressing_failed">Kokkupakkimine ei õnnestunud</string>
+    <!-- Favorites -->
     <string name="manage_favorites">Halda lemmikuid</string>
     <string name="go_to_favorite">Ava mõni lemmikutest</string>
-    <string name="storage_analysis">Andmekandja analüüs</string>
-    <string name="decompressing_failed">Kokkupakkimine ei õnnestunud</string>
     <string name="favorites_activity_placeholder">Selleks, et alati oleks mugav ligipääs, lisa enamkasutatud kaustad lemmikuteks.</string>
+    <!-- File Editor -->
     <string name="file_editor">Failiredaktor</string>
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Andmekandja analüüs</string>
     <string name="images">Pildid</string>
     <string name="videos">Videod</string>
     <string name="audio">Helifailid</string>
@@ -41,11 +46,19 @@
     <string name="downloads">Allalaadimised</string>
     <string name="archives">Failiarhiivid</string>
     <string name="others">Muud failid</string>
-    <string name="app_short_description">Lihtne rakendus oma failide haldamiseks privaatselt, turvaliselt ja reklaamideta</string>
-    <string name="press_back_twice">Rakendusest väljumiseks eelda kahte Tagasi-nupu vajutust</string>
-    <string name="app_title">Lihtne failihaldur Pro - halda oma faile mugavalt</string>
     <string name="storage_free">vaba</string>
     <string name="total_storage">Kogu salvestusruum: %s</string>
+    <!-- Settings -->
     <string name="enable_root_access">Luba ligipääs juurkasutajale</string>
+    <string name="press_back_twice">Rakendusest väljumiseks eelda kahte Tagasi-nupu vajutust</string>
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Lihtne failihaldur Pro - halda oma faile mugavalt</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">Lihtne rakendus oma failide haldamiseks privaatselt, turvaliselt ja reklaamideta</string>
     <string name="app_long_description"> A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access. The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private. This modern file organizer supports fast browsing of root files, SD cards and USB devices. To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so. You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting. By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc. To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard. You can create handy desktop shortcuts for accessing your favorite items quickly. It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed. It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps. Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors. <b>Check out the full suite of Simple Tools here:</b> https://www.simplemobiletools.com <b>Standalone website of Simple File Manager Pro:</b> https://www.simplemobiletools.com/filemanager <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
 </resources>
