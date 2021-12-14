@@ -56,41 +56,7 @@
     <string name="app_title">Simple File Manager Pro – Gérer les fichiers facilement et rapidement</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Une application simple pour gérer vos fichiers sans publicité, en respectant votre vie privée et votre sécurité</string>
-    <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
-
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
-
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
-
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
-
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
-
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
-
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
-
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
-
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Ne contient pas de pubs ou de permissions inutiles. C\'est un logiciel libre et open-source. Il y a un thème sombre.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
+    <string name="app_long_description"> Un gestionnaire de fichiers rapide et léger pour une utilisation quotidienne. Il offre une fonctionnalité de recherche conviviale, vous pouvez également personnaliser le dossier d\'accueil et sélectionner des dossiers favoris pour un accès rapide. L\'application contient plusieurs fonctions de sécurité puissantes, comme la protection par mot de passe des éléments cachés, la suppression des fichiers ou de l\'ensemble de l\'application. Vous pouvez choisir d\'utiliser un motif, un pin ou une empreinte digitale pour préserver la confidentialité de vos données. Cet organisateur de fichiers moderne prend en charge la navigation rapide des fichiers racines, des cartes SD et des périphériques USB. Pour que vous restiez productif, il dispose évidemment de toutes les opérations de fichiers standard comme renommer, copier, déplacer, supprimer, partager, etc. Il peut également être utilisé pour économiser de l\'espace de stockage, puisqu\'il permet également de compresser et de décompresser. Vous pouvez facilement créer de nouveaux fichiers ou dossiers si vous le souhaitez. Vous pouvez évidemment sélectionner le tri par plusieurs valeurs différentes, basculer entre le tri croissant et le tri décroissant, ou utiliser un tri spécifique par dossier. En quelques clics, vous pouvez également vérifier les propriétés d\'un fichier ou d\'un dossier, ce qui permet d\'afficher divers champs tels que la taille du fichier, la date de la dernière modification ou les valeurs EXIF comme la date de création, le modèle d\'appareil photo, etc. Pour obtenir rapidement le chemin d\'un fichier ou d\'un dossier, vous pouvez facilement le sélectionner en appuyant longuement dessus et le copier dans le presse-papiers. Vous pouvez créer des raccourcis de bureau pratiques pour accéder rapidement à vos éléments favoris. Il contient un éditeur de fichiers léger que vous pouvez utiliser pour imprimer des documents, les modifier ou les lire facilement à l\'aide de gestes de zoom, lorsque cela est nécessaire. Il est livré avec un design matériel et un thème sombre par défaut, ce qui offre une grande expérience utilisateur pour une utilisation facile. L\'absence d\'accès à Internet vous offre plus de confidentialité, de sécurité et de stabilité que les autres applications. Ne contient pas de publicités ni de permissions inutiles. Il est entièrement opensource, fournit des couleurs personnalisables. <b>Voyez la suite complète de Simple Tools ici :</b> https://www.simplemobiletools.com <b>Site web de Simple File Manager Pro :</b> https://www.simplemobiletools.com/filemanager <b>Facebook :</b> https://www.facebook.com/simplemobiletools <b>Reddit :</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

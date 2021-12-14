@@ -11,9 +11,9 @@
     <string name="select_audio_file">Пожалуйста, выберите аудиофайл</string>
     <string name="search_folder">Искать в папке</string>
     <string name="rooted_device_only">Это работает только на устройствах с root-доступом</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
+    <string name="recents">Недавнее</string>
+    <string name="show_recents">Показывать недавнее</string>
+    <string name="access_storage_prompt">Предоставьте приложению доступ ко всем вашим файлам, без него оно может работать некорректно.</string>
     <!-- Open as -->
     <string name="open_as">Открыть как</string>
     <string name="text_file">Текст</string>
@@ -38,24 +38,24 @@
     <!-- File Editor -->
     <string name="file_editor">Редактор файлов</string>
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
+    <string name="storage_analysis">Анализ хранилища</string>
     <string name="images">Изображения</string>
-    <string name="videos">Videos</string>
+    <string name="videos">Видео</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">Архивы</string>
+    <string name="others">Другое</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="total_storage">Полный объём: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Включить root-доступ</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="press_back_twice">Двойное нажатие кнопки \"Назад\" для выхода из приложения</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Приложение для управления файлами без рекламы, соблюдающее конфиденциальность и безопасность</string>
     <string name="app_long_description">
         A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
 
