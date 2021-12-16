@@ -1,68 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Paprasta bylų tvarkyklė</string>
-    <string name="app_launcher_name">Bylų tvarkyklė</string>
-    <string name="press_back_again">Paspauskite atgal mygtuką dar kartą, kad išeitumėte</string>
-    <string name="go_to_home_folder">Eiti į namų aplanką</string>
-    <string name="set_as_home_folder">Nustatyti kaip namų aplanką</string>
-    <string name="home_folder_updated">Namų aplankas atnaujintas</string>
+    <string name="app_name">Paprasta failų tvarkytuvė</string>
+    <string name="app_launcher_name">Failų tvarkytuvė</string>
+    <string name="press_back_again">Paspauskite atgal dar kartą, norėdami išeiti</string>
+    <string name="go_to_home_folder"></string>
+    <string name="set_as_home_folder"></string>
+    <string name="home_folder_updated"></string>
     <string name="copy_path">Kopijuoti kelią į iškarpinę</string>
     <string name="path_copied">Kelias nukopijuotas</string>
-    <string name="select_audio_file">Prašome pasirinkti garso bylą</string>
+    <string name="select_audio_file">Pasirinkite garso įrašo failą</string>
     <string name="search_folder">Ieškoti aplanke</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
+    <string name="rooted_device_only"></string>
+    <string name="recents"></string>
+    <string name="show_recents"></string>
+    <string name="access_storage_prompt">Suteikite programėlei prieigą prie visų failų. Be jos, programėlė gali tinkamai neveikti.</string>
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
-
+    <string name="open_as">Atverti kaip</string>
+    <string name="text_file">Tekstinis failas</string>
+    <string name="image_file">Paveikslo failas</string>
+    <string name="audio_file">Garso įrašo failas</string>
+    <string name="video_file">Vaizdo įrašo failas</string>
+    <string name="other_file">Kitas failas</string>
     <!-- Compression -->
-    <string name="compress">Suspausti</string>
+    <string name="compress">Glaudinti</string>
     <string name="decompress">Išskleisti</string>
-    <string name="compress_as">Suspausti kaip</string>
-    <string name="compressing">Suspaudžiama…</string>
-    <string name="decompressing">išskleidžiama…</string>
-    <string name="compression_successful">Suspaudimas sėkmingas</string>
-    <string name="decompression_successful">išskleidimas sėkmingas</string>
-    <string name="compressing_failed">Suspaudimas nepavyko</string>
-    <string name="decompressing_failed">Išskleidimas nepavyko</string>
-
+    <string name="compress_as">Glaudinti kaip</string>
+    <string name="compressing">Glaudinama…</string>
+    <string name="decompressing">Išskleidžiama…</string>
+    <string name="compression_successful">Glaudinimas sėkmingas</string>
+    <string name="decompression_successful">Išskleidimas sėkmingas</string>
+    <string name="compressing_failed">Nepavyko glaudinti</string>
+    <string name="decompressing_failed">Nepavyko išskleisti</string>
     <!-- Favorites -->
-    <string name="manage_favorites">Tvarkyti mėgiamiausiuosius</string>
-    <string name="go_to_favorite">Eiti į mėgiamiausįjį</string>
-    <string name="favorites_activity_placeholder">Jūs galite pridėti dažniausiai naudojamus aplankus į mėgiamiausiuosius, Kad lengvai pasiektumėte iš bet kur.</string>
-
+    <string name="manage_favorites"></string>
+    <string name="go_to_favorite"></string>
+    <string name="favorites_activity_placeholder"></string>
     <!-- File Editor -->
-    <string name="file_editor">Bylų redaktorius</string>
-
+    <string name="file_editor">Failų redaktorius</string>
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
-    <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="storage_analysis">Saugyklos analizė</string>
+    <string name="images">Paveikslai</string>
+    <string name="videos">Vaizdo įrašai</string>
+    <string name="audio">Garso įrašai</string>
+    <string name="documents">Dokumentai</string>
+    <string name="downloads">Atsiuntimai</string>
+    <string name="archives">Archyvai</string>
+    <string name="others">Kiti</string>
+    <string name="storage_free">laisva</string>
+    <string name="total_storage"></string>
     <!-- Settings -->
-    <string name="enable_root_access">Įgalinti šakninę prieigą</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
+    <string name="enable_root_access"></string>
+    <string name="press_back_twice"></string>
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Paprasta failų tvarkytuvė Pro – Tvarkykite failus</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Lengva naudoti programėlė, skirta failų tvarkymui. Be reklamų, gerbia privatumą</string>
     <string name="app_long_description">
         A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
 
@@ -98,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
