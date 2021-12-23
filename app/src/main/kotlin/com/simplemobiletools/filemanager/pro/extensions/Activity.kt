@@ -68,7 +68,7 @@ fun BaseSimpleActivity.toggleItemVisibility(oldPath: String, hide: Boolean, call
 
     val newPath = "$path/$filename"
     if (oldPath != newPath) {
-        renameFile(oldPath, newPath) {
+        renameFile(oldPath, newPath, false) { success, useAndroid30Way ->
             callback?.invoke(newPath)
         }
     }
