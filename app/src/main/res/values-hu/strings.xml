@@ -16,11 +16,11 @@
     <string name="access_storage_prompt">Adjon engedélyt az alkalmazásnak, hogy elérje az összes fájlját, enélkül lehet, hogy nem fog jól működni.</string>
     <!-- Open as -->
     <string name="open_as">Megnyitás másként</string>
-    <string name="text_file">Szöveges fájl</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="text_file">Szövegfájl</string>
+    <string name="image_file">Képfájl</string>
+    <string name="audio_file">Hangfájl</string>
+    <string name="video_file">Videófájl</string>
+    <string name="other_file">Egyéb fájl</string>
     <!-- Compression -->
     <string name="compress">Tömörítés</string>
     <string name="decompress">Kibontás</string>
@@ -34,9 +34,9 @@
     <!-- Favorites -->
     <string name="manage_favorites">Kedvencek kezelése</string>
     <string name="go_to_favorite">Ugrás kedvenchez</string>
-    <string name="favorites_activity_placeholder">A gyakran használt mappákat kedvencnek jelölheted, hogy bárhonnan könnyen elérd őket.</string>
+    <string name="favorites_activity_placeholder">A gyakran használt mappákat kedvencnek jelölheti, hogy bárhonnan könnyen elérje őket.</string>
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Fájlszerkesztő</string>
     <!-- Storage analysis -->
     <string name="storage_analysis">Tárolóelemzés</string>
     <string name="images">Képek</string>
@@ -53,7 +53,7 @@
     <string name="press_back_twice">A Vissza gombot kétszer kelljen megnyomni az alkalmazásból történő kilépéshez</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro – Fájlkezelés könnyedén</string>
+    <string name="app_title">Egyszerű fájlkezelő Pro – Fájlkezelés könnyedén</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Egyszerű, reklámmentes fájlkezelő, amely tiszteletben tartja az adatvédelmét</string>
     <string name="app_long_description">
