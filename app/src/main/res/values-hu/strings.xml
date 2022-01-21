@@ -6,51 +6,51 @@
     <string name="go_to_home_folder">Ugrás a kezdőmappára</string>
     <string name="set_as_home_folder">Beállítás kezdőmappának</string>
     <string name="home_folder_updated">Kezdőmappa frissítve</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
+    <string name="copy_path">Elérési útvonal másolása</string>
+    <string name="path_copied">Elérési útvonal másolva a vágólapra</string>
     <string name="select_audio_file">Please select an audio file</string>
     <string name="search_folder">Search folder</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
+    <string name="rooted_device_only">Ez a művelet csak rootolt eszközökön érhető el!</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
     <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">Megynitás mint...</string>
+    <string name="text_file">Szövegfájl</string>
+    <string name="image_file">Képfájl</string>
+    <string name="audio_file">Hangfájl</string>
+    <string name="video_file">Videófájl</string>
+    <string name="other_file">Egyéb...</string>
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
+    <string name="compress">Tömörítés</string>
+    <string name="decompress">Kibontás</string>
+    <string name="compress_as">Tömörítés mint:</string>
+    <string name="compressing">Tömörítés…</string>
+    <string name="decompressing">Kibontás…</string>
+    <string name="compression_successful">Tömörítés sikeres!</string>
+    <string name="decompression_successful">Kibontás sikeres!</string>
+    <string name="compressing_failed">Tömörítés meghiúsult!</string>
+    <string name="decompressing_failed">Kibontás meghiúsult!</string>
     <!-- Favorites -->
     <string name="manage_favorites">Kedvencek kezelése</string>
     <string name="go_to_favorite">Ugrás kedvenchez</string>
     <string name="favorites_activity_placeholder">A gyakran használt mappákat kedvencnek jelölheted, hogy bárhonnan könnyen elérd őket.</string>
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Fájlszerkesztő</string>
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Kép</string>
-    <string name="videos">Videos</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
-    <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="storage_analysis">Tárhelyelemzés</string>
+    <string name="images">Képek</string>
+    <string name="videos">Videók</string>
+    <string name="audio">Hangfájlok</string>
+    <string name="documents">Dokumentumok</string>
+    <string name="downloads">Letöltések</string>
+    <string name="archives">Archívumok</string>
+    <string name="others">Egyéb...</string>
+    <string name="storage_free">szabad</string>
+    <string name="total_storage">Eszköz tárhelye: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Enable root access</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="press_back_twice">A vissza gomb kétszeres megnyomása szükséges az alkalmazás elhagyásához</string>
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
