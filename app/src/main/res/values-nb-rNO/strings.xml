@@ -2,62 +2,55 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Filbehandler</string>
-    <string name="press_back_again">Trykk Tilbake-knappen igjen for å avslutte.</string>
-    <string name="go_to_home_folder">Gå til hjemmemappen</string>
-    <string name="set_as_home_folder">Velg som hjemmemappen</string>
-    <string name="home_folder_updated">Hjemmemappen er oppdatert</string>
-    <string name="copy_path">Kopier filbanen til utklippstavlen</string>
-    <string name="path_copied">Filbanen er kopiert</string>
+    <string name="press_back_again">Trykk tilbake igjen for å avslutte</string>
+    <string name="go_to_home_folder">Gå til hjemmemappe</string>
+    <string name="set_as_home_folder">Sett som hjemmemappe</string>
+    <string name="home_folder_updated">Hjemmemappe oppdatert</string>
+    <string name="copy_path">Kopier bane til utklippstavle</string>
+    <string name="path_copied">Bane kopiert</string>
     <string name="select_audio_file">Vennligst velg en lydfil</string>
     <string name="search_folder">Søk etter mappe</string>
     <string name="rooted_device_only">Denne handlingen fungerer bare på rootede enheter.</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
+    <string name="recents">Nylige</string>
+    <string name="show_recents">Vis nylige</string>
     <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
-
+    <string name="open_as">Åpne som</string>
+    <string name="text_file">Tekstfil</string>
+    <string name="image_file">Bildefil</string>
+    <string name="audio_file">Lydfil</string>
+    <string name="video_file">Videofil</string>
+    <string name="other_file">Annen fil</string>
     <!-- Compression -->
     <string name="compress">Komprimer</string>
     <string name="decompress">Dekomprimer</string>
     <string name="compress_as">Komprimer som</string>
-    <string name="compressing">Komprimerer …</string>
-    <string name="decompressing">Dekomprimerer …</string>
-    <string name="compression_successful">Kompresjonen var vellykket</string>
-    <string name="decompression_successful">Dekomprimeringen var vellykket</string>
-    <string name="compressing_failed">Komprimeringen mislyktes</string>
-    <string name="decompressing_failed">Dekomprimeringen mislyktes</string>
-
+    <string name="compressing">Komprimerer…</string>
+    <string name="decompressing">Dekomprimerer…</string>
+    <string name="compression_successful">Komprimering vellykket</string>
+    <string name="decompression_successful">Dekomprimering vellykket</string>
+    <string name="compressing_failed">Komprimering mislyktes</string>
+    <string name="decompressing_failed">Dekomprimering mislyktes</string>
     <!-- Favorites -->
-    <string name="manage_favorites">Behandle favorittene</string>
-    <string name="go_to_favorite">Gå til favoritten</string>
-    <string name="favorites_activity_placeholder">Du kan legge til ofte brukte mapper i favorittene, for enkel tilgang fra hvor som helst.</string>
-
+    <string name="manage_favorites">Håndter favoritter</string>
+    <string name="go_to_favorite">Gå til favoritt</string>
+    <string name="favorites_activity_placeholder">Du kan legge til ofte brukte mapper i favoritter, for enkel tilgang fra hvor som helst.</string>
     <!-- File Editor -->
     <string name="file_editor">Filredigerer</string>
-
     <!-- Storage analysis -->
     <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
-    <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
+    <string name="images">Bilder</string>
+    <string name="videos">Videoer</string>
+    <string name="audio">Lyd</string>
+    <string name="documents">Dokumenter</string>
+    <string name="downloads">Nedlastinger</string>
+    <string name="archives">Arkiver</string>
     <string name="others">Others</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="storage_free">ledig</string>
+    <string name="total_storage">Total lagring: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktiver root-tilgang</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
@@ -98,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
