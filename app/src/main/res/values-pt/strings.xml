@@ -13,8 +13,7 @@
     <string name="rooted_device_only">Esta operação apenas funciona em dispositivos com root</string>
     <string name="recents">Recentes</string>
     <string name="show_recents">Mostrar recentes</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
+    <string name="access_storage_prompt">Por favor conceda o acesso a todos os ficheiros, sem o qual a aplicação poderá não funcionar correctamente.</string>
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
     <string name="text_file">Texto</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Áudio</string>
     <string name="video_file">Vídeo</string>
     <string name="other_file">Outro tipo</string>
-
     <!-- Compression -->
     <string name="compress">Compactar</string>
     <string name="decompress">Descompactar</string>
@@ -33,15 +31,12 @@
     <string name="decompression_successful">Descompactação terminada</string>
     <string name="compressing_failed">Falha ao compactar</string>
     <string name="decompressing_failed">Falha ao descompactar</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Gerir favoritos</string>
     <string name="go_to_favorite">Ir para favorito</string>
     <string name="favorites_activity_placeholder">Pode adicionar pastas como favoritos para um acesso mais rápido.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Editor de ficheiros</string>
-
     <!-- Storage analysis -->
     <string name="storage_analysis">Análise ao armazenamento</string>
     <string name="images">Imagens</string>
@@ -53,52 +48,15 @@
     <string name="others">Outros</string>
     <string name="storage_free">livre</string>
     <string name="total_storage">Armazenamento total: %s</string>
-
     <!-- Settings -->
-    <string name="enable_root_access">Ativar acesso root</string>
+    <string name="enable_root_access">Conceder acesso root</string>
     <string name="press_back_twice">Premir duas vezes a tecla Back para sair da aplicação</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Gestão de ficheiros</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Aplicação para gestão de ficheiros e pastas, sem anúncios e que respeita a sua privacidade</string>
-    <string name="app_long_description">
-        Um gestor de ficheiros para o dia a dia. Disponibiliza uma funcionalidade de pesquisa, personalização da pasta inicial e a seleção de pastas favoritas para um acesso mais fácil e rápido.
-
-        Esta aplicação contém diversas funcionalidade relacionadas com segurança tais como proteção contra edição ou remoção de ficheiros e pastas com palavra-passe ou até mesmo da aplicação. Pode optar entre os modos de padrão, PIn ou impressão digital para manter os seus dados seguros.
-
-        Este moderno gestor de ficheiros pemite a navegação nos armazenamentos (interno  externo), em unidades USB e também as ações típicas como root.
-
-        Disponibiliza todas as ações comuns como: mudar nome, copiar, mover, eliminar, partilhar, etc. Também pode ajudar a poupar algum espaço em disco pois permite a compressão e descompressão de arquivos.
-
-        claro que também consegue organizar as pastas e ficheiros de diversas formas, seja a ordenação pelos métodos ascendentes ou descendentes, tanto globalmente como por pasta.
-
-        Com apenas alguns toques pode analisar as propriedades dos ficheiros e das pastas que lhe mostram diversos campos como, por exemplo, tamanho do ficheiro, data da última modificação e até mesmo os valores EXIF das imagens e vídeos.
-
-        Para obter rapidamente o caminho de um ficheiro ou de uma pasta, toque longo no caminho para o adicionar à área de transferência.
-
-        Também pode criar atalhos no seu ecrã para aceder rapidamente aos seus itens favoritos.
-
-        Tem também incorporado um editor de ficheiros para que os possa imprimir, editar ou ler sem distrações.
-
-        A interface é em material design e tema escuro por definição, mas pode alterar os temas a seu gosto. Não requer acesso à Internet o que lhe confere mais privacidade, segurança e estabilidade.
-        
-        Não contém anúncios nem permissões desnecessárias. Disponibiliza um tema escuro e é totalmente \'open source\'.
-
-        <b>Consulte o conjunto completo de aplicações Simple Tools aqui:</b>
-        https://www.simplemobiletools.com
-
-        <b>Site da aplicação Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_long_description"> ⋅ Um gestor de ficheiros para o dia a dia. Faça pesquisas, personalize a pasta inicial e escolha as suas pastas favoritas para um acesso mais fácil e rápido. Com diversas funcionalidades de segurança como a palavra-passe, resguarde ficheiros e pastas ocultos e proteja contra a edição ou remoção de itens ou da aplicação em si inclusivamente. Use um padrão, um pin ou a impressão digital para manter os seus dados seguros. Com este moderno gestor de ficheiros, explore os armazenamentos (interno e externo), as unidades USB e mesmo root. Permite executar todas as ações comuns: mudar o nome, copiar, mover, eliminar, partilhar, etc. Poupe mesmo algum espaço em disco com a compressão e descompressão de arquivos. Crie ficheiros e pastas novos, organize-os de diversas formas e ordene-os de forma ascendente ou descendente, tanto globalmente como por pasta. Com apenas alguns toques, analise as propriedades dos ficheiros e das pastas tais como o seu tamanho, a data da última modificação e até mesmo os valores EXIF das imagens e vídeos. Prima longamente o caminho de um ficheiro ou pasta para copiá-lo, adicionando-o à área de transferência. Também pode criar atalhos no seu ecrã e aceder rapidamente aos seus itens favoritos. Vem ainda um editor para que possa imprimir, editar ou ampliar para uma melhor leitura. Em Material Design num tema escuro por definição. Não requer acesso à Internet o que lhe confere mais privacidade, segurança e estabilidade. Não contém anúncios nem permissões desnecessárias. É totalmente open source e permite personalização de cores a gosto. <b>Consulte o conjunto completo de aplicações Simple Tools aqui:</b> https://www.simplemobiletools.com <b>Site da aplicação Simple File Manager Pro:</b> https://www.simplemobiletools.com/filemanager <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Não encontrou todas as cadeias a traduzir? Existem mais algumas em
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
