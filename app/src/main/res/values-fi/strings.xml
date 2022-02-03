@@ -13,7 +13,7 @@
     <string name="rooted_device_only">Tämä toiminto vaatii rootatun laitteen</string>
     <string name="recents">Viimeaikaiset</string>
     <string name="show_recents">Näytä viimeaikaiset</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
+    <string name="access_storage_prompt">Anna sovellukselle käyttöoikeus kaikkiin tiedoistoihin, muutoin se ei välttämättä toimi.</string>
     <!-- Open as -->
     <string name="open_as">Avaa...</string>
     <string name="text_file">Tekstitiedostona</string>
@@ -47,7 +47,7 @@
     <string name="archives">Arkistot</string>
     <string name="others">Muut</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="total_storage">Tallennustila: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Ota käyttöön root-ominaisuudet</string>
     <string name="press_back_twice">Ota käyttöön sovelluksesta poistuminen kahdella takaisin-painikkeen painalluksella</string>
@@ -55,7 +55,7 @@
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Tehokas tiedostohallinta</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Helppo tiedostonhallinta turvallisesti yksityisyyttä kunnioittaen, ei mainoksia.</string>
+    <string name="app_short_description">Helppo tiedostonhallinta turvallisesti yksityisyyttä kunnioittaen, ei mainoksia</string>
     <string name="app_long_description">
         Kevyt, nopea tiedostonhallintasovellus jokapäiväiseen käyttöön. Sovellus tarjoaa näppärän hakutoiminnon. Voit myös valita kotihakemiston ja valita suosikkikansiot nopeaan käyttöön.
 

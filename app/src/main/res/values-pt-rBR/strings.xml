@@ -13,8 +13,7 @@
     <string name="rooted_device_only">Esta operação só funciona em dispositivos rooteados</string>
     <string name="recents">Recentes</string>
     <string name="show_recents">Mostrar recentes</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
+    <string name="access_storage_prompt">Conceda ao nosso aplicativo acesso a todos os seus arquivos, ele pode não funcionar bem sem ele.</string>
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
     <string name="text_file">Arquivo de Texto</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Arquivo de Áudio</string>
     <string name="video_file">Arquivo de Vídeo</string>
     <string name="other_file">Outro arquivo</string>
-
     <!-- Compression -->
     <string name="compress">Compactar</string>
     <string name="decompress">Descompactar</string>
@@ -33,31 +31,26 @@
     <string name="decompression_successful">Descompactado com sucesso</string>
     <string name="compressing_failed">A compactação falhou</string>
     <string name="decompressing_failed">A descompactação falhou</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Gerenciar favoritos</string>
     <string name="go_to_favorite">Ir para favorito</string>
     <string name="favorites_activity_placeholder">Você pode adicionar pastas usadas com frequência aos favoritos para ter um acesso mais rápido.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Editor de Arquivos</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
+    <string name="storage_analysis">Análise do armazenamento</string>
+    <string name="images">Imagens</string>
+    <string name="videos">Vídeos</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">Arquivos</string>
+    <string name="others">Outros</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="total_storage">Armazenamento total: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Ativar o acesso root</string>
     <string name="press_back_twice">Requira o duplo pressionamento do botão "voltar" para sair do app</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Gerenciador de Arquivos</string>
@@ -98,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
