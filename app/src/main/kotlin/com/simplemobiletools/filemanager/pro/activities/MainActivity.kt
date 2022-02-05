@@ -200,7 +200,7 @@ class MainActivity : SimpleActivity() {
             R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
             R.id.increase_column_count -> increaseColumnCount()
             R.id.reduce_column_count -> reduceColumnCount()
-            R.id.settings -> startActivity(Intent(applicationContext, SettingsActivity::class.java))
+            R.id.settings -> launchSettings()
             R.id.about -> launchAbout()
             else -> return super.onOptionsItemSelected(item)
         }
@@ -596,6 +596,11 @@ class MainActivity : SimpleActivity() {
         getAllFragments().forEach {
             it?.refreshFragment()
         }
+    }
+
+    private fun launchSettings() {
+        hideKeyboard()
+        startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
     private fun launchAbout() {
