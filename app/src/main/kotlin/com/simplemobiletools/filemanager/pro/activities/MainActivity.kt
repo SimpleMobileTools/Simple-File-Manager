@@ -411,10 +411,7 @@ class MainActivity : SimpleActivity() {
 
         main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
-                if (isSearchOpen) {
-                    (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged("")
-                    searchMenuItem?.collapseActionView()
-                }
+                closeSearchIfOpen()
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -490,6 +487,13 @@ class MainActivity : SimpleActivity() {
                     config.OTGPath = trimEnd('/')
                 }
             }
+        }
+    }
+
+    private fun closeSearchIfOpen() {
+        if (isSearchOpen) {
+            (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged("")
+            searchMenuItem?.collapseActionView()
         }
     }
 
@@ -599,11 +603,13 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun launchSettings() {
+        closeSearchIfOpen()
         hideKeyboard()
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
     private fun launchAbout() {
+        closeSearchIfOpen()
         val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS
 
         val faqItems = arrayListOf(
