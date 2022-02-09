@@ -432,6 +432,7 @@ class MainActivity : SimpleActivity() {
                 skippedTabs++
             } else {
                 val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
+                tab.contentDescription = getTabContentDescription(index)
                 main_tabs_holder.addTab(tab, index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
             }
         }
@@ -477,6 +478,16 @@ class MainActivity : SimpleActivity() {
         }
 
         return resources.getColoredDrawableWithColor(drawableId, config.textColor)
+    }
+
+    private fun getTabContentDescription(position: Int): String {
+        val stringId = when (position) {
+            0 -> R.string.files_tab
+            1 -> R.string.recent_files_tab
+            else -> R.string.storage_analysis
+        }
+
+        return resources.getString(stringId)
     }
 
     private fun checkOTGPath() {
