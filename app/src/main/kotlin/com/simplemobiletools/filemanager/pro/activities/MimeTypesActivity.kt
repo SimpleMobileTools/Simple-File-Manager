@@ -229,10 +229,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     fun searchClosed() {
         isSearchOpen = false
         lastSearchedText = ""
-
-        mimetypes_fastscroller.beVisible()
-        mimetypes_placeholder.beGoneIf(storedItems.isNotEmpty())
-        mimetypes_placeholder_2.beGone()
+        searchQueryChanged("")
     }
 
     private fun getProperFileDirItems(callback: (ArrayList<FileDirItem>) -> Unit) {
