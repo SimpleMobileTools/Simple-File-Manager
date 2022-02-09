@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.11.4 *(2022-02-09)*
+----------------------------
+
+ * Fixed some file operation on newer systems
+ * Adding some stability, translation and UX improvements
+
 Version 6.11.3 *(2021-12-23)*
 ----------------------------
 
