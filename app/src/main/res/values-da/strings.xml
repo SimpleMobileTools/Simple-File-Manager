@@ -9,12 +9,11 @@
     <string name="copy_path">Kopier sti til udklipsholderen</string>
     <string name="path_copied">Sti kopieret</string>
     <string name="select_audio_file">Vælg en lydfil</string>
-    <string name="search_folder">Søg mappe</string>
-    <string name="rooted_device_only">Denne funkton virker kun på rootede enheder</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
+    <string name="search_folder">Søg i mappe</string>
+    <string name="rooted_device_only">Denne funktion virker kun på rootede enheder</string>
+    <string name="recents">Seneste</string>
+    <string name="show_recents">Vis seneste</string>
+    <string name="access_storage_prompt">Giv venligst vores app adgang til alle dine filer, den fungerer muligvis ikke godt uden.</string>
     <!-- Open as -->
     <string name="open_as">Åbn som</string>
     <string name="text_file">Tekstfil</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Lydfil</string>
     <string name="video_file">Videofil</string>
     <string name="other_file">Anden fil</string>
-
     <!-- Compression -->
     <string name="compress">Komprimer</string>
     <string name="decompress">Dekomprimer</string>
@@ -33,75 +31,34 @@
     <string name="decompression_successful">Dekomprimeret</string>
     <string name="compressing_failed">Komprimering mislykkedes</string>
     <string name="decompressing_failed">Dekomprimering mislykkedes</string>
-
     <!-- Favorites -->
-    <string name="manage_favorites">Håndter bogmærker</string>
-    <string name="go_to_favorite">Gå til bogmærker</string>
-    <string name="favorites_activity_placeholder">Du kan tilføje ofte benyttede mapper til bogmærker så du hurtigt kan finde dem igen.</string>
-
+    <string name="manage_favorites">Håndter favoritter</string>
+    <string name="go_to_favorite">Gå til favorit</string>
+    <string name="favorites_activity_placeholder">Du kan tilføje ofte benyttede mapper til favoritter, så du hurtigt kan finde dem igen.</string>
     <!-- File Editor -->
     <string name="file_editor">Fileditor</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
+    <string name="storage_analysis">Lagersanalyse</string>
+    <string name="images">Billeder</string>
+    <string name="videos">Videoer</string>
+    <string name="audio">Lyd</string>
+    <string name="documents">Dokumenter</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="archives">Arkiver</string>
+    <string name="others">Andre</string>
+    <string name="storage_free">fri</string>
+    <string name="total_storage">Samlet lagerplads: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktiver root-adgang</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
+    <string name="press_back_twice">Kræv to tryk på tilbage for at forlade appen</string>
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Simple File Manager Pro - Håndter filer nemt og hurtigt</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
-    <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
-
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
-
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
-
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
-
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
-
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
-
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
-
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
-
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Uden reklamer og unødvendige tilladelser. Den er helt igennem open source, og du kan selv bestemme farverne.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Nem app til at håndtere dine filer uden reklamer, som respekterer privatliv og sikkerhed</string>
+    <string name="app_long_description"> En let og hurtig filhåndtering til daglig brug. Den tilbyder en brugervenlig søgefunktionalitet, du kan også tilpasse hjemmemappen og vælge favoritmapper til hurtig adgang. Appen indeholder flere kraftfulde sikkerhedsrelaterede funktioner, som f.eks. adgangskodebeskyttelse af skjulte elementer, sletning af filer eller hele appen. Du kan vælge mellem at bruge et mønster, en pinkode eller et fingeraftryk for at holde dine data private. Denne moderne filadministrator understøtter hurtig browsing af rodfiler, SD-kort og USB-enheder. For at hjælpe dig med at være produktiv har den naturligvis alle standard filoperationer som omdøbning, kopiering, flytning, sletning, deling osv. Den kan også bruges til at spare noget lagerplads, da den også tillader komprimering og dekomprimering. Du kan nemt oprette nye filer eller mapper, hvis du ønsker det. Du kan naturligvis vælge sortering efter flere forskellige værdier, skifte mellem stigende og faldende eller bruge en mappespecifik sortering. Med få klik kan du også kontrollere fil- eller mappeegenskaber, som viser forskellige felter som f.eks. filstørrelse, dato for sidste ændring eller EXIF-værdier som oprettelsesdato, kameramodel på fotos osv. Hvis du hurtigt vil have fat i en fil eller mappes sti, kan du nemt vælge den ved at trykke længe på den og kopiere den i udklipsholderen. Du kan oprette praktiske genveje på skrivebordet for hurtigt at få adgang til dine foretrukne elementer. Den indeholder en simpel fileditor, som du kan bruge enten til at udskrive dokumenter, redigere dem eller læse let ved hjælp af zoombevægelser, når det er nødvendigt. Den leveres med material design og mørkt tema som standard, giver en fantastisk brugeroplevelse og nem brug. Den manglende internetadgang giver dig mere privatliv, sikkerhed og stabilitet end andre apps. Indeholder ingen annoncer eller unødvendige tilladelser. Den er fuldt opensource, giver tilpassede farver. <b>Tjek hele pakken af Simple Tools her:</b> https://www.simplemobiletools.com <b>Separat websted for Simple File Manager Pro:</b> https://www.simplemobiletools.com/filemanager <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
     -->
 </resources>
-

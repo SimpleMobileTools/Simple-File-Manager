@@ -14,7 +14,6 @@
     <string name="recents">Recent geopend</string>
     <string name="show_recents">Recente items tonen</string>
     <string name="access_storage_prompt">Geef toestemming aan de app om alle bestanden op het apparaat te benaderen om er zeker van te zijn dat deze app probleemloos werkt.</string>
-
     <!-- Open as -->
     <string name="open_as">Openen als</string>
     <string name="text_file">Tekst</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Geluid</string>
     <string name="video_file">Video</string>
     <string name="other_file">Overig</string>
-
     <!-- Compression -->
     <string name="compress">Inpakken</string>
     <string name="decompress">Uitpakken</string>
@@ -33,15 +31,12 @@
     <string name="decompression_successful">Uitpakken voltooid</string>
     <string name="compressing_failed">Fout bij inpakken</string>
     <string name="decompressing_failed">Fout bij uitpakken</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Favorieten beheren</string>
     <string name="go_to_favorite">Naar favoriet gaan</string>
     <string name="favorites_activity_placeholder">Voeg vaak gebruikte mappen toe aan de favorieten voor snelle toegang vanuit ieder scherm.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Bewerken</string>
-
     <!-- Storage analysis -->
     <string name="storage_analysis">Opslaganalyse</string>
     <string name="images">Afbeeldingen</string>
@@ -53,52 +48,15 @@
     <string name="others">Overig</string>
     <string name="storage_free">vrij</string>
     <string name="total_storage">Totale opslag: %s</string>
-
     <!-- Settings -->
     <string name="enable_root_access">Root-toegang inschakelen</string>
     <string name="press_back_twice">Twee keer op de terugknop drukken om af te sluiten</string>
-
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Eenvoudig Bestandsbeheer Pro - Snel en gemakkelijk</string>
     <!-- Short description has to have less than 80 chars -->
     <string name="app_short_description">Eenvoudig bestandsbeheer, zonder advertenties, voor privacy en veiligheid</string>
-    <string name="app_long_description">
-        Een lichtgewicht app voor snel bestandsbeheer. Bevat een nuttige zoekfunctie en opties om de beginmap en favoriete mappen in te stellen voor extra snel dagelijks gebruik.
-
-        De app heeft diverse krachtige veiligheidsfuncties, zoals (wachtwoord)beveiliging voor verborgen items, voor het verwijderen van bestanden of zelfs van de gehele app. Er kan gekozen worden tussen beveiliging met een patroon, een pincode of een vingerafdruk om gegevens veilig te stellen.
-
-        Deze moderne bestandsbeheerder ondersteunt het snel verkennen van de root-map, SD-kaarten en USB-apparaten.
-
-        De gebruikelijke bestandsoperaties zoals hernoemen, kopiëren, verplaatsen, verwijderen en delen zijn natuurlijk aanwezig. Ook kan er wat opslagruimte worden bespaard door bestanden te comprimeren. Nieuwe bestanden of mappen kunnen gemakkelijk worden aangemaakt.
-
-        Sorteren kan op verschillende manieren, alfabetisch of omgekeerd, en kan per map gespecificeerd worden.
-
-        Met slechts enkele handelingen zijn de bestands- en mapeigenschappen te bekijken, waarbij grootte, datum laatst gewijzigd en (bij foto\'s) EXIF-informatie zoals opnamedatum en cameramodel kunnen worden uitgelezen.
-
-        Om snel het pad naar een bestand of map te verkrijgen kan via een lange druk op het item gekozen worden om dit pad naar het klembord te kopiëren.
-
-        Er kunnen handige snelkoppelingen op het thuisscherm worden aangemaakt om favoriete items direct te kunnen benaderen.
-
-        Bevat een lichtgewicht bestandseditor om bestanden te bewerken, te printen of met zoomgebaren gemakkelijker te lezen.
-
-        De app is ontworpen volgens material design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en voorziet van meer privacy, veiligheid en stabiliteit dan andere apps.
-
-        Bevat geen advertenties of onnodige permissies. Volledig open-source. Kleuren van de app kunnen worden aangepast.
-
-        <b>Probeer ook eens de andere apps van Simple Tools:</b>
-        https://www.simplemobiletools.com
-
-        <b>Website voor Eenvoudig Bestandsbeheer Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_long_description"> Een lichtgewicht app voor snel bestandsbeheer. Bevat een nuttige zoekfunctie en opties om de beginmap en favoriete mappen in te stellen voor extra snel dagelijks gebruik. De app heeft diverse krachtige veiligheidsfuncties, zoals (wachtwoord)beveiliging voor verborgen items, voor het verwijderen van bestanden of zelfs van de gehele app. Er kan gekozen worden tussen beveiliging met een patroon, een pincode of een vingerafdruk om gegevens veilig te stellen. Deze moderne bestandsbeheerder ondersteunt het snel verkennen van de root-map, SD-kaarten en USB-apparaten. De gebruikelijke bestandsbewerkingen zoals hernoemen, kopiëren, verplaatsen, verwijderen en delen zijn natuurlijk aanwezig. Ook kan er wat opslagruimte worden bespaard door bestanden te comprimeren. Nieuwe bestanden of mappen kunnen gemakkelijk worden aangemaakt. Sorteren kan op verschillende manieren, alfabetisch of omgekeerd, en kan per map gespecificeerd worden. Met slechts enkele handelingen zijn de bestands- en mapeigenschappen te bekijken, waarbij grootte, datum laatst gewijzigd en (bij foto\'s) EXIF-informatie zoals opnamedatum en cameramodel kunnen worden uitgelezen. Om snel het pad naar een bestand of map te verkrijgen kan via een lange druk op het item gekozen worden om dit pad naar het klembord te kopiëren. Er kunnen handige snelkoppelingen op het thuisscherm worden aangemaakt om favoriete items direct te kunnen benaderen. Bevat een lichtgewicht bestandseditor om bestanden te bewerken, te printen of met zoomgebaren gemakkelijker te lezen. De app is ontworpen volgens material design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en voorziet van meer privacy, veiligheid en stabiliteit dan andere apps. Bevat geen advertenties of onnodige permissies. Volledig open-source. Kleuren van de app kunnen worden aangepast. <b>Probeer ook eens de andere apps van Simple Tools:</b> https://www.simplemobiletools.com <b>Website voor Eenvoudig Bestandsbeheer Pro:</b> https://www.simplemobiletools.com/filemanager <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
