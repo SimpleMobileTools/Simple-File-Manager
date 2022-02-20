@@ -70,7 +70,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     override fun setupFontSize() {
         getRecyclerAdapter()?.updateFontSizes()
         if (currentPath != "") {
-            breadcrumbs.updateFontSize(context!!.getTextSize())
+            breadcrumbs.updateFontSize(context!!.getTextSize(), false)
         }
     }
 
@@ -123,7 +123,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
             storedItems = items
             if (items_list.adapter == null) {
-                breadcrumbs.updateFontSize(context!!.getTextSize())
+                breadcrumbs.updateFontSize(context!!.getTextSize(), true)
             }
 
             ItemsAdapter(activity as SimpleActivity, storedItems, this, items_list, isPickMultipleIntent, items_swipe_refresh) {

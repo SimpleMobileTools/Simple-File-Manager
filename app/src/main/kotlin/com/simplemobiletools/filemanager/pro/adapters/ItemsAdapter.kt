@@ -574,7 +574,7 @@ class ItemsAdapter(
                                     }
                                 }
                             } else {
-                                activity.deleteFileBg(fileDirItem, false) {
+                                activity.deleteFileBg(fileDirItem, false, false) {
                                     if (it) {
                                         extractEntry(newPath, entry, zipInputStream)
                                     } else {
