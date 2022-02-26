@@ -14,7 +14,6 @@
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
     <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
     <!-- Open as -->
     <string name="open_as">ファイル形式を指定して開く</string>
     <string name="text_file">テキストファイル</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">音声ファイル</string>
     <string name="video_file">動画ファイル</string>
     <string name="other_file">その他のファイル</string>
-
     <!-- Compression -->
     <string name="compress">圧縮</string>
     <string name="decompress">解凍</string>
@@ -33,31 +31,26 @@
     <string name="decompression_successful">正常に解凍しました</string>
     <string name="compressing_failed">圧縮できませんでした</string>
     <string name="decompressing_failed">解凍できませんでした</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">お気に入りを管理</string>
     <string name="go_to_favorite">お気に入りを開く</string>
     <string name="favorites_activity_placeholder">よく使うフォルダをお気に入りに追加して、どこからでも簡単にアクセスできます。</string>
-
     <!-- File Editor -->
     <string name="file_editor">ファイル エディター</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
-    <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="storage_analysis">ストレージ解析</string>
+    <string name="images">画像</string>
+    <string name="videos">ビデオ</string>
+    <string name="audio">オーディオ</string>
+    <string name="documents">ドキュメント</string>
+    <string name="downloads">ダウンロード</string>
+    <string name="archives">アーカイブ</string>
+    <string name="others">その他</string>
     <string name="storage_free">free</string>
     <string name="total_storage">Total storage: %s</string>
-
     <!-- Settings -->
     <string name="enable_root_access">ルートアクセスを有効にする</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
@@ -98,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
