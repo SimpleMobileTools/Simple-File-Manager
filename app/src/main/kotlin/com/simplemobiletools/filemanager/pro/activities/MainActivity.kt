@@ -371,7 +371,7 @@ class MainActivity : SimpleActivity() {
             }
 
             if (!File(data.path!!).isDirectory) {
-                tryOpenPathIntent(data.path!!, false)
+                tryOpenPathIntent(data.path!!, false, finishActivity = true)
             }
         } else {
             openPath(config.homeFolder)

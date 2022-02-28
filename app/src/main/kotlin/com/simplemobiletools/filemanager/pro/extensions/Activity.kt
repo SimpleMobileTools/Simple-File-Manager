@@ -16,7 +16,7 @@ fun Activity.sharePaths(paths: ArrayList<String>) {
     sharePathsIntent(paths, BuildConfig.APPLICATION_ID)
 }
 
-fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsType: Int = OPEN_AS_DEFAULT) {
+fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsType: Int = OPEN_AS_DEFAULT, finishActivity: Boolean = false) {
     if (!forceChooser && path.endsWith(".apk", true)) {
         val uri = if (isNougatPlus()) {
             FileProvider.getUriForFile(this, "${BuildConfig.APPLICATION_ID}.provider", File(path))
@@ -32,6 +32,10 @@ fun Activity.tryOpenPathIntent(path: String, forceChooser: Boolean, openAsType: 
         }
     } else {
         openPath(path, forceChooser, openAsType)
+
+        if (finishActivity) {
+            finish()
+        }
     }
 }
 
