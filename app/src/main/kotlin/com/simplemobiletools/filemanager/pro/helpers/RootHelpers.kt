@@ -44,7 +44,7 @@ class RootHelpers(val activity: Activity) {
                     val file = File(path, line)
                     val fullLine = fullLines.firstOrNull { it.endsWith(" $line") }
                     val isDirectory = fullLine?.startsWith('d') ?: file.isDirectory
-                    val fileDirItem = ListItem(file.absolutePath, line, isDirectory, 0, 0, 0, false)
+                    val fileDirItem = ListItem(file.absolutePath, line, isDirectory, 0, 0, 0, false, false)
                     files.add(fileDirItem)
                     super.commandOutput(id, line)
                 }

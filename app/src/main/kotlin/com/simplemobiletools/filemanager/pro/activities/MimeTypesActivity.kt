@@ -333,7 +333,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
         val listItems = ArrayList<ListItem>()
         fileDirItems.forEach {
-            val listItem = ListItem(it.path, it.name, false, 0, it.size, it.modified, false)
+            val listItem = ListItem(it.path, it.name, false, 0, it.size, it.modified, false, false)
             listItems.add(listItem)
         }
         return listItems

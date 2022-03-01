@@ -170,7 +170,7 @@ class DecompressActivity : SimpleActivity() {
 
             val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime.toMillis() else 0
             val filename = zipEntry.name.removeSuffix("/")
-            val listItem = ListItem(filename, filename.getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false)
+            val listItem = ListItem(filename, filename.getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false, false)
             allFiles.add(listItem)
         }
     }

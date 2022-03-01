@@ -41,11 +41,11 @@ import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootTools.RootTools
-import kotlinx.android.synthetic.main.item_file_dir_grid.view.*
 import kotlinx.android.synthetic.main.item_file_dir_list.view.*
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_frame
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_icon
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_name
+import kotlinx.android.synthetic.main.item_file_grid.view.*
 import kotlinx.android.synthetic.main.item_section.view.*
 import java.io.BufferedInputStream
 import java.io.Closeable
@@ -61,8 +61,10 @@ class ItemsAdapter(
 ) :
     MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
-    private val TYPE_FILE_DIR = 1
-    private val TYPE_SECTION = 2
+    private val TYPE_FILE = 1
+    private val TYPE_DIR = 2
+    private val TYPE_SECTION = 3
+    private val TYPE_GRID_TYPE_DIVIDER = 4
     private lateinit var fileDrawable: Drawable
     private lateinit var folderDrawable: Drawable
     private var fileDrawables = HashMap<String, Drawable>()
@@ -129,9 +131,9 @@ class ItemsAdapter(
         }
     }
 
-    override fun getSelectableItemCount() = listItems.filter { !it.isSectionTitle }.size
+    override fun getSelectableItemCount() = listItems.filter { !it.isSectionTitle && !it.isGridTypeDivider }.size
 
-    override fun getIsItemSelectable(position: Int) = !listItems[position].isSectionTitle
+    override fun getIsItemSelectable(position: Int) = !listItems[position].isSectionTitle && !listItems[position].isGridTypeDivider
 
     override fun getItemSelectionKey(position: Int) = listItems.getOrNull(position)?.path?.hashCode()
 
@@ -147,21 +149,28 @@ class ItemsAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (listItems[position].isSectionTitle) {
-            TYPE_SECTION
-        } else {
-            TYPE_FILE_DIR
+        return when {
+            listItems[position].isGridTypeDivider -> TYPE_GRID_TYPE_DIVIDER
+            listItems[position].isSectionTitle -> TYPE_SECTION
+            listItems[position].mIsDirectory -> TYPE_DIR
+            else -> TYPE_FILE
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = if (viewType == TYPE_SECTION) {
             R.layout.item_section
+        } else if (viewType == TYPE_GRID_TYPE_DIVIDER) {
+            R.layout.item_empty
         } else {
             if (isListViewType) {
                 R.layout.item_file_dir_list
             } else {
-                R.layout.item_file_dir_grid
+                if (viewType == TYPE_DIR) {
+                    R.layout.item_dir_grid
+                } else {
+                    R.layout.item_file_grid
+                }
             }
         }
         return createViewHolder(layout, parent)
@@ -789,6 +798,8 @@ class ItemsAdapter(
 
     fun isASectionTitle(position: Int) = listItems.getOrNull(position)?.isSectionTitle ?: false
 
+    fun isGridTypeDivider(position: Int) = listItems.getOrNull(position)?.isGridTypeDivider ?: false
+
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
@@ -804,11 +815,10 @@ class ItemsAdapter(
         view.apply {
             if (listItem.isSectionTitle) {
                 item_icon.setImageDrawable(folderDrawable)
-
                 item_section.text = if (textToHighlight.isEmpty()) listItem.mName else listItem.mName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
                 item_section.setTextColor(textColor)
                 item_section.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-            } else {
+            } else if (!listItem.isGridTypeDivider) {
                 item_frame.isSelected = isSelected
                 val fileName = listItem.name
                 item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)

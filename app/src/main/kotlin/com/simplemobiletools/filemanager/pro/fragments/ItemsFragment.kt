@@ -102,6 +102,17 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
             FileDirItem.sorting = context!!.config.getFolderSorting(currentPath)
             listItems.sort()
+
+            if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID && listItems.none { it.isSectionTitle }) {
+                if (listItems.any { it.mIsDirectory } && listItems.any { !it.mIsDirectory }) {
+                    val firstFileIndex = listItems.indexOfFirst { !it.mIsDirectory }
+                    if (firstFileIndex != -1) {
+                        val sectionTitle = ListItem("", "", false, 0, 0, 0, false, true)
+                        listItems.add(firstFileIndex, sectionTitle)
+                    }
+                }
+            }
+
             activity?.runOnUiThread {
                 activity?.invalidateOptionsMenu()
                 addItems(listItems, forceRefresh)
@@ -241,13 +252,13 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             lastModified = file.lastModified()
         }
 
-        return ListItem(curPath, curName, isDirectory, children, size, lastModified, false)
+        return ListItem(curPath, curName, isDirectory, children, size, lastModified, false, false)
     }
 
     private fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
         val listItems = ArrayList<ListItem>()
         fileDirItems.forEach {
-            val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, it.modified, false)
+            val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, it.modified, false, false)
             listItems.add(listItem)
         }
         return listItems
@@ -303,13 +314,13 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                     files.forEach {
                         val parent = it.mPath.getParentPath()
                         if (!it.isDirectory && parent != previousParent && context != null) {
-                            val sectionTitle = ListItem(parent, context!!.humanizePath(parent), false, 0, 0, 0, true)
+                            val sectionTitle = ListItem(parent, context!!.humanizePath(parent), false, 0, 0, 0, true, false)
                             listItems.add(sectionTitle)
                             previousParent = parent
                         }
 
                         if (it.isDirectory) {
-                            val sectionTitle = ListItem(it.path, context!!.humanizePath(it.path), true, 0, 0, 0, true)
+                            val sectionTitle = ListItem(it.path, context!!.humanizePath(it.path), true, 0, 0, 0, true, false)
                             listItems.add(sectionTitle)
                             previousParent = parent
                         }
@@ -418,7 +429,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (getRecyclerAdapter()?.isASectionTitle(position) == true) {
+                return if (getRecyclerAdapter()?.isASectionTitle(position) == true || getRecyclerAdapter()?.isGridTypeDivider(position) == true) {
                     layoutManager.spanCount
                 } else {
                     1

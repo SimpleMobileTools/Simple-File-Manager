@@ -1,4 +1,4 @@
 <resources>
-    <dimen name="grid_view_icon_size">60dp</dimen>
+    <dimen name="grid_view_icon_size">50dp</dimen>
     <dimen name="storage_free_space_text_size">46sp</dimen>
 </resources>
