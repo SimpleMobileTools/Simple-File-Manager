@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Jednostavan upravitelj datoteka</string>
+    <string name="app_name">Jednostavan Upravitelj Datoteka</string>
     <string name="app_launcher_name">Upravitelj datoteka</string>
     <string name="press_back_again">Ponovno pritisnite natrag za izlaz</string>
     <string name="go_to_home_folder">Idi na početnu mapu</string>
@@ -11,10 +11,9 @@
     <string name="select_audio_file">Odaberite audio datoteku</string>
     <string name="search_folder">Pretraži mapu</string>
     <string name="rooted_device_only">Ova radnja funkcionira samo na uređajima s root pristupom</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
-
+    <string name="recents">Nedavni</string>
+    <string name="show_recents">Pokaži nedavne</string>
+    <string name="access_storage_prompt">Omogućite našoj aplikaciji pristup svim svojim datotekama, bez nje možda neće dobro funkcionirati.</string>
     <!-- Open as -->
     <string name="open_as">Otvori kao</string>
     <string name="text_file">Tekstualna datoteka</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Audio datoteka</string>
     <string name="video_file">Video datoteka</string>
     <string name="other_file">Ostala datoteka</string>
-
     <!-- Compression -->
     <string name="compress">Sažmi</string>
     <string name="decompress">Otpakiraj</string>
@@ -33,72 +31,32 @@
     <string name="decompression_successful">Otpakiravanje uspješno</string>
     <string name="compressing_failed">Sažimanje neuspješno</string>
     <string name="decompressing_failed">Otpakiravanje neuspješno</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Upravljanje favoritima</string>
     <string name="go_to_favorite">Idi na favorite</string>
     <string name="favorites_activity_placeholder">Možete dodavati često korištene mape u favorite za jednostavan pristup s bilo kojeg mjesta.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Uređivač datoteka</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
+    <string name="storage_analysis">Analiza skladištenja</string>
+    <string name="images">Slike</string>
+    <string name="videos">Videozapisi</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">Arhive</string>
+    <string name="others">Ostali</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="total_storage">Ukupna pohrana: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Omogući root pristup</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
+    <string name="press_back_twice">Zahtijevnite pritiskanje Natrag dvaput da biste napustili aplikaciju</string>
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Jednostavan Upravitelj Datoteka Pro - Upravljajte datotekama jednostavno i brzo</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
-    <string name="app_long_description">
-        A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
-
-        The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
-
-        This modern file organizer supports fast browsing of root files, SD cards and USB devices.
-
-        To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
-
-        You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
-
-        By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
-
-        To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
-
-        You can create handy desktop shortcuts for accessing your favorite items quickly.
-
-        It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
-
-        It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
-
-        Ne sadrži oglase ili nepotrebne dozvole. Aplikacije je otvorenog koda, pruža prilagodljive boje.
-
-        <b>Check out the full suite of Simple Tools here:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
+    <string name="app_short_description">Jednostavna aplikacija za upravljanje datotekama bez oglasa, poštujući vašu privatnost i sigurnost</string>
+    <string name="app_long_description"> Lagani brzi upravitelj datoteka za svakodnevnu upotrebu. Nudi korisnu funkciju pretraživanja, također možete prilagoditi početnu mapu i odabrati omiljene mape za brzi pristup. Aplikacija sadrži više moćnih sigurnosnih funkcija, poput zaštite skrivenih stavki lozinkom, brisanja datoteka ili cijele aplikacije. Možete birati između upotrebe uzorka, pribadače ili otiska prsta kako bi vaši podaci ostali privatni. Ovaj moderni organizator datoteka podržava brzo pregledavanje root datoteka, SD kartica i USB uređaja. Kako bi vaš bio produktivan, očito ima sve standardne operacije datoteka kao što su preimenovanje, kopiranje, premještanje, brisanje, dijeljenje itd. Također se može koristiti za spremanje pohrane, budući da također omogućuje komprimiranje i dekompresiju. Možete jednostavno stvoriti nove datoteke ili mape ako to želite. Očito možete odabrati sortiranje prema više različitih vrijednosti, prebacivati se između uzlaznog i silaznog ili koristiti sortiranje specifično za mapu. Sa samo nekoliko klikova također možete provjeriti svojstva datoteke ili mape, koja pokazuju različita polja poput veličine datoteke, datuma posljednje izmjene ili EXIF vrijednosti kao što su datum kreiranja, model kamere na fotografijama itd. Da biste dobili put datoteke ili mape brzo, možete ga jednostavno odabrati dugim pritiskom i kopiranjem u međuspremnik. Možete stvoriti zgodne prečace na radnoj površini za brzi pristup omiljenim stavkama. Sadrži lagani uređivač datoteka koji možete koristiti za ispis dokumenata, njihovo uređivanje ili jednostavno čitanje pomoću pokreta zumiranja, kad god je to potrebno. Dolazi s materijalnim dizajnom i tamnom temom prema zadanim postavkama, pruža izvrsno korisničko iskustvo za jednostavnu upotrebu. Nedostatak pristupa internetu daje vam više privatnosti, sigurnosti i stabilnosti od drugih aplikacija. Ne sadrži oglase niti nepotrebna dopuštenja. Potpuno je otvorenog koda, pruža prilagodljive boje. <b> Ovdje pogledajte cijeli paket Jednostavni Alati: </b> https://www.simplemobiletools.com <b> Samostalna web stranica Jednostavan Upravitelj Datoteka Pro: </b> https://www.simplemobiletools.com/filemanager <b>Facebook:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
