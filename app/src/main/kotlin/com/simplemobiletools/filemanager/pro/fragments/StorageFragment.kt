@@ -51,8 +51,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         getSizes()
         context.updateTextColors(storage_fragment)
 
-        main_storage_usage_progressbar.setIndicatorColor(primaryColor)
-        main_storage_usage_progressbar.trackColor = primaryColor.adjustAlpha(0.3f)
+        val adjustedPrimaryColor = context.getAdjustedPrimaryColor()
+        main_storage_usage_progressbar.setIndicatorColor(adjustedPrimaryColor)
+        main_storage_usage_progressbar.trackColor = adjustedPrimaryColor.adjustAlpha(0.3f)
 
         val redColor = context.resources.getColor(R.color.md_red_700)
         images_progressbar.setIndicatorColor(redColor)
