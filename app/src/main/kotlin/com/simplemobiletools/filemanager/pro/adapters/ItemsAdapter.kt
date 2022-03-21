@@ -366,10 +366,8 @@ class ItemsAdapter(
     }
 
     private fun copyPath() {
-        val clip = ClipData.newPlainText(activity.getString(R.string.app_name), getFirstSelectedItemPath())
-        (activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+        activity.copyToClipboard(getFirstSelectedItemPath())
         finishActMode()
-        activity.toast(R.string.path_copied)
     }
 
     private fun setAs() {
