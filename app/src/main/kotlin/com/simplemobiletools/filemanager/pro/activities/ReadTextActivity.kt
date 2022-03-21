@@ -303,7 +303,7 @@ class ReadTextActivity : SimpleActivity() {
 
         if (text.isNotBlank() && text.length > 1) {
             searchMatches = read_text_view.value.searchMatches(text)
-            read_text_view.highlightText(text, config.primaryColor)
+            read_text_view.highlightText(text, getAdjustedPrimaryColor())
         }
 
         if (searchMatches.isNotEmpty()) {
