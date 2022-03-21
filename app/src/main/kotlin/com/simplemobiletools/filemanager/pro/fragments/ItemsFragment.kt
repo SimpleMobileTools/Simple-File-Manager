@@ -127,7 +127,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         skipItemUpdating = false
         activity?.runOnUiThread {
             items_swipe_refresh?.isRefreshing = false
-            breadcrumbs.setBreadcrumb(currentPath, false)
+            breadcrumbs.setBreadcrumb(currentPath)
             if (!forceRefresh && items.hashCode() == storedItems.hashCode()) {
                 return@runOnUiThread
             }
