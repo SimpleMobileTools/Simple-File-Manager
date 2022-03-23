@@ -1,0 +1,2 @@
+ * Reworked some file operations on newer OS versions
+ * Adding some stability, translation, UX and UI improvements
