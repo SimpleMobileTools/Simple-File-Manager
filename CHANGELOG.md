@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.12.1 *(2022-04-11)*
+----------------------------
+
+ * Added Material You theme support on Android 12+
+ * Added some stability, performance and UX improvements
+
 Version 6.12.0 *(2022-03-23)*
 ----------------------------
 
