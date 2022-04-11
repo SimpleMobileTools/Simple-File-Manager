@@ -613,8 +613,8 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun launchSettings() {
-        closeSearchIfOpen()
         hideKeyboard()
+        closeSearchIfOpen()
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
