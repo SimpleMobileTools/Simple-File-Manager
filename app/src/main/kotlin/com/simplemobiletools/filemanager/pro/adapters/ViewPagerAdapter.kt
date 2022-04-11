@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.pro.adapters
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
+import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.helpers.TAB_FILES
 import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
 import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
@@ -20,7 +21,7 @@ class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
 
         (view as MyViewPagerFragment).apply {
             setupFragment(activity)
-            onResume(activity.config.textColor, activity.config.primaryColor)
+            onResume(activity.getProperTextColor())
         }
 
         return view

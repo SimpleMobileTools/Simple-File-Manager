@@ -47,7 +47,6 @@ import kotlinx.android.synthetic.main.items_fragment.view.*
 import kotlinx.android.synthetic.main.recents_fragment.*
 import kotlinx.android.synthetic.main.storage_fragment.*
 import java.io.File
-import java.util.*
 
 class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
@@ -106,7 +105,7 @@ class MainActivity : SimpleActivity() {
         }
 
         getAllFragments().forEach {
-            it?.onResume(config.textColor, config.primaryColor)
+            it?.onResume(getProperTextColor())
         }
 
         if (storedFontSize != config.fontSize) {
@@ -122,13 +121,13 @@ class MainActivity : SimpleActivity() {
         }
 
         getInactiveTabIndexes(main_view_pager.currentItem).forEach {
-            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
         }
 
-        val adjustedPrimaryColor = getAdjustedPrimaryColor()
-        main_tabs_holder.background = ColorDrawable(config.backgroundColor)
-        main_tabs_holder.setSelectedTabIndicatorColor(adjustedPrimaryColor)
-        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(adjustedPrimaryColor)
+        val properPrimaryColor = getProperPrimaryColor()
+        main_tabs_holder.background = ColorDrawable(getProperBackgroundColor())
+        main_tabs_holder.setSelectedTabIndicatorColor(properPrimaryColor)
+        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(properPrimaryColor)
 
         if (main_view_pager.adapter == null && mWasProtectionHandled) {
             initFragments()
@@ -401,11 +400,11 @@ class MainActivity : SimpleActivity() {
         main_view_pager.currentItem = tabToOpen
         main_tabs_holder.onTabSelectionChanged(
             tabUnselectedAction = {
-                it.icon?.applyColorFilter(config.textColor)
+                it.icon?.applyColorFilter(getProperTextColor())
             },
             tabSelectedAction = {
                 main_view_pager.currentItem = it.position
-                it.icon?.applyColorFilter(getAdjustedPrimaryColor())
+                it.icon?.applyColorFilter(getProperPrimaryColor())
             }
         )
 
@@ -450,24 +449,24 @@ class MainActivity : SimpleActivity() {
 
     private fun setupTabColors(lastUsedTab: Int) {
         main_tabs_holder.apply {
-            background = ColorDrawable(config.backgroundColor)
-            setSelectedTabIndicatorColor(getAdjustedPrimaryColor())
+            background = ColorDrawable(getProperBackgroundColor())
+            setSelectedTabIndicatorColor(getProperPrimaryColor())
             getTabAt(lastUsedTab)?.apply {
                 select()
-                icon?.applyColorFilter(getAdjustedPrimaryColor())
+                icon?.applyColorFilter(getProperPrimaryColor())
             }
 
             getInactiveTabIndexes(lastUsedTab).forEach {
-                getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+                getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
             }
         }
     }
 
     private fun updateTabColors() {
         getInactiveTabIndexes(main_view_pager.currentItem).forEach {
-            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(config.textColor)
+            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
         }
-        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getAdjustedPrimaryColor())
+        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getProperPrimaryColor())
     }
 
     private fun getTabIcon(position: Int): Drawable {
@@ -477,7 +476,7 @@ class MainActivity : SimpleActivity() {
             else -> R.drawable.ic_storage_vector
         }
 
-        return resources.getColoredDrawableWithColor(drawableId, config.textColor)
+        return resources.getColoredDrawableWithColor(drawableId, getProperTextColor())
     }
 
     private fun getTabContentDescription(position: Int): String {
@@ -641,7 +640,7 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        if (getCurrentFragment()!!.breadcrumbs.itemsCount <= 1) {
+        if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)

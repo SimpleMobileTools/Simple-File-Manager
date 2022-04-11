@@ -8,7 +8,8 @@ import androidx.appcompat.widget.AppCompatEditText
 import com.alexvasilkov.gestures.GestureController
 import com.alexvasilkov.gestures.State
 import com.alexvasilkov.gestures.views.interfaces.GestureView
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.extensions.onGlobalLayout
 import com.simplemobiletools.filemanager.pro.extensions.config
 
@@ -38,8 +39,8 @@ class GestureEditText : AppCompatEditText, GestureView {
         })
 
         origSize = textSize
-        setTextColor(context.config.textColor)
-        setLinkTextColor(context.getAdjustedPrimaryColor())
+        setTextColor(context.getProperTextColor())
+        setLinkTextColor(context.getProperPrimaryColor())
 
         val storedTextZoom = context.config.editorTextZoom
         if (storedTextZoom != 0f) {

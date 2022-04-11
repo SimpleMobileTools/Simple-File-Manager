@@ -1,9 +1,6 @@
 package com.simplemobiletools.filemanager.pro.adapters
 
 import android.annotation.SuppressLint
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ShortcutInfo
@@ -813,13 +810,13 @@ class ItemsAdapter(
         view.apply {
             if (listItem.isSectionTitle) {
                 item_icon.setImageDrawable(folderDrawable)
-                item_section.text = if (textToHighlight.isEmpty()) listItem.mName else listItem.mName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                item_section.text = if (textToHighlight.isEmpty()) listItem.mName else listItem.mName.highlightTextPart(textToHighlight, properPrimaryColor)
                 item_section.setTextColor(textColor)
                 item_section.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             } else if (!listItem.isGridTypeDivider) {
                 item_frame.isSelected = isSelected
                 val fileName = listItem.name
-                item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, adjustedPrimaryColor)
+                item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, properPrimaryColor)
                 item_name.setTextColor(textColor)
                 item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, if (isListViewType) fontSize else smallerFontSize)
 
@@ -831,7 +828,7 @@ class ItemsAdapter(
 
                 item_check?.beVisibleIf(isSelected)
                 if (isSelected) {
-                    item_check?.background?.applyColorFilter(adjustedPrimaryColor)
+                    item_check?.background?.applyColorFilter(properPrimaryColor)
                     item_check?.applyColorFilter(contrastColor)
                 }
 

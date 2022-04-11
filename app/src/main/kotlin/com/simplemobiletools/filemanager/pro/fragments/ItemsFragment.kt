@@ -8,7 +8,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyGridLayoutManager
@@ -24,11 +27,8 @@ import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.io.File
-import java.util.*
-import kotlin.collections.ArrayList
 
 class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener,
     Breadcrumbs.BreadcrumbsListener {
@@ -50,16 +50,16 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    override fun onResume(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int) {
         context!!.updateTextColors(this)
         storedItems = ArrayList()
         getRecyclerAdapter()?.apply {
-            updatePrimaryColor(primaryColor)
+            updatePrimaryColor()
             updateTextColor(textColor)
             initDrawables()
         }
 
-        items_fastscroller.updateColors(context!!.getAdjustedPrimaryColor())
+        items_fastscroller.updateColors(context!!.getProperPrimaryColor())
 
         if (currentPath != "") {
             breadcrumbs.updateColor(textColor)

@@ -291,8 +291,8 @@ class ReadTextActivity : SimpleActivity() {
             false
         })
 
-        search_wrapper.setBackgroundColor(config.primaryColor)
-        val contrastColor = config.primaryColor.getContrastColor()
+        search_wrapper.setBackgroundColor(getProperPrimaryColor())
+        val contrastColor = getProperPrimaryColor().getContrastColor()
         arrayListOf(searchPrevBtn, searchNextBtn, searchClearBtn).forEach {
             it.applyColorFilter(contrastColor)
         }
@@ -303,7 +303,7 @@ class ReadTextActivity : SimpleActivity() {
 
         if (text.isNotBlank() && text.length > 1) {
             searchMatches = read_text_view.value.searchMatches(text)
-            read_text_view.highlightText(text, getAdjustedPrimaryColor())
+            read_text_view.highlightText(text, getProperPrimaryColor())
         }
 
         if (searchMatches.isNotEmpty()) {

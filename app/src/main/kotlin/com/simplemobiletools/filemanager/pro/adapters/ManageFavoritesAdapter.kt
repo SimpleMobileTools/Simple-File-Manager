@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
+import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
 import kotlinx.android.synthetic.main.item_manage_favorite.view.*
-import java.util.*
 
 class ManageFavoritesAdapter(
     activity: BaseSimpleActivity, var favorites: ArrayList<String>, val listener: RefreshRecyclerViewListener?,
@@ -61,7 +61,7 @@ class ManageFavoritesAdapter(
         view.apply {
             manage_favorite_title.apply {
                 text = favorite
-                setTextColor(config.textColor)
+                setTextColor(activity.getProperTextColor())
             }
 
             manage_favorite_holder?.isSelected = isSelected

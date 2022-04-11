@@ -8,7 +8,10 @@ import android.util.AttributeSet
 import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
+import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.filemanager.pro.R
@@ -21,7 +24,6 @@ import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.recents_fragment.view.*
-import java.util.*
 
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
     private val RECENTS_LIMIT = 50
@@ -66,11 +68,11 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    override fun onResume(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int) {
         recents_placeholder.setTextColor(textColor)
 
         getRecyclerAdapter()?.apply {
-            updatePrimaryColor(primaryColor)
+            updatePrimaryColor()
             updateTextColor(textColor)
             initDrawables()
         }

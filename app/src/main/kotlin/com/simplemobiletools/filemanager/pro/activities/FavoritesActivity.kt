@@ -6,7 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
-import com.simplemobiletools.commons.extensions.getAdjustedPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperPrimaryColor
+import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.ManageFavoritesAdapter
@@ -38,12 +39,12 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
         val favorites = ArrayList<String>()
         config.favorites.mapTo(favorites) { it }
         manage_favorites_placeholder.beVisibleIf(favorites.isEmpty())
-        manage_favorites_placeholder.setTextColor(config.textColor)
+        manage_favorites_placeholder.setTextColor(getProperTextColor())
 
         manage_favorites_placeholder_2.apply {
             paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
             beVisibleIf(favorites.isEmpty())
-            setTextColor(getAdjustedPrimaryColor())
+            setTextColor(getProperPrimaryColor())
             setOnClickListener {
                 addFavorite()
             }

@@ -19,7 +19,6 @@ import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
 import com.simplemobiletools.filemanager.pro.helpers.*
 import kotlinx.android.synthetic.main.storage_fragment.view.*
 import java.util.*
-import kotlin.collections.HashMap
 
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
     private val SIZE_DIVIDER = 100000
@@ -47,13 +46,13 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun refreshFragment() {}
 
-    override fun onResume(textColor: Int, primaryColor: Int) {
+    override fun onResume(textColor: Int) {
         getSizes()
         context.updateTextColors(storage_fragment)
 
-        val adjustedPrimaryColor = context.getAdjustedPrimaryColor()
-        main_storage_usage_progressbar.setIndicatorColor(adjustedPrimaryColor)
-        main_storage_usage_progressbar.trackColor = adjustedPrimaryColor.adjustAlpha(0.3f)
+        val properPrimaryColor = context.getProperPrimaryColor()
+        main_storage_usage_progressbar.setIndicatorColor(properPrimaryColor)
+        main_storage_usage_progressbar.trackColor = properPrimaryColor.adjustAlpha(0.3f)
 
         val redColor = context.resources.getColor(R.color.md_red_700)
         images_progressbar.setIndicatorColor(redColor)

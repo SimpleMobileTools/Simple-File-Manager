@@ -36,7 +36,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
     abstract fun setupFragment(activity: SimpleActivity)
 
-    abstract fun onResume(textColor: Int, primaryColor: Int)
+    abstract fun onResume(textColor: Int)
 
     abstract fun refreshFragment()
 }
