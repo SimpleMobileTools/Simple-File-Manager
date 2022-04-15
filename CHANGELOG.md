@@ -1,6 +1,11 @@
 Changelog
 ==========
 
+Version 6.12.2 *(2022-04-15)*
+----------------------------
+
+ * Use the old way of handling file operations below Android 11
+
 Version 6.12.1 *(2022-04-11)*
 ----------------------------
 
