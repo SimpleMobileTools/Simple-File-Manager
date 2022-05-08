@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Ez a művelet csak root jogosultságot támogató eszközökön működik</string>
     <string name="recents">Frissek</string>
     <string name="show_recents">Frissek megjelenítése</string>
-    <string name="access_storage_prompt">Adjon engedélyt az alkalmazásnak, hogy elérje az összes fájlját, enélkül lehet, hogy nem fog jól működni.</string>
     <!-- Open as -->
     <string name="open_as">Megnyitás másként</string>
     <string name="text_file">Szövegfájl</string>

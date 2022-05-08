@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Åtgärden fungerar bara på rotade enheter</string>
     <string name="recents">Nyss</string>
     <string name="show_recents">Visa nyligen</string>
-    <string name="access_storage_prompt">Vänligen ge oss tillgänglighet till dina filer, den kanske inte fungerar väl utan det.</string>
     <!-- Open as -->
     <string name="open_as">Öppna som</string>
     <string name="text_file">Textfil</string>

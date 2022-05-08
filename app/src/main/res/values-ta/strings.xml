@@ -13,7 +13,6 @@
     <string name="rooted_device_only">இந்த செயல்பாடு ரூட் செய்யப்பட்ட சாதனங்களில் மட்டுமே இயங்குகிறது</string>
     <string name="recents">சமீபத்தியவை</string>
     <string name="show_recents">சமீபத்தியவற்றைக் காட்டு</string>
-    <string name="access_storage_prompt">உங்கள் எல்லா கோப்புகளுக்கும் எங்கள் பயன்பாட்டு அணுகலை வழங்கவும், அது இல்லாமல் அது சரியாக இயங்காது.</string>
     <!-- Open as -->
     <string name="open_as">இவ்வாறு திற</string>
     <string name="text_file">உரை கோப்பு</string>

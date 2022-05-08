@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Dies kann nur auf gerooteten Geräten durchgeführt werden</string>
     <string name="recents">Neueste</string>
     <string name="show_recents">Zeige die Neuesten</string>
-    <string name="access_storage_prompt">Bitte gewähren Sie unserer Anwendung Zugriff auf alle Ihre Dateien, da sie sonst möglicherweise nicht richtig funktioniert.</string>
     <!-- Open as -->
     <string name="open_as">Öffnen als</string>
     <string name="text_file">Text-Datei</string>

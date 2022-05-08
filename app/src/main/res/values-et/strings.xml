@@ -13,7 +13,6 @@
     <string name="rooted_device_only">See tegevus on võimalik vaid juurkasutaja kontrollitud seadmetes</string>
     <string name="recents">Viimati kasutatud</string>
     <string name="show_recents">Näita viimatikasutatud faile</string>
-    <string name="access_storage_prompt">Palun anna rakendusele õigused lugeda kõiki sinu faile, vastasel juhul ta ei toimi eriti hästi.</string>
     <!-- Open as -->
     <string name="open_as">Ava kui</string>
     <string name="text_file">tekstifailina</string>

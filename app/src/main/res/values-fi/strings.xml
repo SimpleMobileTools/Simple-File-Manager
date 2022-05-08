@@ -13,9 +13,8 @@
     <string name="rooted_device_only">Tämä toiminto vaatii rootatun laitteen</string>
     <string name="recents">Viimeaikaiset</string>
     <string name="show_recents">Näytä viimeaikaiset</string>
-    <string name="access_storage_prompt">Anna sovellukselle käyttöoikeus kaikkiin tiedoistoihin, muutoin se ei välttämättä toimi.</string>
     <!-- Open as -->
-    <string name="open_as">Avaa...</string>
+    <string name="open_as">Avaa…</string>
     <string name="text_file">Tekstitiedostona</string>
     <string name="image_file">Kuvatiedostona</string>
     <string name="audio_file">Äänitiedostona</string>

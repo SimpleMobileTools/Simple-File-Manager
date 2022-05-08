@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Это работает только на устройствах с root-доступом</string>
     <string name="recents">Недавнее</string>
     <string name="show_recents">Показывать недавнее</string>
-    <string name="access_storage_prompt">Предоставьте приложению доступ ко всем вашим файлам, без него оно может работать некорректно.</string>
     <!-- Open as -->
     <string name="open_as">Открыть как</string>
     <string name="text_file">Текст</string>

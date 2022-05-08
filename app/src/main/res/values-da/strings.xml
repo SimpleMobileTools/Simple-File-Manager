@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Denne funktion virker kun på rootede enheder</string>
     <string name="recents">Seneste</string>
     <string name="show_recents">Vis seneste</string>
-    <string name="access_storage_prompt">Giv venligst vores app adgang til alle dine filer, den fungerer muligvis ikke godt uden.</string>
     <!-- Open as -->
     <string name="open_as">Åbn som</string>
     <string name="text_file">Tekstfil</string>

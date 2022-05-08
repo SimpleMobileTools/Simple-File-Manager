@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Esta operação apenas funciona em dispositivos com root</string>
     <string name="recents">Recentes</string>
     <string name="show_recents">Mostrar recentes</string>
-    <string name="access_storage_prompt">Por favor conceda o acesso a todos os ficheiros, sem o qual a aplicação poderá não funcionar correctamente.</string>
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
     <string name="text_file">Texto</string>

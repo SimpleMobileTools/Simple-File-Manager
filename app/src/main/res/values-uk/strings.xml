@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Ця команда працює лише на пристроях з root-доступом</string>
     <string name="recents">Останні</string>
     <string name="show_recents">Показати останні</string>
-    <string name="access_storage_prompt">Please grant our app access to all your files, it might not work well without it.</string>
 
     <!-- Open as -->
     <string name="open_as">Відкрити як файл</string>

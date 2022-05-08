@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Esta operación solo funciona en dispositivos rooteados</string>
     <string name="recents">Recientes</string>
     <string name="show_recents">Mostrar recientes</string>
-    <string name="access_storage_prompt">Por favor conceda a nuestra aplicación el acceso a todos los archivos, es posible que no funcione bien sin ella.</string>
 
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
@@ -27,8 +26,8 @@
     <string name="compress">Comprimir</string>
     <string name="decompress">Descomprimir</string>
     <string name="compress_as">Comprimir como</string>
-    <string name="compressing">Comprimiendo...</string>
-    <string name="decompressing">Descomprimiendo...</string>
+    <string name="compressing">Comprimiendo…</string>
+    <string name="decompressing">Descomprimiendo…</string>
     <string name="compression_successful">Compresión exitosa</string>
     <string name="decompression_successful">Descompresión exitosa</string>
     <string name="compressing_failed">Compresión fallida</string>

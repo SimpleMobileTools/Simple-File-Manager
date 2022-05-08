@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Această operațiune funcționează numai pe dispozitivele cu privilegii root</string>
     <string name="recents">Recente</string>
     <string name="show_recents">Afișați recentele</string>
-    <string name="access_storage_prompt">Vă rugăm să acordați aplicației noastre acces la toate fișierele dvs., deoarece s-ar putea să nu funcționeze bine fără acest lucru.</string>
 
     <!-- Open as -->
     <string name="open_as">Deschide ca</string>

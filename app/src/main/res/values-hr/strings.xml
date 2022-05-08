@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Ova radnja funkcionira samo na uređajima s root pristupom</string>
     <string name="recents">Nedavni</string>
     <string name="show_recents">Pokaži nedavne</string>
-    <string name="access_storage_prompt">Omogućite našoj aplikaciji pristup svim svojim datotekama, bez nje možda neće dobro funkcionirati.</string>
     <!-- Open as -->
     <string name="open_as">Otvori kao</string>
     <string name="text_file">Tekstualna datoteka</string>

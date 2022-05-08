@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Bu işlem yalnızca root yapılan aygıtlarda çalışır</string>
     <string name="recents">Son dosyalar</string>
     <string name="show_recents">Son dosyaları göster</string>
-    <string name="access_storage_prompt">Lütfen uygulamamızın tüm dosyalarınıza erismesine izin verin, bu olmadan iyi çalışmayabilir.</string>
     <!-- Open as -->
     <string name="open_as">Farklı aç</string>
     <string name="text_file">Metin dosyası</string>

@@ -13,7 +13,6 @@
     <string name="rooted_device_only">Aquesta operació només funciona en dispositius amb «root»</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Mostra els recents</string>
-    <string name="access_storage_prompt">Si us plau, concediu accés de la nostra aplicació a tots els vostres fitxers, és possible que no funcioni bé sense això.</string>
     <!-- Open as -->
     <string name="open_as">Obre com a</string>
     <string name="text_file">Text file</string>
