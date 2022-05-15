@@ -54,13 +54,32 @@ class ReadTextActivity : SimpleActivity() {
         searchPrevBtn = findViewById(R.id.search_previous)
         searchNextBtn = findViewById(R.id.search_next)
         searchClearBtn = findViewById(R.id.search_clear)
+        read_text_view.setTextColor(config.textColor)
 
         if (checkAppSideloading()) {
             return
         }
 
+        val uri = if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
+            Uri.fromFile(File(intent.extras?.get(REAL_FILE_PATH).toString()))
+        } else {
+            intent.data
+        }
+
+        if (uri == null) {
+            finish()
+            return
+        }
+
+        val filename = getFilenameFromUri(uri)
+        if (filename.isNotEmpty()) {
+            title = filename
+        }
+
         read_text_view.onGlobalLayout {
-            checkIntent()
+            ensureBackgroundThread {
+                checkIntent(uri)
+            }
         }
 
         setupSearchButtons()
@@ -213,54 +232,40 @@ class ReadTextActivity : SimpleActivity() {
         }
     }
 
-    private fun checkIntent() {
-        read_text_view.setTextColor(config.textColor)
-        val uri = if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
-            Uri.fromFile(File(intent.extras?.get(REAL_FILE_PATH).toString()))
-        } else {
-            intent.data
-        }
-
-        if (uri == null) {
-            finish()
-            return
-        }
-
-        ensureBackgroundThread {
-            originalText = if (uri.scheme == "file") {
-                filePath = uri.path!!
-                val file = File(filePath)
-                if (file.exists()) {
-                    try {
-                        file.readText()
-                    } catch (e: Exception) {
-                        showErrorToast(e)
-                        ""
-                    }
-                } else {
-                    toast(R.string.unknown_error_occurred)
+    private fun checkIntent(uri: Uri) {
+        originalText = if (uri.scheme == "file") {
+            filePath = uri.path!!
+            val file = File(filePath)
+            if (file.exists()) {
+                try {
+                    file.readText()
+                } catch (e: Exception) {
+                    showErrorToast(e)
                     ""
                 }
             } else {
-                try {
-                    contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() }
-                } catch (e: OutOfMemoryError) {
-                    showErrorToast(e.toString())
-                    return@ensureBackgroundThread
-                } catch (e: Exception) {
-                    showErrorToast(e)
-                    finish()
-                    return@ensureBackgroundThread
-                }
+                toast(R.string.unknown_error_occurred)
+                ""
             }
+        } else {
+            try {
+                contentResolver.openInputStream(uri)!!.bufferedReader().use { it.readText() }
+            } catch (e: OutOfMemoryError) {
+                showErrorToast(e.toString())
+                return
+            } catch (e: Exception) {
+                showErrorToast(e)
+                finish()
+                return
+            }
+        }
 
-            runOnUiThread {
-                read_text_view.setText(originalText)
-                if (originalText.isNotEmpty()) {
-                    hideKeyboard()
-                } else {
-                    showKeyboard(read_text_view)
-                }
+        runOnUiThread {
+            read_text_view.setText(originalText)
+            if (originalText.isNotEmpty()) {
+                hideKeyboard()
+            } else {
+                showKeyboard(read_text_view)
             }
         }
     }
