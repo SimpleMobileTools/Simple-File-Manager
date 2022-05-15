@@ -13,7 +13,7 @@
     <string name="rooted_device_only">Ця команда працює лише на пристроях з root-доступом</string>
     <string name="recents">Останні</string>
     <string name="show_recents">Показати останні</string>
-    <string name="pdf_viewer">PDF Viewer</string>
+    <string name="pdf_viewer">Переглядач PDF</string>
     <!-- Open as -->
     <string name="open_as">Відкрити як файл</string>
     <string name="text_file">Текстовий</string>
