@@ -84,6 +84,18 @@
         </activity>
 
         <activity
+            android:name=".activities.PDFViewerActivity"
+            android:exported="true"
+            android:label="@string/pdf_viewer">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/pdf" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".activities.DecompressActivity"
             android:exported="true"
             android:label="@string/decompress">
