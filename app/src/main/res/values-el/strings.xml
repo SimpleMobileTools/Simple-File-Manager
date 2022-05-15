@@ -13,7 +13,7 @@
     <string name="rooted_device_only">Αυτό το χαρακτηριστικό λειτουργεί μόνο σε συσκευές με πρόσβαση στον ριζικό κατάλογο.</string>
     <string name="recents">Πρόσφατα</string>
     <string name="show_recents">Εμφάνιση προσφάτων</string>
-    <string name="pdf_viewer">PDF Viewer</string>
+    <string name="pdf_viewer">Προβολή PDF</string>
 
     <!-- Open as -->
     <string name="open_as">Άνοιγμα ως</string>
@@ -21,7 +21,7 @@
     <string name="image_file">Αρχείο Εικόνας</string>
     <string name="audio_file">Αρχείο Ήχου</string>
     <string name="video_file">Αρχείο Βίντεο</string>
-    <string name="other_file">Άλλο τύπο</string>
+    <string name="other_file">Άλλος τύπος</string>
 
     <!-- Compression -->
     <string name="compress">Συμπίεση</string>
