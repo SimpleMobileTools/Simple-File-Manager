@@ -13,6 +13,7 @@
     <string name="rooted_device_only">This operation works only on rooted devices</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
+    <string name="pdf_viewer">PDF Viewer</string>
     <!-- Open as -->
     <string name="open_as">Malfermi kiel</string>
     <string name="text_file">Teksta dosiero</string>

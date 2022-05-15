@@ -13,6 +13,7 @@
     <string name="rooted_device_only">Αυτό το χαρακτηριστικό λειτουργεί μόνο σε συσκευές με πρόσβαση στον ριζικό κατάλογο.</string>
     <string name="recents">Πρόσφατα</string>
     <string name="show_recents">Εμφάνιση προσφάτων</string>
+    <string name="pdf_viewer">PDF Viewer</string>
 
     <!-- Open as -->
     <string name="open_as">Άνοιγμα ως</string>

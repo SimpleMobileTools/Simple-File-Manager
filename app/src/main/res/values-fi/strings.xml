@@ -13,6 +13,7 @@
     <string name="rooted_device_only">Tämä toiminto vaatii rootatun laitteen</string>
     <string name="recents">Viimeaikaiset</string>
     <string name="show_recents">Näytä viimeaikaiset</string>
+    <string name="pdf_viewer">PDF Viewer</string>
     <!-- Open as -->
     <string name="open_as">Avaa…</string>
     <string name="text_file">Tekstitiedostona</string>

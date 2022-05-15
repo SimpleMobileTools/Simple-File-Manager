@@ -13,6 +13,7 @@
     <string name="rooted_device_only">この操作はルート化された端末でのみ機能します</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
+    <string name="pdf_viewer">PDF Viewer</string>
     <!-- Open as -->
     <string name="open_as">ファイル形式を指定して開く</string>
     <string name="text_file">テキストファイル</string>

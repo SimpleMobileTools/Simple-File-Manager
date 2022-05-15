@@ -13,6 +13,7 @@
     <string name="rooted_device_only">這操作只對已root的裝置有用</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
+    <string name="pdf_viewer">PDF Viewer</string>
     <!-- Open as -->
     <string name="open_as">開啟成</string>
     <string name="text_file">文字檔案</string>

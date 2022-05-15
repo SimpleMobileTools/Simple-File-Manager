@@ -13,6 +13,7 @@
     <string name="rooted_device_only">Ta operacja działa tylko na zrootowanych urządzeniach</string>
     <string name="recents">Ostatnie</string>
     <string name="show_recents">Pokaż ostatnie</string>
+    <string name="pdf_viewer">PDF Viewer</string>
     <!-- Open as -->
     <string name="open_as">Otwórz jako</string>
     <string name="text_file">Plik tekstowy</string>

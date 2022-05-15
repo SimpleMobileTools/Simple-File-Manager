@@ -13,6 +13,7 @@
     <string name="rooted_device_only">Tindakan ini hanya bekerja pada perangkat dengan akses root</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
+    <string name="pdf_viewer">PDF Viewer</string>
 
     <!-- Open as -->
     <string name="open_as">Buka sebagai</string>

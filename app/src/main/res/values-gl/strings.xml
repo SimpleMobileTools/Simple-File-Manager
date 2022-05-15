@@ -13,6 +13,7 @@
     <string name="rooted_device_only">Esta operación só funciona en dispositivos con root</string>
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
+    <string name="pdf_viewer">PDF Viewer</string>
 
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
