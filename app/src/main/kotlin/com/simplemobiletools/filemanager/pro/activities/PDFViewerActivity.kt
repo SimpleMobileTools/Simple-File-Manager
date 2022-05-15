@@ -6,10 +6,8 @@ import android.print.PrintAttributes
 import android.print.PrintManager
 import android.view.Menu
 import android.view.MenuItem
-import com.simplemobiletools.commons.extensions.checkAppSideloading
-import com.simplemobiletools.commons.extensions.getFilenameFromPath
-import com.simplemobiletools.commons.extensions.getFilenameFromUri
-import com.simplemobiletools.commons.extensions.getProperBackgroundColor
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
@@ -63,8 +61,10 @@ class PDFViewerActivity : SimpleActivity() {
             title = filename
         }
 
+        val primaryColor = getProperPrimaryColor()
         pdf_viewer.setBackgroundColor(getProperBackgroundColor())
         pdf_viewer.fromUri(uri)
+            .scrollHandle(DefaultScrollHandle(this, primaryColor.getContrastColor(), primaryColor))
             .spacing(15)
             .load()
     }
