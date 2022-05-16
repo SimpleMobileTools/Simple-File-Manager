@@ -14,7 +14,6 @@
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
     <string name="pdf_viewer">PDF Viewer</string>
-
     <!-- Open as -->
     <string name="open_as">Otevřít jako</string>
     <string name="text_file">Textový soubor</string>
@@ -22,7 +21,6 @@
     <string name="audio_file">Zvukový soubor</string>
     <string name="video_file">Video soubor</string>
     <string name="other_file">Jiný soubor</string>
-
     <!-- Compression -->
     <string name="compress">Komprimovat</string>
     <string name="decompress">Rozbalit</string>
@@ -33,15 +31,12 @@
     <string name="decompression_successful">Rozbalení bylo úspěšné</string>
     <string name="compressing_failed">Komprese selhala</string>
     <string name="decompressing_failed">Rozbalení selhalo</string>
-
     <!-- Favorites -->
     <string name="manage_favorites">Spravovat oblíbené</string>
     <string name="go_to_favorite">Přejít na oblíbené</string>
     <string name="favorites_activity_placeholder">Přidejte často používané složky mezi oblíbené pro jednoduchý přístup odkudkoli.</string>
-
     <!-- File Editor -->
     <string name="file_editor">Editor souborů</string>
-
     <!-- Storage analysis -->
     <string name="storage_analysis">Storage analysis</string>
     <string name="images">Images</string>
@@ -49,15 +44,13 @@
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">Archivy</string>
+    <string name="others">Ostatní</string>
     <string name="storage_free">free</string>
     <string name="total_storage">Total storage: %s</string>
-
     <!-- Settings -->
     <string name="enable_root_access">Povolit přístup ke kořenovým souborům</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
     <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
     <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
@@ -98,7 +91,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
