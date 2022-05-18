@@ -2,4 +2,3 @@
 -dontnote org.apache.http.**
 -keep class com.simplemobiletools.** { *; }
 -dontwarn com.simplemobiletools.**
--keep class com.shockwave.**
