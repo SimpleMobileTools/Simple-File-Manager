@@ -1,0 +1,2 @@
+ * Added a basic PDF Viewer
+ * Added some stability  translation improvements

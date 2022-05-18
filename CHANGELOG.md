@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.12.3 *(2022-05-18)*
+----------------------------
+
+ * Added a basic PDF Viewer
+ * Added some stability  translation improvements
+
 Version 6.12.2 *(2022-04-15)*
 ----------------------------
 
