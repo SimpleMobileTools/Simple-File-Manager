@@ -54,7 +54,7 @@ import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(
     activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
-    val isPickMultipleIntent: Boolean, val swipeRefreshLayout: SwipeRefreshLayout?, itemClick: (Any) -> Unit
+    val isPickMultipleIntent: Boolean, val swipeRefreshLayout: SwipeRefreshLayout?, canHaveIndividualViewType: Boolean = true, itemClick: (Any) -> Unit
 ) :
     MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
@@ -74,7 +74,11 @@ class ItemsAdapter(
     private var timeFormat = ""
 
     private val config = activity.config
-    private val viewType = config.getFolderViewType(listItems.firstOrNull { !it.isSectionTitle }?.mPath?.getParentPath() ?: "")
+    private val viewType = if (canHaveIndividualViewType) {
+        config.getFolderViewType(listItems.firstOrNull { !it.isSectionTitle }?.mPath?.getParentPath() ?: "")
+    } else {
+        config.viewType
+    }
     private val isListViewType = viewType == VIEW_TYPE_LIST
     private var displayFilenamesInGrid = config.displayFilenames
 
