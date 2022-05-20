@@ -293,13 +293,16 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 getRecyclerAdapter()?.updateItems(storedItems)
                 items_placeholder.beGone()
                 items_placeholder_2.beGone()
+                search_progress.beGone()
             }
             searchText.length == 1 -> {
                 items_fastscroller.beGone()
                 items_placeholder.beVisible()
                 items_placeholder_2.beVisible()
+                search_progress.beGone()
             }
             else -> {
+                search_progress.beVisible()
                 ensureBackgroundThread {
                     val files = searchFiles(searchText, currentPath)
                     files.sortBy { it.getParentPath() }
@@ -335,6 +338,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                         items_fastscroller.beVisibleIf(listItems.isNotEmpty())
                         items_placeholder.beVisibleIf(listItems.isEmpty())
                         items_placeholder_2.beGone()
+                        search_progress.beGone()
                     }
                 }
             }
