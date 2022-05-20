@@ -399,6 +399,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         items_fastscroller.beVisible()
         items_placeholder.beGone()
         items_placeholder_2.beGone()
+        search_progress.beGone()
     }
 
     private fun createNewItem() {
