@@ -57,7 +57,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             return
         }
 
-        ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, isPickMultipleIntent, recents_swipe_refresh) {
+        ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, isPickMultipleIntent, recents_swipe_refresh, false) {
             clickedPath((it as FileDirItem).path)
         }.apply {
             recents_list.adapter = this
