@@ -33,6 +33,7 @@
                 android:layout_alignParentTop="true"
                 android:indeterminate="true"
                 android:visibility="gone"
+                app:showDelay="250"
                 tools:visibility="visible" />
 
             <com.simplemobiletools.commons.views.MyTextView
