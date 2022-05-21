@@ -64,7 +64,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.SimpleMobileTools:Simple-Commons:1bc50d636c'
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:e0671f01ce'
     implementation 'com.github.tibbi:AndroidPdfViewer:da57ff410e'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
     implementation 'com.github.Stericson:RootShell:1.6'
