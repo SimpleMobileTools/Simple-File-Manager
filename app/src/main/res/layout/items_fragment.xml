@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.simplemobiletools.filemanager.pro.fragments.ItemsFragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/items_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,6 +25,16 @@
                 android:paddingTop="@dimen/small_margin"
                 android:paddingEnd="@dimen/small_margin"
                 android:paddingBottom="@dimen/small_margin" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/search_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:showDelay="250"
+                tools:visibility="visible" />
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/items_placeholder"

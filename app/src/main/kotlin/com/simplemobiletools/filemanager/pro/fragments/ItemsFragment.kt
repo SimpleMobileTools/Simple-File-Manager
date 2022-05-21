@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.StoragePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.SORT_BY_SIZE
-import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
-import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.Breadcrumbs
 import com.simplemobiletools.commons.views.MyGridLayoutManager
@@ -59,7 +56,10 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             initDrawables()
         }
 
-        items_fastscroller.updateColors(context!!.getProperPrimaryColor())
+        val properPrimaryColor = context!!.getProperPrimaryColor()
+        items_fastscroller.updateColors(properPrimaryColor)
+        search_progress.setIndicatorColor(properPrimaryColor)
+        search_progress.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
 
         if (currentPath != "") {
             breadcrumbs.updateColor(textColor)
@@ -293,13 +293,16 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 getRecyclerAdapter()?.updateItems(storedItems)
                 items_placeholder.beGone()
                 items_placeholder_2.beGone()
+                search_progress.hide()
             }
             searchText.length == 1 -> {
                 items_fastscroller.beGone()
                 items_placeholder.beVisible()
                 items_placeholder_2.beVisible()
+                search_progress.hide()
             }
             else -> {
+                search_progress.show()
                 ensureBackgroundThread {
                     val files = searchFiles(searchText, currentPath)
                     files.sortBy { it.getParentPath() }
@@ -335,6 +338,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                         items_fastscroller.beVisibleIf(listItems.isNotEmpty())
                         items_placeholder.beVisibleIf(listItems.isEmpty())
                         items_placeholder_2.beGone()
+                        search_progress.hide()
                     }
                 }
             }
@@ -395,6 +399,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         items_fastscroller.beVisible()
         items_placeholder.beGone()
         items_placeholder_2.beGone()
+        search_progress.hide()
     }
 
     private fun createNewItem() {
