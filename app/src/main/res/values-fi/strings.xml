@@ -16,7 +16,7 @@
     <string name="pdf_viewer">PDF Viewer</string>
     <!-- Open as -->
     <string name="open_as">Avaa…</string>
-    <string name="text_file">Tekstitiedostona</string>
+    <string name="text_file">fotTekstitiedostona</string>
     <string name="image_file">Kuvatiedostona</string>
     <string name="audio_file">Äänitiedostona</string>
     <string name="video_file">Videotiedostona</string>
