@@ -13,7 +13,7 @@
     <string name="rooted_device_only">Это работает только на устройствах с root-доступом</string>
     <string name="recents">Недавнее</string>
     <string name="show_recents">Показывать недавнее</string>
-    <string name="pdf_viewer">PDF Viewer</string>
+    <string name="pdf_viewer">Просмотр PDF</string>
     <!-- Open as -->
     <string name="open_as">Открыть как</string>
     <string name="text_file">Текст</string>
