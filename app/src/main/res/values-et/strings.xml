@@ -13,7 +13,7 @@
     <string name="rooted_device_only">See tegevus on võimalik vaid juurkasutaja kontrollitud seadmetes</string>
     <string name="recents">Viimati kasutatud</string>
     <string name="show_recents">Näita viimatikasutatud faile</string>
-    <string name="pdf_viewer">PDF Viewer</string>
+    <string name="pdf_viewer">PDF-failide näitaja</string>
     <!-- Open as -->
     <string name="open_as">Ava kui</string>
     <string name="text_file">tekstifailina</string>
