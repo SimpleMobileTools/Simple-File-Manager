@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/manage_favorites_wrapper"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -10,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager" />
+        app:layoutManager="com.simplemobiletools.commons.views.MyLinearLayoutManager"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_manage_favorite" />
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/manage_favorites_placeholder"

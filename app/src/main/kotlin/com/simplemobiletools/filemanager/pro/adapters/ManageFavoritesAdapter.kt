@@ -1,10 +1,10 @@
 package com.simplemobiletools.filemanager.pro.adapters
 
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.PopupMenu
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.adapters.MyRecyclerViewAdapter
+import com.simplemobiletools.commons.extensions.getPopupMenuTheme
 import com.simplemobiletools.commons.extensions.getProperTextColor
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
@@ -65,14 +65,50 @@ class ManageFavoritesAdapter(
             }
 
             manage_favorite_holder?.isSelected = isSelected
+
+            overflow_menu_icon.drawable.apply {
+                mutate()
+                setTint(activity.getProperTextColor())
+            }
+
+            overflow_menu_icon.setOnClickListener {
+                showPopupMenu(overflow_menu_anchor, favorite)
+            }
         }
+    }
+
+    private fun showPopupMenu(view: View, favorite: String) {
+        finishActMode()
+        val theme = activity.getPopupMenuTheme()
+        val contextTheme = ContextThemeWrapper(activity, theme)
+
+        PopupMenu(contextTheme, view, Gravity.END).apply {
+            inflate(getActionMenuId())
+            setOnMenuItemClickListener { item ->
+                val eventTypeId = favorite.hashCode()
+                when (item.itemId) {
+                    R.id.cab_remove -> {
+                        executeItemMenuOperation(eventTypeId) {
+                            removeSelection()
+                        }
+                    }
+                }
+                true
+            }
+            show()
+        }
+    }
+
+    private fun executeItemMenuOperation(eventTypeId: Int, callback: () -> Unit) {
+        selectedKeys.clear()
+        selectedKeys.add(eventTypeId)
+        callback()
     }
 
     private fun removeSelection() {
         val removeFavorites = ArrayList<String>(selectedKeys.size)
         val positions = ArrayList<Int>()
-        selectedKeys.forEach {
-            val key = it
+        selectedKeys.forEach { key ->
             val position = favorites.indexOfFirst { it.hashCode() == key }
             if (position != -1) {
                 positions.add(position)
@@ -88,7 +124,7 @@ class ManageFavoritesAdapter(
         positions.sortDescending()
         removeSelectedItems(positions)
 
-        favorites.removeAll(removeFavorites)
+        favorites.removeAll(removeFavorites.toSet())
         if (favorites.isEmpty()) {
             listener?.refreshItems()
         }
