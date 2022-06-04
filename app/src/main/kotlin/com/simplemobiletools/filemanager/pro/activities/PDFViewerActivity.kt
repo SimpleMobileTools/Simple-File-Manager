@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_pdf_viewer.*
 class PDFViewerActivity : SimpleActivity() {
     private var realFilePath = ""
 
-    private var systemUiVisible = true
+    private var isFullScreen = false
     private var pdfViewerHeight = -1
     private var positionOffset = 0f
 
@@ -45,7 +45,7 @@ class PDFViewerActivity : SimpleActivity() {
         }
 
         checkIntent()
-        setupFullScreenView()
+        setupNotch()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -83,6 +83,7 @@ class PDFViewerActivity : SimpleActivity() {
         pdf_viewer.fromUri(uri)
             .scrollHandle(DefaultScrollHandle(this, primaryColor.getContrastColor(), primaryColor))
             .spacing(15)
+            .onTap { toggleFullScreen() }
             .load()
     }
 
@@ -94,12 +95,10 @@ class PDFViewerActivity : SimpleActivity() {
         }
     }
 
-    private fun setupFullScreenView() {
-        pdf_viewer.setOnClickListener {
-            if (systemUiVisible) enterFullScreen() else exitFullScreen()
-            systemUiVisible = !systemUiVisible
-        }
-        setupNotch()
+    private fun toggleFullScreen(): Boolean {
+        if (isFullScreen) exitFullScreen() else enterFullScreen()
+        isFullScreen = !isFullScreen
+        return true
     }
 
     private fun enterFullScreen() {
@@ -116,6 +115,8 @@ class PDFViewerActivity : SimpleActivity() {
     }
 
     private fun exitFullScreen() {
+        positionOffset = pdf_viewer.positionOffset
+
         showSystemUI(true)
         pdf_viewer.updateLayoutParams<RelativeLayout.LayoutParams> {
             this.height = pdfViewerHeight
