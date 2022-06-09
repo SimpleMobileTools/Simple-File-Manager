@@ -1,38 +1,36 @@
 package com.simplemobiletools.filemanager.pro.activities
 
 import android.content.Context
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
-import android.widget.RelativeLayout
-import androidx.core.view.updateLayoutParams
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
-import com.simplemobiletools.commons.helpers.isSPlus
+import com.simplemobiletools.commons.helpers.isRPlus
 import com.simplemobiletools.filemanager.pro.R
-import com.simplemobiletools.filemanager.pro.extensions.config
-import com.simplemobiletools.filemanager.pro.extensions.getUiMode
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
+import com.simplemobiletools.filemanager.pro.helpers.HIDE_SYSTEM_UI_DELAY
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
 import kotlinx.android.synthetic.main.activity_pdf_viewer.*
 
 
 class PDFViewerActivity : SimpleActivity() {
     private var realFilePath = ""
-
     private var isFullScreen = false
-    private var pdfViewerHeight = -1
-    private var positionOffset = 0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        useDynamicTheme = false
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf_viewer)
 
@@ -40,12 +38,25 @@ class PDFViewerActivity : SimpleActivity() {
             return
         }
 
+        window.decorView.setBackgroundColor(getProperBackgroundColor())
+        top_shadow.layoutParams.height = statusBarHeight + actionBarHeight
+        checkNotchSupport()
+
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
             realFilePath = intent.extras?.get(REAL_FILE_PATH)?.toString() ?: ""
         }
 
         checkIntent()
-        setupNotch()
+        if (isRPlus()) {
+            window.insetsController?.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.statusBarColor = Color.TRANSPARENT
+        setTranslucentNavigation()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,7 +65,7 @@ class PDFViewerActivity : SimpleActivity() {
             findItem(R.id.menu_print).isVisible = realFilePath.isNotEmpty()
         }
 
-        updateMenuItemColors(menu)
+        updateMenuItemColors(menu, forceWhiteIcons = true)
         return true
     }
 
@@ -73,11 +84,6 @@ class PDFViewerActivity : SimpleActivity() {
             return
         }
 
-        val filename = getFilenameFromUri(uri)
-        if (filename.isNotEmpty()) {
-            title = filename
-        }
-
         val primaryColor = getProperPrimaryColor()
         pdf_viewer.setBackgroundColor(getProperBackgroundColor())
         pdf_viewer.fromUri(uri)
@@ -85,6 +91,19 @@ class PDFViewerActivity : SimpleActivity() {
             .spacing(15)
             .onTap { toggleFullScreen() }
             .load()
+
+        showSystemUI(true)
+
+        pdf_viewer_wrapper.onGlobalLayout {
+            Handler(mainLooper).postDelayed({
+                toggleFullScreen()
+            }, HIDE_SYSTEM_UI_DELAY)
+
+            val filename = getFilenameFromUri(uri)
+            if (filename.isNotEmpty()) {
+                supportActionBar?.title = filename
+            }
+        }
     }
 
     private fun printText() {
@@ -96,43 +115,23 @@ class PDFViewerActivity : SimpleActivity() {
     }
 
     private fun toggleFullScreen(): Boolean {
-        if (isFullScreen) exitFullScreen() else enterFullScreen()
         isFullScreen = !isFullScreen
+        val newAlpha: Float
+        if (isFullScreen) {
+            newAlpha = 0f
+            hideSystemUI(true)
+        } else {
+            newAlpha = 1f
+            showSystemUI(true)
+        }
+
+        top_shadow.animate().alpha(newAlpha).start()
+
+        // return false to also toggle scroll handle
         return true
     }
 
-    private fun enterFullScreen() {
-        if (pdfViewerHeight == -1) {
-            pdfViewerHeight = pdf_viewer.height
-        }
-        positionOffset = pdf_viewer.positionOffset
-        hideSystemUI(true)
-
-        pdf_viewer.updateLayoutParams<RelativeLayout.LayoutParams> {
-            // hack to workaround pdf viewer height glitch
-            this.height = pdf_viewer_wrapper.height + statusBarHeight + actionBarHeight
-        }
-    }
-
-    private fun exitFullScreen() {
-        positionOffset = pdf_viewer.positionOffset
-
-        showSystemUI(true)
-        pdf_viewer.updateLayoutParams<RelativeLayout.LayoutParams> {
-            this.height = pdfViewerHeight
-        }
-        pdf_viewer.post { pdf_viewer.positionOffset = positionOffset }
-
-        @Suppress("DEPRECATION")
-        // use light status bar on material you
-        if (isSPlus() && config.isUsingSystemTheme && getUiMode() == UI_MODE_NIGHT_NO) {
-            val flags = window.decorView.systemUiVisibility
-            window.decorView.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        }
-    }
-
-
-    private fun setupNotch() {
+    private fun checkNotchSupport() {
         if (isPiePlus()) {
             window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)

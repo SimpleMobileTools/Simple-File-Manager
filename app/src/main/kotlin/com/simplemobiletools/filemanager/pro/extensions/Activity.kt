@@ -80,27 +80,28 @@ fun BaseSimpleActivity.toggleItemVisibility(oldPath: String, hide: Boolean, call
     }
 }
 
-@Suppress("DEPRECATION")
 fun AppCompatActivity.showSystemUI(toggleActionBarVisibility: Boolean) {
     if (toggleActionBarVisibility) {
         supportActionBar?.show()
     }
-    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_VISIBLE
+
+    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 }
 
-@Suppress("DEPRECATION")
 fun AppCompatActivity.hideSystemUI(toggleActionBarVisibility: Boolean) {
     if (toggleActionBarVisibility) {
         supportActionBar?.hide()
     }
 
-    window.decorView.systemUiVisibility =
+    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_LOW_PROFILE or
-            View.SYSTEM_UI_FLAG_FULLSCREEN or
-            View.SYSTEM_UI_FLAG_IMMERSIVE
+        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+        View.SYSTEM_UI_FLAG_LOW_PROFILE or
+        View.SYSTEM_UI_FLAG_FULLSCREEN or
+        View.SYSTEM_UI_FLAG_IMMERSIVE
 }
 
 fun Activity.getUiMode() = resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
