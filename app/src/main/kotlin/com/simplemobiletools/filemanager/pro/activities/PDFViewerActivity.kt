@@ -41,6 +41,7 @@ class PDFViewerActivity : SimpleActivity() {
 
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
             realFilePath = intent.extras?.get(REAL_FILE_PATH)?.toString() ?: ""
+            supportActionBar?.title = realFilePath.getFilenameFromPath()
         }
 
         checkIntent()
@@ -91,11 +92,9 @@ class PDFViewerActivity : SimpleActivity() {
 
         showSystemUI(true)
 
-        pdf_viewer_wrapper.onGlobalLayout {
-            val filename = getFilenameFromUri(uri)
-            if (filename.isNotEmpty()) {
-                supportActionBar?.title = filename
-            }
+        val filename = getFilenameFromUri(uri)
+        if (filename.isNotEmpty()) {
+            supportActionBar?.title = filename
         }
     }
 
