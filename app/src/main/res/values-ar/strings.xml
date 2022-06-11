@@ -14,6 +14,7 @@
     <string name="recents">الأحدث</string>
     <string name="show_recents">إظهار الأحدث</string>
     <string name="pdf_viewer">PDF Viewer</string>
+    <string name="invert_colors">Invert colors</string>
     <!-- Open as -->
     <string name="open_as">Open as</string>
     <string name="text_file">Text file</string>

@@ -14,6 +14,7 @@
     <string name="recents">Nedavni</string>
     <string name="show_recents">Pokaži nedavne</string>
     <string name="pdf_viewer">PDF Viewer</string>
+    <string name="invert_colors">Invert colors</string>
     <!-- Open as -->
     <string name="open_as">Otvori kao</string>
     <string name="text_file">Tekstualna datoteka</string>

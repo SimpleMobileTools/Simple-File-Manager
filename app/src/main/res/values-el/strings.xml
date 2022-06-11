@@ -14,6 +14,7 @@
     <string name="recents">Πρόσφατα</string>
     <string name="show_recents">Εμφάνιση προσφάτων</string>
     <string name="pdf_viewer">Προβολή PDF</string>
+    <string name="invert_colors">Invert colors</string>
 
     <!-- Open as -->
     <string name="open_as">Άνοιγμα ως</string>

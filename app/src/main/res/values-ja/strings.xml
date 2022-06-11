@@ -14,6 +14,7 @@
     <string name="recents">Recents</string>
     <string name="show_recents">Show recents</string>
     <string name="pdf_viewer">PDF Viewer</string>
+    <string name="invert_colors">Invert colors</string>
     <!-- Open as -->
     <string name="open_as">ファイル形式を指定して開く</string>
     <string name="text_file">テキストファイル</string>

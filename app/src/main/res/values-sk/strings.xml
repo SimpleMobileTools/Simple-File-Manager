@@ -14,6 +14,7 @@
     <string name="recents">Nedávne</string>
     <string name="show_recents">Zobraziť nedávne</string>
     <string name="pdf_viewer">Prehliadač PDF</string>
+    <string name="invert_colors">Invertovať farby</string>
 
     <!-- Open as -->
     <string name="open_as">Otvoriť ako</string>

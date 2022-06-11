@@ -14,6 +14,7 @@
     <string name="recents">Nyss</string>
     <string name="show_recents">Visa nyligen</string>
     <string name="pdf_viewer">PDF Viewer</string>
+    <string name="invert_colors">Invert colors</string>
     <!-- Open as -->
     <string name="open_as">Öppna som</string>
     <string name="text_file">Textfil</string>

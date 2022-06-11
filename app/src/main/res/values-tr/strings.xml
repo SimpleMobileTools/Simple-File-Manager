@@ -14,6 +14,7 @@
     <string name="recents">Son dosyalar</string>
     <string name="show_recents">Son dosyaları göster</string>
     <string name="pdf_viewer">PDF Görüntüleyici</string>
+    <string name="invert_colors">Invert colors</string>
     <!-- Open as -->
     <string name="open_as">Farklı aç</string>
     <string name="text_file">Metin dosyası</string>

@@ -14,6 +14,7 @@
     <string name="recents">Recente</string>
     <string name="show_recents">Afișați recentele</string>
     <string name="pdf_viewer">PDF Viewer</string>
+    <string name="invert_colors">Invert colors</string>
 
     <!-- Open as -->
     <string name="open_as">Deschide ca</string>

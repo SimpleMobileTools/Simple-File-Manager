@@ -14,6 +14,7 @@
     <string name="recents">हाल के</string>
     <string name="show_recents">हाल ही में दिखाएं</string>
     <string name="pdf_viewer">PDF Viewer</string>
+    <string name="invert_colors">Invert colors</string>
     <!-- Open as -->
     <string name="open_as">इस रूप में खोलें</string>
     <string name="text_file">टेकस्ट फ़ाइलें</string>
