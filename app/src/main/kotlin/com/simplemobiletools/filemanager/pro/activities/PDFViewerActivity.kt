@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.view.Menu
@@ -19,10 +18,8 @@ import com.simplemobiletools.commons.helpers.isRPlus
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
-import com.simplemobiletools.filemanager.pro.helpers.HIDE_SYSTEM_UI_DELAY
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
 import kotlinx.android.synthetic.main.activity_pdf_viewer.*
-
 
 class PDFViewerActivity : SimpleActivity() {
     private var realFilePath = ""
@@ -95,10 +92,6 @@ class PDFViewerActivity : SimpleActivity() {
         showSystemUI(true)
 
         pdf_viewer_wrapper.onGlobalLayout {
-            Handler(mainLooper).postDelayed({
-                toggleFullScreen()
-            }, HIDE_SYSTEM_UI_DELAY)
-
             val filename = getFilenameFromUri(uri)
             if (filename.isNotEmpty()) {
                 supportActionBar?.title = filename
