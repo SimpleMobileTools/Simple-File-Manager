@@ -9,4 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <ImageView
+        android:id="@+id/top_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_status_action_height"
+        android:background="@drawable/gradient_background_flipped"
+        android:contentDescription="@null" />
+
 </RelativeLayout>

@@ -2,7 +2,10 @@ package com.simplemobiletools.filemanager.pro.extensions
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
@@ -10,7 +13,6 @@ import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.filemanager.pro.BuildConfig
 import com.simplemobiletools.filemanager.pro.helpers.*
 import java.io.File
-import java.util.*
 
 fun Activity.sharePaths(paths: ArrayList<String>) {
     sharePathsIntent(paths, BuildConfig.APPLICATION_ID)
@@ -77,3 +79,29 @@ fun BaseSimpleActivity.toggleItemVisibility(oldPath: String, hide: Boolean, call
         }
     }
 }
+
+fun AppCompatActivity.showSystemUI(toggleActionBarVisibility: Boolean) {
+    if (toggleActionBarVisibility) {
+        supportActionBar?.show()
+    }
+
+    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+}
+
+fun AppCompatActivity.hideSystemUI(toggleActionBarVisibility: Boolean) {
+    if (toggleActionBarVisibility) {
+        supportActionBar?.hide()
+    }
+
+    window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+        View.SYSTEM_UI_FLAG_LOW_PROFILE or
+        View.SYSTEM_UI_FLAG_FULLSCREEN or
+        View.SYSTEM_UI_FLAG_IMMERSIVE
+}
+
+fun Activity.getUiMode() = resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
