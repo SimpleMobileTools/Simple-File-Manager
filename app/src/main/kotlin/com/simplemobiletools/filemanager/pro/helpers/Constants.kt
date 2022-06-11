@@ -6,7 +6,6 @@ import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
 
 const val PATH = "path"
 const val MAX_COLUMN_COUNT = 20
-const val HIDE_SYSTEM_UI_DELAY = 800L
 
 // shared preferences
 const val SHOW_HIDDEN = "show_hidden"
