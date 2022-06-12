@@ -24,6 +24,7 @@
     <string name="other_file">Jonakin muuna tiedostona</string>
     <!-- Compression -->
     <string name="compress">Pakkaa</string>
+    <string name="compress_pro">Pakkaa (Pro)</string>
     <string name="decompress">Pura</string>
     <string name="compress_as">Pakkausmuoto</string>
     <string name="compressing">Pakataan…</string>

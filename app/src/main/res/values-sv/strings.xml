@@ -24,6 +24,7 @@
     <string name="other_file">Annan fil</string>
     <!-- Compression -->
     <string name="compress">Komprimera</string>
+    <string name="compress_pro">Komprimera (Pro)</string>
     <string name="decompress">Packa upp</string>
     <string name="compress_as">Komprimera som</string>
     <string name="compressing">Komprimerar…</string>

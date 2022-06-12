@@ -24,6 +24,7 @@
     <string name="other_file">Другое</string>
     <!-- Compression -->
     <string name="compress">Сжать</string>
+    <string name="compress_pro">Сжать (Pro)</string>
     <string name="decompress">Распаковать</string>
     <string name="compress_as">Сжать как</string>
     <string name="compressing">Сжатие…</string>

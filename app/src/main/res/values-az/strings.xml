@@ -26,6 +26,7 @@
 
     <!-- Compression -->
     <string name="compress">Sıxışdır</string>
+    <string name="compress_pro">Sıxışdır (Pro)</string>
     <string name="decompress">Çıxar</string>
     <string name="compress_as">Sıxışdır</string>
     <string name="compressing">Sıxışdırılır…</string>

@@ -26,6 +26,7 @@
 
     <!-- Compression -->
     <string name="compress">Comprimir</string>
+    <string name="compress_pro">Comprimir (Pro)</string>
     <string name="decompress">Descomprimir</string>
     <string name="compress_as">Comprimir como</string>
     <string name="compressing">Comprimindo…</string>

@@ -24,6 +24,7 @@
     <string name="other_file">Jiný soubor</string>
     <!-- Compression -->
     <string name="compress">Komprimovat</string>
+    <string name="compress_pro">Komprimovat (Pro)</string>
     <string name="decompress">Rozbalit</string>
     <string name="compress_as">Komprimovat jako</string>
     <string name="compressing">Komprimuje se…</string>

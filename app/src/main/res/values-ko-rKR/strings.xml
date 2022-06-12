@@ -26,6 +26,7 @@
 
     <!-- Compression -->
     <string name="compress">압축</string>
+    <string name="compress_pro">압축 (Pro)</string>
     <string name="decompress">압축 해제</string>
     <string name="compress_as">압축 파일을 다음과 같이 생성함</string>
     <string name="compressing">압축중…</string>

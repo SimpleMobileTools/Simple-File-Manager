@@ -24,6 +24,7 @@
     <string name="other_file">Altres fitxers</string>
     <!-- Compression -->
     <string name="compress">Comprimeix</string>
+    <string name="compress_pro">Comprimeix (Pro)</string>
     <string name="decompress">Descomprimeix</string>
     <string name="compress_as">Comprimeix com a</string>
     <string name="compressing">S\'està comprimint…</string>

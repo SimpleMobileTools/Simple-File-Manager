@@ -24,6 +24,7 @@
     <string name="other_file">Ostala datoteka</string>
     <!-- Compression -->
     <string name="compress">Sažmi</string>
+    <string name="compress_pro">Sažmi (Pro)</string>
     <string name="decompress">Otpakiraj</string>
     <string name="compress_as">Sažmi kao</string>
     <string name="compressing">Sažimanje…</string>

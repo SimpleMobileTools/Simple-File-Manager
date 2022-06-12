@@ -24,6 +24,7 @@
     <string name="other_file">Autre fichier</string>
     <!-- Compression -->
     <string name="compress">Compresser</string>
+    <string name="compress_pro">Compresser (Pro)</string>
     <string name="decompress">Décompresser</string>
     <string name="compress_as">Compresser sous</string>
     <string name="compressing">Compression…</string>

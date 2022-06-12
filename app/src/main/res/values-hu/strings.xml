@@ -24,6 +24,7 @@
     <string name="other_file">Egyéb fájl</string>
     <!-- Compression -->
     <string name="compress">Tömörítés</string>
+    <string name="compress_pro">Tömörítés (Pro)</string>
     <string name="decompress">Kibontás</string>
     <string name="compress_as">Tömörítés másként</string>
     <string name="compressing">Tömörítés…</string>

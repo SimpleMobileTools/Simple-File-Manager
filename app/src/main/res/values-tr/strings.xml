@@ -24,6 +24,7 @@
     <string name="other_file">Diğer dosya</string>
     <!-- Compression -->
     <string name="compress">Sıkıştır</string>
+    <string name="compress_pro">Sıkıştır (Pro)</string>
     <string name="decompress">Çöz</string>
     <string name="compress_as">Sıkıştır:</string>
     <string name="compressing">Sıkıştırılıyor…</string>

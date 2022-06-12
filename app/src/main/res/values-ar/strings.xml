@@ -24,6 +24,7 @@
     <string name="other_file">Other file</string>
     <!-- Compression -->
     <string name="compress">ضغط</string>
+    <string name="compress_pro">ضغط (Pro)</string>
     <string name="decompress">فك الضغط</string>
     <string name="compress_as">ضغط كا</string>
     <string name="compressing">ضغط…</string>
