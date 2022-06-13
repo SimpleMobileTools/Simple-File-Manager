@@ -10,32 +10,39 @@
     <string name="path_copied">הנתיב הועתק</string>
     <string name="select_audio_file">אנא בחר קובץ שמע</string>
     <string name="search_folder">‪חיפוש תיקייה</string>
+    <string name="rooted_device_only">פעולה זו פועלת רק במכשירים עם רוט</string>
     <string name="recents">אחרונים</string>
     <string name="show_recents">הצג את האחרונים</string>
     <string name="pdf_viewer">‎מציג PDF</string>
     <string name="invert_colors">הפוך צבעים</string>
+    <!-- Open as -->
     <string name="open_as">פתח כ</string>
     <string name="text_file">קובץ טקסט</string>
     <string name="image_file">קובץ תמונה</string>
     <string name="audio_file">קובץ שמע</string>
     <string name="video_file">קובץ וידיאו</string>
     <string name="other_file">קובץ אחר</string>
+    <!-- Compression -->
     <string name="compress">לדחוס</string>
-    <string name="compress_as">דחוס כ</string>
+    <string name="compress_pro">דחיסה (פרו)</string>
     <string name="decompress">לבטל דחיסה</string>
+    <string name="compress_as">דחוס כ</string>
     <string name="compressing">דוחס…</string>
     <string name="decompressing">משחרר דחיסה…</string>
     <string name="compression_successful">הדחיסה הצליחה</string>
     <string name="decompression_successful">שחרור הדחיסה הצליח</string>
-    <string name="images">תמונות</string>
-    <string name="videos">וידיאו</string>
     <string name="compressing_failed">הדחיסה נכשלה</string>
     <string name="decompressing_failed">פעולת שחרור הדחיסה נכשל</string>
+    <!-- Favorites -->
     <string name="manage_favorites">נהל מועדפים</string>
     <string name="go_to_favorite">עבור למועדפים</string>
     <string name="favorites_activity_placeholder">‪אתה יכול להוסיף תיקיות בשימוש תכוף למועדפים לגישה נוחה מכל מקום.</string>
+    <!-- File Editor -->
     <string name="file_editor">עורך הקבצים</string>
+    <!-- Storage analysis -->
     <string name="storage_analysis">ניתוח אחסון</string>
+    <string name="images">תמונות</string>
+    <string name="videos">וידיאו</string>
     <string name="audio">שמע</string>
     <string name="documents">מסמכים</string>
     <string name="downloads">הורדות</string>
@@ -43,11 +50,17 @@
     <string name="others">אחרים</string>
     <string name="storage_free">חינם</string>
     <string name="total_storage">שטח אחסון כולל: %s</string>
+    <!-- Settings -->
     <string name="enable_root_access">אפשר גישת שורש</string>
-    <string name="app_title">Simple File Manager Pro - נהל קבצים בקלות ובמהירות</string>
-    <string name="app_short_description">אפליקציה קלה לניהול הקבצים שלך ללא פרסומות, תוך כיבוד הפרטיות והאבטחה שלך</string>
-    <string name="rooted_device_only">פעולה זו פועלת רק במכשירים עם רוט</string>
     <string name="press_back_twice">דרוש לחיצה על חזרה פעמיים כדי לצאת מהאפליקציה דרוש לחיצה על חזרה פעמיים כדי לצאת מהאפליקציה</string>
+    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
+    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
+    <string name="app_title">Simple File Manager Pro - נהל קבצים בקלות ובמהירות</string>
+    <!-- Short description has to have less than 80 chars -->
+    <string name="app_short_description">אפליקציה קלה לניהול הקבצים שלך ללא פרסומות, תוך כיבוד הפרטיות והאבטחה שלך</string>
     <string name="app_long_description"> מנהל קבצים מהיר קל משקל לשימוש יומיומי. הוא מציע פונקציונליות חיפוש שימושית, אתה יכול גם להתאים אישית את תיקיית הבית ולבחור תיקיות מועדפות לגישה מהירה. האפליקציה מכילה מספר רב של פונקציות חזקות הקשורות לאבטחה, כמו הגנה על פריטים מוסתרים באמצעות סיסמה, מחיקת קבצים או כל האפליקציה. אתה יכול לבחור בין שימוש בתבנית, סיכה או טביעת אצבע כדי לשמור על פרטיות הנתונים שלך. מארגן קבצים מודרני זה תומך בגלישה מהירה של קבצי שורש, כרטיסי SD והתקני USB. כדי לשמור על פרודוקטיביות שלך, יש לו כמובן את כל פעולות הקבצים הסטנדרטיות כמו שינוי שם, העתקה, העברה, מחיקה, שיתוף וכו\'. זה יכול לשמש גם לחיסכון של שטח אחסון, מכיוון שהוא מאפשר דחיסה ושחרור מדי. אתה יכול בקלות ליצור קבצים או תיקיות חדשים אם תרצה בכך. ברור שאתה יכול לבחור מיון לפי מספר ערכים שונים, לעבור בין עולה ויורד, או להשתמש במיון ספציפי לתיקייה. בכמה לחיצות בלבד תוכל גם לבדוק את מאפייני הקובץ או התיקיה, המציגים שדות שונים כמו גודל הקובץ, תאריך השינוי האחרון, או ערכי EXIF כמו תאריך היצירה, דגם המצלמה בתמונות וכו\'. כדי לקבל נתיב לקובץ או לתיקיות במהירות, אתה יכול לבחור אותו בקלות על ידי לחיצה ארוכה והעתקה שלו בלוח. אתה יכול ליצור קיצורי דרך שימושיים בשולחן העבודה לגישה מהירה לפריטים המועדפים עליך. הוא מכיל עורך קבצים קל שבו אתה יכול להשתמש גם להדפסת מסמכים, לעריכתם או לקרוא בקלות באמצעות מחוות זום, בכל עת שצריך. זה מגיע עם עיצוב חומר וערכת נושא כהה כברירת מחדל, מספק חווית משתמש נהדרת לשימוש קל. היעדר גישה לאינטרנט נותן לך יותר פרטיות, אבטחה ויציבות מאשר אפליקציות אחרות. אינו מכיל פרסומות או הרשאות מיותרות. זה קוד פתוח לחלוטין, מספק צבעים הניתנים להתאמה אישית. <b>בדוק את החבילה המלאה של כלים פשוטים כאן:</b> https://www.simplemobiletools.com <b>אתר עצמאי של Simple File Manager Pro:</b> https://www.simplemobiletools.com /filemanager <b>פייסבוק:</b> https://www.facebook.com/simplemobiletools <b>Reddit:</b> https://www.reddit.com/r/SimpleMobileTools </string>
-    <string name="compress_pro">דחיסה (פרו)</string>
+    <!--
+        Haven't found some strings? There's more at
+        https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
+    -->
 </resources>
