@@ -14,7 +14,7 @@
     <string name="recents">Recents</string>
     <string name="show_recents">Mostra els recents</string>
     <string name="pdf_viewer">Visualitzador de PDF</string>
-    <string name="invert_colors">Invert colors</string>
+    <string name="invert_colors">Inverteix els colors</string>
     <!-- Open as -->
     <string name="open_as">Obre com a</string>
     <string name="text_file">Text file</string>
