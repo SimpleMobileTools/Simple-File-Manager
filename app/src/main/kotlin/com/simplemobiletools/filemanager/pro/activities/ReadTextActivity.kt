@@ -17,10 +17,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.PERMISSION_WRITE_STORAGE
-import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
-import com.simplemobiletools.commons.helpers.SAVE_DISCARD_PROMPT_INTERVAL
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.views.MyEditText
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.SaveAsDialog
@@ -73,7 +70,7 @@ class ReadTextActivity : SimpleActivity() {
 
         val filename = getFilenameFromUri(uri)
         if (filename.isNotEmpty()) {
-            title = filename
+            title = Uri.decode(filename)
         }
 
         read_text_view.onGlobalLayout {
