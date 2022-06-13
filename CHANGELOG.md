@@ -1,6 +1,14 @@
 Changelog
 ==========
 
+Version 6.12.4 *(2022-06-13)*
+----------------------------
+
+ * Change the PDF Viewer to a fullscreen one
+ * Added loading bar during search
+ * Fixed the Indonesian translation
+ * Added some translation and UX improvements
+
 Version 6.12.3 *(2022-05-18)*
 ----------------------------
 
