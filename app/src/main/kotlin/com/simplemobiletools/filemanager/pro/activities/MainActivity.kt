@@ -227,6 +227,15 @@ class MainActivity : SimpleActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
+        super.onActivityResult(requestCode, resultCode, resultData)
+        isAskingPermissions = false
+        if (requestCode == MANAGE_STORAGE_RC && isRPlus()) {
+            actionOnPermission?.invoke(Environment.isExternalStorageManager())
+        }
+    }
+
     private fun restorePath(path: String) {
         if (!mWasProtectionHandled) {
             handleAppPasswordProtection {
@@ -343,15 +352,6 @@ class MainActivity : SimpleActivity() {
             Environment.isExternalStorageManager()
         } else {
             hasPermission(PERMISSION_WRITE_STORAGE)
-        }
-    }
-
-    @SuppressLint("NewApi")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
-        isAskingPermissions = false
-        if (requestCode == MANAGE_STORAGE_RC && isRPlus()) {
-            actionOnPermission?.invoke(Environment.isExternalStorageManager())
         }
     }
 
