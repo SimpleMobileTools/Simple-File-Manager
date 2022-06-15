@@ -88,6 +88,10 @@ class PDFViewerActivity : SimpleActivity() {
             .scrollHandle(DefaultScrollHandle(this, primaryColor.getContrastColor(), primaryColor))
             .spacing(15)
             .onTap { toggleFullScreen() }
+            .onError {
+                showErrorToast(it.localizedMessage.toString())
+                finish()
+            }
             .load()
 
         showSystemUI(true)
