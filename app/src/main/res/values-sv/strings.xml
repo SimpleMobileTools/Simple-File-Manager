@@ -13,8 +13,8 @@
     <string name="rooted_device_only">Åtgärden fungerar bara på rotade enheter</string>
     <string name="recents">Nyss</string>
     <string name="show_recents">Visa nyligen</string>
-    <string name="pdf_viewer">PDF Viewer</string>
-    <string name="invert_colors">Invert colors</string>
+    <string name="pdf_viewer">PDF-läsare</string>
+    <string name="invert_colors">Invertera färger</string>
     <!-- Open as -->
     <string name="open_as">Öppna som</string>
     <string name="text_file">Textfil</string>
@@ -40,15 +40,15 @@
     <!-- File Editor -->
     <string name="file_editor">Filredigerare</string>
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
+    <string name="storage_analysis">Lagringsanalys</string>
     <string name="images">Bilder</string>
     <string name="videos">Videos</string>
     <string name="audio">Ljud</string>
     <string name="documents">Dokument</string>
     <string name="downloads">Nedladdningar</string>
     <string name="archives">Arkiv</string>
-    <string name="others">Andra</string>
-    <string name="storage_free">Fri</string>
+    <string name="others">Annat</string>
+    <string name="storage_free">ledigt</string>
     <string name="total_storage">Total lagring: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktivera rotåtkomst</string>
