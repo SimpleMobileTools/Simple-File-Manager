@@ -1,1 +1,1 @@
-A simple file manager for browsing and editing files and directories.
+Organize your Files and Folders. Simple Mobile Content Transfer, File Sharing
