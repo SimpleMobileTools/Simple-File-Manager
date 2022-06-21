@@ -1,2 +1,0 @@
- * Show folders at search results too
- * Added some performance, translation, stability and UX improvements

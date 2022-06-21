@@ -1,3 +1,0 @@
- * Improve the Search result sorting
- * Use proper file icons at creating shortcuts
- * Some other UX improvements

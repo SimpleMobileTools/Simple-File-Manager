@@ -1,2 +1,0 @@
- * Rewrote the current folder path into a 1 liner
- * Show a save/discard prompt when exiting file editor with unsaved changes

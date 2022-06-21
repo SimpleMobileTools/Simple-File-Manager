@@ -1,3 +1,0 @@
- * Allow permanently disabling the Delete confirmation dialog
- * Do not use animations if they are disabled systemwide
- * Added some translation improvements

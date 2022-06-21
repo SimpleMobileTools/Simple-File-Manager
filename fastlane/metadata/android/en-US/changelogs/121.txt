@@ -1,4 +1,0 @@
- * Change the PDF Viewer to a fullscreen one
- * Added loading bar during search
- * Fixed the Indonesian translation
- * Added some translation and UX improvements

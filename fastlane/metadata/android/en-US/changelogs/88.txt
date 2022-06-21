@@ -1,3 +1,0 @@
-Adding an improved Search at the file editor
-Removing the list view separators to make the UI cleaner
-Apply the selected folder sorting at the file/destination picker dialog too

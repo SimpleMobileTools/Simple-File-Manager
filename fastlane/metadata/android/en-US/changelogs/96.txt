@@ -1,2 +1,0 @@
- * Allow toggling between list and grid view
- * Some translation and stability improvements

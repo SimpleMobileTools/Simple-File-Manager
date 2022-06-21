@@ -1,2 +1,0 @@
- * Make the default text a bit bigger and allow changing its size
- * Added some translation impovements

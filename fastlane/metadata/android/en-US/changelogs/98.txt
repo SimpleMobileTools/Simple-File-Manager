@@ -1,2 +1,0 @@
- * Allow opening folders from search results
- * Some stability and translation improvements

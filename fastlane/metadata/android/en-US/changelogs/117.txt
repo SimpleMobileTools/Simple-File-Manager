@@ -1,2 +1,0 @@
- * Added Material You theme support on Android 12+
- * Added some stability, performance and UX improvements

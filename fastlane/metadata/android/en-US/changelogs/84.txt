@@ -1,3 +1,0 @@
- * Fixed some SD card related issues
- * Properly color the status bar icons at light primary colors
- * Some stability and translation improvements
