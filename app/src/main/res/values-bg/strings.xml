@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple File Manager</string>
-    <string name="app_launcher_name">File Manager</string>
-    <string name="press_back_again">Press back again to exit</string>
-    <string name="go_to_home_folder">Go to home folder</string>
-    <string name="set_as_home_folder">Set as home folder</string>
-    <string name="home_folder_updated">Home folder updated</string>
-    <string name="copy_path">Copy path to clipboard</string>
-    <string name="path_copied">Path copied</string>
-    <string name="select_audio_file">Please select an audio file</string>
-    <string name="search_folder">Search folder</string>
-    <string name="rooted_device_only">This operation works only on rooted devices</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-    <string name="pdf_viewer">PDF Viewer</string>
-    <string name="invert_colors">Invert colors</string>
-
+    <string name="app_name">Обикновени файлове</string>
+    <string name="app_launcher_name">Файлове</string>
+    <string name="press_back_again">Натиснете назад отново, за да излезете</string>
+    <string name="go_to_home_folder">Към началната папка</string>
+    <string name="set_as_home_folder">Задаване като начална папка</string>
+    <string name="home_folder_updated">Началната папка е актуализирана</string>
+    <string name="copy_path">Копиране на път в клипборда</string>
+    <string name="path_copied">Пътят е копиран</string>
+    <string name="select_audio_file">Моля, изберете аудио файл</string>
+    <string name="search_folder">Търсене на папка</string>
+    <string name="rooted_device_only">Тази операция работи само на root устройства</string>
+    <string name="recents">Скорошни</string>
+    <string name="show_recents">Показване на скорошни</string>
+    <string name="pdf_viewer">PDF Визуализатор</string>
+    <string name="invert_colors">Обръщане на цветове</string>
     <!-- Open as -->
     <string name="open_as">Open as</string>
     <string name="text_file">Text file</string>
@@ -23,48 +22,42 @@
     <string name="audio_file">Audio file</string>
     <string name="video_file">Video file</string>
     <string name="other_file">Other file</string>
-
     <!-- Compression -->
-    <string name="compress">Compress</string>
-    <string name="compress_pro">Compress (Pro)</string>
-    <string name="decompress">Decompress</string>
-    <string name="compress_as">Compress as</string>
-    <string name="compressing">Compressing…</string>
-    <string name="decompressing">Decompressing…</string>
-    <string name="compression_successful">Compression successful</string>
-    <string name="decompression_successful">Decompression successful</string>
-    <string name="compressing_failed">Compressing failed</string>
-    <string name="decompressing_failed">Decompressing failed</string>
-
+    <string name="compress">Компресиране</string>
+    <string name="compress_pro">Компресиране (Pro)</string>
+    <string name="decompress">Декомпресиране</string>
+    <string name="compress_as">Компресиране като</string>
+    <string name="compressing">Компресира се…</string>
+    <string name="decompressing">Декомпресира се…</string>
+    <string name="compression_successful">Компресирането е успешно</string>
+    <string name="decompression_successful">Декомпресирането е успешно</string>
+    <string name="compressing_failed">Неуспешно компресиране</string>
+    <string name="decompressing_failed">Неуспешно декомпресиране</string>
     <!-- Favorites -->
-    <string name="manage_favorites">Manage favorites</string>
-    <string name="go_to_favorite">Go to favorite</string>
-    <string name="favorites_activity_placeholder">You can add frequently used folders to favorites for easy access from anywhere.</string>
-
+    <string name="manage_favorites">Управление на любими</string>
+    <string name="go_to_favorite">Към любими</string>
+    <string name="favorites_activity_placeholder">Можете да добавяте често използвани папки към любими за лесен достъп от всякъде.</string>
     <!-- File Editor -->
     <string name="file_editor">File Editor</string>
-
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
+    <string name="storage_analysis">Анализ на съхранението</string>
+    <string name="images">Изображения</string>
+    <string name="videos">Видеа</string>
     <string name="audio">Audio</string>
     <string name="documents">Documents</string>
     <string name="downloads">Downloads</string>
-    <string name="archives">Archives</string>
-    <string name="others">Others</string>
+    <string name="archives">Архиви</string>
+    <string name="others">Други</string>
     <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
-
+    <string name="total_storage">Общо място за съхранение: %s</string>
     <!-- Settings -->
-    <string name="enable_root_access">Enable root access</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
+    <string name="enable_root_access">Активиране на root достъп</string>
+    <string name="press_back_twice">Натискане два пъти Назад за излизане от приложението</string>
     <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
     <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easy &amp; fast</string>
+    <string name="app_title">Обикновени файлове Pro - Управляване на файлове</string>
     <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Easy app for managing your files without ads, respecting your privacy &amp; security</string>
+    <string name="app_short_description">Лесно приложение за управление на файлове Ви без реклами, зачитайки Вашата поверителност и сигурност</string>
     <string name="app_long_description">
         A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
 
@@ -100,7 +93,6 @@
         <b>Reddit:</b>
         https://www.reddit.com/r/SimpleMobileTools
     </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
