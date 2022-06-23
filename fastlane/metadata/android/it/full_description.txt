@@ -1,7 +1,29 @@
-Può anche essere usato per sfogliare file di sistema e della scheda SD. Si possono facilmente rinominare, copiare, spostare, eliminare e condividere qualsiasi file.
+Semplice Gestore di File Pro è un gestore di file e cartelle super veloce e professionale per dispositivi Android. Usa Semplice Gestore di File per comprimere, trasferire e convertire facilmente i file multimediali con pochi click. Ha tutte le principali funzionalità di gestione dei file e gestione delle cartelle, tra cui la personalizzazione della cartella Home e la selezione delle cartelle preferite per un rapido accesso. 
 
-L'autorizzazione per le impronte digitali è necessaria per bloccare la visibilità di alcuni elementi o l'intera applicazione.
+Il gestore dei file fornisce l'intero pacchetto di funzionalità di gestione file, tra cui ricerca, navigazione, copia e incolla, tagliare, eliminare, rinominare, decomprimere, trasferire, scaricare, organizzare e così via. Aggiungi, rimuovi o modifica file, cartelle e app in base alle tue preferenze personali. 
 
-L'applicazione non contiene pubblicità o permessi non necessari; è completamente opensource e la si può personalizzare con i propri colori preferiti.
+Con questo semplice organizzatore di dati, è possibile organizzare e ordinare il tuo cellulare secondo varie metriche e passare tra ascendente e discendente o utilizzando un ordinamento delle cartelle specifico. Per ottenere rapidamente un percorso di file o cartella, puoi selezionarlo facilmente premendo a lungo e copiandolo negli appunti. 
 
-Questa è solamente una delle tante applicazioni della serie Simple Mobile Tools. Si possono trovare le altre su https://www.simplemobiletools.com
+Il Semplice Gestore di File automatizza completamente l'organizzazione dei tuoi file mobili, cartelle, e app per salvare sia il tempo sia energia. Con pochi click, puoi anche controllare le proprietà dei file o delle cartelle, che mostrano vari campi come la dimensione, la data dell'ultima modifica o i valori EXIF come la data di creazione, il modello di fotocamera nelle foto, ecc. 
+
+Questo organizzatore di file è assolutamente sicuro, contenente molteplici funzioni relative alla sicurezza, come la password che protegge gli elementi nascosti, l'eliminazione o l'intera app. È possibile scegliere tra l'utilizzo di un modello, pin, o un'impronta digitale per mantenere i dati privati. L'autorizzazione delle impronte digitali è necessaria per bloccare la visibilità degli oggetti nascosti, eliminare i file o l'intera app. Semplice Gestore di File funziona senza accesso a Internet, garantendo ulteriormente la massima privacy. 
+
+Il File Manager può anche ripulire lo spazio e salvare spazio nell'archiviazione interna comprimendo i file e le cartelle. Questo moderno organizzatore di file multimediali supporta la navigazione rapida di file root, schede SD e dispositivi USB. Il Gestore File riconosce anche più formati di file, tra cui musica, video, immagini e documenti. 
+
+Usi il Semplice Gestore di File Pro per creare pratiche scorciatoie sul desktop per accedere ai tuoi articoli preferiti rapidamente. Contiene un editor di file leggero che è possibile utilizzare per stampare documenti, modificarli o leggere facilmente utilizzando gesti di zoom, quando necessario. 
+
+Nonostante sia chiamato Gestore File, vi aiuterà a gestire e personalizzare i file, cartelle e applicazioni con pochi click.
+
+Non contiene annunci o autorizzazioni non necessarie. È completamente opensource, fornisce colori personalizzabili.
+
+<b>Scopri la suite completa di Simple Tools qui:</b>
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+<b>Sito web indipendente di Semplice Gestore di File Pro:</b>
+https://www.simplemobiletools.com/filemanager
