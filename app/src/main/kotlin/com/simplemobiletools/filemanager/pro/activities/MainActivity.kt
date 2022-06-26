@@ -6,7 +6,6 @@ import android.app.SearchManager
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
 import android.net.Uri
@@ -16,6 +15,8 @@ import android.os.Handler
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
@@ -75,8 +76,8 @@ class MainActivity : SimpleActivity() {
             }
         }
 
-        setupTabColors(config.lastUsedViewPagerPage)
         storeStateVariables()
+        setupTabs()
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
 
         if (savedInstanceState == null) {
@@ -104,6 +105,7 @@ class MainActivity : SimpleActivity() {
             return
         }
 
+        setupTabColors()
         getAllFragments().forEach {
             it?.onResume(getProperTextColor())
         }
@@ -119,15 +121,6 @@ class MainActivity : SimpleActivity() {
                 (it as? ItemOperationsListener)?.setupDateTimeFormat()
             }
         }
-
-        getInactiveTabIndexes(main_view_pager.currentItem).forEach {
-            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
-        }
-
-        val properPrimaryColor = getProperPrimaryColor()
-        main_tabs_holder.background = ColorDrawable(getProperBackgroundColor())
-        main_tabs_holder.setSelectedTabIndicatorColor(properPrimaryColor)
-        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(properPrimaryColor)
 
         if (main_view_pager.adapter == null && mWasProtectionHandled) {
             initFragments()
@@ -221,7 +214,6 @@ class MainActivity : SimpleActivity() {
             main_view_pager.onGlobalLayout {
                 restorePath(path)
             }
-            updateTabColors()
         } else {
             restorePath(path)
         }
@@ -390,27 +382,12 @@ class MainActivity : SimpleActivity() {
     private fun initFragments() {
         main_view_pager.adapter = ViewPagerAdapter(this)
         main_view_pager.offscreenPageLimit = 2
-        main_view_pager.currentItem = config.lastUsedViewPagerPage
-        main_view_pager.onPageChangeListener {
-            main_tabs_holder.getTabAt(it)?.select()
-            invalidateOptionsMenu()
-        }
-
-        val tabToOpen = config.lastUsedViewPagerPage
-        main_view_pager.currentItem = tabToOpen
-        main_tabs_holder.onTabSelectionChanged(
-            tabUnselectedAction = {
-                it.icon?.applyColorFilter(getProperTextColor())
-            },
-            tabSelectedAction = {
-                main_view_pager.currentItem = it.position
-                it.icon?.applyColorFilter(getProperPrimaryColor())
-            }
-        )
 
         main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
-                closeSearchIfOpen()
+                if (state == ViewPager.SCROLL_STATE_SETTLING) {
+                    closeSearch()
+                }
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -423,50 +400,47 @@ class MainActivity : SimpleActivity() {
                 invalidateOptionsMenu()
             }
         })
+        main_view_pager.currentItem = config.lastUsedViewPagerPage
+    }
 
+    private fun setupTabs() {
         main_tabs_holder.removeAllTabs()
-        var skippedTabs = 0
         tabsList.forEachIndexed { index, value ->
-            if (config.showTabs and value == 0) {
-                skippedTabs++
-            } else {
-                val tab = main_tabs_holder.newTab().setIcon(getTabIcon(index))
-                tab.contentDescription = getTabContentDescription(index)
-                main_tabs_holder.addTab(tab, index - skippedTabs, config.lastUsedViewPagerPage == index - skippedTabs)
+            if (config.showTabs and value != 0) {
+                main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
+                    customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
+                    customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
+                    main_tabs_holder.addTab(this)
+                }
             }
         }
 
-        // selecting the proper tab sometimes glitches, add an extra selector to make sure we have it right
-        main_tabs_holder.onGlobalLayout {
-            Handler().postDelayed({
-                main_tabs_holder.getTabAt(config.lastUsedViewPagerPage)?.select()
-                invalidateOptionsMenu()
-            }, 100L)
-        }
+        main_tabs_holder.onTabSelectionChanged(
+            tabUnselectedAction = {
+                updateBottomTabItemColors(it.customView, false)
+            },
+            tabSelectedAction = {
+                closeSearch()
+                main_view_pager.currentItem = it.position
+                updateBottomTabItemColors(it.customView, true)
+            }
+        )
 
-        main_tabs_holder.beVisibleIf(skippedTabs < tabsList.size - 1)
+        main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
     }
 
-    private fun setupTabColors(lastUsedTab: Int) {
-        main_tabs_holder.apply {
-            background = ColorDrawable(getProperBackgroundColor())
-            setSelectedTabIndicatorColor(getProperPrimaryColor())
-            getTabAt(lastUsedTab)?.apply {
-                select()
-                icon?.applyColorFilter(getProperPrimaryColor())
-            }
+    private fun setupTabColors() {
+        val activeView = main_tabs_holder.getTabAt(main_view_pager.currentItem)?.customView
+        updateBottomTabItemColors(activeView, true)
 
-            getInactiveTabIndexes(lastUsedTab).forEach {
-                getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
-            }
+        getInactiveTabIndexes(main_view_pager.currentItem).forEach { index ->
+            val inactiveView = main_tabs_holder.getTabAt(index)?.customView
+            updateBottomTabItemColors(inactiveView, false)
         }
-    }
 
-    private fun updateTabColors() {
-        getInactiveTabIndexes(main_view_pager.currentItem).forEach {
-            main_tabs_holder.getTabAt(it)?.icon?.applyColorFilter(getProperTextColor())
-        }
-        main_tabs_holder.getTabAt(main_view_pager.currentItem)?.icon?.applyColorFilter(getProperPrimaryColor())
+        val bottomBarColor = getBottomTabsBackgroundColor()
+        main_tabs_holder.setBackgroundColor(bottomBarColor)
+        updateNavigationBarColor(bottomBarColor)
     }
 
     private fun getTabIcon(position: Int): Drawable {
@@ -479,7 +453,7 @@ class MainActivity : SimpleActivity() {
         return resources.getColoredDrawableWithColor(drawableId, getProperTextColor())
     }
 
-    private fun getTabContentDescription(position: Int): String {
+    private fun getTabLabel(position: Int): String {
         val stringId = when (position) {
             0 -> R.string.files_tab
             1 -> R.string.recent_files_tab
@@ -500,9 +474,11 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun closeSearchIfOpen() {
+    private fun closeSearch() {
         if (isSearchOpen) {
-            (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged("")
+            getAllFragments().forEach {
+                (it as? ItemOperationsListener)?.searchQueryChanged("")
+            }
             searchMenuItem?.collapseActionView()
         }
     }
@@ -614,12 +590,12 @@ class MainActivity : SimpleActivity() {
 
     private fun launchSettings() {
         hideKeyboard()
-        closeSearchIfOpen()
+        closeSearch()
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
     private fun launchAbout() {
-        closeSearchIfOpen()
+        closeSearch()
         val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS or LICENSE_PDF_VIEWER
 
         val faqItems = arrayListOf(
