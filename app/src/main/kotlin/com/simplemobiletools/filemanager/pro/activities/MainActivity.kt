@@ -47,6 +47,7 @@ import kotlinx.android.synthetic.main.items_fragment.*
 import kotlinx.android.synthetic.main.items_fragment.view.*
 import kotlinx.android.synthetic.main.recents_fragment.*
 import kotlinx.android.synthetic.main.storage_fragment.*
+import me.grantland.widget.AutofitHelper
 import java.io.File
 
 class MainActivity : SimpleActivity() {
@@ -410,6 +411,7 @@ class MainActivity : SimpleActivity() {
                 main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
+                    AutofitHelper.create(customView?.findViewById(R.id.tab_item_label))
                     main_tabs_holder.addTab(this)
                 }
             }
@@ -596,7 +598,7 @@ class MainActivity : SimpleActivity() {
 
     private fun launchAbout() {
         closeSearch()
-        val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS or LICENSE_PDF_VIEWER
+        val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS or LICENSE_PDF_VIEWER or LICENSE_AUTOFITTEXTVIEW
 
         val faqItems = arrayListOf(
             FAQItem(R.string.faq_3_title_commons, R.string.faq_3_text_commons),
