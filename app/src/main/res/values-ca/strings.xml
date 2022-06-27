@@ -17,7 +17,7 @@
     <string name="invert_colors">Inverteix els colors</string>
     <!-- Open as -->
     <string name="open_as">Obre com a</string>
-    <string name="text_file">Text file</string>
+    <string name="text_file">Fitxer de text</string>
     <string name="image_file">Fitxer d\'imatge</string>
     <string name="audio_file">Fitxer d\'àudio</string>
     <string name="video_file">Fitxer de vídeo</string>
