@@ -1,0 +1,29 @@
+El Simple File Manager Pro és un gestor de fitxers i carpetes molt ràpid i professional per a dispositius Android. Utilitzeu el Simple File Manager per comprimir, transferir i convertir fàcilment fitxers multimèdia amb pocs clics. Té totes les funcions principals de gestió de fitxers i de gestió de carpetes, inclosa la personalització de la carpeta d'inici i la selecció de carpetes preferides per accedir-hi ràpidament.
+
+El gestor de fitxers ofereix tot el paquet de funcions dels gestors de fitxers, com ara cercar, navegar, copiar i enganxar, tallar, suprimir, canviar el nom, descomprimir, transferir, descarregar, organitzar, etc. Afegiu, elimineu o editeu fitxers, carpetes i aplicacions segons les vostres preferències personals.
+
+Amb aquest senzill organitzador de dades, podeu organitzar i ordenar el vostre mòbil segons diverses mètriques i alternar entre ascendent i descendent o utilitzar una ordenació específica de carpeta. Per obtenir ràpidament un camí de fitxer o carpeta, podeu seleccionar-lo fàcilment prement i copiant-lo al porta-retalls.
+
+El Simple File Manager automatitza completament l'organització dels vostres fitxers, carpetes i aplicacions mòbils per estalviar-vos temps i energia. Amb només pocs clics podeu comprovar les propietats de fitxers o carpetes, que mostren diversos camps com la mida, la data de l'última modificació o valors EXIF com la data de creació, el model de càmera de les fotos, etc.
+
+Aquest organitzador de fitxers és absolutament segur i conté múltiples funcions potents relacionades amb la seguretat, com ara protegir amb contrasenya elements ocults, suprimir o tota l'aplicació. Podeu triar entre utilitzar un patró, un pin o una empremta digital per mantenir les vostres dades privades. El permís d'empremta digital és necessari per bloquejar la visibilitat dels elements ocults, per suprimir fitxers o per a tota l'aplicació. El Simple File Manager funciona sense accés a Internet, garantint encara més la vostra privadesa.
+
+El gestor de fitxers també pot netejar espai i estalviar l'emmagatzematge intern comprimint fitxers i carpetes. Aquest organitzador modern de fitxers multimèdia admet la navegació ràpida dels fitxers arrel, targetes SD i dispositius USB. El gestor de fitxers també reconeix diversos formats de fitxer, com ara música, vídeos, imatges i documents.
+
+Utilitzeu el Simple File Manager Pro per crear dreceres d'escriptori útils per accedir ràpidament als vostres elements preferits. Conté un editor de fitxers lleuger que podeu utilitzar per imprimir documents, editar-los o llegir-los fàcilment amb gestos de zoom, sempre que sigui necessari.
+
+Tot i que es diu gestor de fitxers, us ajudarà a gestionar i personalitzar els fitxers, carpetes i aplicacions amb només pocs clics.
+
+No conté anuncis ni permisos innecessaris. És totalment de codi obert, proporciona colors personalitzables.
+
+<b>Consulteu el conjunt complet d'eines simples aquí:</b>
+https://www.simplemobiletools.com
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+<b>Lloc web autònom de Simple File Manager Pro:</b>
+https://www.simplemobiletools.com/filemanager
