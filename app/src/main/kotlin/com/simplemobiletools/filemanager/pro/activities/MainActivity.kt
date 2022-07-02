@@ -314,7 +314,7 @@ class MainActivity : SimpleActivity() {
             callback(true)
         } else {
             if (isRPlus()) {
-                ConfirmationAdvancedDialog(this, "", R.string.access_storage_prompt, R.string.ok, 0) { success ->
+                ConfirmationAdvancedDialog(this, "", R.string.access_storage_prompt, R.string.ok, 0, false) { success ->
                     if (success) {
                         isAskingPermissions = true
                         actionOnPermission = callback
