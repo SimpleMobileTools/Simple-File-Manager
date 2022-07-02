@@ -8,7 +8,7 @@ Prosty menedżer plików całkowicie automatyzuje organizowanie plików, folder�
 
 Ten nowoczesny organizer plików jest całkowicie bezpieczny i zawiera wiele silnych funkcji związanych z bezpieczeństwem, takich jak ochrona hasłem ukrytych elementów, usuwania czy całej aplikacji. Aby zachowywać prywatność swoich danych, możesz wybrać między wzorem, PIN-em lub odciskiem palca. Uprawnienie „odcisk palca” jest potrzebne do blokowania zarówno widoczności ukrytych elementów, usuwania plików, jak i dostępu do całej aplikacji.
 
-Menedżer plików może również oczyszczać miejsce i oszczędzać pamięć wewnętrzną, kompresując pliki i foldery. Obsługuje szybkie przeglądanie plików w folderze głównym, kart SD i urządzeń USB. Rozpoznaje także wiele formatów plików, w tym muzykę, wideo, obrazy i dokumenty.
+Menedżer plików może również oczyszczać miejsce i oszczędzać pamięć wewnętrzną, kompresując pliki i foldery. Obsługuje szybkie przeglądanie plików w folderze głównym, na kartach pamięci i urządzeniach USB. Rozpoznaje także wiele formatów plików, w tym muzykę, wideo, obrazy i dokumenty.
 
 Używaj Prostego menedżera plików Pro, aby tworzyć przydatne skróty na pulpicie, dzięki którym uzyskasz szybki dostęp do swoich ulubionych elementów. Zawiera lekki edytor plików, którego możesz używać do drukowania dokumentów, ich edycji lub łatwego czytania za pomocą gestów powiększania, gdy zajdzie taka potrzeba.
 
