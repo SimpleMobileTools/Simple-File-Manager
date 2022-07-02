@@ -458,8 +458,8 @@ class MainActivity : SimpleActivity() {
     private fun getTabLabel(position: Int): String {
         val stringId = when (position) {
             0 -> R.string.files_tab
-            1 -> R.string.recent_files_tab
-            else -> R.string.storage_analysis
+            1 -> R.string.recents
+            else -> R.string.storage
         }
 
         return resources.getString(stringId)
