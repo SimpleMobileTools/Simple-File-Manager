@@ -39,7 +39,6 @@ import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
 import com.simplemobiletools.filemanager.pro.fragments.StorageFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
-import com.simplemobiletools.filemanager.pro.helpers.tabsList
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
 import kotlinx.android.synthetic.main.activity_main.*
@@ -58,6 +57,7 @@ class MainActivity : SimpleActivity() {
     private var wasBackJustPressed = false
     private var mIsPasswordProtectionPending = false
     private var mWasProtectionHandled = false
+    private var mTabsToShow = ArrayList<Int>()
     private var searchMenuItem: MenuItem? = null
 
     private var storedFontSize = 0
@@ -69,6 +69,7 @@ class MainActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+        mTabsToShow = getTabsList()
 
         if (!config.wasStorageAnalysisTabAdded && isOreoPlus()) {
             config.wasStorageAnalysisTabAdded = true
@@ -381,7 +382,7 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun initFragments() {
-        main_view_pager.adapter = ViewPagerAdapter(this)
+        main_view_pager.adapter = ViewPagerAdapter(this, mTabsToShow)
         main_view_pager.offscreenPageLimit = 2
 
         main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -406,7 +407,17 @@ class MainActivity : SimpleActivity() {
 
     private fun setupTabs() {
         main_tabs_holder.removeAllTabs()
-        tabsList.forEachIndexed { index, value ->
+        val isPickFileIntent = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER || intent.action == Intent.ACTION_GET_CONTENT
+        if (isPickFileIntent) {
+            mTabsToShow.remove(TAB_STORAGE_ANALYSIS)
+            if (mTabsToShow.none { it and config.showTabs != 0 }) {
+                config.showTabs = TAB_FILES
+                storedShowTabs = TAB_FILES
+                mTabsToShow = arrayListOf(TAB_FILES)
+            }
+        }
+
+        mTabsToShow.forEachIndexed { index, value ->
             if (config.showTabs and value != 0) {
                 main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
@@ -702,7 +713,7 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until tabsList.size).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until getTabsList().size).filter { it != activeIndex }
 
     private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment, storage_fragment)
 
@@ -723,6 +734,8 @@ class MainActivity : SimpleActivity() {
 
         return fragments.getOrNull(main_view_pager.currentItem)
     }
+
+    private fun getTabsList() = arrayListOf(TAB_FILES, TAB_RECENT_FILES, TAB_STORAGE_ANALYSIS)
 
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {

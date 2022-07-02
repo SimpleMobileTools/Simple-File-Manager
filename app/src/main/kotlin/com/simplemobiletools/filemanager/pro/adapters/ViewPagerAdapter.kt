@@ -11,9 +11,8 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
-import com.simplemobiletools.filemanager.pro.helpers.tabsList
 
-class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
+class ViewPagerAdapter(val activity: SimpleActivity, val tabsToShow: ArrayList<Int>) : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val layout = getFragment(position)
         val view = activity.layoutInflater.inflate(layout, container, false)
@@ -31,7 +30,7 @@ class ViewPagerAdapter(val activity: SimpleActivity) : PagerAdapter() {
         container.removeView(item as View)
     }
 
-    override fun getCount() = tabsList.filter { it and activity.config.showTabs != 0 }.size
+    override fun getCount() = tabsToShow.filter { it and activity.config.showTabs != 0 }.size
 
     override fun isViewFromObject(view: View, item: Any) = view == item
 

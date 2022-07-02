@@ -32,7 +32,6 @@ const val OPEN_AS_VIDEO = 4
 const val OPEN_AS_OTHER = 5
 
 const val ALL_TABS_MASK = TAB_FILES or TAB_RECENT_FILES or TAB_STORAGE_ANALYSIS
-val tabsList = arrayListOf(TAB_FILES, TAB_RECENT_FILES, TAB_STORAGE_ANALYSIS)
 
 const val IMAGES = "images"
 const val VIDEOS = "videos"
