@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.12.6 *(2022-07-03)*
+----------------------------
+
+ * Improving some third party intents related to using the app as a file picker
+ * Added many translation, stability and UX improvements
+
 Version 6.12.5 *(2022-06-26)*
 ----------------------------
 
