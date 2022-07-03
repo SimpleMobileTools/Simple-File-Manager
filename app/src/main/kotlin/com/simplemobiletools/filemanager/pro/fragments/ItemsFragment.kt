@@ -205,21 +205,10 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         val lastModifieds = context!!.getFolderLastModifieds(path)
 
         for (file in files) {
-            val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, false)
-            if (fileDirItem != null) {
-                val mimetype = file.getMimeType()
-                val isProperMimeType = if (getContentMimeType.isEmpty() || file.isDirectory) {
-                    true
-                } else {
-                    if (getContentMimeType.endsWith("/*")) {
-                        mimetype.substringBefore("/").equals(getContentMimeType.substringBefore("/"), true)
-                    } else {
-                        mimetype.equals(getContentMimeType, true)
-                    }
-                }
-
-                if (isProperMimeType) {
-                    items.add(fileDirItem)
+            val listItem = getListItemFromFile(file, isSortingBySize, lastModifieds, false)
+            if (listItem != null) {
+                if (isProperMimeType(wantedMimeType, file.absolutePath, file.isDirectory)) {
+                    items.add(listItem)
                 }
             }
         }
@@ -241,7 +230,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    private fun getFileDirItemFromFile(file: File, isSortingBySize: Boolean, lastModifieds: HashMap<String, Long>, getProperChildCount: Boolean): ListItem? {
+    private fun getListItemFromFile(file: File, isSortingBySize: Boolean, lastModifieds: HashMap<String, Long>, getProperChildCount: Boolean): ListItem? {
         val curPath = file.absolutePath
         val curName = file.name
         if (!showHidden && curName.startsWith(".")) {
@@ -272,7 +261,9 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         val listItems = ArrayList<ListItem>()
         fileDirItems.forEach {
             val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, it.modified, false, false)
-            listItems.add(listItem)
+            if (isProperMimeType(wantedMimeType, it.path, it.isDirectory)) {
+                listItems.add(listItem)
+            }
         }
         return listItems
     }
@@ -374,7 +365,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
             if (it.isDirectory) {
                 if (it.name.contains(text, true)) {
-                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
+                    val fileDirItem = getListItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }
@@ -383,7 +374,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 files.addAll(searchFiles(text, it.absolutePath))
             } else {
                 if (it.name.contains(text, true)) {
-                    val fileDirItem = getFileDirItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
+                    val fileDirItem = getListItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }

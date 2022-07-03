@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
+import com.simplemobiletools.commons.extensions.getMimeType
 import com.simplemobiletools.commons.extensions.isAudioFast
 import com.simplemobiletools.commons.extensions.toast
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
@@ -19,7 +20,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     var isGetContentIntent = false
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
-    var getContentMimeType = ""
+    var wantedMimeType = ""
 
     protected fun clickedPath(path: String) {
         if (isGetContentIntent) {
@@ -32,6 +33,19 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
             }
         } else {
             activity?.tryOpenPathIntent(path, false)
+        }
+    }
+
+    protected fun isProperMimeType(wantedMimeType: String, path: String, isDirectory: Boolean): Boolean {
+        return if (wantedMimeType.isEmpty() || wantedMimeType == "*/*" || isDirectory) {
+            true
+        } else {
+            val fileMimeType = path.getMimeType()
+            if (wantedMimeType.endsWith("/*")) {
+                fileMimeType.substringBefore("/").equals(wantedMimeType.substringBefore("/"), true)
+            } else {
+                fileMimeType.equals(wantedMimeType, true)
+            }
         }
     }
 

@@ -383,7 +383,7 @@ class MainActivity : SimpleActivity() {
             it?.isGetRingtonePicker = isPickRingtoneIntent
             it?.isPickMultipleIntent = allowPickingMultipleIntent
             it?.isGetContentIntent = isGetContentIntent
-            it?.getContentMimeType = getContentMimeType
+            it?.wantedMimeType = getContentMimeType
         }
 
         if (refreshRecents) {
