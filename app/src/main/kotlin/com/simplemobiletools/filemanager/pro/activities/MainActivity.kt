@@ -370,10 +370,20 @@ class MainActivity : SimpleActivity() {
             openPath(config.homeFolder)
         }
 
+        val isPickRingtoneIntent = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
+        val isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+        val allowPickingMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+        val getContentMimeType = if (isGetContentIntent) {
+            intent.type ?: ""
+        } else {
+            ""
+        }
+
         getAllFragments().forEach {
-            it?.isGetRingtonePicker = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
-            it?.isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
-            it?.isPickMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+            it?.isGetRingtonePicker = isPickRingtoneIntent
+            it?.isPickMultipleIntent = allowPickingMultipleIntent
+            it?.isGetContentIntent = isGetContentIntent
+            it?.getContentMimeType = getContentMimeType
         }
 
         if (refreshRecents) {

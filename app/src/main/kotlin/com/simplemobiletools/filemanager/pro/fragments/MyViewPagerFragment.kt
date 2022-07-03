@@ -19,6 +19,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     var isGetContentIntent = false
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
+    var getContentMimeType = ""
 
     protected fun clickedPath(path: String) {
         if (isGetContentIntent) {
