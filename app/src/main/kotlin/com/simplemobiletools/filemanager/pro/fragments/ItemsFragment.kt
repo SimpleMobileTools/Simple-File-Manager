@@ -37,6 +37,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
     private var storedItems = ArrayList<ListItem>()
+    private var itemsIgnoringSearch = ArrayList<ListItem>()
 
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
@@ -49,7 +50,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     override fun onResume(textColor: Int) {
         context!!.updateTextColors(this)
-        storedItems = ArrayList()
         getRecyclerAdapter()?.apply {
             updatePrimaryColor()
             updateTextColor(textColor)
@@ -113,6 +113,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 }
             }
 
+            itemsIgnoringSearch = listItems
             activity?.runOnUiThread {
                 activity?.invalidateOptionsMenu()
                 addItems(listItems, forceRefresh)
@@ -294,7 +295,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         when {
             searchText.isEmpty() -> {
                 items_fastscroller.beVisible()
-                getRecyclerAdapter()?.updateItems(storedItems)
+                getRecyclerAdapter()?.updateItems(itemsIgnoringSearch)
                 items_placeholder.beGone()
                 items_placeholder_2.beGone()
                 search_progress.hide()
