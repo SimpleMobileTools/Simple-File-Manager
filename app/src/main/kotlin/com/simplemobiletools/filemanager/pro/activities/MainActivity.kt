@@ -371,7 +371,7 @@ class MainActivity : SimpleActivity() {
         }
 
         val isPickRingtoneIntent = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
-        val isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT
+        val isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT || intent.action == Intent.ACTION_PICK
         val allowPickingMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         val getContentMimeType = if (isGetContentIntent) {
             intent.type ?: ""
@@ -417,7 +417,8 @@ class MainActivity : SimpleActivity() {
 
     private fun setupTabs() {
         main_tabs_holder.removeAllTabs()
-        val isPickFileIntent = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER || intent.action == Intent.ACTION_GET_CONTENT
+        val isPickFileIntent =
+            intent.action == RingtoneManager.ACTION_RINGTONE_PICKER || intent.action == Intent.ACTION_GET_CONTENT || intent.action == Intent.ACTION_PICK
         if (isPickFileIntent) {
             mTabsToShow.remove(TAB_STORAGE_ANALYSIS)
             if (mTabsToShow.none { it and config.showTabs != 0 }) {
