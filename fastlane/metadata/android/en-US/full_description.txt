@@ -12,7 +12,7 @@ The File Manager can also clean up space and save your internal storage by compr
 
 Use Simple File Manager Pro to create handy desktop shortcuts for accessing your favorite items quickly. It contains a light file editor that you can use to print documents, edit them, or read easily using zoom gestures, whenever needed. 
 
-Despite called File Manager, it will help you manage & customize your files, folders & apps with just a few clicks.
+Despite called File Manager, it will help you manage & customize your files, folders & apps with just a few clicks. You can easily see your recent files and do a storage analysis too.
 
 Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
