@@ -207,7 +207,20 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         for (file in files) {
             val fileDirItem = getFileDirItemFromFile(file, isSortingBySize, lastModifieds, false)
             if (fileDirItem != null) {
-                items.add(fileDirItem)
+                val mimetype = file.getMimeType()
+                val isProperMimeType = if (getContentMimeType.isEmpty() || file.isDirectory) {
+                    true
+                } else {
+                    if (getContentMimeType.endsWith("/*")) {
+                        mimetype.substringBefore("/").equals(getContentMimeType.substringBefore("/"), true)
+                    } else {
+                        mimetype.equals(getContentMimeType, true)
+                    }
+                }
+
+                if (isProperMimeType) {
+                    items.add(fileDirItem)
+                }
             }
         }
 
