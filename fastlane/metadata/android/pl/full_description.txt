@@ -12,18 +12,23 @@ Menedżer plików może również oczyszczać miejsce i oszczędzać pamięć we
 
 Używaj Prostego menedżera plików Pro, aby tworzyć przydatne skróty na pulpicie, dzięki którym uzyskasz szybki dostęp do swoich ulubionych elementów. Zawiera lekki edytor plików, którego możesz używać do drukowania dokumentów, ich edycji lub łatwego czytania za pomocą gestów powiększania, gdy zajdzie taka potrzeba.
 
+Możesz także łatwo zobaczyć swoje ostatnie pliki i przeprowadzić analizę zawartości pamięci.
+
 Domyślnie jest wyposażony w Material Design i ciemny motyw, zapewniając doskonałe doświadczenie użytkownika dla łatwego użytkowania. Brak dostępu do Internetu zapewnia większą prywatność, bezpieczeństwo i stabilność niż inne aplikacje.
 
 Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni otwartoźródłowy, zapewnia konfigurowalną kolorystykę.
 
-<b>Sprawdź pełen zestaw od Simple Tools tutaj:</b>
+Sprawdź pełen zestaw od Simple Tools tutaj:
 https://www.simplemobiletools.com
-
-<b>Strona internetowa Prostego menedżera plików Pro:</b>
-https://www.simplemobiletools.com/filemanager
 
 Facebook:
 https://www.facebook.com/simplemobiletools
 
 Reddit:
 https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
+
+Strona internetowa Prostego menedżera plików Pro:
+https://www.simplemobiletools.com/filemanager

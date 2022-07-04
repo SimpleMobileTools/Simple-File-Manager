@@ -20,14 +20,14 @@
 
 不包含广告和不必要的权限。它完全开放源代码，提供可自定义的颜色。
 
-<b>于此查看简易工具系列全套:</b>
+查看全套简易工具系列：
 https://www.simplemobiletools.com
 
-<b>简易文件管理器 Pro 的独立网站:</b>
+简易文件管理器 Pro 的独立网站:
 https://www.simplemobiletools.com/filemanager
 
-<b>Facebook:</b>
+Facebook:
 https://www.facebook.com/simplemobiletools
 
-<b>Reddit:</b>
+Reddit:
 https://www.reddit.com/r/SimpleMobileTools

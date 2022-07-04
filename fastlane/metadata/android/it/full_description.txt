@@ -12,11 +12,11 @@ Il File Manager può anche ripulire lo spazio e salvare spazio nell'archiviazion
 
 Usi il Semplice Gestore di File Pro per creare pratiche scorciatoie sul desktop per accedere ai tuoi articoli preferiti rapidamente. Contiene un editor di file leggero che è possibile utilizzare per stampare documenti, modificarli o leggere facilmente utilizzando gesti di zoom, quando necessario. 
 
-Nonostante sia chiamato Gestore File, vi aiuterà a gestire e personalizzare i file, cartelle e applicazioni con pochi click.
+Nonostante sia chiamato Gestore File, vi aiuterà a gestire e personalizzare i file, cartelle e applicazioni con pochi click. Puoi anche facilmente vedere i file recenti e fare un'analisi dello spazio d'archiviazione.
 
 Non contiene annunci o autorizzazioni non necessarie. È completamente opensource, fornisce colori personalizzabili.
 
-<b>Scopri la suite completa di Simple Tools qui:</b>
+Scopri la suite completa di Simple Tools qui:
 https://www.simplemobiletools.com
 
 Facebook:
@@ -25,5 +25,8 @@ https://www.facebook.com/simplemobiletools
 Reddit:
 https://www.reddit.com/r/SimpleMobileTools
 
-<b>Sito web indipendente di Semplice Gestore di File Pro:</b>
+Telegram:
+https://t.me/SimpleMobileTools
+
+Sito web indipendente di Semplice Gestore di File Pro:
 https://www.simplemobiletools.com/filemanager
