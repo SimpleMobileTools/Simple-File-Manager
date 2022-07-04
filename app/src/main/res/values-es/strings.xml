@@ -53,46 +53,6 @@
     <!-- Settings -->
     <string name="enable_root_access">Activar acceso root</string>
     <string name="press_back_twice">Se requiere presionar el botón atras dos veces para salir de la app</string>
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Gestor de archivos Simple Pro - Fácil y rápido</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">App sencilla para gestionar tus archivos, sin anuncios, privada y segura.</string>
-    <string name="app_long_description">
-        Un gestor de archivos ligero y rápido para el uso diario. Ofrece la útil función de búsqueda, también puedes personalizar la carpeta principal y seleccionar carpetas favoritas para acceso rápido.
-
-        La aplicación contiene múltiples funciones de seguridad poderosas, como proteger con contraseña elementos ocultos, eliminar archivos, o la aplicación completa. Puedes escoger entre usar un patrón, pin, o huella para mantener privada tu información.
-
-        Este organizador de archivos moderno soporta navegación rápida en archivos de la raíz, tarjetas SD y dispositivos USB.
-
-        Para mantenerte productivo, obviamente tiene todas las operaciones de archivos estándar como renombrar, copiar, mover, eliminar, compartir, etc. También puede ser usada para ahorrar algo de almacenamiento, ya que también permite comprimir y descomprimir. Puedes crear nuevos archivos y carpetas fácilmente si lo deseas.
-
-        Obviamente puedes ordenar por diferentes valores, intercambiar entre ascendente o descendente, o usar un ordenamiento de carpetas específico.
-
-        Con unos pocos toques también puedes checar propiedades de archivos o carpetas, lo que muestra varios campos como el tamaño del archivo, fecha de la última modificación o valores EXIF como la fecha de creación, modelo de cámara en fotografías, etc.
-
-        Para obtener la ruta de un archivo o carpeta rápidamente, fácilmente puedes seleccionarla manteniendo pulsado y copiándola al portapapeles.
-
-        Puedes crear prácticos atajos en el escritorio para acceder rápidamente a tus elementos favoritos.
-
-        Contiene un ligero editor de archivos que puedes usar para imprimir documentos, editarlos, o leerlos fácilmente usando gestos de zoom cuando sea necesario.
-
-        Incluye diseño material y tema obscuro por defecto, provee una gran experiencia de usuario para uso sencillo. La falta del acceso a internet te da más privacidad, seguridad y estabilidad que otras aplicaciones.
-
-        No contiene anuncios o permisos innecesarios. Es completamente de código abierto, provee colores personalizables.
-
-        <b>Mira la suite completa de herramientas Simples aquí:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

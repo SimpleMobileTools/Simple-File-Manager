@@ -59,48 +59,6 @@
     <!-- Settings -->
     <string name="enable_root_access">Activați accesul root</string>
     <string name="press_back_twice">Necesitaţi apăsarea de două ori a butonul Înapoi pentru a părăsi aplicația</string>
-
-    <!-- Strings displayed only on Google Play Store. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Gestionați fișiere ușor</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Aplicație premium pentru gestionarea ușoară a fișierelor dvs. fără reclame</string>
-    <string name="app_long_description">
-        Un manager de fișiere ușor și rapid pentru utilizarea zilnică. Oferă o funcționalitate de căutare ușor de utilizat, puteți, de asemenea, să personalizați dosarul principal și să selectați dosarele favorite pentru acces rapid.
-
-        Aplicația conține mai multe funcții puternice legate de securitate, cum ar fi protejarea prin parolă a elementelor ascunse, ștergerea fișierelor sau a întregii aplicații. Puteți alege între utilizarea unui model, a unui pin sau a unei amprente digitale pentru a vă păstra datele private.
-
-        Acest organizator de fișiere modern permite navigarea rapidă a fișierelor rădăcină, a cardurilor SD și a dispozitivelor USB.
-
-        Pentru a vă menține productivitatea, dispune, evident, de toate operațiunile standard cu fișiere, cum ar fi redenumirea, copierea, mutarea, ștergerea, partajarea etc. De asemenea, poate fi folosit pentru a economisi spațiu de stocare, deoarece permite și comprimarea și decomprimarea. Puteți crea cu ușurință noi fișiere sau dosare, dacă doriți acest lucru.
-
-        Evident, puteți selecta sortarea în funcție de mai multe valori diferite, puteți comuta între ordine crescătoare și descrescătoare sau puteți utiliza o sortare specifică unui dosar.
-
-        Cu doar câteva clicuri puteți, de asemenea, să verificați proprietățile fișierelor sau ale dosarelor, care afișează diverse câmpuri, cum ar fi dimensiunea fișierului, data ultimei modificări sau valorile EXIF, cum ar fi data creării, modelul camerei foto la fotografii etc.
-
-        Pentru a obține rapid calea unui fișier sau a unui dosar, îl puteți selecta cu ușurință prin apăsare lungă și îl puteți copia în clipboard.
-
-        Puteți crea comenzi rapide practice pe ecranul principal pentru a accesa rapid elementele preferate.
-
-        Conține un editor de fișiere ușor pe care îl puteți utiliza fie pentru a imprima documente, fie pentru a le edita, fie pentru a le citi cu ușurință cu ajutorul gesturilor de zoom, ori de câte ori este nevoie.
-
-        Aplicaţia vine cu design material şi temă întunecată în mod implicit. Limitarea necesităţii accesului la internet vă oferă mai multă intimitate, securitate şi stabilitate decât alte aplicaţii.
-
-        Nu conţine reclame sau permisiuni inutile. Codul sursă este complet open source şi oferă culori personalizabile.
-
-        <b>Consultaţi întreaga suită de aplicaţii Simple Tools aici:</b>
-        https://www.simplemobiletools.com
-
-        <b>Standalone website of Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res

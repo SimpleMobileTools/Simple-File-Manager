@@ -59,48 +59,6 @@
     <!-- Settings -->
     <string name="enable_root_access">Activar acceso root</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>
-
-    <!-- Strings displayed only on Google Playstore. Optional, but good to have -->
-    <!-- App title has to have less than 50 characters. If you cannot squeeze it, just remove a part of it -->
-    <string name="app_title">Simple File Manager Pro - Manage files easily &amp; fast</string>
-    <!-- Short description has to have less than 80 chars -->
-    <string name="app_short_description">Quick file management with no ads. Browse files easily, securely &amp; fast</string>
-    <string name="app_long_description">
-        Un xestor de ficheiros rápido e lixeiro para uso diario. Ofrece unha funcionalidade de busca útil e podes personalizar o cartafol de inicio e seleccionar os cartafoles favoritos para un acceso rápido.
-
-        O aplicativo contén múltiples funcións relacionadas coa seguridade, como a protección por contrasinal de elementos ocultos, a eliminación de ficheiros ou o aplicativo completo. Podes escoller entre usar un patrón, contrasinal ou unha pegada dixital para manter protexidos os teus datos.
-
-        TEste xestor de ficheiros admite a navegación rápida de ficheiros raíz, tarxetas SD e dispositivos USB.
-
-        Para manter a súa produtividade e ten todas as operacións de ficheiro estándar como renomear, copiar, mover, eliminar, compartir, etc. Tamén se pode usar para aforrar algo de almacenamento xa que tamén permite comprimir e descomprimir. Podes crear novos ficheiros ou cartafoles se o desexas.
-
-        Obviamente podes seleccionar a ordenación por varios valores diferentes, alternar entre ascendente e descendente ou usar unha clasificación específica para o cartafol.
-
-        Con só uns poucos clics, tamén podes comprobar as propiedades do ficheiro ou cartafol, que mostra varios campos como o tamaño do ficheiro, a data da última modificación ou os valores EXIF como a data de creación, o modelo da cámara nas fotos, etc.
-
-        Para obter unha ruta de ficheiros ou cartafoles rapidamente, podes seleccionalo facilmente premendo e copiándoo no portapapeis.
-
-        Podes crear accesos directos nas pantallas para acceder rapidamente aos teus elementos favoritos.
-
-        Contén un editor de ficheiros lixeiro que pode empregar para imprimir documentos, editalos ou lelos facilmente usando xestos de zoom, sempre que sexa necesario.
-
-        E, por último, vén cun deseño material e un tema escuro de xeito predeterminado, fornece unha excelente experiencia de usuario cun uso sinxelo. Ao non requirir acceso a Internet, tes máis privacidade, seguridade e estabilidade
-
-        Non contén anuncios nin permisos innecesarios. Dispón dun tema escuro e é totalmente de código aberto.
-
-        <b>Visita a páxina nesta ligazón:</b>
-        https://www.simplemobiletools.com
-
-        <b>Páxina web do Simple File Manager Pro:</b>
-        https://www.simplemobiletools.com/filemanager
-
-        <b>Facebook:</b>
-        https://www.facebook.com/simplemobiletools
-
-        <b>Reddit:</b>
-        https://www.reddit.com/r/SimpleMobileTools
-    </string>
-
     <!--
         Non atopou todas as cadeas que debería traducir? Existen algunhas máis en
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
