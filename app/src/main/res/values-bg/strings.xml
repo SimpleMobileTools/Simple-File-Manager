@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Обикновени файлове</string>
+    <string name="app_name">Обикновен Файлов Мениджър</string>
     <string name="app_launcher_name">Файлове</string>
     <string name="press_back_again">Натиснете назад отново, за да излезете</string>
     <string name="go_to_home_folder">Към началната папка</string>
