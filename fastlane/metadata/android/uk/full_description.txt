@@ -4,4 +4,17 @@
 
 Цей додаток не буде показувати рекламу, потрібні лише найнеобхідніші дозволи. Додаток має повністю відкритий програмний код, кольори оформлення можна легко налаштувати.
 
-Простий Менеджер Файлів є лише одним із ряду додатків від Simple Mobile Tools. Ви знайдете інші за адресою https://www.simplemobiletools.com
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple File Manager Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

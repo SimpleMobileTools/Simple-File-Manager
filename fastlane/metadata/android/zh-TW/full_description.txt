@@ -1,0 +1,20 @@
+也能用來瀏覽根目錄和SD卡的內容。你可以輕易地照你想要的重新命名、複製、移動、刪除及分享任何內容。
+		
+指紋權限用來鎖定隱藏的項目或是整個程式。
+
+不包含廣告及非必要的權限，而且完全開放原始碼，並提供自訂顏色。
+		
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple File Manager Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

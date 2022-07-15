@@ -1,0 +1,32 @@
+Prosty menedżer plików to super szybki i profesjonalny menedżer plików i folderów dla urządzeń z systemem Android. Użyj Prosty menedżer plików, aby łatwo kompresować, przesyłać i konwertować pliki multimedialne za pomocą kilku kliknięć. Posiada wszystkie główne funkcje menedżera plików i zarządzania folderami, w tym dostosowywanie folderu domowego i wybieranie ulubionych folderów w celu szybkiego dostępu.
+
+Prosty menedżer plików zapewnia cały pakiet funkcji menedżera plików, w tym wyszukiwanie, nawigację, kopiowanie i wklejanie, wycinanie, usuwanie, zmiana nazwy, dekompresowanie, przesyłanie, pobieranie, organizowanie i tak dalej. Dodawaj, usuwaj lub edytuj pliki, foldery i aplikacje zgodnie z własnymi preferencjami.
+
+Dzięki Prosty menedżer plików możesz organizować i sortować swój telefon komórkowy według różnych wskaźników i przełączać się między rosnącą i malejącą lub przy użyciu sortowania określonego dla folderu. Aby szybko uzyskać ścieżkę do pliku lub folderu, możesz łatwo wybrać go przez długie naciśnięcie i skopiowanie go do schowka.
+
+Prosty menedżer plików całkowicie automatyzuje organizowanie plików, folderów i aplikacji mobilnych, oszczędzając zarówno czas, jak i energię. Za pomocą kilku kliknięć możesz również sprawdzić właściwości pliku lub folderu, które pokazują różne pola, takie jak rozmiar, data ostatniej modyfikacji lub wartości EXIF, takie jak data utworzenia, model aparatu na zdjęciach itp.
+
+Prosty menedżer plików jest całkowicie bezpieczny i zawiera wiele potężnych funkcji związanych z bezpieczeństwem, takich jak ochrona hasłem ukrytych elementów, usuwanie lub cała aplikacja. Aby zachować prywatność danych, możesz wybrać wzór, pinezkę lub odcisk palca. Uprawnienie do odcisku palca jest potrzebne do zablokowania widoczności ukrytych elementów, usuwania plików lub całej aplikacji. Prosty menedżer plików działa bez dostępu do Internetu, co dodatkowo gwarantuje całkowitą prywatność.
+
+Prosty menedżer plików może również czyścić miejsce i oszczędzać pamięć wewnętrzną, kompresując pliki i foldery. Ten nowoczesny organizer plików multimedialnych obsługuje szybkie przeglądanie plików głównych, kart SD i urządzeń USB. File Manager rozpoznaje również wiele formatów plików, w tym muzykę, filmy, obrazy i dokumenty.
+
+Użyj Prosty menedżer plików, aby utworzyć przydatne skróty na pulpicie, aby szybko uzyskać dostęp do ulubionych elementów. Zawiera lekki edytor plików, za pomocą którego można drukować dokumenty, edytować je lub łatwo czytać za pomocą gestów powiększania, kiedy tylko jest to potrzebne.
+
+Prosty menedżer plików pomoże Ci zarządzać plikami, folderami i aplikacjami i dostosowywać je za pomocą kilku kliknięć.
+
+Nie zawiera reklam ani niepotrzebnych uprawnień. Jest w pełni open source, zapewnia konfigurowalne kolory.
+
+Zobacz pełny zestaw prostych narzędzi tutaj:
+https://www.simplemobiletools.com
+
+Samodzielna witryna internetowa Prosty menedżer plików Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

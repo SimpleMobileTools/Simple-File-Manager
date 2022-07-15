@@ -1,1 +1,0 @@
-A simple file manager for browsing and editing files and directories.

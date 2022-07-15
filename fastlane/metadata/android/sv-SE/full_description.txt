@@ -1,0 +1,20 @@
+Appen kan också användas för att bläddra bland rotfiler och innehållet på SD-kort. Du kan enkelt byta namn på, kopiera, flytta, ta bort och dela vad du vill.
+
+Fingeravtrycksbehörigheten behövs för att låsa hela appen eller synligheten för dolda objekt.
+
+Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
+
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple File Manager Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

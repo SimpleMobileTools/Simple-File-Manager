@@ -10,14 +10,17 @@ Da biste dobili put datoteke ili mape brzo, možete ga jednostavno odabrati dugi
 
 Dolazi s materijalnim dizajnom i tamnom temom prema zadanim postavkama, pruža izvrsno korisničko iskustvo za jednostavnu upotrebu. Nedostatak pristupa internetu daje vam više privatnosti, sigurnosti i stabilnosti od drugih aplikacija. Ne sadrži oglase niti nepotrebna dopuštenja. Potpuno je otvorenog koda, pruža prilagodljive boje.
 
-<b> Ovdje pogledajte cijeli paket Jednostavni Alati:</b>
+Ovdje pogledajte cijeli paket Jednostavni Alati:
 https://www.simplemobiletools.com
 
-<b> Samostalna web stranica Jednostavan Upravitelj Datoteka Pro:</b>
+Samostalna web stranica Jednostavan Upravitelj Datoteka Pro:
 https://www.simplemobiletools.com/filemanager
 
-<b>Facebook:</b>
+Facebook:
 https://www.facebook.com/simplemobiletools
 
-<b>Reddit:</b>
+Reddit:
 https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

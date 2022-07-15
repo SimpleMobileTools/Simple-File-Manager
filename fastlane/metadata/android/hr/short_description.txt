@@ -1,1 +1,1 @@
-A simple file manager for browsing and editing files and directories.
+Jednostavan upravitelj datoteka za pregledavanje i uređivanje datoteka i mapa.

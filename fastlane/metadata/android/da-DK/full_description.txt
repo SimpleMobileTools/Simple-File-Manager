@@ -1,0 +1,20 @@
+Kan også bruges til root-filer og indhold på SD-kort. Du kan nemt omdøbe, kopiere, flytte, slette og dele det du har gemt.
+
+Adgang med fingeraftryk kræves til at låse enten synligheden af skjulte elementer eller hele appen.
+
+Uden reklamer og unødvendige tilladelser. Den er helt igennem open source, og du kan selv bestemme farverne.
+
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple File Manager Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

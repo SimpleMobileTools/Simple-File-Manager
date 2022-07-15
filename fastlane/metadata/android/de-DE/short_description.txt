@@ -1,0 +1,1 @@
+Der Datei Exploerer verwaltet Files, Ordener und eigene Dateien, keine Werbung

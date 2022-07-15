@@ -1,0 +1,38 @@
+Günlük kullanıma uygun hızlı dosya yöneticisi uygulamasıdır. Materyal tasarımına dayalı güzel ve kapsamlı bir kullanıcı deneyimi sunar. 
+
+Kullanışlı arama fonksiyonuna ilave olarak ana sayfa dosyasını kişiselleştirebilir ve favori dosyalarınıza hızlıca erişebilirsiniz. 
+
+Küçük dosya yöneticisi gizli maddelerin korunması, dosya sile veya tüm uygulamayı silme gibi güçlü güvenlik işlevlerini içerisinde barındırmaktadır. Verilerinizi gizli tutmak için dizgi, pin kodu veya parmak izi gibi güvenlik yöntemlerini kullanabilirsiniz. İnternet erişimi olmadığı için gizliliğiniz emin ellerdedir. 
+
+Bu modern dosya yöneticisi kaynak dosyaların hızlıca taranmasına, SD kart ve USB cihazların kullanılmasına imkân sağlamaktadır. 
+
+Verimliliğinizi arttırmak için yeniden adlandırma, kopyalama, taşıma, silme ve paylaşma gibi standart dosya operasyonlarına sahiptir. Ayrıca cihaz hafızasında yer açmak amacıyla kullanılabilir. Kolayca yeni dosyalar veya klasörler oluşturabilirsiniz.
+
+Farklı değerlere göre sıralama yapabilirsiniz, artan veya azalan değerler ile sıralayabilir veya klasörlere özel olarak listeleyebilirsiniz. 
+
+Sadece birkaç tıkla, dosya veya klasör özelliklerine erişerek dosya boyutu, son değiştirilme tarihi veya oluşturulma tarihi, fotoğraflardaki kamera modeli gibi EXIF özelliklere erişebilirsiniz. 
+
+Dosya veya klasöre hızlıca erişebilmek için ikon üzerine uzun basın ve panoya kopyalayın. 
+
+Favori dosyalarınıza hızlıca erişebilmek için kullanışlı masaüstü kısayolları oluşturabilirsiniz.
+
+İçeriğinde basit bir dosya editörü bulundurur, böylece doküman yazdırılması, düzeltilmesi veya okumasını yakınlaştırma özelliği dâhilinde kullanabilirsiniz. 
+
+Gizli dosyaların görünebilirliliği, dosya silinmesini veya tüm uygulamayı kaldırmak için parmak izi alınması gerekir. 
+
+Reklam veya gereksiz izinler içermez. Tamamen açık kaynaktır, özelleştirilebilir renkler sunar.
+
+Basit Araçlar paketinin tamamını buradan inceleyin:
+https://www.simplemobiletools.com
+
+Basit Dosya Yöneticisi Pro'nun bağımsız web sitesi:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

@@ -1,0 +1,32 @@
+Gestor de Archivos Simple Pro es un administrador de archivos y carpetas súper rápido y profesional para dispositivos Android. Utilice Gestor de Archivos Simple Pro para comprimir, transferir y convertir archivos multimedia fácilmente con unos pocos clics. Tiene todas las funciones principales de administración de archivos y carpetas, incluida la personalización de la carpeta de inicio y la selección de carpetas favoritas para un acceso rápido.
+
+Gestor de Archivos Simple Pro proporciona todo el paquete de funciones del administrador de archivos, que incluyen búsqueda, navegación, copiar y pegar, cortar, eliminar, renombrar, descomprimir, transferir, descargar, organizar, etc. Agregue, elimine o edite archivos, carpetas y aplicaciones según sus preferencias personales.
+
+Con Gestor de Archivos Simple Pro, puede organizar y ordenar su dispositivo móvil según varias métricas y alternar entre ascendente y descendente o usar una clasificación específica de carpeta. Para obtener una ruta de archivo o carpeta rápidamente, puede seleccionarlo fácilmente presionando prolongadamente y copiándolo en el portapapeles.
+
+Gestor de Archivos Simple Pro automatiza completamente la organización de sus archivos, carpetas y aplicaciones móviles para ahorrarle tiempo y energía. Con solo unos pocos clics, también puede verificar las propiedades del archivo o carpeta, que muestra varios campos como el tamaño, la fecha de la última modificación o valores EXIF ​​como la fecha de creación, el modelo de cámara en las fotos, etc.
+
+Gestor de Archivos Simple Pro es absolutamente seguro y contiene múltiples funciones poderosas relacionadas con la seguridad, como proteger con contraseña los elementos ocultos, eliminar o toda la aplicación. Puede elegir entre usar un patrón, un alfiler o una huella digital para mantener la privacidad de sus datos. El permiso de huellas digitales es necesario para bloquear la visibilidad de elementos ocultos, eliminar archivos o toda la aplicación. Gestor de Archivos Simple Pro funciona sin acceso a Internet, lo que garantiza aún más su máxima privacidad.
+
+Gestor de Archivos Simple Pro también puede limpiar espacio y guardar su almacenamiento interno comprimiendo archivos y carpetas. Este moderno organizador de archivos multimedia admite la exploración rápida de archivos raíz, tarjetas SD y dispositivos USB. File Manager también reconoce múltiples formatos de archivo, incluyendo música, videos, imágenes y documentos.
+
+Utilice Gestor de Archivos Simple Pro para crear prácticos accesos directos en el escritorio para acceder rápidamente a sus elementos favoritos. Contiene un editor de archivos ligero que puede usar para imprimir documentos, editarlos o leerlos fácilmente con gestos de zoom, siempre que sea necesario.
+
+Gestor de Archivos Simple Pro lo ayudará a administrar y personalizar sus archivos, carpetas y aplicaciones con solo unos pocos clics.
+
+No contiene anuncios ni permisos innecesarios. Es totalmente de código abierto, proporciona colores personalizables.
+
+Consulte el conjunto completo de herramientas simples aquí:
+https://www.simplemobiletools.com
+
+Sitio web independiente de Gestor de Archivos Simple Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools

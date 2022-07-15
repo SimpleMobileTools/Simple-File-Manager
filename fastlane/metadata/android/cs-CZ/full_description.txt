@@ -1,0 +1,20 @@
+Umožňuje také procházení souborů kořenového adresáře a obsahu SD karet. Můžete jednoduše přejmenovat, kopírovat, přesunovat a sdílet cokoli chcete.
+
+Oprávnění pro přístup k otiskům prstů je potřebné pro uzamykání skrytých položek, nebo celé aplikace.
+
+Neobsahuje žádné reklamy, ani nepotřebná oprávnění. Má plně otevřený zdrojový kód a možnost změny barev.
+
+Check out the full suite of Simple Tools here:
+https://www.simplemobiletools.com
+
+Standalone website of Simple File Manager Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
