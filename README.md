@@ -2,25 +2,23 @@
 
 <img alt="Logo" src="graphics/icon.png" width="120" />
 
-A lightweight quick file manager for everyday use. It offers a userful search functionality, you can also customize the home folder and select favorite folders for quick access.
+Simple File Manager is a super quick & professional file and folder manager for Android devices. Use Simple File Manager to easily compress, transfer & convert media files with a few clicks. It has all of the major file manager & folder management features, including customizing the home folder and selecting favorite folders for quick access. 
 
-The app contains multiple powerful security related functions, like password protecting hidden items, deleting files, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private.
+The file manager provides the whole pack of file manager features, including search, navigation, copy & paste, cut, delete, rename, decompress, transfer, download, organize & so on. Add, remove, or edit files, folders & apps according to your personal preferences. 
 
-This modern file organizer supports fast browsing of root files, SD cards and USB devices.
+With this easy data organizer, you can organize and sort your mobile by various metrics and toggle between ascending and descending or using a folder specific sorting. To get a file or folder path quickly, you can easily select it by long-pressing and copying it in the clipboard. 
 
-To keep your productive, it obviously has all the standard file operations like rename, copy, move, delete, share etc. It can also be used for saving up some storage, since it allows compressing and decompressing too. You can easily create new files or folders if you wish so.
+Simple File Manager makes organizing your mobile files, folders, and apps easy to save you both time & energy. With just a few clicks, you can also check file or folder properties, which shows various fields like the size, date of the last modification, or EXIF values like the creation date, camera model at photos, etc. 
 
-You can obviously select sorting by multiple different values, toggle between ascending and descending, or use a folder specific sorting.
+This file organizer is absolutely secure, containing multiple powerful security-related functions, like password protecting hidden items, deleting, or the whole app. You can choose between using a pattern, pin, or a fingerprint to keep your data private. The fingerprint permission is needed for locking either hidden item visibility, deleting files, or the whole app. Simple File Manager works without internet access, further guaranteeing your ultimate privacy. 
 
-By just a few clicks you can also check file or folder properties, which shows various fields like the file size, date of the last modification, or EXIF values like the creation date, camera model at photos etc.
+The File Manager can also clean up space and save your internal storage by compressing files & folders. This modern media file organizer supports fast browsing of root files, SD cards, and USB devices. File Manager also recognizes multiple file formats, including music, videos, images & documents. 
 
-To get a file or folders path quickly, you can easily select it by long pressing and copying it in the clipboard.
+Use Simple File Manager Pro to create handy desktop shortcuts for accessing your favorite items quickly. It contains a light file editor that you can use to print documents, edit them, or read easily using zoom gestures, whenever needed. 
 
-You can create handy desktop shortcuts for accessing your favorite items quickly.
+Despite called Simple File Manager, it will help you manage & customize your files, folders & apps with just a few clicks. You can easily see your recent files and do a storage analysis too.
 
-It contains a light file editor that you can use either for printing documents, editing them, or read easily with using zoom gestures, whenever needed.
-
-It comes with material design and dark theme by default, provides great user experience for easy usage. The lack of internet access gives you more privacy, security and stability than other apps.
+You can use the built in Storage Analysis to have a quick overview about what files are taking up the most space and clean it up. It can function as a storage cleaner that will help empty some space on your device.
 
 Contains no ads or unnecessary permissions. It is fully opensource, provides customizable colors.
 
@@ -35,6 +33,9 @@ https://www.facebook.com/simplemobiletools
 
 Reddit:  
 https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:  
+https://t.me/SimpleMobileTools
 
 <a href='https://play.google.com/store/apps/details?id=com.simplemobiletools.filemanager.pro'><img src='https://simplemobiletools.com/images/button-google-play.svg' alt='Get it on Google Play' height='45' /></a>
 <a href='https://f-droid.org/packages/com.simplemobiletools.filemanager.pro'><img src='https://simplemobiletools.com/images/button-f-droid.png' alt='Get it on F-Droid' height='45' /></a>
