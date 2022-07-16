@@ -16,6 +16,8 @@ Viete si taktiež vytvoriť užitočné skratky na domovskú obrazovku pre rých
 
 Obsahuje aj ľahký súborový editor, ktorý viete použiť buď na tlač, úpravu, alebo jednoduché čítanie. Text môžete gestami aj zväčšovať.
 
+Môžete použiť vstavaný analyzér úložiska na rýchly prehľad toho, ktoré súbory vám zaberajú najviac miesta. Apku teda môžete použiť aj na čistenie úložiska, ktorým jednoducho uvoľníte miesto na vašom zariadení.
+
 Táto apka je založená na Material dizajne a má prednastavenú tmavú tému, poskytuje výbornú používateľskú skúsenosť pre ľahké používanie. Chýbajúci prístup k internetu garantuje lepšie súkromie, bezpečnosť a stabilitu ako ostatné apky.
 
 Neobsahuje žiadne reklamy a nepotrebné oprávnenia. Je opensource, poskytuje možnosť zmeny farieb.
