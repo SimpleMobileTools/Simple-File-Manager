@@ -5,5 +5,5 @@
         android:id="@+id/add_favorite"
         android:icon="@drawable/ic_plus_vector"
         android:title="@string/add_favorites"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

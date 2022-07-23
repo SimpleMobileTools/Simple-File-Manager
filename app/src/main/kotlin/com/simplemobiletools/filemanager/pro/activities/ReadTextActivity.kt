@@ -339,7 +339,7 @@ class ReadTextActivity : SimpleActivity() {
     }
 
     private fun closeSearch() {
-        searchQueryET.text.clear()
+        searchQueryET.text?.clear()
         isSearchActive = false
         search_wrapper.beGone()
     }

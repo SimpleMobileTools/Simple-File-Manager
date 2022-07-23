@@ -1,10 +1,9 @@
 package com.simplemobiletools.filemanager.pro.dialogs
 
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.beGone
-import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
@@ -36,16 +35,21 @@ class ChangeViewTypeDialog(val activity: BaseSimpleActivity, val path: String = 
             }
         }
 
-        AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
             .setNegativeButton(R.string.cancel, null)
-            .create().apply {
+            .apply {
                 activity.setupDialogStuff(view, this)
             }
     }
 
     private fun dialogConfirmed() {
-        val viewType = if (view.change_view_type_dialog_radio.checkedRadioButtonId == view.change_view_type_dialog_radio_grid.id) VIEW_TYPE_GRID else VIEW_TYPE_LIST
+        val viewType = if (view.change_view_type_dialog_radio.checkedRadioButtonId == view.change_view_type_dialog_radio_grid.id) {
+            VIEW_TYPE_GRID
+        } else {
+            VIEW_TYPE_LIST
+        }
+
         if (view.change_view_type_dialog_use_for_this_folder.isChecked) {
             config.saveFolderViewType(this.path, viewType)
         } else {

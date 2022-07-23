@@ -69,6 +69,8 @@ class MainActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
+        setupOptionsMenu()
+        refreshMenuItems()
         mTabsToShow = getTabsList()
 
         if (!config.wasStorageAnalysisTabAdded && isOreoPlus()) {
@@ -108,6 +110,8 @@ class MainActivity : SimpleActivity() {
         }
 
         setupTabColors()
+        setupToolbar(main_toolbar, searchMenuItem = searchMenuItem)
+
         getAllFragments().forEach {
             it?.onResume(getProperTextColor())
         }
@@ -140,19 +144,12 @@ class MainActivity : SimpleActivity() {
         config.temporarilyShowHidden = false
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        setupSearch(menu)
-        updateMenuItemColors(menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val currentFragment = getCurrentFragment() ?: return true
+    private fun refreshMenuItems() {
+        val currentFragment = getCurrentFragment() ?: return
         val currentViewType = config.getFolderViewType(currentFragment.currentPath)
         val favorites = config.favorites
 
-        menu!!.apply {
+        main_toolbar.menu.apply {
             findItem(R.id.search).isVisible = currentFragment is ItemsFragment
             findItem(R.id.sort).isVisible = currentFragment is ItemsFragment
             findItem(R.id.change_view_type).isVisible = currentFragment !is StorageFragment
@@ -172,33 +169,34 @@ class MainActivity : SimpleActivity() {
                 currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT && currentFragment !is StorageFragment
             findItem(R.id.reduce_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1 && currentFragment !is StorageFragment
         }
-
-        return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (getCurrentFragment() == null) {
-            return true
-        }
+    private fun setupOptionsMenu() {
+        setupSearch(main_toolbar.menu)
+        main_toolbar.setOnMenuItemClickListener { menuItem ->
+            if (getCurrentFragment() == null) {
+                return@setOnMenuItemClickListener true
+            }
 
-        when (item.itemId) {
-            R.id.go_home -> goHome()
-            R.id.go_to_favorite -> goToFavorite()
-            R.id.sort -> showSortingDialog()
-            R.id.add_favorite -> addFavorite()
-            R.id.remove_favorite -> removeFavorite()
-            R.id.toggle_filename -> toggleFilenameVisibility()
-            R.id.set_as_home -> setAsHome()
-            R.id.change_view_type -> changeViewType()
-            R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.increase_column_count -> increaseColumnCount()
-            R.id.reduce_column_count -> reduceColumnCount()
-            R.id.settings -> launchSettings()
-            R.id.about -> launchAbout()
-            else -> return super.onOptionsItemSelected(item)
+            when (menuItem.itemId) {
+                R.id.go_home -> goHome()
+                R.id.go_to_favorite -> goToFavorite()
+                R.id.sort -> showSortingDialog()
+                R.id.add_favorite -> addFavorite()
+                R.id.remove_favorite -> removeFavorite()
+                R.id.toggle_filename -> toggleFilenameVisibility()
+                R.id.set_as_home -> setAsHome()
+                R.id.change_view_type -> changeViewType()
+                R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
+                R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
+                R.id.increase_column_count -> increaseColumnCount()
+                R.id.reduce_column_count -> reduceColumnCount()
+                R.id.settings -> launchSettings()
+                R.id.about -> launchAbout()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
-        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -405,7 +403,7 @@ class MainActivity : SimpleActivity() {
                 getAllFragments().forEach {
                     (it as? ItemOperationsListener)?.finishActMode()
                 }
-                invalidateOptionsMenu()
+                refreshMenuItems()
             }
         })
         main_view_pager.currentItem = config.lastUsedViewPagerPage
@@ -458,7 +456,7 @@ class MainActivity : SimpleActivity() {
             updateBottomTabItemColors(inactiveView, false)
         }
 
-        val bottomBarColor = getBottomTabsBackgroundColor()
+        val bottomBarColor = getBottomNavigationBackgroundColor()
         main_tabs_holder.setBackgroundColor(bottomBarColor)
         updateNavigationBarColor(bottomBarColor)
     }

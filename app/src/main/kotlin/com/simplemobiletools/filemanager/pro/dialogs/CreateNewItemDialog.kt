@@ -15,13 +15,13 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
     private val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
 
     init {
-        AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
             .setNegativeButton(R.string.cancel, null)
-            .create().apply {
-                activity.setupDialogStuff(view, this, R.string.create_new) {
-                    showKeyboard(view.item_name)
-                    getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
+            .apply {
+                activity.setupDialogStuff(view, this, R.string.create_new) { alertDialog ->
+                    alertDialog.showKeyboard(view.item_name)
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
                         val name = view.item_name.value
                         if (name.isEmpty()) {
                             activity.toast(R.string.empty_name)
@@ -33,11 +33,11 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                             }
 
                             if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
-                                createDirectory(newPath, this) {
+                                createDirectory(newPath, alertDialog) {
                                     callback(it)
                                 }
                             } else {
-                                createFile(newPath, this) {
+                                createFile(newPath, alertDialog) {
                                     callback(it)
                                 }
                             }

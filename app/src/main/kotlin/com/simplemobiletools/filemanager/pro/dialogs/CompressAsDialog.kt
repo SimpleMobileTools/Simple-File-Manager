@@ -30,30 +30,30 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
             }
         }
 
-        AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.cancel, null)
-                .create().apply {
-                    activity.setupDialogStuff(view, this, R.string.compress_as) {
-                        showKeyboard(view.file_name)
-                        getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                            val name = view.file_name.value
-                            when {
-                                name.isEmpty() -> activity.toast(R.string.empty_name)
-                                name.isAValidFilename() -> {
-                                    val newPath = "$realPath/$name.zip"
-                                    if (activity.getDoesFilePathExist(newPath)) {
-                                        activity.toast(R.string.name_taken)
-                                        return@OnClickListener
-                                    }
-
-                                    dismiss()
-                                    callback(newPath)
+        activity.getAlertDialogBuilder()
+            .setPositiveButton(R.string.ok, null)
+            .setNegativeButton(R.string.cancel, null)
+            .apply {
+                activity.setupDialogStuff(view, this, R.string.compress_as) { alertDialog ->
+                    alertDialog.showKeyboard(view.file_name)
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
+                        val name = view.file_name.value
+                        when {
+                            name.isEmpty() -> activity.toast(R.string.empty_name)
+                            name.isAValidFilename() -> {
+                                val newPath = "$realPath/$name.zip"
+                                if (activity.getDoesFilePathExist(newPath)) {
+                                    activity.toast(R.string.name_taken)
+                                    return@OnClickListener
                                 }
-                                else -> activity.toast(R.string.invalid_name)
+
+                                alertDialog.dismiss()
+                                callback(newPath)
                             }
-                        })
-                    }
+                            else -> activity.toast(R.string.invalid_name)
+                        }
+                    })
                 }
+            }
     }
 }

@@ -1,9 +1,9 @@
 package com.simplemobiletools.filemanager.pro.dialogs
 
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.beVisibleIf
+import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.filemanager.pro.R
@@ -24,10 +24,10 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
             sorting_dialog_numeric_sorting.isChecked = currSorting and SORT_USE_NUMERIC_VALUE != 0
         }
 
-        AlertDialog.Builder(activity)
+        activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
             .setNegativeButton(R.string.cancel, null)
-            .create().apply {
+            .apply {
                 activity.setupDialogStuff(view, this, R.string.sort_by)
             }
 

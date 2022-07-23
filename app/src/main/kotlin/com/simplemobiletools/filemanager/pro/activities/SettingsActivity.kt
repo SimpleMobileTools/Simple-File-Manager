@@ -2,7 +2,6 @@ package com.simplemobiletools.filemanager.pro.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import com.simplemobiletools.commons.dialogs.ChangeDateTimeFormatDialog
 import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -25,6 +24,7 @@ class SettingsActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
+        setupToolbar(settings_toolbar, NavigationIcon.Arrow)
 
         setupCustomizeColors()
         setupUseEnglish()
@@ -41,8 +41,7 @@ class SettingsActivity : SimpleActivity() {
         setupKeepLastModified()
         setupDeleteConfirmation()
         setupEnableRootAccess()
-        updateTextColors(settings_holder)
-        invalidateOptionsMenu()
+        updateTextColors(settings_nested_scrollview)
 
         arrayOf(
             settings_color_customization_label,
@@ -65,11 +64,6 @@ class SettingsActivity : SimpleActivity() {
         ).forEach {
             it.background.applyColorFilter(getProperBackgroundColor().getContrastColor())
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        updateMenuItemColors(menu)
-        return super.onCreateOptionsMenu(menu)
     }
 
     private fun setupCustomizeColors() {

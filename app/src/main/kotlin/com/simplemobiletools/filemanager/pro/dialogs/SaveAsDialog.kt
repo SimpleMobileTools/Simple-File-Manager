@@ -8,8 +8,10 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.pro.R
 import kotlinx.android.synthetic.main.dialog_save_as.view.*
 
-class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val hidePath: Boolean,
-                   val callback: (path: String, filename: String) -> Unit) {
+class SaveAsDialog(
+    val activity: BaseSimpleActivity, var path: String, val hidePath: Boolean,
+    val callback: (path: String, filename: String) -> Unit
+) {
 
     init {
         if (path.isEmpty()) {
@@ -45,44 +47,44 @@ class SaveAsDialog(val activity: BaseSimpleActivity, var path: String, val hideP
             }
         }
 
-        AlertDialog.Builder(activity)
-                .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.cancel, null)
-                .create().apply {
-                    activity.setupDialogStuff(view, this, R.string.save_as) {
-                        showKeyboard(view.save_as_name)
-                        getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                            val filename = view.save_as_name.value
-                            val extension = view.save_as_extension.value
+        activity.getAlertDialogBuilder()
+            .setPositiveButton(R.string.ok, null)
+            .setNegativeButton(R.string.cancel, null)
+            .apply {
+                activity.setupDialogStuff(view, this, R.string.save_as) { alertDialog ->
+                    alertDialog.showKeyboard(view.save_as_name)
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                        val filename = view.save_as_name.value
+                        val extension = view.save_as_extension.value
 
-                            if (filename.isEmpty()) {
-                                activity.toast(R.string.filename_cannot_be_empty)
-                                return@setOnClickListener
-                            }
+                        if (filename.isEmpty()) {
+                            activity.toast(R.string.filename_cannot_be_empty)
+                            return@setOnClickListener
+                        }
 
-                            var newFilename = filename
-                            if (extension.isNotEmpty()) {
-                                newFilename += ".$extension"
-                            }
+                        var newFilename = filename
+                        if (extension.isNotEmpty()) {
+                            newFilename += ".$extension"
+                        }
 
-                            val newPath = "$realPath/$newFilename"
-                            if (!newFilename.isAValidFilename()) {
-                                activity.toast(R.string.filename_invalid_characters)
-                                return@setOnClickListener
-                            }
+                        val newPath = "$realPath/$newFilename"
+                        if (!newFilename.isAValidFilename()) {
+                            activity.toast(R.string.filename_invalid_characters)
+                            return@setOnClickListener
+                        }
 
-                            if (!hidePath && activity.getDoesFilePathExist(newPath)) {
-                                val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFilename)
-                                ConfirmationDialog(activity, title) {
-                                    callback(newPath, newFilename)
-                                    dismiss()
-                                }
-                            } else {
+                        if (!hidePath && activity.getDoesFilePathExist(newPath)) {
+                            val title = String.format(activity.getString(R.string.file_already_exists_overwrite), newFilename)
+                            ConfirmationDialog(activity, title) {
                                 callback(newPath, newFilename)
-                                dismiss()
+                                alertDialog.dismiss()
                             }
+                        } else {
+                            callback(newPath, newFilename)
+                            alertDialog.dismiss()
                         }
                     }
                 }
+            }
     }
 }
