@@ -2,15 +2,14 @@ package com.simplemobiletools.filemanager.pro.activities
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.widget.RelativeLayout
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
 import com.simplemobiletools.commons.helpers.isRPlus
@@ -26,17 +25,15 @@ class PDFViewerActivity : SimpleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         useDynamicTheme = false
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf_viewer)
-        setupOptionsMenu()
-        refreshMenuItems()
 
         if (checkAppSideloading()) {
             return
         }
 
         window.decorView.setBackgroundColor(getProperBackgroundColor())
-        top_shadow.layoutParams.height = statusBarHeight + actionBarHeight
         checkNotchSupport()
 
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
@@ -44,6 +41,7 @@ class PDFViewerActivity : SimpleActivity() {
             pdf_viewer_toolbar.title = realFilePath.getFilenameFromPath()
         }
 
+        setupMenu()
         checkIntent()
         if (isRPlus()) {
             window.insetsController?.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
@@ -52,26 +50,22 @@ class PDFViewerActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.statusBarColor = Color.TRANSPARENT
         setTranslucentNavigation()
-        setupToolbar(pdf_viewer_toolbar, NavigationIcon.Arrow)
     }
 
-    private fun setupOptionsMenu() {
-        pdf_viewer_toolbar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.menu_print -> printText()
-                else -> return@setOnMenuItemClickListener false
-            }
-            return@setOnMenuItemClickListener true
-        }
-    }
-
-
-    private fun refreshMenuItems() {
+    private fun setupMenu() {
+        (pdf_viewer_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
         pdf_viewer_toolbar.menu.apply {
             findItem(R.id.menu_print).isVisible = realFilePath.isNotEmpty()
+            findItem(R.id.menu_print).setOnMenuItemClickListener {
+                printText()
+                true
+            }
+        }
+
+        pdf_viewer_toolbar.setNavigationOnClickListener {
+            finish()
         }
     }
 
@@ -122,6 +116,15 @@ class PDFViewerActivity : SimpleActivity() {
         }
 
         top_shadow.animate().alpha(newAlpha).start()
+        pdf_viewer_appbar.animate().alpha(newAlpha).withStartAction {
+            if (newAlpha == 1f) {
+                pdf_viewer_appbar.beVisible()
+            }
+        }.withEndAction {
+            if (newAlpha == 0f) {
+                pdf_viewer_appbar.beGone()
+            }
+        }.start()
 
         // return false to also toggle scroll handle
         return true
