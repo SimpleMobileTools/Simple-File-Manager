@@ -19,12 +19,12 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
         var realPath = path.getParentPath()
 
         view.apply {
-            file_name.setText(baseFilename)
+            filename_value.setText(baseFilename)
 
-            file_path.text = activity.humanizePath(realPath)
-            file_path.setOnClickListener {
+            folder.setText(activity.humanizePath(realPath))
+            folder.setOnClickListener {
                 FilePickerDialog(activity, realPath, false, activity.config.shouldShowHidden, true, true, showFavoritesButton = true) {
-                    file_path.text = activity.humanizePath(it)
+                    folder.setText(activity.humanizePath(it))
                     realPath = it
                 }
             }
@@ -35,9 +35,9 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
             .setNegativeButton(R.string.cancel, null)
             .apply {
                 activity.setupDialogStuff(view, this, R.string.compress_as) { alertDialog ->
-                    alertDialog.showKeyboard(view.file_name)
+                    alertDialog.showKeyboard(view.filename_value)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                        val name = view.file_name.value
+                        val name = view.filename_value.value
                         when {
                             name.isEmpty() -> activity.toast(R.string.empty_name)
                             name.isAValidFilename() -> {

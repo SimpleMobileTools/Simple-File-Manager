@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
-import android.view.Menu
-import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
@@ -47,6 +45,8 @@ class ReadTextActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_text)
+        setupOptionsMenu()
+
         searchQueryET = findViewById(R.id.search_query)
         searchPrevBtn = findViewById(R.id.search_previous)
         searchNextBtn = findViewById(R.id.search_next)
@@ -70,7 +70,7 @@ class ReadTextActivity : SimpleActivity() {
 
         val filename = getFilenameFromUri(uri)
         if (filename.isNotEmpty()) {
-            title = Uri.decode(filename)
+            read_text_toolbar.title = Uri.decode(filename)
         }
 
         read_text_view.onGlobalLayout {
@@ -82,21 +82,9 @@ class ReadTextActivity : SimpleActivity() {
         setupSearchButtons()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_editor, menu)
-        updateMenuItemColors(menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_search -> openSearch()
-            R.id.menu_save -> saveText()
-            R.id.menu_open_with -> openPath(intent.dataString!!, true)
-            R.id.menu_print -> printText()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
+    override fun onResume() {
+        super.onResume()
+        setupToolbar(read_text_toolbar, NavigationIcon.Arrow)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -128,6 +116,19 @@ class ReadTextActivity : SimpleActivity() {
                 }
             }
             else -> super.onBackPressed()
+        }
+    }
+
+    private fun setupOptionsMenu() {
+        read_text_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_search -> openSearch()
+                R.id.menu_save -> saveText()
+                R.id.menu_open_with -> openPath(intent.dataString!!, true)
+                R.id.menu_print -> printText()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
     }
 

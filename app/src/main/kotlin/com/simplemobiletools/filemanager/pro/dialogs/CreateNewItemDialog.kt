@@ -20,9 +20,9 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
             .setNegativeButton(R.string.cancel, null)
             .apply {
                 activity.setupDialogStuff(view, this, R.string.create_new) { alertDialog ->
-                    alertDialog.showKeyboard(view.item_name)
+                    alertDialog.showKeyboard(view.item_title)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                        val name = view.item_name.value
+                        val name = view.item_title.value
                         if (name.isEmpty()) {
                             activity.toast(R.string.empty_name)
                         } else if (name.isAValidFilename()) {

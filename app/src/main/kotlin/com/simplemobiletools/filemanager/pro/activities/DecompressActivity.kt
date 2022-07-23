@@ -3,10 +3,9 @@ package com.simplemobiletools.filemanager.pro.activities
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.filemanager.pro.R
@@ -26,6 +25,8 @@ class DecompressActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_decompress)
+        setupOptionsMenu()
+
         uri = intent.data
         if (uri == null) {
             toast(R.string.unknown_error_occurred)
@@ -33,9 +34,33 @@ class DecompressActivity : SimpleActivity() {
         }
 
         val realPath = getRealPathFromURI(uri!!)
-        title = realPath?.getFilenameFromPath() ?: Uri.decode(uri.toString().getFilenameFromPath())
+        decompress_toolbar.title = realPath?.getFilenameFromPath() ?: Uri.decode(uri.toString().getFilenameFromPath())
         fillAllListItems(uri!!)
         updateCurrentPath("")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupToolbar(decompress_toolbar, NavigationIcon.Arrow)
+    }
+
+    private fun setupOptionsMenu() {
+        decompress_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.decompress -> decompressFiles()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
+        }
+    }
+
+    override fun onBackPressed() {
+        if (currentPath.isEmpty()) {
+            super.onBackPressed()
+        } else {
+            val newPath = if (currentPath.contains("/")) currentPath.getParentPath() else ""
+            updateCurrentPath(newPath)
+        }
     }
 
     private fun updateCurrentPath(path: String) {
@@ -51,29 +76,6 @@ class DecompressActivity : SimpleActivity() {
             }
         } catch (e: Exception) {
             showErrorToast(e)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_decompress, menu)
-        updateMenuItemColors(menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.decompress -> decompressFiles()
-        }
-
-        return true
-    }
-
-    override fun onBackPressed() {
-        if (currentPath.isEmpty()) {
-            super.onBackPressed()
-        } else {
-            val newPath = if (currentPath.contains("/")) currentPath.getParentPath() else ""
-            updateCurrentPath(newPath)
         }
     }
 

@@ -5,9 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
+import kotlinx.android.synthetic.main.activity_save_as.*
 import java.io.File
 
 class SaveAsActivity : SimpleActivity() {
@@ -53,5 +55,10 @@ class SaveAsActivity : SimpleActivity() {
             toast(R.string.unknown_error_occurred)
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupToolbar(activity_save_as_toolbar, NavigationIcon.Arrow)
     }
 }

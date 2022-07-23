@@ -1,30 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/read_text_wrapper"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/read_text_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/search_wrapper"
-        layout="@layout/search_bar" />
-
-    <ScrollView
-        android:id="@+id/read_text_holder"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/read_text_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content">
 
-        <com.simplemobiletools.filemanager.pro.views.GestureEditText
-            android:id="@+id/read_text_view"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/read_text_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="top"
-            android:inputType="textMultiLine|textNoSuggestions"
-            android:padding="@dimen/medium_margin"
-            android:textCursorDrawable="@null"
-            android:textSize="@dimen/smaller_text_size" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
+            app:menu="@menu/menu_editor"
+            app:title="@string/file_editor"
+            app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
 
-    </ScrollView>
-</LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/read_text_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include
+            android:id="@+id/search_wrapper"
+            layout="@layout/search_bar" />
+
+        <ScrollView
+            android:id="@+id/read_text_holder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <com.simplemobiletools.filemanager.pro.views.GestureEditText
+                android:id="@+id/read_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="top"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:padding="@dimen/medium_margin"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/smaller_text_size" />
+
+        </ScrollView>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
