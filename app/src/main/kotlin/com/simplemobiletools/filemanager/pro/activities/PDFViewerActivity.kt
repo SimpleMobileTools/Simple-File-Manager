@@ -89,7 +89,7 @@ class PDFViewerActivity : SimpleActivity() {
             .spacing(15)
             .onTap { toggleFullScreen() }
             .onError {
-                showErrorToast(it.localizedMessage.toString())
+                showErrorToast(it.localizedMessage?.toString() ?: getString(R.string.unknown_error_occurred))
                 finish()
             }
             .load()
