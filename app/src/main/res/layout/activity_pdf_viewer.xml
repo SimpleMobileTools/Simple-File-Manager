@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/pdf_viewer_wrapper"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pdf_viewer_coordinator"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdf_viewer"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/pdf_viewer_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/top_shadow"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/pdf_viewer_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_primary"
+            app:menu="@menu/menu_pdf_viewer"
+            app:title="@string/pdf_viewer"
+            app:titleTextAppearance="@style/AppTheme.ActionBar.TitleTextStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/pdf_viewer_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/default_status_action_height"
-        android:background="@drawable/gradient_background_flipped"
-        android:contentDescription="@null" />
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</RelativeLayout>
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdf_viewer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/top_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_status_action_height"
+            android:background="@drawable/gradient_background_flipped"
+            android:contentDescription="@null" />
+
+    </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

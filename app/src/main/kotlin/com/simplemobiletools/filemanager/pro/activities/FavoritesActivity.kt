@@ -2,12 +2,11 @@ package com.simplemobiletools.filemanager.pro.activities
 
 import android.graphics.Paint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getProperPrimaryColor
 import com.simplemobiletools.commons.extensions.getProperTextColor
+import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.ManageFavoritesAdapter
@@ -18,21 +17,23 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
+        setupOptionsMenu()
         updateFavorites()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_favorites, menu)
-        updateMenuItemColors(menu)
-        return true
+    override fun onResume() {
+        super.onResume()
+        setupToolbar(manage_favorites_toolbar, NavigationIcon.Arrow)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.add_favorite -> addFavorite()
-            else -> return super.onOptionsItemSelected(item)
+    private fun setupOptionsMenu() {
+        manage_favorites_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.add_favorite -> addFavorite()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
-        return true
     }
 
     private fun updateFavorites() {

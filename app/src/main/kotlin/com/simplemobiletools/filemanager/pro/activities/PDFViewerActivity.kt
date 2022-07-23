@@ -6,12 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
-import android.view.Menu
-import android.view.MenuItem
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
 import com.simplemobiletools.commons.helpers.isRPlus
@@ -27,9 +26,10 @@ class PDFViewerActivity : SimpleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         useDynamicTheme = false
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf_viewer)
+        setupOptionsMenu()
+        refreshMenuItems()
 
         if (checkAppSideloading()) {
             return
@@ -41,7 +41,7 @@ class PDFViewerActivity : SimpleActivity() {
 
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
             realFilePath = intent.extras?.get(REAL_FILE_PATH)?.toString() ?: ""
-            supportActionBar?.title = realFilePath.getFilenameFromPath()
+            pdf_viewer_toolbar.title = realFilePath.getFilenameFromPath()
         }
 
         checkIntent()
@@ -55,24 +55,24 @@ class PDFViewerActivity : SimpleActivity() {
         supportActionBar?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window.statusBarColor = Color.TRANSPARENT
         setTranslucentNavigation()
+        setupToolbar(pdf_viewer_toolbar, NavigationIcon.Arrow)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_pdf_viewer, menu)
-        menu.apply {
+    private fun setupOptionsMenu() {
+        pdf_viewer_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu_print -> printText()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
+        }
+    }
+
+
+    private fun refreshMenuItems() {
+        pdf_viewer_toolbar.menu.apply {
             findItem(R.id.menu_print).isVisible = realFilePath.isNotEmpty()
         }
-
-        updateMenuItemColors(menu, forceWhiteIcons = true)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_print -> printText()
-            else -> return super.onOptionsItemSelected(item)
-        }
-        return true
     }
 
     private fun checkIntent() {
@@ -98,7 +98,7 @@ class PDFViewerActivity : SimpleActivity() {
 
         val filename = getFilenameFromUri(uri)
         if (filename.isNotEmpty()) {
-            supportActionBar?.title = filename
+            pdf_viewer_toolbar.title = filename
         }
     }
 

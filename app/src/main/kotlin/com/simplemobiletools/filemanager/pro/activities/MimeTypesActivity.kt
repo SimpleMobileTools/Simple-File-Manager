@@ -10,6 +10,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
@@ -26,7 +27,6 @@ import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.activity_mimetypes.*
-import kotlinx.android.synthetic.main.items_fragment.view.*
 import java.util.*
 
 class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
@@ -41,8 +41,11 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mimetypes)
+        setupOptionsMenu()
+        refreshMenuItems()
+
         currentMimeType = intent.getStringExtra(SHOW_MIMETYPE) ?: return
-        title = getString(
+        mimetypes_toolbar.title = getString(
             when (currentMimeType) {
                 IMAGES -> R.string.images
                 VIDEOS -> R.string.videos
@@ -65,17 +68,15 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         mimetypes_fastscroller.updateColors(getProperPrimaryColor())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        setupSearch(menu)
-        updateMenuItemColors(menu)
-        return true
+    override fun onResume() {
+        super.onResume()
+        setupToolbar(mimetypes_toolbar, NavigationIcon.Arrow, searchMenuItem = searchMenuItem)
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+    private fun refreshMenuItems() {
         val currentViewType = config.getFolderViewType(currentMimeType)
 
-        menu!!.apply {
+        mimetypes_toolbar.menu.apply {
             findItem(R.id.add_favorite).isVisible = false
             findItem(R.id.remove_favorite).isVisible = false
             findItem(R.id.go_to_favorite).isVisible = false
@@ -92,23 +93,23 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
             findItem(R.id.increase_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
             findItem(R.id.reduce_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1
         }
-
-        return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.sort -> showSortingDialog()
-            R.id.toggle_filename -> toggleFilenameVisibility()
-            R.id.change_view_type -> changeViewType()
-            R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-            R.id.increase_column_count -> increaseColumnCount()
-            R.id.reduce_column_count -> reduceColumnCount()
-            else -> return super.onOptionsItemSelected(item)
+    private fun setupOptionsMenu() {
+        setupSearch(mimetypes_toolbar.menu)
+        mimetypes_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.sort -> showSortingDialog()
+                R.id.toggle_filename -> toggleFilenameVisibility()
+                R.id.change_view_type -> changeViewType()
+                R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
+                R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
+                R.id.increase_column_count -> increaseColumnCount()
+                R.id.reduce_column_count -> reduceColumnCount()
+                else -> return@setOnMenuItemClickListener false
+            }
+            return@setOnMenuItemClickListener true
         }
-
-        return true
     }
 
     override fun refreshFragment() {
