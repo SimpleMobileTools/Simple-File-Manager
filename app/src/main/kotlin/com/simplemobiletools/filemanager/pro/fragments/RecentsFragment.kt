@@ -142,8 +142,9 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 if (cursor.moveToFirst()) {
                     do {
                         val path = cursor.getStringValue(FileColumns.DATA)
-
-                        if (File(path).isDirectory) continue
+                        if (File(path).isDirectory) {
+                            continue
+                        }
 
                         val name = cursor.getStringValue(FileColumns.DISPLAY_NAME) ?: path.getFilenameFromPath()
                         val size = cursor.getLongValue(FileColumns.SIZE)
