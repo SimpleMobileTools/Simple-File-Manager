@@ -24,6 +24,7 @@ import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.recents_fragment.view.*
+import java.io.File
 
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
     private val RECENTS_LIMIT = 50
@@ -141,6 +142,10 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 if (cursor.moveToFirst()) {
                     do {
                         val path = cursor.getStringValue(FileColumns.DATA)
+                        if (File(path).isDirectory) {
+                            continue
+                        }
+
                         val name = cursor.getStringValue(FileColumns.DISPLAY_NAME) ?: path.getFilenameFromPath()
                         val size = cursor.getLongValue(FileColumns.SIZE)
                         val modified = cursor.getLongValue(FileColumns.DATE_MODIFIED) * 1000
