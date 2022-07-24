@@ -2,12 +2,14 @@ Appen kan också användas för att bläddra bland rotfiler och innehållet på 
 
 Fingeravtrycksbehörigheten behövs för att låsa hela appen eller synligheten för dolda objekt.
 
+Den levereras med Material Design och mörkt tema som standard, och ger en bra användarupplevelse för enkel användning. Avsaknaden av internetåtkomst ger dig mer integritet, säkerhet och stabilitet än andra appar.
+
 Innehåller ingen reklam eller onödiga behörigheter. Den har helt öppen källkod och anpassningsbara färger.
 
-Check out the full suite of Simple Tools here:
+Kolla in hela uppsättningen enkla verktyg här:
 https://www.simplemobiletools.com
 
-Standalone website of Simple File Manager Pro:
+Fristående webbplats för Simpel filhanterare Pro:
 https://www.simplemobiletools.com/filemanager
 
 Facebook:
