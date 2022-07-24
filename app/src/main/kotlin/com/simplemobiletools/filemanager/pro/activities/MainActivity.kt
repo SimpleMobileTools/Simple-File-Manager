@@ -407,6 +407,10 @@ class MainActivity : SimpleActivity() {
             }
         })
         main_view_pager.currentItem = config.lastUsedViewPagerPage
+
+        main_view_pager.onGlobalLayout {
+            refreshMenuItems()
+        }
     }
 
     private fun setupTabs() {
