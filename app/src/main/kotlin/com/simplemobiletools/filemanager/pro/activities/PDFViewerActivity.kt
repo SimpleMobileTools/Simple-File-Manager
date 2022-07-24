@@ -5,14 +5,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
-import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
-import com.simplemobiletools.commons.helpers.isRPlus
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
@@ -24,7 +22,7 @@ class PDFViewerActivity : SimpleActivity() {
     private var isFullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        useDynamicTheme = false
+        showTransparentTop = true
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf_viewer)
@@ -33,8 +31,12 @@ class PDFViewerActivity : SimpleActivity() {
             return
         }
 
-        window.decorView.setBackgroundColor(getProperBackgroundColor())
         checkNotchSupport()
+        pdf_viewer_toolbar.apply {
+            setTitleTextColor(Color.WHITE)
+            overflowIcon = resources.getColoredDrawableWithColor(R.drawable.ic_three_dots_vector, Color.WHITE)
+            navigationIcon = resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.WHITE)
+        }
 
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
             realFilePath = intent.extras?.get(REAL_FILE_PATH)?.toString() ?: ""
@@ -43,15 +45,11 @@ class PDFViewerActivity : SimpleActivity() {
 
         setupMenu()
         checkIntent()
-        if (isRPlus()) {
-            window.insetsController?.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
-        }
     }
 
     override fun onResume() {
         super.onResume()
-        window.statusBarColor = Color.TRANSPARENT
-        setTranslucentNavigation()
+        window.navigationBarColor = Color.TRANSPARENT
     }
 
     private fun setupMenu() {

@@ -94,7 +94,8 @@
         <activity
             android:name=".activities.PDFViewerActivity"
             android:exported="true"
-            android:label="@string/pdf_viewer">
+            android:label="@string/pdf_viewer"
+            android:theme="@style/TranslucentTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
