@@ -111,6 +111,7 @@ class MainActivity : SimpleActivity() {
 
         setupTabColors()
         setupToolbar(main_toolbar, searchMenuItem = searchMenuItem)
+        refreshMenuItems()
 
         getAllFragments().forEach {
             it?.onResume(getProperTextColor())
