@@ -15,8 +15,8 @@ android {
         applicationId "com.simplemobiletools.filemanager.pro"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 123
-        versionName "6.12.6"
+        versionCode 124
+        versionName "6.13.0"
         multiDexEnabled true
         setProperty("archivesBaseName", "file-manager")
         vectorDrawables.useSupportLibrary = true
