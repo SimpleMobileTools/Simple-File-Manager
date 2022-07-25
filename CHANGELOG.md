@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.13.0 *(2022-07-25)*
+----------------------------
+
+ * Avoid showing folders at recent files
+ * Adding some materialish redesign, especially in System default theme
+ * Added some stability, translation and UX improvements
+
 Version 6.12.6 *(2022-07-03)*
 ----------------------------
 
