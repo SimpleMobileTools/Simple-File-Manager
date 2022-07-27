@@ -58,12 +58,12 @@ class MainActivity : SimpleActivity() {
     private var mIsPasswordProtectionPending = false
     private var mWasProtectionHandled = false
     private var mTabsToShow = ArrayList<Int>()
-    private var searchMenuItem: MenuItem? = null
+    private var mSearchMenuItem: MenuItem? = null
 
-    private var storedFontSize = 0
-    private var storedDateFormat = ""
-    private var storedTimeFormat = ""
-    private var storedShowTabs = 0
+    private var mStoredFontSize = 0
+    private var mStoredDateFormat = ""
+    private var mStoredTimeFormat = ""
+    private var mStoredShowTabs = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,27 +103,27 @@ class MainActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (storedShowTabs != config.showTabs) {
+        if (mStoredShowTabs != config.showTabs) {
             config.lastUsedViewPagerPage = 0
             System.exit(0)
             return
         }
 
         setupTabColors()
-        setupToolbar(main_toolbar, searchMenuItem = searchMenuItem)
+        setupToolbar(main_toolbar, searchMenuItem = mSearchMenuItem)
         refreshMenuItems()
 
         getAllFragments().forEach {
             it?.onResume(getProperTextColor())
         }
 
-        if (storedFontSize != config.fontSize) {
+        if (mStoredFontSize != config.fontSize) {
             getAllFragments().forEach {
                 (it as? ItemOperationsListener)?.setupFontSize()
             }
         }
 
-        if (storedDateFormat != config.dateFormat || storedTimeFormat != getTimeFormat()) {
+        if (mStoredDateFormat != config.dateFormat || mStoredTimeFormat != getTimeFormat()) {
             getAllFragments().forEach {
                 (it as? ItemOperationsListener)?.setupDateTimeFormat()
             }
@@ -247,8 +247,8 @@ class MainActivity : SimpleActivity() {
 
     private fun setupSearch(menu: Menu) {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchMenuItem = menu.findItem(R.id.search)
-        (searchMenuItem!!.actionView as SearchView).apply {
+        mSearchMenuItem = menu.findItem(R.id.search)
+        (mSearchMenuItem!!.actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isSubmitButtonEnabled = false
             queryHint = getString(R.string.search)
@@ -264,7 +264,7 @@ class MainActivity : SimpleActivity() {
             })
         }
 
-        MenuItemCompat.setOnActionExpandListener(searchMenuItem, object : MenuItemCompat.OnActionExpandListener {
+        MenuItemCompat.setOnActionExpandListener(mSearchMenuItem, object : MenuItemCompat.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
                 isSearchOpen = true
                 (getCurrentFragment() as? ItemsFragment)?.searchOpened()
@@ -281,10 +281,10 @@ class MainActivity : SimpleActivity() {
 
     private fun storeStateVariables() {
         config.apply {
-            storedFontSize = fontSize
-            storedDateFormat = dateFormat
-            storedTimeFormat = context.getTimeFormat()
-            storedShowTabs = showTabs
+            mStoredFontSize = fontSize
+            mStoredDateFormat = dateFormat
+            mStoredTimeFormat = context.getTimeFormat()
+            mStoredShowTabs = showTabs
         }
     }
 
@@ -422,7 +422,7 @@ class MainActivity : SimpleActivity() {
             mTabsToShow.remove(TAB_STORAGE_ANALYSIS)
             if (mTabsToShow.none { it and config.showTabs != 0 }) {
                 config.showTabs = TAB_FILES
-                storedShowTabs = TAB_FILES
+                mStoredShowTabs = TAB_FILES
                 mTabsToShow = arrayListOf(TAB_FILES)
             }
         }
@@ -502,7 +502,7 @@ class MainActivity : SimpleActivity() {
             getAllFragments().forEach {
                 (it as? ItemOperationsListener)?.searchQueryChanged("")
             }
-            searchMenuItem?.collapseActionView()
+            mSearchMenuItem?.collapseActionView()
         }
     }
 
@@ -718,8 +718,8 @@ class MainActivity : SimpleActivity() {
     }
 
     fun openedDirectory() {
-        if (searchMenuItem != null) {
-            MenuItemCompat.collapseActionView(searchMenuItem)
+        if (mSearchMenuItem != null) {
+            MenuItemCompat.collapseActionView(mSearchMenuItem)
         }
     }
 
