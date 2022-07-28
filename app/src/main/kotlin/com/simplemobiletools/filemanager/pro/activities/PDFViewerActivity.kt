@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.pro.activities
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.print.PrintAttributes
@@ -65,6 +66,15 @@ class PDFViewerActivity : SimpleActivity() {
 
         pdf_viewer_toolbar.setNavigationOnClickListener {
             finish()
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (!portrait && navigationBarRight && navigationBarWidth > 0) {
+            pdf_viewer_appbar.setPadding(0, 0, navigationBarWidth, 0)
+        } else {
+            pdf_viewer_appbar.setPadding(0, 0, 0, 0)
         }
     }
 

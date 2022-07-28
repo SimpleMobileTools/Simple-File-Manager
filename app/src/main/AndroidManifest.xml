@@ -93,6 +93,7 @@
 
         <activity
             android:name=".activities.PDFViewerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:label="@string/pdf_viewer"
             android:theme="@style/TranslucentTheme">
