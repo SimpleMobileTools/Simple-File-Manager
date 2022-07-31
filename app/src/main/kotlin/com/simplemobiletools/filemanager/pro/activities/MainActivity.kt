@@ -642,7 +642,9 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
+        if (isSearchOpen && mSearchMenuItem != null) {
+            mSearchMenuItem!!.collapseActionView()
+        } else if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
