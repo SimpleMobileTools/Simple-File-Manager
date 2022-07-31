@@ -11,10 +11,10 @@
     <string name="select_audio_file">Vyberte zvukový soubor</string>
     <string name="search_folder">Prohledat složku</string>
     <string name="rooted_device_only">Tato operace funguje pouze u rootnutých zařízení</string>
-    <string name="recents">Recents</string>
-    <string name="show_recents">Show recents</string>
-    <string name="pdf_viewer">PDF Viewer</string>
-    <string name="invert_colors">Invert colors</string>
+    <string name="recents">Nedávné</string>
+    <string name="show_recents">Ukázat nedávné</string>
+    <string name="pdf_viewer">Prohlížeč PDF</string>
+    <string name="invert_colors">Invertovat barvy</string>
     <!-- Open as -->
     <string name="open_as">Otevřít jako</string>
     <string name="text_file">Textový soubor</string>
@@ -29,9 +29,9 @@
     <string name="compress_as">Komprimovat jako</string>
     <string name="compressing">Komprimuje se…</string>
     <string name="decompressing">Rozbaluje se…</string>
-    <string name="compression_successful">Komprese byla úspěšná</string>
+    <string name="compression_successful">Komprimace byla úspěšná</string>
     <string name="decompression_successful">Rozbalení bylo úspěšné</string>
-    <string name="compressing_failed">Komprese selhala</string>
+    <string name="compressing_failed">Komprimace selhala</string>
     <string name="decompressing_failed">Rozbalení selhalo</string>
     <!-- Favorites -->
     <string name="manage_favorites">Spravovat oblíbené</string>
@@ -40,19 +40,19 @@
     <!-- File Editor -->
     <string name="file_editor">Editor souborů</string>
     <!-- Storage analysis -->
-    <string name="storage_analysis">Storage analysis</string>
-    <string name="images">Images</string>
-    <string name="videos">Videos</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
-    <string name="downloads">Downloads</string>
+    <string name="storage_analysis">Analýza úložiště</string>
+    <string name="images">Obrázky</string>
+    <string name="videos">Videa</string>
+    <string name="audio">Zvuky</string>
+    <string name="documents">Dokumenty</string>
+    <string name="downloads">Stažené</string>
     <string name="archives">Archivy</string>
     <string name="others">Ostatní</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="storage_free">volné</string>
+    <string name="total_storage">Úložiště celkem: %s</string>
     <!-- Settings -->
-    <string name="enable_root_access">Povolit přístup ke kořenovým souborům</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="enable_root_access">Povolit přístup jako root</string>
+    <string name="press_back_twice">Pro opuštění aplikace vyžadovat stisknutí Zpět dvakrát</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
