@@ -1,0 +1,36 @@
+Simple File Manager este un manager de fișiere și foldere foarte rapid și profesional pentru dispozitive Android. Utilizați Simple File Manager pentru a comprima, transfera și converti cu ușurință fișiere media cu câteva clicuri. Dispune de toate funcțiile majore de gestionare a managerilor de fișiere și a dosarelor, inclusiv personalizarea dosarului principal și selectarea dosarelor favorite pentru acces rapid. 
+
+Managerul de fișiere oferă întregul pachet de funcții de manager de fișiere, inclusiv căutare, navigare, copiere și lipire, tăiere, ștergere, redenumire, decomprimare, transfer, descărcare, organizare & așa mai departe. Adăugați, eliminați sau editați fișiere, dosare & aplicații în funcție de preferințele dvs. personale. 
+
+Cu acest organizator ușor de date, puteți să vă organizați și să vă sortați mobilul după diverse măsurători și să comutați între ordinele crescătoare și descrescătoare sau folosind o sortare specifică pentru fiecare dosar. Pentru a obține rapid calea unui fișier sau a unui dosar, îl puteți selecta cu ușurință apăsând lung și copiindu-l în clipboard. 
+
+Simple File Manager face ca organizarea fișierelor, dosarelor și aplicațiilor mobile să fie ușoară, pentru a vă economisi atât timp cât și energie. Cu doar câteva clicuri, puteți, de asemenea, să verificați proprietățile fișierelor sau ale dosarelor, care afișează diverse câmpuri, cum ar fi dimensiunea, data ultimei modificări sau valorile EXIF, cum ar fi data creării, modelul camerei la fotografii etc. 
+
+Acest organizator de fișiere este absolut sigur, conținând mai multe funcții puternice legate de securitate, cum ar fi protejarea prin parolă a elementelor ascunse, ștergerea sau deschiderea întregii aplicații. Puteți alege între utilizarea unui model, a unui pin sau a unei încuietori biometrice pentru a vă păstra datele private. Permisiunea amprentei digitale este necesară pentru a bloca fie vizibilitatea elementelor ascunse, fie ștergerea fișierelor, fie întreaga aplicație. Simple File Manager funcționează fără acces la internet, garantându-vă și mai mult confidențialitatea maximă. 
+
+Managerul de fișiere poate, de asemenea, să curețe spațiul și să vă economisească memoria internă prin comprimarea fișierelor și a dosarelor. Acest organizator modern de fișiere media suportă navigarea rapidă a fișierelor rădăcină, a cardurilor SD și a dispozitivelor USB. File Manager recunoaște, de asemenea, mai multe formate de fișiere, inclusiv muzică, videoclipuri, imagini & documente. 
+
+Utilizați Simple File Manager pentru a crea comenzi rapide practice pe desktop pentru a accesa rapid elementele preferate. Conține un editor de fișiere ușor pe care îl puteți utiliza pentru a imprima documente, pentru a le edita sau pentru a le citi cu ușurință folosind gesturi de zoom, ori de câte ori este nevoie. 
+
+În ciuda faptului că se numește Simple File Manager, vă va ajuta să vă gestionați și să vă personalizați fișierele, folderele și aplicațiile cu doar câteva clicuri. Puteți vedea cu ușurință fișierele dvs.
+
+Puteți utiliza analiza de stocare încorporată pentru a avea o imagine de ansamblu rapidă asupra fișierelor care ocupă cel mai mult spațiu și pentru a le curăța. Poate funcționa ca un curățător de spațiu de stocare care vă va ajuta să goliți ceva spațiu pe dispozitiv.
+
+Vine cu design material și temă întunecată în mod implicit, oferă o experiență de utilizare excelentă pentru o utilizare ușoară. Lipsa accesului la internet vă oferă mai multă intimitate, securitate și stabilitate decât alte aplicații.
+
+Nu conține reclame sau permisiuni inutile. Este complet opensource, oferă culori personalizabile.
+
+Consultați suita completă de instrumente Simple Tools aici:
+https://www.simplemobiletools.com
+
+Site-ul independent al Simple File Manager Pro:
+https://www.simplemobiletools.com/filemanager
+
+Facebook:
+https://www.facebook.com/simplemobiletools
+
+Reddit:
+https://www.reddit.com/r/SimpleMobileTools
+
+Telegram:
+https://t.me/SimpleMobileTools
