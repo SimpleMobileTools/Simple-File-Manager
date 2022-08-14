@@ -12,7 +12,11 @@ Schlichter File Manager kann auch Speicherplatz bereinigen und Ihren internen Sp
 
 Verwenden Sie Schlichter File Manager, um praktische Desktop-Verknüpfungen für den schnellen Zugriff auf Ihre Lieblingselemente zu erstellen. Es enthält einen Light-Datei-Editor, mit dem Sie Dokumente bei Bedarf drucken, bearbeiten oder einfach mit Zoom-Gesten lesen können.
 
-Mit Schlichter File Manager können Sie Ihre Dateien, Ordner und Apps mit nur wenigen Klicks verwalten und anpassen.
+Obwohl es als Simple File Manager bezeichnet wird, hilft es Ihnen, Ihre Dateien, Ordner und Apps mit nur wenigen Klicks zu verwalten und anzupassen. Sie können Ihre letzten Dateien leicht sehen und auch eine Speicheranalyse durchführen.
+
+Sie können die integrierte Speicheranalyse verwenden, um einen schnellen Überblick darüber zu erhalten, welche Dateien den meisten Speicherplatz belegen, und sie zu bereinigen. Es kann als Speicherreiniger fungieren, der hilft, etwas Platz auf Ihrem Gerät zu leeren.
+
+Es kommt mit Material-Design und einem dunklen Thema standardmäßig, bietet eine großartige Benutzererfahrung für die einfache Verwendung. Der fehlende Internetzugang bietet Ihnen mehr Privatsphäre, Sicherheit und Stabilität als andere Apps.
 
 Enthält keine Anzeigen oder unnötigen Berechtigungen. Es ist vollständig OpenSource und bietet anpassbare Farben.
 
