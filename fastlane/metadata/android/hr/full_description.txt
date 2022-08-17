@@ -1,19 +1,29 @@
-Lagani brzi upravitelj datoteka za svakodnevnu upotrebu. Nudi korisnu funkciju pretraživanja, također možete prilagoditi početnu mapu i odabrati omiljene mape za brzi pristup. Aplikacija sadrži više moćnih sigurnosnih funkcija, poput zaštite skrivenih stavki lozinkom, brisanja datoteka ili cijele aplikacije. 
+Jednostavni voditelj datoteka super je brz i profesionalan menadžer datoteka i mape za Android uređaje. Koristite jednostavan regulator datoteka za jednostavno komprimiranje, prijenos i pretvaranje medijskih datoteka s nekoliko klikova. Ima sve glavne značajke upravljanja datotekama i mapi, uključujući prilagođavanje mape kuće i odabir omiljenih mapa za brzi pristup. 
 
-Možete birati između upotrebe uzorka, pribadače ili otiska prsta kako bi vaši podaci ostali privatni. Ovaj moderni organizator datoteka podržava brzo pregledavanje root datoteka, SD kartica i USB uređaja. Kako bi vaš bio produktivan, očito ima sve standardne operacije datoteka kao što su preimenovanje, kopiranje, premještanje, brisanje, dijeljenje itd. 
+Upravitelj datoteke pruža čitavo pakiranje značajki upravitelja datoteka, uključujući pretraživanje, navigaciju, kopiranje i lijepljenje, rezanje, brisanje, preimenovanje, dekompresiju, prijenos, preuzimanje, organiziranje i tako dalje. Dodajte, uklonite ili uredite datoteke, mape i aplikacije u skladu s vašim osobnim preferencijama. 
 
-Također se može koristiti za spremanje pohrane, budući da također omogućuje komprimiranje i dekompresiju. Možete jednostavno stvoriti nove datoteke ili mape ako to želite. 
+Pomoću ovog jednostavnog organizatora podataka možete organizirati i sortirati svoj mobilni raznim mjernim podacima i prebacivati se između uspona i silaska ili pomoću razvrstavanja specifičnog za mapu. Da biste brzo dobili datoteku ili mapu puta, lako je možete odabrati dugim pritiskom i kopiranjem u međuspremnik. 
 
-Očito možete odabrati sortiranje prema više različitih vrijednosti, prebacivati se između uzlaznog i silaznog ili koristiti sortiranje specifično za mapu. Sa samo nekoliko klikova također možete provjeriti svojstva datoteke ili mape, koja pokazuju različita polja poput veličine datoteke, datuma posljednje izmjene ili EXIF vrijednosti kao što su datum kreiranja, model kamere na fotografijama itd.
+Jednostavni voditelj datoteka olakšava organiziranje mobilnih datoteka, mapa i aplikacija kako bi se uštedjelo i vrijeme i energija. Sa samo nekoliko klikova možete provjeriti svojstva datoteke ili mape koja pokazuju različita polja poput veličine, datuma posljednje izmjene ili vrijednosti EXIF-a poput datuma stvaranja, model kamere na fotografijama itd. 
 
-Da biste dobili put datoteke ili mape brzo, možete ga jednostavno odabrati dugim pritiskom i kopiranjem u međuspremnik. Možete stvoriti zgodne prečace na radnoj površini za brzi pristup omiljenim stavkama. Sadrži lagani uređivač datoteka koji možete koristiti za ispis dokumenata, njihovo uređivanje ili jednostavno čitanje pomoću pokreta zumiranja, kad god je to potrebno.
+Ovaj organizator datoteka apsolutno je siguran, sadrži više moćnih sigurnosnih funkcija, poput skrivenih stavki koje štite lozinku i brisanja ili otvaranja cijele aplikacije. Možete birati između korištenja uzorka, pin, ili biometrijska brava kako bi vaši podaci bili privatni. Dozvola za otisak prsta potrebna je za zaključavanje ili skrivene vidljivosti predmeta, brisanja datoteka ili cijele aplikacije. Jednostavan voditelj datoteka radi bez pristupa internetu, što dodatno jamči vašu konačnu privatnost. 
 
-Dolazi s materijalnim dizajnom i tamnom temom prema zadanim postavkama, pruža izvrsno korisničko iskustvo za jednostavnu upotrebu. Nedostatak pristupa internetu daje vam više privatnosti, sigurnosti i stabilnosti od drugih aplikacija. Ne sadrži oglase niti nepotrebna dopuštenja. Potpuno je otvorenog koda, pruža prilagodljive boje.
+Voditelj datoteka također može očistiti prostor i spremiti vaš unutarnji prostor komprimiranjem datoteka i mapa. Ovaj moderni organizator medijskih datoteka podržava brzo pregledavanje korijenskih datoteka, SD kartica i USB uređaja. Voditelj datoteka također prepoznaje više formata datoteka, uključujući glazbu, videozapise, slike i dokumente. 
 
-Ovdje pogledajte cijeli paket Jednostavni Alati:
+Koristite jednostavan voditelj datoteka za stvaranje zgodnih prečaca za radni stol za brzi pristup omiljenim stavkama. Sadrži uređivač lakih datoteka koji možete koristiti za ispis dokumenata, uređivanje ili čitanje lako koristeći geste zumiranja, kad god je to potrebno. 
+
+Unatoč tome što se naziva Simple File Manager, pomoći će vam da upravljate i prilagodite svoje datoteke, mape i aplikacije sa samo nekoliko klikova. Lako možete vidjeti svoje nedavne datoteke i napraviti analizu pohrane.
+
+Možete koristiti ugrađenu analizu skladištenja za brzi pregled datoteka koje zauzimaju najviše prostora i čiste ga. Može funkcionirati kao sredstvo za čišćenje koje će vam pomoći isprazniti malo prostora na vašem uređaju.
+
+Dolazi s dizajnom materijala i tamnom temom prema zadanim postavkama, pružajući sjajno korisničko iskustvo za jednostavno korištenje. Nedostatak pristupa internetu daje vam više privatnosti, sigurnosti i stabilnosti od ostalih aplikacija.
+
+Ne sadrži oglase ili nepotrebne dozvole. Potpuno je open-source i pruža prilagođene boje.
+
+Ovdje pogledajte cijeli paket jednostavnih alata:
 https://www.simplemobiletools.com
 
-Samostalna web stranica Jednostavan Upravitelj Datoteka Pro:
+Samostalna web stranica Simple File Manager Pro:
 https://www.simplemobiletools.com/filemanager
 
 Facebook:

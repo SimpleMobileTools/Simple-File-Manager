@@ -4,7 +4,7 @@ Gestionnaire de fichiers simple fournit l'ensemble des fonctionnalités du gesti
 
 Avec Gestionnaire de fichiers simple, vous pouvez organiser et trier votre mobile selon diverses métriques et basculer entre ascendant et descendant ou en utilisant un tri spécifique à un dossier. Pour obtenir rapidement le chemin d'un fichier ou d'un dossier, vous pouvez facilement le sélectionner en appuyant longuement et en le copiant dans le presse-papiers.
 
-Gestionnaire de fichiers simple automatise entièrement l'organisation de vos fichiers, dossiers et applications mobiles pour vous faire gagner du temps et de l'énergie. En quelques clics, vous pouvez également vérifier les propriétés du fichier ou du dossier, qui affiche divers champs comme la taille, la date de la dernière modification, ou les valeurs EXIF ​​comme la date de création, le modèle d'appareil photo sur les photos, etc.
+Gestionnaire de fichiers simple automatise entièrement l'organisation de vos fichiers, dossiers et applications mobiles pour vous faire gagner du temps et de l'énergie. En quelques clics, vous pouvez également vérifier les propriétés du fichier ou du dossier, qui affiche divers champs comme la taille, la date de la dernière modification, ou les valeurs EXIF comme la date de création, le modèle d'appareil photo sur les photos, etc.
 
 Gestionnaire de fichiers simple est absolument sécurisé, contenant plusieurs fonctions puissantes liées à la sécurité, comme la protection par mot de passe des éléments cachés, la suppression ou l'ensemble de l'application. Vous pouvez choisir d'utiliser un motif, une épingle ou une empreinte digitale pour garder vos données privées. L'autorisation d'empreinte digitale est nécessaire pour verrouiller la visibilité des éléments masqués, supprimer des fichiers ou toute l'application. Gestionnaire de fichiers simple fonctionne sans accès Internet, garantissant en outre votre confidentialité ultime.
 
@@ -12,7 +12,9 @@ Gestionnaire de fichiers simple peut également nettoyer de l'espace et enregist
 
 Utilisez Gestionnaire de fichiers simple pour créer des raccourcis pratiques sur le bureau pour accéder rapidement à vos éléments préférés. Il contient un éditeur de fichiers léger que vous pouvez utiliser pour imprimer des documents, les modifier ou les lire facilement à l'aide de gestes de zoom, si nécessaire.
 
-Gestionnaire de fichiers simple vous aidera à gérer et personnaliser vos fichiers, dossiers et applications en quelques clics.
+Bien qu’il soit appelé Simple File Manager, il vous aidera à gérer et personnaliser vos fichiers, dossiers et applications en quelques clics. Vous pouvez facilement voir vos fichiers récents et faire une analyse de stockage aussi.
+
+Vous pouvez utiliser l’analyse de stockage intégrée pour avoir un aperçu rapide des fichiers qui prennent le plus d’espace et le nettoyer. Il peut fonctionner comme un nettoyeur de stockage qui aidera à vider de l’espace sur votre appareil.
 
 Ne contient aucune publicité ou autorisations inutiles. Il est entièrement open source, fournit des couleurs personnalisables.
 

@@ -1,29 +1,29 @@
-Een lichtgewicht app voor snel bestandsbeheer. Bevat een nuttige zoekfunctie en opties om de beginmap en favoriete mappen in te stellen voor extra snel dagelijks gebruik.
+Simple File Manager is een supersnel en professioneel bestands- en mapbeheer voor Android-apparaten. Gebruik Simple File Manager om mediabestanden met een paar muisklikken te comprimeren, over te brengen en te converteren. Het heeft alle belangrijke functies voor bestandsbeheer en mapbeheer, waaronder het aanpassen van de basismap en het selecteren van favoriete mappen voor snelle toegang.
 
-De app heeft diverse krachtige veiligheidsfuncties, zoals (wachtwoord)beveiliging voor verborgen items, voor het verwijderen van bestanden of zelfs van de gehele app. Er kan gekozen worden tussen beveiliging met een patroon, een pincode of een vingerafdruk om gegevens veilig te stellen.
+De bestandsbeheerder biedt het hele pakket functies voor bestandsbeheer, waaronder zoeken, navigeren, kopiëren en plakken, knippen, verwijderen, hernoemen, decomprimeren, overbrengen, downloaden, organiseren, enzovoort. Bestanden, mappen en apps toevoegen, verwijderen of bewerken volgens uw persoonlijke voorkeuren.
 
-Deze moderne bestandsbeheerder ondersteunt het snel verkennen van de root-map, SD-kaarten en USB-apparaten.
+Met deze eenvoudige data-organizer kunt u uw mobiele telefoon ordenen en sorteren op verschillende metrieken en schakelen tussen oplopend en aflopend of door een mapspecifieke sortering te gebruiken. Als u snel een pad naar een bestand of map wilt ophalen, kunt u het eenvoudig selecteren door het lang ingedrukt te houden en naar het klembord te kopiëren.
 
-De gebruikelijke bestandsoperaties zoals hernoemen, kopiëren, verplaatsen, verwijderen en delen zijn natuurlijk aanwezig. Ook kan er wat opslagruimte worden bespaard door bestanden te comprimeren. Nieuwe bestanden of mappen kunnen gemakkelijk worden aangemaakt.
+Met Simple File Manager kunt u uw mobiele bestanden, mappen en apps eenvoudig ordenen, zodat u tijd en energie bespaart. Met slechts een paar klikken kunt u ook bestands- of mapeigenschappen controleren, die verschillende velden weergeven, zoals de grootte, datum van de laatste wijziging, Of EXIF-waarden zoals de aanmaakdatum, het cameramodel bij foto's, enzovoort
 
-Sorteren kan op verschillende manieren, alfabetisch of omgekeerd, en kan per map gespecificeerd worden.
+Deze bestandsorganiser is absoluut veilig, met meerdere krachtige beveiligingsgerelateerde functies, zoals het beveiligen van verborgen items met een wachtwoord, en het verwijderen of openen van de hele app. U kunt kiezen tussen het gebruik van een patroon, pin of biometrische vergrendeling om uw gegevens privé te houden. De vingerafdruktoestemming is nodig voor het vergrendelen van de zichtbaarheid van verborgen items, het verwijderen van bestanden of de hele app. Simple File Manager werkt zonder toegang tot internet, waardoor uw ultieme privacy gegarandeerd blijft.
 
-Met slechts enkele handelingen zijn de bestands- en mapeigenschappen te bekijken, waarbij grootte, datum laatst gewijzigd en (bij foto\'s) EXIF-informatie zoals opnamedatum en cameramodel kunnen worden uitgelezen.
+De File Manager kan ook ruimte vrijmaken en uw interne opslag opslaan door bestanden en mappen te comprimeren. Deze moderne mediabestandsorganisator ondersteunt het snel bladeren door hoofdbestanden, SD-kaarten en USB-apparaten. File Manager herkent ook meerdere bestandsindelingen, waaronder muziek, video's, afbeeldingen en documenten.
 
-Om snel het pad naar een bestand of map te verkrijgen kan via een lange druk op het item gekozen worden om dit pad naar het klembord te kopiëren.
+Gebruik Simple File Manager om handige snelkoppelingen op het bureaublad te maken voor snelle toegang tot uw favoriete items. Het bevat een lichte bestandseditor die u kunt gebruiken om documenten af te drukken, te bewerken of gemakkelijk te lezen met behulp van zoomgebaren, wanneer dat nodig is.
 
-Er kunnen handige snelkoppelingen op het thuisscherm worden aangemaakt om favoriete items direct te kunnen benaderen.
+Ondanks de naam Simple File Manager kunt u uw bestanden, mappen en apps met slechts een paar muisklikken beheren en aanpassen. U kunt uw recente bestanden eenvoudig zien en ook een opslaganalyse uitvoeren.
 
-Bevat een lichtgewicht bestandseditor om bestanden te bewerken, te printen of met zoomgebaren gemakkelijker te lezen.
+U kunt de ingebouwde opslaganalyse gebruiken om snel een overzicht te krijgen van welke bestanden de meeste ruimte innemen en deze op te ruimen. Het kan functioneren als een opruimingsmiddel waarmee u ruimte op uw apparaat kunt vrijmaken.
 
-De app is ontworpen volgens material design en heeft standaard een donker thema. De app heeft geen toegang tot het internet nodig en voorziet van meer privacy, veiligheid en stabiliteit dan andere apps.
+Het wordt standaard geleverd met een materiaalontwerp en een donker thema, wat een geweldige gebruikerservaring biedt voor eenvoudig gebruik. Het gebrek aan internettoegang geeft u meer privacy, veiligheid en stabiliteit dan andere apps.
 
-Bevat geen advertenties of onnodige permissies. Volledig open-source. Kleuren van de app kunnen worden aangepast.
+Bevat geen advertenties of onnodige machtigingen. Het is volledig open-source en biedt aanpasbare kleuren.
 
-Probeer ook eens de andere apps van Simple Tools:
+Bekijk hier het volledige pakket Simple Tools:
 https://www.simplemobiletools.com
 
-Website voor Eenvoudig Bestandsbeheer Pro:
+Zelfstandige website van Simple File Manager Pro:
 https://www.simplemobiletools.com/filemanager
 
 Facebook:
