@@ -351,6 +351,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         ChangeViewTypeDialog(this, currentMimeType, true) {
             recreateList()
             setupLayoutManager()
+            refreshMenuItems()
         }
     }
 
@@ -375,7 +376,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     }
 
     private fun columnCountChanged() {
-        invalidateOptionsMenu()
+        refreshMenuItems()
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
         }

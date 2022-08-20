@@ -115,7 +115,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
             itemsIgnoringSearch = listItems
             activity?.runOnUiThread {
-                activity?.invalidateOptionsMenu()
+                (activity as? MainActivity)?.refreshMenuItems()
                 addItems(listItems, forceRefresh)
                 if (context != null && currentViewType != context!!.config.getFolderViewType(currentPath)) {
                     setupLayoutManager()
@@ -492,7 +492,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     }
 
     private fun columnCountChanged() {
-        activity?.invalidateOptionsMenu()
+        (activity as? MainActivity)?.refreshMenuItems()
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
         }

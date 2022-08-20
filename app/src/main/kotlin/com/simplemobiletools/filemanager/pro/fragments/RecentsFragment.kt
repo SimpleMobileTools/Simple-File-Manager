@@ -188,7 +188,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun columnCountChanged() {
-        activity?.invalidateOptionsMenu()
+        (activity as? MainActivity)?.refreshMenuItems()
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
         }

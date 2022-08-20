@@ -145,7 +145,7 @@ class MainActivity : SimpleActivity() {
         config.temporarilyShowHidden = false
     }
 
-    private fun refreshMenuItems() {
+    fun refreshMenuItems() {
         val currentFragment = getCurrentFragment() ?: return
         val currentViewType = config.getFolderViewType(currentFragment.currentPath)
         val favorites = config.favorites
