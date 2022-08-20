@@ -68,7 +68,7 @@ class PDFViewerActivity : SimpleActivity() {
             finish()
         }
 
-        if (!portrait && navigationBarRight && navigationBarWidth > 0) {
+        if (!portrait && navigationBarOnSide && navigationBarWidth > 0) {
             pdf_viewer_appbar.setPadding(0, 0, navigationBarWidth, 0)
         } else {
             pdf_viewer_appbar.setPadding(0, 0, 0, 0)
@@ -78,7 +78,7 @@ class PDFViewerActivity : SimpleActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         (pdf_viewer_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
-        if (!portrait && navigationBarRight && navigationBarWidth > 0) {
+        if (!portrait && navigationBarOnSide && navigationBarWidth > 0) {
             pdf_viewer_appbar.setPadding(0, 0, navigationBarWidth, 0)
         } else {
             pdf_viewer_appbar.setPadding(0, 0, 0, 0)

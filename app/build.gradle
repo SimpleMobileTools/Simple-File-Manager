@@ -9,12 +9,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.simplemobiletools.filemanager.pro"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 124
         versionName "6.13.0"
         multiDexEnabled true
@@ -64,7 +64,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.SimpleMobileTools:Simple-Commons:0c82e5f216'
+    implementation 'com.github.SimpleMobileTools:Simple-Commons:59d56ae16f'
     implementation 'com.github.tibbi:AndroidPdfViewer:da57ff410e'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
     implementation 'com.github.Stericson:RootShell:1.6'
