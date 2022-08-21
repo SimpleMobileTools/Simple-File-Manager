@@ -1,1 +1,1 @@
-Manager de fichier simple Pro
+Gestionnaire de fichiers simple Pro
