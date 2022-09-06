@@ -48,8 +48,8 @@
     <string name="downloads">ダウンロード</string>
     <string name="archives">アーカイブ</string>
     <string name="others">その他</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="storage_free">空き</string>
+    <string name="total_storage">合計ストレージ: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">ルートアクセスを有効にする</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>
