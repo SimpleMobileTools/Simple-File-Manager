@@ -41,7 +41,7 @@ https://t.me/SimpleMobileTools
 <a href='https://f-droid.org/packages/com.simplemobiletools.filemanager.pro'><img src='https://simplemobiletools.com/images/button-f-droid.png' alt='Get it on F-Droid' height='45' /></a>
 
 <div style="display:flex;">
-<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/1_en-GB.jpeg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/3_en-GB.jpeg" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-GB/images/phoneScreenshots/4_en-GB.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_en-US.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3_en-US.jpeg" width="30%">
+<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/4_en-US.jpeg" width="30%">
 </div>
