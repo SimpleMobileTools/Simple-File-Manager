@@ -16,12 +16,12 @@
     <string name="pdf_viewer">PDF Визуализатор</string>
     <string name="invert_colors">Обръщане на цветове</string>
     <!-- Open as -->
-    <string name="open_as">Open as</string>
-    <string name="text_file">Text file</string>
-    <string name="image_file">Image file</string>
-    <string name="audio_file">Audio file</string>
-    <string name="video_file">Video file</string>
-    <string name="other_file">Other file</string>
+    <string name="open_as">Отвори като</string>
+    <string name="text_file">Текстов файл</string>
+    <string name="image_file">Снимка</string>
+    <string name="audio_file">Аудио файл</string>
+    <string name="video_file">Видео файл</string>
+    <string name="other_file">Друг тип файл</string>
     <!-- Compression -->
     <string name="compress">Компресиране</string>
     <string name="compress_pro">Компресиране (Pro)</string>
@@ -38,7 +38,7 @@
     <string name="go_to_favorite">Към любими</string>
     <string name="favorites_activity_placeholder">Можете да добавяте често използвани папки към любими за лесен достъп от всякъде.</string>
     <!-- File Editor -->
-    <string name="file_editor">File Editor</string>
+    <string name="file_editor">Файлов редактор</string>
     <!-- Storage analysis -->
     <string name="storage_analysis">Анализ на съхранението</string>
     <string name="images">Изображения</string>
