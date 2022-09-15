@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Simple File Manager</string>
     <string name="app_launcher_name">Administrador de archivos</string>
-    <string name="press_back_again">Pulse otra vez volver para salir</string>
+    <string name="press_back_again">Presione atrás de nuevo para salir</string>
     <string name="go_to_home_folder">Ir a carpeta principal</string>
     <string name="set_as_home_folder">Establecer como carpeta principal</string>
     <string name="home_folder_updated">Carpeta principal actualizada</string>
