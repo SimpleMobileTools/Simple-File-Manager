@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple File Manager</string>
+    <string name="app_name">Yksinkertainen tiedostonhallinta</string>
     <string name="app_launcher_name">Tiedostonhallinta</string>
     <string name="press_back_again">Paina takaisin-painiketta uudelleen lopettaaksesi</string>
     <string name="go_to_home_folder">Mene kotikansioon</string>
@@ -13,10 +13,10 @@
     <string name="rooted_device_only">Tämä toiminto vaatii rootatun laitteen</string>
     <string name="recents">Viimeaikaiset</string>
     <string name="show_recents">Näytä viimeaikaiset</string>
-    <string name="pdf_viewer">PDF Viewer</string>
-    <string name="invert_colors">Invert colors</string>
+    <string name="pdf_viewer">PDF-katseluohjelma</string>
+    <string name="invert_colors">Käänteiset värit</string>
     <!-- Open as -->
-    <string name="open_as">Avaa…</string>
+    <string name="open_as">Avaa nimellä</string>
     <string name="text_file">Tekstitiedostona</string>
     <string name="image_file">Kuvatiedostona</string>
     <string name="audio_file">Äänitiedostona</string>
@@ -44,11 +44,11 @@
     <string name="images">Kuvat</string>
     <string name="videos">Videot</string>
     <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
-    <string name="downloads">Downloads</string>
+    <string name="documents">Dokumentit</string>
+    <string name="downloads">Lataukset</string>
     <string name="archives">Arkistot</string>
     <string name="others">Muut</string>
-    <string name="storage_free">free</string>
+    <string name="storage_free">ilmainen</string>
     <string name="total_storage">Tallennustila: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Ota käyttöön root-ominaisuudet</string>
