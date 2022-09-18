@@ -58,8 +58,8 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
         val properPrimaryColor = context!!.getProperPrimaryColor()
         items_fastscroller.updateColors(properPrimaryColor)
-        search_progress.setIndicatorColor(properPrimaryColor)
-        search_progress.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
+        progress_bar.setIndicatorColor(properPrimaryColor)
+        progress_bar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
 
         if (currentPath != "") {
             breadcrumbs.updateColor(textColor)
@@ -95,6 +95,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         scrollStates[currentPath] = getScrollState()!!
         currentPath = realPath
         showHidden = context!!.config.shouldShowHidden
+        showProgressBar()
         getItems(currentPath) { originalPath, listItems ->
             if (currentPath != originalPath) {
                 return@getItems
@@ -120,6 +121,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 if (context != null && currentViewType != context!!.config.getFolderViewType(currentPath)) {
                     setupLayoutManager()
                 }
+                hideProgressBar()
             }
         }
     }
@@ -298,16 +300,16 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 getRecyclerAdapter()?.updateItems(itemsIgnoringSearch)
                 items_placeholder.beGone()
                 items_placeholder_2.beGone()
-                search_progress.hide()
+                hideProgressBar()
             }
             searchText.length == 1 -> {
                 items_fastscroller.beGone()
                 items_placeholder.beVisible()
                 items_placeholder_2.beVisible()
-                search_progress.hide()
+                hideProgressBar()
             }
             else -> {
-                search_progress.show()
+                showProgressBar()
                 ensureBackgroundThread {
                     val files = searchFiles(searchText, currentPath)
                     files.sortBy { it.getParentPath() }
@@ -343,7 +345,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                         items_fastscroller.beVisibleIf(listItems.isNotEmpty())
                         items_placeholder.beVisibleIf(listItems.isEmpty())
                         items_placeholder_2.beGone()
-                        search_progress.hide()
+                        hideProgressBar()
                     }
                 }
             }
@@ -404,7 +406,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         items_fastscroller.beVisible()
         items_placeholder.beGone()
         items_placeholder_2.beGone()
-        search_progress.hide()
+        hideProgressBar()
     }
 
     private fun createNewItem() {
@@ -496,6 +498,14 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
         }
+    }
+
+    private fun showProgressBar() {
+        progress_bar.show()
+    }
+
+    private fun hideProgressBar() {
+        progress_bar.hide()
     }
 
     override fun toggleFilenameVisibility() {

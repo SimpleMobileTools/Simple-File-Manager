@@ -27,12 +27,14 @@
                 android:paddingBottom="@dimen/small_margin" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/search_progress"
+                android:id="@+id/progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:indeterminate="true"
                 android:visibility="gone"
+                app:hideAnimationBehavior="outward"
+                app:showAnimationBehavior="inward"
                 app:showDelay="250"
                 tools:visibility="visible" />
 
