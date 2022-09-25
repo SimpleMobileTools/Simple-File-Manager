@@ -48,7 +48,7 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Arquivos</string>
     <string name="others">Outros</string>
-    <string name="storage_free">free</string>
+    <string name="storage_free">ceibe</string>
     <string name="total_storage">Almacenamento total: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Activar acceso root</string>
