@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple File Manager</string>
+    <string name="app_name">Manager de fișiere simplu</string>
     <string name="app_launcher_name">Manager de fișiere</string>
     <string name="press_back_again">Apăsaţi din nou pe înapoi pentru a ieși</string>
     <string name="go_to_home_folder">Mergeţi la dosarul principal</string>
@@ -10,7 +10,7 @@
     <string name="path_copied">Cale copiată</string>
     <string name="select_audio_file">Vă rugăm să selectați un fișier audio</string>
     <string name="search_folder">Căutați în dosar</string>
-    <string name="rooted_device_only">Această operațiune funcționează numai pe dispozitivele cu privilegii root</string>
+    <string name="rooted_device_only">Această operațiune funcționează numai pe dispozitivele înrădăcinate</string>
     <string name="recents">Recente</string>
     <string name="show_recents">Afișați recentele</string>
     <string name="pdf_viewer">Vizualizator PDF</string>
@@ -52,7 +52,7 @@
     <string name="total_storage">Spaţiu de stocare total: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Activați accesul root</string>
-    <string name="press_back_twice">Necesitaţi apăsarea de două ori a butonul Înapoi pentru a părăsi aplicația</string>
+    <string name="press_back_twice">Trebuie să apăsați de două ori butonul Înapoi pentru a părăsi aplicația</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
