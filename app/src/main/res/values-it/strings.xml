@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Semplice Gestore di file</string>
-    <string name="app_launcher_name">Gestore di file</string>
+    <string name="app_name">Gestore di File Semplice</string>
+    <string name="app_launcher_name">Gestore di File</string>
     <string name="press_back_again">Premi di nuovo indietro per uscire</string>
     <string name="go_to_home_folder">Vai alla cartella casa</string>
     <string name="set_as_home_folder">Imposta come cartella casa</string>
