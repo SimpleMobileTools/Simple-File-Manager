@@ -52,7 +52,7 @@
     <string name="total_storage">合計ストレージ: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">ルートアクセスを有効にする</string>
-    <string name="press_back_twice">Require pressing Back twice to leave the app</string>
+    <string name="press_back_twice">戻るボタンを2回押してアプリを閉じる</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
