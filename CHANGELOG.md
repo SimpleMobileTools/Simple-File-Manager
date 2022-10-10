@@ -1,6 +1,13 @@
 Changelog
 ==========
 
+Version 6.14.1 *(2022-10-10)*
+----------------------------
+
+ * Show a top loading bar while loading files
+ * Adding a Get Simple Phone button into the About section
+ * Added some translation and UX improvements
+
 Version 6.14.0 *(2022-08-20)*
 ----------------------------
 
