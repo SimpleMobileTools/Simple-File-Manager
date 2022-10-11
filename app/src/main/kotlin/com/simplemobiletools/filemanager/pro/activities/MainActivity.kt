@@ -365,6 +365,8 @@ class MainActivity : SimpleActivity() {
             if (!File(data.path!!).isDirectory) {
                 tryOpenPathIntent(data.path!!, false, finishActivity = true)
             }
+
+            main_view_pager.currentItem = 0
         } else {
             openPath(config.homeFolder)
         }
