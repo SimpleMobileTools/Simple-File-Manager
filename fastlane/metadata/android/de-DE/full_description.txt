@@ -1,29 +1,29 @@
-Schlichter File Manager ist ein superschneller und professioneller Datei- und Ordner-Manager für Android-Geräte. Verwenden Sie Schlichter File Manager, um Mediendateien mit wenigen Klicks zu komprimieren, zu übertragen und zu konvertieren. Es verfügt über alle wichtigen Funktionen zur Dateimanager- und Ordnerverwaltung, einschließlich der Anpassung des Basisordners und der Auswahl der bevorzugten Ordner für den schnellen Zugriff.
+Schlichter Dateimanager ist ein superschneller und professioneller Datei- und Ordner-Manager für Android-Geräte. Verwenden Sie Schlichter Dateimanager, um Mediendateien mit wenigen Klicks zu komprimieren, zu übertragen und zu konvertieren. Er verfügt über alle wichtigen Funktionen zur Dateimanager- und Ordnerverwaltung, einschließlich der Anpassung des Basisordners und der Auswahl der bevorzugten Ordner für den schnellen Zugriff.
 
-File Manager bietet alle Funktionen des Dateimanagers, einschließlich Suchen, Navigieren, Kopieren und Einfügen, Ausschneiden, Löschen, Umbenennen, Dekomprimieren, Übertragen, Herunterladen, Organisieren usw. Fügen Sie Dateien, Ordner und Apps nach Ihren persönlichen Vorlieben hinzu, entfernen Sie sie oder bearbeiten Sie sie.
+Der Schlichte Dateimanager bietet alle Funktionen eines Dateimanagers, einschließlich Suchen, Navigieren, Kopieren und Einfügen, Ausschneiden, Löschen, Umbenennen, Dekomprimieren, Übertragen, Herunterladen, Organisieren usw. Fügen Sie Dateien, Ordner und Apps nach Ihren persönlichen Vorlieben hinzu, entfernen Sie sie oder bearbeiten Sie sie.
 
-Mit Schlichter File Manager können Sie Ihr Handy nach verschiedenen Metriken organisieren und sortieren und zwischen aufsteigend und absteigend wechseln oder eine ordnerspezifische Sortierung verwenden. Um einen Datei- oder Ordnerpfad schnell zu erhalten, können Sie ihn einfach auswählen, indem Sie ihn lange drücken und in die Zwischenablage kopieren.
+Mit Schlichter Dateimanager können Sie Ihr Handy nach verschiedenen Metriken organisieren und sortieren und zwischen aufsteigend und absteigend wechseln oder eine ordnerspezifische Sortierung verwenden. Um einen Datei- oder Ordnerpfad schnell zu erhalten, können Sie ihn einfach auswählen, indem Sie ihn lange drücken und in die Zwischenablage kopieren.
 
-Mit Schlichter File Manager wird die Organisation Ihrer mobilen Dateien, Ordner und Apps vollständig automatisiert, um Zeit und Energie zu sparen. Mit nur wenigen Klicks können Sie auch die Eigenschaften von Dateien oder Ordnern überprüfen, in denen verschiedene Felder wie Größe, Datum der letzten Änderung oder EXIF-Werte wie Erstellungsdatum, Kameramodell bei Fotos usw. angezeigt werden.
+Mit Schlichter Dateimanager wird die Organisation Ihrer mobilen Dateien, Ordner und Apps vollständig automatisiert, um Zeit und Energie zu sparen. Mit nur wenigen Klicks können Sie auch die Eigenschaften von Dateien oder Ordnern überprüfen, in denen verschiedene Felder wie Größe, Datum der letzten Änderung oder EXIF-Werte wie Erstellungsdatum, Kameramodell bei Fotos usw. angezeigt werden.
 
-Schlichter File Manager ist absolut sicher und enthält mehrere leistungsstarke sicherheitsrelevante Funktionen wie den Kennwortschutz für versteckte Elemente, das Löschen oder die gesamte App. Sie können zwischen einem Muster, einer Stecknadel oder einem Fingerabdruck wählen, um Ihre Daten privat zu halten. Die Fingerabdruckberechtigung wird benötigt, um entweder die Sichtbarkeit versteckter Objekte zu sperren, Dateien zu löschen oder die gesamte App. Schlichter File Manager funktioniert ohne Internetzugang und garantiert so Ihre ultimative Privatsphäre.
+Schlichter Dateimanager ist absolut sicher und enthält mehrere leistungsstarke sicherheitsrelevante Funktionen wie den Kennwortschutz für versteckte Elemente, das Löschen oder die gesamte App. Sie können zwischen einem Muster, einer Stecknadel oder einem Fingerabdruck wählen, um Ihre Daten privat zu halten. Die Fingerabdruckberechtigung wird benötigt, um entweder die Sichtbarkeit versteckter Objekte zu sperren, Dateien zu löschen oder die gesamte App. Schlichter Dateimanager funktioniert ohne Internetzugang und garantiert so Ihre ultimative Privatsphäre.
 
-Schlichter File Manager kann auch Speicherplatz bereinigen und Ihren internen Speicher speichern, indem Dateien und Ordner komprimiert werden. Dieser moderne Organizer für Mediendateien unterstützt das schnelle Durchsuchen von Root-Dateien, SD-Karten und USB-Geräten. File Manager erkennt auch mehrere Dateiformate, einschließlich Musik, Videos, Bilder und Dokumente.
+Der Dateimanager kann auch Speicherplatz bereinigen und Ihren internen Speicher speichern, indem Dateien und Ordner komprimiert werden. Dieser moderne Organizer für Mediendateien unterstützt das schnelle Durchsuchen von Root-Dateien, SD-Karten und USB-Geräten. Der Dateimanager erkennt auch mehrere Dateiformate, einschließlich Musik, Videos, Bilder und Dokumente.
 
-Verwenden Sie Schlichter File Manager, um praktische Desktop-Verknüpfungen für den schnellen Zugriff auf Ihre Lieblingselemente zu erstellen. Es enthält einen Light-Datei-Editor, mit dem Sie Dokumente bei Bedarf drucken, bearbeiten oder einfach mit Zoom-Gesten lesen können.
+Verwenden Sie Schlichter Dateimanager, um praktische Desktop-Verknüpfungen für den schnellen Zugriff auf Ihre Lieblingselemente zu erstellen. Er enthält einen Light-Datei-Editor, mit dem Sie Dokumente bei Bedarf drucken, bearbeiten oder einfach mit Zoom-Gesten lesen können.
 
-Obwohl es als Simple File Manager bezeichnet wird, hilft es Ihnen, Ihre Dateien, Ordner und Apps mit nur wenigen Klicks zu verwalten und anzupassen. Sie können Ihre letzten Dateien leicht sehen und auch eine Speicheranalyse durchführen.
+Obwohl er als Schlichter Dateimanager bezeichnet wird, hilft er Ihnen, Ihre Dateien, Ordner und Apps mit nur wenigen Klicks zu verwalten und anzupassen. Sie können Ihre letzten Dateien leicht sehen und auch eine Speicheranalyse durchführen.
 
-Sie können die integrierte Speicheranalyse verwenden, um einen schnellen Überblick darüber zu erhalten, welche Dateien den meisten Speicherplatz belegen, und sie zu bereinigen. Es kann als Speicherreiniger fungieren, der hilft, etwas Platz auf Ihrem Gerät zu leeren.
+Sie können die integrierte Speicheranalyse verwenden, um einen schnellen Überblick darüber zu erhalten, welche Dateien den meisten Speicherplatz belegen, und sie zu bereinigen. Er kann als Speicherreiniger fungieren, der hilft, etwas Platz auf Ihrem Gerät zu leeren.
 
-Es kommt mit Material-Design und einem dunklen Thema standardmäßig, bietet eine großartige Benutzererfahrung für die einfache Verwendung. Der fehlende Internetzugang bietet Ihnen mehr Privatsphäre, Sicherheit und Stabilität als andere Apps.
+Er kommt mit Material-Design und einem dunklen Thema standardmäßig, bietet eine großartige Benutzererfahrung für die einfache Verwendung. Der fehlende Internetzugang bietet Ihnen mehr Privatsphäre, Sicherheit und Stabilität als andere Apps.
 
-Enthält keine Anzeigen oder unnötigen Berechtigungen. Es ist vollständig OpenSource und bietet anpassbare Farben.
+Enthält keine Anzeigen oder unnötigen Berechtigungen. Er ist vollständig Open Source und bietet anpassbare Farben.
 
-Sehen Sie sich hier die vollständige Suite der einfachen Tools an:
+Sehen Sie sich hier die vollständige Palette der „Simple Tools“ an:
 https://www.simplemobiletools.com
 
-Eigenständige Website von Schlichter File Manager Pro:
+Eigenständige Website von Schlichter Dateimanager Pro:
 https://www.simplemobiletools.com/filemanager
 
 Facebook:
