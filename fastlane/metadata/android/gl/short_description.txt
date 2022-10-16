@@ -1,1 +1,1 @@
-Explorador Organizador Gestor y Administrador de Archivos tipo File Explorer
+Práctico xestor de fixeiros para buscar ou organizalos ficheiros e cartafoles
