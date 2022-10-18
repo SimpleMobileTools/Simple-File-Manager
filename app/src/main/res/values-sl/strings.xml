@@ -46,5 +46,5 @@
     <string name="storage_free">brezplačno</string>
     <string name="total_storage">Skupna količna prostora za shranjevanje: %s</string>
     <string name="enable_root_access">Omogočanje korenskega dostopa</string>
-    <string name="press_back_twice">Zahteva se dvakratni pritisk nazaj, da se zapusti aplikacijo.</string>
+    <string name="press_back_twice">Dvakratni pritisk nazaj za izhod aplikacije</string>
 </resources>
