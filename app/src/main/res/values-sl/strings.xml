@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Preprost upravitelj datotek</string>
+    <string name="app_launcher_name">Upravitelj datotek</string>
+    <string name="press_back_again">Ponovno pritisnite nazaj za izhod</string>
+    <string name="go_to_home_folder">Pojdite v mapo domov</string>
+    <string name="set_as_home_folder">Nastavite kot domačo mapo</string>
+    <string name="home_folder_updated">Posodobljena mapa domov</string>
+    <string name="copy_path">Kopirajte poti v odložišče</string>
+    <string name="path_copied">Kopirana pot</string>
+    <string name="select_audio_file">Izberite zvočno datoteko</string>
+    <string name="search_folder">Mapa iskanje</string>
+    <string name="rooted_device_only">Ta operacija deluje samo v korenskih napravah</string>
+    <string name="recents">Nedavni</string>
+    <string name="show_recents">Prikaži zadnje</string>
+    <string name="pdf_viewer">Pregledovalnik PDF</string>
+    <string name="invert_colors">Obrnjene barve</string>
+    <!-- Open as -->
+    <string name="open_as">Odpri kot</string>
+    <string name="text_file">Datoteka z besedilom</string>
+    <string name="image_file">Slikovna datoteka</string>
+    <string name="audio_file">Datoteka z zvokom</string>
+    <string name="video_file">Datoteka z video posnetkom</string>
+    <string name="other_file">Druga datoteka</string>
+    <!-- Compression -->
+    <string name="compress">Stisniti</string>
+    <string name="compress_pro">Stisniti (Pro)</string>
+    <string name="decompress">Dekrompesiranje</string>
+    <string name="compress_as">Stisnite kot</string>
+    <string name="compressing">Stiskanje…</string>
+    <string name="decompressing">Stiskanje…</string>
+    <string name="compression_successful">Uspešno stiskanje</string>
+    <string name="decompression_successful">Uspešna dekompresija</string>
+    <string name="compressing_failed">Stiskanje ni uspelo</string>
+    <string name="decompressing_failed">Dekomprimiranje ni uspelo</string>
+    <!-- Favorites -->
+    <string name="manage_favorites">Upravljanje priljubljenih</string>
+    <string name="go_to_favorite">Pojdi med priljubljene</string>
+    <string name="favorites_activity_placeholder">Pogosto uporabljene datoteke lahko dodate med priljubljene in do njih enostavno dostopate od koder koli.</string>
+    <!-- File Editor -->
+    <string name="file_editor">Urejevalnik datotek</string>
+    <!-- Storage analysis -->
+    <string name="storage_analysis">Analiza shranjevanja</string>
+    <string name="images">Slike</string>
+    <string name="videos">Videoposnetki</string>
+    <string name="audio">Zvok</string>
+    <string name="documents">Dokumenti</string>
+    <string name="downloads">Prenosi</string>
+    <string name="archives">Arhivi</string>
+    <string name="others">Ostali</string>
+    <string name="storage_free">brezplačno</string>
+    <string name="total_storage">Skupna količna prostora za shranjevanje: %s</string>
+    <!-- Settings -->
+    <string name="enable_root_access">Omogočanje korenskega dostopa</string>
+    <string name="press_back_twice">Dvakratni pritisk nazaj za izhod aplikacije</string>
+</resources>
