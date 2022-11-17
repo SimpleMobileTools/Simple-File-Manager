@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.14.3 *(2022-11-17)*
+----------------------------
+
+ * Added handling for Create Document intent
+ * Added some translation, stability and UX improvements
+
 Version 6.14.2 *(2022-10-10)*
 ----------------------------
 
