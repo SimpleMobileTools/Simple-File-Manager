@@ -32,6 +32,7 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.ViewPagerAdapter
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
+import com.simplemobiletools.filemanager.pro.dialogs.InsertFilenameDialog
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
@@ -709,9 +710,20 @@ class MainActivity : SimpleActivity() {
         finish()
     }
 
+    // used at apps that have no file access at all, but need to work with files. For example Simple Calendar uses this at exporting events into a file
     fun createDocumentConfirmed(path: String) {
-        val resultIntent = Intent()
         val filename = intent.getStringExtra(Intent.EXTRA_TITLE) ?: ""
+        if (filename.isEmpty()) {
+            InsertFilenameDialog(this, internalStoragePath) { newFilename ->
+                finishCreateDocumentIntent(path, newFilename)
+            }
+        } else {
+            finishCreateDocumentIntent(path, filename)
+        }
+    }
+
+    private fun finishCreateDocumentIntent(path: String, filename: String) {
+        val resultIntent = Intent()
         val uri = getFilePublicUri(File(path, filename), BuildConfig.APPLICATION_ID)
         val type = path.getMimeType()
         resultIntent.setDataAndType(uri, type)
