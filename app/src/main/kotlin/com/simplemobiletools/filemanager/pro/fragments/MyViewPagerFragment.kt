@@ -3,14 +3,13 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
-import com.simplemobiletools.commons.extensions.getMimeType
-import com.simplemobiletools.commons.extensions.isAudioFast
-import com.simplemobiletools.commons.extensions.toast
+import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
+import kotlinx.android.synthetic.main.items_fragment.view.*
 
 abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : RelativeLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
@@ -21,9 +20,10 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
     var wantedMimeType = ""
+    protected var isCreateDocumentIntent = false
 
     protected fun clickedPath(path: String) {
-        if (isGetContentIntent) {
+        if (isGetContentIntent || isCreateDocumentIntent) {
             (activity as MainActivity).pickedPath(path)
         } else if (isGetRingtonePicker) {
             if (path.isAudioFast()) {
@@ -34,6 +34,18 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
         } else {
             activity?.tryOpenPathIntent(path, false)
         }
+    }
+
+    fun updateIsCreateDocumentIntent(isCreateDocumentIntent: Boolean) {
+        val iconId = if (isCreateDocumentIntent) {
+            R.drawable.ic_check_vector
+        } else {
+            R.drawable.ic_plus_vector
+        }
+
+        this.isCreateDocumentIntent = isCreateDocumentIntent
+        val fabIcon = context.resources.getColoredDrawableWithColor(iconId, context.getProperPrimaryColor().getContrastColor())
+        items_fab?.setImageDrawable(fabIcon)
     }
 
     protected fun isProperMimeType(wantedMimeType: String, path: String, isDirectory: Boolean): Boolean {

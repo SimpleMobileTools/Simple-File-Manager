@@ -147,6 +147,7 @@ class MainActivity : SimpleActivity() {
 
     fun refreshMenuItems() {
         val currentFragment = getCurrentFragment() ?: return
+        val isCreateDocumentIntent = intent.action == Intent.ACTION_CREATE_DOCUMENT
         val currentViewType = config.getFolderViewType(currentFragment.currentPath)
         val favorites = config.favorites
 
@@ -169,6 +170,9 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.increase_column_count).isVisible =
                 currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT && currentFragment !is StorageFragment
             findItem(R.id.reduce_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1 && currentFragment !is StorageFragment
+
+            findItem(R.id.settings).isVisible = !isCreateDocumentIntent
+            findItem(R.id.about).isVisible = !isCreateDocumentIntent
         }
     }
 
@@ -373,6 +377,7 @@ class MainActivity : SimpleActivity() {
 
         val isPickRingtoneIntent = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
         val isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT || intent.action == Intent.ACTION_PICK
+        val isCreateDocumentIntent = intent.action == Intent.ACTION_CREATE_DOCUMENT
         val allowPickingMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
         val getContentMimeType = if (isGetContentIntent) {
             intent.type ?: ""
@@ -385,6 +390,7 @@ class MainActivity : SimpleActivity() {
             it?.isPickMultipleIntent = allowPickingMultipleIntent
             it?.isGetContentIntent = isGetContentIntent
             it?.wantedMimeType = getContentMimeType
+            it?.updateIsCreateDocumentIntent(isCreateDocumentIntent)
         }
 
         if (refreshRecents) {
@@ -418,8 +424,10 @@ class MainActivity : SimpleActivity() {
 
     private fun setupTabs() {
         main_tabs_holder.removeAllTabs()
-        val isPickFileIntent =
-            intent.action == RingtoneManager.ACTION_RINGTONE_PICKER || intent.action == Intent.ACTION_GET_CONTENT || intent.action == Intent.ACTION_PICK
+        val action = intent.action
+        val isPickFileIntent = action == RingtoneManager.ACTION_RINGTONE_PICKER || action == Intent.ACTION_GET_CONTENT || action == Intent.ACTION_PICK
+        val isCreateDocumentIntent = action == Intent.ACTION_CREATE_DOCUMENT
+
         if (isPickFileIntent) {
             mTabsToShow.remove(TAB_STORAGE_ANALYSIS)
             if (mTabsToShow.none { it and config.showTabs != 0 }) {
@@ -427,6 +435,9 @@ class MainActivity : SimpleActivity() {
                 mStoredShowTabs = TAB_FILES
                 mTabsToShow = arrayListOf(TAB_FILES)
             }
+        } else if (isCreateDocumentIntent) {
+            mTabsToShow.clear()
+            mTabsToShow = arrayListOf(TAB_FILES)
         }
 
         mTabsToShow.forEachIndexed { index, value ->
@@ -694,6 +705,17 @@ class MainActivity : SimpleActivity() {
         val type = path.getMimeType()
         resultIntent.setDataAndType(uri, type)
         resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        setResult(Activity.RESULT_OK, resultIntent)
+        finish()
+    }
+
+    fun createDocumentConfirmed(path: String) {
+        val resultIntent = Intent()
+        val filename = intent.getStringExtra(Intent.EXTRA_TITLE) ?: ""
+        val uri = getFilePublicUri(File(path, filename), BuildConfig.APPLICATION_ID)
+        val type = path.getMimeType()
+        resultIntent.setDataAndType(uri, type)
+        resultIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
     }

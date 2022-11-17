@@ -42,9 +42,15 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
-            items_swipe_refresh.setOnRefreshListener { refreshFragment() }
-            items_fab.setOnClickListener { createNewItem() }
             breadcrumbs.listener = this@ItemsFragment
+            items_swipe_refresh.setOnRefreshListener { refreshFragment() }
+            items_fab.setOnClickListener {
+                if (isCreateDocumentIntent) {
+                    (activity as MainActivity).createDocumentConfirmed(currentPath)
+                } else {
+                    createNewItem()
+                }
+            }
         }
     }
 
