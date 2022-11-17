@@ -463,7 +463,12 @@ class MainActivity : SimpleActivity() {
             updateBottomTabItemColors(inactiveView, false)
         }
 
-        val bottomBarColor = getBottomNavigationBackgroundColor()
+        val bottomBarColor = if (main_tabs_holder.isGone()) {
+            config.navigationBarColor
+        } else {
+            getBottomNavigationBackgroundColor()
+        }
+
         main_tabs_holder.setBackgroundColor(bottomBarColor)
         updateNavigationBarColor(bottomBarColor)
     }
