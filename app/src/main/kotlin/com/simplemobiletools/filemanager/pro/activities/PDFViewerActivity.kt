@@ -9,6 +9,7 @@ import android.print.PrintManager
 import android.view.View
 import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.simplemobiletools.commons.extensions.*
@@ -110,6 +111,7 @@ class PDFViewerActivity : SimpleActivity() {
 
         val errorHandler = PdfErrorHandler { throwable -> showErrorToast(throwable.toString()) }
 
+        pdf_viewer.setPageTransformer(MarginPageTransformer(resources.getDimension(R.dimen.activity_margin).toInt()))
         pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
         pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString(), getProperBackgroundColor())
         pdf_viewer.registerOnPageChangeCallback(object : OnPageChangeCallback() {
