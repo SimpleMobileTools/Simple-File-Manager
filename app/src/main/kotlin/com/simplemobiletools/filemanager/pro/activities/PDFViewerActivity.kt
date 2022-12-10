@@ -6,8 +6,10 @@ import android.graphics.Color
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
+import android.view.View
 import android.view.WindowManager
 import android.widget.RelativeLayout
+import androidx.viewpager2.widget.ViewPager2
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
@@ -15,14 +17,13 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
-import es.voghdev.pdfviewpager.library.adapter.BasePDFPagerAdapter
 import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter
+import es.voghdev.pdfviewpager.library.adapter.PdfErrorHandler
 import kotlinx.android.synthetic.main.activity_pdf_viewer.*
 
 class PDFViewerActivity : SimpleActivity() {
     private var realFilePath = ""
     private var isFullScreen = false
-    private var adapter: BasePDFPagerAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
@@ -54,11 +55,6 @@ class PDFViewerActivity : SimpleActivity() {
     override fun onResume() {
         super.onResume()
         window.navigationBarColor = Color.TRANSPARENT
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        adapter?.close()
     }
 
     private fun setupMenu() {
@@ -99,19 +95,16 @@ class PDFViewerActivity : SimpleActivity() {
             return
         }
 
+        pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
         pdf_viewer.setBackgroundColor(getProperBackgroundColor())
 
-        adapter = PDFPagerAdapter.Builder(this)
-            .setPdfPath(uri.toString())
-            .setOnPageClickListener {
-                toggleFullScreen()
-            }
-            .setErrorHandler { throwable ->
-                showErrorToast(throwable.toString())
-            }
-            .create()
+        val clickListener = View.OnClickListener {
+            toggleFullScreen()
+        }
 
-        pdf_viewer.adapter = adapter
+        val errorHandler = PdfErrorHandler { throwable -> showErrorToast(throwable.toString()) }
+
+        pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString())
 
         showSystemUI(true)
 

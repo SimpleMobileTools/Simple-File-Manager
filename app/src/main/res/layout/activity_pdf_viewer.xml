@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <es.voghdev.pdfviewpager.library.PDFViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pdf_viewer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
