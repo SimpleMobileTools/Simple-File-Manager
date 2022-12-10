@@ -8,8 +8,9 @@ import android.print.PrintAttributes
 import android.print.PrintManager
 import android.view.View
 import android.view.WindowManager
-import android.widget.RelativeLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
@@ -58,7 +59,6 @@ class PDFViewerActivity : SimpleActivity() {
     }
 
     private fun setupMenu() {
-        (pdf_viewer_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
         pdf_viewer_toolbar.menu.apply {
             findItem(R.id.menu_print).isVisible = realFilePath.isNotEmpty()
             findItem(R.id.menu_print).setOnMenuItemClickListener {
@@ -71,20 +71,29 @@ class PDFViewerActivity : SimpleActivity() {
             finish()
         }
 
+        setupViewOffsets()
+        val primaryColor = getProperPrimaryColor()
+        page_counter.background?.applyColorFilter(primaryColor)
+        page_counter.setTextColor(primaryColor.getContrastColor())
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setupViewOffsets()
+    }
+
+    private fun setupViewOffsets() {
+        val pageCounterMargin = resources.getDimension(R.dimen.normal_margin).toInt()
+        (pdf_viewer_appbar.layoutParams as ConstraintLayout.LayoutParams).topMargin = statusBarHeight
         if (!portrait && navigationBarOnSide && navigationBarWidth > 0) {
             pdf_viewer_appbar.setPadding(0, 0, navigationBarWidth, 0)
         } else {
             pdf_viewer_appbar.setPadding(0, 0, 0, 0)
         }
-    }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        (pdf_viewer_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
-        if (!portrait && navigationBarOnSide && navigationBarWidth > 0) {
-            pdf_viewer_appbar.setPadding(0, 0, navigationBarWidth, 0)
-        } else {
-            pdf_viewer_appbar.setPadding(0, 0, 0, 0)
+        (page_counter.layoutParams as ConstraintLayout.LayoutParams).apply {
+            rightMargin = navigationBarWidth + pageCounterMargin
+            bottomMargin = navigationBarHeight + pageCounterMargin
         }
     }
 
@@ -103,6 +112,14 @@ class PDFViewerActivity : SimpleActivity() {
 
         pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
         pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString(), getProperBackgroundColor())
+        pdf_viewer.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                updatePageCounter(position)
+            }
+        })
+
+        updatePageCounter(0)
+        page_counter.beVisible()
 
         showSystemUI(true)
 
@@ -110,6 +127,10 @@ class PDFViewerActivity : SimpleActivity() {
         if (filename.isNotEmpty()) {
             pdf_viewer_toolbar.title = filename
         }
+    }
+
+    private fun updatePageCounter(position: Int) {
+        page_counter.text = "${position + 1} / ${pdf_viewer.adapter?.itemCount}"
     }
 
     private fun printText() {
@@ -131,6 +152,7 @@ class PDFViewerActivity : SimpleActivity() {
             showSystemUI(true)
         }
 
+        page_counter.animate().alpha(newAlpha).start()
         top_shadow.animate().alpha(newAlpha).start()
         pdf_viewer_appbar.animate().alpha(newAlpha).withStartAction {
             if (newAlpha == 1f) {
