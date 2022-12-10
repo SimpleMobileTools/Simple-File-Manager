@@ -95,16 +95,14 @@ class PDFViewerActivity : SimpleActivity() {
             return
         }
 
-        pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
-        pdf_viewer.setBackgroundColor(getProperBackgroundColor())
-
         val clickListener = View.OnClickListener {
             toggleFullScreen()
         }
 
         val errorHandler = PdfErrorHandler { throwable -> showErrorToast(throwable.toString()) }
 
-        pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString())
+        pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
+        pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString(), getProperBackgroundColor())
 
         showSystemUI(true)
 
