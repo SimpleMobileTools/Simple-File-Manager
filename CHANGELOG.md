@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.14.4 *(2022-12-10)*
+----------------------------
+
+ * Replaced the PDF Viewer with a different one
+ * Added some stability and translation improvements
+sh
 Version 6.14.3 *(2022-11-17)*
 ----------------------------
 
