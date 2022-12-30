@@ -113,7 +113,14 @@ class PDFViewerActivity : SimpleActivity() {
 
         pdf_viewer.setPageTransformer(MarginPageTransformer(resources.getDimension(R.dimen.activity_margin).toInt()))
         pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
-        pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString(), getProperBackgroundColor())
+        try {
+            pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString(), getProperBackgroundColor())
+        } catch (e: Exception) {
+            showErrorToast(e)
+            finish()
+            return
+        }
+
         pdf_viewer.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updatePageCounter(position)
