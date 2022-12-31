@@ -468,13 +468,16 @@ class MainActivity : SimpleActivity() {
             }
         }
 
-        main_tabs_holder.onTabSelectionChanged(tabUnselectedAction = {
-            updateBottomTabItemColors(it.customView, false)
-        }, tabSelectedAction = {
-            closeSearch()
-            main_view_pager.currentItem = it.position
-            updateBottomTabItemColors(it.customView, true)
-        })
+        main_tabs_holder.onTabSelectionChanged(
+            tabUnselectedAction = {
+                updateBottomTabItemColors(it.customView, false, getDeselectedTabDrawableIds()[it.position])
+            },
+            tabSelectedAction = {
+                closeSearch()
+                main_view_pager.currentItem = it.position
+                updateBottomTabItemColors(it.customView, true, getSelectedTabDrawableIds()[it.position])
+            }
+        )
 
         main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
         main_tabs_holder.onGlobalLayout {
@@ -496,11 +499,11 @@ class MainActivity : SimpleActivity() {
 
     private fun setupTabColors() {
         val activeView = main_tabs_holder.getTabAt(main_view_pager.currentItem)?.customView
-        updateBottomTabItemColors(activeView, true)
+        updateBottomTabItemColors(activeView, true, getSelectedTabDrawableIds()[main_view_pager.currentItem])
 
         getInactiveTabIndexes(main_view_pager.currentItem).forEach { index ->
             val inactiveView = main_tabs_holder.getTabAt(index)?.customView
-            updateBottomTabItemColors(inactiveView, false)
+            updateBottomTabItemColors(inactiveView, false, getDeselectedTabDrawableIds()[index])
         }
 
         if (main_tabs_holder.isVisible()) {
@@ -791,7 +794,45 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until getTabsList().size).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until main_tabs_holder.tabCount).filter { it != activeIndex }
+
+    private fun getSelectedTabDrawableIds(): ArrayList<Int> {
+        val showTabs = config.showTabs
+        val icons = ArrayList<Int>()
+
+        if (showTabs and TAB_FILES != 0) {
+            icons.add(R.drawable.ic_folder_vector)
+        }
+
+        if (showTabs and TAB_RECENT_FILES != 0) {
+            icons.add(R.drawable.ic_clock_filled_vector)
+        }
+
+        if (showTabs and TAB_STORAGE_ANALYSIS != 0) {
+            icons.add(R.drawable.ic_storage_vector)
+        }
+
+        return icons
+    }
+
+    private fun getDeselectedTabDrawableIds(): ArrayList<Int> {
+        val showTabs = config.showTabs
+        val icons = ArrayList<Int>()
+
+        if (showTabs and TAB_FILES != 0) {
+            icons.add(R.drawable.ic_folder_outline_vector)
+        }
+
+        if (showTabs and TAB_RECENT_FILES != 0) {
+            icons.add(R.drawable.ic_clock_vector)
+        }
+
+        if (showTabs and TAB_STORAGE_ANALYSIS != 0) {
+            icons.add(R.drawable.ic_storage_vector)
+        }
+
+        return icons
+    }
 
     private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment, storage_fragment)
 
