@@ -39,10 +39,13 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private var currentViewType = VIEW_TYPE_LIST
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mimetypes)
         setupOptionsMenu()
         refreshMenuItems()
+        updateMaterialActivityViews(mimetypes_coordinator, mimetypes_list, true)
+        setupMaterialScrollListener(mimetypes_list, mimetypes_toolbar)
 
         currentMimeType = intent.getStringExtra(SHOW_MIMETYPE) ?: return
         mimetypes_toolbar.title = getString(
