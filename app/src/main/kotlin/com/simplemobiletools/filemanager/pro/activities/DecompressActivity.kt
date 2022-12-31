@@ -23,9 +23,12 @@ class DecompressActivity : SimpleActivity() {
     private var uri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_decompress)
         setupOptionsMenu()
+        updateMaterialActivityViews(decompress_coordinator, decompress_list, true)
+        setupMaterialScrollListener(decompress_list, decompress_toolbar)
 
         uri = intent.data
         if (uri == null) {
