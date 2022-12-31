@@ -14,11 +14,15 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import kotlinx.android.synthetic.main.activity_favorites.*
 
 class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
         setupOptionsMenu()
         updateFavorites()
+        updateMaterialActivityViews(manage_favorites_coordinator, manage_favorites_list, true)
+        setupMaterialScrollListener(manage_favorites_list, manage_favorites_toolbar)
     }
 
     override fun onResume() {
