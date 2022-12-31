@@ -43,9 +43,12 @@ class ReadTextActivity : SimpleActivity() {
     private lateinit var searchClearBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_text)
         setupOptionsMenu()
+        updateMaterialActivityViews(read_text_coordinator, read_text_view, true)
+        setupMaterialScrollListener(read_text_holder, read_text_toolbar)
 
         searchQueryET = findViewById(R.id.search_query)
         searchPrevBtn = findViewById(R.id.search_previous)
