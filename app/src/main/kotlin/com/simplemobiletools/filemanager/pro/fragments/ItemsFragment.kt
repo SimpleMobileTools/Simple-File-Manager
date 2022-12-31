@@ -557,4 +557,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     override fun selectedPaths(paths: ArrayList<String>) {
         (activity as MainActivity).pickedPaths(paths)
     }
+
+    override fun getScrollingView() = items_list
 }

@@ -67,11 +67,13 @@ class MainActivity : SimpleActivity() {
     private var mStoredShowTabs = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isMaterialActivity = true
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
         refreshMenuItems()
+        updateMaterialActivityViews(main_coordinator, main_holder, false)
         mTabsToShow = getTabsList()
 
         if (!config.wasStorageAnalysisTabAdded && isOreoPlus()) {
@@ -110,9 +112,15 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        setupTabColors()
-        setupToolbar(main_toolbar, searchMenuItem = mSearchMenuItem)
+        val statusBarColor = if (getCurrentFragment()?.getScrollingView() == null) {
+            getProperBackgroundColor()
+        } else {
+            window.statusBarColor
+        }
+
+        setupToolbar(main_toolbar, statusBarColor = statusBarColor, searchMenuItem = mSearchMenuItem)
         refreshMenuItems()
+        setupTabColors()
 
         getAllFragments().forEach {
             it?.onResume(getProperTextColor())
@@ -416,6 +424,7 @@ class MainActivity : SimpleActivity() {
                     (it as? ItemOperationsListener)?.finishActMode()
                 }
                 refreshMenuItems()
+                updateStatusBarChanger()
             }
         })
         main_view_pager.currentItem = config.lastUsedViewPagerPage
@@ -466,6 +475,14 @@ class MainActivity : SimpleActivity() {
         )
 
         main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
+        main_tabs_holder.onGlobalLayout {
+            updateStatusBarChanger()
+        }
+    }
+
+    private fun updateStatusBarChanger() {
+        setupMaterialScrollListener(getCurrentFragment()?.getScrollingView(), main_toolbar)
+        updateStatusBarOnPageChange()
     }
 
     private fun setupTabColors() {

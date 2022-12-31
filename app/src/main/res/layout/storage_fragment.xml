@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/storage_scrollview"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/storage_nested_scrollview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -301,5 +301,5 @@
                     app:trackThickness="2dp" />
             </RelativeLayout>
         </RelativeLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </com.simplemobiletools.filemanager.pro.fragments.StorageFragment>

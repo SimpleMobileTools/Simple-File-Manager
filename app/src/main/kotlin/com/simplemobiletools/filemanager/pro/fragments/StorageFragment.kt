@@ -221,4 +221,6 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             }
         }
     }
+
+    override fun getScrollingView() = storage_nested_scrollview
 }
