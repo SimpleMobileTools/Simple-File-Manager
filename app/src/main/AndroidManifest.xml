@@ -29,6 +29,7 @@
 
         <activity
             android:name=".activities.MainActivity"
+            android:configChanges="orientation"
             android:exported="true">
 
             <meta-data
@@ -77,11 +78,13 @@
 
         <activity
             android:name=".activities.MimeTypesActivity"
+            android:configChanges="orientation"
             android:exported="false"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name=".activities.ReadTextActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:label="@string/file_editor">
 
@@ -116,6 +119,7 @@
 
         <activity
             android:name=".activities.DecompressActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:label="@string/decompress">
             <intent-filter>
@@ -127,6 +131,7 @@
 
         <activity
             android:name=".activities.SaveAsActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:label="@string/save_as">
             <intent-filter>
@@ -139,6 +144,7 @@
 
         <activity
             android:name=".activities.SettingsActivity"
+            android:configChanges="orientation"
             android:exported="true"
             android:label="@string/settings"
             android:parentActivityName=".activities.MainActivity">
@@ -151,18 +157,21 @@
 
         <activity
             android:name=".activities.FavoritesActivity"
+            android:configChanges="orientation"
             android:exported="false"
             android:label="@string/favorites"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name="com.simplemobiletools.commons.activities.AboutActivity"
+            android:configChanges="orientation"
             android:exported="false"
             android:label="@string/about"
             android:parentActivityName=".activities.MainActivity" />
 
         <activity
             android:name="com.simplemobiletools.commons.activities.CustomizationActivity"
+            android:configChanges="orientation"
             android:exported="false"
             android:label="@string/customize_colors"
             android:parentActivityName=".activities.SettingsActivity" />

@@ -478,7 +478,7 @@ class MainActivity : SimpleActivity() {
         }
 
         val bottomBarColor = if (main_tabs_holder.isGone()) {
-            config.navigationBarColor
+            getProperBackgroundColor()
         } else {
             getBottomNavigationBackgroundColor()
         }

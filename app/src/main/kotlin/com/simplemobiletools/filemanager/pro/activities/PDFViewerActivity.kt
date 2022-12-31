@@ -29,7 +29,6 @@ class PDFViewerActivity : SimpleActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
-        showTransparentNavigation = true
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pdf_viewer)
