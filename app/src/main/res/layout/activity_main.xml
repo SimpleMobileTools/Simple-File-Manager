@@ -17,9 +17,7 @@
         android:id="@+id/main_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:layout_marginTop="?attr/actionBarSize">
 
         <com.simplemobiletools.commons.views.MyViewPager
             android:id="@+id/main_view_pager"

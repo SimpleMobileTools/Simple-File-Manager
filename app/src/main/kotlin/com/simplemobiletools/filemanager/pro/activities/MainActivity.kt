@@ -18,7 +18,9 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.MenuItemCompat
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -73,7 +75,6 @@ class MainActivity : SimpleActivity() {
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
         refreshMenuItems()
-        updateMaterialActivityViews(main_coordinator, main_holder, false)
         mTabsToShow = getTabsList()
 
         if (!config.wasStorageAnalysisTabAdded && isOreoPlus()) {
@@ -85,6 +86,10 @@ class MainActivity : SimpleActivity() {
 
         storeStateVariables()
         setupTabs()
+
+        updateMaterialActivityViews(main_coordinator, null, main_tabs_holder.tabCount == 1)
+        setupMaterialScrollListener(null, main_toolbar)
+
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
 
         if (savedInstanceState == null) {
@@ -463,16 +468,13 @@ class MainActivity : SimpleActivity() {
             }
         }
 
-        main_tabs_holder.onTabSelectionChanged(
-            tabUnselectedAction = {
-                updateBottomTabItemColors(it.customView, false)
-            },
-            tabSelectedAction = {
-                closeSearch()
-                main_view_pager.currentItem = it.position
-                updateBottomTabItemColors(it.customView, true)
-            }
-        )
+        main_tabs_holder.onTabSelectionChanged(tabUnselectedAction = {
+            updateBottomTabItemColors(it.customView, false)
+        }, tabSelectedAction = {
+            closeSearch()
+            main_view_pager.currentItem = it.position
+            updateBottomTabItemColors(it.customView, true)
+        })
 
         main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
         main_tabs_holder.onGlobalLayout {
@@ -483,6 +485,13 @@ class MainActivity : SimpleActivity() {
     private fun updateStatusBarChanger() {
         setupMaterialScrollListener(getCurrentFragment()?.getScrollingView(), main_toolbar)
         updateStatusBarOnPageChange()
+        if (main_tabs_holder.tabCount == 1) {
+            val scrollingView = getCurrentFragment()?.getScrollingView() as? RecyclerView
+            scrollingView?.setPadding(scrollingView.paddingLeft, scrollingView.paddingTop, scrollingView.paddingRight, navigationBarHeight)
+
+            (getCurrentFragment()?.items_fab?.layoutParams as? CoordinatorLayout.LayoutParams)?.bottomMargin =
+                navigationBarHeight + resources.getDimension(R.dimen.activity_margin).toInt()
+        }
     }
 
     private fun setupTabColors() {
@@ -494,14 +503,11 @@ class MainActivity : SimpleActivity() {
             updateBottomTabItemColors(inactiveView, false)
         }
 
-        val bottomBarColor = if (main_tabs_holder.isGone()) {
-            getProperBackgroundColor()
-        } else {
-            getBottomNavigationBackgroundColor()
+        if (main_tabs_holder.isVisible()) {
+            val bottomBarColor = getBottomNavigationBackgroundColor()
+            main_tabs_holder.setBackgroundColor(bottomBarColor)
+            updateNavigationBarColor(bottomBarColor)
         }
-
-        main_tabs_holder.setBackgroundColor(bottomBarColor)
-        updateNavigationBarColor(bottomBarColor)
     }
 
     private fun getTabIcon(position: Int): Drawable {
