@@ -47,7 +47,7 @@ class ReadTextActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read_text)
         setupOptionsMenu()
-        updateMaterialActivityViews(read_text_coordinator, read_text_view, true)
+        updateMaterialActivityViews(read_text_coordinator, read_text_view, useTransparentNavigation = true, useTopSearchMenu = false)
         setupMaterialScrollListener(read_text_holder, read_text_toolbar)
 
         searchQueryET = findViewById(R.id.search_query)

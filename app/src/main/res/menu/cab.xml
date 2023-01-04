@@ -2,25 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="AppCompatResource">
+    tools:ignore="AppCompatResource,AlwaysShowAction">
     <item
         android:id="@+id/cab_delete"
         android:icon="@drawable/ic_delete_vector"
+        android:showAsAction="always"
         android:title="@string/delete"
         app:showAsAction="always" />
     <item
         android:id="@+id/cab_confirm_selection"
         android:icon="@drawable/ic_check_vector"
+        android:showAsAction="always"
         android:title="@string/confirm_selection"
         app:showAsAction="always" />
     <item
         android:id="@+id/cab_properties"
         android:icon="@drawable/ic_info_vector"
+        android:showAsAction="always"
         android:title="@string/properties"
         app:showAsAction="always" />
     <item
         android:id="@+id/cab_rename"
         android:icon="@drawable/ic_rename_vector"
+        android:showAsAction="always"
         android:title="@string/rename"
         app:showAsAction="always" />
     <item

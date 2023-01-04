@@ -230,6 +230,4 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun finishActMode() {
         getRecyclerAdapter()?.finishActMode()
     }
-
-    override fun getScrollingView() = recents_list
 }

@@ -21,7 +21,7 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
         setContentView(R.layout.activity_favorites)
         setupOptionsMenu()
         updateFavorites()
-        updateMaterialActivityViews(manage_favorites_coordinator, manage_favorites_list, true)
+        updateMaterialActivityViews(manage_favorites_coordinator, manage_favorites_list, useTransparentNavigation = true, useTopSearchMenu = false)
         setupMaterialScrollListener(manage_favorites_list, manage_favorites_toolbar)
     }
 

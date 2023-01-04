@@ -18,9 +18,7 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.MenuItemCompat
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -87,7 +85,7 @@ class MainActivity : SimpleActivity() {
         storeStateVariables()
         setupTabs()
 
-        updateMaterialActivityViews(main_coordinator, null, main_tabs_holder.tabCount == 1)
+        updateMaterialActivityViews(main_coordinator, null, useTransparentNavigation = false, useTopSearchMenu = true)
         setupMaterialScrollListener(null, main_toolbar)
 
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
@@ -117,13 +115,6 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        val statusBarColor = if (getCurrentFragment()?.getScrollingView() == null) {
-            getProperBackgroundColor()
-        } else {
-            window.statusBarColor
-        }
-
-        setupToolbar(main_toolbar, statusBarColor = statusBarColor, searchMenuItem = mSearchMenuItem)
         refreshMenuItems()
         setupTabColors()
 
@@ -166,7 +157,6 @@ class MainActivity : SimpleActivity() {
         val favorites = config.favorites
 
         main_toolbar.menu.apply {
-            findItem(R.id.search).isVisible = currentFragment is ItemsFragment
             findItem(R.id.sort).isVisible = currentFragment is ItemsFragment
             findItem(R.id.change_view_type).isVisible = currentFragment !is StorageFragment
 
@@ -429,7 +419,6 @@ class MainActivity : SimpleActivity() {
                     (it as? ItemOperationsListener)?.finishActMode()
                 }
                 refreshMenuItems()
-                updateStatusBarChanger()
             }
         })
         main_view_pager.currentItem = config.lastUsedViewPagerPage
@@ -480,21 +469,6 @@ class MainActivity : SimpleActivity() {
         )
 
         main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
-        main_tabs_holder.onGlobalLayout {
-            updateStatusBarChanger()
-        }
-    }
-
-    private fun updateStatusBarChanger() {
-        setupMaterialScrollListener(getCurrentFragment()?.getScrollingView(), main_toolbar)
-        updateStatusBarOnPageChange()
-        if (main_tabs_holder.tabCount == 1) {
-            val scrollingView = getCurrentFragment()?.getScrollingView() as? RecyclerView
-            scrollingView?.setPadding(scrollingView.paddingLeft, scrollingView.paddingTop, scrollingView.paddingRight, navigationBarHeight)
-
-            (getCurrentFragment()?.items_fab?.layoutParams as? CoordinatorLayout.LayoutParams)?.bottomMargin =
-                navigationBarHeight + resources.getDimension(R.dimen.activity_margin).toInt()
-        }
     }
 
     private fun setupTabColors() {
@@ -506,11 +480,9 @@ class MainActivity : SimpleActivity() {
             updateBottomTabItemColors(inactiveView, false, getDeselectedTabDrawableIds()[index])
         }
 
-        if (main_tabs_holder.isVisible()) {
-            val bottomBarColor = getBottomNavigationBackgroundColor()
-            main_tabs_holder.setBackgroundColor(bottomBarColor)
-            updateNavigationBarColor(bottomBarColor)
-        }
+        val bottomBarColor = getBottomNavigationBackgroundColor()
+        updateNavigationBarColor(bottomBarColor)
+        main_tabs_holder.setBackgroundColor(bottomBarColor)
     }
 
     private fun getTabIcon(position: Int): Drawable {

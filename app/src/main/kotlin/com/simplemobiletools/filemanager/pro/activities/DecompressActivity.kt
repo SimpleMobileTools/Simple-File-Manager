@@ -27,7 +27,7 @@ class DecompressActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_decompress)
         setupOptionsMenu()
-        updateMaterialActivityViews(decompress_coordinator, decompress_list, true)
+        updateMaterialActivityViews(decompress_coordinator, decompress_list, useTransparentNavigation = true, useTopSearchMenu = false)
         setupMaterialScrollListener(decompress_list, decompress_toolbar)
 
         uri = intent.data

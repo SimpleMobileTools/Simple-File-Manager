@@ -3,7 +3,6 @@ package com.simplemobiletools.filemanager.pro.fragments
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
-import androidx.core.view.ScrollingView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.filemanager.pro.R
@@ -67,6 +66,4 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     abstract fun onResume(textColor: Int)
 
     abstract fun refreshFragment()
-
-    abstract fun getScrollingView(): ScrollingView?
 }
