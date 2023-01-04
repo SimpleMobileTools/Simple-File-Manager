@@ -142,6 +142,30 @@ class MainActivity : SimpleActivity() {
         config.temporarilyShowHidden = false
     }
 
+    override fun onBackPressed() {
+        if (getCurrentFragment() !is ItemsFragment) {
+            super.onBackPressed()
+            return
+        }
+
+        if (main_menu.isSearchOpen) {
+            main_menu.closeSearch()
+        } else if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
+            if (!wasBackJustPressed && config.pressBackTwice) {
+                wasBackJustPressed = true
+                toast(R.string.press_back_again)
+                Handler().postDelayed({
+                    wasBackJustPressed = false
+                }, BACK_PRESS_TIMEOUT.toLong())
+            } else {
+                finish()
+            }
+        } else {
+            getCurrentFragment()!!.breadcrumbs.removeBreadcrumb()
+            openPath(getCurrentFragment()!!.breadcrumbs.getLastItem().path)
+        }
+    }
+
     fun refreshMenuItems() {
         val currentFragment = getCurrentFragment() ?: return
         val isCreateDocumentIntent = intent.action == Intent.ACTION_CREATE_DOCUMENT
@@ -622,30 +646,6 @@ class MainActivity : SimpleActivity() {
         }
 
         startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
-    }
-
-    override fun onBackPressed() {
-        if (getCurrentFragment() !is ItemsFragment) {
-            super.onBackPressed()
-            return
-        }
-
-        if (main_menu.isSearchOpen) {
-            main_menu.closeSearch()
-        } else if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
-            if (!wasBackJustPressed && config.pressBackTwice) {
-                wasBackJustPressed = true
-                toast(R.string.press_back_again)
-                Handler().postDelayed({
-                    wasBackJustPressed = false
-                }, BACK_PRESS_TIMEOUT.toLong())
-            } else {
-                finish()
-            }
-        } else {
-            getCurrentFragment()!!.breadcrumbs.removeBreadcrumb()
-            openPath(getCurrentFragment()!!.breadcrumbs.getLastItem().path)
-        }
     }
 
     private fun checkIfRootAvailable() {
