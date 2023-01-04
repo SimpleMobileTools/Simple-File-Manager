@@ -4,29 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AppCompatResource">
     <item
-        android:id="@+id/go_home"
-        android:icon="@drawable/ic_home_vector"
-        android:title="@string/go_to_home_folder"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/go_to_favorite"
-        android:icon="@drawable/ic_folder_open_vector"
-        android:title="@string/go_to_favorite"
-        app:showAsAction="always" />
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search_vector"
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="collapseActionView|always" />
     <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_sort_vector"
         android:title="@string/sort_by"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/add_favorite"
-        android:icon="@drawable/ic_star_outline_vector"
-        android:title="@string/add_to_favorites"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/remove_favorite"
-        android:icon="@drawable/ic_star_vector"
-        android:title="@string/remove_from_favorites"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/toggle_filename"
@@ -38,11 +24,6 @@
         android:icon="@drawable/ic_change_view_vector"
         android:title="@string/change_view_type"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/set_as_home"
-        android:showAsAction="never"
-        android:title="@string/set_as_home_folder"
-        app:showAsAction="never" />
     <item
         android:id="@+id/temporarily_show_hidden"
         android:showAsAction="never"
@@ -63,19 +44,4 @@
         android:showAsAction="never"
         android:title="@string/reduce_column_count"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/more_apps_from_us"
-        android:icon="@drawable/ic_google_play_vector"
-        android:title="@string/more_apps_from_us"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/settings"
-        android:icon="@drawable/ic_settings_cog_vector"
-        android:title="@string/settings"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/about"
-        android:icon="@drawable/ic_info_vector"
-        android:title="@string/about"
-        app:showAsAction="ifRoom" />
 </menu>

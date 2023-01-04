@@ -80,16 +80,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         val currentViewType = config.getFolderViewType(currentMimeType)
 
         mimetypes_toolbar.menu.apply {
-            findItem(R.id.add_favorite).isVisible = false
-            findItem(R.id.remove_favorite).isVisible = false
-            findItem(R.id.go_to_favorite).isVisible = false
-
             findItem(R.id.toggle_filename).isVisible = currentViewType == VIEW_TYPE_GRID
-            findItem(R.id.go_home).isVisible = false
-            findItem(R.id.set_as_home).isVisible = false
-            findItem(R.id.more_apps_from_us).isVisible = false
-            findItem(R.id.settings).isVisible = false
-            findItem(R.id.about).isVisible = false
 
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden

@@ -2,9 +2,7 @@ package com.simplemobiletools.filemanager.pro.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.SearchManager
 import android.content.ClipData
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.media.RingtoneManager
@@ -13,12 +11,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.Settings
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
@@ -54,12 +48,10 @@ class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
     private val MANAGE_STORAGE_RC = 201
     private val PICKED_PATH = "picked_path"
-    private var isSearchOpen = false
     private var wasBackJustPressed = false
     private var mIsPasswordProtectionPending = false
     private var mWasProtectionHandled = false
     private var mTabsToShow = ArrayList<Int>()
-    private var mSearchMenuItem: MenuItem? = null
 
     private var mStoredFontSize = 0
     private var mStoredDateFormat = ""
@@ -86,7 +78,6 @@ class MainActivity : SimpleActivity() {
         setupTabs()
 
         updateMaterialActivityViews(main_coordinator, null, useTransparentNavigation = false, useTopSearchMenu = true)
-        setupMaterialScrollListener(null, main_toolbar)
 
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
 
@@ -116,6 +107,7 @@ class MainActivity : SimpleActivity() {
         }
 
         refreshMenuItems()
+        updateMenuColors()
         setupTabColors()
 
         getAllFragments().forEach {
@@ -156,7 +148,7 @@ class MainActivity : SimpleActivity() {
         val currentViewType = config.getFolderViewType(currentFragment.currentPath)
         val favorites = config.favorites
 
-        main_toolbar.menu.apply {
+        main_menu.getToolbar().menu.apply {
             findItem(R.id.sort).isVisible = currentFragment is ItemsFragment
             findItem(R.id.change_view_type).isVisible = currentFragment !is StorageFragment
 
@@ -182,8 +174,25 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun setupOptionsMenu() {
-        setupSearch(main_toolbar.menu)
-        main_toolbar.setOnMenuItemClickListener { menuItem ->
+        main_menu.getToolbar().inflateMenu(R.menu.menu)
+        main_menu.toggleHideOnScroll(false)
+        main_menu.setupMenu()
+
+        main_menu.onSearchOpenListener = {
+            (getCurrentFragment() as? ItemsFragment)?.searchOpened()
+        }
+
+        main_menu.onSearchClosedListener = {
+            getAllFragments().forEach {
+                (it as? ItemOperationsListener)?.searchQueryChanged("")
+            }
+        }
+
+        main_menu.onSearchTextChangedListener = { text ->
+            (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged(text)
+        }
+
+        main_menu.getToolbar().setOnMenuItemClickListener { menuItem ->
             if (getCurrentFragment() == null) {
                 return@setOnMenuItemClickListener true
             }
@@ -255,38 +264,9 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun setupSearch(menu: Menu) {
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        mSearchMenuItem = menu.findItem(R.id.search)
-        (mSearchMenuItem!!.actionView as SearchView).apply {
-            setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            isSubmitButtonEnabled = false
-            queryHint = getString(R.string.search)
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String) = false
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    if (isSearchOpen) {
-                        (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged(newText)
-                    }
-                    return true
-                }
-            })
-        }
-
-        MenuItemCompat.setOnActionExpandListener(mSearchMenuItem, object : MenuItemCompat.OnActionExpandListener {
-            override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                isSearchOpen = true
-                (getCurrentFragment() as? ItemsFragment)?.searchOpened()
-                return true
-            }
-
-            override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
-                isSearchOpen = false
-                (getCurrentFragment() as? ItemsFragment)?.searchClosed()
-                return true
-            }
-        })
+    private fun updateMenuColors() {
+        updateStatusbarColor(getProperBackgroundColor())
+        main_menu.updateColors()
     }
 
     private fun storeStateVariables() {
@@ -462,7 +442,7 @@ class MainActivity : SimpleActivity() {
                 updateBottomTabItemColors(it.customView, false, getDeselectedTabDrawableIds()[it.position])
             },
             tabSelectedAction = {
-                closeSearch()
+                main_menu.closeSearch()
                 main_view_pager.currentItem = it.position
                 updateBottomTabItemColors(it.customView, true, getSelectedTabDrawableIds()[it.position])
             }
@@ -513,15 +493,6 @@ class MainActivity : SimpleActivity() {
                     config.OTGPath = trimEnd('/')
                 }
             }
-        }
-    }
-
-    private fun closeSearch() {
-        if (isSearchOpen) {
-            getAllFragments().forEach {
-                (it as? ItemOperationsListener)?.searchQueryChanged("")
-            }
-            mSearchMenuItem?.collapseActionView()
         }
     }
 
@@ -632,12 +603,10 @@ class MainActivity : SimpleActivity() {
 
     private fun launchSettings() {
         hideKeyboard()
-        closeSearch()
         startActivity(Intent(applicationContext, SettingsActivity::class.java))
     }
 
     private fun launchAbout() {
-        closeSearch()
         val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS or LICENSE_PDF_VIEW_PAGER or LICENSE_AUTOFITTEXTVIEW
 
         val faqItems = arrayListOf(
@@ -661,8 +630,8 @@ class MainActivity : SimpleActivity() {
             return
         }
 
-        if (isSearchOpen && mSearchMenuItem != null) {
-            mSearchMenuItem!!.collapseActionView()
+        if (main_menu.isSearchOpen) {
+            main_menu.closeSearch()
         } else if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
@@ -761,8 +730,8 @@ class MainActivity : SimpleActivity() {
     }
 
     fun openedDirectory() {
-        if (mSearchMenuItem != null) {
-            MenuItemCompat.collapseActionView(mSearchMenuItem)
+        if (main_menu.isSearchOpen) {
+            main_menu.closeSearch()
         }
     }
 
