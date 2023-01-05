@@ -28,6 +28,8 @@ import java.io.File
 
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
     private val RECENTS_LIMIT = 50
+    private var filesIgnoringSearch = ArrayList<ListItem>()
+    private var lastSearchedText = ""
 
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
@@ -44,6 +46,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 recents_swipe_refresh?.isRefreshing = false
                 recents_list.beVisibleIf(recents.isNotEmpty())
                 recents_placeholder.beVisibleIf(recents.isEmpty())
+                filesIgnoringSearch = recents
                 addItems(recents, false)
 
                 if (context != null && currentViewType != context!!.config.getFolderViewType(currentPath)) {
@@ -78,7 +81,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             initDrawables()
         }
 
-        recents_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
+        recents_swipe_refresh.isEnabled = lastSearchedText.isEmpty() && activity?.config?.enablePullToRefresh != false
     }
 
     private fun setupLayoutManager() {
@@ -225,7 +228,13 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    override fun searchQueryChanged(text: String) {}
+    override fun searchQueryChanged(text: String) {
+        lastSearchedText = text
+        val filtered = filesIgnoringSearch.filter { it.mName.contains(text, true) }.toMutableList() as ArrayList<ListItem>
+        (recents_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
+        recents_placeholder.beVisibleIf(filtered.isEmpty())
+        recents_swipe_refresh.isEnabled = lastSearchedText.isEmpty() && activity?.config?.enablePullToRefresh != false
+    }
 
     override fun finishActMode() {
         getRecyclerAdapter()?.finishActMode()

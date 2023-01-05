@@ -70,7 +70,8 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         if (currentPath != "") {
             breadcrumbs.updateColor(textColor)
         }
-        items_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
+
+        items_swipe_refresh.isEnabled = lastSearchedText.isEmpty() && activity?.config?.enablePullToRefresh != false
     }
 
     override fun setupFontSize() {
@@ -300,6 +301,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             return
         }
 
+        items_swipe_refresh.isEnabled = text.isEmpty() && activity?.config?.enablePullToRefresh != false
         when {
             searchText.isEmpty() -> {
                 items_fastscroller.beVisible()
@@ -396,7 +398,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     fun searchOpened() {
         isSearchOpen = true
         lastSearchedText = ""
-        items_swipe_refresh.isEnabled = false
     }
 
     fun searchClosed() {

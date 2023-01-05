@@ -31,6 +31,7 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.fragments.ItemsFragment
 import com.simplemobiletools.filemanager.pro.fragments.MyViewPagerFragment
+import com.simplemobiletools.filemanager.pro.fragments.RecentsFragment
 import com.simplemobiletools.filemanager.pro.fragments.StorageFragment
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
@@ -143,13 +144,15 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onBackPressed() {
-        if (getCurrentFragment() !is ItemsFragment) {
+        if (getCurrentFragment() is StorageFragment) {
             super.onBackPressed()
             return
         }
 
         if (main_menu.isSearchOpen) {
             main_menu.closeSearch()
+        } else if (getCurrentFragment() is RecentsFragment) {
+            super.onBackPressed()
         } else if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
