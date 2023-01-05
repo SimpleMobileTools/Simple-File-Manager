@@ -18,6 +18,8 @@ interface ItemOperationsListener {
 
     fun toggleFilenameVisibility()
 
+    fun columnCountChanged()
+
     fun increaseColumnCount()
 
     fun reduceColumnCount()

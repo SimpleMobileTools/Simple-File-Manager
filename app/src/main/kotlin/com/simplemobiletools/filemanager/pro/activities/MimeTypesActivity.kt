@@ -9,12 +9,14 @@ import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.models.RadioItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
@@ -85,8 +87,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
-            findItem(R.id.increase_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT
-            findItem(R.id.reduce_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1
+            findItem(R.id.column_count).isVisible = currentViewType == VIEW_TYPE_GRID
         }
     }
 
@@ -99,8 +100,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
                 R.id.change_view_type -> changeViewType()
                 R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
                 R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-                R.id.increase_column_count -> increaseColumnCount()
-                R.id.reduce_column_count -> reduceColumnCount()
+                R.id.column_count -> changeColumnCount()
                 else -> return@setOnMenuItemClickListener false
             }
             return@setOnMenuItemClickListener true
@@ -166,17 +166,41 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
     }
 
+    private fun changeColumnCount() {
+        val items = ArrayList<RadioItem>()
+        for (i in 1..MAX_COLUMN_COUNT) {
+            items.add(RadioItem(i, resources.getQuantityString(R.plurals.column_counts, i, i)))
+        }
+
+        val currentColumnCount = config.fileColumnCnt
+        RadioGroupDialog(this, items, config.fileColumnCnt) {
+            val newColumnCount = it as Int
+            if (currentColumnCount != newColumnCount) {
+                config.fileColumnCnt = newColumnCount
+                columnCountChanged()
+            }
+        }
+    }
+
     override fun increaseColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
-            config.fileColumnCnt = ++(mimetypes_list.layoutManager as MyGridLayoutManager).spanCount
+            config.fileColumnCnt += 1
             columnCountChanged()
         }
     }
 
     override fun reduceColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
-            config.fileColumnCnt = --(mimetypes_list.layoutManager as MyGridLayoutManager).spanCount
+            config.fileColumnCnt -= 1
             columnCountChanged()
+        }
+    }
+
+    override fun columnCountChanged() {
+        (mimetypes_list.layoutManager as MyGridLayoutManager).spanCount = config.fileColumnCnt
+        refreshMenuItems()
+        getRecyclerAdapter()?.apply {
+            notifyItemRangeChanged(0, listItems.size)
         }
     }
 
@@ -367,13 +391,6 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         val listItems = getRecyclerAdapter()?.listItems
         if (listItems != null) {
             addItems(listItems as ArrayList<ListItem>)
-        }
-    }
-
-    private fun columnCountChanged() {
-        refreshMenuItems()
-        getRecyclerAdapter()?.apply {
-            notifyItemRangeChanged(0, listItems.size)
         }
     }
 

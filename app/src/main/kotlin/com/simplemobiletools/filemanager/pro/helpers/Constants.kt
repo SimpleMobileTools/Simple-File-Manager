@@ -5,7 +5,7 @@ import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
 import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
 
 const val PATH = "path"
-const val MAX_COLUMN_COUNT = 20
+const val MAX_COLUMN_COUNT = 15
 
 // shared preferences
 const val SHOW_HIDDEN = "show_hidden"

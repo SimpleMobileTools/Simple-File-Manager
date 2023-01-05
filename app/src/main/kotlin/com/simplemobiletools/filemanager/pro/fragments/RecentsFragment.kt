@@ -178,19 +178,20 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun increaseColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
-            context?.config?.fileColumnCnt = ++(recents_list.layoutManager as MyGridLayoutManager).spanCount
+            context!!.config.fileColumnCnt += 1
             columnCountChanged()
         }
     }
 
     override fun reduceColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
-            context?.config?.fileColumnCnt = --(recents_list.layoutManager as MyGridLayoutManager).spanCount
+            context!!.config.fileColumnCnt -= 1
             columnCountChanged()
         }
     }
 
-    private fun columnCountChanged() {
+    override fun columnCountChanged() {
+        (recents_list.layoutManager as MyGridLayoutManager).spanCount = context!!.config.fileColumnCnt
         (activity as? MainActivity)?.refreshMenuItems()
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)

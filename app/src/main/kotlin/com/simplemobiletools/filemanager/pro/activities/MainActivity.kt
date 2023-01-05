@@ -190,9 +190,7 @@ class MainActivity : SimpleActivity() {
             findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden && currentFragment !is StorageFragment
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden && currentFragment !is StorageFragment
 
-            findItem(R.id.increase_column_count).isVisible =
-                currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt < MAX_COLUMN_COUNT && currentFragment !is StorageFragment
-            findItem(R.id.reduce_column_count).isVisible = currentViewType == VIEW_TYPE_GRID && config.fileColumnCnt > 1 && currentFragment !is StorageFragment
+            findItem(R.id.column_count).isVisible = currentViewType == VIEW_TYPE_GRID && currentFragment !is StorageFragment
 
             findItem(R.id.more_apps_from_us).isVisible = !resources.getBoolean(R.bool.hide_google_relations)
             findItem(R.id.settings).isVisible = !isCreateDocumentIntent
@@ -235,8 +233,7 @@ class MainActivity : SimpleActivity() {
                 R.id.change_view_type -> changeViewType()
                 R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
                 R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-                R.id.increase_column_count -> increaseColumnCount()
-                R.id.reduce_column_count -> reduceColumnCount()
+                R.id.column_count -> changeColumnCount()
                 R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
                 R.id.settings -> launchSettings()
                 R.id.about -> launchAbout()
@@ -568,15 +565,21 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    private fun increaseColumnCount() {
-        getAllFragments().forEach {
-            (it as? ItemOperationsListener)?.increaseColumnCount()
+    private fun changeColumnCount() {
+        val items = ArrayList<RadioItem>()
+        for (i in 1..MAX_COLUMN_COUNT) {
+            items.add(RadioItem(i, resources.getQuantityString(R.plurals.column_counts, i, i)))
         }
-    }
 
-    private fun reduceColumnCount() {
-        getAllFragments().forEach {
-            (it as? ItemOperationsListener)?.reduceColumnCount()
+        val currentColumnCount = config.fileColumnCnt
+        RadioGroupDialog(this, items, config.fileColumnCnt) {
+            val newColumnCount = it as Int
+            if (currentColumnCount != newColumnCount) {
+                config.fileColumnCnt = newColumnCount
+                getAllFragments().forEach {
+                    (it as? ItemOperationsListener)?.columnCountChanged()
+                }
+            }
         }
     }
 

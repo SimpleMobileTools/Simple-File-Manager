@@ -54,14 +54,9 @@
         android:title="@string/stop_showing_hidden"
         app:showAsAction="never" />
     <item
-        android:id="@+id/increase_column_count"
+        android:id="@+id/column_count"
         android:showAsAction="never"
-        android:title="@string/increase_column_count"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/reduce_column_count"
-        android:showAsAction="never"
-        android:title="@string/reduce_column_count"
+        android:title="@string/column_count"
         app:showAsAction="never" />
     <item
         android:id="@+id/more_apps_from_us"
