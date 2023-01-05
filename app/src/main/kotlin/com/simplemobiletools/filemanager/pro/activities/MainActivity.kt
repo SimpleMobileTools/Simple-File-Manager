@@ -209,12 +209,12 @@ class MainActivity : SimpleActivity() {
 
         main_menu.onSearchClosedListener = {
             getAllFragments().forEach {
-                (it as? ItemOperationsListener)?.searchQueryChanged("")
+                it?.searchQueryChanged("")
             }
         }
 
         main_menu.onSearchTextChangedListener = { text ->
-            (getCurrentFragment() as? ItemOperationsListener)?.searchQueryChanged(text)
+            getCurrentFragment()?.searchQueryChanged(text)
         }
 
         main_menu.getToolbar().setOnMenuItemClickListener { menuItem ->

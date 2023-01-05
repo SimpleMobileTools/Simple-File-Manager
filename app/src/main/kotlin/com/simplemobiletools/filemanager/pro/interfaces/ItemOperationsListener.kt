@@ -9,8 +9,6 @@ interface ItemOperationsListener {
 
     fun selectedPaths(paths: ArrayList<String>)
 
-    fun searchQueryChanged(text: String)
-
     fun setupDateTimeFormat()
 
     fun setupFontSize()

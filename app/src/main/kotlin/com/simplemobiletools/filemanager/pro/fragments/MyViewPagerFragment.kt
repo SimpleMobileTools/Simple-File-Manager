@@ -66,4 +66,6 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     abstract fun onResume(textColor: Int)
 
     abstract fun refreshFragment()
+
+    abstract fun searchQueryChanged(text: String)
 }

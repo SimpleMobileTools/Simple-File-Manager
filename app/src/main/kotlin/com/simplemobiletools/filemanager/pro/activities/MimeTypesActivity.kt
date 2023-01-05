@@ -123,7 +123,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
     override fun selectedPaths(paths: ArrayList<String>) {}
 
-    override fun searchQueryChanged(text: String) {
+    fun searchQueryChanged(text: String) {
         val searchText = text.trim()
         lastSearchedText = searchText
         when {

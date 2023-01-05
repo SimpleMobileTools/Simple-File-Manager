@@ -221,4 +221,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             }
         }
     }
+
+    override fun searchQueryChanged(text: String) {
+
+    }
 }
