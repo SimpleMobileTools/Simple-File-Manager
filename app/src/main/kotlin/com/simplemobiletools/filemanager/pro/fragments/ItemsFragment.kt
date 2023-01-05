@@ -486,17 +486,17 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         }
     }
 
-    override fun increaseColumnCount() {
+    private fun increaseColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
             context!!.config.fileColumnCnt += 1
-            columnCountChanged()
+            (activity as? MainActivity)?.updateFragmentColumnCounts()
         }
     }
 
-    override fun reduceColumnCount() {
+    private fun reduceColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
             context!!.config.fileColumnCnt -= 1
-            columnCountChanged()
+            (activity as? MainActivity)?.updateFragmentColumnCounts()
         }
     }
 

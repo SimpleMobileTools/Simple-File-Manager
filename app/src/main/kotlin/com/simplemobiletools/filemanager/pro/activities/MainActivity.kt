@@ -583,6 +583,12 @@ class MainActivity : SimpleActivity() {
         }
     }
 
+    fun updateFragmentColumnCounts() {
+        getAllFragments().forEach {
+            (it as? ItemOperationsListener)?.columnCountChanged()
+        }
+    }
+
     private fun goToFavorite() {
         val favorites = config.favorites
         val items = ArrayList<RadioItem>(favorites.size)

@@ -182,14 +182,14 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         }
     }
 
-    override fun increaseColumnCount() {
+    fun increaseColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
             config.fileColumnCnt += 1
             columnCountChanged()
         }
     }
 
-    override fun reduceColumnCount() {
+    fun reduceColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
             config.fileColumnCnt -= 1
             columnCountChanged()

@@ -14,12 +14,14 @@ import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
+import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
+import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
@@ -30,6 +32,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private val RECENTS_LIMIT = 50
     private var filesIgnoringSearch = ArrayList<ListItem>()
     private var lastSearchedText = ""
+    private var zoomListener: MyRecyclerView.MyZoomListener? = null
 
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
@@ -64,6 +67,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, isPickMultipleIntent, recents_swipe_refresh, false) {
             clickedPath((it as FileDirItem).path)
         }.apply {
+            setupZoomListener(zoomListener)
             recents_list.adapter = this
         }
 
@@ -95,6 +99,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
         val oldItems = (recents_list.adapter as? ItemsAdapter)?.listItems?.toMutableList() as ArrayList<ListItem>
         recents_list.adapter = null
+        initZoomListener()
         addItems(oldItems, true)
     }
 
@@ -116,6 +121,30 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private fun setupListLayoutManager() {
         val layoutManager = recents_list.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
+        zoomListener = null
+    }
+
+    private fun initZoomListener() {
+        if (context?.config?.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
+            val layoutManager = recents_list.layoutManager as MyGridLayoutManager
+            zoomListener = object : MyRecyclerView.MyZoomListener {
+                override fun zoomIn() {
+                    if (layoutManager.spanCount > 1) {
+                        reduceColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+
+                override fun zoomOut() {
+                    if (layoutManager.spanCount < MAX_COLUMN_COUNT) {
+                        increaseColumnCount()
+                        getRecyclerAdapter()?.finishActMode()
+                    }
+                }
+            }
+        } else {
+            zoomListener = null
+        }
     }
 
     private fun getRecents(callback: (recents: ArrayList<ListItem>) -> Unit) {
@@ -176,17 +205,17 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
     }
 
-    override fun increaseColumnCount() {
+    private fun increaseColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
             context!!.config.fileColumnCnt += 1
-            columnCountChanged()
+            (activity as? MainActivity)?.updateFragmentColumnCounts()
         }
     }
 
-    override fun reduceColumnCount() {
+    private fun reduceColumnCount() {
         if (currentViewType == VIEW_TYPE_GRID) {
             context!!.config.fileColumnCnt -= 1
-            columnCountChanged()
+            (activity as? MainActivity)?.updateFragmentColumnCounts()
         }
     }
 

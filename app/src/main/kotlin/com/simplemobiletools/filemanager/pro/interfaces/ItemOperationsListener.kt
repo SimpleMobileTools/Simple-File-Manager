@@ -1,7 +1,6 @@
 package com.simplemobiletools.filemanager.pro.interfaces
 
 import com.simplemobiletools.commons.models.FileDirItem
-import java.util.*
 
 interface ItemOperationsListener {
     fun refreshFragment()
@@ -19,10 +18,6 @@ interface ItemOperationsListener {
     fun toggleFilenameVisibility()
 
     fun columnCountChanged()
-
-    fun increaseColumnCount()
-
-    fun reduceColumnCount()
 
     fun finishActMode()
 }
