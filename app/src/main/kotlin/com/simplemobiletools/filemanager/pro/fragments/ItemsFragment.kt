@@ -538,22 +538,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     override fun deleteFiles(files: ArrayList<FileDirItem>) {
         val hasFolder = files.any { it.isDirectory }
-        val firstPath = files.firstOrNull()?.path
-        if (firstPath == null || firstPath.isEmpty() || context == null) {
-            return
-        }
-
-        if (context!!.isPathOnRoot(firstPath)) {
-            RootHelpers(activity!!).deleteFiles(files)
-        } else {
-            (activity as SimpleActivity).deleteFiles(files, hasFolder) {
-                if (!it) {
-                    activity!!.runOnUiThread {
-                        activity!!.toast(R.string.unknown_error_occurred)
-                    }
-                }
-            }
-        }
+        handleFileDeleting(files, hasFolder)
     }
 
     override fun selectedPaths(paths: ArrayList<String>) {

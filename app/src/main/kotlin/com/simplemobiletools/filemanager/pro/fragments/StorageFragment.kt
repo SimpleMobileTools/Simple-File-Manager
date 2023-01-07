@@ -13,11 +13,9 @@ import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.LOWER_ALPHA
-import com.simplemobiletools.commons.helpers.SHORT_ANIMATION_DURATION
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.helpers.isOreoPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MimeTypesActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
@@ -59,9 +57,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         others_holder.setOnClickListener { launchMimetypeActivity(OTHERS) }
 
         Handler().postDelayed({
-            val fileDirItems = getAllFiles()
-            allDeviceListItems = getListItemsFromFileDirItems(fileDirItems)
-            setupSearchResultsAdapter()
+            refreshFragment()
         }, 2000)
     }
 
@@ -261,7 +257,30 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    private fun setupSearchResultsAdapter() {
+    private fun setupLayoutManager() {
+        if (context!!.config.getFolderViewType("") == VIEW_TYPE_GRID) {
+            currentViewType = VIEW_TYPE_GRID
+            setupGridLayoutManager()
+        } else {
+            currentViewType = VIEW_TYPE_LIST
+            setupListLayoutManager()
+        }
+
+        search_results_list.adapter = null
+        addItems()
+    }
+
+    private fun setupGridLayoutManager() {
+        val layoutManager = search_results_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
+    }
+
+    private fun setupListLayoutManager() {
+        val layoutManager = search_results_list.layoutManager as MyGridLayoutManager
+        layoutManager.spanCount = 1
+    }
+
+    private fun addItems() {
         ItemsAdapter(context as SimpleActivity, allDeviceListItems, this, search_results_list, false, null, false) {
             clickedPath((it as FileDirItem).path)
         }.apply {
@@ -319,19 +338,40 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         return fileDirItems
     }
 
-    override fun refreshFragment() {}
+    private fun getRecyclerAdapter() = search_results_list.adapter as? ItemsAdapter
 
-    override fun deleteFiles(files: ArrayList<FileDirItem>) {}
+    override fun refreshFragment() {
+        val fileDirItems = getAllFiles()
+        allDeviceListItems = getListItemsFromFileDirItems(fileDirItems)
+        setupLayoutManager()
+    }
+
+    override fun deleteFiles(files: ArrayList<FileDirItem>) {
+        handleFileDeleting(files, false)
+    }
 
     override fun selectedPaths(paths: ArrayList<String>) {}
 
-    override fun setupDateTimeFormat() {}
+    override fun setupDateTimeFormat() {
+        getRecyclerAdapter()?.updateDateTimeFormat()
+    }
 
-    override fun setupFontSize() {}
+    override fun setupFontSize() {
+        getRecyclerAdapter()?.updateFontSizes()
+    }
 
-    override fun toggleFilenameVisibility() {}
+    override fun toggleFilenameVisibility() {
+        getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
+    }
 
-    override fun columnCountChanged() {}
+    override fun columnCountChanged() {
+        (search_results_list.layoutManager as MyGridLayoutManager).spanCount = context!!.config.fileColumnCnt
+        getRecyclerAdapter()?.apply {
+            notifyItemRangeChanged(0, listItems.size)
+        }
+    }
 
-    override fun finishActMode() {}
+    override fun finishActMode() {
+        getRecyclerAdapter()?.finishActMode()
+    }
 }

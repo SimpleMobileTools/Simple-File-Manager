@@ -6,7 +6,6 @@ import android.provider.MediaStore.Files
 import android.provider.MediaStore.Files.FileColumns
 import android.util.AttributeSet
 import androidx.core.os.bundleOf
-import androidx.recyclerview.widget.GridLayoutManager
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
@@ -15,14 +14,11 @@ import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.commons.views.MyGridLayoutManager
 import com.simplemobiletools.commons.views.MyRecyclerView
-import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
-import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
-import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.recents_fragment.view.*
@@ -52,7 +48,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 filesIgnoringSearch = recents
                 addItems(recents, false)
 
-                if (context != null && currentViewType != context!!.config.getFolderViewType(currentPath)) {
+                if (context != null && currentViewType != context!!.config.getFolderViewType("")) {
                     setupLayoutManager()
                 }
             }
@@ -89,7 +85,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun setupLayoutManager() {
-        if (context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
+        if (context!!.config.getFolderViewType("") == VIEW_TYPE_GRID) {
             currentViewType = VIEW_TYPE_GRID
             setupGridLayoutManager()
         } else {
@@ -106,16 +102,6 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private fun setupGridLayoutManager() {
         val layoutManager = recents_list.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
-
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (getRecyclerAdapter()?.isASectionTitle(position) == true) {
-                    layoutManager.spanCount
-                } else {
-                    1
-                }
-            }
-        }
     }
 
     private fun setupListLayoutManager() {
@@ -125,7 +111,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun initZoomListener() {
-        if (context?.config?.getFolderViewType(currentPath) == VIEW_TYPE_GRID) {
+        if (context?.config?.getFolderViewType("") == VIEW_TYPE_GRID) {
             val layoutManager = recents_list.layoutManager as MyGridLayoutManager
             zoomListener = object : MyRecyclerView.MyZoomListener {
                 override fun zoomIn() {
@@ -240,22 +226,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     override fun deleteFiles(files: ArrayList<FileDirItem>) {
-        val firstPath = files.firstOrNull()?.path
-        if (firstPath == null || firstPath.isEmpty() || context == null) {
-            return
-        }
-
-        if (context!!.isPathOnRoot(firstPath)) {
-            RootHelpers(activity!!).deleteFiles(files)
-        } else {
-            (activity as SimpleActivity).deleteFiles(files, false) {
-                if (!it) {
-                    activity!!.runOnUiThread {
-                        activity!!.toast(R.string.unknown_error_occurred)
-                    }
-                }
-            }
-        }
+        handleFileDeleting(files, false)
     }
 
     override fun searchQueryChanged(text: String) {
