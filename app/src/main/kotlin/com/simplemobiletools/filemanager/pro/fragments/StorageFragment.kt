@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.pro.fragments
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.usage.StorageStatsManager
 import android.content.ContentResolver
 import android.content.Context
@@ -31,6 +32,7 @@ import java.util.*
 class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
     private val SIZE_DIVIDER = 100000
     private var allDeviceListItems = ArrayList<ListItem>()
+    private var lastSearchedText = ""
 
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
@@ -64,7 +66,6 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun onResume(textColor: Int) {
         getSizes()
         context.updateTextColors(storage_fragment)
-        search_holder.setBackgroundColor(context.getProperBackgroundColor())
 
         val properPrimaryColor = context.getProperPrimaryColor()
         main_storage_usage_progressbar.setIndicatorColor(properPrimaryColor)
@@ -93,6 +94,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         val pinkColor = context.resources.getColor(R.color.md_pink_700)
         others_progressbar.setIndicatorColor(pinkColor)
         others_progressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
+
+        search_holder.setBackgroundColor(context.getProperBackgroundColor())
+        progress_bar.setIndicatorColor(properPrimaryColor)
+        progress_bar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
     }
 
     private fun launchMimetypeActivity(mimetype: String) {
@@ -239,6 +244,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     override fun searchQueryChanged(text: String) {
+        lastSearchedText = text
+
         if (text.isNotEmpty()) {
             if (search_holder.alpha < 1f) {
                 search_holder.fadeIn()
@@ -250,10 +257,31 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             }.start()
         }
 
-        if (text.isNotEmpty()) {
-            val filtered = allDeviceListItems.filter { it.mName.contains(text, true) }.toMutableList() as ArrayList<ListItem>
-            (search_results_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
-            search_placeholder.beVisibleIf(filtered.isEmpty())
+        if (text.length == 1) {
+            search_results_list.beGone()
+            search_placeholder.beVisible()
+            search_placeholder_2.beVisible()
+            hideProgressBar()
+        } else if (text.isEmpty()) {
+            search_results_list.beGone()
+            hideProgressBar()
+        } else {
+            showProgressBar()
+            ensureBackgroundThread {
+                val start = System.currentTimeMillis()
+                val filtered = allDeviceListItems.filter { it.mName.contains(text, true) }.toMutableList() as ArrayList<ListItem>
+                if (lastSearchedText != text) {
+                    return@ensureBackgroundThread
+                }
+
+                (context as? Activity)?.runOnUiThread {
+                    (search_results_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
+                    search_results_list.beVisible()
+                    search_placeholder.beVisibleIf(filtered.isEmpty())
+                    search_placeholder_2.beGone()
+                    hideProgressBar()
+                }
+            }
         }
     }
 
@@ -281,7 +309,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun addItems() {
-        ItemsAdapter(context as SimpleActivity, allDeviceListItems, this, search_results_list, false, null, false) {
+        ItemsAdapter(context as SimpleActivity, ArrayList(), this, search_results_list, false, null, false) {
             clickedPath((it as FileDirItem).path)
         }.apply {
             search_results_list.adapter = this
@@ -336,6 +364,14 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
 
         return fileDirItems
+    }
+
+    private fun showProgressBar() {
+        progress_bar.show()
+    }
+
+    private fun hideProgressBar() {
+        progress_bar.hide()
     }
 
     private fun getRecyclerAdapter() = search_results_list.adapter as? ItemsAdapter
