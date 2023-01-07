@@ -548,10 +548,12 @@ class MainActivity : SimpleActivity() {
 
     private fun addFavorite() {
         config.addFavorite(getCurrentFragment()!!.currentPath)
+        refreshMenuItems()
     }
 
     private fun removeFavorite() {
         config.removeFavorite(getCurrentFragment()!!.currentPath)
+        refreshMenuItems()
     }
 
     private fun toggleFilenameVisibility() {
