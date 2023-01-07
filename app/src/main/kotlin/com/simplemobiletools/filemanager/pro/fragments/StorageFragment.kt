@@ -2,6 +2,7 @@ package com.simplemobiletools.filemanager.pro.fragments
 
 import android.annotation.SuppressLint
 import android.app.usage.StorageStatsManager
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -10,6 +11,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.LOWER_ALPHA
 import com.simplemobiletools.commons.helpers.SHORT_ANIMATION_DURATION
@@ -279,22 +281,35 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         )
 
         try {
-            context?.queryCursor(uri, projection) { cursor ->
-                try {
-                    val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
-                    if (!showHidden && name.startsWith(".")) {
-                        return@queryCursor
-                    }
+            if (isOreoPlus()) {
+                val queryArgs = bundleOf(
+                    ContentResolver.QUERY_ARG_SORT_COLUMNS to arrayOf(MediaStore.Files.FileColumns.DATE_MODIFIED),
+                    ContentResolver.QUERY_ARG_SORT_DIRECTION to ContentResolver.QUERY_SORT_DIRECTION_DESCENDING
+                )
+                context?.contentResolver?.query(uri, projection, queryArgs, null)
+            } else {
+                val sortOrder = "${MediaStore.Files.FileColumns.DATE_MODIFIED} DESC"
+                context?.contentResolver?.query(uri, projection, null, null, sortOrder)
+            }?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    do {
+                        try {
+                            val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
+                            if (!showHidden && name.startsWith(".")) {
+                                continue
+                            }
 
-                    val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
-                    if (size == 0L) {
-                        return@queryCursor
-                    }
+                            val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
+                            if (size == 0L) {
+                                continue
+                            }
 
-                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
-                    val lastModified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
-                    fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
-                } catch (e: Exception) {
+                            val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
+                            val lastModified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
+                            fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
+                        } catch (e: Exception) {
+                        }
+                    } while (cursor.moveToNext())
                 }
             }
         } catch (e: Exception) {

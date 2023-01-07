@@ -147,9 +147,9 @@ class MainActivity : SimpleActivity() {
         val currentFragment = getCurrentFragment()
         if (main_menu.isSearchOpen) {
             main_menu.closeSearch()
-        } else if (currentFragment is RecentsFragment) {
+        } else if (currentFragment is RecentsFragment || currentFragment is StorageFragment) {
             super.onBackPressed()
-        } else if (currentFragment != null && currentFragment.breadcrumbs.getItemCount() <= 1) {
+        } else if (currentFragment!!.breadcrumbs.getItemCount() <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -160,7 +160,7 @@ class MainActivity : SimpleActivity() {
                 finish()
             }
         } else {
-            currentFragment?.breadcrumbs?.removeBreadcrumb() ?: return
+            currentFragment.breadcrumbs?.removeBreadcrumb()
             openPath(currentFragment.breadcrumbs.getLastItem().path)
         }
     }
