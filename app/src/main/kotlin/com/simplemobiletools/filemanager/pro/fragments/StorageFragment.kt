@@ -4,26 +4,39 @@ import android.annotation.SuppressLint
 import android.app.usage.StorageStatsManager
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
 import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import com.simplemobiletools.commons.extensions.*
+import com.simplemobiletools.commons.helpers.LOWER_ALPHA
+import com.simplemobiletools.commons.helpers.SHORT_ANIMATION_DURATION
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
+import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MimeTypesActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
+import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
 import com.simplemobiletools.filemanager.pro.helpers.*
+import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
+import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.storage_fragment.view.*
 import java.util.*
 
-class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet) {
+class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
     private val SIZE_DIVIDER = 100000
+    private var allDeviceListItems = ArrayList<ListItem>()
 
     override fun setupFragment(activity: SimpleActivity) {
+        if (this.activity == null) {
+            this.activity = activity
+        }
+
         total_space.text = String.format(context.getString(R.string.total_storage), "…")
         getSizes()
 
@@ -42,41 +55,46 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         documents_holder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
         archives_holder.setOnClickListener { launchMimetypeActivity(ARCHIVES) }
         others_holder.setOnClickListener { launchMimetypeActivity(OTHERS) }
-    }
 
-    override fun refreshFragment() {}
+        Handler().postDelayed({
+            val fileDirItems = getAllFiles()
+            allDeviceListItems = getListItemsFromFileDirItems(fileDirItems)
+            setupSearchResultsAdapter()
+        }, 2000)
+    }
 
     override fun onResume(textColor: Int) {
         getSizes()
         context.updateTextColors(storage_fragment)
+        search_holder.setBackgroundColor(context.getProperBackgroundColor())
 
         val properPrimaryColor = context.getProperPrimaryColor()
         main_storage_usage_progressbar.setIndicatorColor(properPrimaryColor)
-        main_storage_usage_progressbar.trackColor = properPrimaryColor.adjustAlpha(0.3f)
+        main_storage_usage_progressbar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
 
         val redColor = context.resources.getColor(R.color.md_red_700)
         images_progressbar.setIndicatorColor(redColor)
-        images_progressbar.trackColor = redColor.adjustAlpha(0.3f)
+        images_progressbar.trackColor = redColor.adjustAlpha(LOWER_ALPHA)
 
         val greenColor = context.resources.getColor(R.color.md_green_700)
         videos_progressbar.setIndicatorColor(greenColor)
-        videos_progressbar.trackColor = greenColor.adjustAlpha(0.3f)
+        videos_progressbar.trackColor = greenColor.adjustAlpha(LOWER_ALPHA)
 
         val lightBlueColor = context.resources.getColor(R.color.md_light_blue_700)
         audio_progressbar.setIndicatorColor(lightBlueColor)
-        audio_progressbar.trackColor = lightBlueColor.adjustAlpha(0.3f)
+        audio_progressbar.trackColor = lightBlueColor.adjustAlpha(LOWER_ALPHA)
 
         val yellowColor = context.resources.getColor(R.color.md_yellow_700)
         documents_progressbar.setIndicatorColor(yellowColor)
-        documents_progressbar.trackColor = yellowColor.adjustAlpha(0.3f)
+        documents_progressbar.trackColor = yellowColor.adjustAlpha(LOWER_ALPHA)
 
         val tealColor = context.resources.getColor(R.color.md_teal_700)
         archives_progressbar.setIndicatorColor(tealColor)
-        archives_progressbar.trackColor = tealColor.adjustAlpha(0.3f)
+        archives_progressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
 
         val pinkColor = context.resources.getColor(R.color.md_pink_700)
         others_progressbar.setIndicatorColor(pinkColor)
-        others_progressbar.trackColor = pinkColor.adjustAlpha(0.3f)
+        others_progressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
     }
 
     private fun launchMimetypeActivity(mimetype: String) {
@@ -223,6 +241,82 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     override fun searchQueryChanged(text: String) {
+        if (text.isNotEmpty()) {
+            if (search_holder.alpha < 1f) {
+                search_holder.fadeIn()
+            }
+        } else {
+            search_holder.animate().alpha(0f).setDuration(SHORT_ANIMATION_DURATION).withEndAction {
+                search_holder.beGone()
+                (search_results_list.adapter as? ItemsAdapter)?.updateItems(allDeviceListItems, text)
+            }.start()
+        }
 
+        if (text.isNotEmpty()) {
+            val filtered = allDeviceListItems.filter { it.mName.contains(text, true) }.toMutableList() as ArrayList<ListItem>
+            (search_results_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
+            search_placeholder.beVisibleIf(filtered.isEmpty())
+        }
     }
+
+    private fun setupSearchResultsAdapter() {
+        ItemsAdapter(context as SimpleActivity, allDeviceListItems, this, search_results_list, false, null, false) {
+            clickedPath((it as FileDirItem).path)
+        }.apply {
+            search_results_list.adapter = this
+        }
+    }
+
+    private fun getAllFiles(): ArrayList<FileDirItem> {
+        val fileDirItems = ArrayList<FileDirItem>()
+        val showHidden = context?.config?.shouldShowHidden ?: return fileDirItems
+        val uri = MediaStore.Files.getContentUri("external")
+        val projection = arrayOf(
+            MediaStore.Files.FileColumns.DATA,
+            MediaStore.Files.FileColumns.DISPLAY_NAME,
+            MediaStore.Files.FileColumns.SIZE,
+            MediaStore.Files.FileColumns.DATE_MODIFIED
+        )
+
+        try {
+            context?.queryCursor(uri, projection) { cursor ->
+                try {
+                    val name = cursor.getStringValue(MediaStore.Files.FileColumns.DISPLAY_NAME)
+                    if (!showHidden && name.startsWith(".")) {
+                        return@queryCursor
+                    }
+
+                    val size = cursor.getLongValue(MediaStore.Files.FileColumns.SIZE)
+                    if (size == 0L) {
+                        return@queryCursor
+                    }
+
+                    val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
+                    val lastModified = cursor.getLongValue(MediaStore.Files.FileColumns.DATE_MODIFIED) * 1000
+                    fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
+                } catch (e: Exception) {
+                }
+            }
+        } catch (e: Exception) {
+            context?.showErrorToast(e)
+        }
+
+        return fileDirItems
+    }
+
+    override fun refreshFragment() {}
+
+    override fun deleteFiles(files: ArrayList<FileDirItem>) {}
+
+    override fun selectedPaths(paths: ArrayList<String>) {}
+
+    override fun setupDateTimeFormat() {}
+
+    override fun setupFontSize() {}
+
+    override fun toggleFilenameVisibility() {}
+
+    override fun columnCountChanged() {}
+
+    override fun finishActMode() {}
 }

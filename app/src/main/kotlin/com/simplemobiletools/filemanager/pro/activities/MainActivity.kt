@@ -144,16 +144,12 @@ class MainActivity : SimpleActivity() {
     }
 
     override fun onBackPressed() {
-        if (getCurrentFragment() is StorageFragment) {
-            super.onBackPressed()
-            return
-        }
-
+        val currentFragment = getCurrentFragment()
         if (main_menu.isSearchOpen) {
             main_menu.closeSearch()
-        } else if (getCurrentFragment() is RecentsFragment) {
+        } else if (currentFragment is RecentsFragment) {
             super.onBackPressed()
-        } else if (getCurrentFragment()!!.breadcrumbs.getItemCount() <= 1) {
+        } else if (currentFragment != null && currentFragment.breadcrumbs.getItemCount() <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -164,8 +160,8 @@ class MainActivity : SimpleActivity() {
                 finish()
             }
         } else {
-            getCurrentFragment()!!.breadcrumbs.removeBreadcrumb()
-            openPath(getCurrentFragment()!!.breadcrumbs.getLastItem().path)
+            currentFragment?.breadcrumbs?.removeBreadcrumb() ?: return
+            openPath(currentFragment.breadcrumbs.getLastItem().path)
         }
     }
 

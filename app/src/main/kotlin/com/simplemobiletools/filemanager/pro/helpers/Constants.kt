@@ -3,6 +3,8 @@ package com.simplemobiletools.filemanager.pro.helpers
 import com.simplemobiletools.commons.helpers.TAB_FILES
 import com.simplemobiletools.commons.helpers.TAB_RECENT_FILES
 import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
+import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.filemanager.pro.models.ListItem
 
 const val PATH = "path"
 const val MAX_COLUMN_COUNT = 15
@@ -64,3 +66,12 @@ val archiveMimeTypes = arrayListOf(
     "application/java-archive",
     "multipart/x-zip"
 )
+
+fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {
+    val listItems = ArrayList<ListItem>()
+    fileDirItems.forEach {
+        val listItem = ListItem(it.path, it.name, false, 0, it.size, it.modified, false, false)
+        listItems.add(listItem)
+    }
+    return listItems
+}
