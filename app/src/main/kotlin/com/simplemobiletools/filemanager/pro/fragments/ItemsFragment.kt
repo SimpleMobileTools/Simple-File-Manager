@@ -295,22 +295,21 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     }
 
     override fun searchQueryChanged(text: String) {
-        val searchText = text.trim()
-        lastSearchedText = searchText
+        lastSearchedText = text
         if (context == null) {
             return
         }
 
         items_swipe_refresh.isEnabled = text.isEmpty() && activity?.config?.enablePullToRefresh != false
         when {
-            searchText.isEmpty() -> {
+            text.isEmpty() -> {
                 items_fastscroller.beVisible()
                 getRecyclerAdapter()?.updateItems(itemsIgnoringSearch)
                 items_placeholder.beGone()
                 items_placeholder_2.beGone()
                 hideProgressBar()
             }
-            searchText.length == 1 -> {
+            text.length == 1 -> {
                 items_fastscroller.beGone()
                 items_placeholder.beVisible()
                 items_placeholder_2.beVisible()
@@ -319,10 +318,10 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
             else -> {
                 showProgressBar()
                 ensureBackgroundThread {
-                    val files = searchFiles(searchText, currentPath)
+                    val files = searchFiles(text, currentPath)
                     files.sortBy { it.getParentPath() }
 
-                    if (lastSearchedText != searchText) {
+                    if (lastSearchedText != text) {
                         return@ensureBackgroundThread
                     }
 
