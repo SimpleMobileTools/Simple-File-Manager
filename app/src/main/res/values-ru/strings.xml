@@ -43,12 +43,12 @@
     <string name="storage_analysis">Анализ хранилища</string>
     <string name="images">Изображения</string>
     <string name="videos">Видео</string>
-    <string name="audio">Audio</string>
-    <string name="documents">Documents</string>
-    <string name="downloads">Downloads</string>
+    <string name="audio">Аудио</string>
+    <string name="documents">Документы</string>
+    <string name="downloads">Загрузки</string>
     <string name="archives">Архивы</string>
     <string name="others">Другое</string>
-    <string name="storage_free">free</string>
+    <string name="storage_free">свободно</string>
     <string name="total_storage">Полный объём: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Включить root-доступ</string>
