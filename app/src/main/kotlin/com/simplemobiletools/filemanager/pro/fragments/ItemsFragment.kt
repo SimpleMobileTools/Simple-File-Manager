@@ -30,8 +30,6 @@ import java.io.File
 class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener,
     Breadcrumbs.BreadcrumbsListener {
     private var showHidden = false
-    private var skipItemUpdating = false
-    private var isSearchOpen = false
     private var lastSearchedText = ""
     private var scrollStates = HashMap<String, Parcelable>()
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
@@ -134,7 +132,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
     }
 
     private fun addItems(items: ArrayList<ListItem>, forceRefresh: Boolean = false) {
-        skipItemUpdating = false
         activity?.runOnUiThread {
             items_swipe_refresh?.isRefreshing = false
             breadcrumbs.setBreadcrumb(currentPath)
@@ -173,7 +170,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     @SuppressLint("NewApi")
     private fun getItems(path: String, callback: (originalPath: String, items: ArrayList<ListItem>) -> Unit) {
-        skipItemUpdating = false
         ensureBackgroundThread {
             if (activity?.isDestroyed == false && activity?.isFinishing == false) {
                 val config = context!!.config
@@ -288,7 +284,6 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
     private fun openDirectory(path: String) {
         (activity as? MainActivity)?.apply {
-            skipItemUpdating = isSearchOpen
             openedDirectory()
         }
         openPath(path)
@@ -394,20 +389,8 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         return files
     }
 
-    fun searchOpened() {
-        isSearchOpen = true
+    private fun searchClosed() {
         lastSearchedText = ""
-    }
-
-    fun searchClosed() {
-        isSearchOpen = false
-        if (!skipItemUpdating) {
-            getRecyclerAdapter()?.updateItems(storedItems)
-        }
-
-        skipItemUpdating = false
-        lastSearchedText = ""
-
         items_swipe_refresh.isEnabled = activity?.config?.enablePullToRefresh != false
         items_fastscroller.beVisible()
         items_placeholder.beGone()

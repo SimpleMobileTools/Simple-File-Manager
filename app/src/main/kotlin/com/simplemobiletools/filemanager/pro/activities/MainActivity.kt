@@ -199,10 +199,6 @@ class MainActivity : SimpleActivity() {
         main_menu.toggleHideOnScroll(false)
         main_menu.setupMenu()
 
-        main_menu.onSearchOpenListener = {
-            (getCurrentFragment() as? ItemsFragment)?.searchOpened()
-        }
-
         main_menu.onSearchClosedListener = {
             getAllFragments().forEach {
                 it?.searchQueryChanged("")
