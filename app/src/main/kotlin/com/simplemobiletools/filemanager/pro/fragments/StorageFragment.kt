@@ -377,8 +377,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private fun getRecyclerAdapter() = search_results_list.adapter as? ItemsAdapter
 
     override fun refreshFragment() {
-        val fileDirItems = getAllFiles()
-        allDeviceListItems = getListItemsFromFileDirItems(fileDirItems)
+        ensureBackgroundThread {
+            val fileDirItems = getAllFiles()
+            allDeviceListItems = getListItemsFromFileDirItems(fileDirItems)
+        }
         setupLayoutManager()
     }
 
