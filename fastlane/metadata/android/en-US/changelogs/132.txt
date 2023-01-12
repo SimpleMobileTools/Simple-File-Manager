@@ -1,0 +1,1 @@
+ * Fixed a search glitch on some devices
