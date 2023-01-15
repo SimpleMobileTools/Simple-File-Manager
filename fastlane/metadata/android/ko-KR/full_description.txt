@@ -23,9 +23,6 @@ Simple File Manager라고 불리지만 몇 번의 클릭만으로 파일, 폴더
 여기 에서 간단한 도구의 전체 제품군을 확인하십시오.
 https://www.simplemobiletools.com
 
-Simple File Manager Pro의 독립 실행형 웹 사이트:
-https://www.simplemobiletools.com/filemanager
-
 페이스북:
 https://www.facebook.com/simplemobiletools
 

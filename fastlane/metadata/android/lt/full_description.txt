@@ -23,10 +23,7 @@ Programoje nėra reklamų ir nereikalingų leidimų. Ji yra visiškai atviro kod
 Visą "Simple Tools" rinkinį rasite čia:
 https://www.simplemobiletools.com.
 
-Atskira "Simple File Manager Pro" svetainė:
-https://www.simplemobiletools.com/filemanager
-
-"Facebook":
+Facebook:
 https://www.facebook.com/simplemobiletools
 
 Reddit:

@@ -23,9 +23,6 @@ Non contén anuncios nin permisos innecesarios. É totalmente opensource, propor
 Consulta o conxunto completo de Simple Tools neste lugar:
 https://www.simplemobiletools.com
 
-Sitio web independente de Simple File Manager Pro:
-https://www.simplemobiletools.com/filemanager
-
 Facebook:
 https://www.facebook.com/simplemobiletools
 

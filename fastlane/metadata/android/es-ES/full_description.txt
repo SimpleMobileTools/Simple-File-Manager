@@ -23,9 +23,6 @@ No contiene anuncios ni permisos innecesarios. Es totalmente opensource, proporc
 Consulta el conjunto completo de Simple Tools aquí:
 https://www.simplemobiletools.com
 
-Sitio web independiente de Gestor Simple de Ficheros Pro:
-https://www.simplemobiletools.com/filemanager
-
 Facebook:
 https://www.facebook.com/simplemobiletools
 
