@@ -345,15 +345,6 @@ class MainActivity : SimpleActivity() {
         }
     }
 
-    @SuppressLint("NewApi")
-    private fun hasStoragePermission(): Boolean {
-        return if (isRPlus()) {
-            Environment.isExternalStorageManager()
-        } else {
-            hasPermission(PERMISSION_WRITE_STORAGE)
-        }
-    }
-
     private fun initFileManager(refreshRecents: Boolean) {
         if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
             val data = intent.data

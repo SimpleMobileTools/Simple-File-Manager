@@ -15,7 +15,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.NavigationIcon
+import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
+import com.simplemobiletools.commons.helpers.SAVE_DISCARD_PROMPT_INTERVAL
+import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.MyEditText
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.dialogs.SaveAsDialog
@@ -170,14 +173,14 @@ class ReadTextActivity : SimpleActivity() {
             }
         } else {
             SaveAsDialog(this, filePath, false) { path, _ ->
-                handlePermission(PERMISSION_WRITE_STORAGE) { isPermissionGranted ->
-                    if (isPermissionGranted) {
-                        val file = File(path)
-                        getFileOutputStream(file.toFileDirItem(this), true) {
-                            val shouldOverwriteOriginalText = path == filePath
-                            saveTextContent(it, shouldExitAfterSaving, shouldOverwriteOriginalText)
-                        }
+                if (hasStoragePermission()) {
+                    val file = File(path)
+                    getFileOutputStream(file.toFileDirItem(this), true) {
+                        val shouldOverwriteOriginalText = path == filePath
+                        saveTextContent(it, shouldExitAfterSaving, shouldOverwriteOriginalText)
                     }
+                } else {
+                    toast(R.string.no_storage_permissions)
                 }
             }
         }
