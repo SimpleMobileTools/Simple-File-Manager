@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Простой менеджер файлов</string>
-    <string name="app_launcher_name">Файловый менеджер</string>
+    <string name="app_name">Простой проводник</string>
+    <string name="app_launcher_name">Проводник</string>
     <string name="press_back_again">Нажмите "назад" ещё раз, чтобы выйти</string>
     <string name="go_to_home_folder">Открыть домашнюю папку</string>
     <string name="set_as_home_folder">Сделать домашней</string>
     <string name="home_folder_updated">Домашняя папка установлена</string>
     <string name="copy_path">Скопировать путь в буфер обмена</string>
     <string name="path_copied">Путь скопирован</string>
-    <string name="select_audio_file">Пожалуйста, выберите аудиофайл</string>
+    <string name="select_audio_file">Пожалуйста, выберите звуковой файл</string>
     <string name="search_folder">Искать в папке</string>
     <string name="rooted_device_only">Это работает только на устройствах с root-доступом</string>
     <string name="recents">Недавнее</string>
     <string name="show_recents">Показывать недавнее</string>
-    <string name="pdf_viewer">Просмотр PDF</string>
+    <string name="pdf_viewer">PDF-просмотрщик</string>
     <string name="invert_colors">Инвертировать цвета</string>
     <!-- Open as -->
     <string name="open_as">Открыть как</string>
     <string name="text_file">Текст</string>
     <string name="image_file">Изображение</string>
-    <string name="audio_file">Аудио</string>
+    <string name="audio_file">Звуковой файл</string>
     <string name="video_file">Видео</string>
     <string name="other_file">Другое</string>
     <!-- Compression -->
     <string name="compress">Сжать</string>
     <string name="compress_pro">Сжать (Pro)</string>
-    <string name="decompress">Распаковать</string>
+    <string name="decompress">Извлечь</string>
     <string name="compress_as">Сжать как</string>
     <string name="compressing">Сжатие…</string>
-    <string name="decompressing">Распаковка…</string>
+    <string name="decompressing">Извлечение…</string>
     <string name="compression_successful">Сжатие успешно</string>
-    <string name="decompression_successful">Распаковка успешна</string>
+    <string name="decompression_successful">Извлечение успешно</string>
     <string name="compressing_failed">Не удалось сжать</string>
-    <string name="decompressing_failed">Не удалось распаковать</string>
+    <string name="decompressing_failed">Не удалось извлечь</string>
     <!-- Favorites -->
     <string name="manage_favorites">Настроить избранное</string>
     <string name="go_to_favorite">Открыть избранное</string>
@@ -52,7 +52,7 @@
     <string name="total_storage">Полный объём: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Включить root-доступ</string>
-    <string name="press_back_twice">Двойное нажатие кнопки \"Назад\" для выхода из приложения</string>
+    <string name="press_back_twice">Двойное нажатие кнопки «Назад» для выхода из приложения</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
