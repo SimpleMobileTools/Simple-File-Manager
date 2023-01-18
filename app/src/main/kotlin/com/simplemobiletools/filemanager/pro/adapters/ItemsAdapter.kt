@@ -545,9 +545,11 @@ class ItemsAdapter(
                     }
                     zipInputStream.closeEntry()
                     val destinationPath = fileDirItems.first().getParentPath().trimEnd('/')
-                    activity.checkConflicts(fileDirItems, destinationPath, 0, LinkedHashMap()) {
-                        ensureBackgroundThread {
-                            decompressPaths(sourcePaths, it, callback)
+                    activity.runOnUiThread {
+                        activity.checkConflicts(fileDirItems, destinationPath, 0, LinkedHashMap()) {
+                            ensureBackgroundThread {
+                                decompressPaths(sourcePaths, it, callback)
+                            }
                         }
                     }
                 } catch (exception: Exception) {
