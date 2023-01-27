@@ -55,8 +55,7 @@ import java.util.zip.ZipOutputStream
 class ItemsAdapter(
     activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
     val isPickMultipleIntent: Boolean, val swipeRefreshLayout: SwipeRefreshLayout?, canHaveIndividualViewType: Boolean = true, itemClick: (Any) -> Unit
-) :
-    MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
+) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
     private val TYPE_FILE = 1
     private val TYPE_DIR = 2

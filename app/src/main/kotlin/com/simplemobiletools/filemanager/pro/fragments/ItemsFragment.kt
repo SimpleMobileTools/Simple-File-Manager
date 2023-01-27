@@ -370,7 +370,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
             if (it.isDirectory) {
                 if (it.name.contains(text, true)) {
-                    val fileDirItem = getListItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
+                    val fileDirItem = getListItemFromFile(it, isSortingBySize, HashMap(), false)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }
@@ -379,7 +379,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                 files.addAll(searchFiles(text, it.absolutePath))
             } else {
                 if (it.name.contains(text, true)) {
-                    val fileDirItem = getListItemFromFile(it, isSortingBySize, HashMap<String, Long>(), false)
+                    val fileDirItem = getListItemFromFile(it, isSortingBySize, HashMap(), false)
                     if (fileDirItem != null) {
                         files.add(fileDirItem)
                     }

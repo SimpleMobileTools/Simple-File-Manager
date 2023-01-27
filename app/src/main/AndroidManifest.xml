@@ -12,6 +12,11 @@
         android:name="android.hardware.faketouch"
         android:required="false" />
 
+    <queries>
+        <package android:name="com.simplemobiletools.filemanager.debug" />
+        <package android:name="com.simplemobiletools.filemanager" />
+    </queries>
+
     <application
         android:name=".App"
         android:allowBackup="true"
