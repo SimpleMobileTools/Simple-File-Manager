@@ -71,6 +71,8 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         }
 
         mimetypes_fastscroller.updateColors(getProperPrimaryColor())
+        mimetypes_placeholder.setTextColor(getProperTextColor())
+        mimetypes_placeholder_2.setTextColor(getProperTextColor())
     }
 
     override fun onResume() {

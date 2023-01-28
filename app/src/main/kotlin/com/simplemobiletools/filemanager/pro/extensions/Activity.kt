@@ -103,5 +103,3 @@ fun AppCompatActivity.hideSystemUI(toggleActionBarVisibility: Boolean) {
         View.SYSTEM_UI_FLAG_FULLSCREEN or
         View.SYSTEM_UI_FLAG_IMMERSIVE
 }
-
-fun Activity.getUiMode() = resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
