@@ -57,7 +57,6 @@ class ReadTextActivity : SimpleActivity() {
         searchPrevBtn = findViewById(R.id.search_previous)
         searchNextBtn = findViewById(R.id.search_next)
         searchClearBtn = findViewById(R.id.search_clear)
-        read_text_view.setTextColor(config.textColor)
 
         if (checkAppSideloading()) {
             return
