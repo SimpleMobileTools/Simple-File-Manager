@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
+import com.simplemobiletools.commons.dialogs.ConfirmationDialog
 import com.simplemobiletools.commons.dialogs.RadioGroupDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
@@ -96,6 +97,11 @@ class MainActivity : SimpleActivity() {
                     finish()
                 }
             }
+        }
+
+        if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.filemanager")) {
+            ConfirmationDialog(this, "", R.string.upgraded_to_pro, R.string.ok, 0, false) {}
+            config.wasUpgradedFromFreeShown = true
         }
     }
 
