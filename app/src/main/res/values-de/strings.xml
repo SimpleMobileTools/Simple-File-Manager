@@ -27,8 +27,8 @@
     <string name="compress_pro">Komprimieren (Pro)</string>
     <string name="decompress">Entpacken</string>
     <string name="compress_as">Komprimieren als</string>
-    <string name="compressing">Komprimiere…</string>
-    <string name="decompressing">Entpacke…</string>
+    <string name="compressing">Komprimieren …</string>
+    <string name="decompressing">Entpacken …</string>
     <string name="compression_successful">Komprimieren erfolgreich</string>
     <string name="decompression_successful">Entpacken erfolgreich</string>
     <string name="compressing_failed">Komprimieren fehlgeschlagen</string>
