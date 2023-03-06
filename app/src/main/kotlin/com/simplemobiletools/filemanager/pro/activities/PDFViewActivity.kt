@@ -19,10 +19,9 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
-import com.simplemobiletools.rvpdfviewer.pdfviewer.PDFRendererAdapter
-import com.simplemobiletools.rvpdfviewer.pdfviewer.PDFViewer
+import com.simplemobiletools.filemanager.pro.helpers.pdfviewer.PDFRendererAdapter
+import com.simplemobiletools.filemanager.pro.helpers.pdfviewer.PDFViewer
 import kotlinx.android.synthetic.main.activity_pdf_viewer.*
-import kotlinx.android.synthetic.main.items_fragment.view.items_fastscroller
 
 
 open class PDFViewerActivity : SimpleActivity() {

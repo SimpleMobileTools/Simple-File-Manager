@@ -11,3 +11,4 @@ keystore.properties
 fastlane/fastlane.json
 Gemfile
 Gemfile.lock
+/commons/

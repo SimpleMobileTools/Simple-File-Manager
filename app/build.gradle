@@ -71,5 +71,4 @@ dependencies {
     implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'me.grantland:autofittextview:0.2.1'
-    implementation project(path: ':RVPdfviewer')
 }
