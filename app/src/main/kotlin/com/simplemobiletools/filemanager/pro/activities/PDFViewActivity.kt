@@ -1,17 +1,16 @@
 package com.simplemobiletools.filemanager.pro.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
-import android.view.View
 import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
@@ -19,13 +18,14 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
-import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter
-import es.voghdev.pdfviewpager.library.adapter.PdfErrorHandler
+import com.simplemobiletools.rvpdfviewer.pdfviewer.PDFRendererAdapter
+import com.simplemobiletools.rvpdfviewer.pdfviewer.PDFViewer
 import kotlinx.android.synthetic.main.activity_pdf_viewer.*
 
-class PDFViewerActivity : SimpleActivity() {
+
+open class PDFViewerActivity : SimpleActivity() {
+    private lateinit var mAdapter: PDFRendererAdapter
     private var realFilePath = ""
-    private var isFullScreen = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
@@ -45,13 +45,56 @@ class PDFViewerActivity : SimpleActivity() {
         }
 
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
-            realFilePath = intent.extras?.get(REAL_FILE_PATH)?.toString() ?: ""
+            realFilePath = intent.extras?.getString(REAL_FILE_PATH) ?: ""
             pdf_viewer_toolbar.title = realFilePath.getFilenameFromPath()
         }
 
         setupMenu()
+        mAdapter = PDFRendererAdapter(this, onPageClick = {
+            toggleFullScreen()
+        })
+        pdf_recycler_view
+            .adapter = mAdapter
+        pdf_recycler_view
+            .layoutManager = LinearLayoutManager(this)
+
+        pdf_recycler_view.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
+                val firstVisiblePosition = layoutManager!!.findFirstVisibleItemPosition()
+                val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
+                val centerPosition = (firstVisiblePosition + lastVisiblePosition) / 2
+                updatePageCounter(centerPosition)
+            }
+        })
+
         checkIntent()
+        updatePageCounter(0)
+        page_counter.beVisible()
+        showSystemUI(true)
+
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mAdapter.close()
+    }
+
+    private fun checkIntent() {
+        val uri = intent.data
+        if (uri == null) {
+            finish()
+            return
+        }
+
+        val pdfPath = uri.toString()
+        val viewer =  PDFViewer(this, pdfPath)
+        viewer.getPages().forEach {
+            mAdapter.addPage(it)
+        }
+    }
+
+    private var isFullScreen = false
 
     override fun onResume() {
         super.onResume()
@@ -97,48 +140,9 @@ class PDFViewerActivity : SimpleActivity() {
         }
     }
 
-    private fun checkIntent() {
-        val uri = intent.data
-        if (uri == null) {
-            finish()
-            return
-        }
-
-        val clickListener = View.OnClickListener {
-            toggleFullScreen()
-        }
-
-        val errorHandler = PdfErrorHandler { throwable -> showErrorToast(throwable.toString()) }
-
-        pdf_viewer.setPageTransformer(MarginPageTransformer(resources.getDimension(R.dimen.activity_margin).toInt()))
-        pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
-        try {
-            pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString(), getProperBackgroundColor())
-        } catch (e: Exception) {
-            showErrorToast(e)
-            finish()
-            return
-        }
-
-        pdf_viewer.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                updatePageCounter(position)
-            }
-        })
-
-        updatePageCounter(0)
-        page_counter.beVisible()
-
-        showSystemUI(true)
-
-        val filename = getFilenameFromUri(uri)
-        if (filename.isNotEmpty()) {
-            pdf_viewer_toolbar.title = filename
-        }
-    }
-
+    @SuppressLint("SetTextI18n")
     private fun updatePageCounter(position: Int) {
-        page_counter.text = "${position + 1} / ${pdf_viewer.adapter?.itemCount}"
+        page_counter.text = "${position + 1} / ${pdf_recycler_view.adapter?.itemCount ?: 0}"
     }
 
     private fun printText() {
