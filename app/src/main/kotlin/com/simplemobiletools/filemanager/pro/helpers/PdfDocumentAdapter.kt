@@ -25,7 +25,7 @@ class PdfDocumentAdapter(var context: Context, var path: String) : PrintDocument
             builder.setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
                 .setPageCount(PrintDocumentInfo.PAGE_COUNT_UNKNOWN)
                 .build()
-            layoutResultCallback.onLayoutFinished(builder.build(), printAttributes != printAttributes)
+            layoutResultCallback.onLayoutFinished(builder.build(), oldAttributes != printAttributes)
         }
     }
 

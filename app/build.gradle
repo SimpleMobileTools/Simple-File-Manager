@@ -65,11 +65,11 @@ android {
 
 dependencies {
     implementation 'com.github.SimpleMobileTools:Simple-Commons:58574dd952'
-    implementation 'com.github.tibbi:PdfViewPager:d2af24208d'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
     implementation 'com.github.Stericson:RootShell:1.6'
     implementation 'com.alexvasilkov:gesture-views:2.5.2'
     implementation 'androidx.documentfile:documentfile:1.0.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'me.grantland:autofittextview:0.2.1'
+    implementation project(path: ':RVPdfviewer')
 }
