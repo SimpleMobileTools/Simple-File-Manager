@@ -10,6 +10,7 @@ import android.print.PrintManager
 import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
@@ -67,7 +68,8 @@ open class PDFViewerActivity : SimpleActivity() {
                 updatePageCounter(centerPosition)
             }
         })
-
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(pdf_recycler_view)
         checkIntent()
         updatePageCounter(0)
         page_counter.beVisible()
