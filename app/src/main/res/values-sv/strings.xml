@@ -42,7 +42,7 @@
     <!-- Storage analysis -->
     <string name="storage_analysis">Lagringsanalys</string>
     <string name="images">Bilder</string>
-    <string name="videos">Videos</string>
+    <string name="videos">Videor</string>
     <string name="audio">Ljud</string>
     <string name="documents">Dokument</string>
     <string name="downloads">Nedladdningar</string>
