@@ -68,8 +68,7 @@ open class PDFViewerActivity : SimpleActivity() {
                 updatePageCounter(centerPosition)
             }
         })
-        val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(pdf_recycler_view)
+
         checkIntent()
         updatePageCounter(0)
         page_counter.beVisible()
