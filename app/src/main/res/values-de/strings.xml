@@ -17,10 +17,10 @@
     <string name="invert_colors">Farben invertieren</string>
     <!-- Open as -->
     <string name="open_as">Öffnen als</string>
-    <string name="text_file">Text-Datei</string>
-    <string name="image_file">Bild-Datei</string>
-    <string name="audio_file">Audio-Datei</string>
-    <string name="video_file">Video-Datei</string>
+    <string name="text_file">Textdatei</string>
+    <string name="image_file">Bilddatei</string>
+    <string name="audio_file">Audiodatei</string>
+    <string name="video_file">Videodatei</string>
     <string name="other_file">Anderer Dateityp</string>
     <!-- Compression -->
     <string name="compress">Komprimieren</string>
