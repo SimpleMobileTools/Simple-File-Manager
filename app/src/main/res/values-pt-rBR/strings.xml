@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Simple File Manager</string>
+    <string name="app_name">Explorador de Arquivos Simples</string>
     <string name="app_launcher_name">Gerenciador de Arquivos</string>
     <string name="press_back_again">Aperte novamente o botão Voltar para sair</string>
-    <string name="go_to_home_folder">Ir para pasta principal</string>
-    <string name="set_as_home_folder">Definir como pasta principal</string>
-    <string name="home_folder_updated">Pasta principal atualizada</string>
-    <string name="copy_path">Copiar caminho para a área de transferência</string>
+    <string name="go_to_home_folder">Ir para Pasta Principal</string>
+    <string name="set_as_home_folder">Definir como Pasta Principal</string>
+    <string name="home_folder_updated">Pasta Principal atualizada</string>
+    <string name="copy_path">Copiar para a área de transferência</string>
     <string name="path_copied">Caminho copiado</string>
     <string name="select_audio_file">Por favor, selecione um arquivo de áudio</string>
     <string name="search_folder">Procurar pasta</string>
-    <string name="rooted_device_only">Esta operação só funciona em dispositivos rooteados</string>
+    <string name="rooted_device_only">Esta operação só funciona em dispositivos com acesso ao root</string>
     <string name="recents">Recentes</string>
     <string name="show_recents">Mostrar recentes</string>
     <string name="pdf_viewer">Visualizador de PDF</string>
     <string name="invert_colors">Inverter cores</string>
+    
     <!-- Open as -->
     <string name="open_as">Abrir como</string>
     <string name="text_file">Arquivo de Texto</string>
@@ -22,6 +23,7 @@
     <string name="audio_file">Arquivo de Áudio</string>
     <string name="video_file">Arquivo de Vídeo</string>
     <string name="other_file">Outro arquivo</string>
+    
     <!-- Compression -->
     <string name="compress">Compactar</string>
     <string name="compress_pro">Compactar (Pro)</string>
@@ -33,12 +35,15 @@
     <string name="decompression_successful">Descompactado com sucesso</string>
     <string name="compressing_failed">A compactação falhou</string>
     <string name="decompressing_failed">A descompactação falhou</string>
+    
     <!-- Favorites -->
     <string name="manage_favorites">Gerenciar favoritos</string>
     <string name="go_to_favorite">Ir para favorito</string>
     <string name="favorites_activity_placeholder">Você pode adicionar pastas usadas com frequência aos favoritos para ter um acesso mais rápido.</string>
+    
     <!-- File Editor -->
     <string name="file_editor">Editor de Arquivos</string>
+    
     <!-- Storage analysis -->
     <string name="storage_analysis">Análise do armazenamento</string>
     <string name="images">Imagens</string>
@@ -48,11 +53,12 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Arquivos</string>
     <string name="others">Outros</string>
-    <string name="storage_free">free</string>
+    <string name="storage_free">Livre</string>
     <string name="total_storage">Armazenamento total: %s</string>
+    
     <!-- Settings -->
-    <string name="enable_root_access">Ativar o acesso root</string>
-    <string name="press_back_twice">Requira o duplo pressionamento do botão "voltar" para sair do app</string>
+    <string name="enable_root_access">Ativar o acesso ao root</string>
+    <string name="press_back_twice">Pressione o botão "voltar" duas vezes para sair do app</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
