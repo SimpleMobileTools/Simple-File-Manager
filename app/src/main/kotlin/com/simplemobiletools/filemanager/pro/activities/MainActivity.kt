@@ -99,9 +99,8 @@ class MainActivity : SimpleActivity() {
             }
         }
 
-        if (!config.wasUpgradedFromFreeShown && isPackageInstalled("com.simplemobiletools.filemanager")) {
+        if (isPackageInstalled("com.simplemobiletools.filemanager")) {
             ConfirmationDialog(this, "", R.string.upgraded_to_pro, R.string.ok, 0, false) {}
-            config.wasUpgradedFromFreeShown = true
         }
     }
 
