@@ -100,7 +100,7 @@ class MainActivity : SimpleActivity() {
         }
 
         if (isPackageInstalled("com.simplemobiletools.filemanager")) {
-            ConfirmationDialog(this, "", R.string.upgraded_to_pro, R.string.ok, 0, false) {}
+            ConfirmationDialog(this, "", R.string.upgraded_from_free, R.string.ok, 0, false) {}
         }
     }
 
@@ -399,7 +399,6 @@ class MainActivity : SimpleActivity() {
     private fun initFragments() {
         main_view_pager.adapter = ViewPagerAdapter(this, mTabsToShow)
         main_view_pager.offscreenPageLimit = 2
-
         main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
