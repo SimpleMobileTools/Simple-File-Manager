@@ -51,7 +51,7 @@
     <string name="storage_free">slobodno</string>
     <string name="total_storage">Ukupna memorija: %s</string>
     <!-- Settings -->
-    <string name="enable_root_access">Omogući root pristup</string>
+    <string name="enable_root_access">Aktiviraj administratorski pristup</string>
     <string name="press_back_twice">Zahtijevaj pritiskanje gumba „Natrag” dvaput za napuštanje aplikacije</string>
     <!--
         Haven't found some strings? There's more at
