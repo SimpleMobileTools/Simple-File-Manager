@@ -348,6 +348,7 @@ class ReadTextActivity : SimpleActivity() {
         searchQueryET.text?.clear()
         isSearchActive = false
         search_wrapper.beGone()
+        hideKeyboard()
     }
 
     private fun selectSearchMatch(editText: GestureEditText) {
