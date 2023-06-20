@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_frame"
     android:layout_width="match_parent"
@@ -8,7 +9,7 @@
     android:paddingTop="@dimen/tiny_margin"
     android:paddingBottom="@dimen/tiny_margin">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,44 +20,53 @@
             android:id="@+id/item_icon"
             android:layout_width="@dimen/file_picker_icon_size"
             android:layout_height="@dimen/file_picker_icon_size"
-            android:layout_centerVertical="true"
             android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_folder_vector" />
+            android:src="@drawable/ic_folder_vector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/item_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/item_icon"
-            android:layout_toEndOf="@+id/item_icon"
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingStart="@dimen/tiny_margin"
-            android:paddingTop="@dimen/small_margin"
+            android:textSize="@dimen/normal_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/item_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:text="Directory" />
 
         <TextView
             android:id="@+id/item_details"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/item_name"
-            android:layout_toEndOf="@+id/item_icon"
             android:alpha="0.6"
             android:paddingStart="@dimen/tiny_margin"
             android:textSize="@dimen/smaller_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/item_date"
+            app:layout_constraintStart_toEndOf="@id/item_icon"
+            app:layout_constraintTop_toBottomOf="@+id/item_name"
+            app:layout_constraintVertical_bias="0.5"
             tools:text="1 KB" />
 
         <TextView
             android:id="@+id/item_date"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/item_details"
-            android:layout_alignBottom="@+id/item_details"
-            android:layout_toEndOf="@+id/item_details"
             android:alpha="0.6"
             android:gravity="end"
             android:textSize="@dimen/smaller_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/item_details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/item_details"
             tools:text="1.1.1970" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
