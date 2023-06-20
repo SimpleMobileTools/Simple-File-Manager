@@ -4,10 +4,7 @@
     android:id="@+id/manage_favorite_holder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="@drawable/selector"
+    android:layout_marginBottom="@dimen/tiny_margin"
     android:paddingStart="@dimen/activity_margin"
     android:paddingEnd="0dp">
 

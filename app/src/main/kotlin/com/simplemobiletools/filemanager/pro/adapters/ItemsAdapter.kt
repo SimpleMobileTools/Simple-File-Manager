@@ -819,6 +819,7 @@ class ItemsAdapter(
                 item_section.setTextColor(textColor)
                 item_section.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             } else if (!listItem.isGridTypeDivider) {
+                setupViewBackground(activity)
                 item_frame.isSelected = isSelected
                 val fileName = listItem.name
                 item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, properPrimaryColor)
