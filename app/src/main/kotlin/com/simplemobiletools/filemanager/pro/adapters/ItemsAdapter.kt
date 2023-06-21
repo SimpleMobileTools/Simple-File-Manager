@@ -85,7 +85,7 @@ class ItemsAdapter(
         setupDragListener(true)
         initDrawables()
         updateFontSizes()
-        dateFormat = activity.config.dateFormat
+        dateFormat = config.dateFormat
         timeFormat = activity.getTimeFormat()
     }
 
@@ -223,19 +223,21 @@ class ItemsAdapter(
             paths.size == 1 -> {
                 val oldPath = paths.first()
                 RenameItemDialog(activity, oldPath) {
-                    activity.config.moveFavorite(oldPath, it)
+                    config.moveFavorite(oldPath, it)
                     activity.runOnUiThread {
                         listener?.refreshFragment()
                         finishActMode()
                     }
                 }
             }
+
             fileDirItems.any { it.isDirectory } -> RenameItemsDialog(activity, paths) {
                 activity.runOnUiThread {
                     listener?.refreshFragment()
                     finishActMode()
                 }
             }
+
             else -> RenameDialog(activity, paths, false) {
                 activity.runOnUiThread {
                     listener?.refreshFragment()
@@ -247,10 +249,10 @@ class ItemsAdapter(
 
     private fun showProperties() {
         if (selectedKeys.size <= 1) {
-            PropertiesDialog(activity, getFirstSelectedItemPath(), activity.config.shouldShowHidden)
+            PropertiesDialog(activity, getFirstSelectedItemPath(), config.shouldShowHidden)
         } else {
             val paths = getSelectedFileDirItems().map { it.path }
-            PropertiesDialog(activity, paths, activity.config.shouldShowHidden)
+            PropertiesDialog(activity, paths, config.shouldShowHidden)
         }
     }
 
@@ -338,7 +340,7 @@ class ItemsAdapter(
     @SuppressLint("NewApi")
     private fun addFileUris(path: String, paths: ArrayList<String>) {
         if (activity.getIsPathDirectory(path)) {
-            val shouldShowHidden = activity.config.shouldShowHidden
+            val shouldShowHidden = config.shouldShowHidden
             when {
                 activity.isRestrictedSAFOnlyRoot(path) -> {
                     activity.getAndroidSAFFileItems(path, shouldShowHidden, false) { files ->
@@ -403,11 +405,20 @@ class ItemsAdapter(
         val files = getSelectedFileDirItems()
         val firstFile = files[0]
         val source = firstFile.getParentPath()
-        FilePickerDialog(activity, source, false, activity.config.shouldShowHidden, true, true, showFavoritesButton = true) {
+        FilePickerDialog(
+            activity,
+            activity.getDefaultCopyDestinationPath(config.shouldShowHidden, source),
+            false,
+            config.shouldShowHidden,
+            true,
+            true,
+            showFavoritesButton = true
+        ) {
+            config.lastCopyPath = it
             if (activity.isPathOnRoot(it) || activity.isPathOnRoot(firstFile.path)) {
                 copyMoveRootItems(files, it, isCopyOperation)
             } else {
-                activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, activity.config.shouldShowHidden) {
+                activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, config.shouldShowHidden) {
                     if (!isCopyOperation) {
                         files.forEach { sourceFileDir ->
                             val sourcePath = sourceFileDir.path
@@ -737,7 +748,7 @@ class ItemsAdapter(
             val files = ArrayList<FileDirItem>(selectedKeys.size)
             val positions = ArrayList<Int>()
             selectedKeys.forEach {
-                activity.config.removeFavorite(getItemWithKey(it)?.path ?: "")
+                config.removeFavorite(getItemWithKey(it)?.path ?: "")
                 val key = it
                 val position = listItems.indexOfFirst { it.path.hashCode() == key }
                 if (position != -1) {
@@ -779,13 +790,13 @@ class ItemsAdapter(
     }
 
     fun updateDateTimeFormat() {
-        dateFormat = activity.config.dateFormat
+        dateFormat = config.dateFormat
         timeFormat = activity.getTimeFormat()
         notifyDataSetChanged()
     }
 
     fun updateDisplayFilenamesInGrid() {
-        displayFilenamesInGrid = activity.config.displayFilenames
+        displayFilenamesInGrid = config.displayFilenames
         notifyDataSetChanged()
     }
 
