@@ -9,7 +9,7 @@ import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.activity_save_as.*
+import kotlinx.android.synthetic.main.activity_save_as.activity_save_as_toolbar
 import java.io.File
 
 class SaveAsActivity : SimpleActivity() {
@@ -18,7 +18,7 @@ class SaveAsActivity : SimpleActivity() {
         setContentView(R.layout.activity_save_as)
 
         if (intent.action == Intent.ACTION_SEND && intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
-            FilePickerDialog(this, pickFile = false, showHidden = config.shouldShowHidden, showFAB = true, showFavoritesButton = true) {
+            FilePickerDialog(this, pickFile = false, showHidden = config.shouldShowHidden(), showFAB = true, showFavoritesButton = true) {
                 val destination = it
                 handleSAFDialog(destination) {
                     toast(R.string.saving)

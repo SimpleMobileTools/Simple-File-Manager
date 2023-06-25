@@ -20,7 +20,7 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(TEMPORARILY_SHOW_HIDDEN, false)
         set(temporarilyShowHidden) = prefs.edit().putBoolean(TEMPORARILY_SHOW_HIDDEN, temporarilyShowHidden).apply()
 
-    var shouldShowHidden = showHidden || temporarilyShowHidden
+    fun shouldShowHidden() = showHidden || temporarilyShowHidden
 
     var pressBackTwice: Boolean
         get() = prefs.getBoolean(PRESS_BACK_TWICE, true)

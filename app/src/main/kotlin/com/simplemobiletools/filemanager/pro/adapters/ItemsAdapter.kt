@@ -249,10 +249,10 @@ class ItemsAdapter(
 
     private fun showProperties() {
         if (selectedKeys.size <= 1) {
-            PropertiesDialog(activity, getFirstSelectedItemPath(), config.shouldShowHidden)
+            PropertiesDialog(activity, getFirstSelectedItemPath(), config.shouldShowHidden())
         } else {
             val paths = getSelectedFileDirItems().map { it.path }
-            PropertiesDialog(activity, paths, config.shouldShowHidden)
+            PropertiesDialog(activity, paths, config.shouldShowHidden())
         }
     }
 
@@ -340,7 +340,7 @@ class ItemsAdapter(
     @SuppressLint("NewApi")
     private fun addFileUris(path: String, paths: ArrayList<String>) {
         if (activity.getIsPathDirectory(path)) {
-            val shouldShowHidden = config.shouldShowHidden
+            val shouldShowHidden = config.shouldShowHidden()
             when {
                 activity.isRestrictedSAFOnlyRoot(path) -> {
                     activity.getAndroidSAFFileItems(path, shouldShowHidden, false) { files ->
@@ -407,9 +407,9 @@ class ItemsAdapter(
         val source = firstFile.getParentPath()
         FilePickerDialog(
             activity,
-            activity.getDefaultCopyDestinationPath(config.shouldShowHidden, source),
+            activity.getDefaultCopyDestinationPath(config.shouldShowHidden(), source),
             false,
-            config.shouldShowHidden,
+            config.shouldShowHidden(),
             true,
             true,
             showFavoritesButton = true
@@ -418,7 +418,7 @@ class ItemsAdapter(
             if (activity.isPathOnRoot(it) || activity.isPathOnRoot(firstFile.path)) {
                 copyMoveRootItems(files, it, isCopyOperation)
             } else {
-                activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, config.shouldShowHidden) {
+                activity.copyMoveFilesTo(files, source, it, isCopyOperation, false, config.shouldShowHidden()) {
                     if (!isCopyOperation) {
                         files.forEach { sourceFileDir ->
                             val sourcePath = sourceFileDir.path

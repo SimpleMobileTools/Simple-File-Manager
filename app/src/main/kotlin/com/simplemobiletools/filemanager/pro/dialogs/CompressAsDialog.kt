@@ -7,7 +7,8 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_compress_as.view.*
+import kotlinx.android.synthetic.main.dialog_compress_as.view.filename_value
+import kotlinx.android.synthetic.main.dialog_compress_as.view.folder
 
 class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_compress_as, null)
@@ -23,7 +24,7 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
 
             folder.setText(activity.humanizePath(realPath))
             folder.setOnClickListener {
-                FilePickerDialog(activity, realPath, false, activity.config.shouldShowHidden, true, true, showFavoritesButton = true) {
+                FilePickerDialog(activity, realPath, false, activity.config.shouldShowHidden(), true, true, showFavoritesButton = true) {
                     folder.setText(activity.humanizePath(it))
                     realPath = it
                 }

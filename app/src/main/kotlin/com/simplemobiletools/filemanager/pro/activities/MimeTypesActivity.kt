@@ -29,7 +29,7 @@ import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.activity_mimetypes.*
-import java.util.*
+import java.util.Locale
 
 class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private var isSearchOpen = false
@@ -86,7 +86,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         mimetypes_toolbar.menu.apply {
             findItem(R.id.toggle_filename).isVisible = currentViewType == VIEW_TYPE_GRID
 
-            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden
+            findItem(R.id.temporarily_show_hidden).isVisible = !config.shouldShowHidden()
             findItem(R.id.stop_showing_hidden).isVisible = config.temporarilyShowHidden
 
             findItem(R.id.column_count).isVisible = currentViewType == VIEW_TYPE_GRID
@@ -255,7 +255,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
 
     private fun getProperFileDirItems(callback: (ArrayList<FileDirItem>) -> Unit) {
         val fileDirItems = ArrayList<FileDirItem>()
-        val showHidden = config.shouldShowHidden
+        val showHidden = config.shouldShowHidden()
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.MIME_TYPE,

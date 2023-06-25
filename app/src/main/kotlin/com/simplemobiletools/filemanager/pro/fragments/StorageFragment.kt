@@ -318,7 +318,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     private fun getAllFiles(): ArrayList<FileDirItem> {
         val fileDirItems = ArrayList<FileDirItem>()
-        val showHidden = context?.config?.shouldShowHidden ?: return fileDirItems
+        val showHidden = context?.config?.shouldShowHidden() ?: return fileDirItems
         val uri = MediaStore.Files.getContentUri("external")
         val projection = arrayOf(
             MediaStore.Files.FileColumns.DATA,
