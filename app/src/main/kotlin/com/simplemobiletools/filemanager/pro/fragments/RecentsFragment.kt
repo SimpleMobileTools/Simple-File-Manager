@@ -21,7 +21,9 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.recents_fragment.view.*
+import kotlinx.android.synthetic.main.recents_fragment.view.recents_list
+import kotlinx.android.synthetic.main.recents_fragment.view.recents_placeholder
+import kotlinx.android.synthetic.main.recents_fragment.view.recents_swipe_refresh
 import java.io.File
 
 class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
@@ -134,7 +136,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun getRecents(callback: (recents: ArrayList<ListItem>) -> Unit) {
-        val showHidden = context?.config?.shouldShowHidden ?: return
+        val showHidden = context?.config?.shouldShowHidden() ?: return
         val listItems = arrayListOf<ListItem>()
 
         val uri = Files.getContentUri("external")

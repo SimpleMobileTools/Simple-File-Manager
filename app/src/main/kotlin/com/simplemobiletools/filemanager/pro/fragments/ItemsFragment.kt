@@ -99,7 +99,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
 
         scrollStates[currentPath] = getScrollState()!!
         currentPath = realPath
-        showHidden = context!!.config.shouldShowHidden
+        showHidden = context!!.config.shouldShowHidden()
         showProgressBar()
         getItems(currentPath) { originalPath, listItems ->
             if (currentPath != originalPath) {
@@ -180,13 +180,13 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
                             return@handleAndroidSAFDialog
                         }
                         val getProperChildCount = context!!.config.getFolderViewType(currentPath) == VIEW_TYPE_LIST
-                        context.getAndroidSAFFileItems(path, context.config.shouldShowHidden, getProperChildCount) { fileItems ->
+                        context.getAndroidSAFFileItems(path, context.config.shouldShowHidden(), getProperChildCount) { fileItems ->
                             callback(path, getListItemsFromFileDirItems(fileItems))
                         }
                     }
                 } else if (context!!.isPathOnOTG(path) && config.OTGTreeUri.isNotEmpty()) {
                     val getProperFileSize = context!!.config.getFolderSorting(currentPath) and SORT_BY_SIZE != 0
-                    context!!.getOTGItems(path, config.shouldShowHidden, getProperFileSize) {
+                    context!!.getOTGItems(path, config.shouldShowHidden(), getProperFileSize) {
                         callback(path, getListItemsFromFileDirItems(it))
                     }
                 } else if (!config.enableRootAccess || !context!!.isPathOnRoot(path)) {

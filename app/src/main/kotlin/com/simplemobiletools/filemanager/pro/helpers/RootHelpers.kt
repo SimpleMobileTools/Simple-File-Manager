@@ -36,7 +36,7 @@ class RootHelpers(val activity: Activity) {
             val fullLines = it
 
             val files = ArrayList<ListItem>()
-            val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
+            val hiddenArgument = if (activity.config.shouldShowHidden()) "-A " else ""
             val cmd = "ls $hiddenArgument$path"
 
             val command = object : Command(0, cmd) {
@@ -66,7 +66,7 @@ class RootHelpers(val activity: Activity) {
 
     private fun getFullLines(path: String, callback: (ArrayList<String>) -> Unit) {
         val fullLines = ArrayList<String>()
-        val hiddenArgument = if (activity.config.shouldShowHidden) "-Al " else "-l "
+        val hiddenArgument = if (activity.config.shouldShowHidden()) "-Al " else "-l "
         val cmd = "ls $hiddenArgument$path"
 
         val command = object : Command(0, cmd) {
@@ -85,7 +85,7 @@ class RootHelpers(val activity: Activity) {
     }
 
     private fun getChildrenCount(files: ArrayList<ListItem>, path: String, callback: (originalPath: String, listItems: ArrayList<ListItem>) -> Unit) {
-        val hiddenArgument = if (activity.config.shouldShowHidden) "-A " else ""
+        val hiddenArgument = if (activity.config.shouldShowHidden()) "-A " else ""
         var cmd = ""
         files.filter { it.isDirectory }.forEach {
             cmd += "ls $hiddenArgument${it.path} |wc -l;"
