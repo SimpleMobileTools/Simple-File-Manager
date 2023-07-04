@@ -6,11 +6,9 @@ import android.graphics.Color
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
-import android.view.View
 import android.view.WindowManager
-import androidx.viewpager2.widget.MarginPageTransformer
 import android.widget.RelativeLayout
-import androidx.viewpager2.widget.ViewPager2
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
@@ -18,8 +16,6 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
-import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter
-import es.voghdev.pdfviewpager.library.adapter.PdfErrorHandler
 import kotlinx.android.synthetic.main.activity_pdf_viewer.*
 
 class PDFViewerActivity : SimpleActivity() {
@@ -95,21 +91,17 @@ class PDFViewerActivity : SimpleActivity() {
             return
         }
 
-        val clickListener = View.OnClickListener {
-            toggleFullScreen()
-        }
-
-        val errorHandler = PdfErrorHandler { throwable -> showErrorToast(throwable.toString()) }
-
-        pdf_viewer.setPageTransformer(MarginPageTransformer(resources.getDimension(R.dimen.activity_margin).toInt()))
-        pdf_viewer.orientation = ViewPager2.ORIENTATION_VERTICAL
-        try {
-            pdf_viewer.adapter = PDFPagerAdapter(this, clickListener, errorHandler, uri.toString(), getProperBackgroundColor())
-        } catch (e: Exception) {
-            showErrorToast(e)
-            finish()
-            return
-        }
+        val primaryColor = getProperPrimaryColor()
+        pdf_viewer.setBackgroundColor(getProperBackgroundColor())
+        pdf_viewer.fromUri(uri)
+            .scrollHandle(DefaultScrollHandle(this, primaryColor.getContrastColor(), primaryColor))
+            .spacing(15)
+            .onTap { toggleFullScreen() }
+            .onError {
+                showErrorToast(it.localizedMessage?.toString() ?: getString(R.string.unknown_error_occurred))
+                finish()
+            }
+            .load()
 
         showSystemUI(true)
 

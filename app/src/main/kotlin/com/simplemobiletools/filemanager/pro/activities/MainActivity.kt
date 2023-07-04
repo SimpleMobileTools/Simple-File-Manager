@@ -632,6 +632,7 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun launchAbout() {
+        // TODO: Add PDFViewer license
         val licenses = LICENSE_GLIDE or LICENSE_PATTERN or LICENSE_REPRINT or LICENSE_GESTURE_VIEWS or LICENSE_PDF_VIEW_PAGER or LICENSE_AUTOFITTEXTVIEW
 
         val faqItems = arrayListOf(
