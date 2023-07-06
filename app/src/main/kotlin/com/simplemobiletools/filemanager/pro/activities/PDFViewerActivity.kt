@@ -3,20 +3,26 @@ package com.simplemobiletools.filemanager.pro.activities
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
+import com.shockwave.pdfium.PdfPasswordException
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.dialogs.EnterPasswordDialog
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
-import kotlinx.android.synthetic.main.activity_pdf_viewer.*
+import kotlinx.android.synthetic.main.activity_pdf_viewer.pdf_viewer
+import kotlinx.android.synthetic.main.activity_pdf_viewer.pdf_viewer_appbar
+import kotlinx.android.synthetic.main.activity_pdf_viewer.pdf_viewer_toolbar
+import kotlinx.android.synthetic.main.activity_pdf_viewer.top_shadow
 
 class PDFViewerActivity : SimpleActivity() {
     private var realFilePath = ""
@@ -91,15 +97,32 @@ class PDFViewerActivity : SimpleActivity() {
             return
         }
 
+        loadPdfViewer(uri)
+    }
+
+    private fun loadPdfViewer(uri: Uri, filePassword: String? = null) {
         val primaryColor = getProperPrimaryColor()
         pdf_viewer.setBackgroundColor(getProperBackgroundColor())
         pdf_viewer.fromUri(uri)
+            .password(filePassword)
             .scrollHandle(DefaultScrollHandle(this, primaryColor.getContrastColor(), primaryColor))
             .spacing(15)
             .onTap { toggleFullScreen() }
             .onError {
-                showErrorToast(it.localizedMessage?.toString() ?: getString(R.string.unknown_error_occurred))
-                finish()
+                if (it is PdfPasswordException) {
+                    // Already entered a password and it was wrong
+                    if (filePassword != null) {
+                        it.showToastAndFinish()
+                    } else {
+                        EnterPasswordDialog(
+                            this,
+                            callback = { password -> loadPdfViewer(uri, password) },
+                            cancelCallback = { it.showToastAndFinish() }
+                        )
+                    }
+                } else {
+                    it.showToastAndFinish()
+                }
             }
             .load()
 
@@ -150,5 +173,10 @@ class PDFViewerActivity : SimpleActivity() {
             window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         }
+    }
+
+    private fun Throwable.showToastAndFinish() {
+        showErrorToast(localizedMessage?.toString() ?: getString(R.string.unknown_error_occurred))
+        finish()
     }
 }

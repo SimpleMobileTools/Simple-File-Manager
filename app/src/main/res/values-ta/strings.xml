@@ -50,6 +50,10 @@
     <string name="others">மற்றவை</string>
     <string name="storage_free">மீதம்</string>
     <string name="total_storage">மொத்த சேமிப்பிடம்: %s</string>
+    <!-- Password protected files -->
+    <string name="enter_password">Enter password</string>
+    <string name="password">Password</string>
+    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">ரூட் அணுகலை இயக்கு</string>
     <string name="press_back_twice">செயலியை வெளியேற இரண்டு முறை பின் அழுத்த கோரு</string>

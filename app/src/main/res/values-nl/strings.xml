@@ -50,6 +50,10 @@
     <string name="others">Overig</string>
     <string name="storage_free">vrij</string>
     <string name="total_storage">Totale opslag: %s</string>
+    <!-- Password protected files -->
+    <string name="enter_password">Enter password</string>
+    <string name="password">Password</string>
+    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Root-toegang inschakelen</string>
     <string name="press_back_twice">Twee keer op de terugknop drukken om af te sluiten</string>

@@ -55,6 +55,10 @@
     <string name="others">Iné</string>
     <string name="storage_free">využitých</string>
     <string name="total_storage">Úložisko celkom: %s</string>
+    <!-- Password protected files -->
+    <string name="enter_password">Enter password</string>
+    <string name="password">Password</string>
+    <string name="empty_password">Please enter the password</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Povoliť prístup ku koreňovým súborom</string>

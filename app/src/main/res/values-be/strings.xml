@@ -50,6 +50,10 @@
     <string name="others">Іншае</string>
     <string name="storage_free">бясплатна</string>
     <string name="total_storage">Агульная памяць: %s</string>
+    <!-- Password protected files -->
+    <string name="enter_password">Enter password</string>
+    <string name="password">Password</string>
+    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Уключыць каранёвы доступ</string>
     <string name="press_back_twice">Патрабуецца двойчы націснуць \"Назад\", каб выйсці з праграмы</string>
