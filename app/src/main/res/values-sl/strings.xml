@@ -50,10 +50,6 @@
     <string name="others">Ostali</string>
     <string name="storage_free">prosto</string>
     <string name="total_storage">Skupno prostora za shranjevanje: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Omogoči root (korenski) dostop</string>
     <string name="press_back_twice">Dvakratni pritisk nazaj za izhod iz aplikacije</string>

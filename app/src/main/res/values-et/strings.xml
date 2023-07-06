@@ -50,10 +50,6 @@
     <string name="others">Muud failid</string>
     <string name="storage_free">vaba</string>
     <string name="total_storage">Kogu salvestusruum: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Luba ligipääs juurkasutajale</string>
     <string name="press_back_twice">Rakendusest väljumiseks eelda kahte Tagasi-nupu vajutust</string>

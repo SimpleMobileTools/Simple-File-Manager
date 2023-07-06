@@ -50,10 +50,6 @@
     <string name="others">Outros</string>
     <string name="storage_free">livre</string>
     <string name="total_storage">Armazenamento total: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Conceder acesso root</string>
     <string name="press_back_twice">Premir duas vezes a tecla Back para sair da aplicação</string>

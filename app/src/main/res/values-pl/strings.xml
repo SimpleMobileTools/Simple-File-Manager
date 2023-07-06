@@ -50,10 +50,6 @@
     <string name="others">Inne</string>
     <string name="storage_free">wolne</string>
     <string name="total_storage">Całkowita pamięć: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Włącz dostęp do roota</string>
     <string name="press_back_twice">Wymagaj dwukrotnego naciśnięcia przycisku Wstecz, aby wyjść z aplikacji</string>

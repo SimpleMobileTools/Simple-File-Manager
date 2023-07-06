@@ -55,10 +55,6 @@
     <string name="others">Άλλα</string>
     <string name="storage_free">ελεύθερα</string>
     <string name="total_storage">Σύνολο: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Ενεργοποιήστε την πρόσβαση ριζικού καταλόγου</string>

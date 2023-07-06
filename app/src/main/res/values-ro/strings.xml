@@ -50,10 +50,6 @@
     <string name="others">Altele</string>
     <string name="storage_free">liber</string>
     <string name="total_storage">Spaţiu de stocare total: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Activați accesul root</string>
     <string name="press_back_twice">Trebuie să apăsați de două ori butonul Înapoi pentru a părăsi aplicația</string>

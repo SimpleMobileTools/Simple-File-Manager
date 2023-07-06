@@ -50,10 +50,6 @@
     <string name="others">Andre</string>
     <string name="storage_free">fri</string>
     <string name="total_storage">Samlet lagerplads: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktiver root-adgang</string>
     <string name="press_back_twice">Kræv to tryk på tilbage for at forlade appen</string>

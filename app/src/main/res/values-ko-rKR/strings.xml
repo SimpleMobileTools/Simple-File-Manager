@@ -55,10 +55,6 @@
     <string name="others">Others</string>
     <string name="storage_free">free</string>
     <string name="total_storage">Total storage: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
 
     <!-- Settings -->
     <string name="enable_root_access">루트 접근 활성화</string>

@@ -50,10 +50,6 @@
     <string name="others">Други</string>
     <string name="storage_free">бесплатно</string>
     <string name="total_storage">Укупно складиште: %s</string>
-    <!-- Password protected files -->
-    <string name="enter_password">Enter password</string>
-    <string name="password">Password</string>
-    <string name="empty_password">Please enter the password</string>
     <!-- Settings -->
     <string name="enable_root_access">Омогућите роот приступ</string>
     <string name="press_back_twice">Захтевајте да двапут притиснете Назад да бисте напустили апликацију</string>

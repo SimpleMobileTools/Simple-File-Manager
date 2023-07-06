@@ -11,11 +11,11 @@ import android.view.WindowManager
 import android.widget.RelativeLayout
 import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle
 import com.shockwave.pdfium.PdfPasswordException
+import com.simplemobiletools.commons.dialogs.EnterPasswordDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
 import com.simplemobiletools.filemanager.pro.R
-import com.simplemobiletools.filemanager.pro.dialogs.EnterPasswordDialog
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
@@ -112,16 +112,18 @@ class PDFViewerActivity : SimpleActivity() {
                 if (it is PdfPasswordException) {
                     // Already entered a password and it was wrong
                     if (filePassword != null) {
-                        it.showToastAndFinish()
+                        showErrorToast(getString(R.string.invalid_password))
+                        finish()
                     } else {
                         EnterPasswordDialog(
                             this,
                             callback = { password -> loadPdfViewer(uri, password) },
-                            cancelCallback = { it.showToastAndFinish() }
+                            cancelCallback = { finish() }
                         )
                     }
                 } else {
-                    it.showToastAndFinish()
+                    showErrorToast(it.localizedMessage?.toString() ?: getString(R.string.unknown_error_occurred))
+                    finish()
                 }
             }
             .load()
@@ -176,7 +178,5 @@ class PDFViewerActivity : SimpleActivity() {
     }
 
     private fun Throwable.showToastAndFinish() {
-        showErrorToast(localizedMessage?.toString() ?: getString(R.string.unknown_error_occurred))
-        finish()
     }
 }
