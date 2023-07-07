@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_pdf_viewer.top_shadow
 class PDFViewerActivity : SimpleActivity() {
     private var realFilePath = ""
     private var isFullScreen = false
+    private var passwordDialog: EnterPasswordDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         showTransparentTop = true
@@ -113,9 +114,9 @@ class PDFViewerActivity : SimpleActivity() {
                     // already entered a password and it was wrong
                     if (filePassword != null) {
                         showErrorToast(getString(R.string.invalid_password))
-                        finish()
+                        passwordDialog?.clearPassword()
                     } else {
-                        EnterPasswordDialog(
+                        passwordDialog = EnterPasswordDialog(
                             this,
                             callback = { password ->
                                 loadPdfViewer(uri, password)
@@ -129,6 +130,9 @@ class PDFViewerActivity : SimpleActivity() {
                     showErrorToast(it.localizedMessage?.toString() ?: getString(R.string.unknown_error_occurred))
                     finish()
                 }
+            }
+            .onLoad {
+                passwordDialog?.dismiss(notify = false)
             }
             .load()
 
