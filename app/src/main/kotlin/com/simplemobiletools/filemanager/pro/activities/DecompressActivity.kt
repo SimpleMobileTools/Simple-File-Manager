@@ -29,6 +29,7 @@ class DecompressActivity : SimpleActivity() {
     private var currentPath = ""
     private var uri: Uri? = null
     private var password: String? = null
+    private var passwordDialog: EnterPasswordDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
@@ -195,7 +196,7 @@ class DecompressActivity : SimpleActivity() {
                 if (passwordException.type == Type.WRONG_PASSWORD) {
                     if (password != null) {
                         showErrorToast(getString(R.string.invalid_password))
-                        finish()
+                        passwordDialog?.clearPassword()
                     } else {
                         askForPassword()
                     }
@@ -216,10 +217,11 @@ class DecompressActivity : SimpleActivity() {
             val listItem = ListItem(filename, filename.getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false, false)
             allFiles.add(listItem)
         }
+        passwordDialog?.dismiss(notify = false)
     }
 
     private fun askForPassword() {
-        EnterPasswordDialog(
+        passwordDialog = EnterPasswordDialog(
             this,
             callback = { newPassword ->
                 password = newPassword
