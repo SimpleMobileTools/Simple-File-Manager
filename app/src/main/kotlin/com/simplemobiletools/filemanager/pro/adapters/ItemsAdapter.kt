@@ -44,12 +44,14 @@ import kotlinx.android.synthetic.main.item_file_dir_list.view.item_icon
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_name
 import kotlinx.android.synthetic.main.item_file_grid.view.*
 import kotlinx.android.synthetic.main.item_section.view.*
+import net.lingala.zip4j.exception.ZipException
+import net.lingala.zip4j.io.inputstream.ZipInputStream
+import net.lingala.zip4j.model.LocalFileHeader
 import java.io.BufferedInputStream
 import java.io.Closeable
 import java.io.File
 import java.util.*
 import java.util.zip.ZipEntry
-import java.util.zip.ZipInputStream
 import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(
@@ -547,13 +549,11 @@ class ItemsAdapter(
                     val fileDirItems = ArrayList<FileDirItem>()
                     var entry = zipInputStream.nextEntry
                     while (entry != null) {
-                        val currPath = if (entry.isDirectory) path else "${path.getParentPath().trimEnd('/')}/${entry.name}"
-                        val fileDirItem = FileDirItem(currPath, entry.name, entry.isDirectory, 0, entry.size)
+                        val currPath = if (entry.isDirectory) path else "${path.getParentPath().trimEnd('/')}/${entry.fileName}"
+                        val fileDirItem = FileDirItem(currPath, entry.fileName, entry.isDirectory, 0, entry.uncompressedSize)
                         fileDirItems.add(fileDirItem)
-                        zipInputStream.closeEntry()
                         entry = zipInputStream.nextEntry
                     }
-                    zipInputStream.closeEntry()
                     val destinationPath = fileDirItems.first().getParentPath().trimEnd('/')
                     activity.runOnUiThread {
                         activity.checkConflicts(fileDirItems, destinationPath, 0, LinkedHashMap()) {
@@ -561,6 +561,12 @@ class ItemsAdapter(
                                 decompressPaths(sourcePaths, it, callback)
                             }
                         }
+                    }
+                } catch (zipException: ZipException) {
+                    if (zipException.type == ZipException.Type.WRONG_PASSWORD) {
+                        activity.showErrorToast(activity.getString(R.string.invalid_password))
+                    } else {
+                        activity.showErrorToast(zipException)
                     }
                 } catch (exception: Exception) {
                     activity.showErrorToast(exception)
@@ -579,7 +585,7 @@ class ItemsAdapter(
                     val newFolderName = zipFileName.subSequence(0, zipFileName.length - 4)
                     while (entry != null) {
                         val parentPath = path.getParentPath()
-                        val newPath = "$parentPath/$newFolderName/${entry.name.trimEnd('/')}"
+                        val newPath = "$parentPath/$newFolderName/${entry.fileName.trimEnd('/')}"
 
                         val resolution = getConflictResolution(conflictResolutions, newPath)
                         val doesPathExist = activity.getDoesFilePathExist(newPath)
@@ -606,7 +612,6 @@ class ItemsAdapter(
                             extractEntry(newPath, entry, zipInputStream)
                         }
 
-                        zipInputStream.closeEntry()
                         entry = zipInputStream.nextEntry
                     }
                     callback(true)
@@ -618,7 +623,7 @@ class ItemsAdapter(
         }
     }
 
-    private fun extractEntry(newPath: String, entry: ZipEntry, zipInputStream: ZipInputStream) {
+    private fun extractEntry(newPath: String, entry: LocalFileHeader, zipInputStream: ZipInputStream) {
         if (entry.isDirectory) {
             if (!activity.createDirectorySync(newPath) && !activity.getDoesFilePathExist(newPath)) {
                 val error = String.format(activity.getString(R.string.could_not_create_file), newPath)
