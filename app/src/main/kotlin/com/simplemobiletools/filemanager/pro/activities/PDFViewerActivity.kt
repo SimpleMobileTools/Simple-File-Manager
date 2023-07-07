@@ -113,7 +113,7 @@ class PDFViewerActivity : SimpleActivity() {
                 if (it is PdfPasswordException) {
                     // already entered a password and it was wrong
                     if (filePassword != null) {
-                        showErrorToast(getString(R.string.invalid_password))
+                        toast(getString(R.string.invalid_password))
                         passwordDialog?.clearPassword()
                     } else {
                         passwordDialog = EnterPasswordDialog(
