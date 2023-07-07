@@ -110,15 +110,19 @@ class PDFViewerActivity : SimpleActivity() {
             .onTap { toggleFullScreen() }
             .onError {
                 if (it is PdfPasswordException) {
-                    // Already entered a password and it was wrong
+                    // already entered a password and it was wrong
                     if (filePassword != null) {
                         showErrorToast(getString(R.string.invalid_password))
                         finish()
                     } else {
                         EnterPasswordDialog(
                             this,
-                            callback = { password -> loadPdfViewer(uri, password) },
-                            cancelCallback = { finish() }
+                            callback = { password ->
+                                loadPdfViewer(uri, password)
+                            },
+                            cancelCallback = {
+                                finish()
+                            }
                         )
                     }
                 } else {
