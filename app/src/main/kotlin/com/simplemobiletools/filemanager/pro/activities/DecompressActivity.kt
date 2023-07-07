@@ -195,7 +195,7 @@ class DecompressActivity : SimpleActivity() {
             } catch (passwordException: ZipException) {
                 if (passwordException.type == Type.WRONG_PASSWORD) {
                     if (password != null) {
-                        showErrorToast(getString(R.string.invalid_password))
+                        toast(getString(R.string.invalid_password))
                         passwordDialog?.clearPassword()
                     } else {
                         askForPassword()
