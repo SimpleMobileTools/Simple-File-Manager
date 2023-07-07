@@ -46,6 +46,7 @@ import kotlinx.android.synthetic.main.item_file_grid.view.*
 import kotlinx.android.synthetic.main.item_section.view.*
 import net.lingala.zip4j.io.outputstream.ZipOutputStream
 import net.lingala.zip4j.model.ZipParameters
+import net.lingala.zip4j.model.enums.EncryptionMethod
 import java.io.BufferedInputStream
 import java.io.Closeable
 import java.io.File
@@ -652,6 +653,10 @@ class ItemsAdapter(
 
         fun zipEntry(name: String) = ZipParameters().also {
             it.fileNameInZip = name
+            if (password != null) {
+                it.isEncryptFiles = true
+                it.encryptionMethod = EncryptionMethod.AES
+            }
         }
 
         try {
