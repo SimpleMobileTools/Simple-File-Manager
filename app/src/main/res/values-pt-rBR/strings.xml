@@ -55,7 +55,7 @@
     <string name="others">Outros</string>
     <string name="storage_free">Livre</string>
     <string name="total_storage">Armazenamento total: %s</string>
-    
+
     <!-- Settings -->
     <string name="enable_root_access">Ativar o acesso ao root</string>
     <string name="press_back_twice">Pressione o botão "voltar" duas vezes para sair do app</string>
