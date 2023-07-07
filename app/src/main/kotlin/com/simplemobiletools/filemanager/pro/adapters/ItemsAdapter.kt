@@ -44,13 +44,14 @@ import kotlinx.android.synthetic.main.item_file_dir_list.view.item_icon
 import kotlinx.android.synthetic.main.item_file_dir_list.view.item_name
 import kotlinx.android.synthetic.main.item_file_grid.view.*
 import kotlinx.android.synthetic.main.item_section.view.*
+import net.lingala.zip4j.io.outputstream.ZipOutputStream
+import net.lingala.zip4j.model.ZipParameters
 import java.io.BufferedInputStream
 import java.io.Closeable
 import java.io.File
 import java.util.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
-import java.util.zip.ZipOutputStream
 
 class ItemsAdapter(
     activity: SimpleActivity, var listItems: MutableList<ListItem>, val listener: ItemOperationsListener?, recyclerView: MyRecyclerView,
@@ -482,8 +483,7 @@ class ItemsAdapter(
             return
         }
 
-        CompressAsDialog(activity, firstPath) {
-            val destination = it
+        CompressAsDialog(activity, firstPath) { destination, password ->
             activity.handleAndroidSAFDialog(firstPath) { granted ->
                 if (!granted) {
                     return@handleAndroidSAFDialog
@@ -496,7 +496,7 @@ class ItemsAdapter(
                     activity.toast(R.string.compressing)
                     val paths = getSelectedFileDirItems().map { it.path }
                     ensureBackgroundThread {
-                        if (compressPaths(paths, destination)) {
+                        if (compressPaths(paths, destination, password)) {
                             activity.runOnUiThread {
                                 activity.toast(R.string.compression_successful)
                                 listener?.refreshFragment()
@@ -643,12 +643,16 @@ class ItemsAdapter(
     }
 
     @SuppressLint("NewApi")
-    private fun compressPaths(sourcePaths: List<String>, targetPath: String): Boolean {
+    private fun compressPaths(sourcePaths: List<String>, targetPath: String, password: String? = null): Boolean {
         val queue = LinkedList<String>()
         val fos = activity.getFileOutputStreamSync(targetPath, "application/zip") ?: return false
 
-        val zout = ZipOutputStream(fos)
+        val zout = password?.let { ZipOutputStream(fos, password.toCharArray()) } ?: ZipOutputStream(fos)
         var res: Closeable = fos
+
+        fun zipEntry(name: String) = ZipParameters().also {
+            it.fileNameInZip = name
+        }
 
         try {
             sourcePaths.forEach { currentPath ->
@@ -659,7 +663,11 @@ class ItemsAdapter(
                 queue.push(mainFilePath)
                 if (activity.getIsPathDirectory(mainFilePath)) {
                     name = "${mainFilePath.getFilenameFromPath()}/"
-                    zout.putNextEntry(ZipEntry(name))
+                    zout.putNextEntry(
+                        ZipParameters().also {
+                            it.fileNameInZip = name
+                        }
+                    )
                 }
 
                 while (!queue.isEmpty()) {
@@ -672,9 +680,9 @@ class ItemsAdapter(
                                     if (activity.getIsPathDirectory(file.path)) {
                                         queue.push(file.path)
                                         name = "${name.trimEnd('/')}/"
-                                        zout.putNextEntry(ZipEntry(name))
+                                        zout.putNextEntry(zipEntry(name))
                                     } else {
-                                        zout.putNextEntry(ZipEntry(name))
+                                        zout.putNextEntry(zipEntry(name))
                                         activity.getFileInputStreamSync(file.path)!!.copyTo(zout)
                                         zout.closeEntry()
                                     }
@@ -687,9 +695,9 @@ class ItemsAdapter(
                                 if (activity.getIsPathDirectory(file.absolutePath)) {
                                     queue.push(file.absolutePath)
                                     name = "${name.trimEnd('/')}/"
-                                    zout.putNextEntry(ZipEntry(name))
+                                    zout.putNextEntry(zipEntry(name))
                                 } else {
-                                    zout.putNextEntry(ZipEntry(name))
+                                    zout.putNextEntry(zipEntry(name))
                                     activity.getFileInputStreamSync(file.path)!!.copyTo(zout)
                                     zout.closeEntry()
                                 }
@@ -698,7 +706,7 @@ class ItemsAdapter(
 
                     } else {
                         name = if (base == currentPath) currentPath.getFilenameFromPath() else mainFilePath.relativizeWith(base)
-                        zout.putNextEntry(ZipEntry(name))
+                        zout.putNextEntry(zipEntry(name))
                         activity.getFileInputStreamSync(mainFilePath)!!.copyTo(zout)
                         zout.closeEntry()
                     }

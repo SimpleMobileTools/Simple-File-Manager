@@ -7,10 +7,9 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_compress_as.view.filename_value
-import kotlinx.android.synthetic.main.dialog_compress_as.view.folder
+import kotlinx.android.synthetic.main.dialog_compress_as.view.*
 
-class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String) -> Unit) {
+class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String, password: String?) -> Unit) {
     private val view = activity.layoutInflater.inflate(R.layout.dialog_compress_as, null)
 
     init {
@@ -29,6 +28,10 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                     realPath = it
                 }
             }
+
+            password_protect.setOnCheckedChangeListener { _, _ ->
+                enter_password_hint.beVisibleIf(password_protect.isChecked)
+            }
         }
 
         activity.getAlertDialogBuilder()
@@ -39,6 +42,14 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                     alertDialog.showKeyboard(view.filename_value)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
                         val name = view.filename_value.value
+                        var password: String? = null
+                        if (view.password_protect.isChecked) {
+                            password = view.password.value
+                            if (password.isEmpty()) {
+                                activity.toast(R.string.empty_password)
+                                return@OnClickListener
+                            }
+                        }
                         when {
                             name.isEmpty() -> activity.toast(R.string.empty_name)
                             name.isAValidFilename() -> {
@@ -49,8 +60,9 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                                 }
 
                                 alertDialog.dismiss()
-                                callback(newPath)
+                                callback(newPath, password)
                             }
+
                             else -> activity.toast(R.string.invalid_name)
                         }
                     })
