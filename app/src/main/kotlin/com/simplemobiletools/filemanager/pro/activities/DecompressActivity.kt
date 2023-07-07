@@ -77,7 +77,6 @@ class DecompressActivity : SimpleActivity() {
         updateCurrentPath("")
     }
 
-
     override fun onBackPressed() {
         if (currentPath.isEmpty()) {
             super.onBackPressed()
