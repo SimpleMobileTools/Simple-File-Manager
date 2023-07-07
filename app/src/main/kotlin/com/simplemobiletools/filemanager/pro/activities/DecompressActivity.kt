@@ -3,6 +3,7 @@ package com.simplemobiletools.filemanager.pro.activities
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
+import com.simplemobiletools.commons.dialogs.EnterPasswordDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.NavigationIcon
@@ -13,14 +14,21 @@ import com.simplemobiletools.filemanager.pro.adapters.DecompressItemsAdapter
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import kotlinx.android.synthetic.main.activity_decompress.*
+import net.lingala.zip4j.exception.ZipException
+import net.lingala.zip4j.exception.ZipException.Type
+import net.lingala.zip4j.io.inputstream.ZipInputStream
+import net.lingala.zip4j.model.LocalFileHeader
 import java.io.BufferedInputStream
-import java.util.zip.ZipEntry
-import java.util.zip.ZipInputStream
 
 class DecompressActivity : SimpleActivity() {
+    companion object {
+        private const val PASSWORD = "password"
+    }
+
     private val allFiles = ArrayList<ListItem>()
     private var currentPath = ""
     private var uri: Uri? = null
+    private var password: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
@@ -36,15 +44,21 @@ class DecompressActivity : SimpleActivity() {
             return
         }
 
+        password = savedInstanceState?.getString(PASSWORD, null)
+
         val realPath = getRealPathFromURI(uri!!)
         decompress_toolbar.title = realPath?.getFilenameFromPath() ?: Uri.decode(uri.toString().getFilenameFromPath())
-        fillAllListItems(uri!!)
-        updateCurrentPath("")
+        setupFilesList()
     }
 
     override fun onResume() {
         super.onResume()
         setupToolbar(decompress_toolbar, NavigationIcon.Arrow)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(PASSWORD, password)
     }
 
     private fun setupOptionsMenu() {
@@ -56,6 +70,12 @@ class DecompressActivity : SimpleActivity() {
             return@setOnMenuItemClickListener true
         }
     }
+
+    private fun setupFilesList() {
+        fillAllListItems(uri!!)
+        updateCurrentPath("")
+    }
+
 
     override fun onBackPressed() {
         if (currentPath.isEmpty()) {
@@ -99,6 +119,9 @@ class DecompressActivity : SimpleActivity() {
         try {
             val inputStream = contentResolver.openInputStream(uri!!)
             val zipInputStream = ZipInputStream(BufferedInputStream(inputStream!!))
+            if (password != null) {
+                zipInputStream.setPassword(password?.toCharArray())
+            }
             val buffer = ByteArray(1024)
 
             zipInputStream.use {
@@ -106,7 +129,7 @@ class DecompressActivity : SimpleActivity() {
                     val entry = zipInputStream.nextEntry ?: break
                     val filename = title.toString().substringBeforeLast(".")
                     val parent = "$destination/$filename"
-                    val newPath = "$parent/${entry.name.trimEnd('/')}"
+                    val newPath = "$parent/${entry.fileName.trimEnd('/')}"
 
                     if (!getDoesFilePathExist(parent)) {
                         if (!createDirectorySync(parent)) {
@@ -161,10 +184,25 @@ class DecompressActivity : SimpleActivity() {
         }
 
         val zipInputStream = ZipInputStream(BufferedInputStream(inputStream))
-        var zipEntry: ZipEntry?
+        if (password != null) {
+            zipInputStream.setPassword(password?.toCharArray())
+        }
+        var zipEntry: LocalFileHeader?
         while (true) {
             try {
                 zipEntry = zipInputStream.nextEntry
+            } catch (passwordException: ZipException) {
+                if (passwordException.type == Type.WRONG_PASSWORD) {
+                    if (password != null) {
+                        showErrorToast(getString(R.string.invalid_password))
+                        finish()
+                    } else {
+                        askForPassword()
+                    }
+                    return
+                } else {
+                    break
+                }
             } catch (ignored: Exception) {
                 break
             }
@@ -173,10 +211,23 @@ class DecompressActivity : SimpleActivity() {
                 break
             }
 
-            val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime.toMillis() else 0
-            val filename = zipEntry.name.removeSuffix("/")
+            val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime else 0
+            val filename = zipEntry.fileName.removeSuffix("/")
             val listItem = ListItem(filename, filename.getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false, false)
             allFiles.add(listItem)
         }
+    }
+
+    private fun askForPassword() {
+        EnterPasswordDialog(
+            this,
+            callback = { newPassword ->
+                password = newPassword
+                setupFilesList()
+            },
+            cancelCallback = {
+                finish()
+            }
+        )
     }
 }
