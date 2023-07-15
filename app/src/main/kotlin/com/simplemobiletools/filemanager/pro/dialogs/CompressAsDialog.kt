@@ -46,7 +46,7 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                         if (view.password_protect.isChecked) {
                             password = view.password.value
                             if (password.isEmpty()) {
-                                activity.toast(R.string.empty_password)
+                                activity.toast(R.string.empty_password_new)
                                 return@OnClickListener
                             }
                         }
