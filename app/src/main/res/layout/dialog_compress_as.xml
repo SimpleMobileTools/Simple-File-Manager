@@ -56,6 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/password_protect"
+        app:passwordToggleEnabled="true"
         android:hint="@string/password"
         android:visibility="gone">
 
