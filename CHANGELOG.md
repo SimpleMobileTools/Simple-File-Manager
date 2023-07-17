@@ -1,6 +1,15 @@
 Changelog
 ==========
 
+Version 6.16.0 *(2023-07-17)*
+----------------------------
+
+ * Allow opening password protected .pdf files
+ * Added support for creating password protected zips
+ * Remember last used copy destination at folder picker
+ * Reverted to the previous PDF viewer with vulnerability fixed
+ * Added some UI, translation and stability improvements
+
 Version 6.15.4 *(2023-06-20)*
 ----------------------------
 
