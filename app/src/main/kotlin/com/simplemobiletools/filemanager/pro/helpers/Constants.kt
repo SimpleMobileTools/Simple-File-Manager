@@ -6,7 +6,6 @@ import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
 import com.simplemobiletools.commons.models.FileDirItem
 import com.simplemobiletools.filemanager.pro.models.ListItem
 
-const val PATH = "path"
 const val MAX_COLUMN_COUNT = 15
 
 // shared preferences
@@ -17,7 +16,6 @@ const val TEMPORARILY_SHOW_HIDDEN = "temporarily_show_hidden"
 const val IS_ROOT_AVAILABLE = "is_root_available"
 const val ENABLE_ROOT_ACCESS = "enable_root_access"
 const val EDITOR_TEXT_ZOOM = "editor_text_zoom"
-const val VIEW_TYPE = "view_type"
 const val VIEW_TYPE_PREFIX = "view_type_folder_"
 const val FILE_COLUMN_CNT = "file_column_cnt"
 const val FILE_LANDSCAPE_COLUMN_CNT = "file_landscape_column_cnt"
