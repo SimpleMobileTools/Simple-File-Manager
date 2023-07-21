@@ -1,5 +1,7 @@
 package com.simplemobiletools.filemanager.pro.adapters
 
+import android.content.Intent
+import android.media.RingtoneManager
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
@@ -19,6 +21,22 @@ class ViewPagerAdapter(val activity: SimpleActivity, val tabsToShow: ArrayList<I
         container.addView(view)
 
         (view as MyViewPagerFragment).apply {
+            val isPickRingtoneIntent = activity.intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
+            val isGetContentIntent = activity.intent.action == Intent.ACTION_GET_CONTENT || activity.intent.action == Intent.ACTION_PICK
+            val isCreateDocumentIntent = activity.intent.action == Intent.ACTION_CREATE_DOCUMENT
+            val allowPickingMultipleIntent = activity.intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+            val getContentMimeType = if (isGetContentIntent) {
+                activity.intent.type ?: ""
+            } else {
+                ""
+            }
+
+            this.isGetRingtonePicker = isPickRingtoneIntent
+            this.isPickMultipleIntent = allowPickingMultipleIntent
+            this.isGetContentIntent = isGetContentIntent
+            this.wantedMimeType = getContentMimeType
+            this.updateIsCreateDocumentIntent(isCreateDocumentIntent)
+
             setupFragment(activity)
             onResume(activity.getProperTextColor())
         }
