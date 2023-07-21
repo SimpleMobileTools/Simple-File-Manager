@@ -373,24 +373,6 @@ class MainActivity : SimpleActivity() {
             openPath(config.homeFolder)
         }
 
-        val isPickRingtoneIntent = intent.action == RingtoneManager.ACTION_RINGTONE_PICKER
-        val isGetContentIntent = intent.action == Intent.ACTION_GET_CONTENT || intent.action == Intent.ACTION_PICK
-        val isCreateDocumentIntent = intent.action == Intent.ACTION_CREATE_DOCUMENT
-        val allowPickingMultipleIntent = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
-        val getContentMimeType = if (isGetContentIntent) {
-            intent.type ?: ""
-        } else {
-            ""
-        }
-
-        getAllFragments().forEach {
-            it?.isGetRingtonePicker = isPickRingtoneIntent
-            it?.isPickMultipleIntent = allowPickingMultipleIntent
-            it?.isGetContentIntent = isGetContentIntent
-            it?.wantedMimeType = getContentMimeType
-            it?.updateIsCreateDocumentIntent(isCreateDocumentIntent)
-        }
-
         if (refreshRecents) {
             recents_fragment?.refreshFragment()
         }
