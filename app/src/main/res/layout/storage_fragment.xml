@@ -56,7 +56,9 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackThickness="4dp" />
+                    app:trackCornerRadius="3dp"
+                    app:trackThickness="6dp"
+                    tools:trackCornerRadius="3dp" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/total_space"
@@ -70,29 +72,35 @@
 
             <RelativeLayout
                 android:id="@+id/images_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="185dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
-                android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/free_space_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/images_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/images_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/images_size"
                     android:text="@string/images"
-                    android:textSize="@dimen/bigger_text_size" />
+                    android:textAlignment="center"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/images_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
@@ -106,34 +114,41 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackThickness="2dp" />
+                    app:trackThickness="0dp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/videos_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="185dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintTop_toBottomOf="@+id/images_holder">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/free_space_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/videos_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/videos_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/videos_size"
                     android:text="@string/videos"
-                    android:textSize="@dimen/bigger_text_size" />
+                    android:textAlignment="center"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/videos_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
@@ -147,34 +162,42 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackThickness="2dp" />
+                    app:trackThickness="0dp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/audio_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="185dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintTop_toBottomOf="@+id/videos_holder">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/images_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/audio_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/audio_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/audio_size"
                     android:text="@string/audio"
-                    android:textSize="@dimen/bigger_text_size" />
+                    android:textAlignment="center"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/audio_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
@@ -188,34 +211,42 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackThickness="2dp" />
+                    app:trackThickness="0dp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/documents_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="185dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintTop_toBottomOf="@+id/audio_holder">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/videos_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/documents_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/documents_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/documents_size"
                     android:text="@string/documents"
-                    android:textSize="@dimen/bigger_text_size" />
+                    android:textAlignment="center"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/documents_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
@@ -229,34 +260,42 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackThickness="2dp" />
+                    app:trackThickness="0dp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/archives_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="185dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintTop_toBottomOf="@+id/documents_holder">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/audio_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/archives_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/archives_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/archives_size"
                     android:text="@string/archives"
-                    android:textSize="@dimen/bigger_text_size" />
+                    android:textAlignment="center"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/archives_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
@@ -270,34 +309,42 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackThickness="2dp" />
+                    app:trackThickness="0dp" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/others_holder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:layout_width="185dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintTop_toBottomOf="@+id/archives_holder">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/documents_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/others_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_toStartOf="@+id/others_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toEndOf="@+id/others_size"
                     android:text="@string/others"
-                    android:textSize="@dimen/bigger_text_size" />
+                    android:textAlignment="center"
+                    android:textSize="@dimen/big_text_size"
+                    android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/others_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
@@ -311,7 +358,7 @@
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackThickness="2dp" />
+                    app:trackThickness="0dp" />
             </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
