@@ -18,10 +18,9 @@ import com.simplemobiletools.commons.helpers.getFilePlaceholderDrawables
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.databinding.ItemDecompressionListFileDirBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.item_file_dir_list.view.*
-import java.util.*
 
 class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableList<ListItem>, recyclerView: MyRecyclerView, itemClick: (Any) -> Unit) :
     MyRecyclerViewAdapter(activity, recyclerView, itemClick) {
@@ -60,7 +59,9 @@ class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableLis
 
     override fun onActionModeDestroyed() {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_decompression_list_file_dir, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return createViewHolder(ItemDecompressionListFileDirBinding.inflate(layoutInflater, parent, false).root)
+    }
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = listItems[position]
@@ -75,22 +76,23 @@ class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableLis
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
-            val icon = holder.itemView.item_icon
-            if (icon != null) {
-                Glide.with(activity).clear(icon)
+            ItemDecompressionListFileDirBinding.bind(holder.itemView).apply {
+                if (itemIcon != null) {
+                    Glide.with(activity).clear(itemIcon)
+                }
             }
         }
     }
 
     private fun setupView(view: View, listItem: ListItem) {
-        view.apply {
+        ItemDecompressionListFileDirBinding.bind(view).apply {
             val fileName = listItem.name
-            item_name.text = fileName
-            item_name.setTextColor(textColor)
-            item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+            itemName.text = fileName
+            itemName.setTextColor(textColor)
+            itemName.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
 
             if (listItem.isDirectory) {
-                item_icon.setImageDrawable(folderDrawable)
+                itemIcon.setImageDrawable(folderDrawable)
             } else {
                 val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                 val options = RequestOptions()
@@ -105,7 +107,7 @@ class DecompressItemsAdapter(activity: SimpleActivity, var listItems: MutableLis
                         .load(itemToLoad)
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .apply(options)
-                        .into(item_icon)
+                        .into(itemIcon)
                 }
             }
         }
