@@ -10,12 +10,12 @@ import com.simplemobiletools.commons.helpers.TAB_STORAGE_ANALYSIS
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.commons.views.MyAppCompatCheckbox
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.DialogManageVisibleTabsBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.ALL_TABS_MASK
-import kotlinx.android.synthetic.main.dialog_manage_visible_tabs.view.*
 
 class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
-    private var view = activity.layoutInflater.inflate(R.layout.dialog_manage_visible_tabs, null)
+    private val binding = DialogManageVisibleTabsBinding.inflate(activity.layoutInflater)
     private val tabs = LinkedHashMap<Int, Int>()
 
     init {
@@ -26,26 +26,26 @@ class ManageVisibleTabsDialog(val activity: BaseSimpleActivity) {
         }
 
         if (!isOreoPlus()) {
-            view.manage_visible_tabs_storage_analysis.beGone()
+            binding.manageVisibleTabsStorageAnalysis.beGone()
         }
 
         val showTabs = activity.config.showTabs
         for ((key, value) in tabs) {
-            view.findViewById<MyAppCompatCheckbox>(value).isChecked = showTabs and key != 0
+            binding.root.findViewById<MyAppCompatCheckbox>(value).isChecked = showTabs and key != 0
         }
 
         activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
             .setNegativeButton(R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this)
+                activity.setupDialogStuff(binding.root, this)
             }
     }
 
     private fun dialogConfirmed() {
         var result = 0
         for ((key, value) in tabs) {
-            if (view.findViewById<MyAppCompatCheckbox>(value).isChecked) {
+            if (binding.root.findViewById<MyAppCompatCheckbox>(value).isChecked) {
                 result += key
             }
         }

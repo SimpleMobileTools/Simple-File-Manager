@@ -1,6 +1,5 @@
 package com.simplemobiletools.filemanager.pro.dialogs
 
-import android.view.View
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.beGone
 import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
@@ -8,29 +7,29 @@ import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_GRID
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.DialogChangeViewTypeBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_change_view_type.view.*
 
 class ChangeViewTypeDialog(val activity: BaseSimpleActivity, val path: String = "", showFolderCheck: Boolean = true, val callback: () -> Unit) {
-    private var view: View
+    private var binding: DialogChangeViewTypeBinding
     private var config = activity.config
 
     init {
-        view = activity.layoutInflater.inflate(R.layout.dialog_change_view_type, null).apply {
+        binding = DialogChangeViewTypeBinding.inflate(activity.layoutInflater).apply {
             val currViewType = config.getFolderViewType(this@ChangeViewTypeDialog.path)
             val viewToCheck = if (currViewType == VIEW_TYPE_GRID) {
-                change_view_type_dialog_radio_grid.id
+                changeViewTypeDialogRadioGrid.id
             } else {
-                change_view_type_dialog_radio_list.id
+                changeViewTypeDialogRadioList.id
             }
 
-            change_view_type_dialog_radio.check(viewToCheck)
+            changeViewTypeDialogRadio.check(viewToCheck)
             if (!showFolderCheck) {
-                use_for_this_folder_divider.beGone()
-                change_view_type_dialog_use_for_this_folder.beGone()
+                useForThisFolderDivider.beGone()
+                changeViewTypeDialogUseForThisFolder.beGone()
             }
 
-            change_view_type_dialog_use_for_this_folder.apply {
+            changeViewTypeDialogUseForThisFolder.apply {
                 isChecked = config.hasCustomViewType(this@ChangeViewTypeDialog.path)
             }
         }
@@ -39,18 +38,18 @@ class ChangeViewTypeDialog(val activity: BaseSimpleActivity, val path: String = 
             .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
             .setNegativeButton(R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this)
+                activity.setupDialogStuff(binding.root, this)
             }
     }
 
     private fun dialogConfirmed() {
-        val viewType = if (view.change_view_type_dialog_radio.checkedRadioButtonId == view.change_view_type_dialog_radio_grid.id) {
+        val viewType = if (binding.changeViewTypeDialogRadio.checkedRadioButtonId == binding.changeViewTypeDialogRadioGrid.id) {
             VIEW_TYPE_GRID
         } else {
             VIEW_TYPE_LIST
         }
 
-        if (view.change_view_type_dialog_use_for_this_folder.isChecked) {
+        if (binding.changeViewTypeDialogUseForThisFolder.isChecked) {
             config.saveFolderViewType(this.path, viewType)
         } else {
             config.removeFolderViewType(this.path)
