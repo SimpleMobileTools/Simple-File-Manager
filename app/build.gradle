@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
@@ -9,12 +8,13 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 33
+    namespace "com.simplemobiletools.filemanager.pro"
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.simplemobiletools.filemanager.pro"
-        minSdkVersion 23
-        targetSdkVersion 33
+        minSdk 23
+        targetSdk 34
         versionCode 135
         versionName "6.16.0"
         multiDexEnabled true
@@ -33,6 +33,11 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig true
+        viewBinding true
+    }
+
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
@@ -46,7 +51,16 @@ android {
         }
     }
 
-    flavorDimensions "variants"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    flavorDimensions = ["variants"]
     productFlavors {
         core {}
         fdroid {}
@@ -64,7 +78,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.SimpleMobileTools:Simple-Commons:ae8713396b'
+    implementation 'com.github.fatihergin:Simple-Commons:fe7a01274a' // TODO: do not replace it with SimpleMobileTools
     implementation 'com.github.tibbi:AndroidPdfViewer:e6a533125b'
     implementation 'com.github.Stericson:RootTools:df729dcb13'
     implementation 'com.github.Stericson:RootShell:1.6'
