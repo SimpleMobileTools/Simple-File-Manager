@@ -25,6 +25,7 @@ import com.simplemobiletools.commons.models.Release
 import com.simplemobiletools.filemanager.pro.BuildConfig
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.ViewPagerAdapter
+import com.simplemobiletools.filemanager.pro.databinding.ActivityMainBinding
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeSortingDialog
 import com.simplemobiletools.filemanager.pro.dialogs.ChangeViewTypeDialog
 import com.simplemobiletools.filemanager.pro.dialogs.InsertFilenameDialog
@@ -38,11 +39,6 @@ import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.stericson.RootTools.RootTools
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.items_fragment.*
-import kotlinx.android.synthetic.main.items_fragment.view.*
-import kotlinx.android.synthetic.main.recents_fragment.*
-import kotlinx.android.synthetic.main.storage_fragment.*
 import me.grantland.widget.AutofitHelper
 import java.io.File
 
@@ -50,6 +46,7 @@ class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
     private val MANAGE_STORAGE_RC = 201
     private val PICKED_PATH = "picked_path"
+    private lateinit var binding: ActivityMainBinding
     private var wasBackJustPressed = false
     private var mIsPasswordProtectionPending = false
     private var mWasProtectionHandled = false
@@ -63,7 +60,8 @@ class MainActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
         refreshMenuItems()
@@ -79,7 +77,7 @@ class MainActivity : SimpleActivity() {
         storeStateVariables()
         setupTabs()
 
-        updateMaterialActivityViews(main_coordinator, null, useTransparentNavigation = false, useTopSearchMenu = true)
+        updateMaterialActivityViews(binding.mainCoordinator, null, useTransparentNavigation = false, useTopSearchMenu = true)
 
         mIsPasswordProtectionPending = config.isAppPasswordProtectionOn
 
@@ -132,7 +130,7 @@ class MainActivity : SimpleActivity() {
             }
         }
 
-        if (main_view_pager.adapter == null && mWasProtectionHandled) {
+        if (binding.mainViewPager.adapter == null && mWasProtectionHandled) {
             initFragments()
         }
     }
@@ -140,7 +138,7 @@ class MainActivity : SimpleActivity() {
     override fun onPause() {
         super.onPause()
         storeStateVariables()
-        config.lastUsedViewPagerPage = main_view_pager.currentItem
+        config.lastUsedViewPagerPage = binding.mainViewPager.currentItem
     }
 
     override fun onDestroy() {
@@ -150,11 +148,11 @@ class MainActivity : SimpleActivity() {
 
     override fun onBackPressed() {
         val currentFragment = getCurrentFragment()
-        if (main_menu.isSearchOpen) {
-            main_menu.closeSearch()
+        if (binding.mainMenu.isSearchOpen) {
+            binding.mainMenu.closeSearch()
         } else if (currentFragment is RecentsFragment || currentFragment is StorageFragment) {
             super.onBackPressed()
-        } else if (currentFragment!!.breadcrumbs.getItemCount() <= 1) {
+        } else if ((currentFragment as ItemsFragment).getBreadcrumbs().getItemCount() <= 1) {
             if (!wasBackJustPressed && config.pressBackTwice) {
                 wasBackJustPressed = true
                 toast(R.string.press_back_again)
@@ -165,8 +163,8 @@ class MainActivity : SimpleActivity() {
                 finish()
             }
         } else {
-            currentFragment.breadcrumbs?.removeBreadcrumb()
-            openPath(currentFragment.breadcrumbs.getLastItem().path)
+            currentFragment.getBreadcrumbs().removeBreadcrumb()
+            openPath(currentFragment.getBreadcrumbs().getLastItem().path)
         }
     }
 
@@ -176,7 +174,7 @@ class MainActivity : SimpleActivity() {
         val currentViewType = config.getFolderViewType(currentFragment.currentPath)
         val favorites = config.favorites
 
-        main_menu.getToolbar().menu.apply {
+        binding.mainMenu.getToolbar().menu.apply {
             findItem(R.id.sort).isVisible = currentFragment is ItemsFragment
             findItem(R.id.change_view_type).isVisible = currentFragment !is StorageFragment
 
@@ -200,49 +198,51 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun setupOptionsMenu() {
-        main_menu.getToolbar().inflateMenu(R.menu.menu)
-        main_menu.toggleHideOnScroll(false)
-        main_menu.setupMenu()
+        binding.mainMenu.apply {
+            getToolbar().inflateMenu(R.menu.menu)
+            toggleHideOnScroll(false)
+            setupMenu()
 
-        main_menu.onSearchClosedListener = {
-            getAllFragments().forEach {
-                it?.searchQueryChanged("")
+            onSearchClosedListener = {
+                getAllFragments().forEach {
+                    it?.searchQueryChanged("")
+                }
             }
-        }
 
-        main_menu.onSearchTextChangedListener = { text ->
-            getCurrentFragment()?.searchQueryChanged(text)
-        }
+            onSearchTextChangedListener = { text ->
+                getCurrentFragment()?.searchQueryChanged(text)
+            }
 
-        main_menu.getToolbar().setOnMenuItemClickListener { menuItem ->
-            if (getCurrentFragment() == null) {
+            getToolbar().setOnMenuItemClickListener { menuItem ->
+                if (getCurrentFragment() == null) {
+                    return@setOnMenuItemClickListener true
+                }
+
+                when (menuItem.itemId) {
+                    R.id.go_home -> goHome()
+                    R.id.go_to_favorite -> goToFavorite()
+                    R.id.sort -> showSortingDialog()
+                    R.id.add_favorite -> addFavorite()
+                    R.id.remove_favorite -> removeFavorite()
+                    R.id.toggle_filename -> toggleFilenameVisibility()
+                    R.id.set_as_home -> setAsHome()
+                    R.id.change_view_type -> changeViewType()
+                    R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
+                    R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
+                    R.id.column_count -> changeColumnCount()
+                    R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
+                    R.id.settings -> launchSettings()
+                    R.id.about -> launchAbout()
+                    else -> return@setOnMenuItemClickListener false
+                }
                 return@setOnMenuItemClickListener true
             }
-
-            when (menuItem.itemId) {
-                R.id.go_home -> goHome()
-                R.id.go_to_favorite -> goToFavorite()
-                R.id.sort -> showSortingDialog()
-                R.id.add_favorite -> addFavorite()
-                R.id.remove_favorite -> removeFavorite()
-                R.id.toggle_filename -> toggleFilenameVisibility()
-                R.id.set_as_home -> setAsHome()
-                R.id.change_view_type -> changeViewType()
-                R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
-                R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
-                R.id.column_count -> changeColumnCount()
-                R.id.more_apps_from_us -> launchMoreAppsFromUsIntent()
-                R.id.settings -> launchSettings()
-                R.id.about -> launchAbout()
-                else -> return@setOnMenuItemClickListener false
-            }
-            return@setOnMenuItemClickListener true
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(PICKED_PATH, items_fragment?.currentPath ?: "")
+        outState.putString(PICKED_PATH, getItemsFragment()?.currentPath ?: "")
         outState.putBoolean(WAS_PROTECTION_HANDLED, mWasProtectionHandled)
     }
 
@@ -251,8 +251,8 @@ class MainActivity : SimpleActivity() {
         mWasProtectionHandled = savedInstanceState.getBoolean(WAS_PROTECTION_HANDLED, false)
         val path = savedInstanceState.getString(PICKED_PATH) ?: internalStoragePath
 
-        if (main_view_pager.adapter == null) {
-            main_view_pager.onGlobalLayout {
+        if (binding.mainViewPager.adapter == null) {
+            binding.mainViewPager.onGlobalLayout {
                 restorePath(path)
             }
         } else {
@@ -287,7 +287,7 @@ class MainActivity : SimpleActivity() {
 
     private fun updateMenuColors() {
         updateStatusbarColor(getProperBackgroundColor())
-        main_menu.updateColors()
+        binding.mainMenu.updateColors()
     }
 
     private fun storeStateVariables() {
@@ -304,11 +304,11 @@ class MainActivity : SimpleActivity() {
         handleStoragePermission {
             checkOTGPath()
             if (it) {
-                if (main_view_pager.adapter == null) {
+                if (binding.mainViewPager.adapter == null) {
                     initFragments()
                 }
 
-                main_view_pager.onGlobalLayout {
+                binding.mainViewPager.onGlobalLayout {
                     initFileManager(!hadPermission)
                 }
             } else {
@@ -368,41 +368,43 @@ class MainActivity : SimpleActivity() {
                 tryOpenPathIntent(data.path!!, false, finishActivity = true)
             }
 
-            main_view_pager.currentItem = 0
+            binding.mainViewPager.currentItem = 0
         } else {
             openPath(config.homeFolder)
         }
 
         if (refreshRecents) {
-            recents_fragment?.refreshFragment()
+            getRecentsFragment()?.refreshFragment()
         }
     }
 
     private fun initFragments() {
-        main_view_pager.adapter = ViewPagerAdapter(this, mTabsToShow)
-        main_view_pager.offscreenPageLimit = 2
-        main_view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {}
+        binding.mainViewPager.apply {
+            adapter = ViewPagerAdapter(this@MainActivity, mTabsToShow)
+            offscreenPageLimit = 2
+            addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrollStateChanged(state: Int) {}
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
-            override fun onPageSelected(position: Int) {
-                main_tabs_holder.getTabAt(position)?.select()
-                getAllFragments().forEach {
-                    (it as? ItemOperationsListener)?.finishActMode()
+                override fun onPageSelected(position: Int) {
+                    binding.mainTabsHolder.getTabAt(position)?.select()
+                    getAllFragments().forEach {
+                        (it as? ItemOperationsListener)?.finishActMode()
+                    }
+                    refreshMenuItems()
                 }
+            })
+            currentItem = config.lastUsedViewPagerPage
+
+            onGlobalLayout {
                 refreshMenuItems()
             }
-        })
-        main_view_pager.currentItem = config.lastUsedViewPagerPage
-
-        main_view_pager.onGlobalLayout {
-            refreshMenuItems()
         }
     }
 
     private fun setupTabs() {
-        main_tabs_holder.removeAllTabs()
+        binding.mainTabsHolder.removeAllTabs()
         val action = intent.action
         val isPickFileIntent = action == RingtoneManager.ACTION_RINGTONE_PICKER || action == Intent.ACTION_GET_CONTENT || action == Intent.ACTION_PICK
         val isCreateDocumentIntent = action == Intent.ACTION_CREATE_DOCUMENT
@@ -421,41 +423,45 @@ class MainActivity : SimpleActivity() {
 
         mTabsToShow.forEachIndexed { index, value ->
             if (config.showTabs and value != 0) {
-                main_tabs_holder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
+                binding.mainTabsHolder.newTab().setCustomView(R.layout.bottom_tablayout_item).apply {
                     customView?.findViewById<ImageView>(R.id.tab_item_icon)?.setImageDrawable(getTabIcon(index))
                     customView?.findViewById<TextView>(R.id.tab_item_label)?.text = getTabLabel(index)
                     AutofitHelper.create(customView?.findViewById(R.id.tab_item_label))
-                    main_tabs_holder.addTab(this)
+                    binding.mainTabsHolder.addTab(this)
                 }
             }
         }
 
-        main_tabs_holder.onTabSelectionChanged(
-            tabUnselectedAction = {
-                updateBottomTabItemColors(it.customView, false, getDeselectedTabDrawableIds()[it.position])
-            },
-            tabSelectedAction = {
-                main_menu.closeSearch()
-                main_view_pager.currentItem = it.position
-                updateBottomTabItemColors(it.customView, true, getSelectedTabDrawableIds()[it.position])
-            }
-        )
+        binding.mainTabsHolder.apply {
+            onTabSelectionChanged(
+                tabUnselectedAction = {
+                    updateBottomTabItemColors(it.customView, false, getDeselectedTabDrawableIds()[it.position])
+                },
+                tabSelectedAction = {
+                    binding.mainMenu.closeSearch()
+                    binding.mainViewPager.currentItem = it.position
+                    updateBottomTabItemColors(it.customView, true, getSelectedTabDrawableIds()[it.position])
+                }
+            )
 
-        main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
+            beGoneIf(tabCount == 1)
+        }
     }
 
     private fun setupTabColors() {
-        val activeView = main_tabs_holder.getTabAt(main_view_pager.currentItem)?.customView
-        updateBottomTabItemColors(activeView, true, getSelectedTabDrawableIds()[main_view_pager.currentItem])
+        binding.apply {
+            val activeView = mainTabsHolder.getTabAt(mainViewPager.currentItem)?.customView
+            updateBottomTabItemColors(activeView, true, getSelectedTabDrawableIds()[mainViewPager.currentItem])
 
-        getInactiveTabIndexes(main_view_pager.currentItem).forEach { index ->
-            val inactiveView = main_tabs_holder.getTabAt(index)?.customView
-            updateBottomTabItemColors(inactiveView, false, getDeselectedTabDrawableIds()[index])
+            getInactiveTabIndexes(mainViewPager.currentItem).forEach { index ->
+                val inactiveView = mainTabsHolder.getTabAt(index)?.customView
+                updateBottomTabItemColors(inactiveView, false, getDeselectedTabDrawableIds()[index])
+            }
+
+            val bottomBarColor = getBottomNavigationBackgroundColor()
+            updateNavigationBarColor(bottomBarColor)
+            mainTabsHolder.setBackgroundColor(bottomBarColor)
         }
-
-        val bottomBarColor = getBottomNavigationBackgroundColor()
-        updateNavigationBarColor(bottomBarColor)
-        main_tabs_holder.setBackgroundColor(bottomBarColor)
     }
 
     private fun getTabIcon(position: Int): Drawable {
@@ -504,7 +510,7 @@ class MainActivity : SimpleActivity() {
             newPath = internalStoragePath
         }
 
-        items_fragment?.openPath(newPath, forceRefresh)
+        getItemsFragment()?.openPath(newPath, forceRefresh)
     }
 
     private fun goHome() {
@@ -714,12 +720,12 @@ class MainActivity : SimpleActivity() {
     }
 
     fun openedDirectory() {
-        if (main_menu.isSearchOpen) {
-            main_menu.closeSearch()
+        if (binding.mainMenu.isSearchOpen) {
+            binding.mainMenu.closeSearch()
         }
     }
 
-    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until main_tabs_holder.tabCount).filter { it != activeIndex }
+    private fun getInactiveTabIndexes(activeIndex: Int) = (0 until binding.mainTabsHolder.tabCount).filter { it != activeIndex }
 
     private fun getSelectedTabDrawableIds(): ArrayList<Int> {
         val showTabs = config.showTabs
@@ -759,24 +765,28 @@ class MainActivity : SimpleActivity() {
         return icons
     }
 
-    private fun getAllFragments(): ArrayList<MyViewPagerFragment?> = arrayListOf(items_fragment, recents_fragment, storage_fragment)
+    private fun getRecentsFragment() = findViewById<RecentsFragment>(R.id.recents_fragment);
+    private fun getItemsFragment() = findViewById<ItemsFragment>(R.id.items_fragment);
+    private fun getStorageFragment() = findViewById<StorageFragment>(R.id.storage_fragment);
+    private fun getAllFragments(): ArrayList<MyViewPagerFragment<*>?> =
+        arrayListOf(getItemsFragment(), getRecentsFragment(), getStorageFragment())
 
-    private fun getCurrentFragment(): MyViewPagerFragment? {
+    private fun getCurrentFragment(): MyViewPagerFragment<*>? {
         val showTabs = config.showTabs
-        val fragments = arrayListOf<MyViewPagerFragment>()
+        val fragments = arrayListOf<MyViewPagerFragment<*>>()
         if (showTabs and TAB_FILES != 0) {
-            fragments.add(items_fragment)
+            fragments.add(getItemsFragment())
         }
 
         if (showTabs and TAB_RECENT_FILES != 0) {
-            fragments.add(recents_fragment)
+            fragments.add(getRecentsFragment())
         }
 
         if (showTabs and TAB_STORAGE_ANALYSIS != 0) {
-            fragments.add(storage_fragment)
+            fragments.add(getStorageFragment())
         }
 
-        return fragments.getOrNull(main_view_pager.currentItem)
+        return fragments.getOrNull(binding.mainViewPager.currentItem)
     }
 
     private fun getTabsList() = arrayListOf(TAB_FILES, TAB_RECENT_FILES, TAB_STORAGE_ANALYSIS)
