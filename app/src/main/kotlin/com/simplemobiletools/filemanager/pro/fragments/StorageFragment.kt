@@ -21,28 +21,36 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MimeTypesActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
+import com.simplemobiletools.filemanager.pro.databinding.StorageFragmentBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
 import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.storage_fragment.view.*
 import java.util.*
 
-class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
+class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment<MyViewPagerFragment.StorageInnerBinding>(context, attributeSet),
+    ItemOperationsListener {
     private val SIZE_DIVIDER = 100000
     private var allDeviceListItems = ArrayList<ListItem>()
     private var lastSearchedText = ""
+    private lateinit var binding: StorageFragmentBinding
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        binding = StorageFragmentBinding.bind(this)
+        innerBinding = StorageInnerBinding(binding)
+    }
 
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
         }
 
-        total_space.text = String.format(context.getString(R.string.total_storage), "…")
+        binding.totalSpace.text = String.format(context.getString(R.string.total_storage), "…")
         getSizes()
 
-        free_space_holder.setOnClickListener {
+        binding.freeSpaceHolder.setOnClickListener {
             try {
                 val storageSettingsIntent = Intent(Settings.ACTION_INTERNAL_STORAGE_SETTINGS)
                 activity.startActivity(storageSettingsIntent)
@@ -51,12 +59,14 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             }
         }
 
-        images_holder.setOnClickListener { launchMimetypeActivity(IMAGES) }
-        videos_holder.setOnClickListener { launchMimetypeActivity(VIDEOS) }
-        audio_holder.setOnClickListener { launchMimetypeActivity(AUDIO) }
-        documents_holder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
-        archives_holder.setOnClickListener { launchMimetypeActivity(ARCHIVES) }
-        others_holder.setOnClickListener { launchMimetypeActivity(OTHERS) }
+        binding.apply {
+            imagesHolder.setOnClickListener { launchMimetypeActivity(IMAGES) }
+            videosHolder.setOnClickListener { launchMimetypeActivity(VIDEOS) }
+            audioHolder.setOnClickListener { launchMimetypeActivity(AUDIO) }
+            documentsHolder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
+            archivesHolder.setOnClickListener { launchMimetypeActivity(ARCHIVES) }
+            othersHolder.setOnClickListener { launchMimetypeActivity(OTHERS) }
+        }
 
         Handler().postDelayed({
             refreshFragment()
@@ -65,39 +75,42 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun onResume(textColor: Int) {
         getSizes()
-        context.updateTextColors(storage_fragment)
+        context.updateTextColors(binding.root)
 
-        val properPrimaryColor = context.getProperPrimaryColor()
-        main_storage_usage_progressbar.setIndicatorColor(properPrimaryColor)
-        main_storage_usage_progressbar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
+        binding.apply {
+            val properPrimaryColor = context.getProperPrimaryColor()
+            mainStorageUsageProgressbar.setIndicatorColor(properPrimaryColor)
+            mainStorageUsageProgressbar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
 
-        val redColor = context.resources.getColor(R.color.md_red_700)
-        images_progressbar.setIndicatorColor(redColor)
-        images_progressbar.trackColor = redColor.adjustAlpha(LOWER_ALPHA)
+            val redColor = context.resources.getColor(R.color.md_red_700)
+            imagesProgressbar.setIndicatorColor(redColor)
+            imagesProgressbar.trackColor = redColor.adjustAlpha(LOWER_ALPHA)
 
-        val greenColor = context.resources.getColor(R.color.md_green_700)
-        videos_progressbar.setIndicatorColor(greenColor)
-        videos_progressbar.trackColor = greenColor.adjustAlpha(LOWER_ALPHA)
+            val greenColor = context.resources.getColor(R.color.md_green_700)
+            videosProgressbar.setIndicatorColor(greenColor)
+            videosProgressbar.trackColor = greenColor.adjustAlpha(LOWER_ALPHA)
 
-        val lightBlueColor = context.resources.getColor(R.color.md_light_blue_700)
-        audio_progressbar.setIndicatorColor(lightBlueColor)
-        audio_progressbar.trackColor = lightBlueColor.adjustAlpha(LOWER_ALPHA)
+            val lightBlueColor = context.resources.getColor(R.color.md_light_blue_700)
+            audioProgressbar.setIndicatorColor(lightBlueColor)
+            audioProgressbar.trackColor = lightBlueColor.adjustAlpha(LOWER_ALPHA)
 
-        val yellowColor = context.resources.getColor(R.color.md_yellow_700)
-        documents_progressbar.setIndicatorColor(yellowColor)
-        documents_progressbar.trackColor = yellowColor.adjustAlpha(LOWER_ALPHA)
+            val yellowColor = context.resources.getColor(R.color.md_yellow_700)
+            documentsProgressbar.setIndicatorColor(yellowColor)
+            documentsProgressbar.trackColor = yellowColor.adjustAlpha(LOWER_ALPHA)
 
-        val tealColor = context.resources.getColor(R.color.md_teal_700)
-        archives_progressbar.setIndicatorColor(tealColor)
-        archives_progressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
+            val tealColor = context.resources.getColor(R.color.md_teal_700)
+            archivesProgressbar.setIndicatorColor(tealColor)
+            archivesProgressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
 
-        val pinkColor = context.resources.getColor(R.color.md_pink_700)
-        others_progressbar.setIndicatorColor(pinkColor)
-        others_progressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
+            val pinkColor = context.resources.getColor(R.color.md_pink_700)
+            othersProgressbar.setIndicatorColor(pinkColor)
+            othersProgressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
 
-        search_holder.setBackgroundColor(context.getProperBackgroundColor())
-        progress_bar.setIndicatorColor(properPrimaryColor)
-        progress_bar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
+            searchHolder.setBackgroundColor(context.getProperBackgroundColor())
+            progressBar.setIndicatorColor(properPrimaryColor)
+            progressBar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
+        }
+
     }
 
     private fun launchMimetypeActivity(mimetype: String) {
@@ -116,31 +129,33 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             getMainStorageStats(context)
 
             val filesSize = getSizesByMimeType()
-            val imagesSize = filesSize[IMAGES]!!
-            val videosSize = filesSize[VIDEOS]!!
-            val audioSize = filesSize[AUDIO]!!
-            val documentsSize = filesSize[DOCUMENTS]!!
-            val archivesSize = filesSize[ARCHIVES]!!
-            val othersSize = filesSize[OTHERS]!!
+            val fileSizeImages = filesSize[IMAGES]!!
+            val fileSizeVideos = filesSize[VIDEOS]!!
+            val fileSizeAudios = filesSize[AUDIO]!!
+            val fileSizeDocuments = filesSize[DOCUMENTS]!!
+            val fileSizeArchives = filesSize[ARCHIVES]!!
+            val fileSizeOthers = filesSize[OTHERS]!!
 
             post {
-                images_size.text = imagesSize.formatSize()
-                images_progressbar.progress = (imagesSize / SIZE_DIVIDER).toInt()
+                binding.apply {
+                    imagesSize.text = fileSizeImages.formatSize()
+                    imagesProgressbar.progress = (fileSizeImages / SIZE_DIVIDER).toInt()
 
-                videos_size.text = videosSize.formatSize()
-                videos_progressbar.progress = (videosSize / SIZE_DIVIDER).toInt()
+                    videosSize.text = fileSizeVideos.formatSize()
+                    videosProgressbar.progress = (fileSizeVideos / SIZE_DIVIDER).toInt()
 
-                audio_size.text = audioSize.formatSize()
-                audio_progressbar.progress = (audioSize / SIZE_DIVIDER).toInt()
+                    audioSize.text = fileSizeAudios.formatSize()
+                    audioProgressbar.progress = (fileSizeAudios / SIZE_DIVIDER).toInt()
 
-                documents_size.text = documentsSize.formatSize()
-                documents_progressbar.progress = (documentsSize / SIZE_DIVIDER).toInt()
+                    documentsSize.text = fileSizeDocuments.formatSize()
+                    documentsProgressbar.progress = (fileSizeDocuments / SIZE_DIVIDER).toInt()
 
-                archives_size.text = archivesSize.formatSize()
-                archives_progressbar.progress = (archivesSize / SIZE_DIVIDER).toInt()
+                    archivesSize.text = fileSizeArchives.formatSize()
+                    archivesProgressbar.progress = (fileSizeArchives / SIZE_DIVIDER).toInt()
 
-                others_size.text = othersSize.formatSize()
-                others_progressbar.progress = (othersSize / SIZE_DIVIDER).toInt()
+                    othersSize.text = fileSizeOthers.formatSize()
+                    othersProgressbar.progress = (fileSizeOthers / SIZE_DIVIDER).toInt()
+                }
             }
         }
     }
@@ -217,23 +232,25 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 // internal storage
                 val storageStatsManager = context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
                 val uuid = StorageManager.UUID_DEFAULT
-                val totalSpace = storageStatsManager.getTotalBytes(uuid)
-                val freeSpace = storageStatsManager.getFreeBytes(uuid)
+                val totalStorageSpace = storageStatsManager.getTotalBytes(uuid)
+                val freeStorageSpace = storageStatsManager.getFreeBytes(uuid)
 
                 post {
-                    arrayOf(
-                        main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar,
-                        archives_progressbar, others_progressbar
-                    ).forEach {
-                        it.max = (totalSpace / SIZE_DIVIDER).toInt()
+                    binding.apply {
+                        arrayOf(
+                            mainStorageUsageProgressbar, imagesProgressbar, videosProgressbar, audioProgressbar, documentsProgressbar,
+                            archivesProgressbar, othersProgressbar
+                        ).forEach {
+                            it.max = (totalStorageSpace / SIZE_DIVIDER).toInt()
+                        }
+
+                        mainStorageUsageProgressbar.progress = ((totalStorageSpace - freeStorageSpace) / SIZE_DIVIDER).toInt()
+
+                        mainStorageUsageProgressbar.beVisible()
+                        freeSpaceValue.text = freeStorageSpace.formatSizeThousand()
+                        totalSpace.text = String.format(context.getString(R.string.total_storage), totalStorageSpace.formatSizeThousand())
+                        freeSpaceLabel.beVisible()
                     }
-
-                    main_storage_usage_progressbar.progress = ((totalSpace - freeSpace) / SIZE_DIVIDER).toInt()
-
-                    main_storage_usage_progressbar.beVisible()
-                    free_space_value.text = freeSpace.formatSizeThousand()
-                    total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
-                    free_space_label.beVisible()
                 }
             } else {
                 // sd card
@@ -245,41 +262,42 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun searchQueryChanged(text: String) {
         lastSearchedText = text
-
-        if (text.isNotEmpty()) {
-            if (search_holder.alpha < 1f) {
-                search_holder.fadeIn()
-            }
-        } else {
-            search_holder.animate().alpha(0f).setDuration(SHORT_ANIMATION_DURATION).withEndAction {
-                search_holder.beGone()
-                (search_results_list.adapter as? ItemsAdapter)?.updateItems(allDeviceListItems, text)
-            }.start()
-        }
-
-        if (text.length == 1) {
-            search_results_list.beGone()
-            search_placeholder.beVisible()
-            search_placeholder_2.beVisible()
-            hideProgressBar()
-        } else if (text.isEmpty()) {
-            search_results_list.beGone()
-            hideProgressBar()
-        } else {
-            showProgressBar()
-            ensureBackgroundThread {
-                val start = System.currentTimeMillis()
-                val filtered = allDeviceListItems.filter { it.mName.contains(text, true) }.toMutableList() as ArrayList<ListItem>
-                if (lastSearchedText != text) {
-                    return@ensureBackgroundThread
+        binding.apply {
+            if (text.isNotEmpty()) {
+                if (searchHolder.alpha < 1f) {
+                    searchHolder.fadeIn()
                 }
+            } else {
+                searchHolder.animate().alpha(0f).setDuration(SHORT_ANIMATION_DURATION).withEndAction {
+                    searchHolder.beGone()
+                    (searchResultsList.adapter as? ItemsAdapter)?.updateItems(allDeviceListItems, text)
+                }.start()
+            }
 
-                (context as? Activity)?.runOnUiThread {
-                    (search_results_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
-                    search_results_list.beVisible()
-                    search_placeholder.beVisibleIf(filtered.isEmpty())
-                    search_placeholder_2.beGone()
-                    hideProgressBar()
+            if (text.length == 1) {
+                searchResultsList.beGone()
+                searchPlaceholder.beVisible()
+                searchPlaceholder2.beVisible()
+                hideProgressBar()
+            } else if (text.isEmpty()) {
+                searchResultsList.beGone()
+                hideProgressBar()
+            } else {
+                showProgressBar()
+                ensureBackgroundThread {
+                    val start = System.currentTimeMillis()
+                    val filtered = allDeviceListItems.filter { it.mName.contains(text, true) }.toMutableList() as ArrayList<ListItem>
+                    if (lastSearchedText != text) {
+                        return@ensureBackgroundThread
+                    }
+
+                    (context as? Activity)?.runOnUiThread {
+                        (searchResultsList.adapter as? ItemsAdapter)?.updateItems(filtered, text)
+                        searchResultsList.beVisible()
+                        searchPlaceholder.beVisibleIf(filtered.isEmpty())
+                        searchPlaceholder2.beGone()
+                        hideProgressBar()
+                    }
                 }
             }
         }
@@ -294,25 +312,25 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             setupListLayoutManager()
         }
 
-        search_results_list.adapter = null
+        binding.searchResultsList.adapter = null
         addItems()
     }
 
     private fun setupGridLayoutManager() {
-        val layoutManager = search_results_list.layoutManager as MyGridLayoutManager
+        val layoutManager = binding.searchResultsList.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
     }
 
     private fun setupListLayoutManager() {
-        val layoutManager = search_results_list.layoutManager as MyGridLayoutManager
+        val layoutManager = binding.searchResultsList.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
     }
 
     private fun addItems() {
-        ItemsAdapter(context as SimpleActivity, ArrayList(), this, search_results_list, false, null, false) {
+        ItemsAdapter(context as SimpleActivity, ArrayList(), this, binding.searchResultsList, false, null, false) {
             clickedPath((it as FileDirItem).path)
         }.apply {
-            search_results_list.adapter = this
+            binding.searchResultsList.adapter = this
         }
     }
 
@@ -367,14 +385,14 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun showProgressBar() {
-        progress_bar.show()
+        binding.progressBar.show()
     }
 
     private fun hideProgressBar() {
-        progress_bar.hide()
+        binding.progressBar.hide()
     }
 
-    private fun getRecyclerAdapter() = search_results_list.adapter as? ItemsAdapter
+    private fun getRecyclerAdapter() = binding.searchResultsList.adapter as? ItemsAdapter
 
     override fun refreshFragment() {
         ensureBackgroundThread {
@@ -403,7 +421,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     override fun columnCountChanged() {
-        (search_results_list.layoutManager as MyGridLayoutManager).spanCount = context!!.config.fileColumnCnt
+        (binding.searchResultsList.layoutManager as MyGridLayoutManager).spanCount = context!!.config.fileColumnCnt
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
         }

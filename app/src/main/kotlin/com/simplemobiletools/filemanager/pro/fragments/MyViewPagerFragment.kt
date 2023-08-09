@@ -6,15 +6,19 @@ import android.widget.RelativeLayout
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.VIEW_TYPE_LIST
 import com.simplemobiletools.commons.models.FileDirItem
+import com.simplemobiletools.commons.views.MyFloatingActionButton
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.databinding.ItemsFragmentBinding
+import com.simplemobiletools.filemanager.pro.databinding.RecentsFragmentBinding
+import com.simplemobiletools.filemanager.pro.databinding.StorageFragmentBinding
 import com.simplemobiletools.filemanager.pro.extensions.isPathOnRoot
 import com.simplemobiletools.filemanager.pro.extensions.tryOpenPathIntent
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
-import kotlinx.android.synthetic.main.items_fragment.view.*
 
-abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet) : RelativeLayout(context, attributeSet) {
+abstract class MyViewPagerFragment<BINDING : MyViewPagerFragment.InnerBinding>(context: Context, attributeSet: AttributeSet) :
+    RelativeLayout(context, attributeSet) {
     protected var activity: SimpleActivity? = null
     protected var currentViewType = VIEW_TYPE_LIST
 
@@ -24,6 +28,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     var isPickMultipleIntent = false
     var wantedMimeType = ""
     protected var isCreateDocumentIntent = false
+    protected lateinit var innerBinding: BINDING
 
     protected fun clickedPath(path: String) {
         if (isGetContentIntent || isCreateDocumentIntent) {
@@ -48,7 +53,7 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
 
         this.isCreateDocumentIntent = isCreateDocumentIntent
         val fabIcon = context.resources.getColoredDrawableWithColor(iconId, context.getProperPrimaryColor().getContrastColor())
-        items_fab?.setImageDrawable(fabIcon)
+        innerBinding.itemsFab?.setImageDrawable(fabIcon)
     }
 
     fun handleFileDeleting(files: ArrayList<FileDirItem>, hasFolder: Boolean) {
@@ -90,4 +95,20 @@ abstract class MyViewPagerFragment(context: Context, attributeSet: AttributeSet)
     abstract fun refreshFragment()
 
     abstract fun searchQueryChanged(text: String)
+
+    interface InnerBinding {
+        val itemsFab: MyFloatingActionButton?
+    }
+
+    class ItemsInnerBinding(val binding: ItemsFragmentBinding) : InnerBinding {
+        override val itemsFab: MyFloatingActionButton = binding.itemsFab
+    }
+
+    class RecentsInnerBinding(val binding: RecentsFragmentBinding) : InnerBinding {
+        override val itemsFab: MyFloatingActionButton? = null
+    }
+
+    class StorageInnerBinding(val binding: StorageFragmentBinding) : InnerBinding {
+        override val itemsFab: MyFloatingActionButton? = null
+    }
 }

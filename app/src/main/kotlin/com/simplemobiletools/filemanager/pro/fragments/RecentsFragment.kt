@@ -17,25 +17,31 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.activities.MainActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
+import com.simplemobiletools.filemanager.pro.databinding.RecentsFragmentBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.helpers.MAX_COLUMN_COUNT
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.recents_fragment.view.recents_list
-import kotlinx.android.synthetic.main.recents_fragment.view.recents_placeholder
-import kotlinx.android.synthetic.main.recents_fragment.view.recents_swipe_refresh
 import java.io.File
 
-class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment(context, attributeSet), ItemOperationsListener {
+class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerFragment<MyViewPagerFragment.RecentsInnerBinding>(context, attributeSet),
+    ItemOperationsListener {
     private val RECENTS_LIMIT = 50
     private var filesIgnoringSearch = ArrayList<ListItem>()
     private var lastSearchedText = ""
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
+    private lateinit var binding: RecentsFragmentBinding
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        binding = RecentsFragmentBinding.bind(this)
+        innerBinding = RecentsInnerBinding(binding)
+    }
 
     override fun setupFragment(activity: SimpleActivity) {
         if (this.activity == null) {
             this.activity = activity
-            recents_swipe_refresh.setOnRefreshListener { refreshFragment() }
+            binding.recentsSwipeRefresh.setOnRefreshListener { refreshFragment() }
         }
 
         refreshFragment()
@@ -44,9 +50,11 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun refreshFragment() {
         ensureBackgroundThread {
             getRecents { recents ->
-                recents_swipe_refresh?.isRefreshing = false
-                recents_list.beVisibleIf(recents.isNotEmpty())
-                recents_placeholder.beVisibleIf(recents.isEmpty())
+                binding.apply {
+                    recentsSwipeRefresh?.isRefreshing = false
+                    recentsList.beVisibleIf(recents.isNotEmpty())
+                    recentsPlaceholder.beVisibleIf(recents.isEmpty())
+                }
                 filesIgnoringSearch = recents
                 addItems(recents, false)
 
@@ -58,24 +66,24 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     private fun addItems(recents: ArrayList<ListItem>, forceRefresh: Boolean) {
-        if (!forceRefresh && recents.hashCode() == (recents_list.adapter as? ItemsAdapter)?.listItems.hashCode()) {
+        if (!forceRefresh && recents.hashCode() == (binding.recentsList.adapter as? ItemsAdapter)?.listItems.hashCode()) {
             return
         }
 
-        ItemsAdapter(activity as SimpleActivity, recents, this, recents_list, isPickMultipleIntent, recents_swipe_refresh, false) {
+        ItemsAdapter(activity as SimpleActivity, recents, this, binding.recentsList, isPickMultipleIntent, binding.recentsSwipeRefresh, false) {
             clickedPath((it as FileDirItem).path)
         }.apply {
             setupZoomListener(zoomListener)
-            recents_list.adapter = this
+            binding.recentsList.adapter = this
         }
 
         if (context.areSystemAnimationsEnabled) {
-            recents_list.scheduleLayoutAnimation()
+            binding.recentsList.scheduleLayoutAnimation()
         }
     }
 
     override fun onResume(textColor: Int) {
-        recents_placeholder.setTextColor(textColor)
+        binding.recentsPlaceholder.setTextColor(textColor)
 
         getRecyclerAdapter()?.apply {
             updatePrimaryColor()
@@ -83,7 +91,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             initDrawables()
         }
 
-        recents_swipe_refresh.isEnabled = lastSearchedText.isEmpty() && activity?.config?.enablePullToRefresh != false
+        binding.recentsSwipeRefresh.isEnabled = lastSearchedText.isEmpty() && activity?.config?.enablePullToRefresh != false
     }
 
     private fun setupLayoutManager() {
@@ -95,26 +103,26 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             setupListLayoutManager()
         }
 
-        val oldItems = (recents_list.adapter as? ItemsAdapter)?.listItems?.toMutableList() as ArrayList<ListItem>
-        recents_list.adapter = null
+        val oldItems = (binding.recentsList.adapter as? ItemsAdapter)?.listItems?.toMutableList() as ArrayList<ListItem>
+        binding.recentsList.adapter = null
         initZoomListener()
         addItems(oldItems, true)
     }
 
     private fun setupGridLayoutManager() {
-        val layoutManager = recents_list.layoutManager as MyGridLayoutManager
+        val layoutManager = binding.recentsList.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = context?.config?.fileColumnCnt ?: 3
     }
 
     private fun setupListLayoutManager() {
-        val layoutManager = recents_list.layoutManager as MyGridLayoutManager
+        val layoutManager = binding.recentsList.layoutManager as MyGridLayoutManager
         layoutManager.spanCount = 1
         zoomListener = null
     }
 
     private fun initZoomListener() {
         if (context?.config?.getFolderViewType("") == VIEW_TYPE_GRID) {
-            val layoutManager = recents_list.layoutManager as MyGridLayoutManager
+            val layoutManager = binding.recentsList.layoutManager as MyGridLayoutManager
             zoomListener = object : MyRecyclerView.MyZoomListener {
                 override fun zoomIn() {
                     if (layoutManager.spanCount > 1) {
@@ -187,7 +195,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    private fun getRecyclerAdapter() = recents_list.adapter as? ItemsAdapter
+    private fun getRecyclerAdapter() = binding.recentsList.adapter as? ItemsAdapter
 
     override fun toggleFilenameVisibility() {
         getRecyclerAdapter()?.updateDisplayFilenamesInGrid()
@@ -208,7 +216,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     override fun columnCountChanged() {
-        (recents_list.layoutManager as MyGridLayoutManager).spanCount = context!!.config.fileColumnCnt
+        (binding.recentsList.layoutManager as MyGridLayoutManager).spanCount = context!!.config.fileColumnCnt
         (activity as? MainActivity)?.refreshMenuItems()
         getRecyclerAdapter()?.apply {
             notifyItemRangeChanged(0, listItems.size)
@@ -234,9 +242,11 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     override fun searchQueryChanged(text: String) {
         lastSearchedText = text
         val filtered = filesIgnoringSearch.filter { it.mName.contains(text, true) }.toMutableList() as ArrayList<ListItem>
-        (recents_list.adapter as? ItemsAdapter)?.updateItems(filtered, text)
-        recents_placeholder.beVisibleIf(filtered.isEmpty())
-        recents_swipe_refresh.isEnabled = lastSearchedText.isEmpty() && activity?.config?.enablePullToRefresh != false
+        binding.apply {
+            (recentsList.adapter as? ItemsAdapter)?.updateItems(filtered, text)
+            recentsPlaceholder.beVisibleIf(filtered.isEmpty())
+            recentsSwipeRefresh.isEnabled = lastSearchedText.isEmpty() && activity?.config?.enablePullToRefresh != false
+        }
     }
 
     override fun finishActMode() {
