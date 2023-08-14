@@ -19,6 +19,7 @@ import net.lingala.zip4j.exception.ZipException.Type
 import net.lingala.zip4j.io.inputstream.ZipInputStream
 import net.lingala.zip4j.model.LocalFileHeader
 import java.io.BufferedInputStream
+import java.io.File
 
 class DecompressActivity : SimpleActivity() {
     companion object {
@@ -142,6 +143,11 @@ class DecompressActivity : SimpleActivity() {
                     }
 
                     if (entry.isDirectory) {
+                        continue
+                    }
+
+                    val isVulnerableForZipPathTraversal = !File(newPath).canonicalPath.startsWith(parent)
+                    if (isVulnerableForZipPathTraversal) {
                         continue
                     }
 
