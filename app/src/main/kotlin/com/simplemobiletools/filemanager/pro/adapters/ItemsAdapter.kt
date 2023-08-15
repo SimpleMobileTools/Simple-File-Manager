@@ -942,12 +942,10 @@ class ItemsAdapter(
                     else -> {
                         if (isListViewType) {
                             ItemFileDirList
+                        } else if (viewType == TYPE_DIR) {
+                            ItemDirGrid
                         } else {
-                            if (viewType == TYPE_DIR) {
-                                ItemDirGrid
-                            } else {
-                                ItemFileGrid
-                            }
+                            ItemFileGrid
                         }
                     }
                 }

@@ -31,6 +31,7 @@ import java.io.OutputStream
 class ReadTextActivity : SimpleActivity() {
     private val SELECT_SAVE_FILE_INTENT = 1
     private val SELECT_SAVE_FILE_AND_EXIT_INTENT = 2
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityReadTextBinding.inflate(layoutInflater) }
 
     private var filePath = ""
     private var originalText = ""
@@ -39,7 +40,6 @@ class ReadTextActivity : SimpleActivity() {
     private var searchMatches = emptyList<Int>()
     private var isSearchActive = false
 
-    private lateinit var binding: ActivityReadTextBinding
     private lateinit var searchQueryET: MyEditText
     private lateinit var searchPrevBtn: ImageView
     private lateinit var searchNextBtn: ImageView
@@ -48,7 +48,6 @@ class ReadTextActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        binding = ActivityReadTextBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupOptionsMenu()
         binding.apply {

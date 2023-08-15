@@ -22,7 +22,7 @@ import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
 
 class PDFViewerActivity : SimpleActivity() {
-    private lateinit var binding: ActivityPdfViewerBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityPdfViewerBinding.inflate(layoutInflater) }
     private var realFilePath = ""
     private var isFullScreen = false
     private var passwordDialog: EnterPasswordDialog? = null
@@ -31,7 +31,6 @@ class PDFViewerActivity : SimpleActivity() {
         showTransparentTop = true
 
         super.onCreate(savedInstanceState)
-        binding = ActivityPdfViewerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (checkAppSideloading()) {

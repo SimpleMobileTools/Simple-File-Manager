@@ -14,12 +14,11 @@ import com.simplemobiletools.filemanager.pro.databinding.ActivityFavoritesBindin
 import com.simplemobiletools.filemanager.pro.extensions.config
 
 class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
-    private lateinit var binding: ActivityFavoritesBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityFavoritesBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        binding = ActivityFavoritesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupOptionsMenu()
         updateFavorites()

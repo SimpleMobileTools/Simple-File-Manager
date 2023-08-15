@@ -13,11 +13,10 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import java.io.File
 
 class SaveAsActivity : SimpleActivity() {
-    private lateinit var binding: ActivitySaveAsBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivitySaveAsBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySaveAsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         if (intent.action == Intent.ACTION_SEND && intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {

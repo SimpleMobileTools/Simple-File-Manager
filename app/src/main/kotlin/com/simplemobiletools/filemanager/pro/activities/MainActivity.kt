@@ -46,7 +46,8 @@ class MainActivity : SimpleActivity() {
     private val BACK_PRESS_TIMEOUT = 5000
     private val MANAGE_STORAGE_RC = 201
     private val PICKED_PATH = "picked_path"
-    private lateinit var binding: ActivityMainBinding
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityMainBinding.inflate(layoutInflater) }
+
     private var wasBackJustPressed = false
     private var mIsPasswordProtectionPending = false
     private var mWasProtectionHandled = false
@@ -60,7 +61,6 @@ class MainActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         appLaunched(BuildConfig.APPLICATION_ID)
         setupOptionsMenu()

@@ -26,8 +26,8 @@ class DecompressActivity : SimpleActivity() {
         private const val PASSWORD = "password"
     }
 
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityDecompressBinding.inflate(layoutInflater) }
     private val allFiles = ArrayList<ListItem>()
-    private lateinit var binding: ActivityDecompressBinding
     private var currentPath = ""
     private var uri: Uri? = null
     private var password: String? = null
@@ -36,7 +36,6 @@ class DecompressActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        binding = ActivityDecompressBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupOptionsMenu()
         binding.apply {
