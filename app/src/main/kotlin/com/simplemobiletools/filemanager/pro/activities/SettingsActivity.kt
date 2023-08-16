@@ -149,7 +149,6 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupEnablePullToRefresh() {
         binding.apply {
-            settingsEnablePullToRefresh
             settingsEnablePullToRefresh.isChecked = config.enablePullToRefresh
             settingsEnablePullToRefreshHolder.setOnClickListener {
                 settingsEnablePullToRefresh.toggle()
