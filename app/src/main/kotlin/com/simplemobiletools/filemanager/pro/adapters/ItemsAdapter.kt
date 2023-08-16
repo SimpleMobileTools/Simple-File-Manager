@@ -10,10 +10,15 @@ import android.graphics.drawable.Icon
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -32,18 +37,13 @@ import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.activities.SplashActivity
+import com.simplemobiletools.filemanager.pro.databinding.*
 import com.simplemobiletools.filemanager.pro.dialogs.CompressAsDialog
 import com.simplemobiletools.filemanager.pro.extensions.*
 import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
 import com.stericson.RootTools.RootTools
-import kotlinx.android.synthetic.main.item_file_dir_list.view.*
-import kotlinx.android.synthetic.main.item_file_dir_list.view.item_frame
-import kotlinx.android.synthetic.main.item_file_dir_list.view.item_icon
-import kotlinx.android.synthetic.main.item_file_dir_list.view.item_name
-import kotlinx.android.synthetic.main.item_file_grid.view.*
-import kotlinx.android.synthetic.main.item_section.view.*
 import net.lingala.zip4j.exception.ZipException
 import net.lingala.zip4j.io.inputstream.ZipInputStream
 import net.lingala.zip4j.io.outputstream.ZipOutputStream
@@ -60,10 +60,6 @@ class ItemsAdapter(
     val isPickMultipleIntent: Boolean, val swipeRefreshLayout: SwipeRefreshLayout?, canHaveIndividualViewType: Boolean = true, itemClick: (Any) -> Unit
 ) : MyRecyclerViewAdapter(activity, recyclerView, itemClick), RecyclerViewFastScroller.OnPopupTextUpdate {
 
-    private val TYPE_FILE = 1
-    private val TYPE_DIR = 2
-    private val TYPE_SECTION = 3
-    private val TYPE_GRID_TYPE_DIVIDER = 4
     private lateinit var fileDrawable: Drawable
     private lateinit var folderDrawable: Drawable
     private var fileDrawables = HashMap<String, Drawable>()
@@ -83,6 +79,13 @@ class ItemsAdapter(
     }
     private val isListViewType = viewType == VIEW_TYPE_LIST
     private var displayFilenamesInGrid = config.displayFilenames
+
+    companion object {
+        private const val TYPE_FILE = 1
+        private const val TYPE_DIR = 2
+        private const val TYPE_SECTION = 3
+        private const val TYPE_GRID_TYPE_DIVIDER = 4
+    }
 
     init {
         setupDragListener(true)
@@ -161,28 +164,16 @@ class ItemsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layout = if (viewType == TYPE_SECTION) {
-            R.layout.item_section
-        } else if (viewType == TYPE_GRID_TYPE_DIVIDER) {
-            R.layout.item_empty
-        } else {
-            if (isListViewType) {
-                R.layout.item_file_dir_list
-            } else {
-                if (viewType == TYPE_DIR) {
-                    R.layout.item_dir_grid
-                } else {
-                    R.layout.item_file_grid
-                }
-            }
-        }
-        return createViewHolder(layout, parent)
+        val binding = Binding.getByItemViewType(viewType, isListViewType).inflate(layoutInflater, parent, false)
+
+        return createViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: MyRecyclerViewAdapter.ViewHolder, position: Int) {
         val fileDirItem = listItems[position]
         holder.bindView(fileDirItem, true, !fileDirItem.isSectionTitle) { itemView, layoutPosition ->
-            setupView(itemView, fileDirItem)
+            val viewType = getItemViewType(position)
+            setupView(Binding.getByItemViewType(viewType, isListViewType).bind(itemView), fileDirItem)
         }
         bindViewHolder(holder)
     }
@@ -831,55 +822,55 @@ class ItemsAdapter(
     override fun onViewRecycled(holder: ViewHolder) {
         super.onViewRecycled(holder)
         if (!activity.isDestroyed && !activity.isFinishing) {
-            val icon = holder.itemView.item_icon
+            val icon = Binding.getByItemViewType(holder.itemViewType, isListViewType).bind(holder.itemView).itemIcon
             if (icon != null) {
                 Glide.with(activity).clear(icon)
             }
         }
     }
 
-    private fun setupView(view: View, listItem: ListItem) {
+    private fun setupView(binding: ItemViewBinding, listItem: ListItem) {
         val isSelected = selectedKeys.contains(listItem.path.hashCode())
-        view.apply {
+        binding.apply {
             if (listItem.isSectionTitle) {
-                item_icon.setImageDrawable(folderDrawable)
-                item_section.text = if (textToHighlight.isEmpty()) listItem.mName else listItem.mName.highlightTextPart(textToHighlight, properPrimaryColor)
-                item_section.setTextColor(textColor)
-                item_section.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+                itemIcon?.setImageDrawable(folderDrawable)
+                itemSection?.text = if (textToHighlight.isEmpty()) listItem.mName else listItem.mName.highlightTextPart(textToHighlight, properPrimaryColor)
+                itemSection?.setTextColor(textColor)
+                itemSection?.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
             } else if (!listItem.isGridTypeDivider) {
-                setupViewBackground(activity)
-                item_frame.isSelected = isSelected
+                root.setupViewBackground(activity)
+                itemFrame.isSelected = isSelected
                 val fileName = listItem.name
-                item_name.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, properPrimaryColor)
-                item_name.setTextColor(textColor)
-                item_name.setTextSize(TypedValue.COMPLEX_UNIT_PX, if (isListViewType) fontSize else smallerFontSize)
+                itemName?.text = if (textToHighlight.isEmpty()) fileName else fileName.highlightTextPart(textToHighlight, properPrimaryColor)
+                itemName?.setTextColor(textColor)
+                itemName?.setTextSize(TypedValue.COMPLEX_UNIT_PX, if (isListViewType) fontSize else smallerFontSize)
 
-                item_details?.setTextColor(textColor)
-                item_details?.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+                itemDetails?.setTextColor(textColor)
+                itemDetails?.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
 
-                item_date?.setTextColor(textColor)
-                item_date?.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
+                itemDate?.setTextColor(textColor)
+                itemDate?.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallerFontSize)
 
-                item_check?.beVisibleIf(isSelected)
+                itemCheck?.beVisibleIf(isSelected)
                 if (isSelected) {
-                    item_check?.background?.applyColorFilter(properPrimaryColor)
-                    item_check?.applyColorFilter(contrastColor)
+                    itemCheck?.background?.applyColorFilter(properPrimaryColor)
+                    itemCheck?.applyColorFilter(contrastColor)
                 }
 
                 if (!isListViewType && !listItem.isDirectory) {
-                    item_name.beVisibleIf(displayFilenamesInGrid)
+                    itemName?.beVisibleIf(displayFilenamesInGrid)
                 } else {
-                    item_name.beVisible()
+                    itemName?.beVisible()
                 }
 
                 if (listItem.isDirectory) {
-                    item_icon.setImageDrawable(folderDrawable)
-                    item_details?.text = getChildrenCnt(listItem)
-                    item_date?.beGone()
+                    itemIcon?.setImageDrawable(folderDrawable)
+                    itemDetails?.text = getChildrenCnt(listItem)
+                    itemDate?.beGone()
                 } else {
-                    item_details?.text = listItem.size.formatSize()
-                    item_date?.beVisible()
-                    item_date?.text = listItem.modified.formatDate(activity, dateFormat, timeFormat)
+                    itemDetails?.text = listItem.size.formatSize()
+                    itemDate?.beVisible()
+                    itemDate?.text = listItem.modified.formatDate(activity, dateFormat, timeFormat)
 
                     val drawable = fileDrawables.getOrElse(fileName.substringAfterLast(".").toLowerCase(), { fileDrawable })
                     val options = RequestOptions()
@@ -889,12 +880,12 @@ class ItemsAdapter(
                         .transform(CenterCrop(), RoundedCorners(10))
 
                     val itemToLoad = getImagePathToLoad(listItem.path)
-                    if (!activity.isDestroyed) {
+                    if (!activity.isDestroyed && itemIcon != null) {
                         Glide.with(activity)
                             .load(itemToLoad)
                             .transition(DrawableTransitionOptions.withCrossFade())
                             .apply(options)
-                            .into(item_icon)
+                            .into(itemIcon!!)
                     }
                 }
             }
@@ -941,4 +932,146 @@ class ItemsAdapter(
     }
 
     override fun onChange(position: Int) = listItems.getOrNull(position)?.getBubbleText(activity, dateFormat, timeFormat) ?: ""
+
+    private sealed interface Binding {
+        companion object {
+            fun getByItemViewType(viewType: Int, isListViewType: Boolean): Binding {
+                return when (viewType) {
+                    TYPE_SECTION -> ItemSection
+                    TYPE_GRID_TYPE_DIVIDER -> ItemEmpty
+                    else -> {
+                        if (isListViewType) {
+                            ItemFileDirList
+                        } else if (viewType == TYPE_DIR) {
+                            ItemDirGrid
+                        } else {
+                            ItemFileGrid
+                        }
+                    }
+                }
+            }
+        }
+
+        fun inflate(layoutInflater: LayoutInflater, viewGroup: ViewGroup, attachToRoot: Boolean): ItemViewBinding
+        fun bind(view: View): ItemViewBinding
+
+        data object ItemSection : Binding {
+            override fun inflate(layoutInflater: LayoutInflater, viewGroup: ViewGroup, attachToRoot: Boolean): ItemViewBinding {
+                return ItemSectionBindingAdapter(ItemSectionBinding.inflate(layoutInflater, viewGroup, attachToRoot))
+            }
+
+            override fun bind(view: View): ItemViewBinding {
+                return ItemSectionBindingAdapter(ItemSectionBinding.bind(view))
+            }
+        }
+
+        data object ItemEmpty : Binding {
+            override fun inflate(layoutInflater: LayoutInflater, viewGroup: ViewGroup, attachToRoot: Boolean): ItemViewBinding {
+                return ItemEmptyBindingAdapter(ItemEmptyBinding.inflate(layoutInflater, viewGroup, attachToRoot))
+            }
+
+            override fun bind(view: View): ItemViewBinding {
+                return ItemEmptyBindingAdapter(ItemEmptyBinding.bind(view))
+            }
+        }
+
+        data object ItemFileDirList : Binding {
+            override fun inflate(layoutInflater: LayoutInflater, viewGroup: ViewGroup, attachToRoot: Boolean): ItemViewBinding {
+                return ItemFileDirListBindingAdapter(ItemFileDirListBinding.inflate(layoutInflater, viewGroup, attachToRoot))
+            }
+
+            override fun bind(view: View): ItemViewBinding {
+                return ItemFileDirListBindingAdapter(ItemFileDirListBinding.bind(view))
+            }
+        }
+
+        data object ItemDirGrid : Binding {
+            override fun inflate(layoutInflater: LayoutInflater, viewGroup: ViewGroup, attachToRoot: Boolean): ItemViewBinding {
+                return ItemDirGridBindingAdapter(ItemDirGridBinding.inflate(layoutInflater, viewGroup, attachToRoot))
+            }
+
+            override fun bind(view: View): ItemViewBinding {
+                return ItemDirGridBindingAdapter(ItemDirGridBinding.bind(view))
+            }
+        }
+
+        data object ItemFileGrid : Binding {
+            override fun inflate(layoutInflater: LayoutInflater, viewGroup: ViewGroup, attachToRoot: Boolean): ItemViewBinding {
+                return ItemFileGridBindingAdapter(ItemFileGridBinding.inflate(layoutInflater, viewGroup, attachToRoot))
+            }
+
+            override fun bind(view: View): ItemViewBinding {
+                return ItemFileGridBindingAdapter(ItemFileGridBinding.bind(view))
+            }
+        }
+    }
+
+    private interface ItemViewBinding : ViewBinding {
+        val itemFrame: FrameLayout
+        val itemName: TextView?
+        val itemIcon: ImageView?
+        val itemCheck: ImageView?
+        val itemDetails: TextView?
+        val itemDate: TextView?
+        val itemSection: TextView?
+    }
+
+    private class ItemSectionBindingAdapter(val binding: ItemSectionBinding) : ItemViewBinding {
+        override val itemFrame: FrameLayout = binding.itemFrame
+        override val itemName: TextView? = null
+        override val itemIcon: ImageView = binding.itemIcon
+        override val itemDetails: TextView? = null
+        override val itemDate: TextView? = null
+        override val itemCheck: ImageView? = null
+        override val itemSection: TextView = binding.itemSection
+        override fun getRoot(): View = binding.root
+    }
+
+    private class ItemEmptyBindingAdapter(val binding: ItemEmptyBinding) : ItemViewBinding {
+        override val itemFrame: FrameLayout = binding.itemFrame
+        override val itemName: TextView? = null
+        override val itemIcon: ImageView? = null
+        override val itemDetails: TextView? = null
+        override val itemDate: TextView? = null
+        override val itemCheck: ImageView? = null
+        override val itemSection: TextView? = null
+
+        override fun getRoot(): View = binding.root
+    }
+
+    private class ItemFileDirListBindingAdapter(val binding: ItemFileDirListBinding) : ItemViewBinding {
+        override val itemFrame: FrameLayout = binding.itemFrame
+        override val itemName: TextView = binding.itemName
+        override val itemIcon: ImageView = binding.itemIcon
+        override val itemDetails: TextView = binding.itemDetails
+        override val itemDate: TextView = binding.itemDate
+        override val itemCheck: ImageView? = null
+        override val itemSection: TextView? = null
+
+        override fun getRoot(): View = binding.root
+    }
+
+    private class ItemDirGridBindingAdapter(val binding: ItemDirGridBinding) : ItemViewBinding {
+        override val itemFrame: FrameLayout = binding.itemFrame
+        override val itemName: TextView = binding.itemName
+        override val itemIcon: ImageView = binding.itemIcon
+        override val itemDetails: TextView? = null
+        override val itemDate: TextView? = null
+        override val itemCheck: ImageView = binding.itemCheck
+        override val itemSection: TextView? = null
+
+        override fun getRoot(): View = binding.root
+    }
+
+    private class ItemFileGridBindingAdapter(val binding: ItemFileGridBinding) : ItemViewBinding {
+        override val itemFrame: FrameLayout = binding.itemFrame
+        override val itemName: TextView = binding.itemName
+        override val itemIcon: ImageView = binding.itemIcon
+        override val itemDetails: TextView? = null
+        override val itemDate: TextView? = null
+        override val itemCheck: ImageView? = null
+        override val itemSection: TextView? = null
+
+        override fun getRoot(): View = binding.root
+    }
 }

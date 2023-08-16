@@ -10,8 +10,8 @@ import com.simplemobiletools.commons.extensions.setupViewBackground
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.commons.views.MyRecyclerView
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.ItemManageFavoriteBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.item_manage_favorite.view.*
 
 class ManageFavoritesAdapter(
     activity: BaseSimpleActivity, var favorites: ArrayList<String>, val listener: RefreshRecyclerViewListener?,
@@ -46,7 +46,9 @@ class ManageFavoritesAdapter(
 
     override fun prepareActionMode(menu: Menu) {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = createViewHolder(R.layout.item_manage_favorite, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return createViewHolder(ItemManageFavoriteBinding.inflate(layoutInflater, parent, false).root)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val favorite = favorites[position]
@@ -59,22 +61,22 @@ class ManageFavoritesAdapter(
     override fun getItemCount() = favorites.size
 
     private fun setupView(view: View, favorite: String, isSelected: Boolean) {
-        view.apply {
-            setupViewBackground(activity)
-            manage_favorite_title.apply {
+        ItemManageFavoriteBinding.bind(view).apply {
+            root.setupViewBackground(activity)
+            manageFavoriteTitle.apply {
                 text = favorite
                 setTextColor(activity.getProperTextColor())
             }
 
-            manage_favorite_holder?.isSelected = isSelected
+            manageFavoriteHolder?.isSelected = isSelected
 
-            overflow_menu_icon.drawable.apply {
+            overflowMenuIcon.drawable.apply {
                 mutate()
                 setTint(activity.getProperTextColor())
             }
 
-            overflow_menu_icon.setOnClickListener {
-                showPopupMenu(overflow_menu_anchor, favorite)
+            overflowMenuIcon.setOnClickListener {
+                showPopupMenu(overflowMenuAnchor, favorite)
             }
         }
     }

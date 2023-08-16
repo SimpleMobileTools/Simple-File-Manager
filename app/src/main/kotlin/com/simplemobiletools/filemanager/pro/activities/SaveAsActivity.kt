@@ -8,14 +8,16 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.ActivitySaveAsBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.activity_save_as.activity_save_as_toolbar
 import java.io.File
 
 class SaveAsActivity : SimpleActivity() {
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivitySaveAsBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_save_as)
+        setContentView(binding.root)
 
         if (intent.action == Intent.ACTION_SEND && intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
             FilePickerDialog(this, pickFile = false, showHidden = config.shouldShowHidden(), showFAB = true, showFavoritesButton = true) {
@@ -59,6 +61,6 @@ class SaveAsActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(activity_save_as_toolbar, NavigationIcon.Arrow)
+        setupToolbar(binding.activitySaveAsToolbar, NavigationIcon.Arrow)
     }
 }

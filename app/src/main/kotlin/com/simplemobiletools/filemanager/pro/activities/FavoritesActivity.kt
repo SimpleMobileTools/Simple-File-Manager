@@ -10,28 +10,31 @@ import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.ManageFavoritesAdapter
+import com.simplemobiletools.filemanager.pro.databinding.ActivityFavoritesBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.activity_favorites.*
 
 class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityFavoritesBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_favorites)
+        setContentView(binding.root)
         setupOptionsMenu()
         updateFavorites()
-        updateMaterialActivityViews(manage_favorites_coordinator, manage_favorites_list, useTransparentNavigation = true, useTopSearchMenu = false)
-        setupMaterialScrollListener(manage_favorites_list, manage_favorites_toolbar)
+        binding.apply {
+            updateMaterialActivityViews(manageFavoritesCoordinator, manageFavoritesList, useTransparentNavigation = true, useTopSearchMenu = false)
+            setupMaterialScrollListener(manageFavoritesList, manageFavoritesToolbar)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(manage_favorites_toolbar, NavigationIcon.Arrow)
+        setupToolbar(binding.manageFavoritesToolbar, NavigationIcon.Arrow)
     }
 
     private fun setupOptionsMenu() {
-        manage_favorites_toolbar.setOnMenuItemClickListener { menuItem ->
+        binding.manageFavoritesToolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.add_favorite -> addFavorite()
                 else -> return@setOnMenuItemClickListener false
@@ -41,22 +44,24 @@ class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
     }
 
     private fun updateFavorites() {
-        val favorites = ArrayList<String>()
-        config.favorites.mapTo(favorites) { it }
-        manage_favorites_placeholder.beVisibleIf(favorites.isEmpty())
-        manage_favorites_placeholder.setTextColor(getProperTextColor())
+        binding.apply {
+            val favorites = ArrayList<String>()
+            config.favorites.mapTo(favorites) { it }
+            manageFavoritesPlaceholder.beVisibleIf(favorites.isEmpty())
+            manageFavoritesPlaceholder.setTextColor(getProperTextColor())
 
-        manage_favorites_placeholder_2.apply {
-            paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
-            beVisibleIf(favorites.isEmpty())
-            setTextColor(getProperPrimaryColor())
-            setOnClickListener {
-                addFavorite()
+            manageFavoritesPlaceholder2.apply {
+                paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                beVisibleIf(favorites.isEmpty())
+                setTextColor(getProperPrimaryColor())
+                setOnClickListener {
+                    addFavorite()
+                }
             }
-        }
 
-        ManageFavoritesAdapter(this, favorites, this, manage_favorites_list) { }.apply {
-            manage_favorites_list.adapter = this
+            ManageFavoritesAdapter(this@FavoritesActivity, favorites, this@FavoritesActivity, manageFavoritesList) { }.apply {
+                manageFavoritesList.adapter = this
+            }
         }
     }
 

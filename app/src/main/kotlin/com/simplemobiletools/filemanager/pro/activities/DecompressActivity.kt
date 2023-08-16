@@ -11,20 +11,22 @@ import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.helpers.isOreoPlus
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.DecompressItemsAdapter
+import com.simplemobiletools.filemanager.pro.databinding.ActivityDecompressBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.models.ListItem
-import kotlinx.android.synthetic.main.activity_decompress.*
 import net.lingala.zip4j.exception.ZipException
 import net.lingala.zip4j.exception.ZipException.Type
 import net.lingala.zip4j.io.inputstream.ZipInputStream
 import net.lingala.zip4j.model.LocalFileHeader
 import java.io.BufferedInputStream
+import java.io.File
 
 class DecompressActivity : SimpleActivity() {
     companion object {
         private const val PASSWORD = "password"
     }
 
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityDecompressBinding.inflate(layoutInflater) }
     private val allFiles = ArrayList<ListItem>()
     private var currentPath = ""
     private var uri: Uri? = null
@@ -34,10 +36,12 @@ class DecompressActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_decompress)
+        setContentView(binding.root)
         setupOptionsMenu()
-        updateMaterialActivityViews(decompress_coordinator, decompress_list, useTransparentNavigation = true, useTopSearchMenu = false)
-        setupMaterialScrollListener(decompress_list, decompress_toolbar)
+        binding.apply {
+            updateMaterialActivityViews(decompressCoordinator, decompressList, useTransparentNavigation = true, useTopSearchMenu = false)
+            setupMaterialScrollListener(decompressList, decompressToolbar)
+        }
 
         uri = intent.data
         if (uri == null) {
@@ -48,13 +52,13 @@ class DecompressActivity : SimpleActivity() {
         password = savedInstanceState?.getString(PASSWORD, null)
 
         val realPath = getRealPathFromURI(uri!!)
-        decompress_toolbar.title = realPath?.getFilenameFromPath() ?: Uri.decode(uri.toString().getFilenameFromPath())
+        binding.decompressToolbar.title = realPath?.getFilenameFromPath() ?: Uri.decode(uri.toString().getFilenameFromPath())
         setupFilesList()
     }
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(decompress_toolbar, NavigationIcon.Arrow)
+        setupToolbar(binding.decompressToolbar, NavigationIcon.Arrow)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -63,7 +67,7 @@ class DecompressActivity : SimpleActivity() {
     }
 
     private fun setupOptionsMenu() {
-        decompress_toolbar.setOnMenuItemClickListener { menuItem ->
+        binding.decompressToolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.decompress -> decompressFiles()
                 else -> return@setOnMenuItemClickListener false
@@ -90,12 +94,12 @@ class DecompressActivity : SimpleActivity() {
         currentPath = path
         try {
             val listItems = getFolderItems(currentPath)
-            DecompressItemsAdapter(this, listItems, decompress_list) {
+            DecompressItemsAdapter(this, listItems, binding.decompressList) {
                 if ((it as ListItem).isDirectory) {
                     updateCurrentPath(it.path)
                 }
             }.apply {
-                decompress_list.adapter = this
+                binding.decompressList.adapter = this
             }
         } catch (e: Exception) {
             showErrorToast(e)
@@ -138,6 +142,11 @@ class DecompressActivity : SimpleActivity() {
                     }
 
                     if (entry.isDirectory) {
+                        continue
+                    }
+
+                    val isVulnerableForZipPathTraversal = !File(newPath).canonicalPath.startsWith(parent)
+                    if (isVulnerableForZipPathTraversal) {
                         continue
                     }
 

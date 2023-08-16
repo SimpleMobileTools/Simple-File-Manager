@@ -6,23 +6,23 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.isRPlus
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
+import com.simplemobiletools.filemanager.pro.databinding.DialogCreateNewBinding
 import com.simplemobiletools.filemanager.pro.helpers.RootHelpers
-import kotlinx.android.synthetic.main.dialog_create_new.view.*
 import java.io.File
 import java.io.IOException
 
 class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val callback: (success: Boolean) -> Unit) {
-    private val view = activity.layoutInflater.inflate(R.layout.dialog_create_new, null)
+    private val binding = DialogCreateNewBinding.inflate(activity.layoutInflater)
 
     init {
         activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
             .setNegativeButton(R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.create_new) { alertDialog ->
-                    alertDialog.showKeyboard(view.item_title)
+                activity.setupDialogStuff(binding.root, this, R.string.create_new) { alertDialog ->
+                    alertDialog.showKeyboard(binding.itemTitle)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                        val name = view.item_title.value
+                        val name = binding.itemTitle.value
                         if (name.isEmpty()) {
                             activity.toast(R.string.empty_name)
                         } else if (name.isAValidFilename()) {
@@ -32,7 +32,7 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                                 return@OnClickListener
                             }
 
-                            if (view.dialog_radio_group.checkedRadioButtonId == R.id.dialog_radio_directory) {
+                            if (binding.dialogRadioGroup.checkedRadioButtonId == R.id.dialog_radio_directory) {
                                 createDirectory(newPath, alertDialog) {
                                     callback(it)
                                 }

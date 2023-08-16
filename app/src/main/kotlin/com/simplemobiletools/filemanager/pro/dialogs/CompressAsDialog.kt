@@ -6,11 +6,11 @@ import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.DialogCompressAsBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_compress_as.view.*
 
 class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String, password: String?) -> Unit) {
-    private val view = activity.layoutInflater.inflate(R.layout.dialog_compress_as, null)
+    private val binding = DialogCompressAsBinding.inflate(activity.layoutInflater)
 
     init {
         val filename = path.getFilenameFromPath()
@@ -18,8 +18,8 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
         val baseFilename = filename.substring(0, indexOfDot)
         var realPath = path.getParentPath()
 
-        view.apply {
-            filename_value.setText(baseFilename)
+        binding.apply {
+            filenameValue.setText(baseFilename)
 
             folder.setText(activity.humanizePath(realPath))
             folder.setOnClickListener {
@@ -29,8 +29,8 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                 }
             }
 
-            password_protect.setOnCheckedChangeListener { _, _ ->
-                enter_password_hint.beVisibleIf(password_protect.isChecked)
+            passwordProtect.setOnCheckedChangeListener { _, _ ->
+                enterPasswordHint.beVisibleIf(passwordProtect.isChecked)
             }
         }
 
@@ -38,13 +38,13 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
             .setPositiveButton(R.string.ok, null)
             .setNegativeButton(R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.compress_as) { alertDialog ->
-                    alertDialog.showKeyboard(view.filename_value)
+                activity.setupDialogStuff(binding.root, this, R.string.compress_as) { alertDialog ->
+                    alertDialog.showKeyboard(binding.filenameValue)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener {
-                        val name = view.filename_value.value
+                        val name = binding.filenameValue.value
                         var password: String? = null
-                        if (view.password_protect.isChecked) {
-                            password = view.password.value
+                        if (binding.passwordProtect.isChecked) {
+                            password = binding.password.value
                             if (password.isEmpty()) {
                                 activity.toast(R.string.empty_password_new)
                                 return@OnClickListener

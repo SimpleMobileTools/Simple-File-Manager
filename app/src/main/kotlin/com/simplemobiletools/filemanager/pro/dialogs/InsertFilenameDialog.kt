@@ -4,23 +4,23 @@ import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.pro.R
-import kotlinx.android.synthetic.main.dialog_insert_filename.view.*
+import com.simplemobiletools.filemanager.pro.databinding.DialogInsertFilenameBinding
 
 class InsertFilenameDialog(
     val activity: BaseSimpleActivity, var path: String, val callback: (filename: String) -> Unit
 ) {
     init {
-        val view = activity.layoutInflater.inflate(R.layout.dialog_insert_filename, null)
+        val binding = DialogInsertFilenameBinding.inflate(activity.layoutInflater)
 
         activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok, null)
             .setNegativeButton(R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.filename) { alertDialog ->
-                    alertDialog.showKeyboard(view.insert_filename_title)
+                activity.setupDialogStuff(binding.root, this, R.string.filename) { alertDialog ->
+                    alertDialog.showKeyboard(binding.insertFilenameTitle)
                     alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                        val filename = view.insert_filename_title.value
-                        val extension = view.insert_filename_extension_title.value
+                        val filename = binding.insertFilenameTitle.value
+                        val extension = binding.insertFilenameExtensionTitle.value
 
                         if (filename.isEmpty()) {
                             activity.toast(R.string.filename_cannot_be_empty)

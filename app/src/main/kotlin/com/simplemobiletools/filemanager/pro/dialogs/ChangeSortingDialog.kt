@@ -1,34 +1,33 @@
 package com.simplemobiletools.filemanager.pro.dialogs
 
-import android.view.View
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getAlertDialogBuilder
 import com.simplemobiletools.commons.extensions.setupDialogStuff
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.DialogChangeSortingBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
-import kotlinx.android.synthetic.main.dialog_change_sorting.view.*
 
 class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "", val callback: () -> Unit) {
     private var currSorting = 0
     private var config = activity.config
-    private var view: View
+    private val binding: DialogChangeSortingBinding
 
     init {
         currSorting = config.getFolderSorting(path)
-        view = activity.layoutInflater.inflate(R.layout.dialog_change_sorting, null).apply {
-            sorting_dialog_use_for_this_folder.isChecked = config.hasCustomSorting(path)
+        binding = DialogChangeSortingBinding.inflate(activity.layoutInflater).apply {
+            sortingDialogUseForThisFolder.isChecked = config.hasCustomSorting(path)
 
-            sorting_dialog_numeric_sorting.beVisibleIf(currSorting and SORT_BY_NAME != 0)
-            sorting_dialog_numeric_sorting.isChecked = currSorting and SORT_USE_NUMERIC_VALUE != 0
+            sortingDialogNumericSorting.beVisibleIf(currSorting and SORT_BY_NAME != 0)
+            sortingDialogNumericSorting.isChecked = currSorting and SORT_USE_NUMERIC_VALUE != 0
         }
 
         activity.getAlertDialogBuilder()
             .setPositiveButton(R.string.ok) { dialog, which -> dialogConfirmed() }
             .setNegativeButton(R.string.cancel, null)
             .apply {
-                activity.setupDialogStuff(view, this, R.string.sort_by)
+                activity.setupDialogStuff(binding.root, this, R.string.sort_by)
             }
 
         setupSortRadio()
@@ -36,34 +35,33 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
     }
 
     private fun setupSortRadio() {
-        val sortingRadio = view.sorting_dialog_radio_sorting
+        binding.apply {
+            sortingDialogRadioSorting.setOnCheckedChangeListener { group, checkedId ->
+                val isSortingByName = checkedId == sortingDialogRadioName.id
+                binding.sortingDialogNumericSorting.beVisibleIf(isSortingByName)
+            }
 
-        sortingRadio.setOnCheckedChangeListener { group, checkedId ->
-            val isSortingByName = checkedId == sortingRadio.sorting_dialog_radio_name.id
-            view.sorting_dialog_numeric_sorting.beVisibleIf(isSortingByName)
+            val sortBtn = when {
+                currSorting and SORT_BY_SIZE != 0 -> sortingDialogRadioSize
+                currSorting and SORT_BY_DATE_MODIFIED != 0 -> sortingDialogRadioLastModified
+                currSorting and SORT_BY_EXTENSION != 0 -> sortingDialogRadioExtension
+                else -> sortingDialogRadioName
+            }
+            sortBtn.isChecked = true
         }
-
-        val sortBtn = when {
-            currSorting and SORT_BY_SIZE != 0 -> sortingRadio.sorting_dialog_radio_size
-            currSorting and SORT_BY_DATE_MODIFIED != 0 -> sortingRadio.sorting_dialog_radio_last_modified
-            currSorting and SORT_BY_EXTENSION != 0 -> sortingRadio.sorting_dialog_radio_extension
-            else -> sortingRadio.sorting_dialog_radio_name
-        }
-        sortBtn.isChecked = true
     }
 
     private fun setupOrderRadio() {
-        val orderRadio = view.sorting_dialog_radio_order
-        var orderBtn = orderRadio.sorting_dialog_radio_ascending
+        var orderBtn = binding.sortingDialogRadioAscending
 
         if (currSorting and SORT_DESCENDING != 0) {
-            orderBtn = orderRadio.sorting_dialog_radio_descending
+            orderBtn = binding.sortingDialogRadioDescending
         }
         orderBtn.isChecked = true
     }
 
     private fun dialogConfirmed() {
-        val sortingRadio = view.sorting_dialog_radio_sorting
+        val sortingRadio = binding.sortingDialogRadioSorting
         var sorting = when (sortingRadio.checkedRadioButtonId) {
             R.id.sorting_dialog_radio_name -> SORT_BY_NAME
             R.id.sorting_dialog_radio_size -> SORT_BY_SIZE
@@ -71,15 +69,15 @@ class ChangeSortingDialog(val activity: BaseSimpleActivity, val path: String = "
             else -> SORT_BY_EXTENSION
         }
 
-        if (view.sorting_dialog_radio_order.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
+        if (binding.sortingDialogRadioOrder.checkedRadioButtonId == R.id.sorting_dialog_radio_descending) {
             sorting = sorting or SORT_DESCENDING
         }
 
-        if (view.sorting_dialog_numeric_sorting.isChecked) {
+        if (binding.sortingDialogNumericSorting.isChecked) {
             sorting = sorting or SORT_USE_NUMERIC_VALUE
         }
 
-        if (view.sorting_dialog_use_for_this_folder.isChecked) {
+        if (binding.sortingDialogUseForThisFolder.isChecked) {
             config.saveCustomSorting(path, sorting)
         } else {
             config.removeCustomSorting(path)

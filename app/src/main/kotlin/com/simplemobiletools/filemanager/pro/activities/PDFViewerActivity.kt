@@ -16,15 +16,13 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.REAL_FILE_PATH
 import com.simplemobiletools.commons.helpers.isPiePlus
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.ActivityPdfViewerBinding
 import com.simplemobiletools.filemanager.pro.extensions.hideSystemUI
 import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
-import kotlinx.android.synthetic.main.activity_pdf_viewer.pdf_viewer
-import kotlinx.android.synthetic.main.activity_pdf_viewer.pdf_viewer_appbar
-import kotlinx.android.synthetic.main.activity_pdf_viewer.pdf_viewer_toolbar
-import kotlinx.android.synthetic.main.activity_pdf_viewer.top_shadow
 
 class PDFViewerActivity : SimpleActivity() {
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityPdfViewerBinding.inflate(layoutInflater) }
     private var realFilePath = ""
     private var isFullScreen = false
     private var passwordDialog: EnterPasswordDialog? = null
@@ -33,14 +31,14 @@ class PDFViewerActivity : SimpleActivity() {
         showTransparentTop = true
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pdf_viewer)
+        setContentView(binding.root)
 
         if (checkAppSideloading()) {
             return
         }
 
         checkNotchSupport()
-        pdf_viewer_toolbar.apply {
+        binding.pdfViewerToolbar.apply {
             setTitleTextColor(Color.WHITE)
             overflowIcon = resources.getColoredDrawableWithColor(R.drawable.ic_three_dots_vector, Color.WHITE)
             navigationIcon = resources.getColoredDrawableWithColor(R.drawable.ic_arrow_left_vector, Color.WHITE)
@@ -48,7 +46,7 @@ class PDFViewerActivity : SimpleActivity() {
 
         if (intent.extras?.containsKey(REAL_FILE_PATH) == true) {
             realFilePath = intent.extras?.get(REAL_FILE_PATH)?.toString() ?: ""
-            pdf_viewer_toolbar.title = realFilePath.getFilenameFromPath()
+            binding.pdfViewerToolbar.title = realFilePath.getFilenameFromPath()
         }
 
         setupMenu()
@@ -61,8 +59,8 @@ class PDFViewerActivity : SimpleActivity() {
     }
 
     private fun setupMenu() {
-        (pdf_viewer_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
-        pdf_viewer_toolbar.menu.apply {
+        (binding.pdfViewerAppbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        binding.pdfViewerToolbar.menu.apply {
             findItem(R.id.menu_print).isVisible = realFilePath.isNotEmpty()
             findItem(R.id.menu_print).setOnMenuItemClickListener {
                 printText()
@@ -70,24 +68,24 @@ class PDFViewerActivity : SimpleActivity() {
             }
         }
 
-        pdf_viewer_toolbar.setNavigationOnClickListener {
+        binding.pdfViewerToolbar.setNavigationOnClickListener {
             finish()
         }
 
         if (!portrait && navigationBarOnSide && navigationBarWidth > 0) {
-            pdf_viewer_appbar.setPadding(0, 0, navigationBarWidth, 0)
+            binding.pdfViewerAppbar.setPadding(0, 0, navigationBarWidth, 0)
         } else {
-            pdf_viewer_appbar.setPadding(0, 0, 0, 0)
+            binding.pdfViewerAppbar.setPadding(0, 0, 0, 0)
         }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        (pdf_viewer_appbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
+        (binding.pdfViewerAppbar.layoutParams as RelativeLayout.LayoutParams).topMargin = statusBarHeight
         if (!portrait && navigationBarOnSide && navigationBarWidth > 0) {
-            pdf_viewer_appbar.setPadding(0, 0, navigationBarWidth, 0)
+            binding.pdfViewerAppbar.setPadding(0, 0, navigationBarWidth, 0)
         } else {
-            pdf_viewer_appbar.setPadding(0, 0, 0, 0)
+            binding.pdfViewerAppbar.setPadding(0, 0, 0, 0)
         }
     }
 
@@ -103,8 +101,8 @@ class PDFViewerActivity : SimpleActivity() {
 
     private fun loadPdfViewer(uri: Uri, filePassword: String? = null) {
         val primaryColor = getProperPrimaryColor()
-        pdf_viewer.setBackgroundColor(getProperBackgroundColor())
-        pdf_viewer.fromUri(uri)
+        binding.pdfViewer.setBackgroundColor(getProperBackgroundColor())
+        binding.pdfViewer.fromUri(uri)
             .password(filePassword)
             .scrollHandle(DefaultScrollHandle(this, primaryColor.getContrastColor(), primaryColor))
             .spacing(15)
@@ -140,7 +138,7 @@ class PDFViewerActivity : SimpleActivity() {
 
         val filename = getFilenameFromUri(uri)
         if (filename.isNotEmpty()) {
-            pdf_viewer_toolbar.title = filename
+            binding.pdfViewerToolbar.title = filename
         }
     }
 
@@ -163,14 +161,14 @@ class PDFViewerActivity : SimpleActivity() {
             showSystemUI(true)
         }
 
-        top_shadow.animate().alpha(newAlpha).start()
-        pdf_viewer_appbar.animate().alpha(newAlpha).withStartAction {
+        binding.topShadow.animate().alpha(newAlpha).start()
+        binding.pdfViewerAppbar.animate().alpha(newAlpha).withStartAction {
             if (newAlpha == 1f) {
-                pdf_viewer_appbar.beVisible()
+                binding.pdfViewerAppbar.beVisible()
             }
         }.withEndAction {
             if (newAlpha == 0f) {
-                pdf_viewer_appbar.beGone()
+                binding.pdfViewerAppbar.beGone()
             }
         }.start()
 

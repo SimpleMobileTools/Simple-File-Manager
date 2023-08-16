@@ -21,17 +21,17 @@ import com.simplemobiletools.commons.helpers.SAVE_DISCARD_PROMPT_INTERVAL
 import com.simplemobiletools.commons.helpers.ensureBackgroundThread
 import com.simplemobiletools.commons.views.MyEditText
 import com.simplemobiletools.filemanager.pro.R
+import com.simplemobiletools.filemanager.pro.databinding.ActivityReadTextBinding
 import com.simplemobiletools.filemanager.pro.dialogs.SaveAsDialog
-import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.openPath
 import com.simplemobiletools.filemanager.pro.views.GestureEditText
-import kotlinx.android.synthetic.main.activity_read_text.*
 import java.io.File
 import java.io.OutputStream
 
 class ReadTextActivity : SimpleActivity() {
     private val SELECT_SAVE_FILE_INTENT = 1
     private val SELECT_SAVE_FILE_AND_EXIT_INTENT = 2
+    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityReadTextBinding.inflate(layoutInflater) }
 
     private var filePath = ""
     private var originalText = ""
@@ -48,10 +48,12 @@ class ReadTextActivity : SimpleActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_read_text)
+        setContentView(binding.root)
         setupOptionsMenu()
-        updateMaterialActivityViews(read_text_coordinator, read_text_view, useTransparentNavigation = true, useTopSearchMenu = false)
-        setupMaterialScrollListener(read_text_holder, read_text_toolbar)
+        binding.apply {
+            updateMaterialActivityViews(readTextCoordinator, readTextView, useTransparentNavigation = true, useTopSearchMenu = false)
+            setupMaterialScrollListener(readTextHolder, readTextToolbar)
+        }
 
         searchQueryET = findViewById(R.id.search_query)
         searchPrevBtn = findViewById(R.id.search_previous)
@@ -75,10 +77,10 @@ class ReadTextActivity : SimpleActivity() {
 
         val filename = getFilenameFromUri(uri)
         if (filename.isNotEmpty()) {
-            read_text_toolbar.title = Uri.decode(filename)
+            binding.readTextToolbar.title = Uri.decode(filename)
         }
 
-        read_text_view.onGlobalLayout {
+        binding.readTextView.onGlobalLayout {
             ensureBackgroundThread {
                 checkIntent(uri)
             }
@@ -89,7 +91,7 @@ class ReadTextActivity : SimpleActivity() {
 
     override fun onResume() {
         super.onResume()
-        setupToolbar(read_text_toolbar, NavigationIcon.Arrow)
+        setupToolbar(binding.readTextToolbar, NavigationIcon.Arrow)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
@@ -107,7 +109,7 @@ class ReadTextActivity : SimpleActivity() {
     }
 
     override fun onBackPressed() {
-        val hasUnsavedChanges = originalText != read_text_view.text.toString()
+        val hasUnsavedChanges = originalText != binding.readTextView.text.toString()
         when {
             isSearchActive -> closeSearch()
             hasUnsavedChanges && System.currentTimeMillis() - lastSavePromptTS > SAVE_DISCARD_PROMPT_INTERVAL -> {
@@ -125,7 +127,7 @@ class ReadTextActivity : SimpleActivity() {
     }
 
     private fun setupOptionsMenu() {
-        read_text_toolbar.setOnMenuItemClickListener { menuItem ->
+        binding.readTextToolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_search -> openSearch()
                 R.id.menu_save -> saveText()
@@ -139,11 +141,11 @@ class ReadTextActivity : SimpleActivity() {
 
     private fun openSearch() {
         isSearchActive = true
-        search_wrapper.beVisible()
+        binding.searchWrapper.beVisible()
         showKeyboard(searchQueryET)
 
-        read_text_view.requestFocus()
-        read_text_view.setSelection(0)
+        binding.readTextView.requestFocus()
+        binding.readTextView.setSelection(0)
 
         searchQueryET.postDelayed({
             searchQueryET.requestFocus()
@@ -187,7 +189,7 @@ class ReadTextActivity : SimpleActivity() {
 
     private fun saveTextContent(outputStream: OutputStream?, shouldExitAfterSaving: Boolean, shouldOverwriteOriginalText: Boolean) {
         if (outputStream != null) {
-            val currentText = read_text_view.text.toString()
+            val currentText = binding.readTextView.text.toString()
             outputStream.bufferedWriter().use { it.write(currentText) }
             toast(R.string.file_saved)
             hideKeyboard()
@@ -215,7 +217,7 @@ class ReadTextActivity : SimpleActivity() {
                 }
             }
 
-            webView.loadData(read_text_view.text.toString(), "text/plain", "UTF-8")
+            webView.loadData(binding.readTextView.text.toString(), "text/plain", "UTF-8")
         } catch (e: Exception) {
             showErrorToast(e)
         }
@@ -264,11 +266,11 @@ class ReadTextActivity : SimpleActivity() {
         }
 
         runOnUiThread {
-            read_text_view.setText(originalText)
+            binding.readTextView.setText(originalText)
             if (originalText.isNotEmpty()) {
                 hideKeyboard()
             } else {
-                showKeyboard(read_text_view)
+                showKeyboard(binding.readTextView)
             }
         }
     }
@@ -299,7 +301,7 @@ class ReadTextActivity : SimpleActivity() {
             false
         })
 
-        search_wrapper.setBackgroundColor(getProperPrimaryColor())
+        binding.searchWrapper.setBackgroundColor(getProperPrimaryColor())
         val contrastColor = getProperPrimaryColor().getContrastColor()
         arrayListOf(searchPrevBtn, searchNextBtn, searchClearBtn).forEach {
             it.applyColorFilter(contrastColor)
@@ -307,16 +309,16 @@ class ReadTextActivity : SimpleActivity() {
     }
 
     private fun searchTextChanged(text: String) {
-        read_text_view.text?.clearBackgroundSpans()
+        binding.readTextView.text?.clearBackgroundSpans()
 
         if (text.isNotBlank() && text.length > 1) {
-            searchMatches = read_text_view.value.searchMatches(text)
-            read_text_view.highlightText(text, getProperPrimaryColor())
+            searchMatches = binding.readTextView.value.searchMatches(text)
+            binding.readTextView.highlightText(text, getProperPrimaryColor())
         }
 
         if (searchMatches.isNotEmpty()) {
-            read_text_view.requestFocus()
-            read_text_view.setSelection(searchMatches.getOrNull(searchIndex) ?: 0)
+            binding.readTextView.requestFocus()
+            binding.readTextView.setSelection(searchMatches.getOrNull(searchIndex) ?: 0)
         }
 
         searchQueryET.postDelayed({
@@ -331,7 +333,7 @@ class ReadTextActivity : SimpleActivity() {
             searchIndex = searchMatches.lastIndex
         }
 
-        selectSearchMatch(read_text_view)
+        selectSearchMatch(binding.readTextView)
     }
 
     private fun goToNextSearchResult() {
@@ -341,13 +343,13 @@ class ReadTextActivity : SimpleActivity() {
             searchIndex = 0
         }
 
-        selectSearchMatch(read_text_view)
+        selectSearchMatch(binding.readTextView)
     }
 
     private fun closeSearch() {
         searchQueryET.text?.clear()
         isSearchActive = false
-        search_wrapper.beGone()
+        binding.searchWrapper.beGone()
         hideKeyboard()
     }
 
