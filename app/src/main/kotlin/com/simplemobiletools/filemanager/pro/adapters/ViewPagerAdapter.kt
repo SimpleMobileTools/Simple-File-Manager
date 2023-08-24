@@ -30,6 +30,7 @@ class ViewPagerAdapter(val activity: SimpleActivity, val tabsToShow: ArrayList<I
             } else {
                 ""
             }
+
             val passedExtraMimeTypes = activity.intent.getStringArrayExtra(Intent.EXTRA_MIME_TYPES)
             val extraMimeTypes = if (isGetContentIntent && passedExtraMimeTypes != null) {
                 passedExtraMimeTypes
