@@ -40,12 +40,8 @@ class ViewPagerAdapter(val activity: SimpleActivity, val tabsToShow: ArrayList<I
             this.isGetRingtonePicker = isPickRingtoneIntent
             this.isPickMultipleIntent = allowPickingMultipleIntent
             this.isGetContentIntent = isGetContentIntent
-            if (extraMimeTypes != null) {
-                this.wantedMimeTypes = extraMimeTypes.toList()
-            } else {
-                this.wantedMimeTypes = listOf(getContentMimeType)
-            }
-            this.updateIsCreateDocumentIntent(isCreateDocumentIntent)
+            wantedMimeTypes = extraMimeTypes?.toList() ?: listOf(getContentMimeType)
+            updateIsCreateDocumentIntent(isCreateDocumentIntent)
 
             setupFragment(activity)
             onResume(activity.getProperTextColor())
