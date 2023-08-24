@@ -225,7 +225,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         for (file in files) {
             val listItem = getListItemFromFile(file, isSortingBySize, lastModifieds, false)
             if (listItem != null) {
-                if (isProperMimeType(wantedMimeType, file.absolutePath, file.isDirectory)) {
+                if (wantedMimeTypes.any { isProperMimeType(it, file.absolutePath, file.isDirectory) }) {
                     items.add(listItem)
                 }
             }
@@ -279,7 +279,7 @@ class ItemsFragment(context: Context, attributeSet: AttributeSet) : MyViewPagerF
         val listItems = ArrayList<ListItem>()
         fileDirItems.forEach {
             val listItem = ListItem(it.path, it.name, it.isDirectory, it.children, it.size, it.modified, false, false)
-            if (isProperMimeType(wantedMimeType, it.path, it.isDirectory)) {
+            if (wantedMimeTypes.any { mimeType -> isProperMimeType(mimeType, it.path, it.isDirectory) }) {
                 listItems.add(listItem)
             }
         }

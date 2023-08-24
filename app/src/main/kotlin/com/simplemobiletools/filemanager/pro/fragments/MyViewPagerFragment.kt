@@ -26,7 +26,7 @@ abstract class MyViewPagerFragment<BINDING : MyViewPagerFragment.InnerBinding>(c
     var isGetContentIntent = false
     var isGetRingtonePicker = false
     var isPickMultipleIntent = false
-    var wantedMimeType = ""
+    var wantedMimeTypes = listOf("")
     protected var isCreateDocumentIntent = false
     protected lateinit var innerBinding: BINDING
 
