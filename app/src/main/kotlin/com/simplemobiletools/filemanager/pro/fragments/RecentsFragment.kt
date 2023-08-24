@@ -179,7 +179,7 @@ class RecentsFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                         val modified = cursor.getLongValue(FileColumns.DATE_MODIFIED) * 1000
                         val fileDirItem = ListItem(path, name, false, 0, size, modified, false, false)
                         if ((showHidden || !name.startsWith(".")) && activity?.getDoesFilePathExist(path) == true) {
-                            if (isProperMimeType(wantedMimeType, path, false)) {
+                            if (wantedMimeTypes.any { isProperMimeType(it, path, false) }) {
                                 listItems.add(fileDirItem)
                             }
                         }

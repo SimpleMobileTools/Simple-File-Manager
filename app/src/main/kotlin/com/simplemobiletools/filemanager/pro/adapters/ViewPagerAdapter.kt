@@ -30,11 +30,21 @@ class ViewPagerAdapter(val activity: SimpleActivity, val tabsToShow: ArrayList<I
             } else {
                 ""
             }
+            val passedExtraMimeTypes = activity.intent.getStringArrayExtra(Intent.EXTRA_MIME_TYPES)
+            val extraMimeTypes = if (isGetContentIntent && passedExtraMimeTypes != null) {
+                passedExtraMimeTypes
+            } else {
+                null
+            }
 
             this.isGetRingtonePicker = isPickRingtoneIntent
             this.isPickMultipleIntent = allowPickingMultipleIntent
             this.isGetContentIntent = isGetContentIntent
-            this.wantedMimeType = getContentMimeType
+            if (extraMimeTypes != null) {
+                this.wantedMimeTypes = extraMimeTypes.toList()
+            } else {
+                this.wantedMimeTypes = listOf(getContentMimeType)
+            }
             this.updateIsCreateDocumentIntent(isCreateDocumentIntent)
 
             setupFragment(activity)
