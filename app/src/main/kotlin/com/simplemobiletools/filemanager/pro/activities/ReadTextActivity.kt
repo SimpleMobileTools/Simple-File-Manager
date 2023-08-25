@@ -29,9 +29,12 @@ import java.io.File
 import java.io.OutputStream
 
 class ReadTextActivity : SimpleActivity() {
-    private val SELECT_SAVE_FILE_INTENT = 1
-    private val SELECT_SAVE_FILE_AND_EXIT_INTENT = 2
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityReadTextBinding.inflate(layoutInflater) }
+    companion object {
+        private const val SELECT_SAVE_FILE_INTENT = 1
+        private const val SELECT_SAVE_FILE_AND_EXIT_INTENT = 2
+    }
+
+    private val binding by viewBinding(ActivityReadTextBinding::inflate)
 
     private var filePath = ""
     private var originalText = ""

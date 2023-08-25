@@ -43,10 +43,13 @@ import me.grantland.widget.AutofitHelper
 import java.io.File
 
 class MainActivity : SimpleActivity() {
-    private val BACK_PRESS_TIMEOUT = 5000
-    private val MANAGE_STORAGE_RC = 201
-    private val PICKED_PATH = "picked_path"
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityMainBinding.inflate(layoutInflater) }
+    companion object {
+        private const val BACK_PRESS_TIMEOUT = 5000
+        private const val MANAGE_STORAGE_RC = 201
+        private const val PICKED_PATH = "picked_path"
+    }
+
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     private var wasBackJustPressed = false
     private var mIsPasswordProtectionPending = false
