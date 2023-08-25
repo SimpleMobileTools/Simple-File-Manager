@@ -13,7 +13,7 @@ import com.simplemobiletools.filemanager.pro.extensions.config
 import java.io.File
 
 class SaveAsActivity : SimpleActivity() {
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivitySaveAsBinding.inflate(layoutInflater) }
+    private val binding by viewBinding(ActivitySaveAsBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

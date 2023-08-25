@@ -32,7 +32,7 @@ import com.simplemobiletools.filemanager.pro.models.ListItem
 import java.util.Locale
 
 class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityMimetypesBinding.inflate(layoutInflater) }
+    private val binding by viewBinding(ActivityMimetypesBinding::inflate)
     private var isSearchOpen = false
     private var currentMimeType = ""
     private var lastSearchedText = ""

@@ -6,6 +6,7 @@ import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.beVisibleIf
 import com.simplemobiletools.commons.extensions.getProperPrimaryColor
 import com.simplemobiletools.commons.extensions.getProperTextColor
+import com.simplemobiletools.commons.extensions.viewBinding
 import com.simplemobiletools.commons.helpers.NavigationIcon
 import com.simplemobiletools.commons.interfaces.RefreshRecyclerViewListener
 import com.simplemobiletools.filemanager.pro.R
@@ -14,7 +15,7 @@ import com.simplemobiletools.filemanager.pro.databinding.ActivityFavoritesBindin
 import com.simplemobiletools.filemanager.pro.extensions.config
 
 class FavoritesActivity : SimpleActivity(), RefreshRecyclerViewListener {
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityFavoritesBinding.inflate(layoutInflater) }
+    private val binding by viewBinding(ActivityFavoritesBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true

@@ -22,7 +22,7 @@ import com.simplemobiletools.filemanager.pro.extensions.showSystemUI
 import com.simplemobiletools.filemanager.pro.helpers.PdfDocumentAdapter
 
 class PDFViewerActivity : SimpleActivity() {
-    private val binding by lazy(LazyThreadSafetyMode.NONE) { ActivityPdfViewerBinding.inflate(layoutInflater) }
+    private val binding by viewBinding(ActivityPdfViewerBinding::inflate)
     private var realFilePath = ""
     private var isFullScreen = false
     private var passwordDialog: EnterPasswordDialog? = null
