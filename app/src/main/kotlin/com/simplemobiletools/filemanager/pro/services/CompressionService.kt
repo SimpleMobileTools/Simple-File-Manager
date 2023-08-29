@@ -129,8 +129,8 @@ class CompressionService : Service() {
                         return@use
                     }
 
-                    progress++
                     notificationManager.notify(jobId, showNotification(jobId, fileName, getString(R.string.decompressing), progress, progressMax))
+                    progress++
 
                     val realPath = getRealPathFromURI(uri)
                     val title = realPath?.getFilenameFromPath() ?: Uri.decode(uri.toString().getFilenameFromPath())
@@ -206,8 +206,8 @@ class CompressionService : Service() {
                     return@forEach
                 }
 
-                progress++
                 notificationManager.notify(jobId, showNotification(jobId, targetPath.getFilenameFromPath(), getString(R.string.compressing), progress, progressMax))
+                progress++
 
                 var name: String
                 var mainFilePath = currentPath
