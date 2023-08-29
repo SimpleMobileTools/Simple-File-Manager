@@ -43,15 +43,12 @@ import com.simplemobiletools.filemanager.pro.extensions.*
 import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
+import com.simplemobiletools.filemanager.pro.services.CompressionService
 import com.stericson.RootTools.RootTools
 import net.lingala.zip4j.exception.ZipException
 import net.lingala.zip4j.io.inputstream.ZipInputStream
-import net.lingala.zip4j.io.outputstream.ZipOutputStream
 import net.lingala.zip4j.model.LocalFileHeader
-import net.lingala.zip4j.model.ZipParameters
-import net.lingala.zip4j.model.enums.EncryptionMethod
 import java.io.BufferedInputStream
-import java.io.Closeable
 import java.io.File
 import java.util.*
 
@@ -486,19 +483,15 @@ class ItemsAdapter(
                         return@handleSAFDialog
                     }
 
-                    activity.toast(R.string.compressing)
                     val paths = getSelectedFileDirItems().map { it.path }
-                    ensureBackgroundThread {
-                        if (compressPaths(paths, destination, password)) {
-                            activity.runOnUiThread {
-                                activity.toast(R.string.compression_successful)
-                                listener?.refreshFragment()
-                                finishActMode()
-                            }
-                        } else {
-                            activity.toast(R.string.compressing_failed)
-                        }
+                    Intent(activity, CompressionService::class.java).apply {
+                        action = CompressionService.ACTION_COMPRESS
+                        putStringArrayListExtra(CompressionService.EXTRA_PATHS, ArrayList(paths))
+                        putExtra(CompressionService.EXTRA_PASSWORD, password)
+                        putExtra(CompressionService.EXTRA_DESTINATION, destination)
+                        activity.startService(this)
                     }
+                    finishActMode()
                 }
             }
         }
@@ -636,89 +629,6 @@ class ItemsAdapter(
         } else {
             CONFLICT_SKIP
         }
-    }
-
-    @SuppressLint("NewApi")
-    private fun compressPaths(sourcePaths: List<String>, targetPath: String, password: String? = null): Boolean {
-        val queue = LinkedList<String>()
-        val fos = activity.getFileOutputStreamSync(targetPath, "application/zip") ?: return false
-
-        val zout = password?.let { ZipOutputStream(fos, password.toCharArray()) } ?: ZipOutputStream(fos)
-        var res: Closeable = fos
-
-        fun zipEntry(name: String) = ZipParameters().also {
-            it.fileNameInZip = name
-            if (password != null) {
-                it.isEncryptFiles = true
-                it.encryptionMethod = EncryptionMethod.AES
-            }
-        }
-
-        try {
-            sourcePaths.forEach { currentPath ->
-                var name: String
-                var mainFilePath = currentPath
-                val base = "${mainFilePath.getParentPath()}/"
-                res = zout
-                queue.push(mainFilePath)
-                if (activity.getIsPathDirectory(mainFilePath)) {
-                    name = "${mainFilePath.getFilenameFromPath()}/"
-                    zout.putNextEntry(
-                        ZipParameters().also {
-                            it.fileNameInZip = name
-                        }
-                    )
-                }
-
-                while (!queue.isEmpty()) {
-                    mainFilePath = queue.pop()
-                    if (activity.getIsPathDirectory(mainFilePath)) {
-                        if (activity.isRestrictedSAFOnlyRoot(mainFilePath)) {
-                            activity.getAndroidSAFFileItems(mainFilePath, true) { files ->
-                                for (file in files) {
-                                    name = file.path.relativizeWith(base)
-                                    if (activity.getIsPathDirectory(file.path)) {
-                                        queue.push(file.path)
-                                        name = "${name.trimEnd('/')}/"
-                                        zout.putNextEntry(zipEntry(name))
-                                    } else {
-                                        zout.putNextEntry(zipEntry(name))
-                                        activity.getFileInputStreamSync(file.path)!!.copyTo(zout)
-                                        zout.closeEntry()
-                                    }
-                                }
-                            }
-                        } else {
-                            val mainFile = File(mainFilePath)
-                            for (file in mainFile.listFiles()) {
-                                name = file.path.relativizeWith(base)
-                                if (activity.getIsPathDirectory(file.absolutePath)) {
-                                    queue.push(file.absolutePath)
-                                    name = "${name.trimEnd('/')}/"
-                                    zout.putNextEntry(zipEntry(name))
-                                } else {
-                                    zout.putNextEntry(zipEntry(name))
-                                    activity.getFileInputStreamSync(file.path)!!.copyTo(zout)
-                                    zout.closeEntry()
-                                }
-                            }
-                        }
-
-                    } else {
-                        name = if (base == currentPath) currentPath.getFilenameFromPath() else mainFilePath.relativizeWith(base)
-                        zout.putNextEntry(zipEntry(name))
-                        activity.getFileInputStreamSync(mainFilePath)!!.copyTo(zout)
-                        zout.closeEntry()
-                    }
-                }
-            }
-        } catch (exception: Exception) {
-            activity.showErrorToast(exception)
-            return false
-        } finally {
-            res.close()
-        }
-        return true
     }
 
     private fun askConfirmDelete() {

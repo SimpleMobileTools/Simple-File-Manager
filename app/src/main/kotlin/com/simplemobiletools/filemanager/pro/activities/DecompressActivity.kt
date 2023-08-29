@@ -1,25 +1,24 @@
 package com.simplemobiletools.filemanager.pro.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.simplemobiletools.commons.dialogs.EnterPasswordDialog
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
 import com.simplemobiletools.commons.extensions.*
-import com.simplemobiletools.commons.helpers.NavigationIcon
-import com.simplemobiletools.commons.helpers.ensureBackgroundThread
-import com.simplemobiletools.commons.helpers.isOreoPlus
+import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.adapters.DecompressItemsAdapter
 import com.simplemobiletools.filemanager.pro.databinding.ActivityDecompressBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.models.ListItem
+import com.simplemobiletools.filemanager.pro.services.CompressionService
 import net.lingala.zip4j.exception.ZipException
 import net.lingala.zip4j.exception.ZipException.Type
 import net.lingala.zip4j.io.inputstream.ZipInputStream
 import net.lingala.zip4j.model.LocalFileHeader
 import java.io.BufferedInputStream
-import java.io.File
 
 class DecompressActivity : SimpleActivity() {
     companion object {
@@ -94,12 +93,17 @@ class DecompressActivity : SimpleActivity() {
         currentPath = path
         try {
             val listItems = getFolderItems(currentPath)
-            DecompressItemsAdapter(this, listItems, binding.decompressList) {
-                if ((it as ListItem).isDirectory) {
-                    updateCurrentPath(it.path)
+            val existingAdapter = (binding.decompressList.adapter as? DecompressItemsAdapter)
+            if (existingAdapter != null) {
+                existingAdapter.updateItems(listItems)
+            } else {
+                DecompressItemsAdapter(this, listItems, binding.decompressList) {
+                    if ((it as ListItem).isDirectory) {
+                        updateCurrentPath(it.path)
+                    }
+                }.apply {
+                    binding.decompressList.adapter = this
                 }
-            }.apply {
-                binding.decompressList.adapter = this
             }
         } catch (e: Exception) {
             showErrorToast(e)
@@ -111,63 +115,15 @@ class DecompressActivity : SimpleActivity() {
         FilePickerDialog(this, defaultFolder, false, config.showHidden, true, true, showFavoritesButton = true) { destination ->
             handleSAFDialog(destination) {
                 if (it) {
-                    ensureBackgroundThread {
-                        decompressTo(destination)
+                    Intent(this, CompressionService::class.java).apply {
+                        action = CompressionService.ACTION_DECOMPRESS
+                        putExtra(CompressionService.EXTRA_URI, uri!!)
+                        putExtra(CompressionService.EXTRA_PASSWORD, password)
+                        putExtra(CompressionService.EXTRA_DESTINATION, destination)
+                        startService(this)
                     }
                 }
             }
-        }
-    }
-
-    private fun decompressTo(destination: String) {
-        try {
-            val inputStream = contentResolver.openInputStream(uri!!)
-            val zipInputStream = ZipInputStream(BufferedInputStream(inputStream!!))
-            if (password != null) {
-                zipInputStream.setPassword(password?.toCharArray())
-            }
-            val buffer = ByteArray(1024)
-
-            zipInputStream.use {
-                while (true) {
-                    val entry = zipInputStream.nextEntry ?: break
-                    val filename = title.toString().substringBeforeLast(".")
-                    val parent = "$destination/$filename"
-                    val newPath = "$parent/${entry.fileName.trimEnd('/')}"
-
-                    if (!getDoesFilePathExist(parent)) {
-                        if (!createDirectorySync(parent)) {
-                            continue
-                        }
-                    }
-
-                    if (entry.isDirectory) {
-                        continue
-                    }
-
-                    val isVulnerableForZipPathTraversal = !File(newPath).canonicalPath.startsWith(parent)
-                    if (isVulnerableForZipPathTraversal) {
-                        continue
-                    }
-
-                    val fos = getFileOutputStreamSync(newPath, newPath.getMimeType())
-                    var count: Int
-                    while (true) {
-                        count = zipInputStream.read(buffer)
-                        if (count == -1) {
-                            break
-                        }
-
-                        fos!!.write(buffer, 0, count)
-                    }
-                    fos!!.close()
-                }
-
-                toast(R.string.decompression_successful)
-                finish()
-            }
-        } catch (e: Exception) {
-            showErrorToast(e)
         }
     }
 
@@ -185,47 +141,72 @@ class DecompressActivity : SimpleActivity() {
 
     @SuppressLint("NewApi")
     private fun fillAllListItems(uri: Uri) {
-        val inputStream = try {
-            contentResolver.openInputStream(uri)
-        } catch (e: Exception) {
-            showErrorToast(e)
-            return
-        }
+        binding.progressBar.beVisible()
+        ensureBackgroundThread {
+            val inputStream = try {
+                contentResolver.openInputStream(uri)
+            } catch (e: Exception) {
+                runOnUiThread {
+                    showErrorToast(e)
+                    binding.progressBar.beGone()
+                }
+                return@ensureBackgroundThread
+            }
 
-        val zipInputStream = ZipInputStream(BufferedInputStream(inputStream))
-        if (password != null) {
-            zipInputStream.setPassword(password?.toCharArray())
-        }
-        var zipEntry: LocalFileHeader?
-        while (true) {
-            try {
-                zipEntry = zipInputStream.nextEntry
-            } catch (passwordException: ZipException) {
-                if (passwordException.type == Type.WRONG_PASSWORD) {
-                    if (password != null) {
-                        toast(getString(R.string.invalid_password))
-                        passwordDialog?.clearPassword()
+            val zipInputStream = ZipInputStream(BufferedInputStream(inputStream))
+            if (password != null) {
+                zipInputStream.setPassword(password?.toCharArray())
+            }
+            var zipEntry: LocalFileHeader?
+            while (true) {
+                try {
+                    zipEntry = zipInputStream.nextEntry
+                } catch (passwordException: ZipException) {
+                    if (passwordException.type == Type.WRONG_PASSWORD) {
+                        if (password != null) {
+                            runOnUiThread {
+                                toast(getString(R.string.invalid_password))
+                                binding.progressBar.beGone()
+                                if (passwordDialog == null) {
+                                    askForPassword()
+                                } else {
+                                    passwordDialog?.clearPassword()
+                                }
+                            }
+                        } else {
+                            runOnUiThread {
+                                binding.progressBar.beGone()
+                                askForPassword()
+                            }
+                        }
+                        return@ensureBackgroundThread
                     } else {
-                        askForPassword()
+                        break
                     }
-                    return
-                } else {
+                } catch (ignored: Exception) {
                     break
                 }
-            } catch (ignored: Exception) {
-                break
-            }
 
-            if (zipEntry == null) {
-                break
-            }
+                if (zipEntry == null) {
+                    break
+                }
 
-            val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime else 0
-            val filename = zipEntry.fileName.removeSuffix("/")
-            val listItem = ListItem(filename, filename.getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false, false)
-            allFiles.add(listItem)
+                val lastModified = if (isOreoPlus()) zipEntry.lastModifiedTime else 0
+                val filename = zipEntry.fileName.removeSuffix("/")
+                val listItem = ListItem(filename, filename.getFilenameFromPath(), zipEntry.isDirectory, 0, 0L, lastModified, false, false)
+                runOnUiThread {
+                    allFiles.add(listItem)
+                    passwordDialog?.dismiss(notify = false)
+                    passwordDialog = null
+                    updateCurrentPath(currentPath)
+                }
+            }
+            runOnUiThread {
+                binding.progressBar.beGone()
+                passwordDialog?.dismiss(notify = false)
+                passwordDialog = null
+            }
         }
-        passwordDialog?.dismiss(notify = false)
     }
 
     private fun askForPassword() {
