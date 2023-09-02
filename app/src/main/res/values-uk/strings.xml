@@ -48,7 +48,7 @@
     <string name="downloads">Завантажене</string>
     <string name="archives">Архіви</string>
     <string name="others">Інше</string>
-    <string name="storage_free">free</string>
+    <string name="storage_free">вільно</string>
     <string name="total_storage">Всього пам\'яті: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Активувати root-доступ</string>
