@@ -61,6 +61,7 @@
                 android:layout_centerHorizontal="true"
                 android:alpha="0.8"
                 android:background="?attr/selectableItemBackground"
+                android:fontFamily="@font/product_sans_italic"
                 android:gravity="center"
                 android:padding="@dimen/activity_margin"
                 android:text="@string/type_2_characters"

@@ -19,6 +19,7 @@
             android:id="@+id/item_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans"
             android:inputType="textCapSentences"
             android:singleLine="true"
             android:textCursorDrawable="@null"
@@ -36,12 +37,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:fontFamily="@font/product_sans"
             android:text="@string/folder" />
 
         <com.simplemobiletools.commons.views.MyCompatRadioButton
             android:id="@+id/dialog_radio_file"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans"
             android:text="@string/file" />
     </RadioGroup>
 </LinearLayout>

@@ -17,7 +17,8 @@
             android:id="@+id/folder_value"
             style="@style/UnclickableEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans" />
 
     </com.simplemobiletools.commons.views.MyTextInputLayout>
 
@@ -32,6 +33,7 @@
             android:id="@+id/filename_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans"
             android:inputType="textCapSentences"
             android:singleLine="true"
             android:textCursorDrawable="@null"
@@ -49,6 +51,7 @@
             android:id="@+id/extension_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans"
             android:singleLine="true"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/bigger_text_size" />

@@ -33,6 +33,7 @@
                     android:id="@+id/free_space_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="…"
                     android:textSize="@dimen/storage_free_space_text_size"
                     tools:text="23 GB" />
@@ -46,6 +47,7 @@
                     android:layout_alignBottom="@+id/free_space_value"
                     android:layout_marginStart="@dimen/medium_margin"
                     android:layout_toEndOf="@+id/free_space_value"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/storage_free"
                     android:textSize="@dimen/big_text_size"
                     android:visibility="invisible" />
@@ -68,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/main_storage_usage_progressbar"
                     android:layout_marginBottom="@dimen/big_margin"
+                    android:fontFamily="@font/product_sans"
                     android:textSize="@dimen/big_text_size"
                     tools:text="Total storage: 64 GB" />
 
@@ -95,6 +98,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toEndOf="@+id/images_size"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/images"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
@@ -107,6 +111,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
+                    android:fontFamily="@font/product_sans"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
@@ -144,6 +149,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toEndOf="@+id/videos_size"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/videos"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
@@ -156,6 +162,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
+                    android:fontFamily="@font/product_sans"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
@@ -193,6 +200,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toEndOf="@+id/audio_size"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/audio"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
@@ -205,6 +213,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
+                    android:fontFamily="@font/product_sans"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
@@ -242,6 +251,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toEndOf="@+id/documents_size"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/documents"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
@@ -254,6 +264,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
+                    android:fontFamily="@font/product_sans"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
@@ -291,6 +302,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toEndOf="@+id/archives_size"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/archives"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
@@ -303,6 +315,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
+                    android:fontFamily="@font/product_sans"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />
@@ -340,6 +353,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_toEndOf="@+id/others_size"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/others"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
@@ -352,6 +366,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
+                    android:fontFamily="@font/product_sans"
                     android:text="…"
                     android:textSize="@dimen/normal_text_size"
                     tools:text="20 GB" />

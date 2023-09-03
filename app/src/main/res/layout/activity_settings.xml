@@ -33,6 +33,7 @@
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
                 android:text="@string/color_customization" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,6 +47,7 @@
                     style="@style/SettingsTextLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/customize_colors"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -61,6 +63,7 @@
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
                 android:text="@string/general_settings" />
 
             <RelativeLayout
@@ -74,6 +77,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/use_english_language" />
 
             </RelativeLayout>
@@ -89,6 +93,7 @@
                     style="@style/SettingsTextLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/language" />
 
                 <com.simplemobiletools.commons.views.MyTextView
@@ -97,6 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/settings_language_label"
+                    android:fontFamily="@font/product_sans"
                     tools:text="English" />
 
             </RelativeLayout>
@@ -112,6 +118,7 @@
                     style="@style/SettingsTextLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/manage_favorites" />
 
             </RelativeLayout>
@@ -127,6 +134,7 @@
                     style="@style/SettingsTextLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/manage_shown_tabs" />
 
             </RelativeLayout>
@@ -142,6 +150,7 @@
                     style="@style/SettingsTextLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/change_date_and_time_format" />
 
             </RelativeLayout>
@@ -157,6 +166,7 @@
                     style="@style/SettingsTextLabelStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/font_size" />
 
                 <com.simplemobiletools.commons.views.MyTextView
@@ -165,6 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/settings_font_size_label"
+                    android:fontFamily="@font/product_sans"
                     tools:text="@string/medium" />
 
             </RelativeLayout>
@@ -180,6 +191,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/press_back_twice" />
 
             </RelativeLayout>
@@ -193,6 +205,7 @@
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
                 android:text="@string/visibility" />
 
             <RelativeLayout
@@ -206,6 +219,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/show_hidden_items" />
 
             </RelativeLayout>
@@ -219,6 +233,7 @@
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
                 android:text="@string/scrolling" />
 
             <RelativeLayout
@@ -232,6 +247,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/enable_pull_to_refresh" />
 
             </RelativeLayout>
@@ -245,6 +261,7 @@
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
                 android:text="@string/file_operations" />
 
             <RelativeLayout
@@ -258,6 +275,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/keep_last_modified" />
 
             </RelativeLayout>
@@ -273,6 +291,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/skip_delete_confirmation" />
 
             </RelativeLayout>
@@ -286,6 +305,7 @@
                 style="@style/SettingsSectionLabelStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
                 android:text="@string/security" />
 
             <RelativeLayout
@@ -299,6 +319,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/password_protect_hidden_items" />
 
             </RelativeLayout>
@@ -314,6 +335,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/password_protect_whole_app" />
 
             </RelativeLayout>
@@ -329,6 +351,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/password_protect_file_deletion" />
 
             </RelativeLayout>
@@ -344,6 +367,7 @@
                     style="@style/SettingsCheckboxStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/product_sans"
                     android:text="@string/enable_root_access" />
 
             </RelativeLayout>

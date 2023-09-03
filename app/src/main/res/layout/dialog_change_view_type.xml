@@ -23,6 +23,7 @@
                 android:id="@+id/change_view_type_dialog_radio_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/grid" />
@@ -31,6 +32,7 @@
                 android:id="@+id/change_view_type_dialog_radio_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/list" />
@@ -46,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_margin"
+            android:fontFamily="@font/product_sans"
             android:paddingTop="@dimen/medium_margin"
             android:paddingBottom="@dimen/medium_margin"
             android:text="@string/use_for_this_folder" />

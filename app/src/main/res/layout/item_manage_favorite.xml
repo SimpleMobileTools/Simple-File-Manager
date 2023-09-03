@@ -15,6 +15,7 @@
         android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/medium_margin"
         android:layout_toStartOf="@+id/overflow_menu_icon"
+        android:fontFamily="@font/product_sans"
         tools:text="/Internal/DCIM" />
 
     <ImageView

@@ -19,7 +19,8 @@
             android:id="@+id/folder"
             style="@style/UnclickableEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans" />
 
     </com.simplemobiletools.commons.views.MyTextInputLayout>
 
@@ -34,6 +35,7 @@
             android:id="@+id/filename_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans"
             android:inputType="textCapSentences"
             android:singleLine="true"
             android:textCursorDrawable="@null"
@@ -47,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/filename_hint"
         android:layout_marginTop="@dimen/small_margin"
+        android:fontFamily="@font/product_sans"
         android:paddingTop="@dimen/normal_margin"
         android:paddingBottom="@dimen/normal_margin"
         android:text="@string/add_password" />
