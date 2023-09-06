@@ -7,12 +7,15 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import android.os.Looper
 import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.core.view.children
+import androidx.core.view.isVisible
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import com.simplemobiletools.commons.models.FileDirItem
@@ -21,9 +24,11 @@ import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.activities.MimeTypesActivity
 import com.simplemobiletools.filemanager.pro.activities.SimpleActivity
 import com.simplemobiletools.filemanager.pro.adapters.ItemsAdapter
+import com.simplemobiletools.filemanager.pro.databinding.ItemStorageVolumeBinding
 import com.simplemobiletools.filemanager.pro.databinding.StorageFragmentBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
 import com.simplemobiletools.filemanager.pro.extensions.formatSizeThousand
+import com.simplemobiletools.filemanager.pro.extensions.getAllVolumeNames
 import com.simplemobiletools.filemanager.pro.helpers.*
 import com.simplemobiletools.filemanager.pro.interfaces.ItemOperationsListener
 import com.simplemobiletools.filemanager.pro.models.ListItem
@@ -35,6 +40,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private var allDeviceListItems = ArrayList<ListItem>()
     private var lastSearchedText = ""
     private lateinit var binding: StorageFragmentBinding
+    private val volumes = mutableMapOf<String, ItemStorageVolumeBinding>()
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -47,88 +53,132 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             this.activity = activity
         }
 
-        binding.totalSpace.text = String.format(context.getString(R.string.total_storage), "…")
-        getSizes()
+        val volumeNames = activity.getAllVolumeNames()
+        volumeNames.forEach { volumeName ->
+            val volumeBinding = ItemStorageVolumeBinding.inflate(activity.layoutInflater)
+            volumes[volumeName] = volumeBinding
+            volumeBinding.apply {
+                if (volumeName == PRIMARY_VOLUME_NAME) {
+                    storageName.setText(R.string.internal)
+                } else {
+                    storageName.setText(R.string.sd_card)
+                }
 
-        binding.freeSpaceHolder.setOnClickListener {
-            try {
-                val storageSettingsIntent = Intent(Settings.ACTION_INTERNAL_STORAGE_SETTINGS)
-                activity.startActivity(storageSettingsIntent)
-            } catch (e: Exception) {
-                activity.showErrorToast(e)
+                totalSpace.text = String.format(context.getString(R.string.total_storage), "…")
+                getSizes(volumeName)
+
+                if (volumeNames.size > 1) {
+                    root.children.forEach { it.beGone() }
+                    freeSpaceHolder.beVisible()
+                    expandButton.applyColorFilter(context.getProperPrimaryColor())
+                    expandButton.setImageResource(R.drawable.ic_arrow_down_vector)
+
+                    expandButton.setOnClickListener { _ ->
+                        if (imagesHolder.isVisible) {
+                            root.children.filterNot { it == freeSpaceHolder }.forEach { it.beGone() }
+                            expandButton.setImageResource(R.drawable.ic_arrow_down_vector)
+                        } else {
+                            root.children.filterNot { it == freeSpaceHolder }.forEach { it.beVisible() }
+                            expandButton.setImageResource(R.drawable.ic_arrow_up_vector)
+                        }
+                    }
+                } else {
+                    expandButton.beGone()
+                }
+
+                freeSpaceHolder.setOnClickListener {
+                    try {
+                        val storageSettingsIntent = Intent(Settings.ACTION_INTERNAL_STORAGE_SETTINGS)
+                        activity.startActivity(storageSettingsIntent)
+                    } catch (e: Exception) {
+                        activity.showErrorToast(e)
+                    }
+                }
+
+                imagesHolder.setOnClickListener { launchMimetypeActivity(IMAGES, volumeName) }
+                videosHolder.setOnClickListener { launchMimetypeActivity(VIDEOS, volumeName) }
+                audioHolder.setOnClickListener { launchMimetypeActivity(AUDIO, volumeName) }
+                documentsHolder.setOnClickListener { launchMimetypeActivity(DOCUMENTS, volumeName) }
+                archivesHolder.setOnClickListener { launchMimetypeActivity(ARCHIVES, volumeName) }
+                othersHolder.setOnClickListener { launchMimetypeActivity(OTHERS, volumeName) }
             }
+            binding.storageVolumesHolder.addView(volumeBinding.root)
         }
 
-        binding.apply {
-            imagesHolder.setOnClickListener { launchMimetypeActivity(IMAGES) }
-            videosHolder.setOnClickListener { launchMimetypeActivity(VIDEOS) }
-            audioHolder.setOnClickListener { launchMimetypeActivity(AUDIO) }
-            documentsHolder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
-            archivesHolder.setOnClickListener { launchMimetypeActivity(ARCHIVES) }
-            othersHolder.setOnClickListener { launchMimetypeActivity(OTHERS) }
+        ensureBackgroundThread {
+            getVolumeStorageStats(context)
         }
 
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             refreshFragment()
         }, 2000)
     }
 
     override fun onResume(textColor: Int) {
-        getSizes()
         context.updateTextColors(binding.root)
 
+        val properPrimaryColor = context.getProperPrimaryColor()
+        val redColor = context.resources.getColor(R.color.md_red_700)
+        val greenColor = context.resources.getColor(R.color.md_green_700)
+        val lightBlueColor = context.resources.getColor(R.color.md_light_blue_700)
+        val yellowColor = context.resources.getColor(R.color.md_yellow_700)
+        val tealColor = context.resources.getColor(R.color.md_teal_700)
+        val pinkColor = context.resources.getColor(R.color.md_pink_700)
+
+        volumes.entries.forEach { (it, volumeBinding) ->
+            getSizes(it)
+            volumeBinding.apply {
+                mainStorageUsageProgressbar.setIndicatorColor(properPrimaryColor)
+                mainStorageUsageProgressbar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
+
+                imagesProgressbar.setIndicatorColor(redColor)
+                imagesProgressbar.trackColor = redColor.adjustAlpha(LOWER_ALPHA)
+
+                videosProgressbar.setIndicatorColor(greenColor)
+                videosProgressbar.trackColor = greenColor.adjustAlpha(LOWER_ALPHA)
+
+                audioProgressbar.setIndicatorColor(lightBlueColor)
+                audioProgressbar.trackColor = lightBlueColor.adjustAlpha(LOWER_ALPHA)
+
+                documentsProgressbar.setIndicatorColor(yellowColor)
+                documentsProgressbar.trackColor = yellowColor.adjustAlpha(LOWER_ALPHA)
+
+                archivesProgressbar.setIndicatorColor(tealColor)
+                archivesProgressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
+
+                othersProgressbar.setIndicatorColor(pinkColor)
+                othersProgressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
+
+                expandButton.applyColorFilter(context.getProperPrimaryColor())
+            }
+        }
+
         binding.apply {
-            val properPrimaryColor = context.getProperPrimaryColor()
-            mainStorageUsageProgressbar.setIndicatorColor(properPrimaryColor)
-            mainStorageUsageProgressbar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
-
-            val redColor = context.resources.getColor(R.color.md_red_700)
-            imagesProgressbar.setIndicatorColor(redColor)
-            imagesProgressbar.trackColor = redColor.adjustAlpha(LOWER_ALPHA)
-
-            val greenColor = context.resources.getColor(R.color.md_green_700)
-            videosProgressbar.setIndicatorColor(greenColor)
-            videosProgressbar.trackColor = greenColor.adjustAlpha(LOWER_ALPHA)
-
-            val lightBlueColor = context.resources.getColor(R.color.md_light_blue_700)
-            audioProgressbar.setIndicatorColor(lightBlueColor)
-            audioProgressbar.trackColor = lightBlueColor.adjustAlpha(LOWER_ALPHA)
-
-            val yellowColor = context.resources.getColor(R.color.md_yellow_700)
-            documentsProgressbar.setIndicatorColor(yellowColor)
-            documentsProgressbar.trackColor = yellowColor.adjustAlpha(LOWER_ALPHA)
-
-            val tealColor = context.resources.getColor(R.color.md_teal_700)
-            archivesProgressbar.setIndicatorColor(tealColor)
-            archivesProgressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
-
-            val pinkColor = context.resources.getColor(R.color.md_pink_700)
-            othersProgressbar.setIndicatorColor(pinkColor)
-            othersProgressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
-
             searchHolder.setBackgroundColor(context.getProperBackgroundColor())
             progressBar.setIndicatorColor(properPrimaryColor)
             progressBar.trackColor = properPrimaryColor.adjustAlpha(LOWER_ALPHA)
         }
 
+        ensureBackgroundThread {
+            getVolumeStorageStats(context)
+        }
     }
 
-    private fun launchMimetypeActivity(mimetype: String) {
+    private fun launchMimetypeActivity(mimetype: String, volumeName: String) {
         Intent(context, MimeTypesActivity::class.java).apply {
             putExtra(SHOW_MIMETYPE, mimetype)
+            putExtra(VOLUME_NAME, volumeName)
             context.startActivity(this)
         }
     }
 
-    private fun getSizes() {
+    private fun getSizes(volumeName: String) {
         if (!isOreoPlus()) {
             return
         }
 
         ensureBackgroundThread {
-            getMainStorageStats(context)
-
-            val filesSize = getSizesByMimeType()
+            val filesSize = getSizesByMimeType(volumeName)
             val fileSizeImages = filesSize[IMAGES]!!
             val fileSizeVideos = filesSize[VIDEOS]!!
             val fileSizeAudios = filesSize[AUDIO]!!
@@ -137,7 +187,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             val fileSizeOthers = filesSize[OTHERS]!!
 
             post {
-                binding.apply {
+                volumes[volumeName]!!.apply {
                     imagesSize.text = fileSizeImages.formatSize()
                     imagesProgressbar.progress = (fileSizeImages / SIZE_DIVIDER).toInt()
 
@@ -160,8 +210,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    private fun getSizesByMimeType(): HashMap<String, Long> {
-        val uri = MediaStore.Files.getContentUri("external")
+    private fun getSizesByMimeType(volumeName: String): HashMap<String, Long> {
+        val uri = MediaStore.Files.getContentUri(volumeName)
         val projection = arrayOf(
             MediaStore.Files.FileColumns.SIZE,
             MediaStore.Files.FileColumns.MIME_TYPE,
@@ -222,40 +272,44 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     }
 
     @SuppressLint("NewApi")
-    private fun getMainStorageStats(context: Context) {
+    private fun getVolumeStorageStats(context: Context) {
         val externalDirs = context.getExternalFilesDirs(null)
         val storageManager = context.getSystemService(AppCompatActivity.STORAGE_SERVICE) as StorageManager
 
         externalDirs.forEach { file ->
+            val volumeName: String
+            val totalStorageSpace: Long
+            val freeStorageSpace: Long
             val storageVolume = storageManager.getStorageVolume(file) ?: return
             if (storageVolume.isPrimary) {
                 // internal storage
+                volumeName = PRIMARY_VOLUME_NAME
                 val storageStatsManager = context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
                 val uuid = StorageManager.UUID_DEFAULT
-                val totalStorageSpace = storageStatsManager.getTotalBytes(uuid)
-                val freeStorageSpace = storageStatsManager.getFreeBytes(uuid)
-
-                post {
-                    binding.apply {
-                        arrayOf(
-                            mainStorageUsageProgressbar, imagesProgressbar, videosProgressbar, audioProgressbar, documentsProgressbar,
-                            archivesProgressbar, othersProgressbar
-                        ).forEach {
-                            it.max = (totalStorageSpace / SIZE_DIVIDER).toInt()
-                        }
-
-                        mainStorageUsageProgressbar.progress = ((totalStorageSpace - freeStorageSpace) / SIZE_DIVIDER).toInt()
-
-                        mainStorageUsageProgressbar.beVisible()
-                        freeSpaceValue.text = freeStorageSpace.formatSizeThousand()
-                        totalSpace.text = String.format(context.getString(R.string.total_storage), totalStorageSpace.formatSizeThousand())
-                        freeSpaceLabel.beVisible()
-                    }
-                }
+                totalStorageSpace = storageStatsManager.getTotalBytes(uuid)
+                freeStorageSpace = storageStatsManager.getFreeBytes(uuid)
             } else {
-                // sd card
-                val totalSpace = file.totalSpace
-                val freeSpace = file.freeSpace
+                volumeName = storageVolume.uuid!!.lowercase(Locale.US)
+                totalStorageSpace = file.totalSpace
+                freeStorageSpace = file.freeSpace
+            }
+
+            post {
+                volumes[volumeName]?.apply {
+                    arrayOf(
+                        mainStorageUsageProgressbar, imagesProgressbar, videosProgressbar, audioProgressbar, documentsProgressbar,
+                        archivesProgressbar, othersProgressbar
+                    ).forEach {
+                        it.max = (totalStorageSpace / SIZE_DIVIDER).toInt()
+                    }
+
+                    mainStorageUsageProgressbar.progress = ((totalStorageSpace - freeStorageSpace) / SIZE_DIVIDER).toInt()
+
+                    mainStorageUsageProgressbar.beVisible()
+                    freeSpaceValue.text = freeStorageSpace.formatSizeThousand()
+                    totalSpace.text = String.format(context.getString(R.string.total_storage), totalStorageSpace.formatSizeThousand())
+                    freeSpaceLabel.beVisible()
+                }
             }
         }
     }
@@ -334,10 +388,10 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         }
     }
 
-    private fun getAllFiles(): ArrayList<FileDirItem> {
+    private fun getAllFiles(volumeName: String): ArrayList<FileDirItem> {
         val fileDirItems = ArrayList<FileDirItem>()
         val showHidden = context?.config?.shouldShowHidden() ?: return fileDirItems
-        val uri = MediaStore.Files.getContentUri("external")
+        val uri = MediaStore.Files.getContentUri(volumeName)
         val projection = arrayOf(
             MediaStore.Files.FileColumns.DATA,
             MediaStore.Files.FileColumns.DISPLAY_NAME,
@@ -396,8 +450,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
 
     override fun refreshFragment() {
         ensureBackgroundThread {
-            val fileDirItems = getAllFiles()
-            allDeviceListItems = getListItemsFromFileDirItems(fileDirItems)
+            val fileDirItems = volumes.keys.map { getAllFiles(it) }.flatten()
+            allDeviceListItems = getListItemsFromFileDirItems(ArrayList(fileDirItems))
         }
         setupLayoutManager()
     }

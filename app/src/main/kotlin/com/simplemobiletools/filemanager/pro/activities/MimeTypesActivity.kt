@@ -40,6 +40,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private var zoomListener: MyRecyclerView.MyZoomListener? = null
     private var storedItems = ArrayList<ListItem>()
     private var currentViewType = VIEW_TYPE_LIST
+    private var currentVolume = PRIMARY_VOLUME_NAME
 
     override fun onCreate(savedInstanceState: Bundle?) {
         isMaterialActivity = true
@@ -53,6 +54,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
         }
 
         currentMimeType = intent.getStringExtra(SHOW_MIMETYPE) ?: return
+        currentVolume = intent.getStringExtra(VOLUME_NAME) ?: currentVolume
         binding.mimetypesToolbar.title = getString(
             when (currentMimeType) {
                 IMAGES -> R.string.images
@@ -267,7 +269,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
     private fun getProperFileDirItems(callback: (ArrayList<FileDirItem>) -> Unit) {
         val fileDirItems = ArrayList<FileDirItem>()
         val showHidden = config.shouldShowHidden()
-        val uri = MediaStore.Files.getContentUri("external")
+        val uri = MediaStore.Files.getContentUri(currentVolume)
         val projection = arrayOf(
             MediaStore.Files.FileColumns.MIME_TYPE,
             MediaStore.Files.FileColumns.DATA,

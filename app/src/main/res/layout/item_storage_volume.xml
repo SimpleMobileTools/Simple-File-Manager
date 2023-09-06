@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/storage_holder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:ignore="HardcodedText">
+
+    <RelativeLayout
+        android:id="@+id/free_space_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/storage_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/expand_button"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/internal"
+            android:textSize="@dimen/big_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/free_space_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/storage_name"
+            android:text="…"
+            android:textSize="@dimen/storage_free_space_text_size"
+            tools:text="23 GB" />
+
+        <ImageView
+            android:id="@+id/expand_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/medium_margin"
+            android:src="@drawable/ic_arrow_up_vector" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/free_space_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/total_space"
+            android:layout_alignBaseline="@+id/free_space_value"
+            android:layout_alignBottom="@+id/free_space_value"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_toEndOf="@+id/free_space_value"
+            android:text="@string/storage_free"
+            android:textSize="@dimen/big_text_size"
+            android:visibility="invisible" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/main_storage_usage_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/free_space_value"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:max="100"
+            app:trackThickness="4dp" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/total_space"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_storage_usage_progressbar"
+            android:layout_marginBottom="@dimen/big_margin"
+            android:textSize="@dimen/big_text_size"
+            tools:text="Total storage: 64 GB" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/images_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/free_space_holder">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/images_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/images_size"
+            android:text="@string/images"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/images_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.7"
+            android:text="…"
+            android:textSize="@dimen/normal_text_size"
+            tools:text="20 GB" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/images_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/images_label"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:max="100"
+            app:trackThickness="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/videos_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/images_holder">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/videos_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/videos_size"
+            android:text="@string/videos"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/videos_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.7"
+            android:text="…"
+            android:textSize="@dimen/normal_text_size"
+            tools:text="20 GB" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/videos_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/videos_label"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:max="100"
+            app:trackThickness="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/audio_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/videos_holder">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/audio_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/audio_size"
+            android:text="@string/audio"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/audio_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.7"
+            android:text="…"
+            android:textSize="@dimen/normal_text_size"
+            tools:text="20 GB" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/audio_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/audio_label"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:max="100"
+            app:trackThickness="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/documents_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/audio_holder">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/documents_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/documents_size"
+            android:text="@string/documents"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/documents_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.7"
+            android:text="…"
+            android:textSize="@dimen/normal_text_size"
+            tools:text="20 GB" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/documents_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/documents_label"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:max="100"
+            app:trackThickness="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/archives_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/documents_holder">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/archives_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/archives_size"
+            android:text="@string/archives"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/archives_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.7"
+            android:text="…"
+            android:textSize="@dimen/normal_text_size"
+            tools:text="20 GB" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/archives_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/archives_label"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:max="100"
+            app:trackThickness="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/others_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="@dimen/activity_margin"
+        android:paddingTop="@dimen/normal_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingBottom="@dimen/normal_margin"
+        app:layout_constraintTop_toBottomOf="@+id/archives_holder">
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/others_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/others_size"
+            android:text="@string/others"
+            android:textSize="@dimen/bigger_text_size" />
+
+        <com.simplemobiletools.commons.views.MyTextView
+            android:id="@+id/others_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:alpha="0.7"
+            android:text="…"
+            android:textSize="@dimen/normal_text_size"
+            tools:text="20 GB" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/others_progressbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/others_label"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:max="100"
+            app:trackThickness="2dp" />
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
