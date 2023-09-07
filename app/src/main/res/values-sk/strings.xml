@@ -53,7 +53,7 @@
     <string name="downloads">Stiahnuté</string>
     <string name="archives">Archívy</string>
     <string name="others">Iné</string>
-    <string name="storage_free">využitých</string>
+    <string name="storage_free">voľných</string>
     <string name="total_storage">Úložisko celkom: %s</string>
 
     <!-- Settings -->
