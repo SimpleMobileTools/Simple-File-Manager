@@ -324,7 +324,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
     private fun scanVolume(volumeName: String, root: File) {
         val paths = mutableListOf<String>()
         if (context.isPathOnSD(root.path)) {
-            File(context.config.sdCardPath).walkBottomUp().forEach {
+            File(context.sdCardPath).walkBottomUp().forEach {
                 paths.add(it.path)
             }
         }
