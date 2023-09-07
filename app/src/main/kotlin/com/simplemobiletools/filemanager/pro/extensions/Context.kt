@@ -4,8 +4,6 @@ import android.content.Context
 import android.os.storage.StorageManager
 import com.simplemobiletools.commons.extensions.isPathOnOTG
 import com.simplemobiletools.commons.extensions.isPathOnSD
-import com.simplemobiletools.commons.extensions.otgPath
-import com.simplemobiletools.commons.extensions.updateOTGPathFromPartition
 import com.simplemobiletools.commons.helpers.isNougatPlus
 import com.simplemobiletools.filemanager.pro.helpers.Config
 import com.simplemobiletools.filemanager.pro.helpers.PRIMARY_VOLUME_NAME
