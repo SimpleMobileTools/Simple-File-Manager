@@ -286,10 +286,15 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             if (storageVolume.isPrimary) {
                 // internal storage
                 volumeName = PRIMARY_VOLUME_NAME
-                val storageStatsManager = context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
-                val uuid = StorageManager.UUID_DEFAULT
-                totalStorageSpace = storageStatsManager.getTotalBytes(uuid)
-                freeStorageSpace = storageStatsManager.getFreeBytes(uuid)
+                if (isOreoPlus()) {
+                    val storageStatsManager = context.getSystemService(AppCompatActivity.STORAGE_STATS_SERVICE) as StorageStatsManager
+                    val uuid = StorageManager.UUID_DEFAULT
+                    totalStorageSpace = storageStatsManager.getTotalBytes(uuid)
+                    freeStorageSpace = storageStatsManager.getFreeBytes(uuid)
+                } else {
+                    totalStorageSpace = file.totalSpace
+                    freeStorageSpace = file.freeSpace
+                }
             } else {
                 volumeName = storageVolume.uuid!!.lowercase(Locale.US)
                 totalStorageSpace = file.totalSpace
