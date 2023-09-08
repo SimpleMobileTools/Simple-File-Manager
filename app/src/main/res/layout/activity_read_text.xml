@@ -38,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
+                android:fontFamily="@font/product_sans"
                 android:gravity="top"
                 android:inputType="textMultiLine|textNoSuggestions"
                 android:padding="@dimen/medium_margin"

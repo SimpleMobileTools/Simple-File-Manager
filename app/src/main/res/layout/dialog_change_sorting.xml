@@ -23,6 +23,7 @@
                 android:id="@+id/sorting_dialog_radio_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/name" />
@@ -31,6 +32,7 @@
                 android:id="@+id/sorting_dialog_radio_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/size" />
@@ -39,6 +41,7 @@
                 android:id="@+id/sorting_dialog_radio_last_modified"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/last_modified" />
@@ -47,6 +50,7 @@
                 android:id="@+id/sorting_dialog_radio_extension"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/extension" />
@@ -66,6 +70,7 @@
                 android:id="@+id/sorting_dialog_radio_ascending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/ascending" />
@@ -74,6 +79,7 @@
                 android:id="@+id/sorting_dialog_radio_descending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans"
                 android:paddingTop="@dimen/medium_margin"
                 android:paddingBottom="@dimen/medium_margin"
                 android:text="@string/descending" />
@@ -88,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/small_margin"
+            android:fontFamily="@font/product_sans"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:text="@string/sort_numeric_parts" />
@@ -96,6 +103,7 @@
             android:id="@+id/sorting_dialog_use_for_this_folder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/product_sans"
             android:paddingTop="@dimen/normal_margin"
             android:paddingBottom="@dimen/normal_margin"
             android:text="@string/use_for_this_folder" />

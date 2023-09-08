@@ -29,10 +29,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/item_icon"
+            android:fontFamily="@font/product_sans_regular"
             android:paddingTop="@dimen/activity_margin"
             android:paddingEnd="@dimen/normal_margin"
             android:paddingBottom="@dimen/activity_margin"
             android:textSize="@dimen/bigger_text_size"
+            android:typeface="normal"
             tools:text="/storage/emulated/0" />
 
     </RelativeLayout>

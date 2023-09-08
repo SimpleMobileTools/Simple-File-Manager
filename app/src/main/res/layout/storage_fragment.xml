@@ -48,7 +48,7 @@
                     android:textSize="@dimen/big_text_size"
                     android:visibility="invisible" />
 
-                <com.google.android.material.progressindicator.CircularProgressIndicator
+                <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/main_storage_usage_progressbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -278,20 +278,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/audio_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/downloads_label"
+                    android:id="@+id/archives_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/downloads_size"
-                    android:text="@string/downloads"
+                    android:layout_toEndOf="@+id/archives_size"
+                    android:text="@string/archives"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
                     android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/downloads_size"
+                    android:id="@+id/archives_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -302,10 +302,10 @@
                     tools:text="20 GB" />
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/downloads_progressbar"
+                    android:id="@+id/archives_progressbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/downloads_label"
+                    android:layout_below="@+id/archives_label"
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"

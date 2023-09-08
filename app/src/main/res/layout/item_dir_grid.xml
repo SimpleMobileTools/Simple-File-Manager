@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_icon"
             android:ellipsize="middle"
+            android:fontFamily="@font/product_sans"
             android:gravity="center_horizontal"
             android:paddingStart="@dimen/small_margin"
             android:paddingEnd="@dimen/small_margin"

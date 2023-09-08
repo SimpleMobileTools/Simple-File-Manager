@@ -23,6 +23,7 @@
         android:layout_alignBottom="@+id/item_icon"
         android:layout_toEndOf="@+id/item_icon"
         android:ellipsize="end"
+        android:fontFamily="@font/product_sans"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:paddingStart="@dimen/tiny_margin"
