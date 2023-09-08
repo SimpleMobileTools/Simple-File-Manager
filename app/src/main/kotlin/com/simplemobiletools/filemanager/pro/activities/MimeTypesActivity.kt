@@ -56,7 +56,7 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
                 VIDEOS -> R.string.videos
                 AUDIO -> R.string.audio
                 DOCUMENTS -> R.string.documents
-                ARCHIVES -> R.string.archives
+                DOWNLOADS -> R.string.archives
                 OTHERS -> R.string.others
                 else -> {
                     toast(R.string.unknown_error_occurred)
@@ -304,15 +304,15 @@ class MimeTypesActivity : SimpleActivity(), ItemOperationsListener {
                                 fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
-                        ARCHIVES -> {
-                            if (archiveMimeTypes.contains(fullMimetype)) {
+                        DOWNLOADS -> {
+                            if (downloadsMimeTypes.contains(fullMimetype)) {
                                 fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }
                         }
                         OTHERS -> {
                             if (mimetype != "image" && mimetype != "video" && mimetype != "audio" && mimetype != "text" &&
                                 !extraAudioMimeTypes.contains(fullMimetype) && !extraDocumentMimeTypes.contains(fullMimetype) &&
-                                !archiveMimeTypes.contains(fullMimetype)
+                                !downloadsMimeTypes.contains(fullMimetype)
                             ) {
                                 fileDirItems.add(FileDirItem(path, name, false, 0, size, lastModified))
                             }

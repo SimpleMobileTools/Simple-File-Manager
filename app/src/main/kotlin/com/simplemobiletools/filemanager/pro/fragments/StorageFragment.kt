@@ -55,7 +55,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         videos_holder.setOnClickListener { launchMimetypeActivity(VIDEOS) }
         audio_holder.setOnClickListener { launchMimetypeActivity(AUDIO) }
         documents_holder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
-        archives_holder.setOnClickListener { launchMimetypeActivity(ARCHIVES) }
+        archives_holder.setOnClickListener { launchMimetypeActivity(DOWNLOADS) }
         others_holder.setOnClickListener { launchMimetypeActivity(OTHERS) }
 
         Handler().postDelayed({
@@ -88,8 +88,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         documents_progressbar.trackColor = yellowColor.adjustAlpha(LOWER_ALPHA)
 
         val tealColor = context.resources.getColor(R.color.md_teal_700)
-        archives_progressbar.setIndicatorColor(tealColor)
-        archives_progressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
+        downloads_progressbar.setIndicatorColor(tealColor)
+        downloads_progressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
 
         val pinkColor = context.resources.getColor(R.color.md_pink_700)
         others_progressbar.setIndicatorColor(pinkColor)
@@ -120,7 +120,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             val videosSize = filesSize[VIDEOS]!!
             val audioSize = filesSize[AUDIO]!!
             val documentsSize = filesSize[DOCUMENTS]!!
-            val archivesSize = filesSize[ARCHIVES]!!
+            val downloadsSize = filesSize[DOWNLOADS]!!
             val othersSize = filesSize[OTHERS]!!
 
             post {
@@ -136,8 +136,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 documents_size.text = documentsSize.formatSize()
                 documents_progressbar.progress = (documentsSize / SIZE_DIVIDER).toInt()
 
-                archives_size.text = archivesSize.formatSize()
-                archives_progressbar.progress = (archivesSize / SIZE_DIVIDER).toInt()
+                downloads_size.text = downloadsSize.formatSize()
+                downloads_progressbar.progress = (downloadsSize / SIZE_DIVIDER).toInt()
 
                 others_size.text = othersSize.formatSize()
                 others_progressbar.progress = (othersSize / SIZE_DIVIDER).toInt()
@@ -157,7 +157,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         var videosSize = 0L
         var audioSize = 0L
         var documentsSize = 0L
-        var archivesSize = 0L
+        var downloadsSize = 0L
         var othersSize = 0L
         try {
             context.queryCursor(uri, projection) { cursor ->
@@ -183,7 +183,6 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                             when {
                                 extraDocumentMimeTypes.contains(mimeType) -> documentsSize += size
                                 extraAudioMimeTypes.contains(mimeType) -> audioSize += size
-                                archiveMimeTypes.contains(mimeType) -> archivesSize += size
                                 else -> othersSize += size
                             }
                         }
@@ -199,7 +198,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             put(VIDEOS, videosSize)
             put(AUDIO, audioSize)
             put(DOCUMENTS, documentsSize)
-            put(ARCHIVES, archivesSize)
+            put(DOWNLOADS, downloadsSize)
             put(OTHERS, othersSize)
         }
 
@@ -223,7 +222,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 post {
                     arrayOf(
                         main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar,
-                        archives_progressbar, others_progressbar
+                        downloads_progressbar, others_progressbar
                     ).forEach {
                         it.max = (totalSpace / SIZE_DIVIDER).toInt()
                     }

@@ -37,7 +37,7 @@ const val IMAGES = "images"
 const val VIDEOS = "videos"
 const val AUDIO = "audio"
 const val DOCUMENTS = "documents"
-const val ARCHIVES = "archives"
+const val DOWNLOADS = "downloads"
 const val OTHERS = "others"
 const val SHOW_MIMETYPE = "show_mimetype"
 
@@ -51,7 +51,7 @@ val extraDocumentMimeTypes = arrayListOf(
     "application/javascript"
 )
 
-val archiveMimeTypes = arrayListOf(
+val downloadsMimeTypes = arrayListOf(
     "application/zip",
     "application/octet-stream",
     "application/json",
