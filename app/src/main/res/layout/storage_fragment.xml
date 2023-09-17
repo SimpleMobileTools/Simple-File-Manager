@@ -6,49 +6,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/storage_nested_scrollview"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/storage_holder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        tools:ignore="HardcodedText">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/storage_holder"
+        <RelativeLayout
+            android:id="@+id/free_space_holder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="HardcodedText">
+            android:layout_height="0dp"
+            android:background="@drawable/tile_background"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            app:layout_constraintBottom_toTopOf="@+id/images_holder"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:id="@+id/free_space_holder"
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/directory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/main_storage_usage_progressbar"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/main_storage_usage_progressbar"
+                android:text="@string/internal"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/tile_background"
-                android:paddingStart="@dimen/activity_margin"
-                android:paddingTop="@dimen/activity_margin"
-                android:paddingEnd="@dimen/activity_margin"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/directory"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignTop="@+id/main_storage_usage_progressbar"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_toEndOf="@+id/main_storage_usage_progressbar"
-                    android:text="@string/internal"
-                    android:textAlignment="center"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
+                android:layout_alignTop="@+id/directory"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginBottom="36dp"
+                android:layout_toEndOf="@+id/main_storage_usage_progressbar"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/free_space_value"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/main_storage_usage_progressbar"
-                    android:layout_toEndOf="@+id/main_storage_usage_progressbar"
-                    android:layout_marginLeft="15dp"
+                    android:layout_height="33sp"
                     android:layout_marginBottom="5dp"
                     android:text="…"
+                    android:textAlignment="center"
                     android:textSize="20sp"
                     tools:text="23 GB" />
 
@@ -56,332 +61,340 @@
                     android:id="@+id/free_space_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/total_space"
-                    android:layout_alignBaseline="@+id/free_space_value"
-                    android:layout_alignBottom="@+id/free_space_value"
                     android:layout_marginStart="@dimen/medium_margin"
-                    android:layout_toEndOf="@+id/free_space_value"
                     android:text="@string/storage_free"
-                    android:textSize="@dimen/big_text_size"
-                    android:visibility="gone"
-                    tools:visibility="gone" />
-
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/main_storage_usage_progressbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:max="100"
-                    android:visibility="visible"
-                    app:indicatorSize="70dp"
-                    app:trackCornerRadius="5dp"
-                    app:trackThickness="10dp"
-                    tools:trackCornerRadius="3dp"
-                    tools:visibility="visible" />
+                    android:textSize="@dimen/big_text_size" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/total_space"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/free_space_value"
-                    android:layout_marginLeft="3dp"
+                    android:layout_height="33sp"
+                    android:layout_marginStart="3dp"
                     android:layout_marginBottom="@dimen/big_margin"
-                    android:layout_toEndOf="@+id/free_space_value"
+                    android:textAlignment="center"
                     android:textSize="20sp"
                     tools:text="/ 64 GB" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/images_holder"
-                android:layout_width="185dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/tile_background"
-                android:paddingStart="@dimen/activity_margin"
-                android:paddingEnd="@dimen/activity_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/free_space_holder">
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/main_storage_usage_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:max="100"
+                app:indicatorSize="70dp"
+                app:trackCornerRadius="5dp"
+                app:trackThickness="10dp"
+                tools:trackCornerRadius="3dp" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/images_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/images_size"
-                    android:text="@string/images"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/big_text_size"
-                    android:textStyle="bold" />
+        </RelativeLayout>
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/images_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:text="…"
-                    android:textSize="@dimen/normal_text_size"
-                    tools:text="20 GB" />
+        <RelativeLayout
+            android:id="@+id/images_holder"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/tile_background"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            app:layout_constraintBottom_toTopOf="@+id/audio_holder"
+            app:layout_constraintEnd_toStartOf="@+id/videos_holder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/free_space_holder" >
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/images_progressbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/images_label"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:max="100"
-                    app:trackThickness="0dp" />
-            </RelativeLayout>
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/images_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@+id/images_size"
+                android:text="@string/images"
+                android:textAlignment="center"
+                android:textSize="@dimen/big_text_size"
+                android:textStyle="bold" />
 
-            <RelativeLayout
-                android:id="@+id/videos_holder"
-                android:layout_width="185dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/tile_background"
-                android:paddingStart="@dimen/activity_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/activity_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/free_space_holder">
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/images_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:text="…"
+                android:textSize="@dimen/normal_text_size"
+                tools:text="20 GB" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/videos_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/videos_size"
-                    android:text="@string/videos"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/big_text_size"
-                    android:textStyle="bold" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/images_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/images_label"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:max="100"
+                app:trackThickness="0dp" />
+        </RelativeLayout>
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/videos_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:text="…"
-                    android:textSize="@dimen/normal_text_size"
-                    tools:text="20 GB" />
+        <RelativeLayout
+            android:id="@+id/videos_holder"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/tile_background"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/normal_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            app:layout_constraintBottom_toTopOf="@+id/documents_holder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/images_holder"
+            app:layout_constraintTop_toBottomOf="@+id/free_space_holder">
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/videos_progressbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/videos_label"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:max="100"
-                    app:trackThickness="0dp" />
-            </RelativeLayout>
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/videos_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@+id/videos_size"
+                android:text="@string/videos"
+                android:textAlignment="center"
+                android:textSize="@dimen/big_text_size"
+                android:textStyle="bold" />
 
-            <RelativeLayout
-                android:id="@+id/audio_holder"
-                android:layout_width="185dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/tile_background"
-                android:paddingStart="@dimen/activity_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/activity_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/images_holder">
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/videos_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:text="…"
+                android:textSize="@dimen/normal_text_size"
+                tools:text="20 GB" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/audio_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/audio_size"
-                    android:text="@string/audio"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/big_text_size"
-                    android:textStyle="bold" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/videos_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/videos_label"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:max="100"
+                app:trackThickness="0dp" />
+        </RelativeLayout>
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/audio_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:text="…"
-                    android:textSize="@dimen/normal_text_size"
-                    tools:text="20 GB" />
+        <RelativeLayout
+            android:id="@+id/audio_holder"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/tile_background"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/normal_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            app:layout_constraintBottom_toTopOf="@+id/downloads_holder"
+            app:layout_constraintEnd_toStartOf="@+id/documents_holder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/images_holder">
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/audio_progressbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/audio_label"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:max="100"
-                    app:trackThickness="0dp" />
-            </RelativeLayout>
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/audio_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@+id/audio_size"
+                android:text="@string/audio"
+                android:textAlignment="center"
+                android:textSize="@dimen/big_text_size"
+                android:textStyle="bold" />
 
-            <RelativeLayout
-                android:id="@+id/documents_holder"
-                android:layout_width="185dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/tile_background"
-                android:paddingStart="@dimen/activity_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/activity_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/videos_holder">
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/audio_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:text="…"
+                android:textSize="@dimen/normal_text_size"
+                tools:text="20 GB" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/documents_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/documents_size"
-                    android:text="@string/documents"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/big_text_size"
-                    android:textStyle="bold" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/audio_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/audio_label"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:max="100"
+                app:trackThickness="0dp" />
+        </RelativeLayout>
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/documents_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:text="…"
-                    android:textSize="@dimen/normal_text_size"
-                    tools:text="20 GB" />
+        <RelativeLayout
+            android:id="@+id/documents_holder"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/tile_background"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/normal_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            app:layout_constraintBottom_toTopOf="@+id/others_holder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/audio_holder"
+            app:layout_constraintTop_toBottomOf="@+id/videos_holder">
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/documents_progressbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/documents_label"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:max="100"
-                    app:trackThickness="0dp" />
-            </RelativeLayout>
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/documents_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@+id/documents_size"
+                android:text="@string/documents"
+                android:textAlignment="center"
+                android:textSize="@dimen/big_text_size"
+                android:textStyle="bold" />
 
-            <RelativeLayout
-                android:id="@+id/downloads_holder"
-                android:layout_width="185dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/tile_background"
-                android:paddingStart="@dimen/activity_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/activity_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/audio_holder">
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/documents_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:text="…"
+                android:textSize="@dimen/normal_text_size"
+                tools:text="20 GB" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/download_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/downloads_size"
-                    android:fontFamily="@font/product_sans"
-                    android:text="@string/downloads"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/big_text_size"
-                    android:textStyle="bold" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/documents_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/documents_label"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:max="100"
+                app:trackThickness="0dp" />
+        </RelativeLayout>
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/downloads_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:text="…"
-                    android:textSize="@dimen/normal_text_size"
-                    tools:text="20 GB" />
+        <RelativeLayout
+            android:id="@+id/downloads_holder"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/tile_background"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/normal_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/others_holder"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/audio_holder">
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/downloads_progressbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/download_label"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:max="100"
-                    app:trackThickness="0dp" />
-            </RelativeLayout>
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/download_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@+id/downloads_size"
+                android:fontFamily="@font/product_sans"
+                android:text="@string/downloads"
+                android:textAlignment="center"
+                android:textSize="@dimen/big_text_size"
+                android:textStyle="bold" />
 
-            <RelativeLayout
-                android:id="@+id/others_holder"
-                android:layout_width="185dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/tile_background"
-                android:paddingStart="@dimen/activity_margin"
-                android:paddingTop="@dimen/normal_margin"
-                android:paddingEnd="@dimen/activity_margin"
-                android:paddingBottom="@dimen/normal_margin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/documents_holder">
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/downloads_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:text="…"
+                android:textSize="@dimen/normal_text_size"
+                tools:text="20 GB" />
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/others_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/others_size"
-                    android:text="@string/others"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/big_text_size"
-                    android:textStyle="bold" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/downloads_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/download_label"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:max="100"
+                app:trackThickness="0dp" />
+        </RelativeLayout>
 
-                <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/others_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:text="…"
-                    android:textSize="@dimen/normal_text_size"
-                    tools:text="20 GB" />
+        <RelativeLayout
+            android:id="@+id/others_holder"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/tile_background"
+            android:paddingStart="@dimen/activity_margin"
+            android:paddingTop="@dimen/normal_margin"
+            android:paddingEnd="@dimen/activity_margin"
+            android:paddingBottom="@dimen/normal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/downloads_holder"
+            app:layout_constraintTop_toBottomOf="@+id/documents_holder">
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/others_progressbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/others_label"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_marginBottom="@dimen/medium_margin"
-                    android:max="100"
-                    app:trackThickness="0dp" />
-            </RelativeLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/others_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@+id/others_size"
+                android:text="@string/others"
+                android:textAlignment="center"
+                android:textSize="@dimen/big_text_size"
+                android:textStyle="bold" />
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/others_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:text="…"
+                android:textSize="@dimen/normal_text_size"
+                tools:text="20 GB" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/others_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/others_label"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                android:max="100"
+                app:trackThickness="0dp" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:id="@+id/search_holder"
