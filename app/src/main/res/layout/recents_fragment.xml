@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recents_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/tile_background"
+    android:clipToOutline="true">
+
 
     <com.simplemobiletools.commons.views.MyTextView
         android:id="@+id/recents_placeholder"
@@ -30,9 +33,8 @@
 
         <com.simplemobiletools.commons.views.MyRecyclerView
             android:id="@+id/recents_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/tile_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="15dp"
             android:clipToPadding="false"
             android:layoutAnimation="@anim/layout_animation"

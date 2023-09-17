@@ -48,8 +48,8 @@
     <string name="downloads">பதிவிறக்கங்கள்</string>
     <string name="archives">காப்பகங்கள்</string>
     <string name="others">மற்றவை</string>
-    <string name="storage_free">மீதம்</string>
-    <string name="total_storage">மொத்த சேமிப்பிடம்: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">ரூட் அணுகலை இயக்கு</string>
     <string name="press_back_twice">செயலியை வெளியேற இரண்டு முறை பின் அழுத்த கோரு</string>

@@ -48,8 +48,8 @@
     <string name="downloads">Завантажене</string>
     <string name="archives">Архіви</string>
     <string name="others">Інше</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Всього пам\'яті: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Активувати root-доступ</string>
     <string name="press_back_twice">Натисніть Назад двічі, щоб вийти з додатка</string>

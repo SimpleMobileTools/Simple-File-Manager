@@ -48,8 +48,8 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Архиви</string>
     <string name="others">Други</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Общо място за съхранение: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Активиране на root достъп</string>
     <string name="press_back_twice">Натискане два пъти Назад за излизане от приложението</string>

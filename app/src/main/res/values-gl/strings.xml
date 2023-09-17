@@ -48,8 +48,8 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Arquivos</string>
     <string name="others">Outros</string>
-    <string name="storage_free">ceibe</string>
-    <string name="total_storage">Almacenamento total: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Activar acceso root</string>
     <string name="press_back_twice">Require premer Atrás dúas veces para saír da aplicación</string>

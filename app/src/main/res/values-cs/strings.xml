@@ -48,8 +48,8 @@
     <string name="downloads">Stažené</string>
     <string name="archives">Archivy</string>
     <string name="others">Ostatní</string>
-    <string name="storage_free">volné</string>
-    <string name="total_storage">Úložiště celkem: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Povolit přístup jako root</string>
     <string name="press_back_twice">Pro opuštění aplikace vyžadovat stisknutí Zpět dvakrát</string>

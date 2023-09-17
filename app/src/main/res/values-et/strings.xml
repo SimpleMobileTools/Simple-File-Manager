@@ -48,8 +48,8 @@
     <string name="downloads">Allalaadimised</string>
     <string name="archives">Failiarhiivid</string>
     <string name="others">Muud failid</string>
-    <string name="storage_free">vaba</string>
-    <string name="total_storage">Kogu salvestusruum: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Luba ligipääs juurkasutajale</string>
     <string name="press_back_twice">Rakendusest väljumiseks eelda kahte Tagasi-nupu vajutust</string>

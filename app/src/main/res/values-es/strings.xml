@@ -48,8 +48,8 @@
     <string name="downloads">Descargas</string>
     <string name="archives">Archivos</string>
     <string name="others">Otros</string>
-    <string name="storage_free">libre</string>
-    <string name="total_storage">Almacenamiento total: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Activar acceso root</string>
     <string name="press_back_twice">Se requiere presionar el botón atras dos veces para salir de la app</string>

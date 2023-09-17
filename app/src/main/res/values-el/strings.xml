@@ -53,8 +53,8 @@
     <string name="downloads">Λήψεις</string>
     <string name="archives">Αρχεία</string>
     <string name="others">Άλλα</string>
-    <string name="storage_free">ελεύθερα</string>
-    <string name="total_storage">Σύνολο: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Ενεργοποιήστε την πρόσβαση ριζικού καταλόγου</string>

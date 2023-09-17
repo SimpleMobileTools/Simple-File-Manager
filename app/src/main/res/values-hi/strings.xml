@@ -52,8 +52,8 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Archives</string>
     <string name="others">Others</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
 
     <!-- Settings -->
     <string name="enable_root_access">रूट एक्सेस</string>

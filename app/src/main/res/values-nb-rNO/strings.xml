@@ -48,8 +48,8 @@
     <string name="downloads">Nedlastinger</string>
     <string name="archives">Arkiver</string>
     <string name="others">Others</string>
-    <string name="storage_free">ledig</string>
-    <string name="total_storage">Total lagring: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktiver root-tilgang</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>

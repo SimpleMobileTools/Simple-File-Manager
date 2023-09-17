@@ -48,8 +48,8 @@
     <string name="downloads">下载</string>
     <string name="archives">存档</string>
     <string name="others">其他</string>
-    <string name="storage_free">空闲</string>
-    <string name="total_storage">总存储: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">启用 root 访问</string>
     <string name="press_back_twice">需要按两次返回键才能离开应用程序</string>

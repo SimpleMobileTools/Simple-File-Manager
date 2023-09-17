@@ -53,8 +53,8 @@
     <string name="downloads">ဒေါင်းလုဒ်များ</string>
     <string name="archives">သိမ်းဆည်းထား​သော</string>
     <string name="others">အခြားဖိုင်များ</string>
-    <string name="storage_free">ကျန်ရှိသည်</string>
-    <string name="total_storage">စုစု​ပေါင်း: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
 
     <!-- Settings -->
     <string name="enable_root_access">ရုခွင့်ပြုချက်​ပေးမယ်</string>

@@ -53,8 +53,8 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Arquivos</string>
     <string name="others">Outros</string>
-    <string name="storage_free">Livre</string>
-    <string name="total_storage">Armazenamento total: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
 
     <!-- Settings -->
     <string name="enable_root_access">Ativar o acesso ao root</string>

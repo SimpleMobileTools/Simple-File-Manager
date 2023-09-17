@@ -48,8 +48,8 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Arkiver</string>
     <string name="others">Andre</string>
-    <string name="storage_free">fri</string>
-    <string name="total_storage">Samlet lagerplads: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktiver root-adgang</string>
     <string name="press_back_twice">Kræv to tryk på tilbage for at forlade appen</string>

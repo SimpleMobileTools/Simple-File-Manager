@@ -48,8 +48,8 @@
     <string name="downloads">Preuzimanja</string>
     <string name="archives">Arhive</string>
     <string name="others">Ostali</string>
-    <string name="storage_free">slobodno</string>
-    <string name="total_storage">Ukupna memorija: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktiviraj administratorski pristup</string>
     <string name="press_back_twice">Zahtijevaj pritiskanje gumba „Natrag” dvaput za napuštanje aplikacije</string>

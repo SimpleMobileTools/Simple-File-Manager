@@ -48,8 +48,8 @@
     <string name="downloads">Letöltések</string>
     <string name="archives">Archívumok</string>
     <string name="others">Egyebek</string>
-    <string name="storage_free">szabad</string>
-    <string name="total_storage">Összes tárhely: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Root hozzáférés engedélyezése</string>
     <string name="press_back_twice">A Vissza gombot kétszer kelljen megnyomni az alkalmazásból történő kilépéshez</string>

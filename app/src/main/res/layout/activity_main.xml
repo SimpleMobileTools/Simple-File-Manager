@@ -20,7 +20,9 @@
             android:id="@+id/main_view_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/main_tabs_holder" />
+            android:layout_above="@+id/main_tabs_holder"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tabs_holder"

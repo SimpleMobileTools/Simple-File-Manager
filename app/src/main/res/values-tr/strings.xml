@@ -48,8 +48,8 @@
     <string name="downloads">İndirilenler</string>
     <string name="archives">Arşivler</string>
     <string name="others">Diğerleri</string>
-    <string name="storage_free">boş</string>
-    <string name="total_storage">Toplam depolama: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Root erişimini etkinleştir</string>
     <string name="press_back_twice">Uygulamadan çıkmak için Geri tuşuna iki kez basmayı gerektir</string>

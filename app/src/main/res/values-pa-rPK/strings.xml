@@ -48,8 +48,8 @@
     <string name="downloads">ڈاؤن‌لوڈ</string>
     <string name="archives">پُرالیکھ</string>
     <string name="others">ہور</string>
-    <string name="storage_free">اُپلبدھ</string>
-    <string name="total_storage">‫ساری سٹوریج:؜ %s‬</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">روٹ دی پہنچ چالو کرو</string>
     <string name="press_back_twice">بند کرن لئی دو وار پچھلے دباؤݨ دی لوڑ اے</string>

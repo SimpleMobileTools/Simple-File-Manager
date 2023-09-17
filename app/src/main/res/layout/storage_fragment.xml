@@ -21,18 +21,35 @@
                 android:id="@+id/free_space_holder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+                android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/activity_margin"
                 android:paddingEnd="@dimen/activity_margin"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.simplemobiletools.commons.views.MyTextView
+                    android:id="@+id/directory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@+id/main_storage_usage_progressbar"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toEndOf="@+id/main_storage_usage_progressbar"
+                    android:text="@string/internal"
+                    android:textAlignment="center"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/free_space_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/main_storage_usage_progressbar"
+                    android:layout_toEndOf="@+id/main_storage_usage_progressbar"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="5dp"
                     android:text="…"
-                    android:textSize="@dimen/storage_free_space_text_size"
+                    android:textSize="20sp"
                     tools:text="23 GB" />
 
                 <com.simplemobiletools.commons.views.MyTextView
@@ -46,35 +63,41 @@
                     android:layout_toEndOf="@+id/free_space_value"
                     android:text="@string/storage_free"
                     android:textSize="@dimen/big_text_size"
-                    android:visibility="invisible" />
+                    android:visibility="gone"
+                    tools:visibility="gone" />
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
+                <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/main_storage_usage_progressbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/free_space_value"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
-                    app:trackCornerRadius="3dp"
-                    app:trackThickness="6dp"
-                    tools:trackCornerRadius="3dp" />
+                    android:visibility="visible"
+                    app:indicatorSize="70dp"
+                    app:trackCornerRadius="5dp"
+                    app:trackThickness="10dp"
+                    tools:trackCornerRadius="3dp"
+                    tools:visibility="visible" />
 
                 <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/total_space"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/main_storage_usage_progressbar"
+                    android:layout_alignTop="@+id/free_space_value"
+                    android:layout_marginLeft="3dp"
                     android:layout_marginBottom="@dimen/big_margin"
-                    android:textSize="@dimen/big_text_size"
-                    tools:text="Total storage: 64 GB" />
+                    android:layout_toEndOf="@+id/free_space_value"
+                    android:textSize="20sp"
+                    tools:text="/ 64 GB" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/images_holder"
                 android:layout_width="185dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingEnd="@dimen/activity_margin"
@@ -121,7 +144,7 @@
                 android:id="@+id/videos_holder"
                 android:layout_width="185dp"
                 android:layout_height="100dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginTop="15dp"
                 android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"
@@ -169,7 +192,6 @@
                 android:id="@+id/audio_holder"
                 android:layout_width="185dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
@@ -219,7 +241,6 @@
                 android:layout_width="185dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
                 android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"
@@ -264,10 +285,9 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/archives_holder"
+                android:id="@+id/downloads_holder"
                 android:layout_width="185dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
@@ -278,20 +298,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/audio_holder">
 
                 <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/archives_label"
+                    android:id="@+id/download_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
-                    android:layout_toEndOf="@+id/archives_size"
-                    android:text="@string/archives"
+                    android:layout_toEndOf="@+id/downloads_size"
+                    android:fontFamily="@font/product_sans"
+                    android:text="@string/downloads"
                     android:textAlignment="center"
                     android:textSize="@dimen/big_text_size"
                     android:textStyle="bold" />
 
                 <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/archives_size"
+                    android:id="@+id/downloads_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -302,10 +323,10 @@
                     tools:text="20 GB" />
 
                 <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/archives_progressbar"
+                    android:id="@+id/downloads_progressbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/archives_label"
+                    android:layout_below="@+id/download_label"
                     android:layout_marginTop="@dimen/medium_margin"
                     android:layout_marginBottom="@dimen/medium_margin"
                     android:max="100"
@@ -317,7 +338,6 @@
                 android:layout_width="185dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginEnd="15dp"
                 android:background="@drawable/tile_background"
                 android:paddingStart="@dimen/activity_margin"
                 android:paddingTop="@dimen/normal_margin"

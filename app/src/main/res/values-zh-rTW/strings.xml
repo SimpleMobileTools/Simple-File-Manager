@@ -48,8 +48,8 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Archives</string>
     <string name="others">其他</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">總儲存空間：%s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">啟用root權限</string>
     <string name="press_back_twice">需按兩次返回鍵才能離開 app</string>

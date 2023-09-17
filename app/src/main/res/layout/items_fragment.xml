@@ -9,6 +9,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/items_coordinator"
         android:layout_width="match_parent"
+        android:background="@drawable/tile_background"
+        android:clipToOutline="true"
         android:layout_height="match_parent">
 
         <RelativeLayout
@@ -85,7 +87,6 @@
                         android:id="@+id/items_list"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:clipToPadding="false"
                         android:layoutAnimation="@anim/layout_animation"
                         android:scrollbars="none"
                         app:layoutManager="com.simplemobiletools.commons.views.MyGridLayoutManager" />

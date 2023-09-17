@@ -48,8 +48,8 @@
     <string name="downloads">Downloads</string>
     <string name="archives">Arsip</string>
     <string name="others">Lainnya</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total penyimpanan: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Aktifkan akses root</string>
     <string name="press_back_twice">Wajib tekan tombol kembali dua kali untuk keluar aplikasi</string>

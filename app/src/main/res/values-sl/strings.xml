@@ -48,7 +48,7 @@
     <string name="downloads">Prenosi</string>
     <string name="archives">Arhivi</string>
     <string name="others">Ostali</string>
-    <string name="storage_free">prosto</string>
+    <string name="storage_free">" "</string>
     <string name="total_storage">Skupno prostora za shranjevanje: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Omogoči root (korenski) dostop</string>

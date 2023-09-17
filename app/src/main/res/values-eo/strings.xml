@@ -48,8 +48,8 @@
     <string name="downloads">Elŝutoj</string>
     <string name="archives">Archives</string>
     <string name="others">Aliaj</string>
-    <string name="storage_free">free</string>
-    <string name="total_storage">Total storage: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Enable root access</string>
     <string name="press_back_twice">Require pressing Back twice to leave the app</string>

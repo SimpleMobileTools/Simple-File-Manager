@@ -48,8 +48,8 @@
     <string name="downloads">Преузимања</string>
     <string name="archives">Архива</string>
     <string name="others">Други</string>
-    <string name="storage_free">бесплатно</string>
-    <string name="total_storage">Укупно складиште: %s</string>
+    <string name="storage_free">" "</string>
+    <string name="total_storage">/ %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Омогућите роот приступ</string>
     <string name="press_back_twice">Захтевајте да двапут притиснете Назад да бисте напустили апликацију</string>

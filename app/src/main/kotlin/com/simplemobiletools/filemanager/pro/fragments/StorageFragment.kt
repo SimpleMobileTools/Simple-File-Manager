@@ -55,7 +55,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         videos_holder.setOnClickListener { launchMimetypeActivity(VIDEOS) }
         audio_holder.setOnClickListener { launchMimetypeActivity(AUDIO) }
         documents_holder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
-        archives_holder.setOnClickListener { launchMimetypeActivity(DOWNLOADS) }
+        downloads_holder.setOnClickListener { launchMimetypeActivity(DOWNLOADS) }
         others_holder.setOnClickListener { launchMimetypeActivity(OTHERS) }
 
         Handler().postDelayed({
