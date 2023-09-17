@@ -12,6 +12,8 @@ import android.os.Environment
 import android.os.Handler
 import android.provider.Settings
 import android.widget.ImageView
+import android.os.StatFs
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.simplemobiletools.commons.dialogs.ConfirmationAdvancedDialog
@@ -74,6 +76,19 @@ class MainActivity : SimpleActivity() {
             if (config.showTabs and TAB_STORAGE_ANALYSIS == 0) {
                 config.showTabs += TAB_STORAGE_ANALYSIS
             }
+            val storagePercentageTextView = findViewById<TextView>(R.id.storagePercentageTextView)
+
+            // Get the path to the external storage directory
+            val path = Environment.getExternalStorageDirectory().path
+
+            // Calculate used storage percentage
+            val totalBytes = StatFs(path).totalBytes
+            val freeBytes = StatFs(path).freeBytes
+            val usedBytes = totalBytes - freeBytes
+            val storagePercentage = ((usedBytes * 100) / totalBytes).toInt()
+
+            // Update the TextView with the calculated percentage
+            storagePercentageTextView.text = "$storagePercentage%"
         }
 
         storeStateVariables()

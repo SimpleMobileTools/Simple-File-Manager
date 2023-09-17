@@ -89,6 +89,14 @@
                 app:trackThickness="10dp"
                 tools:trackCornerRadius="3dp" />
 
+            <TextView
+                android:id="@+id/storagePercentageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0%"
+                android:textSize="24sp"
+                android:layout_centerInParent="true"/>
+
         </RelativeLayout>
 
         <RelativeLayout
