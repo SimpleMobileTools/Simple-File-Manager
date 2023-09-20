@@ -66,6 +66,12 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                             callback(false)
                         }
                     }
+                } else if (activity.isPathOnOTG(path)) {
+                    val parent = activity.getDocumentFile(path.getParentPath())
+                    val created = parent?.createDirectory(path.getFilenameFromPath())
+                    if (created != null) {
+                        success(alertDialog)
+                    }
                 } else {
                     if (File(path).mkdirs()) {
                         success(alertDialog)
@@ -137,8 +143,17 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                 }
 
                 isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
-                    if (File(path).createNewFile()) {
-                        success(alertDialog)
+
+                    if (activity.isPathOnOTG(path)) {
+                        val parent = activity.getDocumentFile(path.getParentPath())
+                        val created = parent?.createFile(path.getMimeType(), path.getFilenameFromPath())
+                        if (created != null) {
+                            success(alertDialog)
+                        }
+                    } else {
+                        if (File(path).createNewFile()) {
+                            success(alertDialog)
+                        }
                     }
                 }
                 else -> {
