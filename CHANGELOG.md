@@ -1,6 +1,12 @@
 Changelog
 ==========
 
+Version 6.16.1 *(2023-09-19)*
+----------------------------
+
+ * Added SD card to storage analysis
+ * Added some UI, translation and stability improvements
+
 Version 6.16.0 *(2023-07-17)*
 ----------------------------
 

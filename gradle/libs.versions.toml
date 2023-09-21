@@ -23,8 +23,8 @@ app-build-javaVersion = "VERSION_17"
 app-build-kotlinJVMTarget = "17"
 #versioning
 app-version-appId = "com.simplemobiletools.filemanager.pro"
-app-version-versionCode = "135"
-app-version-versionName = "6.16.0"
+app-version-versionCode = "136"
+app-version-versionName = "6.16.1"
 [libraries]
 #AndroidX
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "androidx-swiperefreshlayout" }
