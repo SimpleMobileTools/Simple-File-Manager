@@ -51,6 +51,21 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
 
     private fun createDirectory(path: String, alertDialog: AlertDialog, callback: (Boolean) -> Unit) {
         when {
+            activity.needsStupidWritePermissions(path) -> activity.handleSAFDialog(path) {
+                if (!it) {
+                    return@handleSAFDialog
+                }
+
+                val documentFile = activity.getDocumentFile(path.getParentPath())
+                if (documentFile == null) {
+                    val error = String.format(activity.getString(R.string.could_not_create_folder), path)
+                    activity.showErrorToast(error)
+                    callback(false)
+                    return@handleSAFDialog
+                }
+                documentFile.createDirectory(path.getFilenameFromPath())
+                success(alertDialog)
+            }
             isRPlus() || path.startsWith(activity.internalStoragePath, true) -> {
                 if (activity.isRestrictedSAFOnlyRoot(path)) {
                     activity.handleAndroidSAFDialog(path) {
@@ -71,21 +86,6 @@ class CreateNewItemDialog(val activity: SimpleActivity, val path: String, val ca
                         success(alertDialog)
                     }
                 }
-            }
-            activity.needsStupidWritePermissions(path) -> activity.handleSAFDialog(path) {
-                if (!it) {
-                    return@handleSAFDialog
-                }
-
-                val documentFile = activity.getDocumentFile(path.getParentPath())
-                if (documentFile == null) {
-                    val error = String.format(activity.getString(R.string.could_not_create_folder), path)
-                    activity.showErrorToast(error)
-                    callback(false)
-                    return@handleSAFDialog
-                }
-                documentFile.createDirectory(path.getFilenameFromPath())
-                success(alertDialog)
             }
             else -> {
                 RootHelpers(activity).createFileFolder(path, false) {
