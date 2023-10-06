@@ -1,6 +1,7 @@
 package com.simplemobiletools.filemanager.pro.dialogs
 
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.dialogs.FilePickerDialog
@@ -8,8 +9,13 @@ import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.filemanager.pro.R
 import com.simplemobiletools.filemanager.pro.databinding.DialogCompressAsBinding
 import com.simplemobiletools.filemanager.pro.extensions.config
+import com.simplemobiletools.filemanager.pro.helpers.CompressionFormat
 
-class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val callback: (destination: String, password: String?) -> Unit) {
+class CompressAsDialog(
+    val activity: BaseSimpleActivity,
+    val path: String,
+    val callback: (destination: String, compressionFormat: CompressionFormat, password: String?) -> Unit
+) {
     private val binding = DialogCompressAsBinding.inflate(activity.layoutInflater)
 
     init {
@@ -29,6 +35,24 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                 }
             }
 
+            compressionFormatValue.apply {
+                setOnClickListener {
+                    activity.hideKeyboard(filenameValue)
+                }
+                val adapter = ArrayAdapter(
+                    activity,
+                    android.R.layout.simple_dropdown_item_1line,
+                    CompressionFormat.entries.take(CompressionFormat.entries.size - 1).map { it.extension })
+                setAdapter(adapter)
+                setText(adapter.getItem(0), false)
+
+                setOnItemClickListener { _, _, i, _ ->
+                    val compressionFormat = CompressionFormat.entries[i]
+                    filenameHint.hint = String.format(activity.getString(R.string.filename_without_extension), compressionFormat.extension)
+                    passwordProtect.beVisibleIf(compressionFormat.canCreateEncryptedArchive)
+                    enterPasswordHint.beVisibleIf(compressionFormat.canCreateEncryptedArchive && passwordProtect.isChecked)
+                }
+            }
             passwordProtect.setOnCheckedChangeListener { _, _ ->
                 enterPasswordHint.beVisibleIf(passwordProtect.isChecked)
             }
@@ -53,14 +77,14 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                         when {
                             name.isEmpty() -> activity.toast(R.string.empty_name)
                             name.isAValidFilename() -> {
-                                val newPath = "$realPath/$name.zip"
+                                val newPath = "$realPath/$name${getSelectedCompressionFormat().extension}"
                                 if (activity.getDoesFilePathExist(newPath)) {
                                     activity.toast(R.string.name_taken)
                                     return@OnClickListener
                                 }
 
                                 alertDialog.dismiss()
-                                callback(newPath, password)
+                                callback(newPath, getSelectedCompressionFormat(), password)
                             }
 
                             else -> activity.toast(R.string.invalid_name)
@@ -69,4 +93,6 @@ class CompressAsDialog(val activity: BaseSimpleActivity, val path: String, val c
                 }
             }
     }
+
+    private fun getSelectedCompressionFormat() = CompressionFormat.fromExtension(binding.compressionFormatValue.text.toString())
 }
