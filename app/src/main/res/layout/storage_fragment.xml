@@ -16,11 +16,16 @@
             android:id="@+id/free_space_holder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
             android:paddingEnd="@dimen/activity_margin"
             app:layout_constraintBottom_toTopOf="@+id/images_holder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.simplemobiletools.commons.views.MyTextView
@@ -28,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignTop="@+id/main_storage_usage_progressbar"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/main_storage_usage_progressbar"
                 android:text="@string/internal"
                 android:textAlignment="center"
@@ -102,18 +107,19 @@
 
         <RelativeLayout
             android:id="@+id/images_holder"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/tile_background"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingEnd="@dimen/activity_margin"
             android:paddingBottom="@dimen/normal_margin"
             app:layout_constraintBottom_toTopOf="@+id/audio_holder"
             app:layout_constraintEnd_toStartOf="@+id/videos_holder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/free_space_holder" >
+            app:layout_constraintTop_toBottomOf="@+id/free_space_holder">
 
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/images_label"
@@ -152,10 +158,11 @@
 
         <RelativeLayout
             android:id="@+id/videos_holder"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -202,11 +209,12 @@
 
         <RelativeLayout
             android:id="@+id/audio_holder"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/tile_background"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -253,10 +261,11 @@
 
         <RelativeLayout
             android:id="@+id/documents_holder"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -303,11 +312,13 @@
 
         <RelativeLayout
             android:id="@+id/downloads_holder"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -356,10 +367,12 @@
 
         <RelativeLayout
             android:id="@+id/others_holder"
-            android:layout_height="0dp"
             android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"

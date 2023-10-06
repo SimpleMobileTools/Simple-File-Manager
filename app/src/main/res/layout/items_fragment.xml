@@ -10,6 +10,7 @@
         android:id="@+id/items_coordinator"
         android:layout_width="match_parent"
         android:background="@drawable/tile_background"
+        android:backgroundTint="#00000000"
         android:clipToOutline="true"
         android:layout_height="match_parent">
 
