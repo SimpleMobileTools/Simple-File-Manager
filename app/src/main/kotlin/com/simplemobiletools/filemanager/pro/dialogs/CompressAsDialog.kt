@@ -39,7 +39,10 @@ class CompressAsDialog(
                 setOnClickListener {
                     activity.hideKeyboard(filenameValue)
                 }
-                val adapter = ArrayAdapter(activity, android.R.layout.simple_dropdown_item_1line, CompressionFormat.values().map { it.extension })
+                val adapter = ArrayAdapter(
+                    activity,
+                    android.R.layout.simple_dropdown_item_1line,
+                    CompressionFormat.entries.take(CompressionFormat.entries.size - 1).map { it.extension })
                 setAdapter(adapter)
                 setText(adapter.getItem(0), false)
 

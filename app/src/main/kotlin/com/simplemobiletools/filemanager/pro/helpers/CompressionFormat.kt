@@ -12,19 +12,23 @@ enum class CompressionFormat(
     ZIP(".zip", "application/zip", "", true, true),
     SEVEN_ZIP(".7z", "application/x-7z-compressed", "", true, false),
     TAR_GZ(".tar.gz", "application/gzip", CompressorStreamFactory.GZIP, false, false),
-
-    //    TAR_SZ(".tar.sz", "application/x-snappy-framed", CompressorStreamFactory.SNAPPY_FRAMED, false, false), // FIXME: ask for enabling it. it's not so common
-    TAR_XZ(".tar.xz", "application/x-xz", CompressorStreamFactory.XZ, false, false);
+    TAR_XZ(".tar.xz", "application/x-xz", CompressorStreamFactory.XZ, false, false),
+    UNKNOWN("", "", "", false, false);
 
     companion object {
         fun fromExtension(extension: String): CompressionFormat {
-            return when (extension.lowercase()) {
+            val normalizedExtension = if (extension.startsWith(".")) {
+                extension
+            } else {
+                ".$extension"
+            }
+
+            return when (normalizedExtension.lowercase()) {
                 ZIP.extension -> ZIP
                 SEVEN_ZIP.extension -> SEVEN_ZIP
                 TAR_GZ.extension -> TAR_GZ
-//                TAR_SZ.extension -> TAR_SZ
                 TAR_XZ.extension -> TAR_XZ
-                else -> ZIP
+                else -> UNKNOWN
             }
         }
     }
