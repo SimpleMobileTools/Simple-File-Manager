@@ -16,11 +16,16 @@
             android:id="@+id/free_space_holder"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/activity_margin"
             android:paddingEnd="@dimen/activity_margin"
             app:layout_constraintBottom_toTopOf="@+id/images_holder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.simplemobiletools.commons.views.MyTextView
@@ -28,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignTop="@+id/main_storage_usage_progressbar"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/main_storage_usage_progressbar"
                 android:text="@string/internal"
                 android:textAlignment="center"
@@ -104,9 +109,10 @@
             android:id="@+id/images_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/tile_background"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingEnd="@dimen/activity_margin"
             android:paddingBottom="@dimen/normal_margin"
@@ -122,7 +128,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/images_size"
+                android:layout_toEndOf="@+id/imageView"
                 android:text="@string/images"
                 android:textAlignment="center"
                 android:textSize="@dimen/big_text_size"
@@ -132,10 +138,14 @@
                 android:id="@+id/images_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_below="@id/images_label"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/imageView"
                 android:alpha="0.7"
                 android:text="…"
+                android:textAlignment="center"
                 android:textSize="@dimen/normal_text_size"
                 tools:text="20 GB" />
 
@@ -147,7 +157,16 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:max="100"
-                app:trackThickness="0dp" />
+                app:trackThickness="0dp"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/image"
+                android:tint="@color/material_dynamic_primary80"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -155,7 +174,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -172,7 +192,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/videos_size"
+                android:layout_toEndOf="@+id/VideoView"
                 android:text="@string/videos"
                 android:textAlignment="center"
                 android:textSize="@dimen/big_text_size"
@@ -182,10 +202,15 @@
                 android:id="@+id/videos_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_below="@id/videos_label"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/VideoView"
                 android:alpha="0.7"
                 android:text="…"
+                android:textAlignment="center"
                 android:textSize="@dimen/normal_text_size"
                 tools:text="20 GB" />
 
@@ -197,16 +222,25 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:max="100"
-                app:trackThickness="0dp" />
+                app:trackThickness="0dp"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/VideoView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/video"
+                android:tint="@color/material_dynamic_primary80"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/audio_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/tile_background"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -256,7 +290,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -273,7 +308,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/documents_size"
+                android:layout_toEndOf="@+id/documentView"
                 android:text="@string/documents"
                 android:textAlignment="center"
                 android:textSize="@dimen/big_text_size"
@@ -283,10 +318,15 @@
                 android:id="@+id/documents_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_below="@id/documents_label"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/documentView"
                 android:alpha="0.7"
                 android:text="…"
+                android:textAlignment="center"
                 android:textSize="@dimen/normal_text_size"
                 tools:text="20 GB" />
 
@@ -299,15 +339,24 @@
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:max="100"
                 app:trackThickness="0dp" />
+            <ImageView
+                android:id="@+id/documentView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/document"
+                android:tint="@color/material_dynamic_primary80"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/downloads_holder"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -325,7 +374,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/downloads_size"
+                android:layout_toEndOf="@+id/downloadView"
                 android:fontFamily="@font/product_sans"
                 android:text="@string/downloads"
                 android:textAlignment="center"
@@ -336,10 +385,14 @@
                 android:id="@+id/downloads_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_below="@id/download_label"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/downloadView"
                 android:alpha="0.7"
                 android:text="…"
+                android:textAlignment="center"
                 android:textSize="@dimen/normal_text_size"
                 tools:text="20 GB" />
 
@@ -351,7 +404,15 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:max="100"
-                app:trackThickness="0dp" />
+                app:trackThickness="0dp"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/downloadView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/download"
+                android:tint="@color/material_dynamic_primary80"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -359,7 +420,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            android:background="@drawable/tile_background"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/tile"
             android:paddingStart="@dimen/activity_margin"
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
@@ -375,8 +438,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="15dp"
-                android:layout_toEndOf="@+id/others_size"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/otherView"
                 android:text="@string/others"
                 android:textAlignment="center"
                 android:textSize="@dimen/big_text_size"
@@ -386,10 +449,14 @@
                 android:id="@+id/others_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_below="@id/others_label"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/otherView"
                 android:alpha="0.7"
                 android:text="…"
+                android:textAlignment="center"
                 android:textSize="@dimen/normal_text_size"
                 tools:text="20 GB" />
 
@@ -401,7 +468,16 @@
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:max="100"
-                app:trackThickness="0dp" />
+                app:trackThickness="0dp"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/otherView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/apk"
+                android:tint="@color/material_dynamic_primary80"/>
+
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

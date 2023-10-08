@@ -8,7 +8,7 @@
     <com.simplemobiletools.commons.views.MySearchMenu
         android:id="@+id/main_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <RelativeLayout
         android:id="@+id/main_holder"
@@ -24,8 +24,7 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginVertical="10dp"
             android:background="@drawable/tile_background"
-            android:backgroundTint="@color/dark_grey"
-            android:clipToOutline="true" />
+            android:clipToOutline="true"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tabs_holder"
@@ -34,7 +33,7 @@
             android:layout_alignParentBottom="true"
             app:tabIndicator="@null"
             app:tabMinWidth="150dp"
-            app:tabRippleColor="@null" />
+            app:tabRippleColor="@null"/>
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
