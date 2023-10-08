@@ -38,7 +38,7 @@ const val VIDEOS = "videos"
 const val AUDIO = "audio"
 const val DOCUMENTS = "documents"
 const val DOWNLOADS = "downloads"
-const val OTHERS = "others"
+const val APPS = "apps"
 const val SHOW_MIMETYPE = "show_mimetype"
 
 // what else should we count as an audio except "audio/*" mimetype
@@ -49,6 +49,7 @@ val extraDocumentMimeTypes = arrayListOf(
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     "application/javascript"
+
 )
 
 val downloadsMimeTypes = arrayListOf(
@@ -63,6 +64,7 @@ val downloadsMimeTypes = arrayListOf(
     "application/x-gzip",
     "application/java-archive",
     "multipart/x-zip"
+
 )
 
 fun getListItemsFromFileDirItems(fileDirItems: ArrayList<FileDirItem>): ArrayList<ListItem> {

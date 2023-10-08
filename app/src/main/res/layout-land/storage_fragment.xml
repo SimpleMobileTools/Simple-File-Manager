@@ -253,7 +253,7 @@
             android:paddingTop="@dimen/normal_margin"
             android:paddingEnd="@dimen/activity_margin"
             android:paddingBottom="@dimen/normal_margin"
-            app:layout_constraintBottom_toTopOf="@+id/others_holder"
+            app:layout_constraintBottom_toTopOf="@+id/apps_holder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/audio_holder"
             app:layout_constraintTop_toBottomOf="@+id/videos_holder">
@@ -305,7 +305,7 @@
             android:paddingEnd="@dimen/activity_margin"
             android:paddingBottom="@dimen/normal_margin"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/others_holder"
+            app:layout_constraintEnd_toStartOf="@+id/apps_holder"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/images_holder"
             app:layout_constraintTop_toBottomOf="@+id/audio_holder">
@@ -347,7 +347,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/others_holder"
+            android:id="@+id/apps_holder"
             android:layout_width="00dp"
             android:layout_height="00dp"
             android:layout_marginTop="15dp"
@@ -362,20 +362,20 @@
             app:layout_constraintTop_toBottomOf="@+id/documents_holder">
 
             <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/others_label"
+                android:id="@+id/apps_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:layout_toEndOf="@+id/others_size"
-                android:text="@string/others"
+                android:layout_toEndOf="@+id/apps_size"
+                android:text="@string/apps"
                 android:textAlignment="center"
                 android:textSize="@dimen/big_text_size"
                 android:textStyle="bold" />
 
             <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/others_size"
+                android:id="@+id/apps_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -386,10 +386,10 @@
                 tools:text="20 GB" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/others_progressbar"
+                android:id="@+id/apps_progressbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/others_label"
+                android:layout_below="@+id/apps_label"
                 android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginBottom="@dimen/medium_margin"
                 android:max="100"

@@ -56,7 +56,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         audio_holder.setOnClickListener { launchMimetypeActivity(AUDIO) }
         documents_holder.setOnClickListener { launchMimetypeActivity(DOCUMENTS) }
         downloads_holder.setOnClickListener { launchMimetypeActivity(DOWNLOADS) }
-        others_holder.setOnClickListener { launchMimetypeActivity(OTHERS) }
+        apps_holder.setOnClickListener { launchMimetypeActivity(APPS) }
 
         Handler().postDelayed({
             refreshFragment()
@@ -92,8 +92,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         downloads_progressbar.trackColor = tealColor.adjustAlpha(LOWER_ALPHA)
 
         val pinkColor = context.resources.getColor(R.color.md_pink_700)
-        others_progressbar.setIndicatorColor(pinkColor)
-        others_progressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
+        apps_progressbar.setIndicatorColor(pinkColor)
+        apps_progressbar.trackColor = pinkColor.adjustAlpha(LOWER_ALPHA)
 
         search_holder.setBackgroundColor(context.getProperBackgroundColor())
         progress_bar.setIndicatorColor(properPrimaryColor)
@@ -121,7 +121,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             val audioSize = filesSize[AUDIO]!!
             val documentsSize = filesSize[DOCUMENTS]!!
             val downloadsSize = filesSize[DOWNLOADS]!!
-            val othersSize = filesSize[OTHERS]!!
+            val appsSize = filesSize[APPS]!!
 
             post {
                 images_size.text = imagesSize.formatSize()
@@ -139,8 +139,8 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 downloads_size.text = downloadsSize.formatSize()
                 downloads_progressbar.progress = (downloadsSize / SIZE_DIVIDER).toInt()
 
-                others_size.text = othersSize.formatSize()
-                others_progressbar.progress = (othersSize / SIZE_DIVIDER).toInt()
+                apps_size.text = appsSize.formatSize()
+                apps_progressbar.progress = (appsSize / SIZE_DIVIDER).toInt()
             }
         }
     }
@@ -158,7 +158,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
         var audioSize = 0L
         var documentsSize = 0L
         var downloadsSize = 0L
-        var othersSize = 0L
+        var appsSize = 0L
         try {
             context.queryCursor(uri, projection) { cursor ->
                 try {
@@ -168,7 +168,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                         if (size > 0 && size != 4096L) {
                             val path = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
                             if (!context.getIsPathDirectory(path)) {
-                                othersSize += size
+                                appsSize += size
                             }
                         }
                         return@queryCursor
@@ -183,7 +183,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                             when {
                                 extraDocumentMimeTypes.contains(mimeType) -> documentsSize += size
                                 extraAudioMimeTypes.contains(mimeType) -> audioSize += size
-                                else -> othersSize += size
+                                else -> appsSize += size
                             }
                         }
                     }
@@ -199,7 +199,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
             put(AUDIO, audioSize)
             put(DOCUMENTS, documentsSize)
             put(DOWNLOADS, downloadsSize)
-            put(OTHERS, othersSize)
+            put(APPS, appsSize)
         }
 
         return mimeTypeSizes
@@ -222,7 +222,7 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                 post {
                     arrayOf(
                         main_storage_usage_progressbar, images_progressbar, videos_progressbar, audio_progressbar, documents_progressbar,
-                        downloads_progressbar, others_progressbar
+                        downloads_progressbar, apps_progressbar
                     ).forEach {
                         it.max = (totalSpace / SIZE_DIVIDER).toInt()
                     }
@@ -230,7 +230,9 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                     main_storage_usage_progressbar.progress = ((totalSpace - freeSpace) / SIZE_DIVIDER).toInt()
 
                     main_storage_usage_progressbar.beVisible()
-                    free_space_value.text = freeSpace.formatSizeThousand()
+                    val storagePercentag = (((totalSpace - freeSpace)* 100) / totalSpace).toInt()
+                    free_space_percentage.text = "$storagePercentag%"
+                    free_space_value.text = (totalSpace-freeSpace).formatSizeThousand()
                     total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
                     free_space_label.beVisible()
                 }
