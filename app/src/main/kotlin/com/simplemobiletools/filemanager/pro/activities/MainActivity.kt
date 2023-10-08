@@ -13,6 +13,7 @@ import android.os.Handler
 import android.provider.Settings
 import android.widget.ImageView
 import android.os.StatFs
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
@@ -129,7 +130,7 @@ class MainActivity : SimpleActivity() {
 
         refreshMenuItems()
         updateMenuColors()
-        setupTabColors()
+//        setupTabColors()
 
         getAllFragments().forEach {
             it?.onResume(getProperTextColor())
@@ -459,19 +460,19 @@ class MainActivity : SimpleActivity() {
         main_tabs_holder.beGoneIf(main_tabs_holder.tabCount == 1)
     }
 
-    private fun setupTabColors() {
-        val activeView = main_tabs_holder.getTabAt(main_view_pager.currentItem)?.customView
-        updateBottomTabItemColors(activeView, true, getSelectedTabDrawableIds()[main_view_pager.currentItem])
-
-        getInactiveTabIndexes(main_view_pager.currentItem).forEach { index ->
-            val inactiveView = main_tabs_holder.getTabAt(index)?.customView
-            updateBottomTabItemColors(inactiveView, false, getDeselectedTabDrawableIds()[index])
-        }
-
-        val bottomBarColor = getBottomNavigationBackgroundColor()
-        updateNavigationBarColor(bottomBarColor)
-        main_tabs_holder.setBackgroundColor(bottomBarColor)
-    }
+//    private fun setupTabColors() {
+//        val activeView = main_tabs_holder.getTabAt(main_view_pager.currentItem)?.customView
+//        updateBottomTabItemColors(activeView, true, getSelectedTabDrawableIds()[main_view_pager.currentItem])
+//
+//        getInactiveTabIndexes(main_view_pager.currentItem).forEach { index ->
+//            val inactiveView = main_tabs_holder.getTabAt(index)?.customView
+//            updateBottomTabItemColors(inactiveView, false, getDeselectedTabDrawableIds()[index])
+//        }
+//
+//        val bottomBarColor = getBottomNavigationBackgroundColor()
+//        updateNavigationBarColor(bottomBarColor)
+//        main_tabs_holder.setBackgroundColor(bottomBarColor)
+//    }
 
     private fun getTabIcon(position: Int): Drawable {
         val drawableId = when (position) {

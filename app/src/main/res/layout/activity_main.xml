@@ -22,7 +22,6 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/main_tabs_holder"
             android:layout_marginHorizontal="15dp"
-            android:layout_marginVertical="10dp"
             android:background="@drawable/tile_background"
             android:clipToOutline="true"/>
 
@@ -30,10 +29,16 @@
             android:id="@+id/main_tabs_holder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/tile_background"
+            app:tabPaddingStart="0dp"
+            app:tabPaddingEnd="0dp"
             android:layout_alignParentBottom="true"
             app:tabIndicator="@null"
             app:tabMinWidth="150dp"
-            app:tabRippleColor="@null"/>
+            app:tabRippleColor="@null"
+            android:clipToOutline="true"/>
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
