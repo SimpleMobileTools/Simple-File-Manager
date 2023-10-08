@@ -28,27 +28,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.simplemobiletools.commons.views.MyTextView
-                android:id="@+id/directory"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/main_storage_usage_progressbar"
-                android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/main_storage_usage_progressbar"
-                android:text="@string/internal"
-                android:textAlignment="center"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/directory"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="0dp"
                 android:layout_marginTop="34dp"
                 android:layout_marginBottom="36dp"
-                android:layout_toEndOf="@+id/main_storage_usage_progressbar"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
@@ -63,47 +49,56 @@
                     tools:text="23 GB" />
 
                 <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/free_space_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:text="@string/storage_free"
-                    android:textSize="@dimen/big_text_size" />
-
-                <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/total_space"
                     android:layout_width="wrap_content"
                     android:layout_height="33sp"
-                    android:layout_marginStart="3dp"
+                    android:layout_marginStart="6dp"
                     android:layout_marginBottom="@dimen/big_margin"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     tools:text="/64 GB" />
+
             </LinearLayout>
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/main_storage_usage_progressbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="@dimen/medium_margin"
-                android:layout_marginBottom="@dimen/medium_margin"
-                android:max="100"
-                app:indicatorSize="70dp"
-                app:trackCornerRadius="5dp"
-                app:trackThickness="10dp"
-                tools:trackCornerRadius="3dp" />
             <com.simplemobiletools.commons.views.MyTextView
                 android:id="@+id/free_space_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@id/main_storage_usage_progressbar"
                 android:layout_alignEnd="@id/main_storage_usage_progressbar"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="-1dp"
+                android:layout_marginEnd="1dp"
                 android:fontFamily="@font/product_sans"
                 android:text="0%"
                 android:textAlignment="center"
                 android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/main_storage_usage_progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignTop="@+id/directory"
+                android:layout_marginHorizontal="0dp"
+                android:layout_marginVertical="0dp"
+                android:max="100"
+                app:indicatorSize="70dp"
+                app:trackCornerRadius="5dp"
+                app:trackThickness="10dp"
+                tools:trackCornerRadius="3dp"/>
+
+            <com.simplemobiletools.commons.views.MyTextView
+                android:id="@+id/directory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/internal"
+                android:textAlignment="center"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>

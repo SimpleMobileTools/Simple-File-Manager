@@ -234,7 +234,6 @@ class StorageFragment(context: Context, attributeSet: AttributeSet) : MyViewPage
                     free_space_percentage.text = "$storagePercentag%"
                     free_space_value.text = (totalSpace-freeSpace).formatSizeThousand()
                     total_space.text = String.format(context.getString(R.string.total_storage), totalSpace.formatSizeThousand())
-                    free_space_label.beVisible()
                 }
             } else {
                 // sd card

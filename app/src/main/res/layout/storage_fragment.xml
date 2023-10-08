@@ -63,19 +63,10 @@
                     tools:text="23 GB" />
 
                 <com.simplemobiletools.commons.views.MyTextView
-                    android:id="@+id/free_space_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/medium_margin"
-                    android:text="@string/storage_free"
-                    android:textSize="@dimen/big_text_size"
-                    android:visibility="gone"
-                    tools:visibility="gone" />
-
-                <com.simplemobiletools.commons.views.MyTextView
                     android:id="@+id/total_space"
                     android:layout_width="wrap_content"
                     android:layout_height="33sp"
+                    android:layout_marginStart="6dp"
                     android:layout_marginBottom="@dimen/big_margin"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -105,7 +96,7 @@
                 android:fontFamily="@font/product_sans"
                 android:text="0%"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
