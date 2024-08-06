@@ -24,10 +24,28 @@
     </com.simplemobiletools.commons.views.MyTextInputLayout>
 
     <com.simplemobiletools.commons.views.MyTextInputLayout
-        android:id="@+id/filename_hint"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:id="@+id/compression_format_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/folder_hint"
+        android:layout_marginBottom="@dimen/activity_margin"
+        android:hint="@string/compression_format">
+
+        <AutoCompleteTextView
+            android:id="@+id/compression_format_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textSize="@dimen/bigger_text_size" />
+
+    </com.simplemobiletools.commons.views.MyTextInputLayout>
+
+    <com.simplemobiletools.commons.views.MyTextInputLayout
+        android:id="@+id/filename_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/compression_format_hint"
         android:hint="@string/filename_without_zip">
 
         <com.google.android.material.textfield.TextInputEditText

@@ -97,6 +97,8 @@ dependencies {
     implementation(libs.androidx.documentfile)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidpdfviewer)
+    implementation(libs.apache.commons.compress)
+    implementation(libs.tukaanixz)
     implementation(libs.roottools)
     implementation(libs.rootshell)
     implementation(libs.gestureviews)

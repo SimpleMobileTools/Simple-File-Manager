@@ -35,6 +35,10 @@
     <string name="decompression_successful">Decompression successful</string>
     <string name="compressing_failed">Compressing failed</string>
     <string name="decompressing_failed">Decompressing failed</string>
+    <!--    TODO: add missing translations-->
+    <string name="compression_format">Compression format</string>
+    <!--    TODO: move to commons-->
+    <string name="filename_without_extension">Filename (without %s)</string>
 
     <!-- Favorites -->
     <string name="manage_favorites">Manage favorites</string>
