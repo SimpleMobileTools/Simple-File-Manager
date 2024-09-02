@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Једноставан менаџер датотека</string>
-    <string name="app_launcher_name">Филе Манагер</string>
+    <string name="app_name">Једноставан менаџер фајлова</string>
+    <string name="app_launcher_name">Менаџер фајлова</string>
     <string name="press_back_again">Притисните поново да бисте изашли</string>
-    <string name="go_to_home_folder">Идите у почетни фолдер</string>
+    <string name="go_to_home_folder">Иди у почетни фолдер</string>
     <string name="set_as_home_folder">Постави као почетни фолдер</string>
-    <string name="home_folder_updated">Почетна фасцикла је ажурирана</string>
-    <string name="copy_path">Копирајте путању у међуспремник</string>
+    <string name="home_folder_updated">Почетни фолдер је ажуриран</string>
+    <string name="copy_path">Копирај путању у привремену меморију</string>
     <string name="path_copied">Путања је копирана</string>
-    <string name="select_audio_file">Изаберите аудио датотеку</string>
-    <string name="search_folder">Мапа за претрагу</string>
-    <string name="rooted_device_only">Ова операција ради само на роот-ованим уређајима</string>
+    <string name="select_audio_file">Изаберите аудио фајл</string>
+    <string name="search_folder">Претрага фолдера</string>
+    <string name="rooted_device_only">Ова операција ради само на root-ованим уређајима</string>
     <string name="recents">Недавно</string>
-    <string name="show_recents">Прикажи најновије</string>
-    <string name="pdf_viewer">ПДФ прегледник</string>
-    <string name="invert_colors">Обрните боје</string>
+    <string name="show_recents">Прикажи недавно</string>
+    <string name="pdf_viewer">PDF прегледник</string>
+    <string name="invert_colors">Обрни боје</string>
     <!-- Open as -->
-    <string name="open_as">Отворите као</string>
+    <string name="open_as">Отвори као</string>
     <string name="text_file">Текстуални фајл</string>
-    <string name="image_file">Сликовне датотеке</string>
+    <string name="image_file">Сликовни фајл</string>
     <string name="audio_file">Аудио фајл</string>
     <string name="video_file">Видео фајл</string>
     <string name="other_file">Други фајл</string>
     <!-- Compression -->
-    <string name="compress">Стиснитите</string>
-    <string name="compress_pro">Стисни (Про)</string>
-    <string name="decompress">Декомпресирајте</string>
-    <string name="compress_as">Компресирајте као</string>
-    <string name="compressing">Компресира се…</string>
-    <string name="decompressing">Декомпресира се…</string>
-    <string name="compression_successful">Компресија успешна</string>
-    <string name="decompression_successful">Декомпресија успела</string>
-    <string name="compressing_failed">Компресовање није успело</string>
-    <string name="decompressing_failed">Декомпресија није успела</string>
+    <string name="compress">Компримуј</string>
+    <string name="compress_pro">Компримуј (Про)</string>
+    <string name="decompress">Декомпримуј</string>
+    <string name="compress_as">Компримуј као</string>
+    <string name="compressing">Компримовање…</string>
+    <string name="decompressing">Декомпримовање…</string>
+    <string name="compression_successful">Компримовање је успешно</string>
+    <string name="decompression_successful">Декомпримовање је успешно</string>
+    <string name="compressing_failed">Компримовање није успело</string>
+    <string name="decompressing_failed">Декомпримовање није успело</string>
     <!-- Favorites -->
-    <string name="manage_favorites">Управљајте омиљеним</string>
-    <string name="go_to_favorite">Иди на фаворите</string>
-    <string name="favorites_activity_placeholder">Често коришћене фасцикле можете да додате у фаворите за лак приступ са било ког места.</string>
+    <string name="manage_favorites">Управљање омиљеним</string>
+    <string name="go_to_favorite">Иди у омиљено</string>
+    <string name="favorites_activity_placeholder">Често коришћене фолдере можете да додате у омиљене за лак приступ са било ког места.</string>
     <!-- File Editor -->
-    <string name="file_editor">Уређивач датотека</string>
+    <string name="file_editor">Уређивач фајлова</string>
     <!-- Storage analysis -->
-    <string name="storage_analysis">Анализа складиштења</string>
+    <string name="storage_analysis">Анализа меморије</string>
     <string name="images">Слике</string>
     <string name="videos">Видео снимци</string>
-    <string name="audio">Аудио</string>
+    <string name="audio">Аудио снимак</string>
     <string name="documents">Документи</string>
     <string name="downloads">Преузимања</string>
-    <string name="archives">Архива</string>
-    <string name="others">Други</string>
-    <string name="storage_free">бесплатно</string>
-    <string name="total_storage">Укупно складиште: %s</string>
+    <string name="archives">Архиве</string>
+    <string name="others">Остало</string>
+    <string name="storage_free">слободно</string>
+    <string name="total_storage">Укупна меморија: %s</string>
     <!-- Settings -->
-    <string name="enable_root_access">Омогућите роот приступ</string>
-    <string name="press_back_twice">Захтевајте да двапут притиснете Назад да бисте напустили апликацију</string>
+    <string name="enable_root_access">Омогући root приступ</string>
+    <string name="press_back_twice">Захтевај двоструки притисак „Назад“ за излазак из апликације</string>
 </resources>

@@ -8,7 +8,7 @@
     <string name="home_folder_updated">Домашняя папка установлена</string>
     <string name="copy_path">Скопировать путь в буфер обмена</string>
     <string name="path_copied">Путь скопирован</string>
-    <string name="select_audio_file">Пожалуйста, выберите звуковой файл</string>
+    <string name="select_audio_file">Выберите звуковой файл</string>
     <string name="search_folder">Искать в папке</string>
     <string name="rooted_device_only">Это работает только на устройствах с root-доступом</string>
     <string name="recents">Недавнее</string>

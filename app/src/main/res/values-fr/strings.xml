@@ -2,21 +2,21 @@
 <resources>
     <string name="app_name">Gestionnaire de fichiers simple</string>
     <string name="app_launcher_name">Gestionnaire de fichiers</string>
-    <string name="press_back_again">Appuyer à nouveau sur le bouton retour pour quitter</string>
-    <string name="go_to_home_folder">Aller au dossier par défaut</string>
-    <string name="set_as_home_folder">Définir en tant que dossier par défaut</string>
-    <string name="home_folder_updated">Dossier par défaut mis à jour</string>
-    <string name="copy_path">Copier le chemin du fichier dans le presse-papiers</string>
-    <string name="path_copied">Chemin du fichier copié</string>
+    <string name="press_back_again">Appuyer de nouveau sur le bouton retour pour quitter l\'application</string>
+    <string name="go_to_home_folder">Aller au dossier racine</string>
+    <string name="set_as_home_folder">Définir en tant que dossier racine</string>
+    <string name="home_folder_updated">Mise à jour du dossier racine réussie</string>
+    <string name="copy_path">Copier le chemin d\'accès au fichier dans le presse-papiers</string>
+    <string name="path_copied">Le chemin d\'accès au fichier a été copié</string>
     <string name="select_audio_file">Veuillez sélectionner un fichier audio</string>
-    <string name="search_folder">Chercher dans le dossier</string>
-    <string name="rooted_device_only">Cette opération ne fonctionne que sur les périphériques rooté</string>
+    <string name="search_folder">Rechercher dans le dossier</string>
+    <string name="rooted_device_only">Cette opération fonctionne uniquement sur les appareils « rootés »</string>
     <string name="recents">Récents</string>
-    <string name="show_recents">Afficher les récents</string>
-    <string name="pdf_viewer">Visionneuse de PDF</string>
+    <string name="show_recents">Afficher les éléments récents</string>
+    <string name="pdf_viewer">Visionneuse de fichiers PDF</string>
     <string name="invert_colors">Inverser les couleurs</string>
     <!-- Open as -->
-    <string name="open_as">Ouvert comme</string>
+    <string name="open_as">Ouvrir en tant que</string>
     <string name="text_file">Fichier texte</string>
     <string name="image_file">Fichier image</string>
     <string name="audio_file">Fichier audio</string>
@@ -24,21 +24,21 @@
     <string name="other_file">Autre fichier</string>
     <!-- Compression -->
     <string name="compress">Compresser</string>
-    <string name="compress_pro">Compresser (Pro)</string>
+    <string name="compress_pro">Compresser (version « Pro »)</string>
     <string name="decompress">Décompresser</string>
     <string name="compress_as">Compresser sous</string>
     <string name="compressing">Compression…</string>
     <string name="decompressing">Décompression…</string>
     <string name="compression_successful">Compression réussie</string>
     <string name="decompression_successful">Décompression réussie</string>
-    <string name="compressing_failed">Compression ratée</string>
-    <string name="decompressing_failed">Décompression ratée</string>
+    <string name="compressing_failed">Échec de la compression</string>
+    <string name="decompressing_failed">Échec de la décompression</string>
     <!-- Favorites -->
     <string name="manage_favorites">Gérer les favoris</string>
     <string name="go_to_favorite">Aller au favori</string>
-    <string name="favorites_activity_placeholder">Vous pouvez ajouter des dossiers souvent utilisés comme favoris pour y avoir accès rapidement depuis n\'importe où.</string>
+    <string name="favorites_activity_placeholder">Vous pouvez ajouter aux favoris les dossiers que vous utilisez le plus souvent, pour un accès simplifié depuis n\'importe quel dossier.</string>
     <!-- File Editor -->
-    <string name="file_editor">Éditeur de fichier</string>
+    <string name="file_editor">Éditeur de fichiers</string>
     <!-- Storage analysis -->
     <string name="storage_analysis">Analyse du stockage</string>
     <string name="images">Images</string>
@@ -51,8 +51,8 @@
     <string name="storage_free">libre</string>
     <string name="total_storage">Stockage total : %s</string>
     <!-- Settings -->
-    <string name="enable_root_access">Activer les droits root</string>
-    <string name="press_back_twice">Obligation d\'appuyer deux fois sur la touche Retour pour quitter l\'application</string>
+    <string name="enable_root_access">Activer l\'accès « root »</string>
+    <string name="press_back_twice">Obliger le double appui sur le bouton « Retour » pour quitter l\'application</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/SimpleMobileTools/Simple-Commons/tree/master/commons/src/main/res
