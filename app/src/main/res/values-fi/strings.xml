@@ -16,7 +16,7 @@
     <string name="pdf_viewer">PDF-katseluohjelma</string>
     <string name="invert_colors">Käänteiset värit</string>
     <!-- Open as -->
-    <string name="open_as">Avaa nimellä</string>
+    <string name="open_as">Avaa tyyppinä</string>
     <string name="text_file">Tekstitiedostona</string>
     <string name="image_file">Kuvatiedostona</string>
     <string name="audio_file">Äänitiedostona</string>
@@ -48,7 +48,7 @@
     <string name="downloads">Lataukset</string>
     <string name="archives">Arkistot</string>
     <string name="others">Muut</string>
-    <string name="storage_free">ilmainen</string>
+    <string name="storage_free">vapaana</string>
     <string name="total_storage">Tallennustila: %s</string>
     <!-- Settings -->
     <string name="enable_root_access">Ota käyttöön root-ominaisuudet</string>
